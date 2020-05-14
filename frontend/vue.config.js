@@ -7,5 +7,13 @@ module.exports = {
     watchOptions: {
       ignored: /node_modules/,
     },
+    proxy: {
+      "^/api/v1/": {
+        target: "http://backend:3000",
+        pathRewrite: {
+          "^/api/v1/": "/api/v1/",
+        },
+      },
+    },
   },
 };
