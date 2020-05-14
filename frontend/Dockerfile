@@ -13,9 +13,9 @@ RUN mkdir -p /app/frontend
 ENV APP_DIR /app/frontend
 WORKDIR $APP_DIR
 
-# COPY package.json $APP_DIR/package.json
-# COPY yarn.lock $APP_DIR/yarn.lock
-# RUN yarn install --network-timeout 600000
+COPY package.json $APP_DIR/package.json
+COPY yarn.lock $APP_DIR/yarn.lock
+RUN yarn install --network-timeout 600000
 
 COPY . $APP_DIR
 
