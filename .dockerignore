@@ -1,0 +1,11 @@
+.git
+.rspec
+
+config/master.key
+node_modules
+
+/log/*
+/tmp/*
+.tmp
+!/log/.keep
+!/tmp/.keep
