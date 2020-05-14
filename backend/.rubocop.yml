@@ -1,1 +1,95 @@
 inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.6.3
+  Exclude:
+    - "config.ru"
+    - "bin/**"
+    - "lib/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+    - "db/migrate/*"
+    - "db/schema.rb"
+    - "config/**/*"
+    - "script/**/*"
+    - "public/**/*"
+    - "tmp/**/*"
+    - "log/**/*"
+    - !ruby/regexp /old_and_unused\.rb$/
+
+##################### Metrics #####################
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/BlockLength:
+  Max: 100
+
+Metrics/MethodLength:
+  Max: 30
+
+##################### Naming #####################
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+##################### Layout #####################
+
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
+
+Layout/LineLength:
+  Max: 160
+
+##################### Lint #####################
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+
+Lint/StructNewOverride:
+  Enabled: true
+
+##################### Style #####################
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  AutoCorrect: true
+  EnforcedStyle: nested
+
+Style/CommentedKeyword:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: no_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: no_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: no_comma
