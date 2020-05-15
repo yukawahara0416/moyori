@@ -6,6 +6,11 @@ variable "aws_resource_prefix" {}
 
 variable "domain" {}
 
+variable "db_database" {}
+variable "db_username" {}
+variable "db_password" {}
+variable "rails_master_key" {}
+
 variable "github_token" {}
 variable "github_secret_token" {}
 variable "github_name" {}
