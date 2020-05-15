@@ -1,16 +1,15 @@
-# data "aws_ecs_task_definition" "example" {
-#   task_definition = aws_ecs_task_definition.example.family
-# }
+data "aws_ecs_task_definition" "example" {
+  task_definition = aws_ecs_task_definition.example.family
+}
 
 resource "aws_ecs_cluster" "example" {
   name = "${var.aws_resource_prefix}-cluster"
 }
 
 resource "aws_ecs_service" "example" {
-  name    = "${var.aws_resource_prefix}-service"
-  cluster = aws_ecs_cluster.example.arn
-  # task_definition                   = "${aws_ecs_task_definition.example.family}:${max("${aws_ecs_task_definition.example.revision}", "${data.aws_ecs_task_definition.example.revision}")}"
-  task_definition                   = aws_ecs_task_definition.example.arn
+  name                              = "${var.aws_resource_prefix}-service"
+  cluster                           = aws_ecs_cluster.example.arn
+  task_definition                   = "${aws_ecs_task_definition.example.family}:${max("${aws_ecs_task_definition.example.revision}", "${data.aws_ecs_task_definition.example.revision}")}"
   desired_count                     = 2
   launch_type                       = "FARGATE"
   platform_version                  = "1.3.0"
