@@ -100,6 +100,7 @@ GEM
     hashie (4.1.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    jaro_winkler (1.5.4)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -196,7 +197,8 @@ GEM
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
     rspec-support (3.9.3)
-    rubocop (0.83.0)
+    rubocop (0.81.0)
+      jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.7.0.1)
       rainbow (>= 2.2.2, < 4.0)
@@ -251,7 +253,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.2.3)
   rspec-rails
-  rubocop
+  rubocop (= 0.81.0)
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
