@@ -31,13 +31,13 @@ jobs:
           command: docker-compose run --rm backend bundle exec rspec
       - run:
           name: eslint
-          command: docker-compose run --rm frontend yarn lint
+          command: docker-compose run --rm frontend vue-cli-service lint
       # - run:
       #     name: unit test
-      #     command: docker-compose run --rm frontend yarn test:unit
+      #     command: docker-compose run --rm frontend vue-cli-service test:unit
       # - run:
       #     name: e2e test
-      #     command: docker-compose run --rm frontend yarn test:e2e
+      #     command: docker-compose run --rm frontend vue-cli-service test:e2e
       - run:
           name: docker-compose down
           command: docker-compose down
