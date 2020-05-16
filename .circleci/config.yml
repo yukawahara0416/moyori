@@ -1,1 +1,39 @@
 version: 2.1
+
+jobs:
+  build:
+    machine:
+      image: ubuntu-1604:201903-01
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: docker-compose up
+          command: docker-compose up -d --build
+      - run:
+          name: docker-compose stop because Can't connect to MySQL server on 'db' (115)
+          command: docker-compose stop
+      - run:
+          name: docker-compose up
+          command: docker-compose up -d
+      - run:
+          name: setup db
+          command: docker-compose run --rm backend bundle exec rails db:create db:migrate
+      - run:
+          name: rubocop
+          command: docker-compose run --rm backend bundle exec rubocop --auto-correct
+      - run:
+          name: rspec
+          command: docker-compose run --rm backend bundle exec rspec
+      - run:
+          name: eslint
+          command: docker-compose run --rm frontend vue-cli-service lint
+      # - run:
+      #     name: unit test
+      #     command: docker-compose run --rm frontend vue-cli-service test:unit
+      # - run:
+      #     name: e2e test
+      #     command: docker-compose run --rm frontend vue-cli-service test:e2e
+      - run:
+          name: docker-compose down
+          command: docker-compose down
