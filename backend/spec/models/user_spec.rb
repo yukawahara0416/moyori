@@ -38,4 +38,11 @@ RSpec.describe User, type: :model do
     user.valid?
     expect(user.errors.messages[:password]).to include 'is too long (maximum is 128 characters)'
   end
+
+  it '重複したemailだと無効' do
+    user = FactoryBot.create(:user)
+    user_dup = FactoryBot.build(:user, email: user.email)
+    user_dup.valid?
+    expect(user_dup.errors.messages[:email]).to include 'has already been taken'
+  end
 end
