@@ -9,7 +9,7 @@ module.exports = {
     },
     proxy: {
       '^/api/v1/': {
-        target: 'http://backend:3000',
+        target: process.env.VUE_APP_PROXY_TARGET,
         pathRewrite: {
           '^/api/v1/': '/api/v1/'
         }
