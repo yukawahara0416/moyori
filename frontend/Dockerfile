@@ -15,7 +15,7 @@ WORKDIR $APP_DIR
 
 COPY package.json $APP_DIR/package.json
 COPY yarn.lock $APP_DIR/yarn.lock
-RUN yarn install --network-timeout 600000
+RUN yarn install
 
 COPY . $APP_DIR
 
