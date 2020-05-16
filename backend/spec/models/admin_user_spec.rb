@@ -37,4 +37,11 @@ RSpec.describe AdminUser, type: :model do
     admin_user.valid?
     expect(admin_user.errors.messages[:password]).to include 'is too long (maximum is 128 characters)'
   end
+
+  it '重複したemailだと無効' do
+    admin_user = FactoryBot.create(:admin_user)
+    admin_user_dup = FactoryBot.build(:admin_user, email: admin_user.email)
+    admin_user_dup.valid?
+    expect(admin_user_dup.errors.messages[:email]).to include 'has already been taken'
+  end
 end
