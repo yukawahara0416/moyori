@@ -8,6 +8,12 @@ User.create!(
 )
 
 if Rails.env == 'development'
+  AdminUser.create!(
+    email: 'admin@example.com',
+    password: 'password',
+    password_confirmation: 'password'
+  )
+
   10.times do |u|
     User.create!(
       name: Faker::Name.name,
