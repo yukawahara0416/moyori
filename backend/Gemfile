@@ -9,6 +9,7 @@ gem 'rails', '~> 5.2.3'
 
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 
+gem 'activeadmin'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
 gem 'devise_token_auth'
