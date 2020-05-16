@@ -15,7 +15,6 @@ RSpec.describe Admin::AdminUsersController, type: :controller do
 
   it 'passwordを間違えるとログインできない' do
     post :create, params: { admin_user: { email: current_admin_user.email, password: 'wrongpassword' } }
-    puts response.header.inspect
     expect(response).to have_http_status(302)
   end
 
