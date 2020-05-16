@@ -19,6 +19,6 @@ RUN yarn install --network-timeout 600000
 
 COPY . $APP_DIR
 
-# RUN yarn build
+RUN yarn build
 
 EXPOSE 8080
