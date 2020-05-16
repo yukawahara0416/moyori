@@ -1,0 +1,109 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.8.2
+  aws-ecs: circleci/aws-ecs@1.1.0
+
+jobs:
+  build:
+    machine:
+      image: ubuntu-1604:201903-01
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: docker-compose up
+          command: docker-compose up -d --build
+      - run:
+          name: docker-compose stop because Can't connect to MySQL server on 'db' (115)
+          command: docker-compose stop
+      - run:
+          name: docker-compose up
+          command: docker-compose up -d
+      - run:
+          name: setup db
+          command: docker-compose run --rm backend bundle exec rails db:create db:migrate
+      - run:
+          name: rubocop
+          command: docker-compose run --rm backend bundle exec rubocop --auto-correct
+      - run:
+          name: rspec
+          command: docker-compose run --rm backend bundle exec rspec
+      - run:
+          name: eslint
+          command: docker-compose run --rm frontend yarn lint
+      # - run:
+      #     name: unit test
+      #     command: docker-compose run --rm frontend yarn test:unit
+      # - run:
+      #     name: e2e test
+      #     command: docker-compose run --rm frontend yarn test:e2e
+      - run:
+          name: docker-compose down
+          command: docker-compose down
+
+workflows:
+  build_and_deploy:
+    jobs:
+      - build
+      - aws-ecr/build-and-push-image:
+          name: push-image-backend
+          requires:
+            - build
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          path: "./backend"
+          region: AWS_DEFAULT_REGION
+          repo: "${AWS_RESOURCE_NAME_PREFIX}-backend"
+          tag: "latest"
+          filters:
+            branches:
+              only: master
+      - aws-ecr/build-and-push-image:
+          name: push-image-frontend
+          requires:
+            - build
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          path: "./frontend"
+          region: AWS_DEFAULT_REGION
+          repo: "${AWS_RESOURCE_NAME_PREFIX}-frontend"
+          tag: "latest"
+          filters:
+            branches:
+              only: master
+      - aws-ecs/deploy-service-update:
+          name: deploy-backend
+          requires:
+            - build
+            - push-image-backend
+            - push-image-frontend
+          aws-access-key-id: ${AWS_ACCESS_KEY_ID}
+          aws-secret-access-key: ${AWS_SECRET_ACCESS_KEY}
+          aws-region: AWS_DEFAULT_REGION
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          container-image-name-updates: "container=backend,tag=latest"
+          family: "${AWS_RESOURCE_NAME_PREFIX}-task"
+          service-name: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          filters:
+            branches:
+              only: master
+      - aws-ecs/deploy-service-update:
+          name: deploy-frontend
+          requires:
+            - build
+            - push-image-backend
+            - push-image-frontend
+            - deploy-backend
+          aws-access-key-id: ${AWS_ACCESS_KEY_ID}
+          aws-secret-access-key: ${AWS_SECRET_ACCESS_KEY}
+          aws-region: AWS_DEFAULT_REGION
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          container-image-name-updates: "container=frontend,tag=latest"
+          family: "${AWS_RESOURCE_NAME_PREFIX}-task"
+          service-name: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          filters:
+            branches:
+              only: master
