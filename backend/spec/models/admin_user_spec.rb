@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe AdminUser, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'admin_userファクトリが有効' do
+    admin_user = FactoryBot.build(:admin_user)
+    expect(admin_user).to be_valid
+  end
 end
