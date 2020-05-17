@@ -27,4 +27,9 @@ RSpec.describe Spot, type: :model do
     spot_dup.valid?
     expect(spot_dup.errors.messages[:place_id]).to include 'has already been taken'
   end
+
+  it 'userを削除する際に関連するspotも削除される' do
+    spot = FactoryBot.create(:spot)
+    expect { spot.user.destroy }.to change(Spot, :count).by(-1)
+  end
 end

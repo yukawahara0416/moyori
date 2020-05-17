@@ -6,5 +6,6 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:twitter]
   include DeviseTokenAuth::Concerns::User
 
+  has_many :spots, dependent: :destroy
   validates :name, presence: true
 end
