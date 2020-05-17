@@ -20,4 +20,11 @@ RSpec.describe Spot, type: :model do
     )
     expect(spot).to be_valid
   end
+
+  it '重複したplace_idだと無効' do
+    spot = FactoryBot.create(:spot)
+    spot_dup = FactoryBot.build(:spot, place_id: spot.place_id)
+    spot_dup.valid?
+    expect(spot_dup.errors.messages[:place_id]).to include 'has already been taken'
+  end
 end
