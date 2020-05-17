@@ -19,6 +19,20 @@ module Api
 
         protected
 
+          def assign_provider_attrs(user, auth_hash)
+            case auth_hash['provider']
+            when 'twitter'
+              user.assign_attributes({
+                                       nickname: auth_hash['info']['nickname'],
+                                       name: auth_hash['info']['name'],
+                                       image: auth_hash['info']['image'],
+                                       email: auth_hash['info']['email']
+                                     })
+            else
+              super
+            end
+          end
+
           def get_resource_from_auth_hash
             super
             @resource.credentials = auth_hash['credentials']
