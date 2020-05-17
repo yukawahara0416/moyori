@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         omniauth_callbacks: 'api/v1/auth/omniauth_callbacks'
       }
       resources :users, only: [:show]
+      resources :spots, only: [:create]
     end
   end
 end
