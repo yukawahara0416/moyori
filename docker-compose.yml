@@ -33,6 +33,7 @@ services:
     command: yarn serve
     volumes:
       - ./frontend:/app/frontend
+      - node-modules:/app/frontend/node_modules
     ports:
       - "8080:8080"
     depends_on:
@@ -41,3 +42,4 @@ services:
 volumes:
   mysqlvol:
   bundle:
+  node-modules:
