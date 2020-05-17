@@ -29,9 +29,9 @@ jobs:
       - run:
           name: rspec
           command: docker-compose run --rm backend bundle exec rspec
-      - run:
-          name: yarn install
-          command: docker-compose run --rm frontend yarn install
+      # - run:
+      #     name: yarn install
+      #     command: docker-compose run --rm frontend yarn install
       - run:
           name: eslint
           command: docker-compose run --rm frontend vue-cli-service lint
