@@ -3,6 +3,15 @@ module Api
     class SpotsController < ApiController
       before_action :authenticate_api_v1_user!, only: [:create]
 
+      def index
+        spot = Spot.where(place_id: params[:place_id])
+        if spot == []
+          head :no_content
+        else
+          render json: convert_to_json(spot[0])
+        end
+      end
+
       def create
         spot = current_api_v1_user.spots.new(spot_params)
         spot.save
