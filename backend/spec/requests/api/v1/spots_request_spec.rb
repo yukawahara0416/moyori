@@ -18,6 +18,13 @@ RSpec.describe 'Api::V1::Spots', type: :request do
     expect(response).to have_http_status(204)
   end
 
+  it '特定のspotを取得する' do
+    get("/api/v1/spots/#{spot.id}")
+    json = JSON.parse(response.body)
+    expect(response).to have_http_status(200)
+    expect(json['spot']['place_id']).to eq(spot.place_id)
+  end
+
   it '新規のspotを保存する' do
     login
     headers = {
