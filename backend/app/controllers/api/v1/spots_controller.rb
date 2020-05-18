@@ -1,11 +1,10 @@
 module Api
   module V1
-    class SpotsController < ApplicationController
-      before_action :authenticate_api_user!, except: [:create]
-      protect_from_forgery except: [:create]
+    class SpotsController < ApiController
+      before_action :authenticate_api_v1_user!, only: [:create]
 
       def create
-        spot = current_api_user.spots.new(spot_params)
+        spot = current_api_v1_user.spots.new(spot_params)
         spot.save
         render json: convert_to_json(spot)
       end
