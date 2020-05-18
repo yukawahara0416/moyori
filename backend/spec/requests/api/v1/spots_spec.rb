@@ -6,6 +6,18 @@ RSpec.describe 'Api::V1::Spots', type: :request do
   let(:spot_params)  { { spot: { place_id: spot.place_id } } }
   subject(:login)    { post(api_v1_user_session_path, params: { email: current_user.email, password: current_user.password }) }
 
+  it 'place_idが一致するspotを取得する' do
+    get(api_v1_spots_path, params: { place_id: spot.place_id })
+    json = JSON.parse(response.body)
+    expect(response).to have_http_status(200)
+    expect(json.length).to eq(1)
+  end
+
+  it 'place_idが一致するspotがなければ204を返す' do
+    get(api_v1_spots_path, params: { place_id: 'notexistplaceid12345' })
+    expect(response).to have_http_status(204)
+  end
+
   it '新規のspotを保存する' do
     login
     headers = {
