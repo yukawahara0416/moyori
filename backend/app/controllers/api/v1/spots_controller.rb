@@ -12,6 +12,11 @@ module Api
         end
       end
 
+      def show
+        spot = Spot.find(params[:id])
+        render json: convert_to_json(spot)
+      end
+
       def create
         spot = current_api_v1_user.spots.new(spot_params)
         spot.save
