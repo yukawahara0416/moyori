@@ -10,5 +10,6 @@ class Spot < ApplicationRecord
   has_many :power_with_users, through: :power_withs, source: :user
   has_many :power_withouts, dependent: :destroy
   has_many :power_without_users, through: :power_withouts, source: :user
+  has_many :comments, dependent: :destroy
   validates :place_id, uniqueness: true
 end
