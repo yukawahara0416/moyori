@@ -29,6 +29,13 @@ RSpec.describe WifiWithout, type: :model do
     expect(wifi_without.errors.messages[:spot]).to include 'must exist'
   end
 
+  it '同一userで同一spotへのWifi_withoutは無効' do
+    wifi_without = FactoryBot.create(:wifi_without)
+    wifi_without_dup = FactoryBot.build(:wifi_without, user_id: wifi_without.user.id, spot_id: wifi_without.spot.id)
+    wifi_without_dup.valid?
+    expect(wifi_without_dup.errors.messages[:spot_id]).to include 'has already been taken'
+  end
+
   it 'userを削除する際に関連するwifi_withoutも削除される' do
     wifi_without = FactoryBot.create(:wifi_without)
     expect { wifi_without.user.destroy }.to change(WifiWithout, :count).by(-1)
