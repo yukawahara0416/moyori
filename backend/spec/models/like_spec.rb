@@ -29,6 +29,13 @@ RSpec.describe Like, type: :model do
     expect(like.errors.messages[:spot]).to include 'must exist'
   end
 
+  it '同一userで同一spotへのいいねは無効' do
+    like = FactoryBot.create(:like)
+    like_dup = FactoryBot.build(:like, user_id: like.user.id, spot_id: like.spot.id)
+    like_dup.valid?
+    expect(like_dup.errors.messages[:spot_id]).to include 'has already been taken'
+  end
+
   it 'userを削除する際に関連するlikeも削除される' do
     like = FactoryBot.create(:like)
     expect { like.user.destroy }.to change(Like, :count).by(-1)
