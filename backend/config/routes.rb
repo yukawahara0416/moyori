@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      get 'power_withs/create'
+      get 'power_withs/destroy'
+    end
+  end
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -15,6 +21,7 @@ Rails.application.routes.draw do
       resources :likes, only: [:create, :destroy]
       resources :wifi_withs, only: [:create, :destroy]
       resources :wifi_withouts, only: [:create, :destroy]
+      resources :power_withs, only: [:create, :destroy]
     end
   end
 end
