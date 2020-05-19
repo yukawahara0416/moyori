@@ -19,4 +19,11 @@ RSpec.describe 'Api::V1::WifiWiths', type: :request do
     expect { post(api_v1_wifi_withs_path, params: wifi_with_params, headers: @headers) }.to change(WifiWith, :count).by(1)
     expect(response).to have_http_status(200)
   end
+
+  it 'unWifiWithできる' do
+    post(api_v1_wifi_withs_path, params: wifi_with_params, headers: @headers)
+    json = JSON.parse(response.body)
+    expect { delete("/api/v1/wifi_withs/#{json['id']}", headers: @headers) }.to change(WifiWith, :count).by(-1)
+    expect(response).to have_http_status(200)
+  end
 end
