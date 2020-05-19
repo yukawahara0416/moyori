@@ -29,6 +29,13 @@ RSpec.describe PowerWithout, type: :model do
     expect(power_without.errors.messages[:spot]).to include 'must exist'
   end
 
+  it '同一userで同一spotへのPower_withoutは無効' do
+    power_without = FactoryBot.create(:power_without)
+    power_without_dup = FactoryBot.build(:power_without, user_id: power_without.user.id, spot_id: power_without.spot.id)
+    power_without_dup.valid?
+    expect(power_without_dup.errors.messages[:spot_id]).to include 'has already been taken'
+  end
+
   it 'userを削除する際に関連するPower_withoutも削除される' do
     power_without = FactoryBot.create(:power_without)
     expect { power_without.user.destroy }.to change(PowerWithout, :count).by(-1)
