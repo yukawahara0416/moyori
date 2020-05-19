@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_020255) do
+ActiveRecord::Schema.define(version: 2020_05_19_022606) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.string "namespace"
@@ -87,6 +87,15 @@ ActiveRecord::Schema.define(version: 2020_05_19_020255) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "wifi_withouts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "spot_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_wifi_withouts_on_spot_id"
+    t.index ["user_id"], name: "index_wifi_withouts_on_user_id"
+  end
+
   create_table "wifi_withs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "spot_id"
@@ -99,6 +108,8 @@ ActiveRecord::Schema.define(version: 2020_05_19_020255) do
   add_foreign_key "likes", "spots"
   add_foreign_key "likes", "users"
   add_foreign_key "spots", "users"
+  add_foreign_key "wifi_withouts", "spots"
+  add_foreign_key "wifi_withouts", "users"
   add_foreign_key "wifi_withs", "spots"
   add_foreign_key "wifi_withs", "users"
 end
