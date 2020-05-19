@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :wifi_withouts, only: [:create, :destroy]
       resources :power_withs, only: [:create, :destroy]
       resources :power_withouts, only: [:create, :destroy]
-      resources :comments, only: [:create]
+      resources :comments, only: [:create, :destroy]
     end
   end
 end
