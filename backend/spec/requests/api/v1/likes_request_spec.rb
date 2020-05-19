@@ -19,4 +19,11 @@ RSpec.describe 'Api::V1::Likes', type: :request do
     expect { post(api_v1_likes_path, params: like_params, headers: @headers) }.to change(Like, :count).by(1)
     expect(response).to have_http_status(200)
   end
+
+  it 'unlikeできる' do
+    post(api_v1_likes_path, params: like_params, headers: @headers)
+    json = JSON.parse(response.body)
+    expect { delete("/api/v1/likes/#{json['id']}", headers: @headers) }.to change(Like, :count).by(-1)
+    expect(response).to have_http_status(200)
+  end
 end
