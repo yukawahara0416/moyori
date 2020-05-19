@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "example" {
       "name": "frontend",
       "image": "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.aws_resource_prefix}-frontend:latest",
       "essential": true,
-      "command": ["yarn", "serve"],
+      "command": ["yarn", "serve:prod"],
       "workingDirectory": "/app/frontend",
       "logConfiguration": {
         "logDriver": "awslogs",
