@@ -9,5 +9,7 @@ class User < ActiveRecord::Base
   has_many :spots, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_spots, through: :likes, source: :spot
+  has_many :wifi_with, dependent: :destroy
+  has_many :wifi_with_spots, through: :wifi_with, source: :spot
   validates :name, presence: true
 end

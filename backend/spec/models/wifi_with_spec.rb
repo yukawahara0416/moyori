@@ -28,4 +28,14 @@ RSpec.describe WifiWith, type: :model do
     wifi_with.valid?
     expect(wifi_with.errors.messages[:spot]).to include 'must exist'
   end
+
+  it 'userを削除する際に関連するwifi_withも削除される' do
+    wifi_with = FactoryBot.create(:wifi_with)
+    expect { wifi_with.user.destroy }.to change(WifiWith, :count).by(-1)
+  end
+
+  it 'spotを削除する際に関連するwifi_withも削除される' do
+    wifi_with = FactoryBot.create(:wifi_with)
+    expect { wifi_with.spot.destroy }.to change(WifiWith, :count).by(-1)
+  end
 end
