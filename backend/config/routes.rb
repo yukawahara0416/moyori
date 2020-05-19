@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :users, only: [:show]
       resources :spots, only: [:index, :show, :create]
       resources :likes, only: [:create, :destroy]
+      resources :wifi_withs, only: [:create, :destroy]
     end
   end
 end

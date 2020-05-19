@@ -50,7 +50,7 @@ module Backend
                        helper_specs: false,
                        routing_specs: false,
                        controller_specs: false,
-                       request_specs: false,
+                       request_specs: true,
                        fixtures: true
       g.fixture_reqlacement :factory_bot, dir: 'spec/factories'
     end
