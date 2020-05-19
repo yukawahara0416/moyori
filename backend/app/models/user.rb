@@ -7,5 +7,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :spots, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_spots, through: :likes, source: :spot
   validates :name, presence: true
 end
