@@ -28,4 +28,11 @@ RSpec.describe PowerWith, type: :model do
     power_with.valid?
     expect(power_with.errors.messages[:spot]).to include 'must exist'
   end
+
+  it '同一userで同一spotへのPower_withは無効' do
+    power_with = FactoryBot.create(:power_with)
+    power_with_dup = FactoryBot.build(:power_with, user_id: power_with.user.id, spot_id: power_with.spot.id)
+    power_with_dup.valid?
+    expect(power_with_dup.errors.messages[:spot_id]).to include 'has already been taken'
+  end
 end
