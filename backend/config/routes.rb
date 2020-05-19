@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       resources :likes, only: [:create, :destroy]
       resources :wifi_withs, only: [:create, :destroy]
       resources :wifi_withouts, only: [:create, :destroy]
+      resources :power_withs, only: [:create, :destroy]
+      resources :power_withouts, only: [:create, :destroy]
     end
   end
 end

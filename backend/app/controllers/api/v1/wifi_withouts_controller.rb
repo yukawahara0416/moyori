@@ -4,12 +4,12 @@ module Api
       before_action :authenticate_api_v1_user!, only: %i[create destroy]
 
       def create
-        wifi_without = current_api_v1_user.wifi_without.create!(wifi_without_params)
+        wifi_without = current_api_v1_user.wifi_withouts.create!(wifi_without_params)
         render json: wifi_without
       end
 
       def destroy
-        wifi_without = current_api_v1_user.wifi_without.find(params[:id])
+        wifi_without = current_api_v1_user.wifi_withouts.find(params[:id])
         wifi_without.destroy!
         render json: wifi_without.as_json(only: :id)
       end
