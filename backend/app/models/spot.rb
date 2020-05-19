@@ -4,5 +4,7 @@ class Spot < ApplicationRecord
   has_many :liked_users, through: :likes, source: :user
   has_many :wifi_with, dependent: :destroy
   has_many :wifi_with_users, through: :wifi_with, source: :user
+  has_many :wifi_without, dependent: :destroy
+  has_many :wifi_without_users, through: :wifi_without, source: :user
   validates :place_id, uniqueness: true
 end
