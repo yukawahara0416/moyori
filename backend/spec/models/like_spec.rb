@@ -28,4 +28,9 @@ RSpec.describe Like, type: :model do
     like.valid?
     expect(like.errors.messages[:spot]).to include 'must exist'
   end
+
+  it 'userを削除する際に関連するlikeも削除される' do
+    like = FactoryBot.create(:like)
+    expect { like.user.destroy }.to change(Like, :count).by(-1)
+  end
 end
