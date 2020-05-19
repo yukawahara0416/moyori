@@ -15,5 +15,7 @@ class User < ActiveRecord::Base
   has_many :wifi_without_spots, through: :wifi_withouts, source: :spot
   has_many :power_withs, dependent: :destroy
   has_many :power_with_spots, through: :power_withs, source: :spot
+  has_many :power_withouts, dependent: :destroy
+  has_many :power_without_spots, through: :power_withouts, source: :spot
   validates :name, presence: true
 end

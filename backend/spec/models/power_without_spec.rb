@@ -28,4 +28,14 @@ RSpec.describe PowerWithout, type: :model do
     power_without.valid?
     expect(power_without.errors.messages[:spot]).to include 'must exist'
   end
+
+  it 'userを削除する際に関連するPower_withoutも削除される' do
+    power_without = FactoryBot.create(:power_without)
+    expect { power_without.user.destroy }.to change(PowerWithout, :count).by(-1)
+  end
+
+  it 'spotを削除する際に関連するPower_withoutも削除される' do
+    power_without = FactoryBot.create(:power_without)
+    expect { power_without.spot.destroy }.to change(PowerWithout, :count).by(-1)
+  end
 end
