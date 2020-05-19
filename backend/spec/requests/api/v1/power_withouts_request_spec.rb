@@ -19,4 +19,11 @@ RSpec.describe 'Api::V1::PowerWithouts', type: :request do
     expect { post(api_v1_power_withouts_path, params: power_without_params, headers: @headers) }.to change(PowerWithout, :count).by(1)
     expect(response).to have_http_status(200)
   end
+
+  it 'unPowerWithoutできる' do
+    post(api_v1_power_withouts_path, params: power_without_params, headers: @headers)
+    json = JSON.parse(response.body)
+    expect { delete("/api/v1/power_withouts/#{json['id']}", headers: @headers) }.to change(PowerWithout, :count).by(-1)
+    expect(response).to have_http_status(200)
+  end
 end
