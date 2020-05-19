@@ -1,7 +1,7 @@
 module Api
   module V1
     class WifiWithoutsController < ApiController
-      before_action :authenticate_api_user!, only: [:create]
+      before_action :authenticate_api_v1_user!, only: [:create]
 
       def create
         wifi_without = current_api_v1_user.wifi_without.create!(wifi_without_params)
