@@ -33,4 +33,9 @@ RSpec.describe Like, type: :model do
     like = FactoryBot.create(:like)
     expect { like.user.destroy }.to change(Like, :count).by(-1)
   end
+
+  it 'spotを削除する際に関連するlikeも削除される' do
+    like = FactoryBot.create(:like)
+    expect { like.spot.destroy }.to change(Like, :count).by(-1)
+  end
 end
