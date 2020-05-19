@@ -1,7 +1,7 @@
 module Api
   module V1
     class PowerWithoutsController < ApiController
-      before_action :authenticate_api_v1_user!, only: [:create]
+      before_action :authenticate_api_v1_user!, only: %i[create destroy]
 
       def create
         power_without = current_api_v1_user.power_withouts.create!(power_without_params)
@@ -9,6 +9,9 @@ module Api
       end
 
       def destroy
+        power_without = current_api_v1_user.power_withouts.find(params[:id])
+        power_without.destroy!
+        render json: power_without.as_json(only: :id)
       end
 
       private
