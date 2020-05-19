@@ -35,4 +35,14 @@ RSpec.describe PowerWith, type: :model do
     power_with_dup.valid?
     expect(power_with_dup.errors.messages[:spot_id]).to include 'has already been taken'
   end
+
+  it 'userを削除する際に関連するPower_withも削除される' do
+    power_with = FactoryBot.create(:power_with)
+    expect { power_with.user.destroy }.to change(PowerWith, :count).by(-1)
+  end
+
+  it 'spotを削除する際に関連するPower_withも削除される' do
+    power_with = FactoryBot.create(:power_with)
+    expect { power_with.spot.destroy }.to change(PowerWith, :count).by(-1)
+  end
 end
