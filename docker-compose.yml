@@ -30,7 +30,7 @@ services:
 
   frontend:
     build: ./frontend
-    command: yarn serve
+    command: yarn serve:prod
     volumes:
       - ./frontend:/app/frontend
       - node-modules:/app/frontend/node_modules

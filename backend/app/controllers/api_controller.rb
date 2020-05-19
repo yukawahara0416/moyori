@@ -1,6 +1,5 @@
 class ApiController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
-  protect_from_forgery
   before_action :skip_session
 
   protected

@@ -19,6 +19,6 @@ RUN yarn install
 
 COPY . $APP_DIR
 
-RUN yarn build
+RUN yarn build:prod
 
 EXPOSE 8080
