@@ -26,8 +26,20 @@ module Api
       private
 
         def convert_to_json(spot)
+          likes = spot.likes
+          wifi_withs = spot.wifi_withs
+          wifi_withouts = spot.wifi_withouts
+          power_withs = spot.power_withs
+          power_withouts = spot.power_withouts
+          comments = spot.comments
           {
-            spot: spot
+            data: spot,
+            likes: likes,
+            wifi_withs: wifi_withs,
+            wifi_withouts: wifi_withouts,
+            power_withs: power_withs,
+            power_withouts: power_withouts,
+            comments: comments
           }
         end
 
