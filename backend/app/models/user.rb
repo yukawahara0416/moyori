@@ -17,5 +17,6 @@ class User < ActiveRecord::Base
   has_many :power_with_spots, through: :power_withs, source: :spot
   has_many :power_withouts, dependent: :destroy
   has_many :power_without_spots, through: :power_withouts, source: :spot
+  has_many :comments, dependent: :destroy
   validates :name, presence: true
 end

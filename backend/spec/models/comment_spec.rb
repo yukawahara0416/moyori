@@ -41,4 +41,14 @@ RSpec.describe Comment, type: :model do
     comment.valid?
     expect(comment.errors.messages[:content]).to include 'is too long (maximum is 1000 characters)'
   end
+
+  it 'userを削除する際に関連するcommentも削除される' do
+    comment = FactoryBot.create(:comment)
+    expect { comment.user.destroy }.to change(Comment, :count).by(-1)
+  end
+
+  it 'spotを削除する際に関連するcommentも削除される' do
+    comment = FactoryBot.create(:comment)
+    expect { comment.spot.destroy }.to change(Comment, :count).by(-1)
+  end
 end
