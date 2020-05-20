@@ -30,7 +30,7 @@ services:
 
   frontend:
     build: ./frontend
-    command: yarn serve:prod
+    command: yarn serve:dev
     volumes:
       - ./frontend:/app/frontend
       - node-modules:/app/frontend/node_modules
@@ -39,6 +39,7 @@ services:
     depends_on:
       - backend
     tty: true
+
 volumes:
   mysqlvol:
   bundle:
