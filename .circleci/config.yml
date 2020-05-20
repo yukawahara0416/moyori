@@ -13,34 +13,34 @@ jobs:
       - checkout
       - run:
           name: docker-compose up
-          command: docker-compose up -d --build
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
       - run:
           name: docker-compose stop because Can't connect to MySQL server on 'db' (115)
           command: docker-compose stop
       - run:
           name: docker-compose up
-          command: docker-compose up -d
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
       - run:
           name: setup db
-          command: docker-compose run --rm backend bundle exec rails db:create db:migrate
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm backend bundle exec rails db:create db:migrate db:seed
       - run:
           name: rubocop
-          command: docker-compose run --rm backend bundle exec rubocop --auto-correct
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm backend bundle exec rubocop --auto-correct
       - run:
           name: rspec
-          command: docker-compose run --rm backend bundle exec rspec
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm backend bundle exec rspec
       # - run:
       #     name: yarn install
-      #     command: docker-compose run --rm frontend yarn install
+      #     command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm frontend yarn install
       - run:
           name: eslint
-          command: docker-compose run --rm frontend vue-cli-service lint
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm frontend vue-cli-service lint
       - run:
           name: unit test
-          command: docker-compose run --rm frontend vue-cli-service test:unit
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm frontend vue-cli-service test:unit
       # - run:
       #     name: e2e test
-      #     command: docker-compose run --rm frontend vue-cli-service test:e2e
+      #     command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm frontend vue-cli-service test:e2e
       - run:
           name: docker-compose down
           command: docker-compose down
