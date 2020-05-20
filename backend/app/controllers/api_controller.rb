@@ -1,12 +1,12 @@
 class ApiController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
-  before_action :skip_session
+  # before_action :skip_session
 
-  protected
+  # protected
 
-    def skip_session
-      request.session_options[:skip] = true
-    end
+  #   def skip_session
+  #     request.session_options[:skip] = true
+  #   end
 end
 
 # 今後コントローラーを作成する際は
