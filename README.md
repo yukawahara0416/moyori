@@ -1,7 +1,11 @@
 # MoYoRi
-Wifi、電源がつかえるカフェの情報共有サービス  
+Wifi・電源難民のための口コミ投票サービスです。  
   
 https://mo-yo-ri.com/  
+  
+転職活動用のポートフォリオとして制作しました。  
+外出中の勉強場所さがしに苦労したのが制作のきっかけです。  
+既存のサービスでは満足できなかったので、自分で作りました。  
   
 - 制作期間３ヶ月  
   - 平日２時間  
@@ -11,8 +15,7 @@ https://mo-yo-ri.com/
 ## アーキテクチャ
 <img src="https://i.gyazo.com/0112d3fb29f7f8a777a155b39f6c0f0f.png">  
   
-- コンポーネント  
-  
+### コンポーネント
 | 項目 | 使用技術 |
 | :--- | :--- |
 | クラウド | AWS（ALB・Route53・ECR・ECS/Fargate・RDS・S3） |
@@ -20,21 +23,23 @@ https://mo-yo-ri.com/
 | IaC | Terraform |
 | CI/CD | CircleCI |
   
-- アプリケーション  
-  
+### アプリケーション
 | 項目 | 使用技術 |
 | :--- | :--- |
 | バックエンド | 言語：　Ruby <br> FW：　Rails <br> テスト：　RSpec・Rubocop |
 | フロントエンド | 言語：　JavaScript <br> FW：　Vue（Vuex・VueRouter・Vuetify） <br> テスト：　Vue-unit-test・ESlint・Prettier |
 | データベース | MySQL |
 | 外部API | GoogleMapsJavaScriptAPI |
+| 開発ツール | Git/GitHub <br> Slack <br> MacBook Pro 2017 <br> VSCode |
   
-## WHY
-既存のサービスでは満足できなかったので、自分でつくりました。  
-外回りの営業中にできた空き時間で勉強をしていましたが、  
-現在地周辺のスポットをさがすのに苦労したのがきっかけです。  
+## 注目ポイント
+　Docker/AWS/Terraform/CircleCIでの開発に挑戦しています。  
+　Rails/VueでのBFFアプリの開発に挑戦しています。  
+　外出中のスマホ利用を想定し、UI/UXにこだわりました。  
+　チーム開発（GithubFlow）を意識し、PRやISSUEを活用しています。  
+　rebase/mergeを使い分け、ログを汚さない開発に注意しました。  
   
-## WHAT
+## 気をつけたポイント
 既存サービスのなにを不満に感じたか＝制作で注力したポイント  
 - 情報の鮮度  
   - GoogleAPIを利用し、高い情報鮮度を維持できます  
@@ -53,6 +58,10 @@ Twitter：　https://twitter.com/yu_kawahara0416
 Facebook：　https://www.facebook.com/yu.kawahara.92  
 Wantedly：　https://www.wantedly.com/users/105529007  
 Qiita：　https://qiita.com/yukawahara0416  
+  
+## 今後の課題
+　大規模アクセス、並列処理、組み合わせ問題などに配慮できる知識と経験を習得していきたい。  
+　フロントエンドをTypeScriptで書き換えたい。  
   
 #### 参照WEB
 　公式ドキュメント（英語でも必ず読みました）  
