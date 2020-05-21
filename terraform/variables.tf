@@ -17,6 +17,8 @@ variable "github_name" {}
 variable "github_organization" {}
 variable "github_repo" {}
 
+variable "vue_app_gmap_api_key" {}
+
 variable "images" {
   default = {
     us-east-1      = "ami-1ecae776"
