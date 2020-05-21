@@ -64,6 +64,7 @@ export default {
     // 現在地へ移動する
     moveToCurrentLocation: async function() {
       const pos = await this.getCurrentLocation()
+      await this.setCurrentLocationMarker(pos)
       await this.panToLocation(pos)
     },
 
@@ -74,7 +75,27 @@ export default {
 
     // 位置座標をマップの中心にする
     panToLocation(pos) {
-      this.$refs.map.panTo(pos)
+      return new Promise(resolve => {
+        const pan = this.$refs.map.panTo(pos)
+        resolve(pan)
+      })
+    },
+
+    // 現在地マーカーを設置する
+    setCurrentLocationMarker(pos) {
+      return new Promise(resolve => {
+        const map = this.$refs.map.$mapObject
+        const marker = new google.maps.Marker({
+          map: map,
+          position: pos,
+          clickable: false,
+          icon: {
+            url: require('@/assets/you-are-here.png'),
+            scaledSize: new google.maps.Size(50, 50)
+          }
+        })
+        resolve(marker)
+      })
     }
   }
 }
