@@ -1,6 +1,8 @@
 <template>
   <v-app id="inspire">
-    <router-view />
+    <v-content class="pa-0" fluid>
+      <router-view />
+    </v-content>
   </v-app>
 </template>
 
