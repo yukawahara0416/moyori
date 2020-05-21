@@ -16,6 +16,7 @@
         :title="m.title"
       />
     </GmapMap>
+    <v-btn @click="geolocation()">現在地取得</v-btn>
     <p>lat: {{ currentCenter.lat }}</p>
     <p>lng: {{ currentCenter.lng }}</p>
   </div>
@@ -37,8 +38,29 @@ export default {
   },
 
   methods: {
+    // マップ中心の位置座標を監視する
     onCenterChanged(pos) {
       this.currentCenter = { lat: pos.lat(), lng: pos.lng() }
+    },
+
+    // 現在地の位置座標を取得する
+    geolocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          pos => {
+            this.mapLocation = {
+              lat: pos.coords.latitude,
+              lng: pos.coords.longitude
+            }
+          },
+          err => {
+            console.log('現在地の取得中にエラーが発生しました')
+            console.log(err)
+          }
+        )
+      } else {
+        console.log('現在地の取得中にエラーが発生しました')
+      }
     }
   }
 }
