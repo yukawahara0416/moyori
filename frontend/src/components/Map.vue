@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       currentCenter: { lat: '', lng: '' },
-      markers: [{ position: { lat: 35.68, lng: 139.76 }, title: 'hoge' }],
+      markers: [{ position: { lat: 35.68, lng: 139.76 }, name: 'hoge' }],
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
         clickableIcons: false,
@@ -46,11 +46,43 @@ export default {
       await this.panToLocation(pos)
     },
 
-    // 周辺情報をマーカーで設置する
+    // 周辺情報を表示する
     setNearbyMarkers: async function() {
       const pos = this.currentCenter
-      await this.nearbySearch(pos)
-      // マーカーを設置する処理はココ
+      const results = await this.nearbySearch(pos)
+      results.forEach(res => {
+        var marker = this.formatResult(res)
+        this.pushMarkerToMarkers(marker)
+      })
+    },
+
+    // 検索結果を整形する
+    formatResult(res) {
+      var address = res.formatted_address ? res.formatted_address : 'null'
+      // error: open_now is deprecated as of November 2019 and will be turned off in November 2020. Use the isOpen() function from a PlacesService.getDetails() result instead.
+      // var isOpen = res.opening_hours ? res.opening_hours.open_now : 'null'
+      var photo = res.photos
+        ? res.photos[0].getUrl({ maxWidth: 320 })
+        : require('@/assets/noimage.png')
+      var pos = {
+        lat: res.geometry.location.lat(),
+        lng: res.geometry.location.lng()
+      }
+      var vicinity = res.vicinity ? res.vicinity : 'null'
+
+      var marker = {
+        address: address,
+        // isOpen: isOpen,
+        name: res.name,
+        rating: res.rating,
+        ratingsTotal: res.user_ratings_total,
+        photoUrl: photo,
+        place_id: res.place_id,
+        position: pos,
+        vicinity: vicinity,
+        zIndex: 1
+      }
+      return marker
     },
 
     // 現在地を取得する
@@ -86,17 +118,13 @@ export default {
         }
         const map = this.$refs.map.$mapObject
         const placeService = new google.maps.places.PlacesService(map)
-        const markers = placeService.nearbySearch(
-          request,
-          (results, status) => {
-            if (status == 'OK' || status == 'ZERO_RESULTS') {
-              console.log(results)
-            } else {
-              console.log('周辺の情報を取得中にエラーが発生しました')
-            }
+        placeService.nearbySearch(request, (results, status) => {
+          if (status == 'OK' || status == 'ZERO_RESULTS') {
+            resolve(results)
+          } else {
+            console.log('周辺の情報を取得中にエラーが発生しました')
           }
-        )
-        resolve(markers)
+        })
       })
     },
 
@@ -111,6 +139,11 @@ export default {
         const pan = this.$refs.map.panTo(pos)
         resolve(pan)
       })
+    },
+
+    // 検索結果をマーカーに追加する
+    pushMarkerToMarkers(marker) {
+      this.markers.push(marker)
     },
 
     // 現在地マーカーを設置する
