@@ -50,39 +50,44 @@ export default {
     setNearbyMarkers: async function() {
       const pos = this.currentCenter
       const results = await this.nearbySearch(pos)
-      results.forEach(res => {
-        var marker = this.formatResult(res)
-        this.pushMarkerToMarkers(marker)
-      })
+      const formattedResults = await Promise.all(
+        results.map(async res => {
+          return await this.formatResult(res)
+        })
+      )
+      await this.pushToMarkers(formattedResults)
     },
 
     // 検索結果を整形する
     formatResult(res) {
-      var address = res.formatted_address ? res.formatted_address : 'null'
-      // error: open_now is deprecated as of November 2019 and will be turned off in November 2020. Use the isOpen() function from a PlacesService.getDetails() result instead.
-      // var isOpen = res.opening_hours ? res.opening_hours.open_now : 'null'
-      var photo = res.photos
-        ? res.photos[0].getUrl({ maxWidth: 320 })
-        : require('@/assets/noimage.png')
-      var pos = {
-        lat: res.geometry.location.lat(),
-        lng: res.geometry.location.lng()
-      }
-      var vicinity = res.vicinity ? res.vicinity : 'null'
+      return new Promise(resolve => {
+        var address = res.formatted_address ? res.formatted_address : 'null'
+        // error: open_now is deprecated as of November 2019 and will be turned off in November 2020. Use the isOpen() function from a PlacesService.getDetails() result instead.
+        // var isOpen = res.opening_hours ? res.opening_hours.open_now : 'null'
+        var photo = res.photos
+          ? res.photos[0].getUrl({ maxWidth: 320 })
+          : require('@/assets/noimage.png')
+        var pos = {
+          lat: res.geometry.location.lat(),
+          lng: res.geometry.location.lng()
+        }
+        var vicinity = res.vicinity ? res.vicinity : 'null'
 
-      var marker = {
-        address: address,
-        // isOpen: isOpen,
-        name: res.name,
-        rating: res.rating,
-        ratingsTotal: res.user_ratings_total,
-        photoUrl: photo,
-        place_id: res.place_id,
-        position: pos,
-        vicinity: vicinity,
-        zIndex: 1
-      }
-      return marker
+        var formattedResult = {
+          address: address,
+          // isOpen: isOpen,
+          name: res.name,
+          rating: res.rating,
+          ratingsTotal: res.user_ratings_total,
+          photoUrl: photo,
+          place_id: res.place_id,
+          position: pos,
+          vicinity: vicinity,
+          zIndex: 1
+        }
+        // return marker
+        resolve(formattedResult)
+      })
     },
 
     // 現在地を取得する
@@ -142,8 +147,11 @@ export default {
     },
 
     // 検索結果をマーカーに追加する
-    pushMarkerToMarkers(marker) {
-      this.markers.push(marker)
+    pushToMarkers(results) {
+      return new Promise(resolve => {
+        this.markers = this.markers.concat(results)
+        resolve(this.markers)
+      })
     },
 
     // 現在地マーカーを設置する
