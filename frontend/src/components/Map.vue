@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       currentCenter: { lat: '', lng: '' },
-      markers: [{ position: { lat: 35.68, lng: 139.76 }, name: 'hoge' }],
+      markers: [],
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
         clickableIcons: false,
@@ -49,8 +49,9 @@ export default {
       await this.panToLocation(pos)
     },
 
-    // 周辺情報を表示する
+    // 現在地周辺を検索する
     setNearbyMarkers: async function() {
+      this.beforeSearch()
       const pos = this.currentCenter
       const results = await this.nearbySearch(pos)
       const formattedResults = await Promise.all(
@@ -60,6 +61,14 @@ export default {
       )
       await this.pushToMarkers(formattedResults)
     },
+
+    // 検索開始時の処理
+    beforeSearch() {
+      this.resetMarkers()
+    },
+
+    // 検索終了時の処理
+    afterSearch() {},
 
     // 検索結果を整形する
     formatResult(res) {
@@ -173,6 +182,11 @@ export default {
         this.markers = this.markers.concat(results)
         resolve(this.markers)
       })
+    },
+
+    // 検索結果をリセットする
+    resetMarkers() {
+      this.markers = []
     },
 
     // 現在地マーカーを設置する
