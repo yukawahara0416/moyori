@@ -140,6 +140,11 @@ export default {
     // 現在地を取得する
     getCurrentLocation() {
       return new Promise(resolve => {
+        var options = {
+          enableHighAccuracy: true,
+          timeout: 30000,
+          maximumAge: 0
+        }
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
             res => {
@@ -152,7 +157,8 @@ export default {
             err => {
               console.log('現在地の取得中にエラーが発生しました')
               console.log(err)
-            }
+            },
+            options
           )
         } else {
           console.log('現在地の取得中にエラーが発生しました')
