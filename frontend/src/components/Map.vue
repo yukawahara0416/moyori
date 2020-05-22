@@ -12,8 +12,9 @@
       <GmapMarker
         v-for="(m, id) in markers"
         :key="id"
+        :icon="m.icon"
         :position="m.position"
-        :title="m.title"
+        :title="m.name"
       />
     </GmapMap>
     <v-btn @click="moveToCurrentLocation">現在地へ移動</v-btn>
@@ -38,6 +39,8 @@ export default {
     }
   },
 
+  // store整備が落ち着いたところで、機能で区切ってプラグイン化したい
+  // JavaScript - vueCLIで外部JSファイルを読み込む方法｜teratail https://teratail.com/questions/251891
   methods: {
     // 現在地へ移動する
     moveToCurrentLocation: async function() {
@@ -64,6 +67,24 @@ export default {
         var address = res.formatted_address ? res.formatted_address : 'null'
         // error: open_now is deprecated as of November 2019 and will be turned off in November 2020. Use the isOpen() function from a PlacesService.getDetails() result instead.
         // var isOpen = res.opening_hours ? res.opening_hours.open_now : 'null'
+        var iconUrl =
+          res.name.indexOf('スターバックス') !== -1
+            ? require('@/assets/starbucks-ori.png')
+            : res.name.indexOf('タリーズ') !== -1
+            ? require('@/assets/tullys-ori.png')
+            : res.name.indexOf('コメダ珈琲') !== -1
+            ? require('@/assets/komeda-ori.png')
+            : res.name.indexOf('ドトール') !== -1
+            ? require('@/assets/komeda-ori.png')
+            : res.name.indexOf('上島珈琲') !== -1
+            ? require('@/assets/ueshima-ori.png')
+            : res.name.indexOf('WIRED CAFE') !== -1
+            ? require('@/assets/wired-cafe-ori.png')
+            : require('@/assets/cafe.png')
+        var icon = {
+          url: iconUrl,
+          scaledSize: new google.maps.Size(50, 50)
+        }
         var photo = res.photos
           ? res.photos[0].getUrl({ maxWidth: 320 })
           : require('@/assets/noimage.png')
@@ -77,6 +98,7 @@ export default {
           address: address,
           // isOpen: isOpen,
           name: res.name,
+          icon: icon,
           rating: res.rating,
           ratingsTotal: res.user_ratings_total,
           photoUrl: photo,
@@ -85,7 +107,6 @@ export default {
           vicinity: vicinity,
           zIndex: 1
         }
-        // return marker
         resolve(formattedResult)
       })
     },
