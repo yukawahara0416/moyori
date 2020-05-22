@@ -29,14 +29,31 @@ export default {
   data() {
     return {
       currentCenter: { lat: '', lng: '' },
-      markers: [],
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
         clickableIcons: false,
         fullscreenControl: false,
         mapTypeControl: false
-      }
+      },
+      markers: []
     }
+  },
+
+  // 初回読込時に現在地周辺を検索する
+  mounted: async function() {
+    const pos = await this.getCurrentLocation()
+    // vue-google-mapsマップのレンダリングが完了してから処理を実行
+    this.$gmapApiPromiseLazy().then(() => {
+      google.maps.event.addListenerOnce(
+        this.$refs.map.$mapObject,
+        'idle',
+        async function() {
+          await this.setCurrentLocationMarker(pos)
+          await this.panToLocation(pos)
+          await this.setNearbyMarkers()
+        }.bind(this)
+      )
+    })
   },
 
   // store整備が落ち着いたところで、機能で区切ってプラグイン化したい
@@ -49,7 +66,7 @@ export default {
       await this.panToLocation(pos)
     },
 
-    // 現在地周辺を検索する
+    // マップの中心付近を検索する
     setNearbyMarkers: async function() {
       this.beforeSearch()
       const pos = this.currentCenter
@@ -70,7 +87,7 @@ export default {
     // 検索終了時の処理
     afterSearch() {},
 
-    // 検索結果を整形する
+    // 検索結果（res）を整形する
     formatResult(res) {
       return new Promise(resolve => {
         var address = res.formatted_address ? res.formatted_address : 'null'
@@ -143,7 +160,7 @@ export default {
       })
     },
 
-    // 周辺の情報を取得する
+    // 与えられた位置（pos）周辺の情報を取得する
     nearbySearch(pos) {
       return new Promise(resolve => {
         const request = {
