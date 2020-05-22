@@ -49,7 +49,7 @@ export default {
       await this.panToLocation(pos)
     },
 
-    // 周辺情報を表示する
+    // 現在地周辺を検索する
     setNearbyMarkers: async function() {
       const pos = this.currentCenter
       const results = await this.nearbySearch(pos)
@@ -173,6 +173,11 @@ export default {
         this.markers = this.markers.concat(results)
         resolve(this.markers)
       })
+    },
+
+    // 検索結果をリセットする
+    resetMarkers() {
+      this.markers = []
     },
 
     // 現在地マーカーを設置する
