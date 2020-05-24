@@ -1,21 +1,16 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
 import Vuetify from 'vuetify'
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import Component from '@/components/Map.vue'
 
-const router = new VueRouter()
 const vuetify = new Vuetify()
-const localVue = createLocalVue()
+const sel = id => `[data-test="${id}"]`
 
 let wrapper
 
 beforeEach(() => {
   wrapper = mount(Component, {
-    router,
     vuetify,
-    localVue
-    // stubs: ['GmapMap']
+    stubs: ['GmapMap']
   })
 })
 
@@ -24,16 +19,11 @@ afterEach(() => {
 })
 
 it('buttonがある', () => {
-  const event = jest.fn()
-  const button = wrapper.find('.v-btn')
+  const stub = jest.fn()
+  const button = wrapper.find(sel('hoge'))
   wrapper.setMethods({
-    setNearbyMarkers: event
+    setNearbyMarkers: stub
   })
-  // wrapper.vm.$on('setNearbyMarkers', event)
-  // expect(event).toHaveBeenCalledTimes(0)
   button.trigger('click')
-  expect(event).toHaveBeenCalledTimes(1)
-  // wrapper.setMethods({ setNearbyMarkers: stub })
-  // wrapper.find('.v-btn').trigger('click')
-  // expect(stub).toHaveBeenCalled()
+  expect(stub).toHaveBeenCalledTimes(1)
 })
