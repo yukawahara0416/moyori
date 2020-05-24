@@ -17,8 +17,8 @@
         :title="m.name"
       />
     </GmapMap>
-    <v-btn @click="moveToCurrentLocation">現在地へ移動</v-btn>
-    <v-btn @click="setNearbyMarkers">周辺情報を取得</v-btn>
+    <v-btn data-test="btn1" @click="moveToCurrentLocation">現在地へ移動</v-btn>
+    <v-btn data-test="btn2" @click="setNearbyMarkers">周辺情報を取得</v-btn>
     <p>lat: {{ currentCenter.lat }}</p>
     <p>lng: {{ currentCenter.lng }}</p>
   </div>
@@ -40,7 +40,7 @@ export default {
   },
 
   // 初回読込時に現在地周辺を検索する
-  mounted: async function() {
+  async mounted() {
     const pos = await this.getCurrentLocation()
     // vue-google-mapsマップのレンダリングが完了してから処理を実行
     this.$gmapApiPromiseLazy().then(() => {
@@ -139,7 +139,12 @@ export default {
 
     // 現在地を取得する
     getCurrentLocation() {
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
+        const options = {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
             res => {
@@ -150,12 +155,14 @@ export default {
               resolve(pos)
             },
             err => {
+              reject(err)
               console.log('現在地の取得中にエラーが発生しました')
               console.log(err)
-            }
+            },
+            options
           )
         } else {
-          console.log('現在地の取得中にエラーが発生しました')
+          console.log('ブラウザが位置情報を取得できませんでした')
         }
       })
     },
