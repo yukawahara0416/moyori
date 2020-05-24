@@ -18,12 +18,24 @@ afterEach(() => {
   wrapper.destroy()
 })
 
-it('buttonがある', () => {
-  const stub = jest.fn()
-  const button = wrapper.find(sel('hoge'))
-  wrapper.setMethods({
-    setNearbyMarkers: stub
+describe('v-on', () => {
+  it('clickでmoveToCurrentLocationメソッドが実行されること', () => {
+    const stub = jest.fn()
+    const button = wrapper.find(sel('btn1'))
+    wrapper.setMethods({
+      moveToCurrentLocation: stub
+    })
+    button.trigger('click')
+    expect(stub).toHaveBeenCalledTimes(1)
   })
-  button.trigger('click')
-  expect(stub).toHaveBeenCalledTimes(1)
+
+  it('clickでsetNearbyMarkersメソッドが実行されること', () => {
+    const stub = jest.fn()
+    const button = wrapper.find(sel('btn2'))
+    wrapper.setMethods({
+      setNearbyMarkers: stub
+    })
+    button.trigger('click')
+    expect(stub).toHaveBeenCalledTimes(1)
+  })
 })

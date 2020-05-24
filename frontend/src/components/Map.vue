@@ -17,8 +17,8 @@
         :title="m.name"
       />
     </GmapMap>
-    <v-btn @click="moveToCurrentLocation">現在地へ移動</v-btn>
-    <v-btn data-test="hoge" @click="setNearbyMarkers">周辺情報を取得</v-btn>
+    <v-btn data-test="btn1" @click="moveToCurrentLocation">現在地へ移動</v-btn>
+    <v-btn data-test="btn2" @click="setNearbyMarkers">周辺情報を取得</v-btn>
     <p>lat: {{ currentCenter.lat }}</p>
     <p>lng: {{ currentCenter.lng }}</p>
   </div>
@@ -35,8 +35,7 @@ export default {
         fullscreenControl: false,
         mapTypeControl: false
       },
-      markers: [],
-      msg: ''
+      markers: []
     }
   },
 
@@ -60,9 +59,6 @@ export default {
   // store整備が落ち着いたところで、機能で区切ってプラグイン化したい
   // JavaScript - vueCLIで外部JSファイルを読み込む方法｜teratail https://teratail.com/questions/251891
   methods: {
-    clicktest() {
-      console.log('hoge')
-    },
     // 現在地へ移動する
     moveToCurrentLocation: async function() {
       const pos = await this.getCurrentLocation()
@@ -160,13 +156,13 @@ export default {
             },
             err => {
               reject(err)
-              // console.log('現在地の取得中にエラーが発生しました')
-              // console.log(err)
+              console.log('現在地の取得中にエラーが発生しました')
+              console.log(err)
             },
             options
           )
         } else {
-          // console.log('ブラウザが位置情報を取得できませんでした')
+          console.log('ブラウザが位置情報を取得できませんでした')
         }
       })
     },
@@ -185,7 +181,7 @@ export default {
           if (status == 'OK' || status == 'ZERO_RESULTS') {
             resolve(results)
           } else {
-            // console.log('周辺の情報を取得中にエラーが発生しました')
+            console.log('周辺の情報を取得中にエラーが発生しました')
           }
         })
       })
