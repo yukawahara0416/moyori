@@ -18,7 +18,7 @@
       />
     </GmapMap>
     <v-btn @click="moveToCurrentLocation">現在地へ移動</v-btn>
-    <v-btn @click="setNearbyMarkers">周辺情報を取得</v-btn>
+    <v-btn class="test" @click="setNearbyMarkers">周辺情報を取得</v-btn>
     <p>lat: {{ currentCenter.lat }}</p>
     <p>lng: {{ currentCenter.lng }}</p>
   </div>
@@ -35,12 +35,13 @@ export default {
         fullscreenControl: false,
         mapTypeControl: false
       },
-      markers: []
+      markers: [],
+      msg: ''
     }
   },
 
   // 初回読込時に現在地周辺を検索する
-  mounted: async function() {
+  async mounted() {
     const pos = await this.getCurrentLocation()
     // vue-google-mapsマップのレンダリングが完了してから処理を実行
     this.$gmapApiPromiseLazy().then(() => {
@@ -59,6 +60,9 @@ export default {
   // store整備が落ち着いたところで、機能で区切ってプラグイン化したい
   // JavaScript - vueCLIで外部JSファイルを読み込む方法｜teratail https://teratail.com/questions/251891
   methods: {
+    clicktest() {
+      console.log('hoge')
+    },
     // 現在地へ移動する
     moveToCurrentLocation: async function() {
       const pos = await this.getCurrentLocation()
@@ -139,10 +143,10 @@ export default {
 
     // 現在地を取得する
     getCurrentLocation() {
-      return new Promise(resolve => {
-        var options = {
+      return new Promise((resolve, reject) => {
+        const options = {
           enableHighAccuracy: true,
-          timeout: 30000,
+          timeout: 10000,
           maximumAge: 0
         }
         if (navigator.geolocation) {
@@ -155,13 +159,14 @@ export default {
               resolve(pos)
             },
             err => {
-              console.log('現在地の取得中にエラーが発生しました')
-              console.log(err)
+              reject(err)
+              // console.log('現在地の取得中にエラーが発生しました')
+              // console.log(err)
             },
             options
           )
         } else {
-          console.log('現在地の取得中にエラーが発生しました')
+          // console.log('ブラウザが位置情報を取得できませんでした')
         }
       })
     },
@@ -180,7 +185,7 @@ export default {
           if (status == 'OK' || status == 'ZERO_RESULTS') {
             resolve(results)
           } else {
-            console.log('周辺の情報を取得中にエラーが発生しました')
+            // console.log('周辺の情報を取得中にエラーが発生しました')
           }
         })
       })
