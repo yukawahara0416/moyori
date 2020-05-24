@@ -18,7 +18,7 @@
       />
     </GmapMap>
     <v-btn @click="moveToCurrentLocation">現在地へ移動</v-btn>
-    <v-btn class="test" @click="setNearbyMarkers">周辺情報を取得</v-btn>
+    <v-btn data-test="hoge" @click="setNearbyMarkers">周辺情報を取得</v-btn>
     <p>lat: {{ currentCenter.lat }}</p>
     <p>lng: {{ currentCenter.lng }}</p>
   </div>
