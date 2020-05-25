@@ -34,6 +34,7 @@ export default {
     GmapCircle,
     GmapMarker
   },
+
   data() {
     return {
       currentCenter: { lat: 35.68, lng: 139.76 },
@@ -42,8 +43,13 @@ export default {
         clickableIcons: false,
         fullscreenControl: false,
         mapTypeControl: false
-      },
-      markers: []
+      }
+    }
+  },
+
+  computed: {
+    markers() {
+      return this.$store.getters.markers
     }
   },
 
