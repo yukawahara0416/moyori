@@ -20,5 +20,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    markers: {
+      type: Array,
+      default: () => [],
+      required: false
+    }
+  }
+}
 </script>
