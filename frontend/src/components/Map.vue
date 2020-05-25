@@ -10,14 +10,7 @@
       @center_changed="onCenterChanged"
     >
       <GmapCircle :currentCenter="currentCenter" />
-
-      <GmapMarker
-        v-for="(m, id) in markers"
-        :key="id"
-        :icon="m.icon"
-        :position="m.position"
-        :title="m.name"
-      />
+      <GmapMarker :markers="markers" />
     </GmapMap>
     <v-btn data-test="btn1" @click="moveToCurrentLocation">現在地へ移動</v-btn>
     <v-btn data-test="btn2" @click="setNearbyMarkers">周辺情報を取得</v-btn>
@@ -28,10 +21,12 @@
 
 <script>
 import GmapCircle from '@/basics/Gmap/Circle.vue'
+import GmapMarker from '@/basics/Gmap/Marker.vue'
 
 export default {
   components: {
-    GmapCircle
+    GmapCircle,
+    GmapMarker
   },
   data() {
     return {
