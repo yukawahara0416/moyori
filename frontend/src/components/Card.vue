@@ -10,7 +10,7 @@
             </v-col>
             <v-col>
               <v-card-text></v-card-text>
-              <v-card-action></v-card-action>
+              <v-card-actions></v-card-actions>
             </v-col>
           </v-row>
         </v-card>

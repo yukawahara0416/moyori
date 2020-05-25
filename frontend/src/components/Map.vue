@@ -17,10 +17,10 @@
     <p>lat: {{ currentCenter.lat }}</p>
     <p>lng: {{ currentCenter.lng }}</p>
     <v-card v-for="(m, id) in markers" :key="id">
-      <v-text>
+      <v-card-text>
         <p>{{ m.name }}</p>
         <p>{{ m.place_id }}</p>
-      </v-text>
+      </v-card-text>
     </v-card>
   </div>
 </template>
@@ -216,10 +216,7 @@ export default {
 
     // 検索結果をマーカーに追加する
     pushToMarkers(results) {
-      return new Promise(resolve => {
-        this.markers = this.markers.concat(results)
-        resolve(this.markers)
-      })
+      this.$store.dispatch('pushToMarkers', results)
     },
 
     // 検索結果をリセットする
