@@ -9,6 +9,13 @@
       :zoom="16"
       @center_changed="onCenterChanged"
     >
+      <GmapCircle
+        :center="currentCenter"
+        :options="circleOptions"
+        :radius="500"
+        ref="circle"
+      />
+
       <GmapMarker
         v-for="(m, id) in markers"
         :key="id"
@@ -28,6 +35,14 @@
 export default {
   data() {
     return {
+      circleOptions: {
+        clickable: false,
+        fillColor: '#FF0000',
+        fillOpacity: 0.1,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.3,
+        strokeWeight: 1
+      },
       currentCenter: { lat: '', lng: '' },
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
