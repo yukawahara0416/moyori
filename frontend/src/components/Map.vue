@@ -221,7 +221,7 @@ export default {
 
     // 検索結果をリセットする
     resetMarkers() {
-      this.markers = []
+      this.$store.dispatch('resetMarkers')
     },
 
     // 現在地マーカーを設置する

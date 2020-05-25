@@ -10,6 +10,9 @@ export default {
   mutations: {
     pushToMarkers(state, payload) {
       state.markers = state.markers.concat(payload)
+    },
+    resetMarkers(state) {
+      state.markers = []
     }
   },
   actions: {
@@ -18,6 +21,9 @@ export default {
         context.commit('pushToMarkers', results)
         resolve()
       })
+    },
+    resetMarkers(context) {
+      context.commit('resetMarkers')
     }
   }
 }
