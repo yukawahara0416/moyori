@@ -3,7 +3,6 @@ import { shallowMount } from '@vue/test-utils'
 import Component from '@/basics/Gmap/Circle.vue'
 
 const vuetify = new Vuetify()
-const sel = id => `[data-test="${id}"]`
 
 let wrapper
 
@@ -21,24 +20,24 @@ afterEach(() => {
 describe('props', () => {
   it('propsを受け取れるか', () => {
     wrapper.setProps({
-      currentCenter: { lat: '13', lng: '14' }
+      currentCenter: { lat: 35.68, lng: 139.76 }
     })
     expect(wrapper.vm.$props.currentCenter).toStrictEqual({
-      lat: '13',
-      lng: '14'
+      lat: 35.68,
+      lng: 139.76
     })
   })
 
   it('typeはObjectか', () => {
     wrapper.setProps({
-      currentCenter: { lat: '13', lng: '14' }
+      currentCenter: { lat: 35.68, lng: 139.76 }
     })
-    expect(typeof wrapper.vm.$props.currentCenter).toBe('object')
+    expect(wrapper.vm.$props.currentCenter instanceof Object).toBe(true)
   })
 
   it('requireはfalseか', () => {
     wrapper.setProps({
-      currentCenter: { lat: '13', lng: '14' }
+      currentCenter: { lat: 35.68, lng: 139.76 }
     })
     expect(wrapper.vm.$options.props.currentCenter.required).toBe(false)
   })
