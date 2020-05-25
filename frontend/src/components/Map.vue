@@ -9,12 +9,7 @@
       :zoom="16"
       @center_changed="onCenterChanged"
     >
-      <GmapCircle
-        :center="currentCenter"
-        :options="circleOptions"
-        :radius="500"
-        ref="circle"
-      />
+      <GmapCircle :currentCenter="currentCenter" />
 
       <GmapMarker
         v-for="(m, id) in markers"
@@ -32,18 +27,15 @@
 </template>
 
 <script>
+import GmapCircle from '@/basics/Gmap/Circle.vue'
+
 export default {
+  components: {
+    GmapCircle
+  },
   data() {
     return {
-      circleOptions: {
-        clickable: false,
-        fillColor: '#FF0000',
-        fillOpacity: 0.1,
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.3,
-        strokeWeight: 1
-      },
-      currentCenter: { lat: '', lng: '' },
+      currentCenter: { lat: 35.68, lng: 139.76 },
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
         clickableIcons: false,

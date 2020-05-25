@@ -10,7 +10,7 @@ let wrapper
 beforeEach(() => {
   wrapper = mount(Component, {
     vuetify,
-    stubs: ['GmapMap']
+    stubs: ['GmapMap', 'GmapCircle']
   })
 })
 
