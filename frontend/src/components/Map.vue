@@ -16,12 +16,6 @@
     <v-btn data-test="btn2" @click="setNearbyMarkers">周辺情報を取得</v-btn>
     <p>lat: {{ currentCenter.lat }}</p>
     <p>lng: {{ currentCenter.lng }}</p>
-    <v-card v-for="(m, id) in markers" :key="id">
-      <v-card-text>
-        <p>{{ m.name }}</p>
-        <p>{{ m.place_id }}</p>
-      </v-card-text>
-    </v-card>
   </div>
 </template>
 
