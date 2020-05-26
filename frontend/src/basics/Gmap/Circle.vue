@@ -1,6 +1,6 @@
 <template>
   <GmapCircle
-    :center="currentCenter"
+    :center="mapCenter"
     :options="circleOptions"
     :radius="500"
     ref="circle"
@@ -10,7 +10,7 @@
 <script>
 export default {
   props: {
-    currentCenter: {
+    mapCenter: {
       type: Object,
       default: () => ({ lat: 0, lng: 0 }),
       required: false
