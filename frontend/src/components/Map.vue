@@ -10,10 +10,10 @@
       @center_changed="onCenterChanged"
     >
       <GmapCircle :mapCenter="mapCenter" />
-      <GmapMarker :markers="markers" @panTo="panTo()" />
+      <GmapMarker :markers="markers" @panTo="panTo" />
     </GmapMap>
-    <v-btn data-test="btn1" @click="panToLocation()">現在地へ移動</v-btn>
-    <v-btn data-test="btn2" @click="nearbySearch()">周辺情報を取得</v-btn>
+    <v-btn data-test="btn1" @click="panToLocation">現在地へ移動</v-btn>
+    <v-btn data-test="btn2" @click="nearbySearch">周辺情報を取得</v-btn>
   </div>
 </template>
 
@@ -149,9 +149,9 @@ export default {
     getLocation() {
       return new Promise((resolve, reject) => {
         const options = {
-          enableHighAccuracy: false,
+          enableHighAccuracy: true,
           timeout: 30000,
-          maximumAge: Infinity
+          maximumAge: 0
         }
         navigator.geolocation.getCurrentPosition(
           result => {
