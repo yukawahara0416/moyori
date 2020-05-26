@@ -6,7 +6,7 @@
       :icon="m.icon"
       :position="m.position"
       :title="m.name"
-      @click="switchMarker(m, id)"
+      @click="switchMarkerIcon(m, id)"
     />
   </div>
 </template>
@@ -21,12 +21,30 @@ export default {
     }
   },
 
+  data() {
+    return {
+      cacheMarker: { id: -1, icon: '' }
+    }
+  },
+
   methods: {
-    switchMarker(marker, id) {
+    // 選択中のマーカーのアイコンを変更する
+    switchMarkerIcon(marker, id) {
+      this.resetMarkerIcon(marker, id)
+      this.cacheMarkerIcon(marker, id)
       this.changeMarkerIcon(marker, id)
     },
-    resetMarkerIcon() {},
-    cacheMarkerIcon() {},
+
+    // 選択したマーカーのアイコンを記録する（戻すときに必要）
+    cacheMarkerIcon(marker, id) {
+      if (this.cacheMarker.id != id) {
+        this.cacheMarker = { id: id, icon: marker.icon.url }
+      } else {
+        this.cacheMarker.id = id
+      }
+    },
+
+    // 選択したマーカーのアイコンを変更する
     changeMarkerIcon(marker, id) {
       const selectingMarker = this.markers[id]
       selectingMarker.icon = {
