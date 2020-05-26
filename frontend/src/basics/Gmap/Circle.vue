@@ -12,7 +12,7 @@ export default {
   props: {
     currentCenter: {
       type: Object,
-      default: () => ({ lat: 35.68, lng: 139.76 }),
+      default: () => ({ lat: 0, lng: 0 }),
       required: false
     }
   },

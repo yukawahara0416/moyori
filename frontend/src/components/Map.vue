@@ -32,7 +32,7 @@ export default {
 
   data() {
     return {
-      currentCenter: { lat: 35.68, lng: 139.76 },
+      currentCenter: { lat: 0, lng: 0 },
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
         clickableIcons: false,
