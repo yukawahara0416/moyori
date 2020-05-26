@@ -8,7 +8,7 @@
       :title="m.name"
       @click="
         switchMarkerIcon(m, id)
-        $emit('panToLocation', m.position)
+        $emit('panTo', m.position)
       "
     />
   </div>
