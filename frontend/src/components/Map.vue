@@ -10,7 +10,7 @@
       @center_changed="onCenterChanged"
     >
       <GmapCircle :currentCenter="currentCenter" />
-      <GmapMarker :markers="markers" />
+      <GmapMarker :markers="markers" @panToLocation="panToLocation" />
     </GmapMap>
     <v-btn data-test="btn1" @click="moveToCurrentLocation">現在地へ移動</v-btn>
     <v-btn data-test="btn2" @click="setNearbyMarkers">周辺情報を取得</v-btn>
@@ -32,7 +32,7 @@ export default {
 
   data() {
     return {
-      currentCenter: { lat: 35.68, lng: 139.76 },
+      currentCenter: { lat: 0, lng: 0 },
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
         clickableIcons: false,
