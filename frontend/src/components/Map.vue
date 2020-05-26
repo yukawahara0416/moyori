@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import GmapCircle from '@/basics/Gmap/Circle.vue'
 import GmapMarker from '@/basics/Gmap/Marker.vue'
 
@@ -48,9 +49,7 @@ export default {
   },
 
   computed: {
-    markers() {
-      return this.$store.getters.markers
-    }
+    ...mapGetters(['markers'])
   },
 
   // 初回読込時に現在地周辺を検索する
@@ -215,14 +214,10 @@ export default {
     },
 
     // 検索結果をマーカーに追加する
-    pushToMarkers(results) {
-      this.$store.dispatch('pushToMarkers', results)
-    },
+    ...mapActions(['pushToMarkers']),
 
     // 検索結果をリセットする
-    resetMarkers() {
-      this.$store.dispatch('resetMarkers')
-    },
+    ...mapActions(['resetMarkers']),
 
     // 現在地マーカーを設置する
     setCurrentLocationMarker(pos) {
