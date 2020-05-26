@@ -6,7 +6,10 @@
       :icon="m.icon"
       :position="m.position"
       :title="m.name"
-      @click="switchMarkerIcon(m, id)"
+      @click="
+        switchMarkerIcon(m, id)
+        $emit('panToLocation', m.position)
+      "
     />
   </div>
 </template>
