@@ -1,16 +1,42 @@
-import Vuetify from 'vuetify'
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
+import Vuex from 'vuex'
 import Component from '@/components/Map.vue'
+import spotStore from '@/store/spot.js'
 
-const vuetify = new Vuetify()
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
 const sel = id => `[data-test="${id}"]`
 
+let state
+let actions
+let store
 let wrapper
 
 beforeEach(() => {
+  state = {
+    markers: [
+      { name: 'hoge', place_id: 'aaa' },
+      { name: 'fuga', place_id: 'bbb' }
+    ]
+  }
+
+  actions = {}
+
+  store = new Vuex.Store({
+    modules: {
+      spotStore: {
+        state,
+        getters: spotStore.getters,
+        actions
+      }
+    }
+  })
+
   wrapper = mount(Component, {
-    vuetify,
-    stubs: ['GmapMap', 'GmapCircle']
+    localVue,
+    store,
+    stubs: ['GmapMap', 'GmapMarker', 'GmapCircle']
   })
 })
 
@@ -19,23 +45,17 @@ afterEach(() => {
 })
 
 describe('v-on', () => {
-  it('clickでmoveToCurrentLocationメソッドが実行されること', () => {
-    const stub = jest.fn()
-    const button = wrapper.find(sel('btn1'))
-    wrapper.setMethods({
-      moveToCurrentLocation: stub
-    })
-    button.trigger('click')
-    expect(stub).toHaveBeenCalledTimes(1)
+  it('click="moveToCurrentLocation"', () => {
+    const event = jest.fn()
+    wrapper.setMethods({ moveToCurrentLocation: event })
+    wrapper.find(sel('btn1')).trigger('click')
+    expect(event).toHaveBeenCalledTimes(1)
   })
 
-  it('clickでsetNearbyMarkersメソッドが実行されること', () => {
-    const stub = jest.fn()
-    const button = wrapper.find(sel('btn2'))
-    wrapper.setMethods({
-      setNearbyMarkers: stub
-    })
-    button.trigger('click')
-    expect(stub).toHaveBeenCalledTimes(1)
+  it('click="setNearbyMarkers"', () => {
+    const event = jest.fn()
+    wrapper.setMethods({ setNearbyMarkers: event })
+    wrapper.find(sel('btn2')).trigger('click')
+    expect(event).toHaveBeenCalledTimes(1)
   })
 })
