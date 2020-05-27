@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<div>
+  <div
+    class="test"
+    icon="foo"
+    title="hoge"
+  />
+  <div
+    class="test"
+    icon="bar"
+    title="fuga"
+  />
+</div>
+`;
