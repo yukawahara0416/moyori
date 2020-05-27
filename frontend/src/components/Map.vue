@@ -10,7 +10,7 @@
       @center_changed="onCenterChanged"
     >
       <GmapCircle :mapCenter="mapCenter" />
-      <GmapMarker :markers="markers" @panTo="panTo" />
+      <GmapMarker data-test="marker" :markers="markers" @panTo.native="panTo" />
     </GmapMap>
     <v-btn data-test="btn1" @click.native="panToLocation">現在地へ移動</v-btn>
     <v-btn data-test="btn2" @click.native="nearbySearch">周辺情報を取得</v-btn>

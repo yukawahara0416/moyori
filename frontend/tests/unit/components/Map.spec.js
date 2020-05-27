@@ -58,6 +58,14 @@ describe('emit', () => {})
 // panTo
 
 describe('v-on', () => {
+  it('panTo', () => {
+    const event = jest.fn()
+    wrapper.setMethods({ panTo: event })
+    // wrapper.find('gmapmarker-stub').trigger('panTo')
+    wrapper.find(sel('marker')).trigger('panTo')
+    expect(event).toHaveBeenCalledTimes(1)
+  })
+
   it('panToLocation', () => {
     const event = jest.fn()
     wrapper.setMethods({ panToLocation: event })
@@ -76,11 +84,13 @@ describe('v-on', () => {
 describe('mounted', () => {})
 // getLocation setMarker panTo nearbySearch
 describe('state', () => {})
+
 describe('getters', () => {
   it('markers', () => {
     expect(wrapper.find(Marker).props().markers).toBe(state.markers)
   })
 })
+
 describe('mutations', () => {})
 describe('actions', () => {})
 // addMarkers clearMarkers
