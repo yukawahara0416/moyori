@@ -9,13 +9,11 @@
       :zoom="16"
       @center_changed="onCenterChanged"
     >
-      <GmapCircle :currentCenter="currentCenter" />
-      <GmapMarker :markers="markers" @panToLocation="panToLocation" />
+      <GmapCircle :mapCenter="mapCenter" />
+      <GmapMarker :markers="markers" @panTo="panTo" />
     </GmapMap>
-    <v-btn data-test="btn1" @click="moveToCurrentLocation">現在地へ移動</v-btn>
-    <v-btn data-test="btn2" @click="setNearbyMarkers">周辺情報を取得</v-btn>
-    <p>lat: {{ currentCenter.lat }}</p>
-    <p>lng: {{ currentCenter.lng }}</p>
+    <v-btn data-test="btn1" @click="panToLocation">現在地へ移動</v-btn>
+    <v-btn data-test="btn2" @click="nearbySearch">周辺情報を取得</v-btn>
   </div>
 </template>
 
@@ -32,7 +30,7 @@ export default {
 
   data() {
     return {
-      currentCenter: { lat: 0, lng: 0 },
+      mapCenter: { lat: 0, lng: 0 },
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
         clickableIcons: false,
@@ -46,55 +44,58 @@ export default {
     ...mapGetters(['markers'])
   },
 
-  // 初回読込時に現在地周辺を検索する
+  // 自動的に現在地でnearbySearchする
   async mounted() {
-    const pos = await this.getCurrentLocation()
+    const pos = await this.getLocation()
     // vue-google-mapsマップのレンダリングが完了してから処理を実行
     this.$gmapApiPromiseLazy().then(() => {
-      google.maps.event.addListenerOnce(
-        this.$refs.map.$mapObject,
-        'idle',
-        async function() {
-          await this.setCurrentLocationMarker(pos)
-          await this.panToLocation(pos)
-          await this.setNearbyMarkers()
-        }.bind(this)
-      )
+      this.mapCenter = pos
+      this.setMarker(pos, 'you-are-here')
+      this.panTo(pos)
+      this.nearbySearch(pos)
     })
   },
 
-  // store整備が落ち着いたところで、機能で区切ってプラグイン化したい
-  // JavaScript - vueCLIで外部JSファイルを読み込む方法｜teratail https://teratail.com/questions/251891
   methods: {
-    // 現在地へ移動する
-    moveToCurrentLocation: async function() {
-      const pos = await this.getCurrentLocation()
-      await this.setCurrentLocationMarker(pos)
-      await this.panToLocation(pos)
+    //// 検索機能（実行タイミング順） ////
+
+    // 検索開始時の処理
+    beforeSearch() {
+      this.clearMarkers()
     },
 
-    // マップの中心付近を検索する
-    setNearbyMarkers: async function() {
+    // 現在地へ移動する
+    panToLocation: async function() {
+      const pos = await this.getLocation()
+      this.setMarker(pos, 'you-are-here')
+      this.panTo(pos)
+    },
+
+    // 周辺を検索する
+    nearbySearch: async function() {
       this.beforeSearch()
-      const pos = this.currentCenter
-      const results = await this.nearbySearch(pos)
-      const formattedResults = await Promise.all(
+      var pos = this.mapCenter
+      var results = await this.getNearby(pos)
+      results = await Promise.all(
         results.map(async res => {
           return await this.formatResult(res)
         })
       )
-      await this.pushToMarkers(formattedResults)
-    },
-
-    // 検索開始時の処理
-    beforeSearch() {
-      this.resetMarkers()
+      await this.addMarkers(results)
     },
 
     // 検索終了時の処理
     afterSearch() {},
 
-    // 検索結果（res）を整形する
+    //// 個別機能（ABC順）////
+
+    // 検索結果を$state.markersに追加する
+    ...mapActions(['addMarkers']),
+
+    // 検索結果をリセットする
+    ...mapActions(['clearMarkers']),
+
+    // 検索結果を整形する
     formatResult(res) {
       return new Promise(resolve => {
         var address = res.formatted_address ? res.formatted_address : 'null'
@@ -102,20 +103,20 @@ export default {
         // var isOpen = res.opening_hours ? res.opening_hours.open_now : 'null'
         var iconUrl =
           res.name.indexOf('スターバックス') !== -1
-            ? require('@/assets/starbucks-ori.png')
+            ? 'starbucks'
             : res.name.indexOf('タリーズ') !== -1
-            ? require('@/assets/tullys-ori.png')
+            ? 'tullys'
             : res.name.indexOf('コメダ珈琲') !== -1
-            ? require('@/assets/komeda-ori.png')
+            ? 'komeda'
             : res.name.indexOf('ドトール') !== -1
-            ? require('@/assets/komeda-ori.png')
+            ? 'doutor'
             : res.name.indexOf('上島珈琲') !== -1
-            ? require('@/assets/ueshima-ori.png')
+            ? 'ueshima'
             : res.name.indexOf('WIRED CAFE') !== -1
-            ? require('@/assets/wired-cafe-ori.png')
-            : require('@/assets/cafe.png')
+            ? 'wired-cafe'
+            : 'cafe'
         var icon = {
-          url: iconUrl,
+          url: require(`@/assets/${iconUrl}.png`),
           scaledSize: new google.maps.Size(50, 50)
         }
         var photo = res.photos
@@ -145,50 +146,43 @@ export default {
     },
 
     // 現在地を取得する
-    getCurrentLocation() {
+    getLocation() {
       return new Promise((resolve, reject) => {
         const options = {
           enableHighAccuracy: true,
-          timeout: 10000,
+          timeout: 30000,
           maximumAge: 0
         }
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            res => {
-              const pos = {
-                lat: res.coords.latitude,
-                lng: res.coords.longitude
-              }
-              resolve(pos)
-            },
-            err => {
-              reject(err)
-              console.log('現在地の取得中にエラーが発生しました')
-              console.log(err)
-            },
-            options
-          )
-        } else {
-          console.log('ブラウザが位置情報を取得できませんでした')
-        }
+        navigator.geolocation.getCurrentPosition(
+          result => {
+            resolve({
+              lat: result.coords.latitude,
+              lng: result.coords.longitude
+            })
+          },
+          error => {
+            reject(error)
+          },
+          options
+        )
       })
     },
 
     // 与えられた位置（pos）周辺の情報を取得する
-    nearbySearch(pos) {
-      return new Promise(resolve => {
+    getNearby(pos) {
+      return new Promise((resolve, reject) => {
+        const map = this.$refs.map.$mapObject
+        const placeService = new google.maps.places.PlacesService(map)
         const request = {
           location: new google.maps.LatLng(pos.lat, pos.lng),
           radius: 500,
           type: ['cafe']
         }
-        const map = this.$refs.map.$mapObject
-        const placeService = new google.maps.places.PlacesService(map)
         placeService.nearbySearch(request, (results, status) => {
           if (status == 'OK' || status == 'ZERO_RESULTS') {
             resolve(results)
           } else {
-            console.log('周辺の情報を取得中にエラーが発生しました')
+            reject(results)
           }
         })
       })
@@ -196,37 +190,24 @@ export default {
 
     // マップ中心を監視する
     onCenterChanged(pos) {
-      this.currentCenter = { lat: pos.lat(), lng: pos.lng() }
+      this.mapCenter = { lat: pos.lat(), lng: pos.lng() }
     },
 
     // 位置座標をマップの中心にする
-    panToLocation(pos) {
-      return new Promise(resolve => {
-        const pan = this.$refs.map.panTo(pos)
-        resolve(pan)
-      })
+    panTo(pos) {
+      this.$refs.map.panTo(pos)
     },
 
-    // 検索結果をマーカーに追加する
-    ...mapActions(['pushToMarkers']),
-
-    // 検索結果をリセットする
-    ...mapActions(['resetMarkers']),
-
     // 現在地マーカーを設置する
-    setCurrentLocationMarker(pos) {
-      return new Promise(resolve => {
-        const map = this.$refs.map.$mapObject
-        const marker = new google.maps.Marker({
-          map: map,
-          position: pos,
-          clickable: false,
-          icon: {
-            url: require('@/assets/you-are-here.png'),
-            scaledSize: new google.maps.Size(50, 50)
-          }
-        })
-        resolve(marker)
+    setMarker(pos, icon) {
+      new google.maps.Marker({
+        map: this.$refs.map.$mapObject,
+        position: pos,
+        clickable: false,
+        icon: {
+          url: require(`@/assets/${icon}.png`),
+          scaledSize: new google.maps.Size(50, 50)
+        }
       })
     }
   }

@@ -8,22 +8,22 @@ export default {
     }
   },
   mutations: {
-    pushToMarkers(state, payload) {
+    addMarkers(state, payload) {
       state.markers = state.markers.concat(payload)
     },
-    resetMarkers(state) {
+    clearMarkers(state) {
       state.markers = []
     }
   },
   actions: {
-    pushToMarkers(context, results) {
+    addMarkers(context, results) {
       return new Promise(resolve => {
-        context.commit('pushToMarkers', results)
+        context.commit('addMarkers', results)
         resolve()
       })
     },
-    resetMarkers(context) {
-      context.commit('resetMarkers')
+    clearMarkers(context) {
+      context.commit('clearMarkers')
     }
   }
 }
