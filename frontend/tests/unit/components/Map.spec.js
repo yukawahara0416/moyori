@@ -76,7 +76,11 @@ describe('v-on', () => {
 describe('mounted', () => {})
 // getLocation setMarker panTo nearbySearch
 describe('state', () => {})
-describe('getters', () => {})
+describe('getters', () => {
+  it('markers', () => {
+    expect(wrapper.find(Marker).props().markers).toBe(state.markers)
+  })
+})
 describe('mutations', () => {})
 describe('actions', () => {})
 // addMarkers clearMarkers
