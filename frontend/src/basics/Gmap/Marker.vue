@@ -6,9 +6,9 @@
       :icon="m.icon"
       :position="m.position"
       :title="m.name"
-      @click="
+      @click.native="
         changeIcon(m, id)
-        $emit('panTo', m.position)
+        panTo(m.position)
       "
     />
   </div>
@@ -67,6 +67,11 @@ export default {
         scaledSize: new google.maps.Size(50, 50)
       }
       select.zIndex = 1000
+    },
+
+    // 位置座標をマップの中心にする
+    panTo(pos) {
+      this.$emit('panTo', pos)
     }
   }
 }
