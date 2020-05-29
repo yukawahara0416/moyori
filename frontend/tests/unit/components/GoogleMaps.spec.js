@@ -1,7 +1,8 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Map from '@/components/Map.vue'
-import Marker from '@/basics/Gmap/Marker.vue'
+import GoogleMaps from '@/components/GoogleMaps.vue'
+import GoogleMapsMarker from '@/basics/GoogleMapsMarker.vue'
+import GoogleMapsCircle from '@/basics/GoogleMapsCircle.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -41,7 +42,7 @@ beforeEach(() => {
     }
   })
 
-  wrapper = shallowMount(Map, {
+  wrapper = shallowMount(GoogleMaps, {
     localVue,
     store,
     stubs: ['GmapMap', 'GmapMarker', 'GmapCircle']
@@ -52,20 +53,28 @@ afterEach(() => {
   wrapper.destroy()
 })
 
-describe('data', () => {})
-describe('props', () => {})
-describe('emit', () => {})
-// panTo
+describe('props', () => {
+  it('mapCenter', () => {
+    const data = { mapCenter: { lat: 0, lng: 0 } }
+    wrapper.setData(data)
+    expect(wrapper.find(GoogleMapsCircle).props().mapCenter).toStrictEqual(
+      data.mapCenter
+    )
+  })
 
-describe('v-on', () => {
+  it('markers', () => {
+    expect(wrapper.find(GoogleMapsMarker).props().markers).toBe(state.markers)
+  })
+
   it('panTo', () => {
     const event = jest.fn()
     wrapper.setMethods({ panTo: event })
-    // wrapper.find('gmapmarker-stub').trigger('panTo')
     wrapper.find(sel('marker')).trigger('panTo')
     expect(event).toHaveBeenCalledTimes(1)
   })
+})
 
+describe('v-on', () => {
   it('panToLocation', () => {
     const event = jest.fn()
     wrapper.setMethods({ panToLocation: event })
@@ -81,20 +90,19 @@ describe('v-on', () => {
   })
 })
 
-describe('mounted', () => {})
-// getLocation setMarker panTo nearbySearch
-describe('state', () => {})
-
-describe('getters', () => {
-  it('markers', () => {
-    expect(wrapper.find(Marker).props().markers).toBe(state.markers)
+describe('mounted', () => {
+  it('getLocation', () => {
+    // const event = jest.fn()
+    // wrapper.setMethods({ getLocation: event })
+    // shallowMount(Map)
+    // expect(wrapper.vm.$options.mounted[0]).toBeInstanceOf(Function)
+    expect(wrapper.vm.$options.mounted[0]).toString()
   })
 })
-
+// getLocation setMarker panTo nearbySearch
+describe('state', () => {})
+describe('getters', () => {})
 describe('mutations', () => {})
-describe('actions', () => {})
-// addMarkers clearMarkers
-describe('router', () => {})
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()

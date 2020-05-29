@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import Component from '@/basics/Gmap/Circle.vue'
+import Component from '@/basics/GoogleMapsCircle.vue'
 
 let wrapper
 let propsData

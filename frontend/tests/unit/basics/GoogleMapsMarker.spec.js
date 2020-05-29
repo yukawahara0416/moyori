@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import Marker from '@/basics/Gmap/Marker.vue'
+import GoogleMapsMarker from '@/basics/GoogleMapsMarker.vue'
 
 let wrapper
 let propsData
@@ -11,7 +11,7 @@ beforeEach(() => {
       { name: 'fuga', icon: 'bar' }
     ]
   }
-  wrapper = shallowMount(Marker, {
+  wrapper = shallowMount(GoogleMapsMarker, {
     propsData: propsData,
     stubs: {
       GmapMarker: '<div class="test" />'
@@ -44,7 +44,9 @@ describe('v-on', () => {
     const event2 = jest.fn()
     wrapper.setMethods({ panTo: event1 })
     wrapper.setMethods({ changeIcon: event2 })
-    wrapper.find('.test').trigger('click')
+    // wrapper.find('.test').trigger('click')
+    wrapper.vm.$on('v-btn:clicked', event1)
+    wrapper.trigger('click')
     expect(event1).toHaveBeenCalledTimes(1)
   })
 })

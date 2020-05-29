@@ -1,5 +1,5 @@
 <template>
-  <GmapCircle
+  <gmap-circle
     :center="mapCenter"
     :options="circleOptions"
     :radius="500"
