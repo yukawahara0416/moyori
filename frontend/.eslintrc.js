@@ -15,9 +15,25 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
+        printWidth: 80,
+        tabWidth: 2,
+        useTabs: false,
+        semi: false,
         singleQuote: true,
+        quoteProps: 'as-needed',
+        jsxSingleQuote: false,
         trailingComma: 'none',
-        semi: false
+        bracketSpacing: true,
+        jsxBracketSameLine: false,
+        arrowParens: 'avoid',
+        rangeStart: 0,
+        filepath: 'none',
+        requirePragma: false,
+        insertPragma: false,
+        proseWrap: 'preserve',
+        htmlWhitespaceSensitivity: 'css',
+        vueIndentScriptAndStyle: false,
+        endOfLine: 'lf'
       }
     ],
     'no-undef': 0
