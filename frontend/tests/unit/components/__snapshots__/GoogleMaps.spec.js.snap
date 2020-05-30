@@ -6,10 +6,10 @@ exports[`template snapshot 1`] = `
     this is Map
   </h1>
    
-  <gmapmap-stub
+  <gmap-map-stub
     center="[object Object]"
     options="[object Object]"
-    style="width: 500px; height: 500px;"
+    style="width: 800px; height: 800px;"
     zoom="16"
   >
     <google-maps-circle-stub
@@ -17,10 +17,9 @@ exports[`template snapshot 1`] = `
     />
      
     <google-maps-marker-stub
-      data-test="marker"
       markers="[object Object],[object Object]"
     />
-  </gmapmap-stub>
+  </gmap-map-stub>
    
   <v-btn-stub
     activeclass=""

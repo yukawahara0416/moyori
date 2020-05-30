@@ -45,7 +45,7 @@ beforeEach(() => {
   wrapper = shallowMount(GoogleMaps, {
     localVue,
     store,
-    stubs: ['GmapMap', 'GmapMarker', 'GmapCircle']
+    stubs: ['gmap-map']
   })
 })
 
@@ -64,13 +64,6 @@ describe('props', () => {
 
   it('markers', () => {
     expect(wrapper.find(GoogleMapsMarker).props().markers).toBe(state.markers)
-  })
-
-  it('panTo', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ panTo: event })
-    wrapper.find(sel('marker')).trigger('panTo')
-    expect(event).toHaveBeenCalledTimes(1)
   })
 })
 
@@ -91,18 +84,8 @@ describe('v-on', () => {
 })
 
 describe('mounted', () => {
-  it('getLocation', () => {
-    // const event = jest.fn()
-    // wrapper.setMethods({ getLocation: event })
-    // shallowMount(Map)
-    // expect(wrapper.vm.$options.mounted[0]).toBeInstanceOf(Function)
-    expect(wrapper.vm.$options.mounted[0]).toString()
-  })
+  it('getLocation', () => {})
 })
-// getLocation setMarker panTo nearbySearch
-describe('state', () => {})
-describe('getters', () => {})
-describe('mutations', () => {})
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
