@@ -2,13 +2,11 @@
 
 exports[`template snapshot 1`] = `
 <div>
-  <div
-    class="test"
+  <gmap-marker-stub
     icon="foo"
     title="hoge"
   />
-  <div
-    class="test"
+  <gmap-marker-stub
     icon="bar"
     title="fuga"
   />
