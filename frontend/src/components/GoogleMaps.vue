@@ -3,18 +3,14 @@
     <h1>this is Map</h1>
     <gmap-map
       ref="map"
-      style="width: 500px; height: 500px;"
+      style="width: 800px; height: 800px;"
       :center="mapLocation"
       :options="mapOptions"
       :zoom="16"
       @center_changed="onCenterChanged"
     >
       <google-maps-circle :mapCenter="mapCenter" />
-      <google-maps-marker
-        data-test="marker"
-        :markers="markers"
-        @pan-to="panTo"
-      />
+      <google-maps-marker :markers="markers" @pan-to="panTo" />
     </gmap-map>
     <v-btn data-test="btn1" @click.native="panToLocation">現在地へ移動</v-btn>
     <v-btn data-test="btn2" @click.native="nearbySearch">周辺情報を取得</v-btn>
