@@ -1,31 +1,31 @@
 <template>
   <div>
     <h1>this is Map</h1>
-    <GmapMap
+    <gmap-map
       ref="map"
-      style="width: 500px; height: 500px;"
+      style="width: 800px; height: 800px;"
       :center="mapLocation"
       :options="mapOptions"
       :zoom="16"
       @center_changed="onCenterChanged"
     >
-      <GmapCircle :mapCenter="mapCenter" />
-      <GmapMarker :markers="markers" @panTo="panTo" />
-    </GmapMap>
-    <v-btn data-test="btn1" @click="panToLocation">現在地へ移動</v-btn>
-    <v-btn data-test="btn2" @click="nearbySearch">周辺情報を取得</v-btn>
+      <google-maps-circle :mapCenter="mapCenter" />
+      <google-maps-marker :markers="markers" @pan-to="panTo" />
+    </gmap-map>
+    <v-btn data-test="btn1" @click.native="panToLocation">現在地へ移動</v-btn>
+    <v-btn data-test="btn2" @click.native="nearbySearch">周辺情報を取得</v-btn>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import GmapCircle from '@/basics/Gmap/Circle.vue'
-import GmapMarker from '@/basics/Gmap/Marker.vue'
+import GoogleMapsCircle from '@/basics/GoogleMapsCircle.vue'
+import GoogleMapsMarker from '@/basics/GoogleMapsMarker.vue'
 
 export default {
   components: {
-    GmapCircle,
-    GmapMarker
+    GoogleMapsCircle,
+    GoogleMapsMarker
   },
 
   data() {

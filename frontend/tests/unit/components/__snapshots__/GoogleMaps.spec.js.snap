@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<div>
+  <h1>
+    this is Map
+  </h1>
+   
+  <gmap-map-stub
+    center="[object Object]"
+    options="[object Object]"
+    style="width: 800px; height: 800px;"
+    zoom="16"
+  >
+    <google-maps-circle-stub
+      mapcenter="[object Object]"
+    />
+     
+    <google-maps-marker-stub
+      markers="[object Object],[object Object]"
+    />
+  </gmap-map-stub>
+   
+  <v-btn-stub
+    activeclass=""
+    data-test="btn1"
+    tag="button"
+    type="button"
+  >
+    現在地へ移動
+  </v-btn-stub>
+   
+  <v-btn-stub
+    activeclass=""
+    data-test="btn2"
+    tag="button"
+    type="button"
+  >
+    周辺情報を取得
+  </v-btn-stub>
+</div>
+`;

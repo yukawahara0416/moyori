@@ -1,12 +1,12 @@
 <template>
   <div>
-    <GmapMarker
+    <gmap-marker
       v-for="(m, id) in markers"
       :key="id"
       :icon="m.icon"
       :position="m.position"
       :title="m.name"
-      @click.native="
+      @click="
         changeIcon(m, id)
         panTo(m.position)
       "
@@ -71,7 +71,7 @@ export default {
 
     // 位置座標をマップの中心にする
     panTo(pos) {
-      this.$emit('panTo', pos)
+      this.$emit('pan-to', pos)
     }
   }
 }
