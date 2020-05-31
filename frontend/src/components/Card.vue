@@ -3,7 +3,12 @@
     <h1>this is Card</h1>
     <v-row>
       <v-col v-for="(m, id) in markers" :key="id">
-        <v-card hover :class="{ selected: cache.id === id }" :id="id">
+        <v-card
+          hover
+          :class="{ selected: cache.id === id }"
+          :id="id"
+          @click.stop="switchMarker(m, id)"
+        >
           <v-row>
             <v-col>
               <v-img></v-img>
@@ -36,6 +41,12 @@ export default {
       set(value) {
         this.$store.dispatch('updateCurrentMarker', value)
       }
+    }
+  },
+
+  methods: {
+    switchMarker(marker, id) {
+      this.$store.dispatch('changeIcon', { marker: marker, id: id })
     }
   }
 }
