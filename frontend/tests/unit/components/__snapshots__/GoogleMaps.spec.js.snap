@@ -16,9 +16,7 @@ exports[`template snapshot 1`] = `
       mapcenter="[object Object]"
     />
      
-    <google-maps-marker-stub
-      markers="[object Object],[object Object]"
-    />
+    <google-maps-marker-stub />
   </gmap-map-stub>
    
   <v-btn-stub
@@ -27,7 +25,9 @@ exports[`template snapshot 1`] = `
     tag="button"
     type="button"
   >
+    
     現在地へ移動
+  
   </v-btn-stub>
    
   <v-btn-stub

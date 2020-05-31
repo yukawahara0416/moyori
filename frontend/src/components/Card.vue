@@ -2,8 +2,13 @@
   <div>
     <h1>this is Card</h1>
     <v-row>
-      <v-col>
-        <v-card v-for="(m, id) in markers" :key="id">
+      <v-col v-for="(m, id) in markers" :key="id">
+        <v-card
+          hover
+          :class="{ selected: currentMarker.id === id }"
+          :id="id"
+          @click.stop="setCurrentMarker(m, id)"
+        >
           <v-row>
             <v-col>
               <v-img></v-img>
@@ -27,7 +32,19 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['markers'])
+    ...mapGetters(['markers', 'currentMarker'])
+  },
+
+  methods: {
+    setCurrentMarker(marker, id) {
+      this.$store.dispatch('setCurrentMarker', { marker: marker, id: id })
+    }
   }
 }
 </script>
+
+<style scoped>
+.selected {
+  background-color: #b3e5fc !important;
+}
+</style>

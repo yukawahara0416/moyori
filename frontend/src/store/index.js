@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import spotStore from '@/store/spot.js'
+import markerStore from '@/store/marker.js'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    spotStore
+    markerStore
   },
   state: {},
   getters: {},
