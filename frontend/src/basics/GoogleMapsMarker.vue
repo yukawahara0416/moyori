@@ -41,6 +41,15 @@ export default {
 
     panTo(pos) {
       this.$emit('pan-to', pos)
+    },
+
+    // 選択したマーカーに対応するカードへスクロールします
+    scrollCard(id) {
+      var element = document.getElementById(id)
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end'
+      })
     }
   }
 }
