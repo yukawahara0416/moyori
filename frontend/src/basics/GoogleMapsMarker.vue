@@ -6,72 +6,50 @@
       :icon="m.icon"
       :position="m.position"
       :title="m.name"
+      :zIndex="m.zIndex"
       @click="
-        changeIcon(m, id)
-        panTo(m.position)
+        setCurrentMarker(m, id)
+        scrollCard(id)
       "
     />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: {
-    markers: {
-      type: Array,
-      default: () => [],
-      required: false
-    }
+  computed: {
+    ...mapGetters(['markers', 'currentMarker'])
   },
 
-  data() {
-    return {
-      cache: { id: -1, icon: '' }
+  watch: {
+    // Cardコンポーネントと選択中のマーカーを同期しています
+    currentMarker() {
+      if (this.currentMarker.id >= 0) {
+        var pos = this.markers[this.currentMarker.id].position
+        this.panTo(pos)
+      }
     }
   },
 
   methods: {
-    // 選択中のマーカーのアイコンを変更する
-    changeIcon(marker, id) {
-      this.clearIcon(marker, id)
-      this.cacheIcon(marker, id)
-      this.setIcon(marker, id)
+    setCurrentMarker(marker, id) {
+      this.$store.dispatch('setCurrentMarker', { marker: marker, id: id })
+      this.panTo(marker.position)
     },
 
-    // 直前に選択していたマーカーのアイコンを戻す
-    clearIcon(marker, id) {
-      const target = this.markers[this.cache.id]
-      if (this.cache.id >= 0 && this.cache.id != id) {
-        target.icon = {
-          url: this.cache.icon,
-          scaledSize: new google.maps.Size(50, 50)
-        }
-        target.zIndex = 1
-      }
-    },
-
-    // 選択したマーカーのアイコンを記録する（戻すときに必要）
-    cacheIcon(marker, id) {
-      if (this.cache.id != id) {
-        this.cache = { id: id, icon: marker.icon.url }
-      } else {
-        this.cache.id = id
-      }
-    },
-
-    // 選択したマーカーのアイコンを変更する
-    setIcon(marker, id) {
-      const select = this.markers[id]
-      select.icon = {
-        url: require('@/assets/spotlight.png'),
-        scaledSize: new google.maps.Size(50, 50)
-      }
-      select.zIndex = 1000
-    },
-
-    // 位置座標をマップの中心にする
     panTo(pos) {
       this.$emit('pan-to', pos)
+    },
+
+    // 選択したマーカーに対応するカードへスクロールします
+    scrollCard(id) {
+      var element = document.getElementById(id)
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end'
+      })
     }
   }
 }

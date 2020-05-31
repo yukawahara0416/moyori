@@ -10,9 +10,11 @@
       @center_changed="onCenterChanged"
     >
       <google-maps-circle :mapCenter="mapCenter" />
-      <google-maps-marker :markers="markers" @pan-to="panTo" />
+      <google-maps-marker @pan-to="panTo" />
     </gmap-map>
-    <v-btn data-test="btn1" @click.native="panToLocation">現在地へ移動</v-btn>
+    <v-btn data-test="btn1" @click.native="panToCurrentLocation">
+      現在地へ移動
+    </v-btn>
     <v-btn data-test="btn2" @click.native="nearbySearch">周辺情報を取得</v-btn>
   </div>
 </template>
@@ -50,24 +52,29 @@ export default {
     // vue-google-mapsマップのレンダリングが完了してから処理を実行
     this.$gmapApiPromiseLazy().then(() => {
       this.mapCenter = pos
-      this.setMarker(pos, 'you-are-here')
+      this.setCurrentLocationMarker(pos, 'you-are-here')
       this.panTo(pos)
       this.nearbySearch(pos)
     })
   },
 
   methods: {
-    //// 検索機能（実行タイミング順） ////
+    // 検索結果をリセットする
+    // 検索結果を$state.markersに保存する
+    ...mapActions(['setMarkers', 'clearMarkers']),
 
     // 検索開始時の処理
     beforeSearch() {
       this.clearMarkers()
     },
 
+    // 検索終了時の処理
+    afterSearch() {},
+
     // 現在地へ移動する
-    panToLocation: async function() {
+    panToCurrentLocation: async function() {
       const pos = await this.getLocation()
-      this.setMarker(pos, 'you-are-here')
+      this.setCurrentLocationMarker(pos, 'you-are-here')
       this.panTo(pos)
     },
 
@@ -81,19 +88,12 @@ export default {
           return await this.formatResult(res)
         })
       )
-      await this.addMarkers(results)
+      await this.setMarkers(results)
     },
 
-    // 検索終了時の処理
-    afterSearch() {},
-
+    ////////////////////////
     //// 個別機能（ABC順）////
-
-    // 検索結果を$state.markersに追加する
-    ...mapActions(['addMarkers']),
-
-    // 検索結果をリセットする
-    ...mapActions(['clearMarkers']),
+    ////////////////////////
 
     // 検索結果を整形する
     formatResult(res) {
@@ -199,7 +199,7 @@ export default {
     },
 
     // 現在地マーカーを設置する
-    setMarker(pos, icon) {
+    setCurrentLocationMarker(pos, icon) {
       new google.maps.Marker({
         map: this.$refs.map.$mapObject,
         position: pos,

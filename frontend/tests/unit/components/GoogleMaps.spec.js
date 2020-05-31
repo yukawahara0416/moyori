@@ -1,7 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import GoogleMaps from '@/components/GoogleMaps.vue'
-import GoogleMapsMarker from '@/basics/GoogleMapsMarker.vue'
 import GoogleMapsCircle from '@/basics/GoogleMapsCircle.vue'
 
 const localVue = createLocalVue()
@@ -33,7 +32,7 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      spotStore: {
+      markerStore: {
         state,
         getters,
         mutations,
@@ -61,16 +60,14 @@ describe('props', () => {
       data.mapCenter
     )
   })
-
-  it('markers', () => {
-    expect(wrapper.find(GoogleMapsMarker).props().markers).toBe(state.markers)
-  })
 })
 
 describe('v-on', () => {
-  it('panToLocation', () => {
+  it('panTo', () => {})
+
+  it('panToCurrentLocation', () => {
     const event = jest.fn()
-    wrapper.setMethods({ panToLocation: event })
+    wrapper.setMethods({ panToCurrentLocation: event })
     wrapper.find(sel('btn1')).trigger('click')
     expect(event).toHaveBeenCalledTimes(1)
   })
@@ -86,6 +83,17 @@ describe('v-on', () => {
 describe('mounted', () => {
   it('getLocation', () => {})
 })
+
+describe('getters', () => {
+  it('markers', () => {})
+})
+
+describe('actions', () => {
+  it('setMarkers', () => {})
+
+  it('clearMarkers', () => {})
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
