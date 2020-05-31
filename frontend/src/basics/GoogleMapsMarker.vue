@@ -33,6 +33,16 @@ export default {
     }
   },
 
+  watch: {
+    // Cardの選択状態を監視
+    cache() {
+      if (this.cache.id >= 0) {
+        var pos = this.markers[this.cache.id].position
+        this.panTo(pos)
+      }
+    }
+  },
+
   methods: {
     changeIcon(marker, id) {
       this.$store.dispatch('changeIcon', { marker: marker, id: id })
