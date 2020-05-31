@@ -2,8 +2,8 @@
   <div>
     <h1>this is Card</h1>
     <v-row>
-      <v-col>
-        <v-card v-for="(m, id) in markers" :key="id">
+      <v-col v-for="(m, id) in markers" :key="id">
+        <v-card>
           <v-row>
             <v-col>
               <v-img></v-img>
@@ -27,7 +27,16 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['markers'])
+    ...mapGetters(['markers']),
+
+    cache: {
+      get() {
+        return this.$store.getters.cache
+      },
+      set(value) {
+        this.$store.dispatch('updateCurrentMarker', value)
+      }
+    }
   }
 }
 </script>
