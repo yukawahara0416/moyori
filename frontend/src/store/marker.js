@@ -8,6 +8,7 @@ export default {
     markers(state) {
       return state.markers
     },
+
     currentMarker(state) {
       return state.currentMarker
     }
@@ -74,18 +75,15 @@ export default {
       context.commit('clearMarkers')
     },
 
-    setCurrentMarker(context, newVal) {
-      context.commit('setCurrentMarker', newVal)
+    setCurrentMarker(context, { marker, id }) {
+      context.commit('clearIcon', id)
+      context.commit('setCurrentMarker', marker)
+      context.commit('cacheIcon', { marker, id })
+      context.commit('setIcon', id)
     },
 
     clearCurrentMarker(context) {
       context.commit('clearCurrentMarker')
-    },
-
-    changeIcon(context, { marker, id }) {
-      context.commit('clearIcon', id)
-      context.commit('cacheIcon', { marker, id })
-      context.commit('setIcon', id)
     }
   }
 }
