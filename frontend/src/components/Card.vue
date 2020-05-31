@@ -5,9 +5,9 @@
       <v-col v-for="(m, id) in markers" :key="id">
         <v-card
           hover
-          :class="{ selected: cache.id === id }"
+          :class="{ selected: currentMarker.id === id }"
           :id="id"
-          @click.stop="switchMarker(m, id)"
+          @click.stop="changeIcon(m, id)"
         >
           <v-row>
             <v-col>
@@ -34,18 +34,18 @@ export default {
   computed: {
     ...mapGetters(['markers']),
 
-    cache: {
+    currentMarker: {
       get() {
-        return this.$store.getters.cache
+        return this.$store.getters.currentMarker
       },
       set(value) {
-        this.$store.dispatch('updateCurrentMarker', value)
+        this.$store.dispatch('setCurrentMarker', value)
       }
     }
   },
 
   methods: {
-    switchMarker(marker, id) {
+    changeIcon(marker, id) {
       this.$store.dispatch('changeIcon', { marker: marker, id: id })
     }
   }

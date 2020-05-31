@@ -22,22 +22,22 @@ export default {
   computed: {
     ...mapGetters(['markers']),
 
-    cache: {
+    currentMarker: {
       get() {
-        return this.$store.getters.cache
+        return this.$store.getters.currentMarker
       },
       // markerの選択状態をCardが監視
       set(value) {
-        this.$store.dispatch('updateCurrentMarker', value)
+        this.$store.dispatch('setCurrentMarker', value)
       }
     }
   },
 
   watch: {
     // Cardの選択状態を監視
-    cache() {
-      if (this.cache.id >= 0) {
-        var pos = this.markers[this.cache.id].position
+    currentMarker() {
+      if (this.currentMarker.id >= 0) {
+        var pos = this.markers[this.currentMarker.id].position
         this.panTo(pos)
       }
     }

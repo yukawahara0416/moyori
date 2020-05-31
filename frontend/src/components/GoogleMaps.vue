@@ -81,7 +81,7 @@ export default {
           return await this.formatResult(res)
         })
       )
-      await this.addMarkers(results)
+      await this.setMarkers(results)
     },
 
     // 検索終了時の処理
@@ -90,7 +90,7 @@ export default {
     //// 個別機能（ABC順）////
 
     // 検索結果を$state.markersに追加する
-    ...mapActions(['addMarkers']),
+    ...mapActions(['setMarkers']),
 
     // 検索結果をリセットする
     ...mapActions(['clearMarkers']),
