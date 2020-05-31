@@ -50,6 +50,14 @@ export default {
         scaledSize: new google.maps.Size(50, 50)
       }
       state.markers[id].zIndex = 1000
+    },
+
+    updateCurrentMarker(state, payload) {
+      state.cache = payload
+    },
+
+    resetCurrentMarker(state) {
+      state.cache = { id: -1, icon: '' }
     }
   },
 
@@ -69,6 +77,10 @@ export default {
       context.commit('clearIcon', id)
       context.commit('cacheIcon', { marker, id })
       context.commit('setIcon', id)
+    },
+
+    updateCurrentMarker(context, newVal) {
+      context.commit('updateCurrentMarker', newVal)
     }
   }
 }
