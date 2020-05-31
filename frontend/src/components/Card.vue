@@ -7,7 +7,7 @@
           hover
           :class="{ selected: currentMarker.id === id }"
           :id="id"
-          @click.stop="changeIcon(m, id)"
+          @click.stop="setCurrentMarker(m, id)"
         >
           <v-row>
             <v-col>
@@ -32,21 +32,12 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['markers']),
-
-    currentMarker: {
-      get() {
-        return this.$store.getters.currentMarker
-      },
-      set(value) {
-        this.$store.dispatch('setCurrentMarker', value)
-      }
-    }
+    ...mapGetters(['markers', 'currentMarker'])
   },
 
   methods: {
-    changeIcon(marker, id) {
-      this.$store.dispatch('changeIcon', { marker: marker, id: id })
+    setCurrentMarker(marker, id) {
+      this.$store.dispatch('setCurrentMarker', { marker: marker, id: id })
     }
   }
 }
