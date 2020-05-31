@@ -8,8 +8,8 @@
       :title="m.name"
       :zIndex="m.zIndex"
       @click="
-        changeIcon(m, id)
-        panTo(m.position)
+        setCurrentMarker(m, id)
+        scrollCard(id)
       "
     />
   </div>
@@ -20,21 +20,11 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['markers']),
-
-    currentMarker: {
-      get() {
-        return this.$store.getters.currentMarker
-      },
-      // markerの選択状態をCardが監視
-      set(value) {
-        this.$store.dispatch('setCurrentMarker', value)
-      }
-    }
+    ...mapGetters(['markers', 'currentMarker'])
   },
 
   watch: {
-    // Cardの選択状態を監視
+    // Cardコンポーネントと選択中のマーカーを同期しています
     currentMarker() {
       if (this.currentMarker.id >= 0) {
         var pos = this.markers[this.currentMarker.id].position
@@ -44,8 +34,9 @@ export default {
   },
 
   methods: {
-    changeIcon(marker, id) {
-      this.$store.dispatch('changeIcon', { marker: marker, id: id })
+    setCurrentMarker(marker, id) {
+      this.$store.dispatch('setCurrentMarker', { marker: marker, id: id })
+      this.panTo(marker.position)
     },
 
     panTo(pos) {
