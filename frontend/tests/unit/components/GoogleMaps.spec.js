@@ -33,7 +33,7 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      spotStore: {
+      markerStore: {
         state,
         getters,
         mutations,
@@ -61,16 +61,12 @@ describe('props', () => {
       data.mapCenter
     )
   })
-
-  it('markers', () => {
-    expect(wrapper.find(GoogleMapsMarker).props().markers).toBe(state.markers)
-  })
 })
 
 describe('v-on', () => {
   it('panToLocation', () => {
     const event = jest.fn()
-    wrapper.setMethods({ panToLocation: event })
+    wrapper.setMethods({ panToCurrentLocation: event })
     wrapper.find(sel('btn1')).trigger('click')
     expect(event).toHaveBeenCalledTimes(1)
   })
