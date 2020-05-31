@@ -20,7 +20,17 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['markers'])
+    ...mapGetters(['markers']),
+
+    cache: {
+      get() {
+        return this.$store.getters.cache
+      },
+      // markerの選択状態をCardが監視
+      set(value) {
+        this.$store.dispatch('updateCurrentMarker', value)
+      }
+    }
   },
 
   methods: {
