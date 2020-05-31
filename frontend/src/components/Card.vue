@@ -3,7 +3,7 @@
     <h1>this is Card</h1>
     <v-row>
       <v-col v-for="(m, id) in markers" :key="id">
-        <v-card>
+        <v-card hover :class="{ selected: cache.id === id }" :id="id">
           <v-row>
             <v-col>
               <v-img></v-img>
@@ -40,3 +40,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.selected {
+  background-color: #b3e5fc !important;
+}
+</style>
