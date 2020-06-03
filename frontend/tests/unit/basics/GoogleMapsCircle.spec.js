@@ -9,7 +9,7 @@ beforeEach(() => {
     mapCenter: { lat: 35.68, lng: 139.76 }
   }
   wrapper = shallowMount(Component, {
-    propsData: propsData,
+    propsData,
     stubs: ['GmapCircle']
   })
 })
