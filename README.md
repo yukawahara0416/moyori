@@ -27,7 +27,7 @@ https://mo-yo-ri.com/
 | 項目 | 使用技術 |
 | :--- | :--- |
 | バックエンド | 言語：　Ruby <br> FW：　Rails <br> テスト：　RSpec・Rubocop |
-| フロントエンド | 言語：　JavaScript <br> FW：　Vue（Vuex・VueRouter・Vuetify） <br> テスト：　Vue-unit-test・ESlint・Prettier |
+| フロントエンド | 言語：　JavaScript <br> FW：　Vue（Vuex・VueRouter・Vuetify） <br> テスト：　Jest・Vue-unit-test・ESlint・Prettier |
 | データベース | MySQL |
 | 外部API | GoogleMapsJavaScriptAPI |
 | 開発ツール | Git/GitHub <br> Slack <br> MacBook Pro 2017 <br> VSCode |
@@ -36,6 +36,7 @@ https://mo-yo-ri.com/
 　Docker/AWS/Terraform/CircleCIでの開発に挑戦しています。  
 　Rails/VueでのBFFアプリの開発に挑戦しています。  
 　外出中のスマホ利用を想定し、UI/UXにこだわりました。  
+　バックエンド・フロントエンドともにテストコードを実装しています。  
 　チーム開発（GithubFlow）を意識し、PRやISSUEを活用しています。  
 　rebase/mergeを使い分け、ログを汚さない開発に注意しました。  
   
@@ -60,12 +61,14 @@ Wantedly：　https://www.wantedly.com/users/105529007
 Qiita：　https://qiita.com/yukawahara0416  
   
 ## 今後の課題
-　大規模アクセス、並列処理、組み合わせ問題などに配慮できる知識と経験を習得していきたい。  
-　フロントエンドをTypeScriptで書き換えたい。  
+　バックエンド・インフラでは、大規模アクセス、並列処理、組み合わせ問題などに配慮できる知識と経験を習得したい。  
+　フロントエンドでは、TypeScriptを習得したい。  
   
 #### 参照WEB
 　公式ドキュメント（英語でも必ず読みました）  
 　Railsチュートリアル  
+  Terraformチュートリアル  
+  CircleCIチュートリアル  
   
 #### 参照書籍
 　Webを支える技術  
