@@ -1,6 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import GoogleMapsMarker from '@/basics/GoogleMapsMarker.vue'
+import markerStore from '@/store/marker.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -8,8 +9,6 @@ localVue.use(Vuex)
 let wrapper
 let store
 let state
-let getters
-let mutations
 let actions
 
 beforeEach(() => {
@@ -18,25 +17,17 @@ beforeEach(() => {
       { name: 'hoge', icon: 'foo' },
       { name: 'fuga', icon: 'bar' }
     ],
-    currentMarker: { id: -1, icon: '' }
+    currentMarker: { id: 11, icon: 'puge' }
   }
-  getters = {
-    markers(state) {
-      return state.markers
-    },
-    currentMarker(state) {
-      return state.currentMarker
-    }
+  actions = {
+    setCurrentMarker: jest.fn()
   }
-  mutations = {}
-  actions = {}
 
   store = new Vuex.Store({
     modules: {
       markerStore: {
         state,
-        getters,
-        mutations,
+        getters: markerStore.getters,
         actions
       }
     }
@@ -53,37 +44,35 @@ afterEach(() => {
   wrapper.destroy()
 })
 
-describe('watch', () => {
-  it('currentMarker', () => {})
-})
-
-describe('v-on', () => {
-  it('setCurrentMarker', () => {
-    // const event = jest.fn()
-    // wrapper.setMethods({ setCurrentMarker: event })
-    // wrapper.find('gmap-marker-stub').trigger('click')
-    // expect(event).toHaveBeenCalledTimes(1)
-  })
-  it('scrollCard', () => {
-    // const event = jest.fn()
-    // wrapper.setMethods({ scrollCard: event })
-    // wrapper.find('gmap-marker-stub').trigger('click')
-    // expect(event).toHaveBeenCalledTimes(1)
+describe('emit', () => {
+  it('pan-to', () => {
+    const pos = { lat: 123, lng: 45 }
+    wrapper.vm.panTo(pos)
+    expect(wrapper.emitted('pan-to')).toBeTruthy()
+    expect(wrapper.emitted('pan-to')[0][0]).toEqual(pos)
   })
 })
 
 describe('getters', () => {
-  it('markers', () => {})
+  it('markers', () => {
+    expect(wrapper.vm.markers).toEqual(state.markers)
+  })
 
-  it('currentMarker', () => {})
+  it('currentMarker', () => {
+    expect(wrapper.vm.currentMarker).toEqual(state.currentMarker)
+  })
 })
 
 describe('actions', () => {
-  it('setCurrentMarker', () => {})
+  it('setCurrentMarker', () => {
+    wrapper.vm.setCurrentMarker()
+    expect(actions.setCurrentMarker).toHaveBeenCalled()
+  })
 })
 
 describe('template', () => {
   it('v-for', () => {
+    // expect(wrapper.findAll('gmap-marker-stub').length).toBe(2)
     expect(wrapper.findAll('gmap-marker-stub').length).toBe(2)
   })
   it('snapshot', () => {

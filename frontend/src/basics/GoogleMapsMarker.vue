@@ -9,6 +9,7 @@
       :zIndex="m.zIndex"
       @click="
         setCurrentMarker(m, id)
+        panTo(m.position)
         scrollCard(id)
       "
     />
@@ -36,7 +37,6 @@ export default {
   methods: {
     setCurrentMarker(marker, id) {
       this.$store.dispatch('setCurrentMarker', { marker: marker, id: id })
-      this.panTo(marker.position)
     },
 
     panTo(pos) {
