@@ -39,7 +39,7 @@ export default {
           url: state.currentMarker.icon,
           scaledSize: new google.maps.Size(50, 50)
         }
-        state.markers[state.currentMarker.id].zIndex = 1
+        state.markers[state.currentMarker.id].zIndex = 10
       }
     },
 
@@ -59,7 +59,7 @@ export default {
         url: require('@/assets/spotlight.png'),
         scaledSize: new google.maps.Size(50, 50)
       }
-      state.markers[id].zIndex = 1000
+      state.markers[id].zIndex = 100
     }
   },
 
