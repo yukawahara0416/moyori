@@ -1,18 +1,14 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import GoogleMaps from '@/components/GoogleMaps.vue'
-import GoogleMapsCircle from '@/basics/GoogleMapsCircle.vue'
+import markerStore from '@/store/marker.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-const sel = id => `[data-test="${id}"]`
-
 let wrapper
 let store
 let state
-let getters
-let mutations
 let actions
 
 beforeEach(() => {
@@ -22,20 +18,16 @@ beforeEach(() => {
       { name: 'fuga', icon: 'bar' }
     ]
   }
-  getters = {
-    markers(state) {
-      return state.markers
-    }
+  actions = {
+    setMarkers: jest.fn(),
+    clearMarkers: jest.fn()
   }
-  mutations = {}
-  actions = {}
 
   store = new Vuex.Store({
     modules: {
       markerStore: {
         state,
-        getters,
-        mutations,
+        getters: markerStore.getters,
         actions
       }
     }
@@ -52,30 +44,18 @@ afterEach(() => {
   wrapper.destroy()
 })
 
-describe('props', () => {
-  it('mapCenter', () => {
-    const data = { mapCenter: { lat: 0, lng: 0 } }
-    wrapper.setData(data)
-    expect(wrapper.find(GoogleMapsCircle).props().mapCenter).toStrictEqual(
-      data.mapCenter
-    )
-  })
-})
-
 describe('v-on', () => {
-  it('panTo', () => {})
-
   it('panToCurrentLocation', () => {
     const event = jest.fn()
     wrapper.setMethods({ panToCurrentLocation: event })
-    wrapper.find(sel('btn1')).trigger('click')
+    wrapper.findAll('[data-test="btn1"]').trigger('click')
     expect(event).toHaveBeenCalledTimes(1)
   })
 
   it('nearbySearch', () => {
     const event = jest.fn()
     wrapper.setMethods({ nearbySearch: event })
-    wrapper.find(sel('btn2')).trigger('click')
+    wrapper.findAll('[data-test="btn2"]').trigger('click')
     expect(event).toHaveBeenCalledTimes(1)
   })
 })
@@ -85,13 +65,21 @@ describe('mounted', () => {
 })
 
 describe('getters', () => {
-  it('markers', () => {})
+  it('markers', () => {
+    expect(wrapper.vm.markers).toEqual(state.markers)
+  })
 })
 
 describe('actions', () => {
-  it('setMarkers', () => {})
+  it('setMarkers', () => {
+    wrapper.vm.setMarkers()
+    expect(actions.setMarkers).toHaveBeenCalled()
+  })
 
-  it('clearMarkers', () => {})
+  it('clearMarkers', () => {
+    wrapper.vm.clearMarkers()
+    expect(actions.clearMarkers).toHaveBeenCalled()
+  })
 })
 
 describe('template', () => {
