@@ -6,34 +6,38 @@ exports[`template snapshot 1`] = `
     this is Card
   </h1>
    
-  <v-row-stub
-    tag="div"
+  <div
+    class="row"
   >
-    <v-col-stub
-      tag="div"
+    <div
+      class="col"
     >
-      <v-card-stub
-        loaderheight="4"
-        tag="div"
+      <div
+        class="v-card v-card--hover v-card--link v-sheet theme--light"
+        id="0"
+        tabindex="0"
       >
-        <v-row-stub
-          tag="div"
+        <div
+          class="row"
         >
-          <v-col-stub
-            tag="div"
+          <div
+            class="col"
           >
-            <v-img-stub
-              options="[object Object]"
-              position="center center"
-              src=""
-              transition="fade-transition"
-            />
-          </v-col-stub>
+            <div
+              class="v-responsive v-image"
+            >
+              <div
+                class="v-responsive__content"
+              />
+            </div>
+          </div>
            
-          <v-col-stub
-            tag="div"
+          <div
+            class="col"
           >
-            <v-card-text-stub>
+            <div
+              class="v-card__text"
+            >
               <p>
                 hoge
               </p>
@@ -41,34 +45,44 @@ exports[`template snapshot 1`] = `
               <p>
                 
               </p>
-            </v-card-text-stub>
+            </div>
              
-            <v-card-actions-stub />
-          </v-col-stub>
-        </v-row-stub>
-      </v-card-stub>
-      <v-card-stub
-        loaderheight="4"
-        tag="div"
-      >
-        <v-row-stub
-          tag="div"
-        >
-          <v-col-stub
-            tag="div"
-          >
-            <v-img-stub
-              options="[object Object]"
-              position="center center"
-              src=""
-              transition="fade-transition"
+            <div
+              class="v-card__actions"
             />
-          </v-col-stub>
-           
-          <v-col-stub
-            tag="div"
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="col"
+    >
+      <div
+        class="v-card v-card--hover v-card--link v-sheet theme--light"
+        id="1"
+        tabindex="0"
+      >
+        <div
+          class="row"
+        >
+          <div
+            class="col"
           >
-            <v-card-text-stub>
+            <div
+              class="v-responsive v-image"
+            >
+              <div
+                class="v-responsive__content"
+              />
+            </div>
+          </div>
+           
+          <div
+            class="col"
+          >
+            <div
+              class="v-card__text"
+            >
               <p>
                 fuga
               </p>
@@ -76,13 +90,15 @@ exports[`template snapshot 1`] = `
               <p>
                 
               </p>
-            </v-card-text-stub>
+            </div>
              
-            <v-card-actions-stub />
-          </v-col-stub>
-        </v-row-stub>
-      </v-card-stub>
-    </v-col-stub>
-  </v-row-stub>
+            <div
+              class="v-card__actions"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;

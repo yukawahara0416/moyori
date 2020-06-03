@@ -1,18 +1,18 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import Card from '@/components/Card.vue'
+import markerStore from '@/store/marker.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
-
-const sel = id => `[data-test="${id}"]`
+localVue.use(Vuetify)
 
 let wrapper
 let store
 let state
-let getters
-let mutations
 let actions
+let vuetify
 
 beforeEach(() => {
   state = {
@@ -20,33 +20,28 @@ beforeEach(() => {
       { name: 'hoge', icon: 'foo' },
       { name: 'fuga', icon: 'bar' }
     ],
-    currentMarker: { id: -1, icon: '' }
+    currentMarker: { id: 11, icon: 'puge' }
   }
-  getters = {
-    markers(state) {
-      return state.markers
-    },
-    currentMarker(state) {
-      return state.currentMarker
-    }
+  actions = {
+    setCurrentMarker: jest.fn()
   }
-  mutations = {}
-  actions = {}
 
   store = new Vuex.Store({
     modules: {
       markerStore: {
         state,
-        getters,
-        mutations,
+        getters: markerStore.getters,
         actions
       }
     }
   })
 
-  wrapper = shallowMount(Card, {
+  vuetify = new Vuetify()
+
+  wrapper = mount(Card, {
     localVue,
-    store
+    store,
+    vuetify
   })
 })
 
@@ -56,21 +51,36 @@ afterEach(() => {
 
 describe('v-on', () => {
   it('setCurrentMarker', () => {
-    // const event = jest.fn()
-    // wrapper.setMethods({ setCurrentMarker: event })
-    // // wrapper.find(sel('card')).trigger('click')
-    // wrapper.find('v-card-stub').trigger('click')
-    // expect(event).toHaveBeenCalledTimes(1)
+    const event = jest.fn()
+    wrapper.setMethods({ setCurrentMarker: event })
+    wrapper
+      .findAll('.v-card')
+      .at(0)
+      .trigger('click')
+    expect(event).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('getters', () => {
+  it('markers', () => {
+    expect(wrapper.vm.markers).toEqual(state.markers)
+  })
+
+  it('currentMarker', () => {
+    expect(wrapper.vm.currentMarker).toEqual(state.currentMarker)
   })
 })
 
 describe('actions', () => {
-  it('setCurrentMarker', () => {})
+  it('setCurrentMarker', () => {
+    wrapper.vm.setCurrentMarker()
+    expect(actions.setCurrentMarker).toHaveBeenCalled()
+  })
 })
 
 describe('template', () => {
   it('v-for', () => {
-    expect(wrapper.findAll('v-card-stub').length).toBe(2)
+    expect(wrapper.findAll('.v-card').length).toBe(2)
   })
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
