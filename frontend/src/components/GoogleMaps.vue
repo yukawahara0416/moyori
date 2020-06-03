@@ -52,7 +52,7 @@ export default {
     // vue-google-mapsマップのレンダリングが完了してから処理を実行
     this.$gmapApiPromiseLazy().then(() => {
       this.mapCenter = pos
-      this.setCurrentLocationMarker(pos, 'you-are-here')
+      this.setMarker(pos, 'you-are-here')
       this.panTo(pos)
       this.nearbySearch(pos)
     })
@@ -74,7 +74,7 @@ export default {
     // 現在地へ移動する
     panToCurrentLocation: async function() {
       const pos = await this.getLocation()
-      this.setCurrentLocationMarker(pos, 'you-are-here')
+      this.setMarker(pos, 'you-are-here')
       this.panTo(pos)
     },
 
@@ -139,7 +139,7 @@ export default {
           place_id: res.place_id,
           position: pos,
           vicinity: vicinity,
-          zIndex: 1
+          zIndex: 10
         }
         resolve(formattedResult)
       })
@@ -198,8 +198,8 @@ export default {
       this.$refs.map.panTo(pos)
     },
 
-    // 現在地マーカーを設置する
-    setCurrentLocationMarker(pos, icon) {
+    // マーカーを設置する
+    setMarker(pos, icon) {
       new google.maps.Marker({
         map: this.$refs.map.$mapObject,
         position: pos,
@@ -207,7 +207,8 @@ export default {
         icon: {
           url: require(`@/assets/${icon}.png`),
           scaledSize: new google.maps.Size(50, 50)
-        }
+        },
+        zIndex: 1
       })
     }
   }

@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<div>
+  <h1>
+    this is Card
+  </h1>
+   
+  <v-row-stub
+    tag="div"
+  >
+    <v-col-stub
+      tag="div"
+    >
+      <v-card-stub
+        loaderheight="4"
+        tag="div"
+      >
+        <v-row-stub
+          tag="div"
+        >
+          <v-col-stub
+            tag="div"
+          >
+            <v-img-stub
+              options="[object Object]"
+              position="center center"
+              src=""
+              transition="fade-transition"
+            />
+          </v-col-stub>
+           
+          <v-col-stub
+            tag="div"
+          >
+            <v-card-text-stub>
+              <p>
+                hoge
+              </p>
+               
+              <p>
+                
+              </p>
+            </v-card-text-stub>
+             
+            <v-card-actions-stub />
+          </v-col-stub>
+        </v-row-stub>
+      </v-card-stub>
+      <v-card-stub
+        loaderheight="4"
+        tag="div"
+      >
+        <v-row-stub
+          tag="div"
+        >
+          <v-col-stub
+            tag="div"
+          >
+            <v-img-stub
+              options="[object Object]"
+              position="center center"
+              src=""
+              transition="fade-transition"
+            />
+          </v-col-stub>
+           
+          <v-col-stub
+            tag="div"
+          >
+            <v-card-text-stub>
+              <p>
+                fuga
+              </p>
+               
+              <p>
+                
+              </p>
+            </v-card-text-stub>
+             
+            <v-card-actions-stub />
+          </v-col-stub>
+        </v-row-stub>
+      </v-card-stub>
+    </v-col-stub>
+  </v-row-stub>
+</div>
+`;
