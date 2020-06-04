@@ -1,7 +1,20 @@
 import axios from 'axios'
 
 export default {
-  state: {},
+  state: {
+    currentUser: null,
+    headers: null,
+    signInFormData: {
+      email: '',
+      password: ''
+    },
+    signUpFormData: {
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: ''
+    }
+  },
   getters: {},
   mutations: {},
   actions: {}
