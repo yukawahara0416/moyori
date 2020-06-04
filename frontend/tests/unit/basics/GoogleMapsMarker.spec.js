@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import GoogleMapsMarker from '@/basics/GoogleMapsMarker.vue'
-import markerStore from '@/store/marker.js'
+import markerStore from '@/store/modules/marker.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
