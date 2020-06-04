@@ -1,6 +1,6 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import markerStore from '@/store/marker.js'
+import markerStore from '@/store/modules/marker.js'
 import { cloneDeep } from 'lodash'
 
 const localVue = createLocalVue()

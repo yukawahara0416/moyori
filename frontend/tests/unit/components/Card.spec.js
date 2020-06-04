@@ -2,7 +2,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Card from '@/components/Card.vue'
-import markerStore from '@/store/marker.js'
+import markerStore from '@/store/modules/marker.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
