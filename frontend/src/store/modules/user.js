@@ -15,7 +15,17 @@ export default {
       password_confirmation: ''
     }
   },
-  getters: {},
+  getters: {
+    currentUser(state) {
+      return state.currentUser
+    },
+    signInFormData(state) {
+      return state.signInFormData
+    },
+    signUpFormData(state) {
+      return state.signUpFormData
+    }
+  },
   mutations: {},
   actions: {}
 }
