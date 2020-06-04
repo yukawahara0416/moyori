@@ -26,6 +26,22 @@ export default {
       return state.signUpFormData
     }
   },
-  mutations: {},
+  mutations: {
+    currentUser(state, payload) {
+      state.currentUser = payload.user
+    },
+    signInFormData(state, payload) {
+      state.headers = {
+        'access-token': payload['access-token'],
+        client: payload['client'],
+        'content-type': payload['content-type'],
+        uid: payload['uid']
+      }
+    },
+    signOut(state) {
+      state.headers = null
+      state.currentUser = null
+    }
+  },
   actions: {}
 }
