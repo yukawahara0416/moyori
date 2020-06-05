@@ -43,6 +43,7 @@ export default {
     setCurrentUser(state, payload) {
       state.currentUser = payload.user
     },
+
     setSignInFormData(state, payload) {
       state.headers = {
         'access-token': payload['access-token'],
@@ -51,6 +52,16 @@ export default {
         uid: payload['uid']
       }
     },
+
+    signIn(state, payload) {
+      state.headers = {
+        'access-token': payload['access-token'],
+        client: payload['client'],
+        'content-type': payload['content-type'],
+        uid: payload['uid']
+      }
+    },
+
     signOut(state) {
       state.headers = null
       state.currentUser = null
@@ -60,6 +71,18 @@ export default {
     signUp(context, signUpFormData) {
       axiosBase
         .post('/api/v1/auth/', signUpFormData)
+        .then(function(response) {
+          context.commit('setCurrentUser', { user: response.data })
+          context.commit('signIn', response.headers)
+        })
+        .catch(function(error) {
+          context.commit('setCurrentUser', { user: error })
+        })
+    },
+
+    signIn(context, signInFormData) {
+      axiosBase
+        .post('/api/v1/auth/sign_in', signInFormData)
         .then(function(response) {
           context.commit('setCurrentUser', { user: response.data })
           context.commit('signIn', response.headers)
