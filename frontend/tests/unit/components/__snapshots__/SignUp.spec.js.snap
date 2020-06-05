@@ -27,12 +27,16 @@ exports[`template snapshot 1`] = `
   />
    
   <button
-    data-test="signup"
+    class="v-btn v-btn--contained theme--light v-size--default"
     type="submit"
   >
-    
+    <span
+      class="v-btn__content"
+    >
+      
     アカウント登録
   
+    </span>
   </button>
    
   <div>

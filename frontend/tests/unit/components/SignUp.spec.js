@@ -1,15 +1,18 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import SignUp from '@/components/SignUp.vue'
 import userStore from '@/store/modules/user.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Vuetify)
 
 let wrapper
 let store
 let state
 let actions
+let vuetify
 
 beforeEach(() => {
   state = {
@@ -36,9 +39,12 @@ beforeEach(() => {
     }
   })
 
-  wrapper = shallowMount(SignUp, {
+  vuetify = new Vuetify()
+
+  wrapper = mount(SignUp, {
     localVue,
-    store
+    store,
+    vuetify
   })
 })
 
@@ -50,7 +56,7 @@ describe('v-on', () => {
   it('signUp', () => {
     const event = jest.fn()
     wrapper.setMethods({ signUp: event })
-    wrapper.findAll('[data-test="signup"]').trigger('click')
+    wrapper.findAll('.v-btn').trigger('click')
     expect(event).toHaveBeenCalledTimes(1)
   })
 })

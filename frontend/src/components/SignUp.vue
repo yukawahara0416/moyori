@@ -13,9 +13,9 @@
       v-model="signUpFormData.password_confirmation"
       placeholder="password_confirmation"
     />
-    <button data-test="signup" type="submit" @click="signUp">
+    <v-btn type="submit" @click="signUp">
       アカウント登録
-    </button>
+    </v-btn>
     <div>{{ signUpFormData }}</div>
   </div>
 </template>
