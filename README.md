@@ -67,8 +67,8 @@ Qiita：　https://qiita.com/yukawahara0416
 #### 参照WEB
 　公式ドキュメント（英語でも必ず読みました）  
 　Railsチュートリアル  
-  Terraformチュートリアル  
-  CircleCIチュートリアル  
+　Terraformチュートリアル  
+　CircleCIチュートリアル  
   
 #### 参照書籍
 　Webを支える技術  
