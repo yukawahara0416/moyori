@@ -7,11 +7,14 @@
       v-model="signInFormData.password"
       placeholder="password"
     />
-    <button data-test="signin" type="submit" @click="signIn">ログイン</button>
+    <v-btn type="submit" @click="signIn">ログイン</v-btn>
+    <v-btn @click="signInAsTestUser" type="submit">
+      テストユーザでログイン
+    </v-btn>
     <div>{{ signInFormData }}</div>
-    <button v-show="currentUser" type="submit" @click="signOut">
+    <v-btn v-show="currentUser" type="submit" @click="signOut">
       ログアウト
-    </button>
+    </v-btn>
   </div>
 </template>
 
@@ -19,6 +22,15 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  data() {
+    return {
+      testUser: {
+        email: 'tester@example.com',
+        password: 'password'
+      }
+    }
+  },
+
   computed: {
     ...mapGetters(['signInFormData', 'currentUser'])
   },
@@ -26,6 +38,9 @@ export default {
   methods: {
     signIn() {
       this.$store.dispatch('signIn', this.signInFormData)
+    },
+    signInAsTestUser() {
+      this.$store.dispatch('signIn', this.testUser)
     },
     signOut() {
       this.$store.dispatch('signOut')
