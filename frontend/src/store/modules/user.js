@@ -1,5 +1,14 @@
 import axios from 'axios'
 
+const axiosBase = axios.create({
+  baseURL: 'http://localhost:3000',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+  responseType: 'json'
+})
+
 export default {
   state: {
     currentUser: null,
@@ -31,10 +40,10 @@ export default {
   },
 
   mutations: {
-    currentUser(state, payload) {
+    setCurrentUser(state, payload) {
       state.currentUser = payload.user
     },
-    signInFormData(state, payload) {
+    setSignInFormData(state, payload) {
       state.headers = {
         'access-token': payload['access-token'],
         client: payload['client'],
@@ -48,25 +57,27 @@ export default {
     }
   },
   actions: {
-    signUp(content, signUpFormData) {
-      axios
-        .post('/api/v1/auth', signUpFormData)
+    signUp(context, signUpFormData) {
+      axiosBase
+        .post('/api/v1/auth/', signUpFormData)
         .then(function(response) {
-          content.commit('currentUser', { user: response.data })
-          content.commit('signIn', response.headers)
+          context.commit('setCurrentUser', { user: response.data })
+          context.commit('signIn', response.headers)
         })
         .catch(function(error) {
-          context.commit('currentUser', { user: error })
+          context.commit('setCurrentUser', { user: error })
         })
     },
 
     signOut(context) {
-      axios
-        .delete('/api/v1/auth/sign_out', { headers: context.state.headers })
+      axiosBase
+        .delete('api/v1/auth/sign_out', {
+          headers: context.state.headers
+        })
         .then(function() {
           context.commit('signOut')
         })
-        .catch(function(error) {
+        .catch(function() {
           alert('予期しないエラーが発生しました。')
         })
     }
