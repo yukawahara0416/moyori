@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<div>
+  <h2>
+    SignIn
+  </h2>
+   
+  <input
+    placeholder="email"
+    type="text"
+  />
+   
+  <input
+    placeholder="password"
+    type="text"
+  />
+   
+  <button
+    data-test="signin"
+    type="submit"
+  >
+    ログイン
+  </button>
+   
+  <div>
+    {
+  "email": "hoge@example.com",
+  "password": "password"
+}
+  </div>
+   
+  <button
+    type="submit"
+  >
+    
+    ログアウト
+  
+  </button>
+</div>
+`;

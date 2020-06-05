@@ -7,7 +7,7 @@
       v-model="signInFormData.password"
       placeholder="password"
     />
-    <button type="submit" @click="signIn">ログイン</button>
+    <button data-test="signin" type="submit" @click="signIn">ログイン</button>
     <div>{{ signInFormData }}</div>
     <button v-show="currentUser" type="submit" @click="signOut">
       ログアウト
