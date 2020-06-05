@@ -17,10 +17,27 @@ exports[`template snapshot 1`] = `
   />
    
   <button
-    data-test="signin"
+    class="v-btn v-btn--contained theme--light v-size--default"
     type="submit"
   >
-    ログイン
+    <span
+      class="v-btn__content"
+    >
+      ログイン
+    </span>
+  </button>
+   
+  <button
+    class="v-btn v-btn--contained theme--light v-size--default"
+    type="submit"
+  >
+    <span
+      class="v-btn__content"
+    >
+      
+    テストユーザでログイン
+  
+    </span>
   </button>
    
   <div>
@@ -31,11 +48,16 @@ exports[`template snapshot 1`] = `
   </div>
    
   <button
+    class="v-btn v-btn--contained theme--light v-size--default"
     type="submit"
   >
-    
+    <span
+      class="v-btn__content"
+    >
+      
     ログアウト
   
+    </span>
   </button>
 </div>
 `;
