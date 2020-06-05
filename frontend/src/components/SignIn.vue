@@ -7,14 +7,29 @@
       v-model="signInFormData.password"
       placeholder="password"
     />
-    <button type="submit" v-on:click="signIn">ログイン</button>
+    <button type="submit" @click="signIn">ログイン</button>
     <div>{{ signInFormData }}</div>
-    <button v-show="currentUser" type="submit" v-on:click="signOut">
+    <button v-show="currentUser" type="submit" @click="signOut">
       ログアウト
     </button>
   </div>
 </template>
 
 <script>
-export default {}
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters(['signInFormData', 'currentUser'])
+  },
+
+  methods: {
+    signIn() {
+      this.$store.dispatch('signIn', this.signInFormData)
+    },
+    signOut() {
+      this.$store.dispatch('signOut')
+    }
+  }
+}
 </script>
