@@ -13,11 +13,11 @@ beforeEach(() => {
 })
 
 describe('mutations', () => {
-  it('currentUser', () => {
+  it('setCurrentUser', () => {
     const setData = {
       user: { name: 'hoge', email: 'huga@example.com' }
     }
-    store.commit('currentUser', setData)
+    store.commit('setCurrentUser', setData)
     expect(store.state.currentUser).toStrictEqual(setData.user)
   })
 
@@ -30,7 +30,7 @@ describe('mutations', () => {
         uid: 'puga'
       }
     }
-    store.commit('signInFormData', setData)
+    store.commit('setSignInFormData', setData)
     expect(store.state.headers).toHaveProperty('access-token')
     expect(store.state.headers).toHaveProperty('client')
     expect(store.state.headers).toHaveProperty('content-type')
@@ -41,7 +41,7 @@ describe('mutations', () => {
     const setData = {
       user: { name: 'hoge', email: 'huga@example.com' }
     }
-    store.commit('currentUser', setData)
+    store.commit('setCurrentUser', setData)
     store.commit('signOut')
     expect(store.state.currentUser).toBe(null)
   })
