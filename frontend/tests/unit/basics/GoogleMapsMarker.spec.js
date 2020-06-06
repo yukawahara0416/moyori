@@ -72,7 +72,6 @@ describe('actions', () => {
 
 describe('template', () => {
   it('v-for', () => {
-    // expect(wrapper.findAll('gmap-marker-stub').length).toBe(2)
     expect(wrapper.findAll('gmap-marker-stub').length).toBe(2)
   })
   it('snapshot', () => {
