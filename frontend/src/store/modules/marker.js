@@ -1,3 +1,14 @@
+import axios from 'axios'
+
+const axiosBase = axios.create({
+  baseURL: 'http://localhost:3000',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+  responseType: 'json'
+})
+
 export default {
   state: {
     markers: [],
@@ -73,6 +84,18 @@ export default {
 
     clearMarkers(context) {
       context.commit('clearMarkers')
+    },
+
+    postMarker(context, { marker, id }) {
+      const params = { spot: { place_id: marker.place_id } }
+      axiosBase
+        .post('/api/v1/spots', params, {
+          headers: context.rootState.userStore.headers
+        })
+        .then(function(response) {
+          console.log(response)
+          console.log(id)
+        })
     },
 
     setCurrentMarker(context, { marker, id }) {
