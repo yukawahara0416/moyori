@@ -64,13 +64,6 @@ describe('v-on', () => {
     wrapper.findAll('[data-test="btn2"]').trigger('click')
     expect(event).toHaveBeenCalledTimes(1)
   })
-
-  it('textSearch', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ textSearch: event })
-    wrapper.findAll('[data-test="textsearch"]').trigger('keydown.enter')
-    expect(event).toHaveBeenCalledTimes(1)
-  })
 })
 
 describe('mounted', () => {
