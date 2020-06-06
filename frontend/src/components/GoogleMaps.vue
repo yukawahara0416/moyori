@@ -1,13 +1,9 @@
 <template>
   <div>
     <h1>this is Map</h1>
-    <v-text-field
-      data-test="textsearch"
-      label="キーワード検索"
-      type="text"
-      v-model="keyword"
-      @keydown.enter="textSearch"
-    />
+
+    <google-maps-text-search @text-search="textSearch" />
+
     <gmap-map
       ref="map"
       style="width: 800px; height: 800px;"
@@ -31,16 +27,17 @@
 import { mapGetters, mapActions } from 'vuex'
 import GoogleMapsCircle from '@/basics/GoogleMapsCircle.vue'
 import GoogleMapsMarker from '@/basics/GoogleMapsMarker.vue'
+import GoogleMapsTextSearch from '@/basics/GoogleMapsTextSearch.vue'
 
 export default {
   components: {
     GoogleMapsCircle,
-    GoogleMapsMarker
+    GoogleMapsMarker,
+    GoogleMapsTextSearch
   },
 
   data() {
     return {
-      keyword: '',
       mapCenter: { lat: 0, lng: 0 },
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
@@ -101,10 +98,10 @@ export default {
     },
 
     // テキスト検索する
-    textSearch: async function() {
+    textSearch: async function(keyword) {
       this.beforeSearch()
       var pos = this.mapCenter
-      var results = await this.getTextSearch(pos)
+      var results = await this.getTextSearch(pos, keyword)
       results = await this.sortMarker(results, pos)
       results = await Promise.all(
         results.map(async res => {
@@ -212,14 +209,14 @@ export default {
     },
 
     // 周辺をキーワード検索する
-    getTextSearch(pos) {
+    getTextSearch(pos, keyword) {
       return new Promise((resolve, reject) => {
         const map = this.$refs.map.$mapObject
         const placeService = new google.maps.places.PlacesService(map)
         const request = {
           location: new google.maps.LatLng(pos.lat, pos.lng),
           radius: 500,
-          query: this.keyword
+          query: keyword
         }
         placeService.textSearch(request, (results, status) => {
           if (status == 'OK' || status == 'ZERO_RESULTS') {

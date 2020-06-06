@@ -12,6 +12,7 @@
       テストユーザでログイン
     </v-btn>
     <div>{{ signInFormData }}</div>
+    <div>{{ currentUser }}</div>
     <v-btn v-show="currentUser" type="submit" @click="signOut">
       ログアウト
     </v-btn>
