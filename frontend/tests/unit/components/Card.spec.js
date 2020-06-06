@@ -23,7 +23,8 @@ beforeEach(() => {
     currentMarker: { id: 11, icon: 'puge' }
   }
   actions = {
-    setCurrentMarker: jest.fn()
+    setCurrentMarker: jest.fn(),
+    postMarker: jest.fn()
   }
 
   store = new Vuex.Store({
@@ -59,6 +60,16 @@ describe('v-on', () => {
       .trigger('click')
     expect(event).toHaveBeenCalledTimes(1)
   })
+
+  it('postMarker', () => {
+    const event = jest.fn()
+    wrapper.setMethods({ postMarker: event })
+    wrapper
+      .findAll('[data-test="postmarker"]')
+      .at(0)
+      .trigger('click')
+    expect(event).toHaveBeenCalledTimes(1)
+  })
 })
 
 describe('getters', () => {
@@ -75,6 +86,11 @@ describe('actions', () => {
   it('setCurrentMarker', () => {
     wrapper.vm.setCurrentMarker()
     expect(actions.setCurrentMarker).toHaveBeenCalled()
+  })
+
+  it('postMarker', () => {
+    wrapper.vm.postMarker()
+    expect(actions.postMarker).toHaveBeenCalled()
   })
 })
 

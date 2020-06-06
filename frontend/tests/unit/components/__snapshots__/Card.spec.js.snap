@@ -49,7 +49,21 @@ exports[`template snapshot 1`] = `
              
             <div
               class="v-card__actions"
-            />
+            >
+              <button
+                class="v-btn v-btn--contained theme--light v-size--default"
+                data-test="postmarker"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  
+                保存
+              
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -94,7 +108,21 @@ exports[`template snapshot 1`] = `
              
             <div
               class="v-card__actions"
-            />
+            >
+              <button
+                class="v-btn v-btn--contained theme--light v-size--default"
+                data-test="postmarker"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  
+                保存
+              
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
