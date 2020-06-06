@@ -18,7 +18,11 @@
                 <p>{{ m.name }}</p>
                 <p>{{ m.place_id }}</p>
               </v-card-text>
-              <v-card-actions></v-card-actions>
+              <v-card-actions>
+                <v-btn data-test="postmarker" @click="postMarker(m, id)">
+                  保存
+                </v-btn>
+              </v-card-actions>
             </v-col>
           </v-row>
         </v-card>
@@ -38,6 +42,10 @@ export default {
   methods: {
     setCurrentMarker(marker, id) {
       this.$store.dispatch('setCurrentMarker', { marker: marker, id: id })
+    },
+
+    postMarker(marker, id) {
+      this.$store.dispatch('postMarker', { marker: marker, id: id })
     }
   }
 }
