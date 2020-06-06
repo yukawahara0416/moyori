@@ -1,15 +1,18 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import GoogleMaps from '@/components/GoogleMaps.vue'
 import markerStore from '@/store/modules/marker.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Vuetify)
 
 let wrapper
 let store
 let state
 let actions
+let vuetify
 
 beforeEach(() => {
   state = {
@@ -33,10 +36,13 @@ beforeEach(() => {
     }
   })
 
-  wrapper = shallowMount(GoogleMaps, {
+  vuetify = new Vuetify()
+
+  wrapper = mount(GoogleMaps, {
     localVue,
     store,
-    stubs: ['gmap-map']
+    vuetify,
+    stubs: ['gmap-map', 'google-maps-circle', 'google-maps-marker']
   })
 })
 
@@ -56,6 +62,13 @@ describe('v-on', () => {
     const event = jest.fn()
     wrapper.setMethods({ nearbySearch: event })
     wrapper.findAll('[data-test="btn2"]').trigger('click')
+    expect(event).toHaveBeenCalledTimes(1)
+  })
+
+  it('textSearch', () => {
+    const event = jest.fn()
+    wrapper.setMethods({ textSearch: event })
+    wrapper.findAll('[data-test="textsearch"]').trigger('keydown.enter')
     expect(event).toHaveBeenCalledTimes(1)
   })
 })

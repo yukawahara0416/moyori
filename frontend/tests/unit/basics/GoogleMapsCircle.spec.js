@@ -25,3 +25,9 @@ describe('props', () => {
     expect(wrapper.vm.$options.props.mapCenter.required).toBe(false)
   })
 })
+
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+})

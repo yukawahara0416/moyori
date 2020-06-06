@@ -6,6 +6,46 @@ exports[`template snapshot 1`] = `
     this is Map
   </h1>
    
+  <div
+    class="v-input theme--light v-text-field"
+  >
+    <div
+      class="v-input__control"
+    >
+      <div
+        class="v-input__slot"
+      >
+        <div
+          class="v-text-field__slot"
+        >
+          <label
+            class="v-label theme--light"
+            for="input-96"
+            style="left: 0px; position: absolute;"
+          >
+            キーワード検索
+          </label>
+          <input
+            data-test="textsearch"
+            id="input-96"
+            type="text"
+          />
+        </div>
+      </div>
+      <div
+        class="v-text-field__details"
+      >
+        <div
+          class="v-messages theme--light"
+        >
+          <div
+            class="v-messages__wrapper"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+   
   <gmap-map-stub
     center="[object Object]"
     options="[object Object]"
@@ -19,24 +59,30 @@ exports[`template snapshot 1`] = `
     <google-maps-marker-stub />
   </gmap-map-stub>
    
-  <v-btn-stub
-    activeclass=""
+  <button
+    class="v-btn v-btn--contained theme--light v-size--default"
     data-test="btn1"
-    tag="button"
     type="button"
   >
-    
+    <span
+      class="v-btn__content"
+    >
+      
     現在地へ移動
   
-  </v-btn-stub>
+    </span>
+  </button>
    
-  <v-btn-stub
-    activeclass=""
+  <button
+    class="v-btn v-btn--contained theme--light v-size--default"
     data-test="btn2"
-    tag="button"
     type="button"
   >
-    周辺情報を取得
-  </v-btn-stub>
+    <span
+      class="v-btn__content"
+    >
+      周辺情報を取得
+    </span>
+  </button>
 </div>
 `;
