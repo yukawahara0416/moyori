@@ -1,6 +1,13 @@
 <template>
   <div>
     <h1>this is Map</h1>
+    <v-text-field
+      data-test="textsearch"
+      label="キーワード検索"
+      type="text"
+      v-model="keyword"
+      @keydown.enter="textSearch"
+    />
     <gmap-map
       ref="map"
       style="width: 800px; height: 800px;"
@@ -12,10 +19,11 @@
       <google-maps-circle :mapCenter="mapCenter" />
       <google-maps-marker @pan-to="panTo" />
     </gmap-map>
-    <v-btn data-test="btn1" @click.native="panToCurrentLocation">
+
+    <v-btn data-test="btn1" @click="panToCurrentLocation">
       現在地へ移動
     </v-btn>
-    <v-btn data-test="btn2" @click.native="nearbySearch">周辺情報を取得</v-btn>
+    <v-btn data-test="btn2" @click="nearbySearch">周辺情報を取得</v-btn>
   </div>
 </template>
 
@@ -32,6 +40,7 @@ export default {
 
   data() {
     return {
+      keyword: '',
       mapCenter: { lat: 0, lng: 0 },
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
@@ -83,6 +92,20 @@ export default {
       this.beforeSearch()
       var pos = this.mapCenter
       var results = await this.getNearby(pos)
+      results = await Promise.all(
+        results.map(async res => {
+          return await this.formatResult(res)
+        })
+      )
+      await this.setMarkers(results)
+    },
+
+    // テキスト検索する
+    textSearch: async function() {
+      this.beforeSearch()
+      var pos = this.mapCenter
+      var results = await this.getTextSearch(pos)
+      results = await this.sortMarker(results, pos)
       results = await Promise.all(
         results.map(async res => {
           return await this.formatResult(res)
@@ -168,7 +191,7 @@ export default {
       })
     },
 
-    // 与えられた位置（pos）周辺の情報を取得する
+    // 周辺をジャンル検索する
     getNearby(pos) {
       return new Promise((resolve, reject) => {
         const map = this.$refs.map.$mapObject
@@ -179,6 +202,26 @@ export default {
           type: ['cafe']
         }
         placeService.nearbySearch(request, (results, status) => {
+          if (status == 'OK' || status == 'ZERO_RESULTS') {
+            resolve(results)
+          } else {
+            reject(results)
+          }
+        })
+      })
+    },
+
+    // 周辺をキーワード検索する
+    getTextSearch(pos) {
+      return new Promise((resolve, reject) => {
+        const map = this.$refs.map.$mapObject
+        const placeService = new google.maps.places.PlacesService(map)
+        const request = {
+          location: new google.maps.LatLng(pos.lat, pos.lng),
+          radius: 500,
+          query: this.keyword
+        }
+        placeService.textSearch(request, (results, status) => {
           if (status == 'OK' || status == 'ZERO_RESULTS') {
             resolve(results)
           } else {
@@ -209,6 +252,25 @@ export default {
           scaledSize: new google.maps.Size(50, 50)
         },
         zIndex: 1
+      })
+    },
+
+    // 周辺のマーカーを抽出する
+    sortMarker(results, pos) {
+      return new Promise(resolve => {
+        const request = {
+          location: new google.maps.LatLng(pos.lat, pos.lng),
+          radius: 500
+        }
+        const sortedResults = results.filter(result => {
+          return (
+            google.maps.geometry.spherical.computeDistanceBetween(
+              result.geometry.location,
+              request.location
+            ) < request.radius
+          )
+        })
+        resolve(sortedResults)
       })
     }
   }
