@@ -33,7 +33,7 @@ module Api
           power_withouts = spot.power_withouts
           comments = spot.comments
           {
-            data: spot,
+            record: spot,
             likes: likes,
             wifi_withs: wifi_withs,
             wifi_withouts: wifi_withouts,
