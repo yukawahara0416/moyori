@@ -16,8 +16,8 @@ describe('mutations', () => {
   it('setMarkers', () => {
     const setData = {
       markers: [
-        { name: 'hoge', icon: 'foo' },
-        { name: 'fuga', icon: 'bar' }
+        { data: { name: 'hoge', icon: 'foo' } },
+        { data: { name: 'fuga', icon: 'bar' } }
       ]
     }
     store.commit('setMarkers', setData.markers)
@@ -27,8 +27,8 @@ describe('mutations', () => {
   it('clearMarkers', () => {
     const setData = {
       markers: [
-        { name: 'hoge', icon: 'foo' },
-        { name: 'fuga', icon: 'bar' }
+        { data: { name: 'hoge', icon: 'foo' } },
+        { data: { name: 'fuga', icon: 'bar' } }
       ]
     }
     store.commit('setMarkers', setData.markers)
@@ -36,20 +36,7 @@ describe('mutations', () => {
     expect(store.state.markers).toStrictEqual([])
   })
 
-  it('setCurrentMarker', () => {
-    const setData = {
-      currentMarker: { id: 11, icon: 'hoge' }
-    }
-    store.commit('setCurrentMarker', setData.currentMarker)
-    expect(store.state.currentMarker).toStrictEqual(setData.currentMarker)
-  })
-
-  it('clearCurrentMarker', () => {
-    const setData = {
-      currentMarker: { id: 11, icon: 'hoge' }
-    }
-    store.commit('setCurrentMarker', setData.currentMarker)
-    store.commit('clearCurrentMarker')
-    expect(store.state.currentMarker).toStrictEqual({ icon: '', id: -1 })
-  })
+  it('clearIcon', () => {})
+  it('cacheIcon', () => {})
+  it('setIcon', () => {})
 })

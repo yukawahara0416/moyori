@@ -5,7 +5,7 @@
       <v-col v-for="(m, id) in markers" :key="id">
         <v-card
           hover
-          :class="{ selected: currentMarker.id === id }"
+          :class="{ selected: cache.id === id }"
           :id="id"
           @click.stop="setCurrentMarker(m, id)"
         >
@@ -15,13 +15,14 @@
             </v-col>
             <v-col>
               <v-card-text>
-                <p>{{ m.name }}</p>
-                <p>{{ m.place_id }}</p>
+                <p>{{ m.data.name }}</p>
+                <p>{{ m.data.place_id }}</p>
               </v-card-text>
               <v-card-actions>
                 <v-btn data-test="postmarker" @click="postMarker(m, id)">
                   保存
                 </v-btn>
+                <like-button :marker="m" :id="id" />
               </v-card-actions>
             </v-col>
           </v-row>
@@ -32,11 +33,16 @@
 </template>
 
 <script>
+import LikeButton from '@/components/LikeButton.vue'
 import { mapGetters } from 'vuex'
 
 export default {
+  components: {
+    LikeButton
+  },
+
   computed: {
-    ...mapGetters(['markers', 'currentMarker'])
+    ...mapGetters(['markers', 'cache'])
   },
 
   methods: {
