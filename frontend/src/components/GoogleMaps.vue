@@ -148,18 +148,33 @@ export default {
         }
         var vicinity = res.vicinity ? res.vicinity : 'null'
 
+        // var formattedResult = {
+        //   address: address,
+        //   // isOpen: isOpen,
+        //   name: res.name,
+        //   icon: icon,
+        //   rating: res.rating,
+        //   ratingsTotal: res.user_ratings_total,
+        //   photoUrl: photo,
+        //   place_id: res.place_id,
+        //   position: pos,
+        //   vicinity: vicinity,
+        //   zIndex: 10
+        // }
         var formattedResult = {
-          address: address,
-          // isOpen: isOpen,
-          name: res.name,
-          icon: icon,
-          rating: res.rating,
-          ratingsTotal: res.user_ratings_total,
-          photoUrl: photo,
-          place_id: res.place_id,
-          position: pos,
-          vicinity: vicinity,
-          zIndex: 10
+          data: {
+            address: address,
+            // isOpen: isOpen,
+            name: res.name,
+            icon: icon,
+            rating: res.rating,
+            ratingsTotal: res.user_ratings_total,
+            photoUrl: photo,
+            place_id: res.place_id,
+            position: pos,
+            vicinity: vicinity,
+            zIndex: 10
+          }
         }
         resolve(formattedResult)
       })
