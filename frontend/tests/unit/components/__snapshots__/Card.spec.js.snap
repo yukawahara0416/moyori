@@ -63,6 +63,34 @@ exports[`template snapshot 1`] = `
               
                 </span>
               </button>
+               
+              <div>
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    いいねする
+  
+                  </span>
+                </button>
+                 
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    いいねを解除する
+  
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -122,6 +150,34 @@ exports[`template snapshot 1`] = `
               
                 </span>
               </button>
+               
+              <div>
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    いいねする
+  
+                  </span>
+                </button>
+                 
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    いいねを解除する
+  
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

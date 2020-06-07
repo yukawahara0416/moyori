@@ -17,10 +17,10 @@ let vuetify
 beforeEach(() => {
   state = {
     markers: [
-      { name: 'hoge', icon: 'foo' },
-      { name: 'fuga', icon: 'bar' }
+      { data: { name: 'hoge', icon: 'foo' } },
+      { data: { name: 'fuga', icon: 'bar' } }
     ],
-    currentMarker: { id: 11, icon: 'puge' }
+    cache: { id: 11, icon: 'puge' }
   }
   actions = {
     setCurrentMarker: jest.fn(),
@@ -77,8 +77,8 @@ describe('getters', () => {
     expect(wrapper.vm.markers).toEqual(state.markers)
   })
 
-  it('currentMarker', () => {
-    expect(wrapper.vm.currentMarker).toEqual(state.currentMarker)
+  it('cache', () => {
+    expect(wrapper.vm.cache).toEqual(state.cache)
   })
 })
 
