@@ -22,7 +22,7 @@ RSpec.describe 'Api::V1::Spots', type: :request do
     get("/api/v1/spots/#{spot.id}")
     json = JSON.parse(response.body)
     expect(response).to have_http_status(200)
-    expect(json['data']['place_id']).to eq(spot.place_id)
+    expect(json['marker']['place_id']).to eq(spot.place_id)
   end
 
   it '新規のspotを保存する' do

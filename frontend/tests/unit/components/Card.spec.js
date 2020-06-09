@@ -73,8 +73,8 @@ describe('v-on', () => {
 })
 
 describe('getters', () => {
-  it('markers', () => {
-    expect(wrapper.vm.markers).toEqual(state.markers)
+  it('spots', () => {
+    expect(wrapper.vm.spots).toEqual(state.spots)
   })
 
   it('cache', () => {

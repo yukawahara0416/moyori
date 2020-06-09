@@ -62,14 +62,14 @@ export default {
       }
     },
 
-    like: async function(spot, id) {
+    like(spot, id) {
       var params = { spot_id: spot.record.id }
-      await this.$store.dispatch('like', { params: params, id: id })
+      this.$store.dispatch('like', { params: params, id: id })
     },
 
-    unlike: async function(like, id) {
+    unlike(like, id) {
       var params = { id: like.id }
-      await this.$store.dispatch('unlike', { params: params, id: id })
+      this.$store.dispatch('unlike', { params: params, id: id })
     }
   }
 }
