@@ -13,9 +13,9 @@ let actions
 
 beforeEach(() => {
   state = {
-    markers: [
-      { data: { name: 'hoge', icon: 'foo' } },
-      { data: { name: 'fuga', icon: 'bar' } }
+    spots: [
+      { marker: { name: 'hoge', icon: 'foo' } },
+      { marker: { name: 'fuga', icon: 'bar' } }
     ],
     cache: { id: 11, icon: 'puge' }
   }

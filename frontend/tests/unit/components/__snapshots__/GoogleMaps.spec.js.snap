@@ -48,19 +48,6 @@ exports[`template snapshot 1`] = `
     </div>
   </div>
    
-  <gmap-map-stub
-    center="[object Object]"
-    options="[object Object]"
-    style="width: 800px; height: 800px;"
-    zoom="16"
-  >
-    <google-maps-circle-stub
-      mapcenter="[object Object]"
-    />
-     
-    <google-maps-marker-stub />
-  </gmap-map-stub>
-   
   <button
     class="v-btn v-btn--contained theme--light v-size--default"
     data-test="btn1"
@@ -83,8 +70,23 @@ exports[`template snapshot 1`] = `
     <span
       class="v-btn__content"
     >
-      周辺情報を取得
+      
+    周辺情報を取得
+  
     </span>
   </button>
+   
+  <gmap-map-stub
+    center="[object Object]"
+    options="[object Object]"
+    style="width: 800px; height: 600px;"
+    zoom="16"
+  >
+    <google-maps-circle-stub
+      mapcenter="[object Object]"
+    />
+     
+    <google-maps-marker-stub />
+  </gmap-map-stub>
 </div>
 `;
