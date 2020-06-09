@@ -3,10 +3,16 @@
     <h1>this is Map</h1>
 
     <google-maps-text-search @text-search="textSearch" />
+    <v-btn data-test="btn1" @click="panToCurrentLocation">
+      現在地へ移動
+    </v-btn>
+    <v-btn data-test="btn2" @click="nearbySearch">
+      周辺情報を取得
+    </v-btn>
 
     <gmap-map
       ref="map"
-      style="width: 800px; height: 800px;"
+      style="width: 800px; height: 600px;"
       :center="mapLocation"
       :options="mapOptions"
       :zoom="16"
@@ -15,19 +21,25 @@
       <google-maps-circle :mapCenter="mapCenter" />
       <google-maps-marker @pan-to="panTo" />
     </gmap-map>
-
-    <v-btn data-test="btn1" @click="panToCurrentLocation">
-      現在地へ移動
-    </v-btn>
-    <v-btn data-test="btn2" @click="nearbySearch">周辺情報を取得</v-btn>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import queryString from 'query-string'
 import { mapGetters, mapActions } from 'vuex'
 import GoogleMapsCircle from '@/basics/GoogleMapsCircle.vue'
 import GoogleMapsMarker from '@/basics/GoogleMapsMarker.vue'
 import GoogleMapsTextSearch from '@/basics/GoogleMapsTextSearch.vue'
+
+const axiosBase = axios.create({
+  baseURL: 'http://localhost:3000',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+  responseType: 'json'
+})
 
 export default {
   components: {
@@ -49,13 +61,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['markers'])
+    ...mapGetters(['spots'])
   },
 
   // 自動的に現在地でnearbySearchする
   async mounted() {
     const pos = await this.getLocation()
-    // vue-google-mapsマップのレンダリングが完了してから処理を実行
     this.$gmapApiPromiseLazy().then(() => {
       this.mapCenter = pos
       this.setMarker(pos, 'you-are-here')
@@ -65,17 +76,7 @@ export default {
   },
 
   methods: {
-    // 検索結果をリセットする
-    // 検索結果を$state.markersに保存する
-    ...mapActions(['setMarkers', 'clearMarkers']),
-
-    // 検索開始時の処理
-    beforeSearch() {
-      this.clearMarkers()
-    },
-
-    // 検索終了時の処理
-    afterSearch() {},
+    ...mapActions(['clearSpots', 'addSpots']),
 
     // 現在地へ移動する
     panToCurrentLocation: async function() {
@@ -86,15 +87,15 @@ export default {
 
     // 周辺を検索する
     nearbySearch: async function() {
-      this.beforeSearch()
-      var pos = this.mapCenter
-      var results = await this.getNearby(pos)
+      this.clearSpots()
+      var results = await this.getNearby(this.mapCenter)
       results = await Promise.all(
         results.map(async res => {
-          return await this.formatResult(res)
+          var formattedResult = await this.formatMarker(res)
+          return await this.getSpotData(formattedResult)
         })
       )
-      await this.setMarkers(results)
+      await this.addSpots(results)
     },
 
     // テキスト検索する
@@ -105,10 +106,11 @@ export default {
       results = await this.sortMarker(results, pos)
       results = await Promise.all(
         results.map(async res => {
-          return await this.formatResult(res)
+          var formattedResult = await this.formatMarker(res)
+          return await this.getSpotData(formattedResult)
         })
       )
-      await this.setMarkers(results)
+      await this.addSpots(results)
     },
 
     ////////////////////////
@@ -116,9 +118,10 @@ export default {
     ////////////////////////
 
     // 検索結果を整形する
-    formatResult(res) {
+    formatMarker(res) {
       return new Promise(resolve => {
         var address = res.formatted_address ? res.formatted_address : 'null'
+        var vicinity = res.vicinity ? res.vicinity : 'null'
         // error: open_now is deprecated as of November 2019 and will be turned off in November 2020. Use the isOpen() function from a PlacesService.getDetails() result instead.
         // var isOpen = res.opening_hours ? res.opening_hours.open_now : 'null'
         var iconUrl =
@@ -146,22 +149,44 @@ export default {
           lat: res.geometry.location.lat(),
           lng: res.geometry.location.lng()
         }
-        var vicinity = res.vicinity ? res.vicinity : 'null'
 
         var formattedResult = {
-          address: address,
-          // isOpen: isOpen,
-          name: res.name,
-          icon: icon,
-          rating: res.rating,
-          ratingsTotal: res.user_ratings_total,
-          photoUrl: photo,
-          place_id: res.place_id,
-          position: pos,
-          vicinity: vicinity,
-          zIndex: 10
+          marker: {
+            address: address,
+            // isOpen: isOpen,
+            icon: icon,
+            name: res.name,
+            rating: res.rating,
+            ratingsTotal: res.user_ratings_total,
+            photoUrl: photo,
+            place_id: res.place_id,
+            position: pos,
+            vicinity: vicinity,
+            zIndex: 10
+          },
+          record: [],
+          likes: [],
+          wifi_withs: [],
+          wifi_withouts: [],
+          power_withs: [],
+          power_withouts: [],
+          comments: []
         }
         resolve(formattedResult)
+      })
+    },
+
+    // バックエンドからSpotデータを取得する
+    getSpotData(res) {
+      return new Promise(resolve => {
+        const query = queryString.stringify({ place_id: res.marker.place_id })
+        axiosBase.get('/api/v1/spots?' + query).then(function(response) {
+          if (response.data != null) {
+            var formattedResult = Object.assign(res, response.data)
+            resolve(formattedResult)
+          }
+          resolve(res)
+        })
       })
     },
 

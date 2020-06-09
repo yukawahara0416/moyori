@@ -16,15 +16,15 @@ let vuetify
 
 beforeEach(() => {
   state = {
-    markers: [
-      { name: 'hoge', icon: 'foo' },
-      { name: 'fuga', icon: 'bar' }
+    spots: [
+      { marker: { name: 'hoge', icon: 'foo' } },
+      { marker: { name: 'fuga', icon: 'bar' } }
     ],
-    currentMarker: { id: 11, icon: 'puge' }
+    cache: { id: 11, icon: 'puge' }
   }
   actions = {
     setCurrentMarker: jest.fn(),
-    postMarker: jest.fn()
+    postSpot: jest.fn()
   }
 
   store = new Vuex.Store({
@@ -61,11 +61,11 @@ describe('v-on', () => {
     expect(event).toHaveBeenCalledTimes(1)
   })
 
-  it('postMarker', () => {
+  it('postSpot', () => {
     const event = jest.fn()
-    wrapper.setMethods({ postMarker: event })
+    wrapper.setMethods({ postSpot: event })
     wrapper
-      .findAll('[data-test="postmarker"]')
+      .findAll('[data-test="postspot"]')
       .at(0)
       .trigger('click')
     expect(event).toHaveBeenCalledTimes(1)
@@ -77,8 +77,8 @@ describe('getters', () => {
     expect(wrapper.vm.markers).toEqual(state.markers)
   })
 
-  it('currentMarker', () => {
-    expect(wrapper.vm.currentMarker).toEqual(state.currentMarker)
+  it('cache', () => {
+    expect(wrapper.vm.cache).toEqual(state.cache)
   })
 })
 
@@ -88,9 +88,9 @@ describe('actions', () => {
     expect(actions.setCurrentMarker).toHaveBeenCalled()
   })
 
-  it('postMarker', () => {
-    wrapper.vm.postMarker()
-    expect(actions.postMarker).toHaveBeenCalled()
+  it('postSpot', () => {
+    wrapper.vm.postSpot()
+    expect(actions.postSpot).toHaveBeenCalled()
   })
 })
 

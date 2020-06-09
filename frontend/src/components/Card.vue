@@ -2,12 +2,12 @@
   <div>
     <h1>this is Card</h1>
     <v-row>
-      <v-col v-for="(m, id) in markers" :key="id">
+      <v-col v-for="(s, id) in spots" :key="id">
         <v-card
           hover
-          :class="{ selected: currentMarker.id === id }"
+          :class="{ selected: cache.id === id }"
           :id="id"
-          @click.stop="setCurrentMarker(m, id)"
+          @click.stop="setCurrentMarker(s.marker, id)"
         >
           <v-row>
             <v-col>
@@ -15,13 +15,14 @@
             </v-col>
             <v-col>
               <v-card-text>
-                <p>{{ m.name }}</p>
-                <p>{{ m.place_id }}</p>
+                <p>{{ s.marker.name }}</p>
+                <p>{{ s.marker.place_id }}</p>
               </v-card-text>
               <v-card-actions>
-                <v-btn data-test="postmarker" @click="postMarker(m, id)">
+                <v-btn data-test="postspot" @click="postSpot(s, id)">
                   保存
                 </v-btn>
+                <like-button :spot="s" :id="id" />
               </v-card-actions>
             </v-col>
           </v-row>
@@ -32,11 +33,16 @@
 </template>
 
 <script>
+import LikeButton from '@/components/LikeButton.vue'
 import { mapGetters } from 'vuex'
 
 export default {
+  components: {
+    LikeButton
+  },
+
   computed: {
-    ...mapGetters(['markers', 'currentMarker'])
+    ...mapGetters(['spots', 'cache'])
   },
 
   methods: {
@@ -44,8 +50,8 @@ export default {
       this.$store.dispatch('setCurrentMarker', { marker: marker, id: id })
     },
 
-    postMarker(marker, id) {
-      this.$store.dispatch('postMarker', { marker: marker, id: id })
+    postSpot(spot, id) {
+      this.$store.dispatch('postSpot', { spot: spot, id: id })
     }
   }
 }

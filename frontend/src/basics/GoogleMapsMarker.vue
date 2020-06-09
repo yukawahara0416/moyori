@@ -1,15 +1,15 @@
 <template>
   <div>
     <gmap-marker
-      v-for="(m, id) in markers"
+      v-for="(s, id) in spots"
       :key="id"
-      :icon="m.icon"
-      :position="m.position"
-      :title="m.name"
-      :zIndex="m.zIndex"
+      :icon="s.marker.icon"
+      :position="s.marker.position"
+      :title="s.marker.name"
+      :zIndex="s.marker.zIndex"
       @click="
-        setCurrentMarker(m, id)
-        panTo(m.position)
+        setCurrentMarker(s.marker, id)
+        panTo(s.marker.position)
         scrollCard(id)
       "
     />
@@ -21,14 +21,14 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['markers', 'currentMarker'])
+    ...mapGetters(['spots', 'cache'])
   },
 
   watch: {
     // Cardコンポーネントと選択中のマーカーを同期しています
-    currentMarker() {
-      if (this.currentMarker.id >= 0) {
-        var pos = this.markers[this.currentMarker.id].position
+    cache() {
+      if (this.cache.id >= 0) {
+        const pos = this.spots[this.cache.id].marker.position
         this.panTo(pos)
       }
     }

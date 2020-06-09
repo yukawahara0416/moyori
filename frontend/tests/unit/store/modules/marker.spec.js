@@ -13,43 +13,30 @@ beforeEach(() => {
 })
 
 describe('mutations', () => {
-  it('setMarkers', () => {
+  it('addSpots', () => {
     const setData = {
-      markers: [
-        { name: 'hoge', icon: 'foo' },
-        { name: 'fuga', icon: 'bar' }
+      spots: [
+        { marker: { name: 'hoge', icon: 'foo' } },
+        { marker: { name: 'fuga', icon: 'bar' } }
       ]
     }
-    store.commit('setMarkers', setData.markers)
-    expect(store.state.markers).toStrictEqual(setData.markers)
+    store.commit('addSpots', setData.spots)
+    expect(store.state.spots).toStrictEqual(setData.spots)
   })
 
-  it('clearMarkers', () => {
+  it('clearSpots', () => {
     const setData = {
-      markers: [
-        { name: 'hoge', icon: 'foo' },
-        { name: 'fuga', icon: 'bar' }
+      spots: [
+        { marker: { name: 'hoge', icon: 'foo' } },
+        { marker: { name: 'fuga', icon: 'bar' } }
       ]
     }
-    store.commit('setMarkers', setData.markers)
-    store.commit('clearMarkers')
-    expect(store.state.markers).toStrictEqual([])
+    store.commit('addSpots', setData.spots)
+    store.commit('clearSpots')
+    expect(store.state.spots).toStrictEqual([])
   })
 
-  it('setCurrentMarker', () => {
-    const setData = {
-      currentMarker: { id: 11, icon: 'hoge' }
-    }
-    store.commit('setCurrentMarker', setData.currentMarker)
-    expect(store.state.currentMarker).toStrictEqual(setData.currentMarker)
-  })
-
-  it('clearCurrentMarker', () => {
-    const setData = {
-      currentMarker: { id: 11, icon: 'hoge' }
-    }
-    store.commit('setCurrentMarker', setData.currentMarker)
-    store.commit('clearCurrentMarker')
-    expect(store.state.currentMarker).toStrictEqual({ icon: '', id: -1 })
-  })
+  it('clearIcon', () => {})
+  it('cacheIcon', () => {})
+  it('setIcon', () => {})
 })

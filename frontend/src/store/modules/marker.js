@@ -11,102 +11,104 @@ const axiosBase = axios.create({
 
 export default {
   state: {
-    markers: [],
-    currentMarker: { id: -1, icon: '' }
+    spots: [],
+    cache: { id: -1, icon: '' }
   },
 
   getters: {
-    markers(state) {
-      return state.markers
+    spots(state) {
+      return state.spots
     },
 
-    currentMarker(state) {
-      return state.currentMarker
+    cache(state) {
+      return state.cache
     }
   },
 
   mutations: {
-    setMarkers(state, payload) {
-      state.markers = state.markers.concat(payload)
+    addSpots(state, payload) {
+      state.spots = state.spots.concat(payload)
     },
 
-    clearMarkers(state) {
-      state.markers = []
+    clearSpots(state) {
+      state.spots = []
     },
 
-    setCurrentMarker(state, payload) {
-      state.currentMarker = payload
+    assignProps(state, { props, id }) {
+      var spot = state.spots[id]
+      Object.assign(spot, props)
     },
 
-    clearCurrentMarker(state) {
-      state.currentMarker = { id: -1, icon: '' }
+    addLike(state, { like, id }) {
+      state.spots[id].likes.push(like)
     },
 
-    // 直前に選択していたマーカーのアイコンを戻す
-    clearIcon(state, id) {
-      const target = state.markers[state.currentMarker.id]
-      if (state.currentMarker.id >= 0 && state.currentMarker.id != id) {
-        target.icon = {
-          url: state.currentMarker.icon,
+    deleteLike(state, { like, id }) {
+      var likes = state.spots[id].likes
+      var index = likes.findIndex(({ id }) => id === like.id)
+      likes.splice(index, 1)
+    },
+
+    // アイコンを戻す
+    clearMarkerIcon(state, id) {
+      const spot = state.spots[state.cache.id]
+      if (state.cache.id >= 0 && state.cache.id != id) {
+        spot.marker.icon = {
+          url: state.cache.icon.url,
           scaledSize: new google.maps.Size(50, 50)
         }
-        state.markers[state.currentMarker.id].zIndex = 10
+        spot.marker.zIndex = 10
       }
     },
 
-    // 選択したマーカーのアイコンを記録する（戻すときに必要）
-    cacheIcon(state, { marker, id }) {
-      if (state.currentMarker.id != id) {
-        state.currentMarker = { id: id, icon: marker.icon.url }
-      } else {
-        state.currentMarker.id = id
+    // アイコンを記録する
+    cacheMarkerIcon(state, { marker, id }) {
+      if (state.cache.id != id) {
+        state.cache = { id: id, icon: marker.icon }
       }
     },
 
-    // 選択したマーカーのアイコンを変更する
-    setIcon(state, id) {
-      const select = state.markers[id]
-      select.icon = {
+    // アイコンを変更する
+    setMarkerIcon(state, id) {
+      const spot = state.spots[id]
+      spot.marker.icon = {
         url: require('@/assets/spotlight.png'),
         scaledSize: new google.maps.Size(50, 50)
       }
-      state.markers[id].zIndex = 100
+      spot.marker.zIndex = 100
     }
   },
 
   actions: {
-    setMarkers(context, results) {
+    addSpots(context, results) {
       return new Promise(resolve => {
-        context.commit('setMarkers', results)
+        context.commit('addSpots', results)
         resolve()
       })
     },
 
-    clearMarkers(context) {
-      context.commit('clearMarkers')
+    clearSpots(context) {
+      context.commit('clearSpots')
     },
 
-    postMarker(context, { marker, id }) {
-      const params = { spot: { place_id: marker.place_id } }
-      axiosBase
-        .post('/api/v1/spots', params, {
-          headers: context.rootState.userStore.headers
-        })
-        .then(function(response) {
-          console.log(response)
-          console.log(id)
-        })
+    postSpot(context, { spot, id }) {
+      return new Promise(resolve => {
+        const params = { spot: { place_id: spot.marker.place_id } }
+        axiosBase
+          .post('/api/v1/spots', params, {
+            headers: context.rootState.userStore.headers
+          })
+          .then(function(response) {
+            context.commit('assignProps', { props: response.data, id: id })
+            resolve(response.data)
+          })
+      })
     },
 
     setCurrentMarker(context, { marker, id }) {
-      context.commit('clearIcon', id)
-      context.commit('setCurrentMarker', marker)
-      context.commit('cacheIcon', { marker, id })
-      context.commit('setIcon', id)
-    },
-
-    clearCurrentMarker(context) {
-      context.commit('clearCurrentMarker')
+      context.commit('clearMarkerIcon', id)
+      context.commit('cacheMarkerIcon', { marker, id })
+      context.commit('setMarkerIcon', id)
     }
   }
 }

@@ -16,14 +16,14 @@ let vuetify
 
 beforeEach(() => {
   state = {
-    markers: [
-      { name: 'hoge', icon: 'foo' },
-      { name: 'fuga', icon: 'bar' }
+    spots: [
+      { marker: { name: 'hoge', icon: 'foo' } },
+      { marker: { name: 'fuga', icon: 'bar' } }
     ]
   }
   actions = {
-    setMarkers: jest.fn(),
-    clearMarkers: jest.fn()
+    addSpots: jest.fn(),
+    clearSpots: jest.fn()
   }
 
   store = new Vuex.Store({
@@ -71,20 +71,20 @@ describe('mounted', () => {
 })
 
 describe('getters', () => {
-  it('markers', () => {
-    expect(wrapper.vm.markers).toEqual(state.markers)
+  it('spots', () => {
+    expect(wrapper.vm.spots).toEqual(state.spots)
   })
 })
 
 describe('actions', () => {
-  it('setMarkers', () => {
-    wrapper.vm.setMarkers()
-    expect(actions.setMarkers).toHaveBeenCalled()
+  it('addSpots', () => {
+    wrapper.vm.addSpots()
+    expect(actions.addSpots).toHaveBeenCalled()
   })
 
-  it('clearMarkers', () => {
-    wrapper.vm.clearMarkers()
-    expect(actions.clearMarkers).toHaveBeenCalled()
+  it('clearSpots', () => {
+    wrapper.vm.clearSpots()
+    expect(actions.clearSpots).toHaveBeenCalled()
   })
 })
 
