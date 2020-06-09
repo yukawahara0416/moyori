@@ -21,5 +21,14 @@ export default {
         })
     },
 
-
+    unlike(context, { params, id }) {
+      axiosBase
+        .delete('/api/v1/likes/' + params.id, {
+          headers: context.rootState.userStore.headers
+        })
+        .then(function(response) {
+          context.commit('deleteLike', { like: response.data, id: id })
+        })
+    }
+  }
 }
