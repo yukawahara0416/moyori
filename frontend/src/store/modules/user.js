@@ -30,6 +30,10 @@ export default {
       return state.currentUser
     },
 
+    headers(state) {
+      return state.headers
+    },
+
     signInFormData(state) {
       return state.signInFormData
     },
