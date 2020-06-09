@@ -52,7 +52,7 @@ exports[`template snapshot 1`] = `
             >
               <button
                 class="v-btn v-btn--contained theme--light v-size--default"
-                data-test="postmarker"
+                data-test="postspot"
                 type="button"
               >
                 <span
@@ -73,20 +73,7 @@ exports[`template snapshot 1`] = `
                     class="v-btn__content"
                   >
                     
-    いいねする
-  
-                  </span>
-                </button>
-                 
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    いいねを解除する
+    いいね
   
                   </span>
                 </button>
@@ -139,7 +126,7 @@ exports[`template snapshot 1`] = `
             >
               <button
                 class="v-btn v-btn--contained theme--light v-size--default"
-                data-test="postmarker"
+                data-test="postspot"
                 type="button"
               >
                 <span
@@ -160,20 +147,7 @@ exports[`template snapshot 1`] = `
                     class="v-btn__content"
                   >
                     
-    いいねする
-  
-                  </span>
-                </button>
-                 
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    いいねを解除する
+    いいね
   
                   </span>
                 </button>

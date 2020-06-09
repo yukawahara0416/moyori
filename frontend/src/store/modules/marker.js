@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import axios from 'axios'
 
 const axiosBase = axios.create({
@@ -12,13 +11,13 @@ const axiosBase = axios.create({
 
 export default {
   state: {
-    markers: [],
+    spots: [],
     cache: { id: -1, icon: '' }
   },
 
   getters: {
-    markers(state) {
-      return state.markers
+    spots(state) {
+      return state.spots
     },
 
     cache(state) {
@@ -27,75 +26,89 @@ export default {
   },
 
   mutations: {
-    setMarkers(state, payload) {
-      state.markers = state.markers.concat(payload)
+    addSpots(state, payload) {
+      state.spots = state.spots.concat(payload)
     },
 
-    clearMarkers(state) {
-      state.markers = []
+    clearSpots(state) {
+      state.spots = []
+    },
+
+    assignProps(state, { props, id }) {
+      var spot = state.spots[id]
+      Object.assign(spot, props)
+    },
+
+    addLike(state, { like, id }) {
+      state.spots[id].likes.push(like)
+    },
+
+    deleteLike(state, { like, id }) {
+      var likes = state.spots[id].likes
+      var index = likes.findIndex(({ id }) => id === like.id)
+      likes.splice(index, 1)
     },
 
     // アイコンを戻す
-    clearIcon(state, id) {
-      const target = state.markers[state.cache.id]
+    clearMarkerIcon(state, id) {
+      const spot = state.spots[state.cache.id]
       if (state.cache.id >= 0 && state.cache.id != id) {
-        target.data.icon = {
+        spot.marker.icon = {
           url: state.cache.icon.url,
           scaledSize: new google.maps.Size(50, 50)
         }
-        target.data.zIndex = 10
+        spot.marker.zIndex = 10
       }
     },
 
     // アイコンを記録する
-    cacheIcon(state, { marker, id }) {
+    cacheMarkerIcon(state, { marker, id }) {
       if (state.cache.id != id) {
-        state.cache = { id: id, icon: marker.data.icon }
+        state.cache = { id: id, icon: marker.icon }
       }
     },
 
     // アイコンを変更する
-    setIcon(state, id) {
-      const target = state.markers[id]
-      target.data.icon = {
+    setMarkerIcon(state, id) {
+      const spot = state.spots[id]
+      spot.marker.icon = {
         url: require('@/assets/spotlight.png'),
         scaledSize: new google.maps.Size(50, 50)
       }
-      target.data.zIndex = 100
-    },
-
-    addProps(state, { response, id }) {
-      Vue.set(state.markers[id], 'record', response.data.record)
+      spot.marker.zIndex = 100
     }
   },
 
   actions: {
-    setMarkers(context, results) {
+    addSpots(context, results) {
       return new Promise(resolve => {
-        context.commit('setMarkers', results)
+        context.commit('addSpots', results)
         resolve()
       })
     },
 
-    clearMarkers(context) {
-      context.commit('clearMarkers')
+    clearSpots(context) {
+      context.commit('clearSpots')
     },
 
-    postMarker(context, { marker, id }) {
-      const params = { spot: { place_id: marker.data.place_id } }
-      axiosBase
-        .post('/api/v1/spots', params, {
-          headers: context.rootState.userStore.headers
-        })
-        .then(function(response) {
-          context.commit('addProps', { response: response, id: id })
-        })
+    postSpot(context, { spot, id }) {
+      return new Promise(resolve => {
+        const params = { spot: { place_id: spot.marker.place_id } }
+        axiosBase
+          .post('/api/v1/spots', params, {
+            headers: context.rootState.userStore.headers
+          })
+          .then(function(response) {
+            context.commit('assignProps', { props: response.data, id: id })
+            resolve(response.data)
+          })
+      })
     },
 
     setCurrentMarker(context, { marker, id }) {
-      context.commit('clearIcon', id)
-      context.commit('cacheIcon', { marker, id })
-      context.commit('setIcon', id)
+      context.commit('clearMarkerIcon', id)
+      context.commit('cacheMarkerIcon', { marker, id })
+      context.commit('setMarkerIcon', id)
     }
   }
 }
