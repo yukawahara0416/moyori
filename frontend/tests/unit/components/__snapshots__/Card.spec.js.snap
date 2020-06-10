@@ -118,7 +118,22 @@ exports[`template snapshot 1`] = `
                     class="v-btn__content"
                   >
                     
-    wifi
+    power
+  
+                  </span>
+                </button>
+              </div>
+               
+              <div>
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    Powernone
   
                   </span>
                 </button>
@@ -237,7 +252,22 @@ exports[`template snapshot 1`] = `
                     class="v-btn__content"
                   >
                     
-    wifi
+    power
+  
+                  </span>
+                </button>
+              </div>
+               
+              <div>
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    Powernone
   
                   </span>
                 </button>

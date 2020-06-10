@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn icon @click="powerWithHandler()">
-      wifi
+      power
     </v-btn>
   </div>
 </template>
@@ -38,6 +38,20 @@ export default {
       } else {
         return []
       }
+    },
+
+    isPowerWithouted() {
+      const vm = this
+      const powerWithouted = this.spots[this.id].power_withouts.filter(function(
+        power_without
+      ) {
+        return power_without.user_id == vm.currentUser.data.id
+      })
+      if (vm.currentUser !== null && powerWithouted.length > 0) {
+        return powerWithouted
+      } else {
+        return []
+      }
     }
   },
 
@@ -48,6 +62,9 @@ export default {
       if (this.headers !== null) {
         if (this.isPosted) {
           if (this.isPowerWithed.length === 0) {
+            if (this.isPowerWithouted.length > 0) {
+              await this.unPowerWithout(this.isPowerWithouted[0], id)
+            }
             await this.powerWith(spot, id)
           } else {
             await this.unPowerWith(this.isPowerWithed[0], id)
@@ -72,6 +89,11 @@ export default {
     unPowerWith(powerWith, id) {
       var params = { id: powerWith.id }
       this.$store.dispatch('unPowerWith', { params: params, id: id })
+    },
+
+    unPowerWithout(powerWithout, id) {
+      var params = { id: powerWithout.id }
+      this.$store.dispatch('unPowerWithout', { params: params, id: id })
     }
   }
 }
