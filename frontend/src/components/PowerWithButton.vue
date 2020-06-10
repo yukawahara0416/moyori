@@ -24,6 +24,20 @@ export default {
       } else {
         return false
       }
+    },
+
+    isPowerWithed() {
+      const vm = this
+      const powerWithed = this.spots[this.id].power_withs.filter(function(
+        power_with
+      ) {
+        return power_with.user_id == vm.currentUser.data.id
+      })
+      if (vm.currentUser !== null && powerWithed.length > 0) {
+        return powerWithed
+      } else {
+        return []
+      }
     }
   }
 }
