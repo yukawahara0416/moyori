@@ -16,7 +16,29 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spots', 'headers', 'currentUser'])
+    ...mapGetters(['spots', 'headers', 'currentUser']),
+
+    isPosted() {
+      if (this.spot.record.length !== 0) {
+        return this.spot
+      } else {
+        return false
+      }
+    },
+
+    isWifiWithouted() {
+      const vm = this
+      const wifiWithouted = this.spots[this.id].wifi_withouts.filter(function(
+        wifi_without
+      ) {
+        return wifi_without.user_id == vm.currentUser.data.id
+      })
+      if (vm.currentUser !== null && wifiWithouted.length > 0) {
+        return wifiWithouted
+      } else {
+        return []
+      }
+    }
   }
 }
 </script>
