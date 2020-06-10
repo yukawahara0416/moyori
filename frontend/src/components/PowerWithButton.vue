@@ -91,7 +91,7 @@ export default {
       this.$store.dispatch('unPowerWith', { params: params, id: id })
     },
 
-    unPowerWithout(poerWithout, id) {
+    unPowerWithout(powerWithout, id) {
       var params = { id: powerWithout.id }
       this.$store.dispatch('unPowerWithout', { params: params, id: id })
     }
