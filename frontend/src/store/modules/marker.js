@@ -39,10 +39,16 @@ export default {
       Object.assign(spot, props)
     },
 
+    //// addProps
     addLike(state, { like, id }) {
       state.spots[id].likes.push(like)
     },
 
+    addWifiWith(state, { wifiWith, id }) {
+      state.spots[id].wifi_withs.push(wifiWith)
+    },
+
+    //// deleteProps
     deleteLike(state, { like, id }) {
       var likes = state.spots[id].likes
       var index = likes.findIndex(({ id }) => id === like.id)
