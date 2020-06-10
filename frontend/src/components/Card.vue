@@ -27,6 +27,7 @@
                 <wifi-without-button :spot="s" :id="id" />
                 <power-with-button :spot="s" :id="id" />
                 <power-without-button :spot="s" :id="id" />
+                <comment-form :spot="s" :id="id" />
               </v-card-actions>
             </v-col>
           </v-row>
@@ -42,6 +43,7 @@ import WifiWithButton from '@/components/WifiWithButton.vue'
 import WifiWithoutButton from '@/components/WifiWithoutButton.vue'
 import PowerWithButton from '@/components/PowerWithButton.vue'
 import PowerWithoutButton from '@/components/PowerWithoutButton.vue'
+import CommentForm from '@/components/CommentForm.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -50,7 +52,8 @@ export default {
     WifiWithButton,
     WifiWithoutButton,
     PowerWithButton,
-    PowerWithoutButton
+    PowerWithoutButton,
+    CommentForm
   },
 
   computed: {
