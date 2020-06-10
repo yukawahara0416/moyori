@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     spot: Object,
@@ -26,6 +28,10 @@ export default {
     return {
       content: ''
     }
+  },
+
+  computed: {
+    ...mapGetters(['spots', 'headers', 'currentUser'])
   }
 }
 </script>
