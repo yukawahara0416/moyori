@@ -9,4 +9,16 @@ const axiosBase = axios.create({
   responseType: 'json'
 })
 
-export default {}
+export default {
+  actions: {
+    wifiWith(context, { params, id }) {
+      axiosBase
+        .post('/api/v1/wifi_withs', params, {
+          headers: context.rootState.userStore.headers
+        })
+        .then(function(response) {
+          context.commit('addWifiWith', { wifiWith: response.data, id: id })
+        })
+    }
+  }
+}
