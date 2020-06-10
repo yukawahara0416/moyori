@@ -19,6 +19,16 @@ export default {
         .then(function(response) {
           context.commit('addWifiWith', { wifiWith: response.data, id: id })
         })
+    },
+
+    unWifiWith(context, { params, id }) {
+      axiosBase
+        .delete('/api/v1/wifi_withs/' + params.id, {
+          headers: context.rootState.userStore.headers
+        })
+        .then(function(response) {
+          context.commit('deleteWifiWith', { wifiWith: response.data, id: id })
+        })
     }
   }
 }
