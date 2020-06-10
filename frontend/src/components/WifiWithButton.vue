@@ -86,6 +86,11 @@ export default {
     unWifiWith(wifiWith, id) {
       var params = { id: wifiWith.id }
       this.$store.dispatch('unWifiWith', { params: params, id: id })
+    },
+
+    unWifiWithout(wifiWithout, id) {
+      var params = { id: wifiWithout.id }
+      this.$store.dispatch('unWifiWithout', { params: params, id: id })
     }
   }
 }
