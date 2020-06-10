@@ -56,6 +56,10 @@ export default {
       state.spots[id].power_withs.push(powerWith)
     },
 
+    addPowerWithout(state, { powerWithout, id }) {
+      state.spots[id].power_withouts.push(powerWithout)
+    },
+
     //// deleteProps
     deleteLike(state, { like, id }) {
       var likes = state.spots[id].likes
@@ -79,6 +83,12 @@ export default {
       var powerWiths = state.spots[id].power_withs
       var index = powerWiths.findIndex(({ id }) => id === powerWith.id)
       powerWiths.splice(index, 1)
+    },
+
+    deletePowerWithout(state, { powerWithout, id }) {
+      var powerWithouts = state.spots[id].power_withouts
+      var index = powerWithouts.findIndex(({ id }) => id === powerWithout.id)
+      powerWithouts.splice(index, 1)
     },
 
     // アイコンを戻す
