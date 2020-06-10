@@ -13,6 +13,10 @@ export default {
   props: {
     spot: Object,
     id: Number
+  },
+
+  computed: {
+    ...mapGetters(['spots', 'headers', 'currentUser'])
   }
 }
 </script>
