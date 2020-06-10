@@ -20,6 +20,12 @@ export default {
   props: {
     spot: Object,
     id: Number
+  },
+
+  data() {
+    return {
+      content: ''
+    }
   }
 }
 </script>
