@@ -9,4 +9,32 @@ const axiosBase = axios.create({
   responseType: 'json'
 })
 
-export default {}
+export default {
+  actions: {
+    wifiWithout(context, { params, id }) {
+      axiosBase
+        .post('/api/v1/wifi_withouts', params, {
+          headers: context.rootState.userStore.headers
+        })
+        .then(function(response) {
+          context.commit('addWifiWithout', {
+            wifiWithout: response.data,
+            id: id
+          })
+        })
+    },
+
+    unWifiWithout(context, { params, id }) {
+      axiosBase
+        .delete('/api/v1/wifi_withs/' + params.id, {
+          headers: context.rootState.userStore.headers
+        })
+        .then(function(response) {
+          context.commit('deleteWifiWithout', {
+            wifiWithout: response.data,
+            id: id
+          })
+        })
+    }
+  }
+}
