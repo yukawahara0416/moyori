@@ -38,6 +38,20 @@ export default {
       } else {
         return []
       }
+    },
+
+    isWifiWithouted() {
+      const vm = this
+      const wifiWithouted = this.spots[this.id].wifi_withouts.filter(function(
+        wifi_without
+      ) {
+        return wifi_without.user_id == vm.currentUser.data.id
+      })
+      if (vm.currentUser !== null && wifiWithouted.length > 0) {
+        return wifiWithouted
+      } else {
+        return []
+      }
     }
   },
 
@@ -48,6 +62,9 @@ export default {
       if (this.headers !== null) {
         if (this.isPosted) {
           if (this.isWifiWithed.length === 0) {
+            if (this.isWifiWithouted.length > 0) {
+              await this.unWifiWithout(this.isWifiWithouted[0], id)
+            }
             await this.wifiWith(spot, id)
           } else {
             await this.unWifiWith(this.isWifiWithed[0], id)
@@ -72,6 +89,11 @@ export default {
     unWifiWith(wifiWith, id) {
       var params = { id: wifiWith.id }
       this.$store.dispatch('unWifiWith', { params: params, id: id })
+    },
+
+    unWifiWithout(wifiWithout, id) {
+      var params = { id: wifiWithout.id }
+      this.$store.dispatch('unWifiWithout', { params: params, id: id })
     }
   }
 }
