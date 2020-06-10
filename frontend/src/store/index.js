@@ -4,6 +4,7 @@ import markerStore from '@/store/modules/marker.js'
 import userStore from '@/store/modules/user.js'
 import likeStore from '@/store/modules/spot/like.js'
 import wifiWithStore from '@/store/modules/spot/wifiWith.js'
+import wifiWithoutStore from '@/store/modules/spot/wifiWithout.js'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -13,7 +14,8 @@ export default new Vuex.Store({
     markerStore,
     userStore,
     likeStore,
-    wifiWithStore
+    wifiWithStore,
+    wifiWithoutStore
   },
 
   plugins: [
