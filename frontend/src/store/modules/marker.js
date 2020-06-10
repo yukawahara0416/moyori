@@ -55,6 +55,12 @@ export default {
       likes.splice(index, 1)
     },
 
+    deleteWifiWith(state, { wifiWith, id }) {
+      var wifiWiths = state.spots[id].wifi_withs
+      var index = wifiWiths.findIndex(({ id }) => id === wifiWith.id)
+      wifiWiths.splice(index, 1)
+    },
+
     // アイコンを戻す
     clearMarkerIcon(state, id) {
       const spot = state.spots[state.cache.id]
