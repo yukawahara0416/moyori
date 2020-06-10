@@ -16,7 +16,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spots', 'headers', 'currentUser'])
+    ...mapGetters(['spots', 'headers', 'currentUser']),
+
+    isPosted() {
+      if (this.spot.record.length !== 0) {
+        return this.spot
+      } else {
+        return false
+      }
+    }
   }
 }
 </script>
