@@ -48,6 +48,10 @@ export default {
       state.spots[id].wifi_withs.push(wifiWith)
     },
 
+    addWifiWithout(state, { wifiWithout, id }) {
+      state.spots[id].wifi_withouts.push(wifiWithout)
+    },
+
     //// deleteProps
     deleteLike(state, { like, id }) {
       var likes = state.spots[id].likes
@@ -59,6 +63,12 @@ export default {
       var wifiWiths = state.spots[id].wifi_withs
       var index = wifiWiths.findIndex(({ id }) => id === wifiWith.id)
       wifiWiths.splice(index, 1)
+    },
+
+    deleteWifiWithout(state, { wifiWithout, id }) {
+      var wifiWithouts = state.spots[id].wifi_withouts
+      var index = wifiWithouts.findIndex(({ id }) => id === wifiWithout.id)
+      wifiWithouts.splice(index, 1)
     },
 
     // アイコンを戻す
