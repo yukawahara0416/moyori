@@ -39,6 +39,40 @@ export default {
         return []
       }
     }
+  },
+
+  methods: {
+    powerWithHandler: async function() {
+      var spot = this.spot
+      var id = this.id
+      if (this.headers !== null) {
+        if (this.isPosted) {
+          if (this.isPowerWithed.length === 0) {
+            await this.powerWith(spot, id)
+          } else {
+            await this.unPowerWith(this.isPowerWithed[0], id)
+          }
+        } else {
+          spot = await this.$store.dispatch('postSpot', {
+            spot: spot,
+            id: id
+          })
+          await this.powerWith(spot, id)
+        }
+      } else {
+        console.log('ログインしてください')
+      }
+    },
+
+    powerWith(spot, id) {
+      var params = { spot_id: spot.record.id }
+      this.$store.dispatch('powerWith', { params: params, id: id })
+    },
+
+    unPowerWith(powerWith, id) {
+      var params = { id: powetWith.id }
+      this.$store.dispatch('unPowerWith', { params: params, id: id })
+    }
   }
 }
 </script>
