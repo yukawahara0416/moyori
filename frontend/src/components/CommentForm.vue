@@ -31,7 +31,19 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spots', 'headers', 'currentUser'])
+    ...mapGetters(['spots', 'headers', 'currentUser']),
+
+    isCommented() {
+      const vm = this
+      const commented = this.spots[this.id].comments.filter(function(comment) {
+        return comment.user_id == vm.currentUser.data.id
+      })
+      if (vm.currentUser !== null && commented.length > 0) {
+        return commented
+      } else {
+        return []
+      }
+    }
   }
 }
 </script>
