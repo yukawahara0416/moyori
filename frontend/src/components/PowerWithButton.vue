@@ -70,7 +70,7 @@ export default {
     },
 
     unPowerWith(powerWith, id) {
-      var params = { id: powetWith.id }
+      var params = { id: powerWith.id }
       this.$store.dispatch('unPowerWith', { params: params, id: id })
     }
   }

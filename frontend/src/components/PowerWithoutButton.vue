@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn icon @click="powerWithoutHandler()">
-      wifinone
+      Powernone
     </v-btn>
   </div>
 </template>
@@ -26,18 +26,52 @@ export default {
       }
     },
 
-    isPowerWithed() {
+    isPowerWithouted() {
       const vm = this
-      const powerWithed = this.spots[this.id].power_withs.filter(function(
-        power_with
+      const powerWithouted = this.spots[this.id].power_withouts.filter(function(
+        power_without
       ) {
-        return power_with.user_id == vm.currentUser.data.id
+        return power_without.user_id == vm.currentUser.data.id
       })
-      if (vm.currentUser !== null && powerWithed.length > 0) {
-        return powerWithed
+      if (vm.currentUser !== null && powerWithouted.length > 0) {
+        return powerWithouted
       } else {
         return []
       }
+    }
+  },
+
+  methods: {
+    powerWithoutHandler: async function() {
+      var spot = this.spot
+      var id = this.id
+      if (this.headers !== null) {
+        if (this.isPosted) {
+          if (this.isPowerWithouted.length === 0) {
+            await this.powerWithout(spot, id)
+          } else {
+            await this.unPowerWithout(this.isPowerWithouted[0], id)
+          }
+        } else {
+          spot = await this.$store.dispatch('postSpot', {
+            spot: spot,
+            id: id
+          })
+          await this.powerWithout(spot, id)
+        }
+      } else {
+        console.log('ログインしてください')
+      }
+    },
+
+    powerWithout(spot, id) {
+      var params = { spot_id: spot.record.id }
+      this.$store.dispatch('powerWithout', { params: params, id: id })
+    },
+
+    unPowerWithout(powerWith, id) {
+      var params = { id: powerWith.id }
+      this.$store.dispatch('unPowerWithout', { params: params, id: id })
     }
   }
 }
