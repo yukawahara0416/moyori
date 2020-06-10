@@ -62,6 +62,9 @@ export default {
       if (this.headers !== null) {
         if (this.isPosted) {
           if (this.isWifiWithed.length === 0) {
+            if (this.isWifiWithouted.length > 0) {
+              await this.unWifiWithout(this.isWifiWithouted[0], id)
+            }
             await this.wifiWith(spot, id)
           } else {
             await this.unWifiWith(this.isWifiWithed[0], id)
