@@ -26,6 +26,7 @@
                 <wifi-with-button :spot="s" :id="id" />
                 <wifi-without-button :spot="s" :id="id" />
                 <power-with-button :spot="s" :id="id" />
+                <power-without-button :spot="s" :id="id" />
               </v-card-actions>
             </v-col>
           </v-row>
@@ -40,6 +41,7 @@ import LikeButton from '@/components/LikeButton.vue'
 import WifiWithButton from '@/components/WifiWithButton.vue'
 import WifiWithoutButton from '@/components/WifiWithoutButton.vue'
 import PowerWithButton from '@/components/PowerWithButton.vue'
+import PowerWithoutButton from '@/components/PowerWithoutButton.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -47,7 +49,8 @@ export default {
     LikeButton,
     WifiWithButton,
     WifiWithoutButton,
-    PowerWithButton
+    PowerWithButton,
+    PowerWithoutButton
   },
 
   computed: {
