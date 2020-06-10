@@ -23,6 +23,7 @@
                   保存
                 </v-btn>
                 <like-button :spot="s" :id="id" />
+                <wifi-with-button :spot="s" :id="id" />
               </v-card-actions>
             </v-col>
           </v-row>
@@ -34,11 +35,13 @@
 
 <script>
 import LikeButton from '@/components/LikeButton.vue'
+import WifiWithButton from '@/components/WifiWithButton.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    LikeButton
+    LikeButton,
+    WifiWithButton
   },
 
   computed: {
