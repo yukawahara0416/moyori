@@ -38,6 +38,20 @@ export default {
       } else {
         return []
       }
+    },
+
+    isPowerWithouted() {
+      const vm = this
+      const powerWithouted = this.spots[this.id].power_withouts.filter(function(
+        power_without
+      ) {
+        return power_without.user_id == vm.currentUser.data.id
+      })
+      if (vm.currentUser !== null && powerWithouted.length > 0) {
+        return powerWithouted
+      } else {
+        return []
+      }
     }
   },
 
