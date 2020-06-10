@@ -41,7 +41,39 @@ export default {
     }
   },
 
-  methods: {}
+  methods: {
+    wifiWithHandler: async function() {
+      var spot = this.spot
+      var id = this.id
+      if (this.headers !== null) {
+        if (this.isPosted) {
+          if (this.isWifiWithed.length === 0) {
+            await this.wifiWith(spot, id)
+          } else {
+            await this.unWifiWith(this.isWifiWithed[0], id)
+          }
+        } else {
+          spot = await this.$store.dispatch('postSpot', {
+            spot: spot,
+            id: id
+          })
+          await this.wifiWith(spot, id)
+        }
+      } else {
+        console.log('ログインしてください')
+      }
+    },
+
+    wifiWith(spot, id) {
+      var params = { spot_id: spot.record.id }
+      this.$store.dispatch('wifiWith', { params: params, id: id })
+    },
+
+    unWifiWith(wifiWith, id) {
+      var params = { id: wifiWith.id }
+      this.$store.dispatch('unWifiWith', { params: params, id: id })
+    }
+  }
 }
 </script>
 
