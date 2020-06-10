@@ -7,7 +7,12 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    spot: Object,
+    id: Number
+  }
+}
 </script>
 
 <style></style>
