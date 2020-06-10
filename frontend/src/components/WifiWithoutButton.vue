@@ -9,7 +9,12 @@
 <script>
 import { mapGetters } from 'vuex'
 
-export default {}
+export default {
+  props: {
+    spot: Object,
+    id: Number
+  }
+}
 </script>
 
 <style></style>
