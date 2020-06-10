@@ -16,8 +16,32 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spots', 'headers', 'currentUser'])
-  }
+    ...mapGetters(['spots', 'headers', 'currentUser']),
+
+    isPosted() {
+      if (this.spot.record.length !== 0) {
+        return this.spot
+      } else {
+        return false
+      }
+    },
+
+    isWifiWithed() {
+      const vm = this
+      const wifiWithed = this.spots[this.id].wifi_withs.filter(function(
+        wifi_with
+      ) {
+        return wifi_with.user_id == vm.currentUser.data.id
+      })
+      if (vm.currentUser !== null && wifiWithed.length > 0) {
+        return wifiWithed
+      } else {
+        return []
+      }
+    }
+  },
+
+  methods: {}
 }
 </script>
 
