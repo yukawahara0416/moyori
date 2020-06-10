@@ -6,6 +6,10 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import { mapGetters } from 'vuex'
+
+export default {}
+</script>
 
 <style></style>
