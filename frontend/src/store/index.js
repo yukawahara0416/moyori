@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import userStore from '@/store/modules/user.js'
-import markerStore from '@/store/modules/marker.js'
+import spotStore from '@/store/modules/spot.js'
 import likeStore from '@/store/modules/spot/like.js'
 import wifiWithStore from '@/store/modules/spot/wifiWith.js'
 import wifiWithoutStore from '@/store/modules/spot/wifiWithout.js'
@@ -15,7 +15,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     userStore,
-    markerStore,
+    spotStore,
     likeStore,
     wifiWithStore,
     wifiWithoutStore,

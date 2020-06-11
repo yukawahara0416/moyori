@@ -1,6 +1,6 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import markerStore from '@/store/modules/marker.js'
+import spotStore from '@/store/modules/spot.js'
 import { cloneDeep } from 'lodash'
 
 const localVue = createLocalVue()
@@ -9,7 +9,7 @@ localVue.use(Vuex)
 let store
 
 beforeEach(() => {
-  store = new Vuex.Store(cloneDeep(markerStore))
+  store = new Vuex.Store(cloneDeep(spotStore))
 })
 
 describe('mutations', () => {

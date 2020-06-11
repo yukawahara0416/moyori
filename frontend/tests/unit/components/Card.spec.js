@@ -2,7 +2,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Card from '@/components/Card.vue'
-import markerStore from '@/store/modules/marker.js'
+import spotStore from '@/store/modules/spot.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -29,9 +29,9 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      markerStore: {
+      spotStore: {
         state,
-        getters: markerStore.getters,
+        getters: spotStore.getters,
         actions
       }
     }
