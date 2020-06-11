@@ -19,6 +19,16 @@ export default {
         .then(function(response) {
           context.commit('addComment', { comment: response.data, id: id })
         })
+    },
+
+    deleteComment(context, { comment, id }) {
+      axiosBase
+        .delete('/api/v1/comments/' + comment.id, {
+          headers: context.rootState.userStore.headers
+        })
+        .then(function(response) {
+          context.commit('deleteComment', { comment: response.data, id: id })
+        })
     }
   }
 }
