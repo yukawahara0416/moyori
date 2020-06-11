@@ -9,4 +9,16 @@ const axiosBase = axios.create({
   responseType: 'json'
 })
 
-export default {}
+export default {
+  actions: {
+    postComment(context, { params, id }) {
+      axiosBase
+        .post('/api/v1/comments', params, {
+          headers: context.rootState.userStore.headers
+        })
+        .then(function(response) {
+          context.commit('addComment', { comment: response.data, id: id })
+        })
+    }
+  }
+}

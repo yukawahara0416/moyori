@@ -71,7 +71,7 @@ export default {
 
     postComment(spot, id) {
       var params = { spot_id: spot.record.id, content: this.content }
-      this.$store.dispatch('postCommnet', { params: params, id: id })
+      this.$store.dispatch('postComment', { params: params, id: id })
     }
   }
 }
