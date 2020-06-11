@@ -8,6 +8,12 @@
 
     <div v-for="(c, id) in spot.comments" :key="id">
       <p>{{ c.content }}</p>
+      <v-btn
+        @click="deleteComment(comment)"
+        icon
+        type="submit"
+        v-if="c.user_id == currentUser.data.id"
+      ></v-btn>
     </div>
   </div>
 </template>
