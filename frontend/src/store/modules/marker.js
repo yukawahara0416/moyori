@@ -95,6 +95,12 @@ export default {
       powerWithouts.splice(index, 1)
     },
 
+    deleteComment(state, { comment, id }) {
+      var comments = state.spots[id].comments
+      var index = comments.findIndex(({ id }) => id === comment.id)
+      comments.splice(index, 1)
+    },
+
     // アイコンを戻す
     clearMarkerIcon(state, id) {
       const spot = state.spots[state.cache.id]
