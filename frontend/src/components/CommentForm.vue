@@ -9,10 +9,9 @@
     <div v-for="(c, id) in spot.comments" :key="id">
       <p>{{ c.content }}</p>
       <v-btn
-        @click="deleteComment(comment)"
-        icon
         type="submit"
         v-if="c.user_id == currentUser.data.id"
+        @click="deleteComment(c, id)"
       ></v-btn>
     </div>
   </div>
@@ -81,6 +80,16 @@ export default {
     postComment(spot, id) {
       var params = { spot_id: spot.record.id, content: this.content }
       this.$store.dispatch('postComment', { params: params, id: id })
+    },
+
+    deleteComment(comment) {
+      var spot = this.spot
+      var id = this.id
+      this.$store.dispatch('deleteComment', {
+        spot: spot,
+        id: id,
+        comment: comment
+      })
     }
   }
 }
