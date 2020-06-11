@@ -1,17 +1,14 @@
 <template>
   <div>
     <v-form @submit.prevent>
-      <v-text-field
-        label="コメント"
-        name="comment"
-        type="text"
-        v-model="content"
-      />
+      <v-text-field name="comment" type="text" v-model="content" />
     </v-form>
 
-    <v-btn @click="commentHandler()" type="submit">
-      コメント
-    </v-btn>
+    <v-btn @click="commentHandler()" type="submit">コメント</v-btn>
+
+    <div v-for="(c, id) in spot.comments" :key="id">
+      <p>{{ c.content }}</p>
+    </div>
   </div>
 </template>
 
@@ -33,6 +30,14 @@ export default {
   computed: {
     ...mapGetters(['spots', 'headers', 'currentUser']),
 
+    isPosted() {
+      if (this.spot.record.length !== 0) {
+        return this.spot
+      } else {
+        return false
+      }
+    },
+
     isCommented() {
       const vm = this
       const commented = this.spots[this.id].comments.filter(function(comment) {
@@ -52,17 +57,15 @@ export default {
       var id = this.id
       if (this.headers !== null) {
         if (this.isPosted) {
-          if (this.isCommented.length === 0) {
-            await this.postComment(spot, id)
-          } else {
-            this.content = ''
-          }
+          await this.postComment(spot, id)
+          this.content = ''
         } else {
           spot = await this.$store.dispatch('postSpot', {
             spot: spot,
             id: id
           })
           await this.postComment(spot, id)
+          this.content = ''
         }
       } else {
         console.log('ログインしてください')
