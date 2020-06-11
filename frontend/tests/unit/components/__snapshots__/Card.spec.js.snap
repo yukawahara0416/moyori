@@ -138,6 +138,58 @@ exports[`template snapshot 1`] = `
                   </span>
                 </button>
               </div>
+               
+              <div>
+                <form
+                  class="v-form"
+                  novalidate="novalidate"
+                >
+                  <div
+                    class="v-input theme--light v-text-field"
+                  >
+                    <div
+                      class="v-input__control"
+                    >
+                      <div
+                        class="v-input__slot"
+                      >
+                        <div
+                          class="v-text-field__slot"
+                        >
+                          <input
+                            id="input-321"
+                            name="comment"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="v-text-field__details"
+                      >
+                        <div
+                          class="v-messages theme--light"
+                        >
+                          <div
+                            class="v-messages__wrapper"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                 
+                <button
+                  class="v-btn v-btn--contained theme--light v-size--default"
+                  type="submit"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    コメント
+                  </span>
+                </button>
+                 
+              </div>
             </div>
           </div>
         </div>
@@ -271,6 +323,58 @@ exports[`template snapshot 1`] = `
   
                   </span>
                 </button>
+              </div>
+               
+              <div>
+                <form
+                  class="v-form"
+                  novalidate="novalidate"
+                >
+                  <div
+                    class="v-input theme--light v-text-field"
+                  >
+                    <div
+                      class="v-input__control"
+                    >
+                      <div
+                        class="v-input__slot"
+                      >
+                        <div
+                          class="v-text-field__slot"
+                        >
+                          <input
+                            id="input-340"
+                            name="comment"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="v-text-field__details"
+                      >
+                        <div
+                          class="v-messages theme--light"
+                        >
+                          <div
+                            class="v-messages__wrapper"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                 
+                <button
+                  class="v-btn v-btn--contained theme--light v-size--default"
+                  type="submit"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    コメント
+                  </span>
+                </button>
+                 
               </div>
             </div>
           </div>

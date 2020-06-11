@@ -39,7 +39,7 @@ export default {
       Object.assign(spot, props)
     },
 
-    //// addProps
+    //// addData
     addLike(state, { like, id }) {
       state.spots[id].likes.push(like)
     },
@@ -60,7 +60,11 @@ export default {
       state.spots[id].power_withouts.push(powerWithout)
     },
 
-    //// deleteProps
+    addComment(state, { comment, id }) {
+      state.spots[id].comments.push(comment)
+    },
+
+    //// deleteData
     deleteLike(state, { like, id }) {
       var likes = state.spots[id].likes
       var index = likes.findIndex(({ id }) => id === like.id)
@@ -89,6 +93,12 @@ export default {
       var powerWithouts = state.spots[id].power_withouts
       var index = powerWithouts.findIndex(({ id }) => id === powerWithout.id)
       powerWithouts.splice(index, 1)
+    },
+
+    deleteComment(state, { comment, id }) {
+      var comments = state.spots[id].comments
+      var index = comments.findIndex(({ id }) => id === comment.id)
+      comments.splice(index, 1)
     },
 
     // アイコンを戻す
