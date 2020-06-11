@@ -7,6 +7,7 @@ import wifiWithStore from '@/store/modules/spot/wifiWith.js'
 import wifiWithoutStore from '@/store/modules/spot/wifiWithout.js'
 import powerWithStore from '@/store/modules/spot/powerWith.js'
 import powerWithoutStore from '@/store/modules/spot/powerWithout.js'
+import commentStore from '@/store/modules/spot/comment.js'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -19,7 +20,8 @@ export default new Vuex.Store({
     wifiWithStore,
     wifiWithoutStore,
     powerWithStore,
-    powerWithoutStore
+    powerWithoutStore,
+    commentStore
   },
 
   plugins: [
