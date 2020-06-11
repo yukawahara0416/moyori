@@ -44,6 +44,35 @@ export default {
         return []
       }
     }
+  },
+
+  methods: {
+    commentHandler: async function() {
+      var spot = this.spot
+      var id = this.id
+      if (this.headers !== null) {
+        if (this.isPosted) {
+          if (this.isCommented.length === 0) {
+            await this.postComment(spot, id)
+          } else {
+            this.content = ''
+          }
+        } else {
+          spot = await this.$store.dispatch('postSpot', {
+            spot: spot,
+            id: id
+          })
+          await this.postComment(spot, id)
+        }
+      } else {
+        console.log('ログインしてください')
+      }
+    },
+
+    postComment(spot, id) {
+      var params = { spot_id: spot.record.id, content: this.content }
+      this.$store.dispatch('postCommnet', { params: params, id: id })
+    }
   }
 }
 </script>
