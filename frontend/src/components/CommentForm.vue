@@ -83,12 +83,10 @@ export default {
     },
 
     deleteComment(comment) {
-      var spot = this.spot
       var id = this.id
       this.$store.dispatch('deleteComment', {
-        spot: spot,
-        id: id,
-        comment: comment
+        comment: comment,
+        id: id
       })
     }
   }
