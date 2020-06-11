@@ -17,7 +17,11 @@ export default {
           headers: context.rootState.userStore.headers
         })
         .then(function(response) {
-          context.commit('addLike', { like: response.data, id: id })
+          context.commit('addData', {
+            data: response.data,
+            id: id,
+            key: 'likes'
+          })
         })
     },
 
@@ -27,7 +31,11 @@ export default {
           headers: context.rootState.userStore.headers
         })
         .then(function(response) {
-          context.commit('deleteLike', { like: response.data, id: id })
+          context.commit('deleteData', {
+            data: response.data,
+            id: id,
+            key: 'likes'
+          })
         })
     }
   }

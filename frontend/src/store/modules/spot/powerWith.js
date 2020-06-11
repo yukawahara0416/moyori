@@ -17,7 +17,11 @@ export default {
           headers: context.rootState.userStore.headers
         })
         .then(function(response) {
-          context.commit('addPowerWith', { powerWith: response.data, id: id })
+          context.commit('addData', {
+            data: response.data,
+            id: id,
+            key: 'power_withs'
+          })
         })
     },
 
@@ -27,9 +31,10 @@ export default {
           headers: context.rootState.userStore.headers
         })
         .then(function(response) {
-          context.commit('deletePowerWith', {
-            powerWith: response.data,
-            id: id
+          context.commit('deleteData', {
+            data: response.data,
+            id: id,
+            key: 'power_withs'
           })
         })
     }
