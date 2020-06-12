@@ -92,6 +92,7 @@ export default {
       results = await Promise.all(
         results.map(async res => {
           var formattedResult = await this.formatMarker(res)
+          formattedResult = await this.getDetail(formattedResult)
           return await this.getSpotData(formattedResult)
         })
       )
@@ -107,6 +108,7 @@ export default {
       results = await Promise.all(
         results.map(async res => {
           var formattedResult = await this.formatMarker(res)
+          formattedResult = await this.getDetail(formattedResult)
           return await this.getSpotData(formattedResult)
         })
       )
@@ -122,8 +124,6 @@ export default {
       return new Promise(resolve => {
         var address = res.formatted_address ? res.formatted_address : 'null'
         var vicinity = res.vicinity ? res.vicinity : 'null'
-        // error: open_now is deprecated as of November 2019 and will be turned off in November 2020. Use the isOpen() function from a PlacesService.getDetails() result instead.
-        // var isOpen = res.opening_hours ? res.opening_hours.open_now : 'null'
         var iconUrl =
           res.name.indexOf('スターバックス') !== -1
             ? 'starbucks'
@@ -142,9 +142,9 @@ export default {
           url: require(`@/assets/${iconUrl}.png`),
           scaledSize: new google.maps.Size(50, 50)
         }
-        var photo = res.photos
-          ? res.photos[0].getUrl({ maxWidth: 320 })
-          : require('@/assets/noimage.png')
+        // var photo = res.photos
+        //   ? res.photos[0].getUrl({ maxWidth: 320 })
+        //   : require('@/assets/noimage.png')
         var pos = {
           lat: res.geometry.location.lat(),
           lng: res.geometry.location.lng()
@@ -153,12 +153,11 @@ export default {
         var formattedResult = {
           marker: {
             address: address,
-            // isOpen: isOpen,
             icon: icon,
             name: res.name,
             rating: res.rating,
             ratingsTotal: res.user_ratings_total,
-            photoUrl: photo,
+            // photoUrl: photo,
             place_id: res.place_id,
             position: pos,
             vicinity: vicinity,
@@ -186,6 +185,34 @@ export default {
             resolve(formattedResult)
           }
           resolve(res)
+        })
+      })
+    },
+
+    // spotのより詳細な情報を取得する
+    getDetail(res) {
+      return new Promise((resolve, reject) => {
+        const map = this.$refs.map.$mapObject
+        const placeService = new google.maps.places.PlacesService(map)
+        const request = {
+          placeId: res.marker.place_id,
+          fields: ['opening_hours', 'photos', 'reviews']
+        }
+        placeService.getDetails(request, (result, status) => {
+          if (status == 'OK' || status == 'ZERO_RESULTS') {
+            // const opening_hours = result.opening_hours
+            //   ? result.opening_hours
+            //   : 'null'
+            const photos = result.photos ? result.photos : 'null'
+            const reviews = result.reviews ? result.reviews : 'null'
+
+            // res['opening_hours'] = opening_hours
+            res['photos'] = photos
+            res['reviews'] = reviews
+            resolve(res)
+          } else {
+            reject(res)
+          }
         })
       })
     },
