@@ -17,6 +17,7 @@
       :options="mapOptions"
       :zoom="16"
       @center_changed="onCenterChanged"
+      @click="addMarker($event)"
     >
       <google-maps-circle :mapCenter="mapCenter" />
       <google-maps-marker @pan-to="panTo" />
@@ -61,7 +62,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spots'])
+    ...mapGetters(['spots', 'currentUser'])
   },
 
   // 自動的に現在地でnearbySearchする
@@ -115,6 +116,31 @@ export default {
       await this.addSpots(results)
     },
 
+    // Spotを新規登録する
+    addMarker: async function(event) {
+      var l = 8
+      var c = 'abcdefghijklmnopqrstuvwxyz0123456789'
+      var cl = c.length
+      var r = ''
+      for (var i = 0; i < l; i++) {
+        r += c[Math.floor(Math.random() * cl)]
+      }
+      var placeId = this.currentUser.data.id + '_' + r
+      var request = {
+        position: {
+          lat: event.latLng.lat(),
+          lng: event.latLng.lng()
+        },
+        place_id: placeId
+      }
+      var formattedRequest = await this.formatMarker(request)
+      await alert('保存しますか？')
+      await this.$store.dispatch('postSpot', {
+        spot: formattedRequest,
+        id: this.spots.length + 1
+      })
+    },
+
     ////////////////////////
     //// 個別機能（ABC順）////
     ////////////////////////
@@ -123,9 +149,8 @@ export default {
     formatMarker(res) {
       return new Promise(resolve => {
         var address = res.formatted_address ? res.formatted_address : 'null'
-        var vicinity = res.vicinity ? res.vicinity : 'null'
-        var iconUrl =
-          res.name.indexOf('スターバックス') !== -1
+        var iconUrl = res.name
+          ? res.name.indexOf('スターバックス') !== -1
             ? 'starbucks'
             : res.name.indexOf('タリーズ') !== -1
             ? 'tullys'
@@ -138,28 +163,34 @@ export default {
             : res.name.indexOf('WIRED CAFE') !== -1
             ? 'wired-cafe'
             : 'cafe'
+          : 'cafe'
         var icon = {
           url: require(`@/assets/${iconUrl}.png`),
           scaledSize: new google.maps.Size(50, 50)
         }
-        // var photo = res.photos
-        //   ? res.photos[0].getUrl({ maxWidth: 320 })
-        //   : require('@/assets/noimage.png')
-        var pos = {
-          lat: res.geometry.location.lat(),
-          lng: res.geometry.location.lng()
-        }
+        var name = res.name ? res.name : 'null'
+        var rating = res.rating ? res.rating : 'null'
+        var ratingsTotal = res.user_ratings_total
+          ? res.user_ratings_total
+          : 'null'
+        var placeId = res.place_id ? res.place_id : 'null'
+        var position = res.geometry
+          ? {
+              lat: res.geometry.location.lat(),
+              lng: res.geometry.location.lng()
+            }
+          : res.position
+        var vicinity = res.vicinity ? res.vicinity : 'null'
 
         var formattedResult = {
           marker: {
             address: address,
             icon: icon,
-            name: res.name,
-            rating: res.rating,
-            ratingsTotal: res.user_ratings_total,
-            // photoUrl: photo,
-            place_id: res.place_id,
-            position: pos,
+            name: name,
+            rating: rating,
+            ratingsTotal: ratingsTotal,
+            place_id: placeId,
+            position: position,
             vicinity: vicinity,
             zIndex: 10
           },
@@ -207,8 +238,8 @@ export default {
             const reviews = result.reviews ? result.reviews : 'null'
 
             // res['opening_hours'] = opening_hours
-            res['photos'] = photos
-            res['reviews'] = reviews
+            res.marker['photos'] = photos
+            res.marker['reviews'] = reviews
             resolve(res)
           } else {
             reject(res)
