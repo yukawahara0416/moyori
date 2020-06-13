@@ -2,6 +2,7 @@
   <div>
     <gmap-marker
       v-for="(s, id) in spots"
+      :animation="4"
       :key="id"
       :icon="s.marker.icon"
       :position="s.marker.position"

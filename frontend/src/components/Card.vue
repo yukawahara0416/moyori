@@ -22,6 +22,9 @@
                 <v-btn data-test="postspot" @click="postSpot(s, id)">
                   保存
                 </v-btn>
+                <v-btn data-test="deletespot" @click="deleteSpot(s, id)">
+                  削除
+                </v-btn>
                 <like-button :spot="s" :id="id" />
                 <wifi-with-button :spot="s" :id="id" />
                 <wifi-without-button :spot="s" :id="id" />
@@ -67,6 +70,10 @@ export default {
 
     postSpot(spot, id) {
       this.$store.dispatch('postSpot', { spot: spot, id: id })
+    },
+
+    deleteSpot(spot, id) {
+      this.$store.dispatch('deleteSpot', { spot: spot, id: id })
     }
   }
 }
