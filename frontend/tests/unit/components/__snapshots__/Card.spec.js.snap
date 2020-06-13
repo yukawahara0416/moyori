@@ -64,188 +64,16 @@ exports[`template snapshot 1`] = `
                 </span>
               </button>
                
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    いいね
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    wifi
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    wifinone
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    power
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    Powernone
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <form
-                  class="v-form"
-                  novalidate="novalidate"
-                >
-                  <div
-                    class="v-input theme--light v-text-field"
-                  >
-                    <div
-                      class="v-input__control"
-                    >
-                      <div
-                        class="v-input__slot"
-                      >
-                        <div
-                          class="v-text-field__slot"
-                        >
-                          <input
-                            id="input-321"
-                            name="comment"
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="v-text-field__details"
-                      >
-                        <div
-                          class="v-messages theme--light"
-                        >
-                          <div
-                            class="v-messages__wrapper"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                 
-                <button
-                  class="v-btn v-btn--contained theme--light v-size--default"
-                  type="submit"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    コメント
-                  </span>
-                </button>
-                 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="col"
-    >
-      <div
-        class="v-card v-card--hover v-card--link v-sheet theme--light"
-        id="1"
-        tabindex="0"
-      >
-        <div
-          class="row"
-        >
-          <div
-            class="col"
-          >
-            <div
-              class="v-responsive v-image"
-            >
-              <div
-                class="v-responsive__content"
-              />
-            </div>
-          </div>
-           
-          <div
-            class="col"
-          >
-            <div
-              class="v-card__text"
-            >
-              <p>
-                fuga
-              </p>
-               
-              <p>
-                
-              </p>
-            </div>
-             
-            <div
-              class="v-card__actions"
-            >
               <button
                 class="v-btn v-btn--contained theme--light v-size--default"
-                data-test="postspot"
+                data-test="deletespot"
                 type="button"
               >
                 <span
                   class="v-btn__content"
                 >
                   
-                保存
+                削除
               
                 </span>
               </button>
@@ -343,7 +171,207 @@ exports[`template snapshot 1`] = `
                           class="v-text-field__slot"
                         >
                           <input
-                            id="input-340"
+                            id="input-336"
+                            name="comment"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="v-text-field__details"
+                      >
+                        <div
+                          class="v-messages theme--light"
+                        >
+                          <div
+                            class="v-messages__wrapper"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                 
+                <button
+                  class="v-btn v-btn--contained theme--light v-size--default"
+                  type="submit"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    コメント
+                  </span>
+                </button>
+                 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="col"
+    >
+      <div
+        class="v-card v-card--hover v-card--link v-sheet theme--light"
+        id="1"
+        tabindex="0"
+      >
+        <div
+          class="row"
+        >
+          <div
+            class="col"
+          >
+            <div
+              class="v-responsive v-image"
+            >
+              <div
+                class="v-responsive__content"
+              />
+            </div>
+          </div>
+           
+          <div
+            class="col"
+          >
+            <div
+              class="v-card__text"
+            >
+              <p>
+                fuga
+              </p>
+               
+              <p>
+                
+              </p>
+            </div>
+             
+            <div
+              class="v-card__actions"
+            >
+              <button
+                class="v-btn v-btn--contained theme--light v-size--default"
+                data-test="postspot"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  
+                保存
+              
+                </span>
+              </button>
+               
+              <button
+                class="v-btn v-btn--contained theme--light v-size--default"
+                data-test="deletespot"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  
+                削除
+              
+                </span>
+              </button>
+               
+              <div>
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    いいね
+  
+                  </span>
+                </button>
+              </div>
+               
+              <div>
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    wifi
+  
+                  </span>
+                </button>
+              </div>
+               
+              <div>
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    wifinone
+  
+                  </span>
+                </button>
+              </div>
+               
+              <div>
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    power
+  
+                  </span>
+                </button>
+              </div>
+               
+              <div>
+                <button
+                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                  type="button"
+                >
+                  <span
+                    class="v-btn__content"
+                  >
+                    
+    Powernone
+  
+                  </span>
+                </button>
+              </div>
+               
+              <div>
+                <form
+                  class="v-form"
+                  novalidate="novalidate"
+                >
+                  <div
+                    class="v-input theme--light v-text-field"
+                  >
+                    <div
+                      class="v-input__control"
+                    >
+                      <div
+                        class="v-input__slot"
+                      >
+                        <div
+                          class="v-text-field__slot"
+                        >
+                          <input
+                            id="input-356"
                             name="comment"
                             type="text"
                           />
