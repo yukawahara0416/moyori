@@ -17,9 +17,10 @@ export default {
           headers: context.rootState.userStore.headers
         })
         .then(function(response) {
-          context.commit('addWifiWithout', {
-            wifiWithout: response.data,
-            id: id
+          context.commit('addData', {
+            data: response.data,
+            id: id,
+            key: 'wifi_withouts'
           })
         })
     },
@@ -30,9 +31,10 @@ export default {
           headers: context.rootState.userStore.headers
         })
         .then(function(response) {
-          context.commit('deleteWifiWithout', {
-            wifiWithout: response.data,
-            id: id
+          context.commit('deleteData', {
+            data: response.data,
+            id: id,
+            key: 'wifi_withouts'
           })
         })
     }

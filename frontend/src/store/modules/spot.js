@@ -9,7 +9,23 @@ const axiosBase = axios.create({
   responseType: 'json'
 })
 
+import likeStore from '@/store/modules/spot/like.js'
+import wifiWithStore from '@/store/modules/spot/wifiWith.js'
+import wifiWithoutStore from '@/store/modules/spot/wifiWithout.js'
+import powerWithStore from '@/store/modules/spot/powerWith.js'
+import powerWithoutStore from '@/store/modules/spot/powerWithout.js'
+import commentStore from '@/store/modules/spot/comment.js'
+
 export default {
+  modules: {
+    likeStore,
+    wifiWithStore,
+    wifiWithoutStore,
+    powerWithStore,
+    powerWithoutStore,
+    commentStore
+  },
+
   state: {
     spots: [],
     cache: { id: -1, icon: '' }
@@ -39,66 +55,14 @@ export default {
       Object.assign(spot, props)
     },
 
-    //// addData
-    addLike(state, { like, id }) {
-      state.spots[id].likes.push(like)
+    addData(state, { data, id, key }) {
+      state.spots[id][key].push(data)
     },
 
-    addWifiWith(state, { wifiWith, id }) {
-      state.spots[id].wifi_withs.push(wifiWith)
-    },
-
-    addWifiWithout(state, { wifiWithout, id }) {
-      state.spots[id].wifi_withouts.push(wifiWithout)
-    },
-
-    addPowerWith(state, { powerWith, id }) {
-      state.spots[id].power_withs.push(powerWith)
-    },
-
-    addPowerWithout(state, { powerWithout, id }) {
-      state.spots[id].power_withouts.push(powerWithout)
-    },
-
-    addComment(state, { comment, id }) {
-      state.spots[id].comments.push(comment)
-    },
-
-    //// deleteData
-    deleteLike(state, { like, id }) {
-      var likes = state.spots[id].likes
-      var index = likes.findIndex(({ id }) => id === like.id)
-      likes.splice(index, 1)
-    },
-
-    deleteWifiWith(state, { wifiWith, id }) {
-      var wifiWiths = state.spots[id].wifi_withs
-      var index = wifiWiths.findIndex(({ id }) => id === wifiWith.id)
-      wifiWiths.splice(index, 1)
-    },
-
-    deleteWifiWithout(state, { wifiWithout, id }) {
-      var wifiWithouts = state.spots[id].wifi_withouts
-      var index = wifiWithouts.findIndex(({ id }) => id === wifiWithout.id)
-      wifiWithouts.splice(index, 1)
-    },
-
-    deletePowerWith(state, { powerWith, id }) {
-      var powerWiths = state.spots[id].power_withs
-      var index = powerWiths.findIndex(({ id }) => id === powerWith.id)
-      powerWiths.splice(index, 1)
-    },
-
-    deletePowerWithout(state, { powerWithout, id }) {
-      var powerWithouts = state.spots[id].power_withouts
-      var index = powerWithouts.findIndex(({ id }) => id === powerWithout.id)
-      powerWithouts.splice(index, 1)
-    },
-
-    deleteComment(state, { comment, id }) {
-      var comments = state.spots[id].comments
-      var index = comments.findIndex(({ id }) => id === comment.id)
-      comments.splice(index, 1)
+    deleteData(state, { data, id, key }) {
+      var values = state.spots[id][key]
+      var index = values.findIndex(({ id }) => id === data.id)
+      values.splice(index, 1)
     },
 
     // アイコンを戻す
@@ -151,8 +115,13 @@ export default {
             headers: context.rootState.userStore.headers
           })
           .then(function(response) {
-            context.commit('assignProps', { props: response.data, id: id })
-            resolve(response.data)
+            if (context.getters.spots.length >= id) {
+              context.commit('assignProps', { props: response.data, id: id })
+              resolve(response.data)
+            } else {
+              response.data['marker'] = spot.marker
+              context.dispatch('addSpots', response.data)
+            }
           })
       })
     },

@@ -17,7 +17,11 @@ export default {
           headers: context.rootState.userStore.headers
         })
         .then(function(response) {
-          context.commit('addComment', { comment: response.data, id: id })
+          context.commit('addData', {
+            data: response.data,
+            id: id,
+            key: 'comments'
+          })
         })
     },
 
@@ -27,7 +31,11 @@ export default {
           headers: context.rootState.userStore.headers
         })
         .then(function(response) {
-          context.commit('deleteComment', { comment: response.data, id: id })
+          context.commit('deleteData', {
+            data: response.data,
+            id: id,
+            key: 'comments'
+          })
         })
     }
   }

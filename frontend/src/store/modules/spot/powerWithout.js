@@ -17,9 +17,10 @@ export default {
           headers: context.rootState.userStore.headers
         })
         .then(function(response) {
-          context.commit('addPowerWithout', {
-            powerWithout: response.data,
-            id: id
+          context.commit('addData', {
+            data: response.data,
+            id: id,
+            key: 'power_withouts'
           })
         })
     },
@@ -30,9 +31,10 @@ export default {
           headers: context.rootState.userStore.headers
         })
         .then(function(response) {
-          context.commit('deletePowerWithout', {
-            powerWithout: response.data,
-            id: id
+          context.commit('deleteData', {
+            data: response.data,
+            id: id,
+            key: 'power_withouts'
           })
         })
     }
