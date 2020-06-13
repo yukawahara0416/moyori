@@ -50,7 +50,7 @@ export default {
       state.spots = []
     },
 
-    addProps(state, { props, id }) {
+    assignProps(state, { props, id }) {
       var spot = state.spots[id]
       Object.assign(spot, props)
     },
@@ -115,8 +115,13 @@ export default {
             headers: context.rootState.userStore.headers
           })
           .then(function(response) {
-            context.commit('addProps', { props: response.data, id: id })
-            resolve(response.data)
+            if (context.getters.spots.length >= id) {
+              context.commit('assignProps', { props: response.data, id: id })
+              resolve(response.data)
+            } else {
+              response.data['marker'] = spot.marker
+              context.dispatch('addSpots', response.data)
+            }
           })
       })
     },
