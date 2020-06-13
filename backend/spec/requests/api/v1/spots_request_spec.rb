@@ -32,7 +32,24 @@ RSpec.describe 'Api::V1::Spots', type: :request do
       'client': response.headers['client'],
       'access-token': response.headers['access-token']
     }
-    expect { post(api_v1_spots_path, params: spot_params, headers: headers) }.to change(Spot, :count).by(1)
+    mock = FactoryBot.build(:spot)
+    params = { spot: { place_id: mock.place_id } }
+    expect { post(api_v1_spots_path, params: params, headers: headers) }.to change(Spot, :count).by(1)
+    expect(response).to have_http_status(200)
+  end
+
+  it '特定のspotを削除する' do
+    login
+    headers = {
+      'uid': response.headers['uid'],
+      'client': response.headers['client'],
+      'access-token': response.headers['access-token']
+    }
+    mock = FactoryBot.build(:spot)
+    params = { spot: { place_id: mock.place_id } }
+    post(api_v1_spots_path, params: params, headers: headers)
+    json = JSON.parse(response.body)
+    expect { delete("/api/v1/spots/#{json['record']['id']}", headers: headers) }.to change(Spot, :count).by(-1)
     expect(response).to have_http_status(200)
   end
 end

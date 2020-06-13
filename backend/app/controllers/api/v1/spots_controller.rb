@@ -1,7 +1,7 @@
 module Api
   module V1
     class SpotsController < ApiController
-      before_action :authenticate_api_v1_user!, only: [:create]
+      before_action :authenticate_api_v1_user!, only: %i[create destroy]
 
       def index
         spot = Spot.where(place_id: params[:place_id])
@@ -21,6 +21,12 @@ module Api
         spot = current_api_v1_user.spots.new(spot_params)
         spot.save
         render json: convert_to_json(spot)
+      end
+
+      def destroy
+        spot = current_api_v1_user.spots.find(params[:id])
+        spot.destroy!
+        render json: spot.as_json(only: :id)
       end
 
       private
