@@ -121,7 +121,20 @@ export default {
             } else {
               response.data['marker'] = spot.marker
               context.dispatch('addSpots', response.data)
+              resolve(response.data)
             }
+          })
+      })
+    },
+
+    deleteSpot(context, { spot, id }) {
+      return new Promise(resolve => {
+        axiosBase
+          .delete('/api/v1/spots/' + spot.record.id, {
+            headers: context.rootState.userStore.headers
+          })
+          .then(function(response) {
+            resolve(response.data)
           })
       })
     },
