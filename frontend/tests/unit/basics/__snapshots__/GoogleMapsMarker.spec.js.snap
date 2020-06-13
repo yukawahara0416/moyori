@@ -3,10 +3,12 @@
 exports[`template snapshot 1`] = `
 <div>
   <gmap-marker-stub
+    animation="4"
     icon="foo"
     title="hoge"
   />
   <gmap-marker-stub
+    animation="4"
     icon="bar"
     title="fuga"
   />
