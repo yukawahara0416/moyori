@@ -56,7 +56,7 @@ module Api
         end
 
         def spot_params
-          params.fetch(:spot, {}).permit(:place_id)
+          params.fetch(:spot, {}).permit(:address, :lat, :lng, :name, :place_id, :url)
         end
     end
   end
