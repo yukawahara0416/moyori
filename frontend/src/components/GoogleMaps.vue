@@ -128,8 +128,8 @@ export default {
       var placeId = this.currentUser.data.id + '_' + r
       var request = {
         position: {
-          lat: event.latLng.lat(),
-          lng: event.latLng.lng()
+          lat: parseFloat(event.latLng.lat().toFixed(6)),
+          lng: parseFloat(event.latLng.lng().toFixed(6))
         },
         place_id: placeId
       }
@@ -148,7 +148,6 @@ export default {
     // 検索結果を整形する
     formatMarker(res) {
       return new Promise(resolve => {
-        var address = res.formatted_address ? res.formatted_address : 'null'
         var iconUrl = res.name
           ? res.name.indexOf('スターバックス') !== -1
             ? 'starbucks'
@@ -168,30 +167,27 @@ export default {
           url: require(`@/assets/${iconUrl}.png`),
           scaledSize: new google.maps.Size(50, 50)
         }
-        var name = res.name ? res.name : 'null'
-        var rating = res.rating ? res.rating : 'null'
+        var name = res.name ? res.name : null
+        var rating = res.rating ? res.rating : null
         var ratingsTotal = res.user_ratings_total
           ? res.user_ratings_total
-          : 'null'
-        var placeId = res.place_id ? res.place_id : 'null'
+          : null
+        var placeId = res.place_id ? res.place_id : null
         var position = res.geometry
           ? {
               lat: res.geometry.location.lat(),
               lng: res.geometry.location.lng()
             }
           : res.position
-        var vicinity = res.vicinity ? res.vicinity : 'null'
 
         var formattedResult = {
           marker: {
-            address: address,
             icon: icon,
             name: name,
             rating: rating,
             ratingsTotal: ratingsTotal,
             place_id: placeId,
             position: position,
-            vicinity: vicinity,
             zIndex: 10
           },
           record: [],
@@ -226,20 +222,30 @@ export default {
         const map = this.$refs.map.$mapObject
         const placeService = new google.maps.places.PlacesService(map)
         const request = {
-          placeId: res.marker.place_id,
-          fields: ['opening_hours', 'photos', 'reviews']
+          placeId: res.marker.place_id
+          // fields: ['opening_hours', 'photos', 'reviews']
         }
         placeService.getDetails(request, (result, status) => {
           if (status == 'OK' || status == 'ZERO_RESULTS') {
             // const opening_hours = result.opening_hours
             //   ? result.opening_hours
-            //   : 'null'
-            const photos = result.photos ? result.photos : 'null'
-            const reviews = result.reviews ? result.reviews : 'null'
+            //   : null
+            const address = result.formatted_address
+              ? result.formatted_address
+              : null
+            const phone = result.formatted_phone_number
+              ? result.formatted_phone_number
+              : null
+            const photos = result.photos ? result.photos : null
+            const reviews = result.reviews ? result.reviews : null
+            const website = result.website ? result.website : null
 
             // res['opening_hours'] = opening_hours
+            res.marker['address'] = address
+            res.marker['phone'] = phone
             res.marker['photos'] = photos
             res.marker['reviews'] = reviews
+            res.marker['website'] = website
             resolve(res)
           } else {
             reject(res)
