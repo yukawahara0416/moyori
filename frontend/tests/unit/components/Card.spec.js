@@ -42,7 +42,8 @@ beforeEach(() => {
   wrapper = mount(Card, {
     localVue,
     store,
-    vuetify
+    vuetify,
+    stubs: ['spot-form']
   })
 })
 

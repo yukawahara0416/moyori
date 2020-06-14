@@ -5,12 +5,12 @@ exports[`template snapshot 1`] = `
   <gmap-marker-stub
     animation="4"
     icon="foo"
-    name="hoge"
+    title="hoge"
   />
   <gmap-marker-stub
     animation="4"
     icon="bar"
-    name="fuga"
+    title="fuga"
   />
 </div>
 `;

@@ -78,6 +78,20 @@ exports[`template snapshot 1`] = `
                 </span>
               </button>
                
+              <button
+                class="v-btn v-btn--contained theme--light v-size--default"
+                data-test="updatespot"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  
+                更新
+              
+                </span>
+              </button>
+               
               <div>
                 <button
                   class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
@@ -171,7 +185,7 @@ exports[`template snapshot 1`] = `
                           class="v-text-field__slot"
                         >
                           <input
-                            id="input-336"
+                            id="input-365"
                             name="comment"
                             type="text"
                           />
@@ -204,6 +218,11 @@ exports[`template snapshot 1`] = `
                 </button>
                  
               </div>
+               
+              <spot-form-stub
+                id="0"
+                spot="[object Object]"
+              />
             </div>
           </div>
         </div>
@@ -278,6 +297,20 @@ exports[`template snapshot 1`] = `
                 </span>
               </button>
                
+              <button
+                class="v-btn v-btn--contained theme--light v-size--default"
+                data-test="updatespot"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  
+                更新
+              
+                </span>
+              </button>
+               
               <div>
                 <button
                   class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
@@ -371,7 +404,7 @@ exports[`template snapshot 1`] = `
                           class="v-text-field__slot"
                         >
                           <input
-                            id="input-356"
+                            id="input-387"
                             name="comment"
                             type="text"
                           />
@@ -404,6 +437,11 @@ exports[`template snapshot 1`] = `
                 </button>
                  
               </div>
+               
+              <spot-form-stub
+                id="1"
+                spot="[object Object]"
+              />
             </div>
           </div>
         </div>
