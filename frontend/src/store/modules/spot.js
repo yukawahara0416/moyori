@@ -113,7 +113,19 @@ export default {
 
     postSpot(context, { spot, id }) {
       return new Promise(resolve => {
-        const params = { spot: { place_id: spot.marker.place_id } }
+        const params =
+          context.getters.spots.length >= id
+            ? { spot: { place_id: spot.marker.place_id } }
+            : {
+                spot: {
+                  address: spot.marker.address,
+                  lat: spot.marker.position.lat,
+                  lng: spot.marker.position.lng,
+                  place_id: spot.marker.place_id,
+                  name: spot.marker.name,
+                  url: spot.marker.website
+                }
+              }
         axiosBase
           .post('/api/v1/spots', params, {
             headers: context.rootState.userStore.headers
@@ -127,6 +139,24 @@ export default {
               context.dispatch('addSpots', response.data)
               resolve(response.data)
             }
+          })
+      })
+    },
+
+    updateSpot(context, { spot, id, params }) {
+      return new Promise(resolve => {
+        axiosBase
+          .patch('/api/v1/spots/' + spot.record.id, params, {
+            headers: context.rootState.userStore.headers
+          })
+          .then(function(response) {
+            console.log(response)
+            response.data['marker'] = spot.marker
+            response.data.marker.address = response.data.record.address
+            response.data.marker.name = response.data.record.name
+            response.data.marker.website = response.data.record.url
+            context.commit('assignProps', { props: response.data, id: id })
+            resolve(response.data)
           })
       })
     },

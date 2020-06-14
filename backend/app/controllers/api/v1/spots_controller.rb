@@ -1,7 +1,7 @@
 module Api
   module V1
     class SpotsController < ApiController
-      before_action :authenticate_api_v1_user!, only: %i[create destroy]
+      before_action :authenticate_api_v1_user!, only: %i[create update destroy]
 
       def index
         spot = Spot.where(place_id: params[:place_id])
@@ -20,6 +20,12 @@ module Api
       def create
         spot = current_api_v1_user.spots.new(spot_params)
         spot.save
+        render json: convert_to_json(spot)
+      end
+
+      def update
+        spot = current_api_v1_user.spots.find(params[:id])
+        spot.update_attributes(spot_params)
         render json: convert_to_json(spot)
       end
 
@@ -50,7 +56,7 @@ module Api
         end
 
         def spot_params
-          params.fetch(:spot, {}).permit(:place_id)
+          params.fetch(:spot, {}).permit(:address, :lat, :lng, :name, :place_id, :url)
         end
     end
   end

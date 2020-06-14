@@ -25,12 +25,16 @@
                 <v-btn data-test="deletespot" @click="deleteSpot(s, id)">
                   削除
                 </v-btn>
+                <v-btn data-test="updatespot" @click="updateSpot(s, id)">
+                  更新
+                </v-btn>
                 <like-button :spot="s" :id="id" />
                 <wifi-with-button :spot="s" :id="id" />
                 <wifi-without-button :spot="s" :id="id" />
                 <power-with-button :spot="s" :id="id" />
                 <power-without-button :spot="s" :id="id" />
                 <comment-form :spot="s" :id="id" />
+                <spot-form :spot="s" :id="id" />
               </v-card-actions>
             </v-col>
           </v-row>
@@ -47,6 +51,7 @@ import WifiWithoutButton from '@/components/WifiWithoutButton.vue'
 import PowerWithButton from '@/components/PowerWithButton.vue'
 import PowerWithoutButton from '@/components/PowerWithoutButton.vue'
 import CommentForm from '@/components/CommentForm.vue'
+import SpotForm from '@/components/SpotForm.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -56,7 +61,8 @@ export default {
     WifiWithoutButton,
     PowerWithButton,
     PowerWithoutButton,
-    CommentForm
+    CommentForm,
+    SpotForm
   },
 
   computed: {
@@ -70,6 +76,15 @@ export default {
 
     postSpot(spot, id) {
       this.$store.dispatch('postSpot', { spot: spot, id: id })
+    },
+
+    updateSpot(spot, id) {
+      var params = {
+        name: 'hohohoge'
+      }
+      console.log(spot)
+      console.log(id)
+      this.$store.dispatch('updateSpot', { spot: spot, id: id, params: params })
     },
 
     deleteSpot(spot, id) {
