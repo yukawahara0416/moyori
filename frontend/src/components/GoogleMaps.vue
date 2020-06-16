@@ -296,6 +296,17 @@ export default {
             })
           },
           error => {
+            if (error.code == 3) {
+              this.$store.dispatch('pushSnackbar', {
+                message: 'タイムアウトしました',
+                color: 'error'
+              })
+            } else {
+              this.$store.dispatch('pushSnackbar', {
+                message: '現在地の取得時にエラーが発生しました',
+                color: 'error'
+              })
+            }
             reject(error)
           },
           options
@@ -317,6 +328,10 @@ export default {
           if (status == 'OK' || status == 'ZERO_RESULTS') {
             resolve(results)
           } else {
+            this.$store.dispatch('pushSnackbar', {
+              message: '予期しないエラーが発生しました',
+              color: 'error'
+            })
             reject(results)
           }
         })
@@ -337,6 +352,10 @@ export default {
           if (status == 'OK' || status == 'ZERO_RESULTS') {
             resolve(results)
           } else {
+            this.$store.dispatch('pushSnackbar', {
+              message: '予期しないエラーが発生しました',
+              color: 'error'
+            })
             reject(results)
           }
         })
