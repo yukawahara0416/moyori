@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isOriginalSpot && isPostedByYou">
     <v-form @submit.prevent>
       <v-text-field name="comment" type="text" v-model="name" />
       <v-text-field name="comment" type="text" v-model="address" />
