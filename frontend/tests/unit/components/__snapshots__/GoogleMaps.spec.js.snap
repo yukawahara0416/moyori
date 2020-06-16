@@ -1,85 +1,105 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`template snapshot 1`] = `
-<div>
-  <h1>
-    this is Map
-  </h1>
-   
-  <div>
+<div
+  class="pa-0 col-md-6 col-12 mapHeight_big"
+  no-gutter=""
+>
+  <header
+    class="v-sheet v-sheet--tile theme--light v-toolbar"
+    style="height: 64px; position: absolute; left: 10px; top: 10px; z-index: 2;"
+  >
     <div
-      class="v-input theme--light v-text-field"
+      class="v-toolbar__content"
+      style="height: 64px;"
     >
-      <div
-        class="v-input__control"
-      >
+      <div>
         <div
-          class="v-input__slot"
+          class="v-input theme--light v-text-field v-text-field--single-line"
         >
           <div
-            class="v-text-field__slot"
-          >
-            <label
-              class="v-label theme--light"
-              for="input-90"
-              style="left: 0px; position: absolute;"
-            >
-              キーワード検索
-            </label>
-            <input
-              data-test="textsearch"
-              id="input-90"
-              type="text"
-            />
-          </div>
-        </div>
-        <div
-          class="v-text-field__details"
-        >
-          <div
-            class="v-messages theme--light"
+            class="v-input__prepend-outer"
           >
             <div
-              class="v-messages__wrapper"
-            />
+              class="v-input__icon v-input__icon--prepend"
+            >
+              <i
+                aria-hidden="true"
+                class="v-icon notranslate mdi mdi-magnify theme--light"
+              />
+            </div>
+          </div>
+          <div
+            class="v-input__control"
+          >
+            <div
+              class="v-input__slot"
+            >
+              <div
+                class="v-text-field__slot"
+              >
+                <label
+                  class="v-label theme--light"
+                  for="input-109"
+                  style="left: 0px; position: absolute;"
+                >
+                  キーワード検索
+                </label>
+                <input
+                  data-test="textsearch"
+                  id="input-109"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div
+              class="v-text-field__details"
+            >
+              <div
+                class="v-messages theme--light"
+              >
+                <div
+                  class="v-messages__wrapper"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
+       
+      <button
+        class="v-btn v-btn--contained theme--light v-size--default"
+        data-test="btn1"
+        type="button"
+      >
+        <span
+          class="v-btn__content"
+        >
+          <i
+            aria-hidden="true"
+            class="v-icon notranslate mdi mdi-crosshairs-gps theme--light"
+          />
+        </span>
+      </button>
+       
+      <button
+        class="v-btn v-btn--contained theme--light v-size--default"
+        data-test="btn2"
+        type="button"
+      >
+        <span
+          class="v-btn__content"
+        >
+          このエリアを検索
+        </span>
+      </button>
     </div>
-  </div>
-   
-  <button
-    class="v-btn v-btn--contained theme--light v-size--default"
-    data-test="btn1"
-    type="button"
-  >
-    <span
-      class="v-btn__content"
-    >
-      
-    現在地へ移動
-  
-    </span>
-  </button>
-   
-  <button
-    class="v-btn v-btn--contained theme--light v-size--default"
-    data-test="btn2"
-    type="button"
-  >
-    <span
-      class="v-btn__content"
-    >
-      
-    周辺情報を取得
-  
-    </span>
-  </button>
+  </header>
    
   <gmap-map-stub
     center="[object Object]"
     options="[object Object]"
-    style="width: 800px; height: 600px;"
+    style="width: 100%; height: 100%;"
     zoom="16"
   >
     <google-maps-circle-stub

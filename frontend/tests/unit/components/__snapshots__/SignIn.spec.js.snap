@@ -35,7 +35,33 @@ exports[`template snapshot 1`] = `
       class="v-btn__content"
     >
       
-    テストユーザでログイン
+    テストユーザ１
+  
+    </span>
+  </button>
+   
+  <button
+    class="v-btn v-btn--contained theme--light v-size--default"
+    type="submit"
+  >
+    <span
+      class="v-btn__content"
+    >
+      
+    テストユーザ２
+  
+    </span>
+  </button>
+   
+  <button
+    class="v-btn v-btn--contained theme--light v-size--default"
+    type="submit"
+  >
+    <span
+      class="v-btn__content"
+    >
+      
+    テストユーザ３
   
     </span>
   </button>
