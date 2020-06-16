@@ -22,6 +22,16 @@ export default {
             id: id,
             key: 'likes'
           })
+          context.dispatch('pushSnackbar', {
+            message: 'いいねしました　投票ありがとうございます！',
+            color: 'success'
+          })
+        })
+        .catch(() => {
+          context.dispatch('pushSnackbar', {
+            message: 'いいねに失敗しました',
+            color: 'error'
+          })
         })
     },
 
@@ -35,6 +45,16 @@ export default {
             data: response.data,
             id: id,
             key: 'likes'
+          })
+          context.dispatch('pushSnackbar', {
+            message: 'いいねを取り消しました',
+            color: 'success'
+          })
+        })
+        .catch(() => {
+          context.dispatch('pushSnackbar', {
+            message: 'いいねの取り消しに失敗しました',
+            color: 'error'
           })
         })
     }

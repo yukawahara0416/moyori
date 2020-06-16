@@ -22,6 +22,16 @@ export default {
             id: id,
             key: 'wifi_withouts'
           })
+          context.dispatch('pushSnackbar', {
+            message: '「WiFiないよ」しました　投票ありがとうございます！',
+            color: 'success'
+          })
+        })
+        .catch(() => {
+          context.dispatch('pushSnackbar', {
+            message: '「WiFiないよ」に失敗しました',
+            color: 'error'
+          })
         })
     },
 
@@ -35,6 +45,16 @@ export default {
             data: response.data,
             id: id,
             key: 'wifi_withouts'
+          })
+          context.dispatch('pushSnackbar', {
+            message: '「WiFiないよ」を取り消しました',
+            color: 'success'
+          })
+        })
+        .catch(() => {
+          context.dispatch('pushSnackbar', {
+            message: '「WiFiないよ」の取り消しに失敗しました',
+            color: 'error'
           })
         })
     }

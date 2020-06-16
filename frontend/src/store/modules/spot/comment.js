@@ -22,6 +22,16 @@ export default {
             id: id,
             key: 'comments'
           })
+          context.dispatch('pushSnackbar', {
+            message: 'コメントを投稿しました',
+            color: 'success'
+          })
+        })
+        .catch(() => {
+          context.dispatch('pushSnackbar', {
+            message: 'コメントの投稿に失敗しました',
+            color: 'error'
+          })
         })
     },
 
@@ -35,6 +45,16 @@ export default {
             data: response.data,
             id: id,
             key: 'comments'
+          })
+          context.dispatch('pushSnackbar', {
+            message: 'コメントを削除しました',
+            color: 'success'
+          })
+        })
+        .catch(() => {
+          context.dispatch('pushSnackbar', {
+            message: 'コメントの削除に失敗しました',
+            color: 'error'
           })
         })
     }

@@ -22,6 +22,16 @@ export default {
             id: id,
             key: 'power_withouts'
           })
+          context.dispatch('pushSnackbar', {
+            message: '「電源ないよ」しました　投票ありがとうございます！',
+            color: 'success'
+          })
+        })
+        .catch(() => {
+          context.dispatch('pushSnackbar', {
+            message: '「電源ないよ」に失敗しました',
+            color: 'error'
+          })
         })
     },
 
@@ -35,6 +45,16 @@ export default {
             data: response.data,
             id: id,
             key: 'power_withouts'
+          })
+          context.dispatch('pushSnackbar', {
+            message: '「電源ないよ」を取り消しました',
+            color: 'success'
+          })
+        })
+        .catch(() => {
+          context.dispatch('pushSnackbar', {
+            message: '「電源ないよ」の取り消しに失敗しました',
+            color: 'error'
           })
         })
     }
