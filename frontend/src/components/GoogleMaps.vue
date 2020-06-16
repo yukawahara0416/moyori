@@ -1,18 +1,27 @@
 <template>
-  <div>
-    <h1>this is Map</h1>
+  <v-col
+    class="pa-0"
+    :class="{
+      mapHeight_big: $vuetify.breakpoint.mdAndUp,
+      mapHeight_small: $vuetify.breakpoint.smAndDown
+    }"
+    cols="12"
+    md="6"
+    no-gutter
+  >
+    <v-toolbar style="position: absolute; left: 10px; top: 10px; z-index: 2;">
+      <google-maps-text-search @text-search="textSearch" />
 
-    <google-maps-text-search @text-search="textSearch" />
-    <v-btn data-test="btn1" @click="panToCurrentLocation">
-      現在地へ移動
-    </v-btn>
-    <v-btn data-test="btn2" @click="nearbySearch">
-      周辺情報を取得
-    </v-btn>
+      <v-btn data-test="btn1" @click="panToCurrentLocation">
+        <v-icon>mdi-crosshairs-gps</v-icon>
+      </v-btn>
+
+      <v-btn data-test="btn2" @click="nearbySearch">このエリアを検索</v-btn>
+    </v-toolbar>
 
     <gmap-map
       ref="map"
-      style="width: 800px; height: 600px;"
+      style="width: 100%; height: 100%;"
       :center="mapLocation"
       :options="mapOptions"
       :zoom="16"
@@ -22,7 +31,7 @@
       <google-maps-circle :mapCenter="mapCenter" />
       <google-maps-marker @pan-to="panTo" />
     </gmap-map>
-  </div>
+  </v-col>
 </template>
 
 <script>
@@ -62,7 +71,24 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spots', 'currentUser'])
+    ...mapGetters(['spots', 'currentUser']),
+
+    vhHeight() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return '60vh'
+        case 'sm':
+          return '70vh'
+        case 'md':
+          return '80vh'
+        case 'lg':
+          return '90vh'
+        case 'xl':
+          return '100vh'
+        default:
+          return '100vh'
+      }
+    }
   },
 
   // 自動的に現在地でnearbySearchする
@@ -362,3 +388,22 @@ export default {
   }
 }
 </script>
+
+<style>
+.mapHeight_big {
+  height: 100%;
+  width: 100%;
+}
+.mapHeight_small {
+  height: 50%;
+  width: 100%;
+}
+.indexHeight_big {
+  height: 100%;
+  width: 100%;
+}
+.indexHeight_small {
+  height: 50%;
+  width: 100%;
+}
+</style>

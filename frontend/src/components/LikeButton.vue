@@ -1,7 +1,8 @@
 <template>
   <div>
     <v-btn icon @click="likeHandler()">
-      いいね
+      <v-icon v-if="isLiked.length === 0">mdi-heart-outline</v-icon>
+      <v-icon v-if="isLiked.length > 0" color="error">mdi-heart</v-icon>
     </v-btn>
   </div>
 </template>
@@ -28,10 +29,11 @@ export default {
 
     isLiked() {
       const vm = this
-      const liked = this.spots[this.id].likes.filter(function(like) {
-        return like.user_id == vm.currentUser.data.id
-      })
-      if (vm.currentUser !== null && liked.length > 0) {
+      const likes = this.spots[this.id].likes
+      if (vm.currentUser !== null && likes.length > 0) {
+        const liked = likes.filter(function(like) {
+          return like.user_id == vm.currentUser.data.id
+        })
         return liked
       } else {
         return []

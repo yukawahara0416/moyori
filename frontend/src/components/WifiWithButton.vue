@@ -1,7 +1,8 @@
 <template>
   <div>
     <v-btn icon @click="wifiWithHandler()">
-      wifi
+      <v-icon v-if="isWifiWithed.length === 0">mdi-wifi</v-icon>
+      <v-icon v-if="isWifiWithed.length > 0" color="success">mdi-wifi</v-icon>
     </v-btn>
   </div>
 </template>
@@ -28,12 +29,11 @@ export default {
 
     isWifiWithed() {
       const vm = this
-      const wifiWithed = this.spots[this.id].wifi_withs.filter(function(
-        wifi_with
-      ) {
-        return wifi_with.user_id == vm.currentUser.data.id
-      })
-      if (vm.currentUser !== null && wifiWithed.length > 0) {
+      const wifiWiths = this.spots[this.id].wifi_withs
+      if (vm.currentUser !== null && wifiWiths.length > 0) {
+        const wifiWithed = wifiWiths.filter(function(wifi_with) {
+          return wifi_with.user_id == vm.currentUser.data.id
+        })
         return wifiWithed
       } else {
         return []
@@ -42,12 +42,11 @@ export default {
 
     isWifiWithouted() {
       const vm = this
-      const wifiWithouted = this.spots[this.id].wifi_withouts.filter(function(
-        wifi_without
-      ) {
-        return wifi_without.user_id == vm.currentUser.data.id
-      })
-      if (vm.currentUser !== null && wifiWithouted.length > 0) {
+      const wifiWithouts = this.spots[this.id].wifi_withouts
+      if (vm.currentUser !== null && wifiWithouts.length > 0) {
+        const wifiWithouted = wifiWithouts.filter(function(wifi_without) {
+          return wifi_without.user_id == vm.currentUser.data.id
+        })
         return wifiWithouted
       } else {
         return []
