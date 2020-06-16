@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <v-content>
       <v-container class="pa-0" fluid>
+        <sign-in />
         <router-view />
       </v-container>
     </v-content>
@@ -9,7 +10,15 @@
 </template>
 
 <script>
-export default {}
+import SignIn from '@/components/SignIn.vue'
+// import SignUp from '@/components/SignUp.vue'
+
+export default {
+  components: {
+    SignIn
+    // SignUp
+  }
+}
 </script>
 
 <style scoped>
