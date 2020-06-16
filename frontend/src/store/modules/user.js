@@ -78,9 +78,17 @@ export default {
         .then(function(response) {
           context.commit('setCurrentUser', { user: response.data })
           context.commit('signIn', response.headers)
+          context.dispatch('pushSnackbar', {
+            message: 'MoYoRiへようこそ！',
+            color: 'success'
+          })
         })
         .catch(function(error) {
           context.commit('setCurrentUser', { user: error })
+          context.dispatch('pushSnackbar', {
+            message: 'アカウント作成に失敗しました',
+            color: 'error'
+          })
         })
     },
 
@@ -90,9 +98,17 @@ export default {
         .then(function(response) {
           context.commit('setCurrentUser', { user: response.data })
           context.commit('signIn', response.headers)
+          context.dispatch('pushSnackbar', {
+            message: 'ログインしました',
+            color: 'success'
+          })
         })
         .catch(function(error) {
           context.commit('setCurrentUser', { user: error })
+          context.dispatch('pushSnackbar', {
+            message: 'ログインに失敗しました',
+            color: 'error'
+          })
         })
     },
 
@@ -103,9 +119,16 @@ export default {
         })
         .then(function() {
           context.commit('signOut')
+          context.dispatch('pushSnackbar', {
+            message: 'ログアウトしました',
+            color: 'success'
+          })
         })
         .catch(function() {
-          alert('予期しないエラーが発生しました。')
+          this.$store.dispatch('pushSnackbar', {
+            message: '予期しないエラーが発生しました',
+            color: 'error'
+          })
         })
     }
   }
