@@ -45,10 +45,11 @@ export default {
 
     isCommented() {
       const vm = this
-      const commented = this.spots[this.id].comments.filter(function(comment) {
-        return comment.user_id == vm.currentUser.data.id
-      })
-      if (vm.currentUser !== null && commented.length > 0) {
+      const comments = this.spots[this.id].comments
+      if (vm.currentUser !== null && comments.length > 0) {
+        const commented = comments.filter(function(comment) {
+          return comment.user_id == vm.currentUser.data.id
+        })
         return commented
       } else {
         return []

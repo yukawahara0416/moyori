@@ -1,7 +1,10 @@
 <template>
   <div>
     <v-btn icon @click="powerWithoutHandler()">
-      Powernone
+      <v-icon v-if="isPowerWithouted.length === 0">mdi-power-plug-off</v-icon>
+      <v-icon v-if="isPowerWithouted.length > 0" color="error">
+        mdi-power-plug-off
+      </v-icon>
     </v-btn>
   </div>
 </template>
@@ -28,12 +31,11 @@ export default {
 
     isPowerWithed() {
       const vm = this
-      const powerWithed = this.spots[this.id].power_withs.filter(function(
-        power_with
-      ) {
-        return power_with.user_id == vm.currentUser.data.id
-      })
-      if (vm.currentUser !== null && powerWithed.length > 0) {
+      const powerWiths = this.spots[this.id].power_withs
+      if (vm.currentUser !== null && powerWiths.length > 0) {
+        const powerWithed = powerWiths.filter(function(power_with) {
+          return power_with.user_id == vm.currentUser.data.id
+        })
         return powerWithed
       } else {
         return []
@@ -42,12 +44,11 @@ export default {
 
     isPowerWithouted() {
       const vm = this
-      const powerWithouted = this.spots[this.id].power_withouts.filter(function(
-        power_without
-      ) {
-        return power_without.user_id == vm.currentUser.data.id
-      })
-      if (vm.currentUser !== null && powerWithouted.length > 0) {
+      const wifiWithouts = this.spots[this.id].power_withouts
+      if (vm.currentUser !== null && wifiWithouts.length > 0) {
+        const powerWithouted = wifiWithouts.filter(function(power_without) {
+          return power_without.user_id == vm.currentUser.data.id
+        })
         return powerWithouted
       } else {
         return []
