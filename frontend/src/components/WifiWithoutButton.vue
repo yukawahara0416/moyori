@@ -5,6 +5,7 @@
       <v-icon v-if="isWifiWithouted.length > 0" color="error">
         mdi-wifi-off
       </v-icon>
+      <p>{{ count }}</p>
     </v-btn>
   </div>
 </template>
@@ -52,6 +53,15 @@ export default {
         return wifiWithouted
       } else {
         return []
+      }
+    },
+
+    count() {
+      const wifiWithouts = this.spots[this.id].wifi_withouts
+      if (wifiWithouts.length > 0) {
+        return wifiWithouts.length
+      } else {
+        return 0
       }
     }
   },
