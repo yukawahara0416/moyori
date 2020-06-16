@@ -431,6 +431,7 @@ export default {
     stopLoading() {
       return new Promise(resolve => {
         this.loading = false
+        resolve()
       })
     }
   }
