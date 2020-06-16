@@ -157,6 +157,10 @@ export default {
       )
       await this.addSpots(results)
       await this.stopLoading()
+      this.$store.dispatch('pushSnackbar', {
+        message: `${this.spots.length} 件ヒットしました`,
+        color: 'success'
+      })
     },
 
     // Spotを新規登録する
