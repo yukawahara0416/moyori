@@ -17,6 +17,12 @@
       </v-btn>
 
       <v-btn data-test="btn2" @click="nearbySearch">このエリアを検索</v-btn>
+      <v-progress-circular
+        class="ml-5"
+        color="primary"
+        indeterminate
+        v-show="loading"
+      />
     </v-toolbar>
 
     <gmap-map
@@ -60,6 +66,7 @@ export default {
 
   data() {
     return {
+      loading: true,
       mapCenter: { lat: 0, lng: 0 },
       mapLocation: { lat: 35.68, lng: 139.76 },
       mapOptions: {
@@ -107,13 +114,16 @@ export default {
 
     // 現在地へ移動する
     panToCurrentLocation: async function() {
+      this.startLoading()
       const pos = await this.getLocation()
       this.setMarker(pos, 'you-are-here')
       this.panTo(pos)
+      await this.stopLoading()
     },
 
     // 周辺を検索する
     nearbySearch: async function() {
+      this.startLoading()
       this.clearSpots()
       var results = await this.getNearby(this.mapCenter)
       results = await Promise.all(
@@ -124,11 +134,13 @@ export default {
         })
       )
       await this.addSpots(results)
+      await this.stopLoading()
     },
 
     // テキスト検索する
     textSearch: async function(keyword) {
-      this.beforeSearch()
+      this.startLoading()
+      this.clearSpots()
       var pos = this.mapCenter
       var results = await this.getTextSearch(pos, keyword)
       results = await this.sortMarker(results, pos)
@@ -140,6 +152,7 @@ export default {
         })
       )
       await this.addSpots(results)
+      await this.stopLoading()
     },
 
     // Spotを新規登録する
@@ -402,6 +415,18 @@ export default {
           )
         })
         resolve(sortedResults)
+      })
+    },
+
+    // ローディング開始
+    startLoading() {
+      this.loading = true
+    },
+
+    // ローディング終了
+    stopLoading() {
+      return new Promise(() => {
+        this.loading = false
       })
     }
   }

@@ -93,23 +93,30 @@ export default {
     },
 
     signIn(context, signInFormData) {
-      axiosBase
-        .post('/api/v1/auth/sign_in', signInFormData)
-        .then(function(response) {
-          context.commit('setCurrentUser', { user: response.data })
-          context.commit('signIn', response.headers)
-          context.dispatch('pushSnackbar', {
-            message: 'ログインしました',
-            color: 'success'
+      if (context.state.currentUser === null) {
+        axiosBase
+          .post('/api/v1/auth/sign_in', signInFormData)
+          .then(function(response) {
+            context.commit('setCurrentUser', { user: response.data })
+            context.commit('signIn', response.headers)
+            context.dispatch('pushSnackbar', {
+              message: 'ログインしました',
+              color: 'success'
+            })
           })
-        })
-        .catch(function(error) {
-          context.commit('setCurrentUser', { user: error })
-          context.dispatch('pushSnackbar', {
-            message: 'ログインに失敗しました',
-            color: 'error'
+          .catch(function(error) {
+            context.commit('setCurrentUser', { user: error })
+            context.dispatch('pushSnackbar', {
+              message: 'ログインに失敗しました',
+              color: 'error'
+            })
           })
+      } else {
+        context.dispatch('pushSnackbar', {
+          message: 'すでにログイン中です',
+          color: 'error'
         })
+      }
     },
 
     signOut(context) {
