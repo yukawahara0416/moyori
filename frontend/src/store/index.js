@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import userStore from '@/store/modules/user.js'
 import spotStore from '@/store/modules/spot.js'
+import snackbarStore from '@/store/modules/snackbar.js'
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -10,7 +11,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     userStore,
-    spotStore
+    spotStore,
+    snackbarStore
   },
 
   plugins: [
