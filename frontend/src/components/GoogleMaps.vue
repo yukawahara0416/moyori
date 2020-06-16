@@ -135,6 +135,10 @@ export default {
       )
       await this.addSpots(results)
       await this.stopLoading()
+      this.$store.dispatch('pushSnackbar', {
+        message: `${this.spots.length} 件ヒットしました`,
+        color: 'success'
+      })
     },
 
     // テキスト検索する
@@ -425,7 +429,7 @@ export default {
 
     // ローディング終了
     stopLoading() {
-      return new Promise(() => {
+      return new Promise(resolve => {
         this.loading = false
       })
     }
