@@ -57,13 +57,22 @@ export default {
           if (this.isPostedByYou) {
             await this.updateSpot(spot, id)
           } else {
-            console.log('あなたが投稿したspotではありません')
+            this.$store.dispatch('pushSnackbar', {
+              message: '投稿者ではないので更新できません',
+              color: 'error'
+            })
           }
         } else {
-          console.log('originalspotではありません')
+          this.$store.dispatch('pushSnackbar', {
+            message: '更新可能なスポットではありません',
+            color: 'error'
+          })
         }
       } else {
-        console.log('ログインしてください')
+        this.$store.dispatch('pushSnackbar', {
+          message: 'ログインしてください',
+          color: 'error'
+        })
       }
     },
 
