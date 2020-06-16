@@ -74,7 +74,10 @@ export default {
           this.content = ''
         }
       } else {
-        console.log('ログインしてください')
+        this.$store.dispatch('pushSnackbar', {
+          message: 'ログインしてください',
+          color: 'error'
+        })
       }
     },
 

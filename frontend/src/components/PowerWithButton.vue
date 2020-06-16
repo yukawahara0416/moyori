@@ -88,7 +88,10 @@ export default {
           await this.powerWith(spot, id)
         }
       } else {
-        console.log('ログインしてください')
+        this.$store.dispatch('pushSnackbar', {
+          message: 'ログインしてください',
+          color: 'error'
+        })
       }
     },
 
