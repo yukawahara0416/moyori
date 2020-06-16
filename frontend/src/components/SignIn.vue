@@ -8,8 +8,14 @@
       placeholder="password"
     />
     <v-btn type="submit" @click="signIn">ログイン</v-btn>
-    <v-btn @click="signInAsTestUser" type="submit">
-      テストユーザでログイン
+    <v-btn @click="signInAsTestUser1" type="submit">
+      テストユーザ１
+    </v-btn>
+    <v-btn @click="signInAsTestUser2" type="submit">
+      テストユーザ２
+    </v-btn>
+    <v-btn @click="signInAsTestUser3" type="submit">
+      テストユーザ３
     </v-btn>
     <div>{{ signInFormData }}</div>
     <div>{{ currentUser }}</div>
@@ -25,8 +31,16 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      testUser: {
+      testUser1: {
         email: 'tester@example.com',
+        password: 'password'
+      },
+      testUser2: {
+        email: 'tester-1@example.com',
+        password: 'password'
+      },
+      testUser3: {
+        email: 'tester-2@example.com',
         password: 'password'
       }
     }
@@ -40,8 +54,14 @@ export default {
     signIn() {
       this.$store.dispatch('signIn', this.signInFormData)
     },
-    signInAsTestUser() {
-      this.$store.dispatch('signIn', this.testUser)
+    signInAsTestUser1() {
+      this.$store.dispatch('signIn', this.testUser1)
+    },
+    signInAsTestUser2() {
+      this.$store.dispatch('signIn', this.testUser2)
+    },
+    signInAsTestUser3() {
+      this.$store.dispatch('signIn', this.testUser3)
     },
     signOut() {
       this.$store.dispatch('signOut')
