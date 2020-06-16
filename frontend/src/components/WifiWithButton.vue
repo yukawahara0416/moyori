@@ -86,7 +86,10 @@ export default {
           await this.wifiWith(spot, id)
         }
       } else {
-        console.log('ログインしてください')
+        this.$store.dispatch('pushSnackbar', {
+          message: 'ログインしてください',
+          color: 'error'
+        })
       }
     },
 

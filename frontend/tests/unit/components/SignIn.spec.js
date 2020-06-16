@@ -61,9 +61,9 @@ describe('v-on', () => {
     expect(event).toHaveBeenCalledTimes(1)
   })
 
-  it('signInAsTestUser', () => {
+  it('signInAsTestUser1', () => {
     const event = jest.fn()
-    wrapper.setMethods({ signInAsTestUser: event })
+    wrapper.setMethods({ signInAsTestUser1: event })
     wrapper
       .findAll('.v-btn')
       .at(1)

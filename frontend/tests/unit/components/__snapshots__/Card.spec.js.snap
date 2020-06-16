@@ -1,452 +1,202 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`template snapshot 1`] = `
-<div>
-  <h1>
-    this is Card
-  </h1>
-   
+<div
+  class="row ma-0 align-stretch justify-space-around"
+  style="background-color: white;"
+>
   <div
-    class="row"
+    class="mt-2 col-sm-6 col-lg-4 col-12"
   >
     <div
-      class="col"
+      class="mt-2 d-flex flex-column v-card v-card--hover v-card--link v-sheet theme--light"
+      id="0"
+      style="height: 100%;"
+      tabindex="0"
     >
       <div
-        class="v-card v-card--hover v-card--link v-sheet theme--light"
-        id="0"
-        tabindex="0"
+        class="row pa-0"
       >
         <div
-          class="row"
+          class="py-0 col-md-12 col-5"
         >
           <div
-            class="col"
+            class="v-responsive v-image white--text align-end imgHeight_big"
           >
             <div
-              class="v-responsive v-image"
-            >
-              <div
-                class="v-responsive__content"
-              />
-            </div>
+              class="v-responsive__content"
+            />
+          </div>
+        </div>
+         
+        <div
+          class="py-0 col-md-12 col-7"
+        >
+          <div
+            class="v-card__text text--primary"
+          >
+            <p>
+              hoge
+            </p>
+             
+            <p>
+              
+            </p>
+             
+            <p>
+              
+            </p>
+             
+            <p>
+              
+            </p>
           </div>
            
           <div
-            class="col"
+            class="v-card__actions"
           >
-            <div
-              class="v-card__text"
-            >
-              <p>
-                hoge
-              </p>
-               
-              <p>
-                
-              </p>
-            </div>
+            <like-button-stub
+              id="0"
+              spot="[object Object]"
+            />
              
-            <div
-              class="v-card__actions"
-            >
-              <button
-                class="v-btn v-btn--contained theme--light v-size--default"
-                data-test="postspot"
-                type="button"
-              >
-                <span
-                  class="v-btn__content"
-                >
-                  
-                保存
-              
-                </span>
-              </button>
-               
-              <button
-                class="v-btn v-btn--contained theme--light v-size--default"
-                data-test="deletespot"
-                type="button"
-              >
-                <span
-                  class="v-btn__content"
-                >
-                  
-                削除
-              
-                </span>
-              </button>
-               
-              <button
-                class="v-btn v-btn--contained theme--light v-size--default"
-                data-test="updatespot"
-                type="button"
-              >
-                <span
-                  class="v-btn__content"
-                >
-                  
-                更新
-              
-                </span>
-              </button>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    いいね
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    wifi
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    wifinone
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    power
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    Powernone
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <form
-                  class="v-form"
-                  novalidate="novalidate"
-                >
-                  <div
-                    class="v-input theme--light v-text-field"
-                  >
-                    <div
-                      class="v-input__control"
-                    >
-                      <div
-                        class="v-input__slot"
-                      >
-                        <div
-                          class="v-text-field__slot"
-                        >
-                          <input
-                            id="input-365"
-                            name="comment"
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="v-text-field__details"
-                      >
-                        <div
-                          class="v-messages theme--light"
-                        >
-                          <div
-                            class="v-messages__wrapper"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                 
-                <button
-                  class="v-btn v-btn--contained theme--light v-size--default"
-                  type="submit"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    コメント
-                  </span>
-                </button>
-                 
-              </div>
-               
-              <spot-form-stub
-                id="0"
-                spot="[object Object]"
-              />
-            </div>
+            <wifi-with-button-stub
+              id="0"
+              spot="[object Object]"
+            />
+             
+            <wifi-without-button-stub
+              id="0"
+              spot="[object Object]"
+            />
+             
+            <power-with-button-stub
+              id="0"
+              spot="[object Object]"
+            />
+             
+            <power-without-button-stub
+              id="0"
+              spot="[object Object]"
+            />
+             
+            <comment-button-stub
+              id="0"
+              spot="[object Object]"
+            />
+             
+            <spot-form-stub
+              id="0"
+              spot="[object Object]"
+            />
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div
+    class="mt-2 col-sm-6 col-lg-4 col-12"
+  >
     <div
-      class="col"
+      class="mt-2 d-flex flex-column v-card v-card--hover v-card--link v-sheet theme--light"
+      id="1"
+      style="height: 100%;"
+      tabindex="0"
     >
       <div
-        class="v-card v-card--hover v-card--link v-sheet theme--light"
-        id="1"
-        tabindex="0"
+        class="row pa-0"
       >
         <div
-          class="row"
+          class="py-0 col-md-12 col-5"
         >
           <div
-            class="col"
+            class="v-responsive v-image white--text align-end imgHeight_big"
           >
             <div
-              class="v-responsive v-image"
-            >
-              <div
-                class="v-responsive__content"
-              />
-            </div>
+              class="v-responsive__content"
+            />
+          </div>
+        </div>
+         
+        <div
+          class="py-0 col-md-12 col-7"
+        >
+          <div
+            class="v-card__text text--primary"
+          >
+            <p>
+              fuga
+            </p>
+             
+            <p>
+              
+            </p>
+             
+            <p>
+              
+            </p>
+             
+            <p>
+              
+            </p>
           </div>
            
           <div
-            class="col"
+            class="v-card__actions"
           >
-            <div
-              class="v-card__text"
-            >
-              <p>
-                fuga
-              </p>
-               
-              <p>
-                
-              </p>
-            </div>
+            <like-button-stub
+              id="1"
+              spot="[object Object]"
+            />
              
-            <div
-              class="v-card__actions"
-            >
-              <button
-                class="v-btn v-btn--contained theme--light v-size--default"
-                data-test="postspot"
-                type="button"
-              >
-                <span
-                  class="v-btn__content"
-                >
-                  
-                保存
-              
-                </span>
-              </button>
-               
-              <button
-                class="v-btn v-btn--contained theme--light v-size--default"
-                data-test="deletespot"
-                type="button"
-              >
-                <span
-                  class="v-btn__content"
-                >
-                  
-                削除
-              
-                </span>
-              </button>
-               
-              <button
-                class="v-btn v-btn--contained theme--light v-size--default"
-                data-test="updatespot"
-                type="button"
-              >
-                <span
-                  class="v-btn__content"
-                >
-                  
-                更新
-              
-                </span>
-              </button>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    いいね
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    wifi
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    wifinone
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    power
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <button
-                  class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                  type="button"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    
-    Powernone
-  
-                  </span>
-                </button>
-              </div>
-               
-              <div>
-                <form
-                  class="v-form"
-                  novalidate="novalidate"
-                >
-                  <div
-                    class="v-input theme--light v-text-field"
-                  >
-                    <div
-                      class="v-input__control"
-                    >
-                      <div
-                        class="v-input__slot"
-                      >
-                        <div
-                          class="v-text-field__slot"
-                        >
-                          <input
-                            id="input-387"
-                            name="comment"
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="v-text-field__details"
-                      >
-                        <div
-                          class="v-messages theme--light"
-                        >
-                          <div
-                            class="v-messages__wrapper"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                 
-                <button
-                  class="v-btn v-btn--contained theme--light v-size--default"
-                  type="submit"
-                >
-                  <span
-                    class="v-btn__content"
-                  >
-                    コメント
-                  </span>
-                </button>
-                 
-              </div>
-               
-              <spot-form-stub
-                id="1"
-                spot="[object Object]"
-              />
-            </div>
+            <wifi-with-button-stub
+              id="1"
+              spot="[object Object]"
+            />
+             
+            <wifi-without-button-stub
+              id="1"
+              spot="[object Object]"
+            />
+             
+            <power-with-button-stub
+              id="1"
+              spot="[object Object]"
+            />
+             
+            <power-without-button-stub
+              id="1"
+              spot="[object Object]"
+            />
+             
+            <comment-button-stub
+              id="1"
+              spot="[object Object]"
+            />
+             
+            <spot-form-stub
+              id="1"
+              spot="[object Object]"
+            />
           </div>
         </div>
       </div>
     </div>
+  </div>
+   
+  <div
+    class="ma-0 pa-0 col-sm-6 col-lg-4 col-12"
+  >
+    <div
+      class="flex-empty v-card v-sheet theme--light"
+    />
+  </div>
+  <div
+    class="ma-0 pa-0 col-sm-6 col-lg-4 col-12"
+  >
+    <div
+      class="flex-empty v-card v-sheet theme--light"
+    />
   </div>
 </div>
 `;

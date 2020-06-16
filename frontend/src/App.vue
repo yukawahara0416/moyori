@@ -1,5 +1,6 @@
 <template>
   <v-app id="inspire">
+    <Snackbar />
     <v-content>
       <v-container class="pa-0" fluid>
         <sign-in />
@@ -10,11 +11,13 @@
 </template>
 
 <script>
+import Snackbar from '@/components/Snackbar.vue'
 import SignIn from '@/components/SignIn.vue'
 // import SignUp from '@/components/SignUp.vue'
 
 export default {
   components: {
+    Snackbar,
     SignIn
     // SignUp
   }

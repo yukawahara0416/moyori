@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import GoogleMaps from '@/components/GoogleMaps.vue'
 import spotStore from '@/store/modules/spot.js'
+// import { gmapApi } from 'vue2-google-maps'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -42,7 +43,12 @@ beforeEach(() => {
     localVue,
     store,
     vuetify,
-    stubs: ['gmap-map', 'google-maps-circle', 'google-maps-marker']
+    stubs: [
+      'gmap-map',
+      'google-maps-circle',
+      'google-maps-marker'
+      // 'google-maps-text-search'
+    ]
   })
 })
 
