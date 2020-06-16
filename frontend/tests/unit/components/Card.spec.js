@@ -43,7 +43,15 @@ beforeEach(() => {
     localVue,
     store,
     vuetify,
-    stubs: ['spot-form']
+    stubs: [
+      'like-button',
+      'wifi-with-button',
+      'wifi-without-button',
+      'power-with-button',
+      'power-without-button',
+      'comment-button',
+      'spot-form'
+    ]
   })
 })
 
