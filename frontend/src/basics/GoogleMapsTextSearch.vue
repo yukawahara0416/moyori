@@ -3,6 +3,8 @@
     <v-text-field
       data-test="textsearch"
       label="キーワード検索"
+      prepend-icon="mdi-magnify"
+      single-line
       type="text"
       v-model="keyword"
       @keydown.enter="textSearch"
