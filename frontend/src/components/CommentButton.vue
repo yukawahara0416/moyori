@@ -2,6 +2,7 @@
   <div>
     <v-icon v-if="isCommented.length === 0">mdi-message-outline</v-icon>
     <v-icon v-if="isCommented.length > 0" color="success">mdi-message</v-icon>
+    <p>{{ count }}</p>
   </div>
 </template>
 
@@ -27,6 +28,15 @@ export default {
         return commented
       } else {
         return []
+      }
+    },
+
+    count() {
+      const comments = this.spots[this.id].comments
+      if (comments.length > 0) {
+        return comments.length
+      } else {
+        return 0
       }
     }
   }

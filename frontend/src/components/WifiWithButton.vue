@@ -3,6 +3,7 @@
     <v-btn icon @click="wifiWithHandler()">
       <v-icon v-if="isWifiWithed.length === 0">mdi-wifi</v-icon>
       <v-icon v-if="isWifiWithed.length > 0" color="success">mdi-wifi</v-icon>
+      <p>{{ count }}</p>
     </v-btn>
   </div>
 </template>
@@ -50,6 +51,15 @@ export default {
         return wifiWithouted
       } else {
         return []
+      }
+    },
+
+    count() {
+      const wifiWiths = this.spots[this.id].wifi_withs
+      if (wifiWiths.length > 0) {
+        return wifiWiths.length
+      } else {
+        return 0
       }
     }
   },

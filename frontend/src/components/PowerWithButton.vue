@@ -5,6 +5,7 @@
       <v-icon v-if="isPowerWithed.length > 0" color="success">
         mdi-power-plug
       </v-icon>
+      <p>{{ count }}</p>
     </v-btn>
   </div>
 </template>
@@ -52,6 +53,15 @@ export default {
         return powerWithouted
       } else {
         return []
+      }
+    },
+
+    count() {
+      const powerWiths = this.spots[this.id].power_withs
+      if (powerWiths.length > 0) {
+        return powerWiths.length
+      } else {
+        return 0
       }
     }
   },

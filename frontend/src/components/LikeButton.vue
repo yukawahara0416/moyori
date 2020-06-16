@@ -3,6 +3,7 @@
     <v-btn icon @click="likeHandler()">
       <v-icon v-if="isLiked.length === 0">mdi-heart-outline</v-icon>
       <v-icon v-if="isLiked.length > 0" color="error">mdi-heart</v-icon>
+      <p>{{ count }}</p>
     </v-btn>
   </div>
 </template>
@@ -37,6 +38,15 @@ export default {
         return liked
       } else {
         return []
+      }
+    },
+
+    count() {
+      const likes = this.spots[this.id].likes
+      if (likes.length > 0) {
+        return likes.length
+      } else {
+        return 0
       }
     }
   },
