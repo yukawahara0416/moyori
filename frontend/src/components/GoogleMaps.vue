@@ -112,6 +112,21 @@ export default {
   methods: {
     ...mapActions(['clearSpots', 'addSpots']),
 
+    // 検索開始時のアクションまとめ
+    startSearch() {
+      this.startLoading()
+      this.clearSpots()
+    },
+
+    // 検索終了時のアクションまとめ
+    closeSearch: async function() {
+      await this.stopLoading()
+      this.$store.dispatch('pushSnackbar', {
+        message: `${this.spots.length} 件ヒットしました`,
+        color: 'success'
+      })
+    },
+
     // 現在地へ移動する
     panToCurrentLocation: async function() {
       this.startLoading()
@@ -123,8 +138,7 @@ export default {
 
     // 周辺を検索する
     nearbySearch: async function() {
-      this.startLoading()
-      this.clearSpots()
+      this.startSearch()
       var results = await this.getNearby(this.mapCenter)
       results = await Promise.all(
         results.map(async res => {
@@ -134,17 +148,12 @@ export default {
         })
       )
       await this.addSpots(results)
-      await this.stopLoading()
-      this.$store.dispatch('pushSnackbar', {
-        message: `${this.spots.length} 件ヒットしました`,
-        color: 'success'
-      })
+      await this.closeSearch()
     },
 
     // テキスト検索する
     textSearch: async function(keyword) {
-      this.startLoading()
-      this.clearSpots()
+      this.startSearch()
       var pos = this.mapCenter
       var results = await this.getTextSearch(pos, keyword)
       results = await this.sortMarker(results, pos)
@@ -156,11 +165,7 @@ export default {
         })
       )
       await this.addSpots(results)
-      await this.stopLoading()
-      this.$store.dispatch('pushSnackbar', {
-        message: `${this.spots.length} 件ヒットしました`,
-        color: 'success'
-      })
+      await this.closeSearch()
     },
 
     // Spotを新規登録する
