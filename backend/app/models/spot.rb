@@ -12,4 +12,22 @@ class Spot < ApplicationRecord
   has_many :power_without_users, through: :power_withouts, source: :user
   has_many :comments, dependent: :destroy
   validates :place_id, uniqueness: true
+
+  scope :order_location_by, lambda { |lat, lng|
+                              sort_by_near(lat, lng)
+                            }
+
+  def self.sort_by_near(lat, lng)
+    select("*, (
+      6371 * acos(
+          cos(radians(#{lat}))
+          * cos(radians(lat))
+          * cos(radians(lng) - radians(#{lng}))
+          + sin(radians(#{lat}))
+          * sin(radians(lat))
+      )
+      ) AS distance")
+      .having('distance <= 0.5')
+      .order(:distance)
+  end
 end
