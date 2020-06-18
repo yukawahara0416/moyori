@@ -139,6 +139,12 @@ export default {
     // 周辺を検索する
     nearbySearch: async function() {
       this.startSearch()
+      var originals = await this.getOriginal(this.mapCenter)
+      originals = await Promise.all(
+        originals.map(async ori => {
+          return await this.formatMarker(ori)
+        })
+      )
       var results = await this.getNearby(this.mapCenter)
       results = await Promise.all(
         results.map(async res => {
@@ -147,6 +153,7 @@ export default {
           return await this.getSpotData(formattedResult)
         })
       )
+      await this.addSpots(originals)
       await this.addSpots(results)
       await this.closeSearch()
     },
@@ -219,16 +226,29 @@ export default {
           url: require(`@/assets/${iconUrl}.png`),
           scaledSize: new google.maps.Size(50, 50)
         }
-        var name = res.name ? res.name : null
+        var name = res.name
+          ? res.name
+          : res.record.name
+          ? res.record.name
+          : null
         var rating = res.rating ? res.rating : null
         var ratingsTotal = res.user_ratings_total
           ? res.user_ratings_total
           : null
-        var placeId = res.place_id ? res.place_id : null
+        var placeId = res.place_id
+          ? res.place_id
+          : res.record.place_id
+          ? res.record.place_id
+          : null
         var position = res.geometry
           ? {
               lat: res.geometry.location.lat(),
               lng: res.geometry.location.lng()
+            }
+          : res.record.lat
+          ? {
+              lat: parseFloat(res.record.lat),
+              lng: parseFloat(res.record.lng)
             }
           : res.position
 
@@ -361,6 +381,20 @@ export default {
             reject(results)
           }
         })
+      })
+    },
+
+    // 周辺の投稿spotをGETする
+    getOriginal(pos) {
+      return new Promise(resolve => {
+        const params = { lat: pos.lat, lng: pos.lng }
+        axiosBase
+          .get('/api/v1/spots/search', {
+            params: params
+          })
+          .then(function(response) {
+            resolve(response.data)
+          })
       })
     },
 
