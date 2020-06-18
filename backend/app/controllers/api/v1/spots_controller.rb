@@ -12,6 +12,27 @@ module Api
         end
       end
 
+      def search
+        lat = params[:lat]
+        lng = params[:lng]
+        spots = Spot.all
+        spots = spots.order_location_by(
+          lat, lng
+        )
+        if spots == []
+          head :no_content
+        else
+          nears = []
+          spots.each do |spot|
+            near = convert_to_json(spot)
+            nears.push(near)
+          end
+
+          render json: nears
+
+        end
+      end
+
       def show
         spot = Spot.find(params[:id])
         render json: convert_to_json(spot)
