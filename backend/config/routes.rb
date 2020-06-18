@@ -11,7 +11,9 @@ Rails.application.routes.draw do
         omniauth_callbacks: 'api/v1/auth/omniauth_callbacks'
       }
       resources :users, only: [:show]
-      resources :spots, only: [:index, :show, :create, :update, :destroy]
+      resources :spots, only: [:index, :show, :create, :update, :destroy] do
+        get 'search', on: :collection
+      end
       resources :likes, only: [:create, :destroy]
       resources :wifi_withs, only: [:create, :destroy]
       resources :wifi_withouts, only: [:create, :destroy]
