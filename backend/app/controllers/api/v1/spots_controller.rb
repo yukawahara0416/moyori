@@ -27,9 +27,7 @@ module Api
             near = convert_to_json(spot)
             nears.push(near)
           end
-
           render json: nears
-
         end
       end
 
