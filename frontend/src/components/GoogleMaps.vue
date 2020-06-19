@@ -185,11 +185,14 @@ export default {
         r += c[Math.floor(Math.random() * cl)]
       }
       var placeId = this.currentUser.data.id + '_' + r
+      var latLng = {
+        lat: parseFloat(event.latLng.lat().toFixed(6)),
+        lng: parseFloat(event.latLng.lng().toFixed(6))
+      }
+      var address = await this.getAddress(latLng)
       var request = {
-        position: {
-          lat: parseFloat(event.latLng.lat().toFixed(6)),
-          lng: parseFloat(event.latLng.lng().toFixed(6))
-        },
+        address: address,
+        position: latLng,
         place_id: placeId
       }
       var formattedRequest = await this.formatMarker(request)
@@ -207,6 +210,7 @@ export default {
     // 検索結果を整形する
     formatMarker(res) {
       return new Promise(resolve => {
+        var address = res.address ? res.address : null
         var iconUrl = res.name
           ? res.name.indexOf('スターバックス') !== -1
             ? 'starbucks'
@@ -269,6 +273,7 @@ export default {
             }
           : {
               marker: {
+                address: address,
                 icon: icon,
                 name: name,
                 rating: rating,
@@ -289,16 +294,18 @@ export default {
       })
     },
 
-    // バックエンドからSpotデータを取得する
-    getSpotData(res) {
+    // 緯度経度を住所に変換する
+    getAddress(pos) {
+      const geocoder = new google.maps.Geocoder()
       return new Promise(resolve => {
-        const query = queryString.stringify({ place_id: res.marker.place_id })
-        axiosBase.get('/api/v1/spots?' + query).then(function(response) {
-          if (response.data != null) {
-            var formattedResult = Object.assign(res, response.data)
-            resolve(formattedResult)
+        geocoder.geocode({ latLng: pos }, function(results, status) {
+          if (status === 'OK') {
+            if (results[0]) {
+              resolve(results[0].formatted_address.replace(/^日本、/, ''))
+            } else {
+              resolve(null)
+            }
           }
-          resolve(res)
         })
       })
     },
@@ -410,6 +417,20 @@ export default {
           .then(function(response) {
             resolve(response.data)
           })
+      })
+    },
+
+    // バックエンドからSpotデータを取得する
+    getSpotData(res) {
+      return new Promise(resolve => {
+        const query = queryString.stringify({ place_id: res.marker.place_id })
+        axiosBase.get('/api/v1/spots?' + query).then(function(response) {
+          if (response.data != null) {
+            var formattedResult = Object.assign(res, response.data)
+            resolve(formattedResult)
+          }
+          resolve(res)
+        })
       })
     },
 
