@@ -226,11 +226,7 @@ export default {
           url: require(`@/assets/${iconUrl}.png`),
           scaledSize: new google.maps.Size(50, 50)
         }
-        var name = res.name
-          ? res.name
-          : res.record.name
-          ? res.record.name
-          : null
+        var name = res.name ? res.name : res.record ? res.record.name : null
         var rating = res.rating ? res.rating : null
         var ratingsTotal = res.user_ratings_total
           ? res.user_ratings_total
@@ -245,31 +241,50 @@ export default {
               lat: res.geometry.location.lat(),
               lng: res.geometry.location.lng()
             }
-          : res.record.lat
+          : res.record
           ? {
               lat: parseFloat(res.record.lat),
               lng: parseFloat(res.record.lng)
             }
           : res.position
 
-        var formattedResult = {
-          marker: {
-            icon: icon,
-            name: name,
-            rating: rating,
-            ratingsTotal: ratingsTotal,
-            place_id: placeId,
-            position: position,
-            zIndex: 10
-          },
-          record: [],
-          likes: [],
-          wifi_withs: [],
-          wifi_withouts: [],
-          power_withs: [],
-          power_withouts: [],
-          comments: []
-        }
+        var formattedResult = res.record
+          ? {
+              marker: {
+                icon: icon,
+                name: name,
+                rating: rating,
+                ratingsTotal: ratingsTotal,
+                place_id: placeId,
+                position: position,
+                zIndex: 10
+              },
+              record: res.record,
+              likes: res.likes,
+              wifi_withs: res.wifi_withs,
+              wifi_withouts: res.wifi_withouts,
+              power_withs: res.power_withs,
+              power_withouts: res.power_withouts,
+              comments: res.comments
+            }
+          : {
+              marker: {
+                icon: icon,
+                name: name,
+                rating: rating,
+                ratingsTotal: ratingsTotal,
+                place_id: placeId,
+                position: position,
+                zIndex: 10
+              },
+              record: [],
+              likes: [],
+              wifi_withs: [],
+              wifi_withouts: [],
+              power_withs: [],
+              power_withouts: [],
+              comments: []
+            }
         resolve(formattedResult)
       })
     },
