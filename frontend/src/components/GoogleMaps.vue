@@ -210,7 +210,11 @@ export default {
     // 検索結果を整形する
     formatMarker(res) {
       return new Promise(resolve => {
-        var address = res.address ? res.address : null
+        var address = res.address
+          ? res.address
+          : res.record
+          ? res.record.address
+          : null
         var iconUrl = res.name
           ? res.name.indexOf('スターバックス') !== -1
             ? 'starbucks'
@@ -255,6 +259,7 @@ export default {
         var formattedResult = res.record
           ? {
               marker: {
+                address: address,
                 icon: icon,
                 name: name,
                 rating: rating,
