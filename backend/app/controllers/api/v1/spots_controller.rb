@@ -19,16 +19,12 @@ module Api
         spots = spots.order_location_by(
           lat, lng
         )
-        if spots == []
-          head :no_content
-        else
-          nears = []
-          spots.each do |spot|
-            near = convert_to_json(spot)
-            nears.push(near)
-          end
-          render json: nears
+        nears = []
+        spots.each do |spot|
+          near = convert_to_json(spot)
+          nears.push(near)
         end
+        render json: nears
       end
 
       def show
