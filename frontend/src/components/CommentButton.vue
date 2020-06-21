@@ -1,9 +1,17 @@
 <template>
-  <div>
-    <v-icon v-if="isCommented.length === 0">mdi-message-outline</v-icon>
-    <v-icon v-if="isCommented.length > 0" color="success">mdi-message</v-icon>
-    <p>{{ count }}</p>
-  </div>
+  <v-row justify="center">
+    <v-dialog v-model="dialog" width="600">
+      <template v-slot:activator="{ on }">
+        <v-btn icon v-on="on">
+          <v-icon v-if="isCommented.length === 0">mdi-message-outline</v-icon>
+          <v-icon v-if="isCommented.length > 0" color="success">
+            mdi-message
+          </v-icon>
+          <p>{{ count }}</p>
+        </v-btn>
+      </template>
+    </v-dialog>
+  </v-row>
 </template>
 
 <script>
