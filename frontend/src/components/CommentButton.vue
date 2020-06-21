@@ -15,6 +15,12 @@ export default {
     id: Number
   },
 
+  data() {
+    return {
+      dialog: false
+    }
+  },
+
   computed: {
     ...mapGetters(['spots', 'currentUser']),
 
