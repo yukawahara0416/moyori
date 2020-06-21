@@ -52,6 +52,7 @@ export default {
 
     clearSpots(state) {
       state.spots = []
+      state.cache = { id: -1, icon: '' }
     },
 
     assignProps(state, { props, id }) {
