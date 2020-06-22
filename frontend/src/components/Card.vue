@@ -82,6 +82,7 @@
               <!-- <comment-form :spot="s" :id="id" /> -->
               <comment-button :spot="s" :id="id" />
               <!-- <spot-form :spot="s" :id="id" /> -->
+              <show-button :spot="s" :id="id" />
             </v-card-actions>
           </v-col>
         </v-row>
@@ -112,6 +113,7 @@ import PowerWithoutButton from '@/components/PowerWithoutButton.vue'
 // import CommentForm from '@/components/CommentForm.vue'
 import CommentButton from '@/components/CommentButton.vue'
 // import SpotForm from '@/components/SpotForm.vue'
+import ShowButton from '@/components/ShowButton.vue'
 
 export default {
   components: {
@@ -121,8 +123,9 @@ export default {
     PowerWithButton,
     PowerWithoutButton,
     // CommentForm,
-    CommentButton
-    // SpotForm
+    CommentButton,
+    // SpotForm,
+    ShowButton
   },
 
   computed: {
