@@ -1,9 +1,10 @@
 <template>
   <v-app id="inspire">
     <Snackbar />
+    <Header />
     <v-content>
+      <v-progress-linear indeterminate color="primary" v-show="loading" />
       <v-container class="pa-0" fluid>
-        <sign-in />
         <router-view />
       </v-container>
     </v-content>
@@ -11,15 +12,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Snackbar from '@/components/Snackbar.vue'
-import SignIn from '@/components/SignIn.vue'
-// import SignUp from '@/components/SignUp.vue'
+import Header from '@/components/Header/Header.vue'
 
 export default {
   components: {
     Snackbar,
-    SignIn
-    // SignUp
+    Header
+  },
+
+  computed: {
+    ...mapGetters(['loading'])
   }
 }
 </script>

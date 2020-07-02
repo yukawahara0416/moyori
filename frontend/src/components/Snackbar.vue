@@ -22,7 +22,7 @@ export default {
   created() {
     this.$store.watch(
       state => {
-        return state.snackbarStore.color
+        return state.snackbar.color
       },
       newVal => {
         var color = newVal
@@ -33,7 +33,7 @@ export default {
     )
     this.$store.watch(
       state => {
-        return state.snackbarStore.message
+        return state.snackbar.message
       },
       newVal => {
         var message = newVal

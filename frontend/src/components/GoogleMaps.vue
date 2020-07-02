@@ -9,7 +9,7 @@
     md="6"
     no-gutter
   >
-    <v-toolbar style="position: absolute; left: 10px; top: 10px; z-index: 2;">
+    <!-- <v-toolbar style="position: absolute; left: 10px; top: 10px; z-index: 2;">
       <google-maps-text-search @text-search="textSearch" />
 
       <v-btn data-test="btn1" @click="panToCurrentLocation">
@@ -23,9 +23,9 @@
         indeterminate
         v-show="loading"
       />
-    </v-toolbar>
+    </v-toolbar> -->
 
-    <gmap-map
+    <!-- <gmap-map
       ref="map"
       style="width: 100%; height: 100%;"
       :center="mapLocation"
@@ -36,7 +36,17 @@
     >
       <google-maps-circle :mapCenter="mapCenter" />
       <google-maps-marker @pan-to="panTo" />
-    </gmap-map>
+      <v-row justify="center">
+        <v-dialog v-model="dialog" width="600">
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on">スポット詳細</v-btn>
+          </template>
+          <v-card>
+            <p>ppppp</p>
+          </v-card>
+        </v-dialog>
+      </v-row>
+    </gmap-map> -->
   </v-col>
 </template>
 
@@ -66,6 +76,7 @@ export default {
 
   data() {
     return {
+      dialog: false,
       loading: true,
       mapCenter: { lat: 0, lng: 0 },
       mapLocation: { lat: 35.68, lng: 139.76 },
@@ -78,7 +89,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spots', 'currentUser']),
+    ...mapGetters([{ spots: 'spot/spots' }, 'currentUser']),
 
     vhHeight() {
       switch (this.$vuetify.breakpoint.name) {
@@ -110,7 +121,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['clearSpots', 'addSpots']),
+    ...mapActions({ clearSpots: 'spot/clearSpots', addSpots: 'spot/addSpots' }),
 
     // 検索開始時のアクションまとめ
     startSearch() {
@@ -155,6 +166,7 @@ export default {
       )
       await this.addSpots(originals)
       await this.addSpots(results)
+      console.log(results)
       await this.closeSearch()
     },
 
@@ -177,30 +189,37 @@ export default {
 
     // Spotを新規登録する
     addMarker: async function(event) {
-      var l = 8
-      var c = 'abcdefghijklmnopqrstuvwxyz0123456789'
-      var cl = c.length
-      var r = ''
-      for (var i = 0; i < l; i++) {
-        r += c[Math.floor(Math.random() * cl)]
+      if (this.currentUser) {
+        var l = 8
+        var c = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        var cl = c.length
+        var r = ''
+        for (var i = 0; i < l; i++) {
+          r += c[Math.floor(Math.random() * cl)]
+        }
+        var placeId = this.currentUser.data.id + '_' + r
+        var latLng = {
+          lat: parseFloat(event.latLng.lat().toFixed(6)),
+          lng: parseFloat(event.latLng.lng().toFixed(6))
+        }
+        var address = await this.getAddress(latLng)
+        var request = {
+          address: address,
+          position: latLng,
+          place_id: placeId
+        }
+        var formattedRequest = await this.formatMarker(request)
+        await alert('保存しますか？')
+        await this.$store.dispatch('spot/postSpot', {
+          spot: formattedRequest,
+          id: this.spots.length + 1
+        })
+      } else {
+        this.$store.dispatch('pushSnackbar', {
+          message: 'ログインしてください',
+          color: 'error'
+        })
       }
-      var placeId = this.currentUser.data.id + '_' + r
-      var latLng = {
-        lat: parseFloat(event.latLng.lat().toFixed(6)),
-        lng: parseFloat(event.latLng.lng().toFixed(6))
-      }
-      var address = await this.getAddress(latLng)
-      var request = {
-        address: address,
-        position: latLng,
-        place_id: placeId
-      }
-      var formattedRequest = await this.formatMarker(request)
-      await alert('保存しますか？')
-      await this.$store.dispatch('postSpot', {
-        spot: formattedRequest,
-        id: this.spots.length + 1
-      })
     },
 
     ////////////////////////
@@ -416,7 +435,7 @@ export default {
       return new Promise(resolve => {
         const params = { lat: pos.lat, lng: pos.lng }
         axiosBase
-          .get('/api/v1/spots/search', {
+          .get('/api/v1/spots/nearby', {
             params: params
           })
           .then(function(response) {
@@ -429,13 +448,15 @@ export default {
     getSpotData(res) {
       return new Promise(resolve => {
         const query = queryString.stringify({ place_id: res.marker.place_id })
-        axiosBase.get('/api/v1/spots?' + query).then(function(response) {
-          if (response.data != null) {
-            var formattedResult = Object.assign(res, response.data)
-            resolve(formattedResult)
-          }
-          resolve(res)
-        })
+        axiosBase
+          .get('/api/v1/spots/collate?' + query)
+          .then(function(response) {
+            if (response.data != null) {
+              var formattedResult = Object.assign(res, response.data)
+              resolve(formattedResult)
+            }
+            resolve(res)
+          })
       })
     },
 

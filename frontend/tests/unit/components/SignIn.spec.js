@@ -2,7 +2,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import SignIn from '@/components/SignIn.vue'
-import userStore from '@/store/modules/user.js'
+import auth from '@/store/modules/auth.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -29,9 +29,9 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      userStore: {
+      auth: {
         state,
-        getters: userStore.getters,
+        getters: auth.getters,
         actions
       }
     }

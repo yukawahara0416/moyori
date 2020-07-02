@@ -2,7 +2,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import LikeButton from '@/components/LikeButton.vue'
-import spotStore from '@/store/modules/spot.js'
+import spot from '@/store/modules/spot.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -26,11 +26,11 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      likeStore: {
+      like: {
         actions
       },
-      spotStore: {
-        getters: spotStore.getters
+      spot: {
+        getters: spot.getters
       }
     }
   })

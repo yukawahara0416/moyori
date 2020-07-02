@@ -24,7 +24,7 @@ module.exports = {
         jsxSingleQuote: false,
         trailingComma: 'none',
         bracketSpacing: true,
-        jsxBracketSameLine: false,
+        jsxBracketSameLine: true,
         arrowParens: 'avoid',
         rangeStart: 0,
         filepath: 'none',

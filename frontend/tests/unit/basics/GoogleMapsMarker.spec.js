@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import GoogleMapsMarker from '@/basics/GoogleMapsMarker.vue'
-import spotStore from '@/store/modules/spot.js'
+import spot from '@/store/modules/spot.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -26,9 +26,9 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      spotStore: {
+      spot: {
         state,
-        getters: spotStore.getters,
+        getters: spot.getters,
         actions
       }
     }

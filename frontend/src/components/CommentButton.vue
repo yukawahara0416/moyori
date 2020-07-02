@@ -1,8 +1,14 @@
 <template>
   <div>
-    <v-icon v-if="isCommented.length === 0">mdi-message-outline</v-icon>
-    <v-icon v-if="isCommented.length > 0" color="success">mdi-message</v-icon>
-    <p>{{ count }}</p>
+    <v-btn icon>
+      <v-icon v-if="isCommented.length === 0">
+        mdi-message-outline
+      </v-icon>
+      <v-icon v-if="isCommented.length > 0" color="success">
+        mdi-message
+      </v-icon>
+      <p>{{ count }}</p>
+    </v-btn>
   </div>
 </template>
 
@@ -16,7 +22,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spots', 'currentUser']),
+    ...mapGetters([{ spots: 'spot/spots' }, 'currentUser']),
 
     isCommented() {
       const vm = this
@@ -42,5 +48,3 @@ export default {
   }
 }
 </script>
-
-<style></style>

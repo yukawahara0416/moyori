@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Search from '@/views/Search.vue'
+import Profile from '@/views/Profile.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,12 @@ const routes = [
     path: '/',
     name: 'Search',
     component: Search
+  },
+  {
+    path: '/users/:id(\\d+)',
+    name: 'profile',
+    component: Profile,
+    props: route => ({ id: Number(route.params.id) })
   }
 ]
 
