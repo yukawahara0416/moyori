@@ -20,7 +20,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spots', 'headers', 'currentUser']),
+    ...mapGetters([{ spots: 'spot/spots' }, 'headers', 'currentUser']),
 
     isPosted() {
       if (this.spot.record.length !== 0) {
@@ -81,7 +81,7 @@ export default {
             await this.unPowerWith(this.isPowerWithed[0], id)
           }
         } else {
-          spot = await this.$store.dispatch('postSpot', {
+          spot = await this.$store.dispatch('spot/postSpot', {
             spot: spot,
             id: id
           })
@@ -112,5 +112,3 @@ export default {
   }
 }
 </script>
-
-<style></style>

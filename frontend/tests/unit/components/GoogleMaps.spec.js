@@ -2,7 +2,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import GoogleMaps from '@/components/GoogleMaps.vue'
-import spotStore from '@/store/modules/spot.js'
+import spot from '@/store/modules/spot.js'
 // import { gmapApi } from 'vue2-google-maps'
 
 const localVue = createLocalVue()
@@ -29,9 +29,9 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      spotStore: {
+      spot: {
         state,
-        getters: spotStore.getters,
+        getters: spot.getters,
         actions
       }
     }

@@ -22,7 +22,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spots', 'currentUser']),
+    ...mapGetters([{ spots: 'spot/spots' }, 'currentUser']),
 
     isCommented() {
       const vm = this
@@ -48,5 +48,3 @@ export default {
   }
 }
 </script>
-
-<style></style>

@@ -6,6 +6,7 @@
       </template>
       <v-card>
         <p>ppppp</p>
+        <p>{{ spot }}</p>
         <p>{{ spot.marker.name }}</p>
         <p>{{ spot.marker.address }}</p>
         <p>{{ spot.marker.phone }}</p>
@@ -29,5 +30,3 @@ export default {
   }
 }
 </script>
-
-<style></style>

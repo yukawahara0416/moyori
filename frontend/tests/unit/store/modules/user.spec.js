@@ -1,6 +1,6 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import userStore from '@/store/modules/user.js'
+import auth from '@/store/modules/auth.js'
 import { cloneDeep } from 'lodash'
 
 const localVue = createLocalVue()
@@ -9,7 +9,7 @@ localVue.use(Vuex)
 let store
 
 beforeEach(() => {
-  store = new Vuex.Store(cloneDeep(userStore))
+  store = new Vuex.Store(cloneDeep(auth))
 })
 
 describe('mutations', () => {
