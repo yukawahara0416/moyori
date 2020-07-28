@@ -1,13 +1,4 @@
-import axios from 'axios'
-
-const axiosBase = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
-  },
-  responseType: 'json'
-})
+import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   namespaced: true,
@@ -79,7 +70,6 @@ export default {
     },
 
     spotlight(context, { id, type }) {
-      console.log(type)
       context.commit('offSpotlight', type)
       context.commit('onSpotlight', { id, type })
     }
