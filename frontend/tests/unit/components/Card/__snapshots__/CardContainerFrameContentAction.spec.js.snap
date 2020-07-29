@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-card-actions-stub>
+  <like-button-stub
+    id="1"
+    spot="[object Object]"
+    type="map"
+  />
+   
+  <button>
+    hoge
+  </button>
+</v-card-actions-stub>
+`;
