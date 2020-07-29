@@ -1,5 +1,5 @@
 <template>
-  <v-btn class="mx-2" data-test="btn2" @click="nearbySearch">
+  <v-btn class="mx-2" @click="nearbySearch">
     このエリアを検索
   </v-btn>
 </template>
