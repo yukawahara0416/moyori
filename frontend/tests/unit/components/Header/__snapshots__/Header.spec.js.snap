@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<div>
+  <v-app-bar-stub
+    app="true"
+    extensionheight="48"
+    flat="true"
+    src=""
+    tag="header"
+    tile="true"
+    value="true"
+  >
+    <v-toolbar-stub
+      extensionheight="48"
+      flat="true"
+      src=""
+      tag="header"
+      tile="true"
+    >
+      <header-title-stub />
+       
+      <header-chip-stub />
+       
+      <v-spacer-stub />
+       
+      <header-avatar-stub
+        currentuser="[object Object]"
+      />
+       
+      <v-app-bar-nav-icon-stub />
+    </v-toolbar-stub>
+  </v-app-bar-stub>
+   
+  <header-drawer-stub />
+</div>
+`;
