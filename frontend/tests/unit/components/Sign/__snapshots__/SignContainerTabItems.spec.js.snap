@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-tabs-items-stub
+  activeclass="v-window-item--active"
+  nexticon="$next"
+  previcon="$prev"
+  value="tab-1"
+>
+  <v-tab-item-stub
+    value="tab-1"
+  >
+    <sign-container-tab-items-sign-in-stub />
+  </v-tab-item-stub>
+   
+  <v-tab-item-stub
+    value="tab-2"
+  >
+    <sign-container-tab-items-sign-up-stub />
+  </v-tab-item-stub>
+</v-tabs-items-stub>
+`;
