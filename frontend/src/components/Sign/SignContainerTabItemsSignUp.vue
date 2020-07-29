@@ -14,7 +14,7 @@
             >
               <v-btn
                 class="my-3 white--text"
-                @click="signUp"
+                @click.stop="signUp"
                 color="#00acee"
                 large
                 type="submit"
@@ -77,10 +77,7 @@
             <v-spacer />
             <v-btn
               class="mb-3 px-10"
-              @click="
-                signUp()
-                closeDialog()
-              "
+              @click.stop="signUp"
               color="primary"
               large
               type="submit"
@@ -113,10 +110,6 @@ export default {
   methods: {
     signUp() {
       this.$store.dispatch('signUp', this.signUpFormData)
-    },
-
-    closeDialog() {
-      this.$emit('closeDialog')
     }
   }
 }
