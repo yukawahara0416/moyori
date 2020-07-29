@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-toolbar-stub
+  extensionheight="48"
+  src=""
+  style="position: absolute; left: 10px; top: 10px; z-index: 2;"
+  tag="header"
+  tile="true"
+>
+  <map-container-toolbar-text-form-stub />
+   
+  <map-container-toolbar-panto-button-stub />
+   
+  <map-container-toolbar-nearby-button-stub />
+</v-toolbar-stub>
+`;
