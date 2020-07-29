@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<div
+  class="v-dialog__container"
+  role="dialog"
+>
+  <div
+    class="my-2"
+  >
+    <button
+      class="v-btn v-btn--depressed theme--light v-size--large primary"
+      type="button"
+    >
+      <span
+        class="v-btn__content"
+      >
+        
+        はじめる
+      
+      </span>
+    </button>
+  </div>
+</div>
+`;
