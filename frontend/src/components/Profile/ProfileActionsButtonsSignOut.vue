@@ -6,11 +6,11 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   methods: {
-    signOut() {
-      this.$store.dispatch('signOut')
-    }
+    ...mapActions(['signOut'])
   }
 }
 </script>

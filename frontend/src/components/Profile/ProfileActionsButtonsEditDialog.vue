@@ -13,7 +13,7 @@
       </v-btn>
 
       <v-btn @click="dialogOff()" color="green darken-1" text>
-        <!-- deleteAccount() -->
+        <!-- updateAccount() -->
         OK
       </v-btn>
     </v-card-actions>
@@ -25,7 +25,7 @@ import { mapActions } from 'vuex'
 
 export default {
   methods: {
-    // ...mapActions(['deleteAccount', 'dialogOff']),
+    // ...mapActions(['updateAccount', 'dialogOff']),
     ...mapActions(['dialogOff'])
   }
 }
