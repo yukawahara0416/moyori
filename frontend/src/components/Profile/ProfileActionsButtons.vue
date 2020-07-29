@@ -24,7 +24,6 @@ import ProfileActionsButtonsDelete from '@/components/Profile/ProfileActionsButt
 export default {
   props: {
     id: Number,
-    user: Object,
     headers: Object,
     currentUser: Object
   },
