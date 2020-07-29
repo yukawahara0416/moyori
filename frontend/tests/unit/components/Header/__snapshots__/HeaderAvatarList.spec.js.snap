@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-list-stub
+  tag="div"
+  tile="true"
+>
+  <v-list-item-stub
+    activeclass=""
+    tag="div"
+  >
+     さん
+  </v-list-item-stub>
+   
+  <header-avatar-list-mypage-stub
+    currentuser="[object Object]"
+  />
+   
+  <header-avatar-list-signout-stub />
+</v-list-stub>
+`;
