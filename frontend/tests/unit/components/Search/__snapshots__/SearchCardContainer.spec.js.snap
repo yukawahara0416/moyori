@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-col-stub
+  class="pa-0 [object Object]"
+  cols="12"
+  md="6"
+  no-gutter=""
+  tag="div"
+>
+  <v-container-stub
+    class="overflow-y-auto"
+    fluid="true"
+    id="scroll-target"
+    tag="div"
+  >
+    <search-card-container-fill-stub
+      spots="[object Object],[object Object]"
+    />
+     
+    <card-container-stub
+      spots="[object Object],[object Object]"
+      type="map"
+    />
+  </v-container-stub>
+</v-col-stub>
+`;

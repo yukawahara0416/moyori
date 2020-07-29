@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-row-stub
+  align="center"
+  class="mx-0"
+  justify="center"
+  tag="div"
+>
+  <v-col-stub
+    cols="10"
+    tag="div"
+  >
+    <p>
+      キーワード検索できます
+    </p>
+     
+    <p>
+      現在地に戻ることができます
+    </p>
+     
+    <p>
+      地図のサークル内のカフェを検索できます
+    </p>
+     
+    <v-img-stub
+      class="white--text align-end"
+      options="[object Object]"
+      position="center center"
+      src=""
+      transition="fade-transition"
+    />
+  </v-col-stub>
+</v-row-stub>
+`;
