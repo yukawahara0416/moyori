@@ -2,7 +2,6 @@
   <div>
     <v-text-field
       class="mx-2"
-      data-test="textsearch"
       hide-details
       label="キーワード検索"
       prepend-icon="mdi-magnify"

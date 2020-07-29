@@ -28,7 +28,16 @@ export default {
   computed: {
     icon: function() {
       return function(spot) {
-        var iconUrl =
+        return {
+          url: require(`@/assets/${this.iconUrl(spot)}.png`),
+          scaledSize: new google.maps.Size(50, 50)
+        }
+      }
+    },
+
+    iconUrl: function() {
+      return function(spot) {
+        var url =
           'name' in spot.marker
             ? spot.marker.on === false
               ? spot.marker.name.indexOf('スターバックス') !== -1
@@ -46,10 +55,7 @@ export default {
                 : 'cafe'
               : 'spotlight'
             : 'cafe'
-        return {
-          url: require(`@/assets/${iconUrl}.png`),
-          scaledSize: new google.maps.Size(50, 50)
-        }
+        return url
       }
     }
   },

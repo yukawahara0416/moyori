@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<div>
+  <div
+    class="v-input mx-2 v-input--hide-details theme--light v-text-field v-text-field--single-line"
+  >
+    <div
+      class="v-input__prepend-outer"
+    >
+      <div
+        class="v-input__icon v-input__icon--prepend"
+      >
+        <i
+          aria-hidden="true"
+          class="v-icon notranslate mdi mdi-magnify theme--light"
+        />
+      </div>
+    </div>
+    <div
+      class="v-input__control"
+    >
+      <div
+        class="v-input__slot"
+      >
+        <div
+          class="v-text-field__slot"
+        >
+          <label
+            class="v-label theme--light"
+            for="input-12"
+            style="right: 0px; position: absolute;"
+          >
+            キーワード検索
+          </label>
+          <input
+            id="input-12"
+            type="text"
+          />
+        </div>
+        <div
+          class="v-input__append-inner"
+        >
+          <div
+            class="v-input__icon v-input__icon--clear"
+          >
+            <button
+              aria-label="clear icon"
+              class="v-icon notranslate v-icon--disabled v-icon--link material-icons theme--light"
+              disabled="disabled"
+              type="button"
+            >
+              $clear
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
