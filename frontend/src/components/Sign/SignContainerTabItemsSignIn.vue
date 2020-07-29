@@ -11,7 +11,7 @@
               <v-col class="text-center">
                 <v-btn
                   color="success"
-                  @click="signInAsTestUser"
+                  @click.stop="signInAsTestUser"
                   large
                   type="submit"
                 >
@@ -37,7 +37,7 @@
             >
               <v-btn
                 class="my-3 white--text"
-                @click="signIn"
+                @click.stop="signIn"
                 color="#00acee"
                 large
                 type="submit"
@@ -83,10 +83,10 @@
             <v-spacer />
             <v-btn
               class="mb-3 px-10"
-              @click="signIn"
               color="primary"
               large
               type="submit"
+              @click.stop="signIn"
             >
               ログイン
             </v-btn>
@@ -129,6 +129,7 @@ export default {
     signInAsTestUser() {
       this.$store.dispatch('signIn', this.testUser)
     }
+    // signInByTwitter() {}
   }
 }
 </script>
