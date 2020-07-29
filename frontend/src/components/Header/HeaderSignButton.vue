@@ -2,14 +2,7 @@
   <v-dialog v-model="dialog" width="600">
     <template v-slot:activator="{ on }">
       <div class="my-2">
-        <v-btn
-          color="primary"
-          depressed
-          large
-          v-show="headers === null"
-          v-on="on"
-          @click="dialogOn"
-        >
+        <v-btn color="primary" depressed large v-on="on" @click.stop="dialogOn">
           はじめる
         </v-btn>
       </div>
