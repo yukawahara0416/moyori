@@ -2,16 +2,13 @@
   <div>
     <v-app-bar app flat>
       <v-toolbar flat>
-        <v-toolbar-title class="headline text-uppercase">
-          <router-link to="/">MoYoRi</router-link>
-        </v-toolbar-title>
-
+        <header-title />
         <header-chip />
 
         <v-spacer />
 
-        <header-avatar />
-        <header-sign-button />
+        <header-sign-button v-if="headers === null" />
+        <header-avatar v-else :currentUser="currentUser" />
 
         <v-app-bar-nav-icon @click.stop="drawerState = !drawerState" />
       </v-toolbar>
@@ -27,13 +24,15 @@ import HeaderAvatar from '@/components/Header/HeaderAvatar.vue'
 import HeaderChip from '@/components/Header/HeaderChip.vue'
 import HeaderDrawer from '@/components/Header/HeaderDrawer.vue'
 import HeaderSignButton from '@/components/Header/HeaderSignButton.vue'
+import HeaderTitle from '@/components/Header/HeaderTitle.vue'
 
 export default {
   components: {
     HeaderAvatar,
     HeaderChip,
     HeaderDrawer,
-    HeaderSignButton
+    HeaderSignButton,
+    HeaderTitle
   },
 
   data() {
@@ -43,7 +42,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentUser', 'headers'])
+    ...mapGetters(['headers', 'currentUser'])
   }
 }
 </script>
