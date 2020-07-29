@@ -3,7 +3,6 @@
     <p>{{ spot.marker.name }}</p>
     <p>{{ spot.marker.address }}</p>
     <p>{{ spot.marker.place_id }}</p>
-    <p v-show="isPosted" style="color: red;">posted</p>
 
     <p>
       <a
@@ -25,12 +24,6 @@
 export default {
   props: {
     spot: Object
-  },
-
-  computed: {
-    isPosted() {
-      return 'id' in this.spot.data
-    }
   }
 }
 </script>
