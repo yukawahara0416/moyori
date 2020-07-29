@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-col-stub
+  class="mb-5"
+  cols="8"
+  tag="div"
+>
+  <v-row-stub
+    align="center"
+    justify="center"
+    no-gutter=""
+    tag="div"
+  >
+    <profile-actions-items-stub
+      user="[object Object]"
+    />
+     
+    <profile-actions-buttons-stub
+      currentuser="[object Object]"
+      headers="[object Object]"
+      id="1"
+      user="[object Object]"
+    />
+  </v-row-stub>
+</v-col-stub>
+`;
