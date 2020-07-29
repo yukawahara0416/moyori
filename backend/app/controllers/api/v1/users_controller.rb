@@ -8,6 +8,8 @@ module Api
 
       private
 
+        # rubocop:disable Metrics/AbcSize, Style/MethodLength
+
         def convert_to_json_user(user)
           posts = []
           likes = []
@@ -100,6 +102,8 @@ module Api
             comments: comments
           }
         end
+
+      # rubocop:enable Metrics/AbcSize, Style/MethodLength
     end
   end
 end

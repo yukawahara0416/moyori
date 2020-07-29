@@ -1,14 +1,5 @@
-import axios from 'axios'
+import { axiosBase } from '@/plugins/axios.js'
 import queryString from 'query-string'
-
-const axiosBase = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
-  },
-  responseType: 'json'
-})
 
 export default {
   namespaced: true,
@@ -17,9 +8,9 @@ export default {
       context.commit('spot/addSpots', results, { root: true })
     },
 
-    updateSpots(context, { spot, id }) {
-      context.commit('spot/updateSpots', { spot, id }, { root: true })
-    },
+    // updateSpots(context, { spot, id }) {
+    //   context.commit('spot/updateSpots', { spot, id }, { root: true })
+    // },
 
     nearbySearch(context, { map, request }) {
       return new Promise(resolve => {

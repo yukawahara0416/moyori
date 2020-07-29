@@ -13,7 +13,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Snackbar from '@/components/Snackbar.vue'
+import Snackbar from '@/components/Utility/Snackbar.vue'
 import Header from '@/components/Header/Header.vue'
 
 export default {

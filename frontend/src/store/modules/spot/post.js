@@ -1,13 +1,4 @@
-import axios from 'axios'
-
-const axiosBase = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
-  },
-  responseType: 'json'
-})
+import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   namespaced: true,
@@ -74,18 +65,18 @@ export default {
     },
 
     postSpot(context, params) {
-      console.log(params)
       axiosBase
         .post('/api/v1/spots', params, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
-          console.log(response.data)
           response.data.marker.position = new google.maps.LatLng(
             response.data.marker.position.lat,
             response.data.marker.position.lng
           )
           context.dispatch('pushSpot', response.data)
+          context.dispatch('dialogOff', null, { root: true })
+          context.dispatch('clearSpotFormData')
           context.dispatch(
             'pushSnackbar',
             {
