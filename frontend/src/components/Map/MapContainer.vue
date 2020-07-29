@@ -63,14 +63,7 @@ export default {
       this.panTo(spot.marker.position)
     })
 
-    this.beforeSearch()
-    const center = await this.geolocate()
-    this.$gmapApiPromiseLazy().then(() => {
-      this.center = center
-      this.setMarker(center, 'you-are-here')
-      this.panTo(center)
-      this.nearbySearch()
-    })
+    this.autoNearbySearch()
   },
 
   methods: {
@@ -105,6 +98,18 @@ export default {
       this.$store.dispatch('pushSnackbar', {
         message: `${this.spots.length} 件ヒットしました`,
         color: 'success'
+      })
+    },
+
+    // views/Searchアクセス時に自動でNearbySearch
+    autoNearbySearch: async function() {
+      this.beforeSearch()
+      const center = await this.geolocate()
+      this.$gmapApiPromiseLazy().then(() => {
+        this.center = center
+        this.setMarker(center, 'you-are-here')
+        this.panTo(center)
+        this.nearbySearch()
       })
     },
 
@@ -180,7 +185,7 @@ export default {
         this.$store.dispatch('dialogOn', 'dialogSpotCreate')
       } else {
         this.$store.dispatch('pushSnackbar', {
-          message: 'ログインしてください',
+          message: 'スポットを登録するには、ログインが必要です',
           color: 'error'
         })
         // Header/HeaderSignButton/dialogOn
