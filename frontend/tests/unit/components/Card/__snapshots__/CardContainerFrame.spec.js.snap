@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<div
+  class="mt-2 d-flex flex-column v-card v-card--hover v-card--link v-sheet theme--light"
+  id="1"
+  style="height: 100%;"
+  tabindex="0"
+>
+  <card-container-frame-content-stub
+    id="1"
+    spot="[object Object]"
+    type="map"
+  />
+</div>
+`;

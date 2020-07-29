@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-col-stub
+  class="py-0"
+  cols="5"
+  md="12"
+  tag="div"
+>
+  <v-img-stub
+    class="white--text align-end imgHeight_big"
+    options="[object Object]"
+    position="center center"
+    src=""
+    transition="fade-transition"
+  />
+</v-col-stub>
+`;

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-card-text-stub
+  class="text--primary"
+>
+  <p>
+    test
+  </p>
+   
+  <p>
+    
+  </p>
+   
+  <p>
+    
+  </p>
+   
+  <p>
+    <a
+      href="https://www.google.com/maps/dir/?api=1&destination=undefined,undefined"
+      target="_brank"
+    >
+      
+      Googleマップでナビ
+    
+    </a>
+  </p>
+</v-card-text-stub>
+`;
