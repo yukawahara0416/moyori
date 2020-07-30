@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`template snapshot 1`] = `
-<gmap-circle-stub
-  center="[object Object]"
-  options="[object Object]"
-  radius="500"
-/>
-`;

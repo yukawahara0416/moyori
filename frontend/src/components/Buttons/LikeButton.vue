@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn icon @click="likeHandler()">
+    <v-btn icon @click.stop="likeHandler()">
       <v-icon v-if="isLiked" color="error">mdi-heart</v-icon>
       <v-icon v-if="!isLiked">mdi-heart-outline</v-icon>
       <counter :spot="spot" :genre="'likes'" />

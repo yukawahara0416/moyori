@@ -1,22 +1,19 @@
 <template>
   <v-dialog v-model="dialog" width="600">
     <template v-slot:activator="{ on }">
-      <div v-on="on" @click="dialogOn"></div>
+      <div v-on="on" @click.stop="dialogOn"></div>
     </template>
 
     <spot-form-container />
-    <!-- <sign-container /> -->
   </v-dialog>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-// import SignContainer from '@/components/Sign/SignContainer.vue'
 import SpotFormContainer from '@/components/Spot/SpotFormContainer.vue'
 
 export default {
   components: {
-    // SignContainer
     SpotFormContainer
   },
 
