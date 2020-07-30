@@ -44,7 +44,6 @@ export default {
 
     dialogOff(context) {
       context.commit('dialogOff')
-      context.commit('post/clearSpotFormData', { root: true })
     }
   }
 }
