@@ -1,14 +1,3 @@
-// import axios from 'axios'
-
-// const axiosBase = axios.create({
-//   baseURL: 'http://localhost:3000',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     'X-Requested-With': 'XMLHttpRequest'
-//   },
-//   responseType: 'json'
-// })
-
 export default {
   namespaced: true,
   state: {
@@ -32,6 +21,7 @@ export default {
 
     pushSpot(state, spot) {
       state.spots.push(spot)
+      // state.spots.unshift(spot)
     },
 
     // deleteSpot(state, payload) {
@@ -90,7 +80,6 @@ export default {
     //         headers: context.rootState.auth.headers
     //       })
     //       .then(function(response) {
-    //         console.log(response)
     //         response.data['marker'] = spot.marker
     //         response.data.marker.address = response.data.record.address
     //         response.data.marker.name = response.data.record.name
