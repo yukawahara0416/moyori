@@ -5,27 +5,27 @@ export default {
   },
 
   mutations: {
-    setSnackMessage(state, message) {
+    setMessage(state, message) {
       state.message = message
     },
 
-    setSnackColor(state, color) {
+    setColor(state, color) {
       state.color = color
     },
 
-    clearSnackMessage(state) {
+    clearMessage(state) {
       state.message = ''
     }
   },
 
   actions: {
     pushSnackbar(context, { message, color }) {
-      context.commit('setSnackMessage', message)
-      context.commit('setSnackColor', color)
+      context.commit('setMessage', message)
+      context.commit('setColor', color)
     },
 
-    clearSnackMessage(context) {
-      context.commit('clearSnackMessage')
+    clearSnackbar(context) {
+      context.commit('clearMessage')
     }
   }
 }
