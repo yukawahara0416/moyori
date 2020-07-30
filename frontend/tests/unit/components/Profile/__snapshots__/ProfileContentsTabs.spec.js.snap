@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-tabs-stub
+  activeclass=""
+  fixedtabs="true"
+  mobilebreakpoint="1264"
+  nexticon="$next"
+  previcon="$prev"
+  slidersize="2"
+  value="tab-1"
+>
+  <v-tab-stub
+    class="primary--text"
+    href="#tab-1"
+    ripple="true"
+  >
+    <v-icon-stub>
+      mdi-map-marker-outline
+    </v-icon-stub>
+  </v-tab-stub>
+   
+  <v-tab-stub
+    class="primary--text"
+    href="#tab-2"
+    ripple="true"
+  >
+    <v-icon-stub>
+      mdi-wifi
+    </v-icon-stub>
+     
+    <v-icon-stub>
+      mdi-power-plug
+    </v-icon-stub>
+  </v-tab-stub>
+   
+  <v-tab-stub
+    class="primary--text"
+    href="#tab-3"
+    ripple="true"
+  >
+    <v-icon-stub>
+      mdi-message-outline
+    </v-icon-stub>
+  </v-tab-stub>
+   
+  <v-tab-stub
+    class="primary--text"
+    href="#tab-4"
+    ripple="true"
+  >
+    <v-icon-stub>
+      mdi-heart-outline
+    </v-icon-stub>
+  </v-tab-stub>
+</v-tabs-stub>
+`;

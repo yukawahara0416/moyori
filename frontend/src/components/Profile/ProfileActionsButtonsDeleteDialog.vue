@@ -14,8 +14,8 @@
 
       <v-btn
         @click="
-          dialogOff()
           deleteAccount()
+          dialogOff()
         "
         color="green darken-1"
         text
