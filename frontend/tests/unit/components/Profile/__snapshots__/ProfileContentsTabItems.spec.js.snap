@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template snapshot 1`] = `
+<v-tabs-items-stub
+  activeclass="v-window-item--active"
+  nexticon="$next"
+  previcon="$prev"
+  value="tab-1"
+>
+  <v-tab-item-stub
+    value="tab-1"
+  >
+    <card-container-stub
+      spots="[object Object]"
+      type="posts"
+    />
+  </v-tab-item-stub>
+   
+  <v-tab-item-stub
+    value="tab-2"
+  >
+    <card-container-stub
+      spots=""
+      type="wifi_withs"
+    />
+  </v-tab-item-stub>
+   
+  <v-tab-item-stub
+    value="tab-3"
+  >
+    <card-container-stub
+      spots=""
+      type="comments"
+    />
+  </v-tab-item-stub>
+   
+  <v-tab-item-stub
+    value="tab-4"
+  >
+    <card-container-stub
+      spots=""
+      type="likes"
+    />
+  </v-tab-item-stub>
+</v-tabs-items-stub>
+`;
