@@ -4,7 +4,7 @@
       <v-col>
         <v-card class="mx-5">
           <v-toolbar class="white--text" color="primary" dense flat>
-            <v-toolbar-title>メールアドレスで登録</v-toolbar-title>
+            <v-toolbar-title>スポットを新規作成</v-toolbar-title>
           </v-toolbar>
 
           <v-card-text>
@@ -51,13 +51,10 @@
             <v-spacer />
             <v-btn
               class="mb-3 px-10"
-              @click="
-                postSpot()
-                dialogOff()
-              "
               color="primary"
               large
               type="submit"
+              @click="postSpot()"
             >
               スポットを登録する
             </v-btn>
@@ -80,10 +77,6 @@ export default {
   methods: {
     postSpot() {
       this.$store.dispatch('post/postSpot', this.spotFormData)
-    },
-
-    dialogOff() {
-      this.$store.dispatch('dialogOff')
     }
   }
 }
