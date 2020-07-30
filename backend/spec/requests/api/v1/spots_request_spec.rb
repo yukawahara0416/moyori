@@ -22,7 +22,7 @@ RSpec.describe 'Api::V1::Spots', type: :request do
     get("/api/v1/spots/#{spot.id}")
     json = JSON.parse(response.body)
     expect(response).to have_http_status(200)
-    expect(json['record']['place_id']).to eq(spot.place_id)
+    expect(json['data']['place_id']).to eq(spot.place_id)
   end
 
   it '新規のspotを保存する' do
@@ -49,7 +49,7 @@ RSpec.describe 'Api::V1::Spots', type: :request do
     params = { spot: { place_id: mock.place_id } }
     post(api_v1_spots_path, params: params, headers: headers)
     json = JSON.parse(response.body)
-    expect { delete("/api/v1/spots/#{json['record']['id']}", headers: headers) }.to change(Spot, :count).by(-1)
+    expect { delete("/api/v1/spots/#{json['data']['id']}", headers: headers) }.to change(Spot, :count).by(-1)
     expect(response).to have_http_status(200)
   end
 end
