@@ -40,7 +40,7 @@ export default {
         if (message !== '') {
           this.message = message
           this.snackbarState = true
-          this.$store.dispatch('clearSnackMessage')
+          this.$store.dispatch('clearSnackbar')
         }
       }
     )
