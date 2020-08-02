@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-toolbar style="position: absolute; left: 10px; top: 10px; z-index: 2;">
+    <v-toolbar
+      short
+      style="position: absolute; left: 10px; top: 10px; z-index: 2;"
+    >
       <!-- <map-container-toolbar-text-form @text-search="textSearch" /> -->
       <map-container-toolbar-demo-button @demo-search="demoSearch" />
       <map-container-toolbar-nearby-button @nearby-search="nearbySearch" />
@@ -24,9 +27,9 @@ export default {
   },
 
   methods: {
-    // textSearch(keyword) {
-    //   this.$emit('text-search', keyword)
-    // },
+    textSearch(keyword) {
+      this.$emit('text-search', keyword)
+    },
 
     panToLocation() {
       this.$emit('panto-location')
