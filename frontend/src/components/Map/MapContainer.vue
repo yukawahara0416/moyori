@@ -4,6 +4,7 @@
       @nearby-search="nearbySearch"
       @text-search="textSearch"
       @panto-location="panToLocation"
+      @demo-search="demoSearch"
     />
 
     <gmap-map
@@ -142,6 +143,17 @@ export default {
       )
       this.addSpotsMap(resultsInMap)
       this.afterSearch()
+    },
+
+    // デモ用エリアへ移動して検索
+    demoSearch() {
+      // this.beforeSearch()
+      const center = { lat: 35.680959, lng: 139.767306 }
+      this.panTo(center)
+      this.center = center
+      // this.setMarker(center, 'you-are-here')
+      // this.panTo(center)
+      this.nearbySearch()
     },
 
     // キーワード検索
