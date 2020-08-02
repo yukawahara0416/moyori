@@ -33,7 +33,7 @@ https://mo-yo-ri.com/
 | 開発ツール | Git/GitHub <br> Slack <br> MacBook Pro 2017 <br> VSCode |
   
 ## ER図
-<img src="https://gyazo.com/107547d8a69fa7abdcf8b6fd54953eb8">  
+<img src="https://gyazo.com/107547d8a69fa7abdcf8b6fd54953eb8.png">  
   
 ## 注目ポイント
 　Docker/AWS/Terraform/CircleCIでの開発に挑戦しています。  
