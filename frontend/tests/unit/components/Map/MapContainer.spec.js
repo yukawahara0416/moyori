@@ -185,6 +185,11 @@ describe('v-on', () => {
     wrapper.vm.$emit('panToLocation')
     expect(wrapper.emitted().panToLocation).toBeTruthy()
   })
+  it('demoSearch', () => {
+    wrapper.setMethods({ demoSearch: jest.fn() })
+    wrapper.vm.$emit('demoSearch')
+    expect(wrapper.emitted().demoSearch).toBeTruthy()
+  })
   it('createSpot', () => {
     const event = jest.fn()
     wrapper.setMethods({ createSpot: event })
