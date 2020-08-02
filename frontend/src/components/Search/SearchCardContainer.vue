@@ -62,7 +62,7 @@ export default {
   width: 100%;
 }
 .indexHeight_small {
-  height: 50%;
+  height: 40%;
   width: 100%;
 }
 </style>

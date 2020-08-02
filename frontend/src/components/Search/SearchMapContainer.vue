@@ -48,7 +48,7 @@ export default {
   width: 100%;
 }
 .mapHeight_small {
-  height: 50%;
+  height: 60%;
   width: 100%;
 }
 </style>
