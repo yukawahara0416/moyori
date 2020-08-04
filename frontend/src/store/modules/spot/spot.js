@@ -54,6 +54,10 @@ export default {
         state.spots[i].marker.on = false
         state.spots[i].marker.zIndex = 10
       }
+    },
+
+    setFilterQuery(state, filterQuery) {
+      state.filterQuery = filterQuery
     }
   },
 
