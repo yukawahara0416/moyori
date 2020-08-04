@@ -9,7 +9,11 @@
     <v-list>
       <v-list-item>
         <v-list-item-action>
-          <v-switch color="success" v-model="filterQuery.likes"></v-switch>
+          <v-switch
+            color="success"
+            v-model="filterQuery.likes"
+            @change="handleChangeQuery"
+          ></v-switch>
         </v-list-item-action>
         <v-list-item-title>
           <v-icon class="mr-2">mdi-heart-outline</v-icon>
@@ -18,7 +22,11 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-action>
-          <v-switch color="success" v-model="filterQuery.wifi_withs"></v-switch>
+          <v-switch
+            color="success"
+            v-model="filterQuery.wifi_withs"
+            @change="handleChangeQuery"
+          ></v-switch>
         </v-list-item-action>
         <v-list-item-title>
           <v-icon class="mr-2">mdi-wifi</v-icon>
@@ -30,6 +38,7 @@
           <v-switch
             color="success"
             v-model="filterQuery.power_withs"
+            @change="handleChangeQuery"
           ></v-switch>
         </v-list-item-action>
         <v-list-item-title>
@@ -39,7 +48,11 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-action>
-          <v-switch color="success" v-model="filterQuery.comments"></v-switch>
+          <v-switch
+            color="success"
+            v-model="filterQuery.comments"
+            @change="handleChangeQuery"
+          ></v-switch>
         </v-list-item-action>
         <v-list-item-title>
           <v-icon class="mr-2">mdi-message-outline</v-icon>
@@ -51,6 +64,8 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   data() {
     return {
@@ -60,6 +75,18 @@ export default {
         power_withs: false,
         comments: false
       }
+    }
+  },
+
+  computed: {
+    ...mapGetters(['filterSpots'])
+  },
+
+  methods: {
+    ...mapMutations({ setFilterQuery: 'spot/setFilterQuery' }),
+
+    handleChangeQuery() {
+      this.setFilterQuery(this.filterQuery)
     }
   }
 }
