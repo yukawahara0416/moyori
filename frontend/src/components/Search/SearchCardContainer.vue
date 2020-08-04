@@ -15,9 +15,9 @@
       id="scroll-target"
       style="height: 100%; width: 100%;"
     >
-      <search-card-container-fill :spots="spots" />
+      <search-card-container-fill :spots="filterSpots" />
 
-      <card-container :spots="spots ? spots : []" :type="'map'" />
+      <card-container :spots="filterSpots ? filterSpots : []" :type="'map'" />
     </v-container>
   </v-col>
 </template>
@@ -34,7 +34,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ spots: 'spot/spots' }),
+    ...mapGetters({ spots: 'spot/spots', filterSpots: 'spot/filterSpots' }),
 
     vhHeight() {
       switch (this.$vuetify.breakpoint.name) {
