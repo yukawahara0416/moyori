@@ -1,7 +1,8 @@
 export default {
   namespaced: true,
   state: {
-    spots: []
+    spots: [],
+    filterQuery: {}
   },
 
   getters: {
