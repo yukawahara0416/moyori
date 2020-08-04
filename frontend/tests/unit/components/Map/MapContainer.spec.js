@@ -18,7 +18,8 @@ beforeEach(() => {
   spot = {
     namespaced: true,
     getters: {
-      spots: () => [{ data: { id: 1 } }, { data: { id: 2 } }]
+      spots: () => [{ data: { id: 1 } }, { data: { id: 2 } }],
+      filterSpots: () => {}
     },
     actions: {
       clearSpots: jest.fn()
