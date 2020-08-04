@@ -1,5 +1,5 @@
 <template>
-  <v-menu offset-y open-on-hover :close-on-content-click="false">
+  <v-menu offset-y :close-on-content-click="false">
     <template v-slot:activator="{ on, attrs }">
       <v-btn icon class="mx-2" v-bind="attrs" v-on="on">
         <v-icon>mdi-filter-menu-outline</v-icon>
