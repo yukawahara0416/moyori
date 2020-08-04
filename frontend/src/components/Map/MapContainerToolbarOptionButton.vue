@@ -2,7 +2,8 @@
   <v-menu offset-y :close-on-content-click="false">
     <template v-slot:activator="{ on, attrs }">
       <v-btn icon class="mx-2" v-bind="attrs" v-on="on">
-        <v-icon>mdi-filter-menu-outline</v-icon>
+        <v-icon v-if="isFiltered" color="success">mdi-filter-menu</v-icon>
+        <v-icon v-if="!isFiltered">mdi-filter-menu-outline</v-icon>
       </v-btn>
     </template>
 
@@ -79,7 +80,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['filterSpots'])
+    ...mapGetters(['filterSpots']),
+
+    isFiltered() {
+      let data = Object.values(this.filterQuery)
+      data = data.filter(function(value) {
+        return value === true
+      })
+      return data.length > 0 ? true : false
+    }
   },
 
   methods: {
