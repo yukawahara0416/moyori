@@ -53,15 +53,6 @@ export default {
       } else {
         return []
       }
-    },
-
-    count() {
-      const powerWiths = this.spots[this.id].power_withs
-      if (powerWiths.length > 0) {
-        return powerWiths.length
-      } else {
-        return 0
-      }
     }
   },
 
