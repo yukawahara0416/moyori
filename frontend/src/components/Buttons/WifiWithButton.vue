@@ -80,15 +80,15 @@ export default {
               type: type
             })
           } else {
-            // if (this.isWifiWithouted) {
-            //   await this.unWifiWithout({
-            //     wifi_without: this.ownWifiWithout[0],
-            //     id: id,
-            //     type: type
-            //   })
-            // } else {
-            await this.wifiWith({ spot: spot, id: id, type: type })
-            // }
+            if (this.isWifiWithouted) {
+              await this.unWifiWithout({
+                wifi_without: this.ownWifiWithout[0],
+                id: id,
+                type: type
+              })
+            } else {
+              await this.wifiWith({ spot: spot, id: id, type: type })
+            }
           }
         } else {
           const result = await this.saveSpot({ spot: spot, id: id })
