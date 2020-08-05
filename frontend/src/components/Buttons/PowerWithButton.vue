@@ -91,11 +91,11 @@ export default {
                 type: type
               })
             }
-            await this.PowerWith({ spot: spot, id: id, type: type })
+            await this.powerWith({ spot: spot, id: id, type: type })
           }
         } else {
           const result = await this.saveSpot({ spot: spot, id: id })
-          await this.PowerWith({ spot: result, id: id, type: type })
+          await this.powerWith({ spot: result, id: id, type: type })
         }
       } else {
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
