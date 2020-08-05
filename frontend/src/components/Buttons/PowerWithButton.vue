@@ -30,16 +30,7 @@ export default {
     },
 
     isPowerWithed() {
-      const vm = this
-      const powerWiths = this.spots[this.id].power_withs
-      if (vm.currentUser !== null && powerWiths.length > 0) {
-        const powerWithed = powerWiths.filter(function(power_with) {
-          return power_with.user_id == vm.currentUser.data.id
-        })
-        return powerWithed
-      } else {
-        return []
-      }
+      return this.ownPowerWith.length > 0 ? true : false
     },
 
     isPowerWithouted() {
