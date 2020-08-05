@@ -10,7 +10,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Counter from '@/components/Counter.vue'
+import Counter from '@/components/Buttons/Counter.vue'
 
 export default {
   props: {
@@ -50,10 +50,13 @@ export default {
     ...mapActions(['like', 'unlike', 'pushSnackbar']),
 
     likeHandler: async function() {
-      var spot = this.spot
-      var id = this.id
-      var type = this.type
-      var isPosted = Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
+      const spot = this.spot
+      const id = this.id
+      const type = this.type
+      const isPosted = Object.prototype.hasOwnProperty.call(
+        this.spot.data,
+        'id'
+      )
       if (this.isLoggedIn) {
         if (isPosted) {
           if (this.isLiked) {
@@ -62,7 +65,7 @@ export default {
             await this.like({ spot: spot, id: id, type: type })
           }
         } else {
-          var result = await this.saveSpot({ spot: spot, id: id })
+          const result = await this.saveSpot({ spot: spot, id: id })
           await this.like({ spot: result, id: id, type: type })
         }
       } else {
