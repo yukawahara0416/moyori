@@ -23,7 +23,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([{ spots: 'spot/spots' }, 'headers', 'currentUser']),
+    ...mapGetters(['headers', 'currentUser']),
 
     isPowerWithed() {
       const vm = this
