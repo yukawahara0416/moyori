@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Counter from '@/components/Buttons/Counter.vue'
 
 export default {
@@ -59,6 +59,14 @@ export default {
   },
 
   methods: {
+    ...mapActions({ saveSpot: 'map/saveSpot' }),
+    ...mapActions([
+      'powerWith',
+      'unPowerWith',
+      'unPowerWithout',
+      'pushSnackbar'
+    ]),
+
     powerWithHandler: async function() {
       const spot = this.spot
       const id = this.id
