@@ -3,10 +3,10 @@
     <like-button :spot="spot" :id="id" :type="type" />
     <wifi-with-button :spot="spot" :id="id" :type="type" />
     <wifi-without-button :spot="spot" :id="id" :type="type" />
-    <!-- <power-with-button :spot="s" :id="id" /> -->
-    <!-- <power-without-button :spot="s" :id="id" /> -->
-    <!-- <comment-button :spot="s" :id="id" /> -->
-    <!-- <show-button :spot="s" :id="id" /> -->
+    <power-with-button :spot="spot" :id="id" :type="type" />
+    <!-- <power-without-button :spot="spot" :id="id" :type="type" /> -->
+    <!-- <comment-button :spot="spot" :id="id" :type="type" /> -->
+    <!-- <show-button :spot="spot" :id="id" :type="type" /> -->
   </v-card-actions>
 </template>
 
@@ -14,6 +14,7 @@
 import LikeButton from '@/components/Buttons/LikeButton.vue'
 import WifiWithButton from '@/components/Buttons/WifiWithButton.vue'
 import WifiWithoutButton from '@/components/Buttons/WifiWithoutButton.vue'
+import PowerWithButton from '@/components/Buttons/PowerWithButton.vue'
 
 export default {
   props: {
@@ -25,7 +26,8 @@ export default {
   components: {
     LikeButton,
     WifiWithButton,
-    WifiWithoutButton
+    WifiWithoutButton,
+    PowerWithButton
   }
 }
 </script>
