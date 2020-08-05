@@ -9,11 +9,19 @@ export default {
           headers: context.rootState.auth.headers
         })
         .then(response => {
-          context.commit('addSpotData', {
-            data: response.data,
-            id: id,
-            key: 'power_withs'
-          })
+          type === 'map'
+            ? context.commit('addSpotData', {
+                data: response.data,
+                id: id,
+                key: 'power_withs'
+              })
+            : context.commit('user/addUserData', {
+                data: response.data,
+                id: id,
+                type: type,
+                genre: 'power_withs'
+              })
+
           context.dispatch('pushSnackbar', {
             message: '「電源あるよ」しました　投票ありがとうございます！',
             color: 'success'
@@ -33,11 +41,18 @@ export default {
           headers: context.rootState.auth.headers
         })
         .then(response => {
-          context.commit('deleteData', {
-            data: response.data,
-            id: id,
-            key: 'power_withs'
-          })
+          type === 'map'
+            ? context.commit('deleteData', {
+                data: response.data,
+                id: id,
+                key: 'power_withs'
+              })
+            : context.commit('user/deleteUserData', {
+                data: response.data,
+                id: id,
+                type: type,
+                genre: 'power_withs'
+              })
           context.dispatch('pushSnackbar', {
             message: '「電源あるよ」を取り消しました',
             color: 'success'
