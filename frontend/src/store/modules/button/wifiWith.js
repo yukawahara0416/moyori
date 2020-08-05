@@ -3,7 +3,7 @@ import { axiosBase } from '@/plugins/axios.js'
 export default {
   actions: {
     wifiWith(context, { spot, id, type }) {
-      var params = { spot_id: spot.data.id }
+      const params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/wifi_withs', params, {
           headers: context.rootState.auth.headers

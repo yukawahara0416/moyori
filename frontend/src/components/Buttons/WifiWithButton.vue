@@ -61,7 +61,7 @@ export default {
 
   methods: {
     ...mapActions({ saveSpot: 'map/saveSpot' }),
-    ...mapActions(['wifiWith', 'unWifiWith', 'pushSnackbar']),
+    ...mapActions(['wifiWith', 'unWifiWith', 'unWifiWithout', 'pushSnackbar']),
 
     wifiWithHandler: async function() {
       const spot = this.spot
@@ -86,9 +86,10 @@ export default {
                 id: id,
                 type: type
               })
-            } else {
-              await this.wifiWith({ spot: spot, id: id, type: type })
             }
+            // } else {
+            await this.wifiWith({ spot: spot, id: id, type: type })
+            // }
           }
         } else {
           const result = await this.saveSpot({ spot: spot, id: id })
