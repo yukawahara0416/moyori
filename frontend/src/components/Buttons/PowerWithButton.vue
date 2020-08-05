@@ -3,18 +3,23 @@
     <v-btn icon @click="powerWithHandler()">
       <v-icon v-if="isPowerWithed.length === 0">mdi-power-plug</v-icon>
       <v-icon v-if="isPowerWithed.length > 0" color="success">mdi-power-plug</v-icon>
-      <p>{{ count }}</p>
+      <counter :spot="spot" :genre="'power_withs'" />
     </v-btn>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Counter from '@/components/Buttons/Counter.vue'
 
 export default {
   props: {
     spot: Object,
     id: Number
+  },
+
+  components: {
+    Counter
   },
 
   computed: {
