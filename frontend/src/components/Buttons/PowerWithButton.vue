@@ -25,6 +25,10 @@ export default {
   computed: {
     ...mapGetters(['headers', 'currentUser']),
 
+    isLoggedIn() {
+      return this.headers !== null ? true : false
+    },
+
     isPowerWithed() {
       const vm = this
       const powerWiths = this.spots[this.id].power_withs
