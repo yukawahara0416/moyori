@@ -75,7 +75,7 @@ export default {
         this.spot.data,
         'id'
       )
-      if (this.headers !== null) {
+      if (this.isLoggedIn) {
         if (this.isPosted) {
           if (this.isPowerWithed.length === 0) {
             if (this.isPowerWithouted.length > 0) {
