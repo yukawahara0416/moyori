@@ -53,6 +53,26 @@ export default {
       } else {
         return []
       }
+    },
+
+    ownPowerWith() {
+      if (this.isLoggedIn) {
+        return this.spot.power_withs.filter(power_with => {
+          return power_with.user_id == this.currentUser.data.id
+        })
+      } else {
+        return []
+      }
+    },
+
+    ownPowerWithout() {
+      if (this.isLoggedIn) {
+        return this.spot.power_withouts.filter(power_without => {
+          return power_without.user_id == this.currentUser.data.id
+        })
+      } else {
+        return []
+      }
     }
   },
 
