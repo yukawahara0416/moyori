@@ -76,43 +76,30 @@ export default {
         'id'
       )
       if (this.isLoggedIn) {
-        if (this.isPosted) {
-          if (this.isPowerWithed.length === 0) {
-            if (this.isPowerWithouted.length > 0) {
-              await this.unPowerWithout(this.isPowerWithouted[0], id)
-            }
-            await this.powerWith(spot, id)
+        if (isPosted) {
+          if (this.isPowerWithed) {
+            await this.unPowerWith({
+              power_with: this.ownPowerWith[0],
+              id: id,
+              type: type
+            })
           } else {
-            await this.unPowerWith(this.isPowerWithed[0], id)
+            if (this.isPowerWithouted) {
+              await this.unPowerWithout({
+                power_without: this.ownPowerWithout[0],
+                id: id,
+                type: type
+              })
+            }
+            await this.PowerWith({ spot: spot, id: id, type: type })
           }
         } else {
-          spot = await this.$store.dispatch('spot/postSpot', {
-            spot: spot,
-            id: id
-          })
-          await this.powerWith(spot, id)
+          const result = await this.saveSpot({ spot: spot, id: id })
+          await this.PowerWith({ spot: result, id: id, type: type })
         }
       } else {
-        this.$store.dispatch('pushSnackbar', {
-          message: 'ログインしてください',
-          color: 'error'
-        })
+        this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
       }
-    },
-
-    powerWith(spot, id) {
-      var params = { spot_id: spot.record.id }
-      this.$store.dispatch('powerWith', { params: params, id: id })
-    },
-
-    unPowerWith(powerWith, id) {
-      var params = { id: powerWith.id }
-      this.$store.dispatch('unPowerWith', { params: params, id: id })
-    },
-
-    unPowerWithout(powerWithout, id) {
-      var params = { id: powerWithout.id }
-      this.$store.dispatch('unPowerWithout', { params: params, id: id })
     }
   }
 }
