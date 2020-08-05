@@ -2,7 +2,8 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    powerWith(context, { params, id }) {
+    powerWith(context, { spot, id, type }) {
+      const params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/power_withs', params, {
           headers: context.rootState.auth.headers
