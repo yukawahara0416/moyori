@@ -2,9 +2,7 @@
   <div>
     <v-btn icon @click="powerWithHandler()">
       <v-icon v-if="isPowerWithed.length === 0">mdi-power-plug</v-icon>
-      <v-icon v-if="isPowerWithed.length > 0" color="success">
-        mdi-power-plug
-      </v-icon>
+      <v-icon v-if="isPowerWithed.length > 0" color="success">mdi-power-plug</v-icon>
       <p>{{ count }}</p>
     </v-btn>
   </div>
@@ -21,14 +19,6 @@ export default {
 
   computed: {
     ...mapGetters([{ spots: 'spot/spots' }, 'headers', 'currentUser']),
-
-    isPosted() {
-      if (this.spot.record.length !== 0) {
-        return this.spot
-      } else {
-        return false
-      }
-    },
 
     isPowerWithed() {
       const vm = this
@@ -68,8 +58,13 @@ export default {
 
   methods: {
     powerWithHandler: async function() {
-      var spot = this.spot
-      var id = this.id
+      const spot = this.spot
+      const id = this.id
+      const type = this.type
+      const isPosted = Object.prototype.hasOwnProperty.call(
+        this.spot.data,
+        'id'
+      )
       if (this.headers !== null) {
         if (this.isPosted) {
           if (this.isPowerWithed.length === 0) {
