@@ -34,16 +34,7 @@ export default {
     },
 
     isPowerWithouted() {
-      const vm = this
-      const wifiWithouts = this.spots[this.id].power_withouts
-      if (vm.currentUser !== null && wifiWithouts.length > 0) {
-        const powerWithouted = wifiWithouts.filter(function(power_without) {
-          return power_without.user_id == vm.currentUser.data.id
-        })
-        return powerWithouted
-      } else {
-        return []
-      }
+      return this.ownPowerWithout.length > 0 ? true : false
     },
 
     ownPowerWith() {
