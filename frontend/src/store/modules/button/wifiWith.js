@@ -1,29 +1,29 @@
-import axios from 'axios'
-
-const axiosBase = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
-  },
-  responseType: 'json'
-})
+import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    wifiWith(context, { params, id }) {
+    wifiWith(context, { spot, id, type }) {
+      var params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/wifi_withs', params, {
           headers: context.rootState.auth.headers
         })
-        .then(function(response) {
-          context.commit('addSpotData', {
-            data: response.data,
-            id: id,
-            key: 'wifi_withs'
-          })
+        .then(response => {
+          type === 'map'
+            ? context.commit('spot/pushData', {
+                data: response.data,
+                id: id,
+                genre: 'wifi_withs'
+              })
+            : context.commit('user/addUserData', {
+                data: response.data,
+                id: id,
+                type: type,
+                genre: 'wifi_withs'
+              })
+
           context.dispatch('pushSnackbar', {
-            message: '「WiFiあるよ」しました　投票ありがとうございます！',
+            message: '「Wifiあるよ」しました　投票ありがとうございます！',
             color: 'success'
           })
         })
@@ -35,17 +35,26 @@ export default {
         })
     },
 
-    unWifiWith(context, { params, id }) {
+    unWifiWith(context, { wifi_with, id, type }) {
+      var params = { id: wifi_with.id }
       axiosBase
         .delete('/api/v1/wifi_withs/' + params.id, {
           headers: context.rootState.auth.headers
         })
-        .then(function(response) {
-          context.commit('deleteData', {
-            data: response.data,
-            id: id,
-            key: 'wifi_withs'
-          })
+        .then(response => {
+          type === 'map'
+            ? context.commit('spot/deleteData', {
+                data: response.data,
+                id: id,
+                genre: 'wifi_withs'
+              })
+            : context.commit('user/deleteUserData', {
+                data: response.data,
+                id: id,
+                type: type,
+                genre: 'wifi_withs'
+              })
+
           context.dispatch('pushSnackbar', {
             message: '「WiFiあるよ」を取り消しました',
             color: 'success'
