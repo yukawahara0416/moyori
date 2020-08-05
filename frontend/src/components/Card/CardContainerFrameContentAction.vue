@@ -1,7 +1,7 @@
 <template>
   <v-card-actions>
     <like-button :spot="spot" :id="id" :type="type" />
-    <!-- <wifi-with-button :spot="s" :id="id" /> -->
+    <wifi-with-button :spot="spot" :id="id" :type="type" />
     <!-- <wifi-without-button :spot="s" :id="id" /> -->
     <!-- <power-with-button :spot="s" :id="id" /> -->
     <!-- <power-without-button :spot="s" :id="id" /> -->
@@ -12,6 +12,7 @@
 
 <script>
 import LikeButton from '@/components/Buttons/LikeButton.vue'
+import WifiWithButton from '@/components/Buttons/WifiWithButton.vue'
 
 export default {
   props: {
@@ -21,7 +22,8 @@ export default {
   },
 
   components: {
-    LikeButton
+    LikeButton,
+    WifiWithButton
   }
 }
 </script>
