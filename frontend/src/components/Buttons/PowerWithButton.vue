@@ -15,7 +15,8 @@ import Counter from '@/components/Buttons/Counter.vue'
 export default {
   props: {
     spot: Object,
-    id: Number
+    id: Number,
+    type: String
   },
 
   components: {
