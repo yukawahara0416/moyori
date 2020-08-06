@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-btn icon @click="powerWithoutHandler()">
-      <v-icon v-if="isPowerWithouted.length === 0">mdi-power-plug-off</v-icon>
-      <v-icon v-if="isPowerWithouted.length > 0" color="error">mdi-power-plug-off</v-icon>
+      <v-icon v-if="isPowerWithouted" color="success">mdi-power-plug-off</v-icon>
+      <v-icon v-if="!isPowerWithouted">mdi-power-plug-off</v-icon>
       <counter :spot="spot" :genre="'power_withouts'" />
     </v-btn>
   </div>
