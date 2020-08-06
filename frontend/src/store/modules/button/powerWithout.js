@@ -2,7 +2,8 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    powerWithout(context, { params, id }) {
+    powerWithout(context, { spot, id, type }) {
+      const params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/power_withouts', params, {
           headers: context.rootState.auth.headers
