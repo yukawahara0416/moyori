@@ -36,7 +36,7 @@ export default {
     },
 
     unWifiWithout(context, { wifi_without, id, type }) {
-      var params = { id: wifi_without.id }
+      const params = { id: wifi_without.id }
       axiosBase
         .delete('/api/v1/wifi_withouts/' + params.id, {
           headers: context.rootState.auth.headers
