@@ -26,6 +26,10 @@ export default {
   computed: {
     ...mapGetters(['headers', 'currentUser']),
 
+    isLoggedIn() {
+      return this.headers !== null ? true : false
+    },
+
     isPosted() {
       if (this.spot.record.length !== 0) {
         return this.spot
@@ -65,7 +69,7 @@ export default {
     powerWithoutHandler: async function() {
       var spot = this.spot
       var id = this.id
-      if (this.headers !== null) {
+      if (this.isLoggedIn) {
         if (this.isPosted) {
           if (this.isPowerWithouted.length === 0) {
             if (this.isPowerWithed.length > 0) {
