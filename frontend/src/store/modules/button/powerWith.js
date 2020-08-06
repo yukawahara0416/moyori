@@ -10,10 +10,10 @@ export default {
         })
         .then(response => {
           type === 'map'
-            ? context.commit('addSpotData', {
+            ? context.commit('spot/pushData', {
                 data: response.data,
                 id: id,
-                key: 'power_withs'
+                genre: 'power_withs'
               })
             : context.commit('user/addUserData', {
                 data: response.data,
@@ -35,17 +35,18 @@ export default {
         })
     },
 
-    unPowerWith(context, { params, id }) {
+    unPowerWith(context, { power_with, id, type }) {
+      var params = { id: power_with.id }
       axiosBase
         .delete('/api/v1/power_withs/' + params.id, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
           type === 'map'
-            ? context.commit('deleteData', {
+            ? context.commit('spot/deleteData', {
                 data: response.data,
                 id: id,
-                key: 'power_withs'
+                genre: 'power_withs'
               })
             : context.commit('user/deleteUserData', {
                 data: response.data,
