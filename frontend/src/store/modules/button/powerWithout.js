@@ -10,16 +10,16 @@ export default {
         })
         .then(response => {
           type === 'map'
-            ? context.commit('addSpotData', {
+            ? context.commit('spot/pushData', {
                 data: response.data,
                 id: id,
-                key: 'power_withouts'
+                genre: 'power_withouts'
               })
             : context.commit('user/addUserData', {
                 data: response.data,
                 id: id,
                 type: type,
-                genre: 'wifi_withouts'
+                genre: 'power_withouts'
               })
 
           context.dispatch('pushSnackbar', {
@@ -37,17 +37,16 @@ export default {
 
     unPowerWithout(context, { power_without, id, type }) {
       const params = { id: power_without.id }
-
       axiosBase
         .delete('/api/v1/power_withouts/' + params.id, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
           type === 'map'
-            ? context.commit('deleteData', {
+            ? context.commit('spot/deleteData', {
                 data: response.data,
                 id: id,
-                key: 'power_withouts'
+                genre: 'power_withouts'
               })
             : context.commit('user/deleteUserData', {
                 data: response.data,
