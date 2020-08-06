@@ -8,7 +8,7 @@ export default {
         .post('/api/v1/power_withouts', params, {
           headers: context.rootState.auth.headers
         })
-        .then(function(response) {
+        .then(response => {
           context.commit('addSpotData', {
             data: response.data,
             id: id,
@@ -34,7 +34,7 @@ export default {
         .delete('/api/v1/power_withouts/' + params.id, {
           headers: context.rootState.auth.headers
         })
-        .then(function(response) {
+        .then(response => {
           context.commit('deleteData', {
             data: response.data,
             id: id,
