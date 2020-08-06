@@ -24,16 +24,7 @@ export default {
   },
 
   computed: {
-    // ...mapGetters([{ spots: 'spot/spots' }, 'headers', 'currentUser']),
     ...mapGetters(['headers', 'currentUser']),
-
-    // isPosted() {
-    //   if (this.spot.record.length !== 0) {
-    //     return this.spot
-    //   } else {
-    //     return false
-    //   }
-    // },
 
     isLoggedIn() {
       return this.headers !== null ? true : false
@@ -66,32 +57,6 @@ export default {
         return []
       }
     }
-
-    // isWifiWithed() {
-    //   const vm = this
-    //   const wifiWiths = this.spots[this.id].wifi_withs
-    //   if (vm.currentUser !== null && wifiWiths.length > 0) {
-    //     const wifiWithed = wifiWiths.filter(function(wifi_with) {
-    //       return wifi_with.user_id == vm.currentUser.data.id
-    //     })
-    //     return wifiWithed
-    //   } else {
-    //     return []
-    //   }
-    // },
-
-    // isWifiWithouted() {
-    //   const vm = this
-    //   const wifiWithouts = this.spots[this.id].wifi_withouts
-    //   if (vm.currentUser !== null && wifiWithouts.length > 0) {
-    //     const wifiWithouted = wifiWithouts.filter(function(wifi_without) {
-    //       return wifi_without.user_id == vm.currentUser.data.id
-    //     })
-    //     return wifiWithouted
-    //   } else {
-    //     return []
-    //   }
-    // }
   },
 
   methods: {
@@ -127,9 +92,7 @@ export default {
                 type: type
               })
             }
-            // } else {
             await this.wifiWithout({ spot: spot, id: id, type: type })
-            // }
           }
         } else {
           const result = await this.saveSpot({ spot: spot, id: id })
