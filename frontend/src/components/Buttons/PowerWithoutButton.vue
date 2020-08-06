@@ -30,14 +30,6 @@ export default {
       return this.headers !== null ? true : false
     },
 
-    isPosted() {
-      if (this.spot.record.length !== 0) {
-        return this.spot
-      } else {
-        return false
-      }
-    },
-
     isPowerWithed() {
       const vm = this
       const powerWiths = this.spots[this.id].power_withs
@@ -67,8 +59,13 @@ export default {
 
   methods: {
     powerWithoutHandler: async function() {
-      var spot = this.spot
-      var id = this.id
+      const spot = this.spot
+      const id = this.id
+      const type = this.type
+      const isPosted = Object.prototype.hasOwnProperty.call(
+        this.spot.data,
+        'id'
+      )
       if (this.isLoggedIn) {
         if (this.isPosted) {
           if (this.isPowerWithouted.length === 0) {
