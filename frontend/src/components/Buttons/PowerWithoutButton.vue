@@ -24,7 +24,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([{ spots: 'spot/spots' }, 'headers', 'currentUser']),
+    ...mapGetters(['headers', 'currentUser']),
 
     isPosted() {
       if (this.spot.record.length !== 0) {
