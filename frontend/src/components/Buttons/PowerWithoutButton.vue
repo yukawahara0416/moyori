@@ -31,26 +31,28 @@ export default {
     },
 
     isPowerWithed() {
-      const vm = this
-      const powerWiths = this.spots[this.id].power_withs
-      if (vm.currentUser !== null && powerWiths.length > 0) {
-        const powerWithed = powerWiths.filter(function(power_with) {
-          return power_with.user_id == vm.currentUser.data.id
+      return this.ownPowerWith.length > 0 ? true : false
+    },
+
+    isPowerWithouted() {
+      return this.ownPowerWithout.length > 0 ? true : false
+    },
+
+    ownPowerWith() {
+      if (this.isLoggedIn) {
+        return this.spot.power_withs.filter(power_with => {
+          return power_with.user_id == this.currentUser.data.id
         })
-        return powerWithed
       } else {
         return []
       }
     },
 
-    isPowerWithouted() {
-      const vm = this
-      const wifiWithouts = this.spots[this.id].power_withouts
-      if (vm.currentUser !== null && wifiWithouts.length > 0) {
-        const powerWithouted = wifiWithouts.filter(function(power_without) {
-          return power_without.user_id == vm.currentUser.data.id
+    ownPowerWithout() {
+      if (this.isLoggedIn) {
+        return this.spot.power_withouts.filter(power_without => {
+          return power_without.user_id == this.currentUser.data.id
         })
-        return powerWithouted
       } else {
         return []
       }
