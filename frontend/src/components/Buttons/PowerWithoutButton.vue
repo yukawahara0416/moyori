@@ -1,9 +1,11 @@
 <template>
   <div>
-    <v-btn icon @click.stop="wifiWithoutHandler()">
-      <v-icon v-if="isWifiWithouted" color="success">mdi-wifi-off</v-icon>
-      <v-icon v-if="!isWifiWithouted">mdi-wifi-off</v-icon>
-      <counter :spot="spot" :genre="'wifi_withouts'" />
+    <v-btn icon @click="powerWithoutHandler()">
+      <v-icon v-if="isPowerWithouted" color="success">
+        mdi-power-plug-off
+      </v-icon>
+      <v-icon v-if="!isPowerWithouted">mdi-power-plug-off</v-icon>
+      <counter :spot="spot" :genre="'power_withouts'" />
     </v-btn>
   </div>
 </template>
@@ -30,28 +32,28 @@ export default {
       return this.headers !== null ? true : false
     },
 
-    isWifiWithed() {
-      return this.ownWifiWith.length > 0 ? true : false
+    isPowerWithed() {
+      return this.ownPowerWith.length > 0 ? true : false
     },
 
-    isWifiWithouted() {
-      return this.ownWifiWithout.length > 0 ? true : false
+    isPowerWithouted() {
+      return this.ownPowerWithout.length > 0 ? true : false
     },
 
-    ownWifiWith() {
+    ownPowerWith() {
       if (this.isLoggedIn) {
-        return this.spot.wifi_withs.filter(wifi_with => {
-          return wifi_with.user_id == this.currentUser.data.id
+        return this.spot.power_withs.filter(power_with => {
+          return power_with.user_id == this.currentUser.data.id
         })
       } else {
         return []
       }
     },
 
-    ownWifiWithout() {
+    ownPowerWithout() {
       if (this.isLoggedIn) {
-        return this.spot.wifi_withouts.filter(wifi_without => {
-          return wifi_without.user_id == this.currentUser.data.id
+        return this.spot.power_withouts.filter(power_without => {
+          return power_without.user_id == this.currentUser.data.id
         })
       } else {
         return []
@@ -62,13 +64,13 @@ export default {
   methods: {
     ...mapActions({ saveSpot: 'map/saveSpot' }),
     ...mapActions([
-      'wifiWithout',
-      'unWifiWithout',
-      'unWifiWith',
+      'powerWithout',
+      'unPowerWithout',
+      'unPowerWith',
       'pushSnackbar'
     ]),
 
-    wifiWithoutHandler: async function() {
+    powerWithoutHandler: async function() {
       const spot = this.spot
       const id = this.id
       const type = this.type
@@ -78,25 +80,25 @@ export default {
       )
       if (this.isLoggedIn) {
         if (isPosted) {
-          if (this.isWifiWithouted) {
-            await this.unWifiWithout({
-              wifi_without: this.ownWifiWithout[0],
+          if (this.isPowerWithouted) {
+            await this.unPowerWithout({
+              power_without: this.ownPowerWithout[0],
               id: id,
               type: type
             })
           } else {
-            if (this.isWifiWithed) {
-              await this.unWifiWith({
-                wifi_with: this.ownWifiWith[0],
+            if (this.isPowerWithed) {
+              await this.unPowerWith({
+                power_with: this.ownPowerWith[0],
                 id: id,
                 type: type
               })
             }
-            await this.wifiWithout({ spot: spot, id: id, type: type })
+            await this.powerWithout({ spot: spot, id: id, type: type })
           }
         } else {
           const result = await this.saveSpot({ spot: spot, id: id })
-          await this.wifiWithout({ spot: result, id: id, type: type })
+          await this.powerWithout({ spot: result, id: id, type: type })
         }
       } else {
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
