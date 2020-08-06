@@ -27,7 +27,9 @@ export default {
         })
     },
 
-    unPowerWithout(context, { params, id }) {
+    unPowerWithout(context, { power_without, id, type }) {
+      const params = { id: power_without.id }
+
       axiosBase
         .delete('/api/v1/power_withouts/' + params.id, {
           headers: context.rootState.auth.headers
