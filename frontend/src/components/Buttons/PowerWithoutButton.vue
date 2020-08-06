@@ -60,6 +60,14 @@ export default {
   },
 
   methods: {
+    ...mapActions({ saveSpot: 'map/saveSpot' }),
+    ...mapActions([
+      'powerWithout',
+      'unPowerWithout',
+      'unPowerWith',
+      'pushSnackbar'
+    ]),
+
     powerWithoutHandler: async function() {
       const spot = this.spot
       const id = this.id
