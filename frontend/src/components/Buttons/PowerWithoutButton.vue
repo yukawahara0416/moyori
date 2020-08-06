@@ -2,21 +2,24 @@
   <div>
     <v-btn icon @click="powerWithoutHandler()">
       <v-icon v-if="isPowerWithouted.length === 0">mdi-power-plug-off</v-icon>
-      <v-icon v-if="isPowerWithouted.length > 0" color="error">
-        mdi-power-plug-off
-      </v-icon>
-      <p>{{ count }}</p>
+      <v-icon v-if="isPowerWithouted.length > 0" color="error">mdi-power-plug-off</v-icon>
+      <counter :spot="spot" :genre="'power_withouts'" />
     </v-btn>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Counter from '@/components/Buttons/Counter.vue'
 
 export default {
   props: {
     spot: Object,
     id: Number
+  },
+
+  components: {
+    Counter
   },
 
   computed: {
@@ -53,15 +56,6 @@ export default {
         return powerWithouted
       } else {
         return []
-      }
-    },
-
-    count() {
-      const wifiWithouts = this.spots[this.id].power_withouts
-      if (wifiWithouts.length > 0) {
-        return wifiWithouts.length
-      } else {
-        return 0
       }
     }
   },
