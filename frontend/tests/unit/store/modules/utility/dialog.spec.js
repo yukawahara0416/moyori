@@ -48,13 +48,13 @@ describe('mutations', () => {
 describe('actions', () => {
   it('dialogOn', () => {
     const target = 'dialogSign'
-    store.dispatch('dialogOn', target).then(res => {
+    store.dispatch('dialogOn', target).then(() => {
       expect(store.state.dialogSign).toBe(true)
     })
   })
   it('dialogOff', () => {
     store.replaceState({ dialogSign: true })
-    store.dispatch('dialogOff').then(res => {
+    store.dispatch('dialogOff').then(() => {
       expect(store.state.dialogSign).toBe(false)
     })
   })

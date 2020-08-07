@@ -17,7 +17,7 @@
           ></v-switch>
         </v-list-item-action>
         <v-list-item-title>
-          <v-icon class="mr-2">mdi-heart-outline</v-icon>
+          <v-icon class="mr-2" color="error">mdi-heart</v-icon>
           いいね あり
         </v-list-item-title>
       </v-list-item>
@@ -30,7 +30,7 @@
           ></v-switch>
         </v-list-item-action>
         <v-list-item-title>
-          <v-icon class="mr-2">mdi-wifi</v-icon>
+          <v-icon class="mr-2" color="success">mdi-wifi</v-icon>
           WiFiあり
         </v-list-item-title>
       </v-list-item>
@@ -43,7 +43,7 @@
           ></v-switch>
         </v-list-item-action>
         <v-list-item-title>
-          <v-icon class="mr-2">mdi-power-plug</v-icon>
+          <v-icon class="mr-2" color="success">mdi-power-plug</v-icon>
           電源あり
         </v-list-item-title>
       </v-list-item>
@@ -56,7 +56,7 @@
           ></v-switch>
         </v-list-item-action>
         <v-list-item-title>
-          <v-icon class="mr-2">mdi-message-outline</v-icon>
+          <v-icon class="mr-2" color="success">mdi-message-outline</v-icon>
           コメントあり
         </v-list-item-title>
       </v-list-item>

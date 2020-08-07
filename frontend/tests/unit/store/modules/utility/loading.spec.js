@@ -33,13 +33,13 @@ describe('mutations', () => {
 
 describe('actions', () => {
   it('loadingOn', () => {
-    store.dispatch('loadingOn').then(res => {
+    store.dispatch('loadingOn').then(() => {
       expect(store.state.loading).toBe(true)
     })
   })
   it('loadingOff', () => {
     store.replaceState({ loading: true })
-    store.dispatch('loadingOff').then(res => {
+    store.dispatch('loadingOff').then(() => {
       expect(store.state.loading).toBe(false)
     })
   })
