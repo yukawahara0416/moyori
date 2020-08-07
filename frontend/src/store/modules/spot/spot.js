@@ -21,18 +21,18 @@ export default {
       }
 
       // // Wifi
-      // if (state.filterQuery.wifi_withs) {
-      //   data = data.filter(function(item) {
-      //     return item['wifi_withs'].length > 0
-      //   })
-      // }
+      if (state.filterQuery.wifi_withs) {
+        data = data.filter(function(item) {
+          return item['wifi_withs'].length > 0
+        })
+      }
 
       // // 電源
-      // if (state.filterQuery.power_withs) {
-      //   data = data.filter(function(item) {
-      //     return item['power_withs'].length > 0
-      //   })
-      // }
+      if (state.filterQuery.power_withs) {
+        data = data.filter(function(item) {
+          return item['power_withs'].length > 0
+        })
+      }
 
       // // コメント
       // if (state.filterQuery.comments) {
