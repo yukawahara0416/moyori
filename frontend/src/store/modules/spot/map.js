@@ -52,7 +52,7 @@ export default {
       })
     },
 
-    saveSpot(context, { spot, id }) {
+    saveSpot(context, { spot }) {
       return new Promise(resolve => {
         const params = { spot: { place_id: spot.marker.place_id } }
         axiosBase
@@ -64,7 +64,6 @@ export default {
               'spot/assignProp',
               {
                 spot: response.data,
-                id: id,
                 prop: 'data'
               },
               { root: true }
