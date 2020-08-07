@@ -20,14 +20,14 @@ export default {
         })
       }
 
-      // // Wifi
+      // Wifi
       if (state.filterQuery.wifi_withs) {
         data = data.filter(function(item) {
           return item['wifi_withs'].length > 0
         })
       }
 
-      // // 電源
+      // 電源
       if (state.filterQuery.power_withs) {
         data = data.filter(function(item) {
           return item['power_withs'].length > 0
@@ -63,21 +63,28 @@ export default {
     //   state.spots.splice(payload, 1)
     // },
 
-    assignProp(state, { spot, id, prop }) {
-      var target = state.spots[id]
-      Object.assign(target[prop], spot[prop])
+    assignProp(state, { spot, prop }) {
+      const target = state.spots.filter(function(item) {
+        if (item.marker.place_id !== null) {
+          return item.marker.place_id == spot.data.place_id
+        }
+      })
+      Object.assign(target[0][prop], spot[prop])
     },
 
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     pushData(state, { data, id, genre }) {
       state.spots[id][genre].push(data)
     },
 
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     deleteData(state, { data, id, genre }) {
       var items = state.spots[id][genre]
       var number = items.findIndex(({ id }) => id === data.id)
       items.splice(number, 1)
     },
 
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     onSpotlight(state, id) {
       state.spots[id].marker.on = true
       state.spots[id].marker.zIndex = 100
@@ -107,6 +114,7 @@ export default {
       context.commit('clearSpots')
     },
 
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     spotlight(context, id) {
       context.commit('offSpotlight')
       context.commit('onSpotlight', id)
