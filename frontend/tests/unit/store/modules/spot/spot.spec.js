@@ -111,10 +111,6 @@ describe('actions', () => {
       { marker: { on: false, zIndex: 10 } },
       { marker: { on: false, zIndex: 10 } }
     ]
-    const change = [
-      { marker: { on: true, zIndex: 100 } },
-      { marker: { on: false, zIndex: 10 } }
-    ]
     store.replaceState({ spots: init })
     const id = 0
     store.dispatch('spotlight', id)

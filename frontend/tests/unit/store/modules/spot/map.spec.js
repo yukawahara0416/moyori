@@ -24,9 +24,10 @@ beforeEach(() => {
     state: {
       spots: () => []
     },
+
     mutations: {
-      addSpots: ({}, arg) => spotStore.commit('addSpots', arg),
-      assignProp: ({}, arg) => spotStore.commit('assignProp', arg)
+      addSpots: ({}, arg) => spotStore.commit('addSpots', arg), // eslint-disable-line no-empty-pattern
+      assignProp: ({}, arg) => spotStore.commit('assignProp', arg) // eslint-disable-line no-empty-pattern
     }
   }
   store.registerModule('spot', cloneDeep(mockStore))

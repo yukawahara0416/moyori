@@ -112,7 +112,7 @@ describe('actions', () => {
       type: 'posts'
     }
     store.replaceState({ user: data })
-    store.dispatch('spotlight', select).then(res => {
+    store.dispatch('spotlight', select).then(() => {
       expect(store.state.user.posts[0].marker.on).toBe(true)
     })
   })

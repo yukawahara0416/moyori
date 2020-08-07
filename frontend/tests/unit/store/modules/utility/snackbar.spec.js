@@ -34,14 +34,14 @@ describe('actions', () => {
   it('pushSnackbar', () => {
     const message = 'test'
     const color = 'success'
-    store.dispatch('pushSnackbar', { message, color }).then(res => {
+    store.dispatch('pushSnackbar', { message, color }).then(() => {
       expect(store.state.message).toBe(message)
       expect(store.state.color).toBe(color)
     })
   })
   it('clearSnackbar', () => {
     store.replaceState({ message: 'test' })
-    store.dispatch('clearSnackbar').then(res => {
+    store.dispatch('clearSnackbar').then(() => {
       expect(store.state.message).toBe('')
     })
   })
