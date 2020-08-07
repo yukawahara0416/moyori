@@ -51,6 +51,7 @@ export default {
 
     likeHandler: async function() {
       const spot = this.spot
+      // 修正点 index_idではなくdata.place_idを参照する方法に変更する
       const id = this.id
       const type = this.type
       const isPosted = Object.prototype.hasOwnProperty.call(
@@ -60,12 +61,15 @@ export default {
       if (this.isLoggedIn) {
         if (isPosted) {
           if (this.isLiked) {
+            // 修正点 index_idではなくdata.place_idを参照する方法に変更する
             await this.unlike({ like: this.ownLike[0], id: id, type: type })
           } else {
+            // 修正点 index_idではなくdata.place_idを参照する方法に変更する
             await this.like({ spot: spot, id: id, type: type })
           }
         } else {
-          const result = await this.saveSpot({ spot: spot, id: id })
+          const result = await this.saveSpot({ spot: spot })
+          // 修正点 index_idではなくdata.place_idを参照する方法に変更する
           await this.like({ spot: result, id: id, type: type })
         }
       } else {
