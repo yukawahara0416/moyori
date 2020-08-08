@@ -19,7 +19,11 @@ beforeEach(() => {
   data = {
     data: { id: 1 },
     posts: [
-      { data: { id: 1 }, marker: { on: false }, likes: [{ data: { id: 2 } }] }
+      {
+        data: { id: 1 },
+        marker: { place_id: 'testPlaceId', on: false },
+        likes: [{ data: { id: 2 } }]
+      }
     ]
   }
 })
@@ -44,8 +48,8 @@ describe('mutations', () => {
 
   it('addUserData', () => {
     const newData = {
+      spot: { data: { place_id: 'testPlaceId' } },
       data: { data: { id: 2 } },
-      id: 0,
       type: 'posts',
       genre: 'likes'
     }
@@ -56,8 +60,8 @@ describe('mutations', () => {
 
   it('deleteUserData', () => {
     const unnecessaryData = {
+      spot: { data: { place_id: 'testPlaceId' } },
       data: { data: { id: 2 } },
-      id: 0,
       type: 'posts',
       genre: 'likes'
     }

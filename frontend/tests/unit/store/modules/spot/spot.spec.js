@@ -47,28 +47,37 @@ describe('mutations', () => {
     expect(store.state.spots[0]).toEqual(spot)
   })
   it('pushData', () => {
-    const init = [{ marker: { name: 'test' }, likes: [] }]
+    const init = [
+      { marker: { name: 'test', place_id: 'testPlaceId' }, likes: [] }
+    ]
     const change = [
-      { marker: { name: 'test' }, likes: [{ data: { name: 'test1' } }] }
+      {
+        marker: { name: 'test', place_id: 'testPlaceId' },
+        likes: [{ data: { name: 'test1' } }]
+      }
     ]
     store.replaceState({ spots: init })
+    const spot = { data: { place_id: 'testPlaceId' } }
     const data = { data: { name: 'test1' } }
-    const id = 0
     const genre = 'likes'
-    store.commit('pushData', { data, id, genre })
+    store.commit('pushData', { spot, data, genre })
     expect(store.state.spots[0]).toEqual(change[0])
   })
   it('deleteData', () => {
     const init = [
-      { data: { id: 1 }, likes: [{ data: { id: 2 } }] }
-      // { data: { id: 3 }, likes: [{ data: { id: 4, name: 'test2' } }] }
+      {
+        marker: { name: 'test', place_id: 'testPlaceId' },
+        likes: [{ data: { id: 2 } }]
+      }
     ]
-    const change = [{ data: { id: 1 }, likes: [] }]
+    const change = [
+      { marker: { name: 'test', place_id: 'testPlaceId' }, likes: [] }
+    ]
     store.replaceState({ spots: init })
+    const spot = { data: { place_id: 'testPlaceId' } }
     const data = { data: { id: 2 } }
-    const id = 0
     const genre = 'likes'
-    store.commit('deleteData', { data, id, genre })
+    store.commit('deleteData', { spot, data, genre })
     expect(store.state.spots[0]).toEqual(change[0])
   })
   it('onSpotlight', () => {
