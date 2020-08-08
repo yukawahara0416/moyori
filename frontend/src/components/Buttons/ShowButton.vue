@@ -2,7 +2,10 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" width="600">
       <template v-slot:activator="{ on }">
-        <v-btn v-on="on">スポット詳細</v-btn>
+        <v-btn v-on="on">
+          <v-icon class="mx-2">mdi-information-outline</v-icon>
+          詳細
+        </v-btn>
       </template>
       <v-card>
         <p>ppppp</p>
@@ -19,8 +22,7 @@
 <script>
 export default {
   props: {
-    spot: Object,
-    id: Number
+    spot: Object
   },
 
   data() {
