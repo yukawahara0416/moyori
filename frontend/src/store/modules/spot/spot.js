@@ -92,7 +92,7 @@ export default {
 
     onSpotlight(state, spot) {
       const target = state.spots.filter(function(item) {
-        return item.marker.place_id == spot.data.place_id
+        return item.marker.place_id == spot.marker.place_id
       })
       target[0].marker.on = true
       target[0].marker.zIndex = 100

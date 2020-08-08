@@ -81,7 +81,7 @@ describe('mutations', () => {
     expect(store.state.spots[0]).toEqual(change[0])
   })
   it('onSpotlight', () => {
-    const spot = { data: { place_id: 'testPlaceId' } }
+    const spot = { marker: { place_id: 'testPlaceId' } }
     const data = [
       { marker: { place_id: 'testPlaceId', on: false, zIndex: 10 } }
     ]
@@ -118,7 +118,7 @@ describe('actions', () => {
     expect(store.state.spots).toEqual([])
   })
   it('spotlight', () => {
-    const spot = { data: { place_id: 'testPlaceId' } }
+    const spot = { marker: { place_id: 'testPlaceId' } }
     const init = [
       { marker: { place_id: 'testPlaceId', on: false, zIndex: 10 } },
       { marker: { on: false, zIndex: 10 } }
