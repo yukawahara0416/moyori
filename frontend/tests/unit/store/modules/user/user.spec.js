@@ -71,8 +71,9 @@ describe('mutations', () => {
   })
 
   it('onSpotlight', () => {
+    const spot = { data: { place_id: 'testPlaceId' } }
     const select = {
-      id: 0,
+      spot: spot,
       type: 'posts'
     }
     store.replaceState({ user: data })
@@ -111,8 +112,9 @@ describe('actions', () => {
   })
 
   it('spotlight', () => {
+    const spot = { data: { place_id: 'testPlaceId' } }
     const select = {
-      id: 0,
+      spot: spot,
       type: 'posts'
     }
     store.replaceState({ user: data })
