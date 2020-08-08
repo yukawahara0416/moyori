@@ -21,16 +21,21 @@ export default {
       state.user = {}
     },
 
-    addUserData(state, { data, id, type, genre }) {
-      state.user[type][id][genre].push(data)
+    addUserData(state, { spot, data, type, genre }) {
+      const target = state.user[type].filter(function(item) {
+        return item.marker.place_id == spot.data.place_id
+      })
+      target[0][genre].push(data)
     },
 
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     deleteUserData(state, { data, id, type, genre }) {
       var items = state.user[type][id][genre]
       var number = items.findIndex(({ id }) => id === data.id)
       items.splice(number, 1)
     },
 
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     onSpotlight(state, { id, type }) {
       state.user[type][id].marker.on = true
     },
@@ -69,6 +74,7 @@ export default {
       context.commit('clearUser')
     },
 
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     spotlight(context, { id, type }) {
       context.commit('offSpotlight', type)
       context.commit('onSpotlight', { id, type })
