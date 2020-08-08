@@ -35,24 +35,22 @@ export default {
         })
     },
 
-    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-    unWifiWith(context, { wifi_with, id, type }) {
-      var params = { id: wifi_with.id }
+    unWifiWith(context, { spot, wifi_with, type }) {
+      const params = { id: wifi_with.id }
       axiosBase
         .delete('/api/v1/wifi_withs/' + params.id, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
-          // 修正点 index_idではなくdata.place_idを参照する方法に変更する
           type === 'map'
             ? context.commit('spot/deleteData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 genre: 'wifi_withs'
               })
             : context.commit('user/deleteUserData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 type: type,
                 genre: 'wifi_withs'
               })
