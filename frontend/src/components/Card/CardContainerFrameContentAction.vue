@@ -2,7 +2,7 @@
   <v-card-actions>
     <like-button :spot="spot" :type="type" />
     <wifi-with-button :spot="spot" :type="type" />
-    <wifi-without-button :spot="spot" :id="id" :type="type" />
+    <wifi-without-button :spot="spot" :type="type" />
     <power-with-button :spot="spot" :id="id" :type="type" />
     <power-without-button :spot="spot" :id="id" :type="type" />
     <!-- <comment-button :spot="spot" :id="id" :type="type" /> -->

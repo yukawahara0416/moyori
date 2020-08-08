@@ -15,7 +15,6 @@ import Counter from '@/components/Buttons/Counter.vue'
 export default {
   props: {
     spot: Object,
-    id: Number,
     type: String
   },
 
@@ -70,7 +69,6 @@ export default {
 
     wifiWithoutHandler: async function() {
       const spot = this.spot
-      const id = this.id
       const type = this.type
       const isPosted = Object.prototype.hasOwnProperty.call(
         this.spot.data,
@@ -80,23 +78,23 @@ export default {
         if (isPosted) {
           if (this.isWifiWithouted) {
             await this.unWifiWithout({
+              spot: spot,
               wifi_without: this.ownWifiWithout[0],
-              id: id,
               type: type
             })
           } else {
             if (this.isWifiWithed) {
               await this.unWifiWith({
+                spot: spot,
                 wifi_with: this.ownWifiWith[0],
-                id: id,
                 type: type
               })
             }
-            await this.wifiWithout({ spot: spot, id: id, type: type })
+            await this.wifiWithout({ spot: spot, type: type })
           }
         } else {
-          const result = await this.saveSpot({ spot: spot, id: id })
-          await this.wifiWithout({ spot: result, id: id, type: type })
+          const result = await this.saveSpot({ spot: spot })
+          await this.wifiWithout({ spot: result, type: type })
         }
       } else {
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
