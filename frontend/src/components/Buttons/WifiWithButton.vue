@@ -15,7 +15,6 @@ import Counter from '@/components/Buttons/Counter.vue'
 export default {
   props: {
     spot: Object,
-    id: Number,
     type: String
   },
 
@@ -60,13 +59,11 @@ export default {
   },
 
   methods: {
-    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     ...mapActions({ saveSpot: 'map/saveSpot' }),
     ...mapActions(['wifiWith', 'unWifiWith', 'unWifiWithout', 'pushSnackbar']),
 
     wifiWithHandler: async function() {
       const spot = this.spot
-      const id = this.id
       const type = this.type
       const isPosted = Object.prototype.hasOwnProperty.call(
         this.spot.data,
@@ -75,18 +72,16 @@ export default {
       if (this.isLoggedIn) {
         if (isPosted) {
           if (this.isWifiWithed) {
-            // 修正点 index_idではなくdata.place_idを参照する方法に変更する
             await this.unWifiWith({
+              spot: spot,
               wifi_with: this.ownWifiWith[0],
-              id: id,
               type: type
             })
           } else {
-            // 修正点 index_idではなくdata.place_idを参照する方法に変更する
             if (this.isWifiWithouted) {
               await this.unWifiWithout({
+                spot: spot,
                 wifi_without: this.ownWifiWithout[0],
-                id: id,
                 type: type
               })
             }
