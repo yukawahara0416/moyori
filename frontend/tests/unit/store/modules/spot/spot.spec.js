@@ -81,10 +81,12 @@ describe('mutations', () => {
     expect(store.state.spots[0]).toEqual(change[0])
   })
   it('onSpotlight', () => {
-    const data = [{ marker: { on: false, zIndex: 10 } }]
+    const spot = { data: { place_id: 'testPlaceId' } }
+    const data = [
+      { marker: { place_id: 'testPlaceId', on: false, zIndex: 10 } }
+    ]
     store.replaceState({ spots: data })
-    const id = 0
-    store.commit('onSpotlight', id)
+    store.commit('onSpotlight', spot)
     expect(store.state.spots[0].marker.on).toEqual(true)
     expect(store.state.spots[0].marker.zIndex).toEqual(100)
   })
@@ -116,13 +118,13 @@ describe('actions', () => {
     expect(store.state.spots).toEqual([])
   })
   it('spotlight', () => {
+    const spot = { data: { place_id: 'testPlaceId' } }
     const init = [
-      { marker: { on: false, zIndex: 10 } },
+      { marker: { place_id: 'testPlaceId', on: false, zIndex: 10 } },
       { marker: { on: false, zIndex: 10 } }
     ]
     store.replaceState({ spots: init })
-    const id = 0
-    store.dispatch('spotlight', id)
+    store.dispatch('spotlight', spot)
     expect(store.state.spots[0].marker.on).toEqual(true)
     expect(store.state.spots[0].marker.zIndex).toEqual(100)
   })
