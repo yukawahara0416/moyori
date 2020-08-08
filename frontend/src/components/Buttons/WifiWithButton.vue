@@ -60,6 +60,7 @@ export default {
   },
 
   methods: {
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     ...mapActions({ saveSpot: 'map/saveSpot' }),
     ...mapActions(['wifiWith', 'unWifiWith', 'unWifiWithout', 'pushSnackbar']),
 
@@ -74,12 +75,14 @@ export default {
       if (this.isLoggedIn) {
         if (isPosted) {
           if (this.isWifiWithed) {
+            // 修正点 index_idではなくdata.place_idを参照する方法に変更する
             await this.unWifiWith({
               wifi_with: this.ownWifiWith[0],
               id: id,
               type: type
             })
           } else {
+            // 修正点 index_idではなくdata.place_idを参照する方法に変更する
             if (this.isWifiWithouted) {
               await this.unWifiWithout({
                 wifi_without: this.ownWifiWithout[0],
@@ -87,13 +90,11 @@ export default {
                 type: type
               })
             }
-            // } else {
-            await this.wifiWith({ spot: spot, id: id, type: type })
-            // }
+            await this.wifiWith({ spot: spot, type: type })
           }
         } else {
-          const result = await this.saveSpot({ spot: spot, id: id })
-          await this.wifiWith({ spot: result, id: id, type: type })
+          const result = await this.saveSpot({ spot: spot })
+          await this.wifiWith({ spot: result, type: type })
         }
       } else {
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
