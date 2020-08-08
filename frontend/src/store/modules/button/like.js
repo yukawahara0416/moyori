@@ -2,7 +2,7 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    like(context, { spot, id, type }) {
+    like(context, { spot, type }) {
       var params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/likes', params, {
@@ -11,13 +11,13 @@ export default {
         .then(response => {
           type === 'map'
             ? context.commit('spot/pushData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 genre: 'likes'
               })
             : context.commit('user/addUserData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 type: type,
                 genre: 'likes'
               })
@@ -35,6 +35,7 @@ export default {
         })
     },
 
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     unlike(context, { like, id, type }) {
       var params = { id: like.id }
       axiosBase
@@ -42,6 +43,7 @@ export default {
           headers: context.rootState.auth.headers
         })
         .then(response => {
+          // 修正点 index_idではなくdata.place_idを参照する方法に変更する
           type === 'map'
             ? context.commit('spot/deleteData', {
                 data: response.data,
