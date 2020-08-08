@@ -10,7 +10,7 @@
       panTo(spot)
     "
   >
-    <card-container-frame-content :spot="spot" :id="id" :type="type" />
+    <card-container-frame-content :spot="spot" :type="type" />
   </v-card>
 </template>
 
