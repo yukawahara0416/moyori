@@ -4,7 +4,7 @@
     <wifi-with-button :spot="spot" :type="type" />
     <wifi-without-button :spot="spot" :type="type" />
     <power-with-button :spot="spot" :type="type" />
-    <power-without-button :spot="spot" :id="id" :type="type" />
+    <power-without-button :spot="spot" :type="type" />
     <!-- <comment-button :spot="spot" :id="id" :type="type" /> -->
     <!-- <show-button :spot="spot" :id="id" :type="type" /> -->
   </v-card-actions>
