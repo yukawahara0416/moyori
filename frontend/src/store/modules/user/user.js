@@ -28,10 +28,12 @@ export default {
       target[0][genre].push(data)
     },
 
-    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-    deleteUserData(state, { data, id, type, genre }) {
-      var items = state.user[type][id][genre]
-      var number = items.findIndex(({ id }) => id === data.id)
+    deleteUserData(state, { spot, data, type, genre }) {
+      const target = state.user[type].filter(function(item) {
+        return item.marker.place_id == spot.data.place_id
+      })
+      const items = target[0][genre]
+      const number = items.findIndex(({ id }) => id === data.id)
       items.splice(number, 1)
     },
 
