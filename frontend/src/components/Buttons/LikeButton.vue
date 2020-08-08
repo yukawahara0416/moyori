@@ -51,8 +51,6 @@ export default {
 
     likeHandler: async function() {
       const spot = this.spot
-      // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-      const id = this.id
       const type = this.type
       const isPosted = Object.prototype.hasOwnProperty.call(
         this.spot.data,
@@ -61,8 +59,7 @@ export default {
       if (this.isLoggedIn) {
         if (isPosted) {
           if (this.isLiked) {
-            // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-            await this.unlike({ like: this.ownLike[0], id: id, type: type })
+            await this.unlike({ spot: spot, like: this.ownLike[0], type: type })
           } else {
             await this.like({ spot: spot, type: type })
           }
