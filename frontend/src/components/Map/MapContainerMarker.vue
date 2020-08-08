@@ -1,16 +1,16 @@
 <template>
   <div>
     <gmap-marker
-      v-for="(s, id) in spots"
+      v-for="(spot, id) in spots"
       :animation="4"
       :key="id"
-      :icon="icon(s)"
-      :position="s.marker.position"
-      :title="s.marker.name"
-      :zIndex="s.marker.zIndex"
+      :icon="icon(spot)"
+      :position="spot.marker.position"
+      :title="spot.marker.name"
+      :zIndex="spot.marker.zIndex"
       @click="
-        spotlight(id)
-        panTo(s)
+        spotlight(spot)
+        panTo(spot)
         scroll(id)
       "
     />

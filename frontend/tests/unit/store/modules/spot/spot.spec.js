@@ -47,35 +47,46 @@ describe('mutations', () => {
     expect(store.state.spots[0]).toEqual(spot)
   })
   it('pushData', () => {
-    const init = [{ marker: { name: 'test' }, likes: [] }]
+    const init = [
+      { marker: { name: 'test', place_id: 'testPlaceId' }, likes: [] }
+    ]
     const change = [
-      { marker: { name: 'test' }, likes: [{ data: { name: 'test1' } }] }
+      {
+        marker: { name: 'test', place_id: 'testPlaceId' },
+        likes: [{ data: { name: 'test1' } }]
+      }
     ]
     store.replaceState({ spots: init })
+    const spot = { data: { place_id: 'testPlaceId' } }
     const data = { data: { name: 'test1' } }
-    const id = 0
     const genre = 'likes'
-    store.commit('pushData', { data, id, genre })
+    store.commit('pushData', { spot, data, genre })
     expect(store.state.spots[0]).toEqual(change[0])
   })
   it('deleteData', () => {
     const init = [
-      { data: { id: 1 }, likes: [{ data: { id: 2 } }] }
-      // { data: { id: 3 }, likes: [{ data: { id: 4, name: 'test2' } }] }
+      {
+        marker: { name: 'test', place_id: 'testPlaceId' },
+        likes: [{ data: { id: 2 } }]
+      }
     ]
-    const change = [{ data: { id: 1 }, likes: [] }]
+    const change = [
+      { marker: { name: 'test', place_id: 'testPlaceId' }, likes: [] }
+    ]
     store.replaceState({ spots: init })
+    const spot = { data: { place_id: 'testPlaceId' } }
     const data = { data: { id: 2 } }
-    const id = 0
     const genre = 'likes'
-    store.commit('deleteData', { data, id, genre })
+    store.commit('deleteData', { spot, data, genre })
     expect(store.state.spots[0]).toEqual(change[0])
   })
   it('onSpotlight', () => {
-    const data = [{ marker: { on: false, zIndex: 10 } }]
+    const spot = { marker: { place_id: 'testPlaceId' } }
+    const data = [
+      { marker: { place_id: 'testPlaceId', on: false, zIndex: 10 } }
+    ]
     store.replaceState({ spots: data })
-    const id = 0
-    store.commit('onSpotlight', id)
+    store.commit('onSpotlight', spot)
     expect(store.state.spots[0].marker.on).toEqual(true)
     expect(store.state.spots[0].marker.zIndex).toEqual(100)
   })
@@ -107,13 +118,13 @@ describe('actions', () => {
     expect(store.state.spots).toEqual([])
   })
   it('spotlight', () => {
+    const spot = { marker: { place_id: 'testPlaceId' } }
     const init = [
-      { marker: { on: false, zIndex: 10 } },
+      { marker: { place_id: 'testPlaceId', on: false, zIndex: 10 } },
       { marker: { on: false, zIndex: 10 } }
     ]
     store.replaceState({ spots: init })
-    const id = 0
-    store.dispatch('spotlight', id)
+    store.dispatch('spotlight', spot)
     expect(store.state.spots[0].marker.on).toEqual(true)
     expect(store.state.spots[0].marker.zIndex).toEqual(100)
   })

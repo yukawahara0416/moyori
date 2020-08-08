@@ -2,7 +2,7 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    powerWith(context, { spot, id, type }) {
+    powerWith(context, { spot, type }) {
       const params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/power_withs', params, {
@@ -11,13 +11,13 @@ export default {
         .then(response => {
           type === 'map'
             ? context.commit('spot/pushData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 genre: 'power_withs'
               })
             : context.commit('user/addUserData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 type: type,
                 genre: 'power_withs'
               })
@@ -35,7 +35,7 @@ export default {
         })
     },
 
-    unPowerWith(context, { power_with, id, type }) {
+    unPowerWith(context, { spot, power_with, type }) {
       var params = { id: power_with.id }
       axiosBase
         .delete('/api/v1/power_withs/' + params.id, {
@@ -44,16 +44,17 @@ export default {
         .then(response => {
           type === 'map'
             ? context.commit('spot/deleteData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 genre: 'power_withs'
               })
             : context.commit('user/deleteUserData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 type: type,
                 genre: 'power_withs'
               })
+
           context.dispatch('pushSnackbar', {
             message: '「電源あるよ」を取り消しました',
             color: 'success'

@@ -2,7 +2,7 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    powerWithout(context, { spot, id, type }) {
+    powerWithout(context, { spot, type }) {
       const params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/power_withouts', params, {
@@ -11,13 +11,13 @@ export default {
         .then(response => {
           type === 'map'
             ? context.commit('spot/pushData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 genre: 'power_withouts'
               })
             : context.commit('user/addUserData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 type: type,
                 genre: 'power_withouts'
               })
@@ -35,7 +35,7 @@ export default {
         })
     },
 
-    unPowerWithout(context, { power_without, id, type }) {
+    unPowerWithout(context, { spot, power_without, type }) {
       const params = { id: power_without.id }
       axiosBase
         .delete('/api/v1/power_withouts/' + params.id, {
@@ -44,13 +44,13 @@ export default {
         .then(response => {
           type === 'map'
             ? context.commit('spot/deleteData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 genre: 'power_withouts'
               })
             : context.commit('user/deleteUserData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 type: type,
                 genre: 'wifi_withouts'
               })

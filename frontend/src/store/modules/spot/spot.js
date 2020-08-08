@@ -20,14 +20,14 @@ export default {
         })
       }
 
-      // // Wifi
+      // Wifi
       if (state.filterQuery.wifi_withs) {
         data = data.filter(function(item) {
           return item['wifi_withs'].length > 0
         })
       }
 
-      // // 電源
+      // 電源
       if (state.filterQuery.power_withs) {
         data = data.filter(function(item) {
           return item['power_withs'].length > 0
@@ -63,24 +63,39 @@ export default {
     //   state.spots.splice(payload, 1)
     // },
 
-    assignProp(state, { spot, id, prop }) {
-      var target = state.spots[id]
-      Object.assign(target[prop], spot[prop])
+    assignProp(state, { spot, prop }) {
+      const target = state.spots.filter(function(item) {
+        if (item.marker.place_id !== null) {
+          return item.marker.place_id == spot.data.place_id
+        }
+      })
+      Object.assign(target[0][prop], spot[prop])
     },
 
-    pushData(state, { data, id, genre }) {
-      state.spots[id][genre].push(data)
+    pushData(state, { spot, data, genre }) {
+      const target = state.spots.filter(function(item) {
+        if (item.marker.place_id !== null) {
+          return item.marker.place_id == spot.data.place_id
+        }
+      })
+      target[0][genre].push(data)
     },
 
-    deleteData(state, { data, id, genre }) {
-      var items = state.spots[id][genre]
-      var number = items.findIndex(({ id }) => id === data.id)
+    deleteData(state, { spot, data, genre }) {
+      const target = state.spots.filter(function(item) {
+        return item.marker.place_id == spot.data.place_id
+      })
+      const items = target[0][genre]
+      const number = items.findIndex(({ id }) => id === data.id)
       items.splice(number, 1)
     },
 
-    onSpotlight(state, id) {
-      state.spots[id].marker.on = true
-      state.spots[id].marker.zIndex = 100
+    onSpotlight(state, spot) {
+      const target = state.spots.filter(function(item) {
+        return item.marker.place_id == spot.marker.place_id
+      })
+      target[0].marker.on = true
+      target[0].marker.zIndex = 100
     },
 
     offSpotlight(state) {
@@ -107,9 +122,9 @@ export default {
       context.commit('clearSpots')
     },
 
-    spotlight(context, id) {
+    spotlight(context, spot) {
       context.commit('offSpotlight')
-      context.commit('onSpotlight', id)
+      context.commit('onSpotlight', spot)
     }
 
     // updateSpot(context, { spot, id, params }) {

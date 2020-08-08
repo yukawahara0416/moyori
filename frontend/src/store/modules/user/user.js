@@ -21,18 +21,27 @@ export default {
       state.user = {}
     },
 
-    addUserData(state, { data, id, type, genre }) {
-      state.user[type][id][genre].push(data)
+    addUserData(state, { spot, data, type, genre }) {
+      const target = state.user[type].filter(function(item) {
+        return item.marker.place_id == spot.data.place_id
+      })
+      target[0][genre].push(data)
     },
 
-    deleteUserData(state, { data, id, type, genre }) {
-      var items = state.user[type][id][genre]
-      var number = items.findIndex(({ id }) => id === data.id)
+    deleteUserData(state, { spot, data, type, genre }) {
+      const target = state.user[type].filter(function(item) {
+        return item.marker.place_id == spot.data.place_id
+      })
+      const items = target[0][genre]
+      const number = items.findIndex(({ id }) => id === data.id)
       items.splice(number, 1)
     },
 
-    onSpotlight(state, { id, type }) {
-      state.user[type][id].marker.on = true
+    onSpotlight(state, { spot, type }) {
+      const target = state.user[type].filter(function(item) {
+        return item.marker.place_id == spot.data.place_id
+      })
+      target[0].marker.on = true
     },
 
     offSpotlight(state, type) {
@@ -69,9 +78,9 @@ export default {
       context.commit('clearUser')
     },
 
-    spotlight(context, { id, type }) {
+    spotlight(context, { spot, type }) {
       context.commit('offSpotlight', type)
-      context.commit('onSpotlight', { id, type })
+      context.commit('onSpotlight', { spot, type })
     }
   }
 }

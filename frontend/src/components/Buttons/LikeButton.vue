@@ -15,7 +15,6 @@ import Counter from '@/components/Buttons/Counter.vue'
 export default {
   props: {
     spot: Object,
-    id: Number,
     type: String
   },
 
@@ -51,7 +50,6 @@ export default {
 
     likeHandler: async function() {
       const spot = this.spot
-      const id = this.id
       const type = this.type
       const isPosted = Object.prototype.hasOwnProperty.call(
         this.spot.data,
@@ -60,13 +58,13 @@ export default {
       if (this.isLoggedIn) {
         if (isPosted) {
           if (this.isLiked) {
-            await this.unlike({ like: this.ownLike[0], id: id, type: type })
+            await this.unlike({ spot: spot, like: this.ownLike[0], type: type })
           } else {
-            await this.like({ spot: spot, id: id, type: type })
+            await this.like({ spot: spot, type: type })
           }
         } else {
-          const result = await this.saveSpot({ spot: spot, id: id })
-          await this.like({ spot: result, id: id, type: type })
+          const result = await this.saveSpot({ spot: spot })
+          await this.like({ spot: result, type: type })
         }
       } else {
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })

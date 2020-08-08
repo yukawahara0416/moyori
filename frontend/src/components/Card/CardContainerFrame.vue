@@ -6,7 +6,7 @@
     :class="{ selected: spot.marker.on === true }"
     :id="id"
     @click="
-      spotlight(id)
+      spotlight(spot)
       panTo(spot)
     "
   >
@@ -29,10 +29,13 @@ export default {
   },
 
   methods: {
-    spotlight(id) {
+    spotlight(spot) {
       this.type === 'map'
-        ? this.$store.dispatch('spot/spotlight', id)
-        : this.$store.dispatch('user/spotlight', { id: id, type: this.type })
+        ? this.$store.dispatch('spot/spotlight', spot)
+        : this.$store.dispatch('user/spotlight', {
+            spot: spot,
+            type: this.type
+          })
     },
 
     // SearchMapWrap/mounted

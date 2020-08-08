@@ -2,8 +2,8 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    like(context, { spot, id, type }) {
-      var params = { spot_id: spot.data.id }
+    like(context, { spot, type }) {
+      const params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/likes', params, {
           headers: context.rootState.auth.headers
@@ -11,13 +11,13 @@ export default {
         .then(response => {
           type === 'map'
             ? context.commit('spot/pushData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 genre: 'likes'
               })
             : context.commit('user/addUserData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 type: type,
                 genre: 'likes'
               })
@@ -35,8 +35,8 @@ export default {
         })
     },
 
-    unlike(context, { like, id, type }) {
-      var params = { id: like.id }
+    unlike(context, { spot, like, type }) {
+      const params = { id: like.id }
       axiosBase
         .delete('/api/v1/likes/' + params.id, {
           headers: context.rootState.auth.headers
@@ -44,13 +44,13 @@ export default {
         .then(response => {
           type === 'map'
             ? context.commit('spot/deleteData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 genre: 'likes'
               })
             : context.commit('user/deleteUserData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 type: type,
                 genre: 'likes'
               })
