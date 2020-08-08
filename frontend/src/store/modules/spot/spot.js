@@ -90,10 +90,12 @@ export default {
       items.splice(number, 1)
     },
 
-    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-    onSpotlight(state, id) {
-      state.spots[id].marker.on = true
-      state.spots[id].marker.zIndex = 100
+    onSpotlight(state, spot) {
+      const target = state.spots.filter(function(item) {
+        return item.marker.place_id == spot.data.place_id
+      })
+      target[0].marker.on = true
+      target[0].marker.zIndex = 100
     },
 
     offSpotlight(state) {
@@ -120,10 +122,9 @@ export default {
       context.commit('clearSpots')
     },
 
-    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-    spotlight(context, id) {
+    spotlight(context, spot) {
       context.commit('offSpotlight')
-      context.commit('onSpotlight', id)
+      context.commit('onSpotlight', spot)
     }
 
     // updateSpot(context, { spot, id, params }) {
