@@ -64,13 +64,11 @@ export default {
             // 修正点 index_idではなくdata.place_idを参照する方法に変更する
             await this.unlike({ like: this.ownLike[0], id: id, type: type })
           } else {
-            // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-            await this.like({ spot: spot, id: id, type: type })
+            await this.like({ spot: spot, type: type })
           }
         } else {
           const result = await this.saveSpot({ spot: spot })
-          // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-          await this.like({ spot: result, id: id, type: type })
+          await this.like({ spot: result, type: type })
         }
       } else {
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
