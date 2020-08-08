@@ -2,7 +2,7 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    wifiWith(context, { spot, id, type }) {
+    wifiWith(context, { spot, type }) {
       const params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/wifi_withs', params, {
@@ -11,13 +11,13 @@ export default {
         .then(response => {
           type === 'map'
             ? context.commit('spot/pushData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 genre: 'wifi_withs'
               })
             : context.commit('user/addUserData', {
+                spot: spot,
                 data: response.data,
-                id: id,
                 type: type,
                 genre: 'wifi_withs'
               })
@@ -35,6 +35,7 @@ export default {
         })
     },
 
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     unWifiWith(context, { wifi_with, id, type }) {
       var params = { id: wifi_with.id }
       axiosBase
@@ -42,6 +43,7 @@ export default {
           headers: context.rootState.auth.headers
         })
         .then(response => {
+          // 修正点 index_idではなくdata.place_idを参照する方法に変更する
           type === 'map'
             ? context.commit('spot/deleteData', {
                 data: response.data,
