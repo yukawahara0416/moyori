@@ -15,7 +15,6 @@ import Counter from '@/components/Buttons/Counter.vue'
 export default {
   props: {
     spot: Object,
-    id: Number,
     type: String
   },
 
@@ -60,6 +59,7 @@ export default {
   },
 
   methods: {
+    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     ...mapActions({ saveSpot: 'map/saveSpot' }),
     ...mapActions([
       'powerWith',
@@ -70,7 +70,6 @@ export default {
 
     powerWithHandler: async function() {
       const spot = this.spot
-      const id = this.id
       const type = this.type
       const isPosted = Object.prototype.hasOwnProperty.call(
         this.spot.data,
@@ -80,23 +79,23 @@ export default {
         if (isPosted) {
           if (this.isPowerWithed) {
             await this.unPowerWith({
+              spot: spot,
               power_with: this.ownPowerWith[0],
-              id: id,
               type: type
             })
           } else {
             if (this.isPowerWithouted) {
               await this.unPowerWithout({
+                spot: spot,
                 power_without: this.ownPowerWithout[0],
-                id: id,
                 type: type
               })
             }
-            await this.powerWith({ spot: spot, id: id, type: type })
+            await this.powerWith({ spot: spot, type: type })
           }
         } else {
-          const result = await this.saveSpot({ spot: spot, id: id })
-          await this.powerWith({ spot: result, id: id, type: type })
+          const result = await this.saveSpot({ spot: spot })
+          await this.powerWith({ spot: result, type: type })
         }
       } else {
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
