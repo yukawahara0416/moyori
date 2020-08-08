@@ -72,9 +72,13 @@ export default {
       Object.assign(target[0][prop], spot[prop])
     },
 
-    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-    pushData(state, { data, id, genre }) {
-      state.spots[id][genre].push(data)
+    pushData(state, { spot, data, genre }) {
+      const target = state.spots.filter(function(item) {
+        if (item.marker.place_id !== null) {
+          return item.marker.place_id == spot.data.place_id
+        }
+      })
+      target[0][genre].push(data)
     },
 
     // 修正点 index_idではなくdata.place_idを参照する方法に変更する
