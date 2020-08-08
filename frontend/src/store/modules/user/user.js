@@ -37,9 +37,11 @@ export default {
       items.splice(number, 1)
     },
 
-    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-    onSpotlight(state, { id, type }) {
-      state.user[type][id].marker.on = true
+    onSpotlight(state, { spot, type }) {
+      const target = state.user[type].filter(function(item) {
+        return item.marker.place_id == spot.data.place_id
+      })
+      target[0].marker.on = true
     },
 
     offSpotlight(state, type) {
@@ -76,10 +78,9 @@ export default {
       context.commit('clearUser')
     },
 
-    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
-    spotlight(context, { id, type }) {
+    spotlight(context, { spot, type }) {
       context.commit('offSpotlight', type)
-      context.commit('onSpotlight', { id, type })
+      context.commit('onSpotlight', { spot, type })
     }
   }
 }
