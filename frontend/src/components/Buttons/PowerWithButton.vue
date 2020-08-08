@@ -59,7 +59,6 @@ export default {
   },
 
   methods: {
-    // 修正点 index_idではなくdata.place_idを参照する方法に変更する
     ...mapActions({ saveSpot: 'map/saveSpot' }),
     ...mapActions([
       'powerWith',
