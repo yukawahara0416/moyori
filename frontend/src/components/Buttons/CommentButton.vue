@@ -9,15 +9,15 @@
         </v-btn>
       </template>
 
-      <show-button-dialog :spot="spot" />
+      <comment-button-dialog :spot="spot" :own-omment="ownComment" />
     </v-dialog>
   </v-row>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import CommentButtonDialog from '@/components/Buttons/CommentButtonDialog.vue'
 import Counter from '@/components/Buttons/Counter.vue'
-import ShowButtonDialog from '@/components/Buttons/ShowButtonDialog.vue'
 
 export default {
   props: {
@@ -27,7 +27,7 @@ export default {
 
   components: {
     Counter,
-    ShowButtonDialog
+    CommentButtonDialog
   },
 
   data() {
