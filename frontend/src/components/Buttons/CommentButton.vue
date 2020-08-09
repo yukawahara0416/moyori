@@ -1,12 +1,8 @@
 <template>
   <div>
     <v-btn icon>
-      <v-icon v-if="isCommented.length === 0">
-        mdi-message-outline
-      </v-icon>
-      <v-icon v-if="isCommented.length > 0" color="success">
-        mdi-message
-      </v-icon>
+      <v-icon v-if="isCommented" color="success">mdi-message</v-icon>
+      <v-icon v-if="!isCommented">mdi-message-outline</v-icon>
       <counter :spot="spot" :genre="'comments'" />
     </v-btn>
   </div>
@@ -46,19 +42,6 @@ export default {
         return []
       }
     }
-
-    // isCommented() {
-    //   const vm = this
-    //   const comments = this.spots[this.id].comments
-    //   if (vm.currentUser !== null && comments.length > 0) {
-    //     const commented = comments.filter(function(comment) {
-    //       return comment.user_id == vm.currentUser.data.id
-    //     })
-    //     return commented
-    //   } else {
-    //     return []
-    //   }
-    // }
   }
 }
 </script>
