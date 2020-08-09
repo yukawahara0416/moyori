@@ -1,29 +1,29 @@
-import axios from 'axios'
-
-const axiosBase = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
-  },
-  responseType: 'json'
-})
+import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    postComment(context, { params, id }) {
+    postComment(context, { spot, type, content }) {
+      const params = { spot_id: spot.data.id, content: content }
       axiosBase
         .post('/api/v1/comments', params, {
           headers: context.rootState.auth.headers
         })
-        .then(function(response) {
-          context.commit('addSpotData', {
-            data: response.data,
-            id: id,
-            key: 'comments'
-          })
+        .then(response => {
+          type === 'map'
+            ? context.commit('spot/pushData', {
+                spot: spot,
+                data: response.data,
+                genre: 'comments'
+              })
+            : context.commit('user/addUserData', {
+                spot: spot,
+                data: response.data,
+                type: type,
+                genre: 'comments'
+              })
+
           context.dispatch('pushSnackbar', {
-            message: 'コメントを投稿しました',
+            message: 'コメントを投稿しました ありがとうございます！',
             color: 'success'
           })
         })
@@ -35,17 +35,26 @@ export default {
         })
     },
 
-    deleteComment(context, { comment, id }) {
+    deleteComment(context, { spot, comment, type }) {
+      const params = { id: comment.id }
       axiosBase
-        .delete('/api/v1/comments/' + comment.id, {
+        .delete('/api/v1/comments/' + params.id, {
           headers: context.rootState.auth.headers
         })
-        .then(function(response) {
-          context.commit('deleteData', {
-            data: response.data,
-            id: id,
-            key: 'comments'
-          })
+        .then(response => {
+          type === 'map'
+            ? context.commit('spot/deleteData', {
+                spot: spot,
+                data: response.data,
+                genre: 'comments'
+              })
+            : context.commit('user/deleteUserData', {
+                spot: spot,
+                data: response.data,
+                type: type,
+                genre: 'comments'
+              })
+
           context.dispatch('pushSnackbar', {
             message: 'コメントを削除しました',
             color: 'success'
