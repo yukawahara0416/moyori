@@ -1,16 +1,23 @@
 <template>
-  <div>
-    <v-btn icon>
-      <v-icon v-if="isCommented" color="success">mdi-message</v-icon>
-      <v-icon v-if="!isCommented">mdi-message-outline</v-icon>
-      <counter :spot="spot" :genre="'comments'" />
-    </v-btn>
-  </div>
+  <v-row justify="center">
+    <v-dialog v-model="dialog" width="600">
+      <template v-slot:activator="{ on }">
+        <v-btn icon v-on="on">
+          <v-icon v-if="isCommented" color="success">mdi-message</v-icon>
+          <v-icon v-if="!isCommented">mdi-message-outline</v-icon>
+          <counter :spot="spot" :genre="'comments'" />
+        </v-btn>
+      </template>
+
+      <show-button-dialog :spot="spot" />
+    </v-dialog>
+  </v-row>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Counter from '@/components/Buttons/Counter.vue'
+import ShowButtonDialog from '@/components/Buttons/ShowButtonDialog.vue'
 
 export default {
   props: {
@@ -19,7 +26,14 @@ export default {
   },
 
   components: {
-    Counter
+    Counter,
+    ShowButtonDialog
+  },
+
+  data() {
+    return {
+      dialog: false
+    }
   },
 
   computed: {
