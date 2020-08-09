@@ -22,7 +22,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([{ spots: 'spot/spots' }, 'currentUser']),
+    ...mapGetters(['headers', 'currentUser']),
 
     isCommented() {
       const vm = this
