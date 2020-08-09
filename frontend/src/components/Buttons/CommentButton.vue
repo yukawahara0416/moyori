@@ -29,6 +29,10 @@ export default {
   computed: {
     ...mapGetters(['headers', 'currentUser']),
 
+    isLoggedIn() {
+      return this.headers !== null ? true : false
+    },
+
     isCommented() {
       const vm = this
       const comments = this.spots[this.id].comments
