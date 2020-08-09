@@ -35,6 +35,16 @@ export default {
 
     isCommented() {
       return this.ownComment.length > 0 ? true : false
+    },
+
+    ownComment() {
+      if (this.isLoggedIn) {
+        return this.spot.comments.filter(comment => {
+          return comment.user_id == this.currentUser.data.id
+        })
+      } else {
+        return []
+      }
     }
 
     // isCommented() {
