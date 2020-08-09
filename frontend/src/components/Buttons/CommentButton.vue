@@ -9,7 +9,11 @@
         </v-btn>
       </template>
 
-      <comment-button-dialog :spot="spot" :own-omment="ownComment" />
+      <comment-button-dialog
+        :spot="spot"
+        :type="type"
+        :is-logged-in="isLoggedIn"
+      />
     </v-dialog>
   </v-row>
 </template>
