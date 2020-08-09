@@ -1,16 +1,14 @@
 <template>
-  <v-card-text class="text--primary">
-    <p>{{ spot.marker.name }}</p>
+  <v-card-text class="text--primary nowrap">
     <p>{{ spot.marker.address }}</p>
-    <p>{{ spot.marker.place_id }}</p>
 
     <p>
       <a
         :href="
           'https://www.google.com/maps/dir/?api=1&destination=' +
-            spot.data.lat +
+            spot.marker.position.lat +
             ',' +
-            spot.data.lng
+            spot.marker.position.lng
         "
         target="_brank"
       >
@@ -27,3 +25,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.nowrap p {
+  white-space: nowrap;
+  overflow: hidden;
+}
+</style>
