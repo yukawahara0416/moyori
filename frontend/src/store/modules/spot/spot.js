@@ -34,12 +34,12 @@ export default {
         })
       }
 
-      // // コメント
-      // if (state.filterQuery.comments) {
-      //   data = data.filter(function(item) {
-      //     return item['comments'].length > 0
-      //   })
-      // }
+      // コメント
+      if (state.filterQuery.comments) {
+        data = data.filter(function(item) {
+          return item['comments'].length > 0
+        })
+      }
 
       return data
     }
