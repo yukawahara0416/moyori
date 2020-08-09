@@ -18,7 +18,7 @@ import { mapGetters } from 'vuex'
 export default {
   props: {
     spot: Object,
-    id: Number
+    type: String
   },
 
   computed: {
