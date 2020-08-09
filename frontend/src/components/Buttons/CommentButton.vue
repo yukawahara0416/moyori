@@ -34,17 +34,21 @@ export default {
     },
 
     isCommented() {
-      const vm = this
-      const comments = this.spots[this.id].comments
-      if (vm.currentUser !== null && comments.length > 0) {
-        const commented = comments.filter(function(comment) {
-          return comment.user_id == vm.currentUser.data.id
-        })
-        return commented
-      } else {
-        return []
-      }
+      return this.ownComment.length > 0 ? true : false
     }
+
+    // isCommented() {
+    //   const vm = this
+    //   const comments = this.spots[this.id].comments
+    //   if (vm.currentUser !== null && comments.length > 0) {
+    //     const commented = comments.filter(function(comment) {
+    //       return comment.user_id == vm.currentUser.data.id
+    //     })
+    //     return commented
+    //   } else {
+    //     return []
+    //   }
+    // }
   }
 }
 </script>
