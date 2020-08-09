@@ -25,7 +25,7 @@
 
       <map-container-marker :spots="filterSpots" />
 
-      <spot-dialog />
+      <spot-post-dialog />
     </gmap-map>
   </span>
 </template>
@@ -35,14 +35,14 @@ import { mapGetters, mapActions } from 'vuex'
 import MapContainerToolbar from '@/components/Map/MapContainerToolbar.vue'
 import MapContainerCircle from '@/components/Map/MapContainerCircle.vue'
 import MapContainerMarker from '@/components/Map/MapContainerMarker.vue'
-import SpotDialog from '@/components/Spot/SpotDialog.vue'
+import SpotPostDialog from '@/components/Spot/SpotPostDialog.vue'
 
 export default {
   components: {
     MapContainerToolbar,
     MapContainerCircle,
     MapContainerMarker,
-    SpotDialog
+    SpotPostDialog
   },
 
   data() {
@@ -193,7 +193,7 @@ export default {
       if (this.currentUser) {
         this.$store.dispatch('post/geocode', event)
         this.$store.dispatch('post/placeIdGenerate', this.currentUser.data.id)
-        // Spot/SpotDialog/dialogOn
+        // Spot/SpotPostDialog/dialogOn
         this.$store.dispatch('dialogOn', 'dialogSpotCreate')
       } else {
         this.$store.dispatch('pushSnackbar', {

@@ -1,20 +1,20 @@
 <template>
-  <v-dialog v-model="dialog" width="600">
+  <v-dialog persistent v-model="dialog" width="600">
     <template v-slot:activator="{ on }">
       <div v-on="on" @click.stop="dialogOn"></div>
     </template>
 
-    <spot-form-container />
+    <spot-post-dialog-form />
   </v-dialog>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import SpotFormContainer from '@/components/Spot/SpotFormContainer.vue'
+import SpotPostDialogForm from '@/components/Spot/SpotPostDialogForm.vue'
 
 export default {
   components: {
-    SpotFormContainer
+    SpotPostDialogForm
   },
 
   computed: {
