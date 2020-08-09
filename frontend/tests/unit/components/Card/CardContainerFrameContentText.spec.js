@@ -6,7 +6,10 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    spot: { marker: { name: 'test' }, data: { id: 1 } }
+    spot: {
+      marker: { name: 'test', position: { lat: 0, lng: 0 } },
+      data: { id: 1 }
+    }
   }
 
   wrapper = shallowMount(Component, {

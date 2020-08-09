@@ -56,7 +56,7 @@
           ></v-switch>
         </v-list-item-action>
         <v-list-item-title>
-          <v-icon class="mr-2" color="success">mdi-message-outline</v-icon>
+          <v-icon class="mr-2" color="success">mdi-message</v-icon>
           コメントあり
         </v-list-item-title>
       </v-list-item>
