@@ -35,6 +35,7 @@ export default {
             position: position,
             zIndex: 10
           },
+          detail: {},
           data: {},
           likes: [],
           wifi_withs: [],
@@ -64,6 +65,7 @@ export default {
             },
             zIndex: res.marker.zIndex
           },
+          detail: {},
           likes: res.likes,
           wifi_withs: res.wifi_withs,
           wifi_withouts: res.wifi_withouts,
