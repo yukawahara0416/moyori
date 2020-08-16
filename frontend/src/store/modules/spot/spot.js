@@ -64,9 +64,11 @@ export default {
     // },
 
     assignProp(state, { spot, prop }) {
+      console.log('spot')
+      console.log(spot)
       const target = state.spots.filter(function(item) {
         if (item.marker.place_id !== null) {
-          return item.marker.place_id == spot.data.place_id
+          return item.marker.place_id == spot.marker.place_id
         }
       })
       Object.assign(target[0][prop], spot[prop])
