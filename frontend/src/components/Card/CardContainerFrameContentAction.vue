@@ -13,7 +13,9 @@
       <v-spacer />
     </v-card-actions>
     <v-card-actions>
+      <v-spacer />
       <show-button :spot="spot" :type="type" />
+      <v-spacer />
     </v-card-actions>
   </div>
 </template>
