@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn icon @click="powerWithoutHandler()">
-      <v-icon v-if="isPowerWithouted" color="success">
+      <v-icon v-if="isPowerWithouted" color="error">
         mdi-power-plug-off
       </v-icon>
       <v-icon v-if="!isPowerWithouted">mdi-power-plug-off</v-icon>

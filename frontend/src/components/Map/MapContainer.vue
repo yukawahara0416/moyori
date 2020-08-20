@@ -25,7 +25,7 @@
 
       <map-container-marker :spots="filterSpots" />
 
-      <spot-dialog />
+      <spot-post-dialog />
     </gmap-map>
   </span>
 </template>
@@ -35,14 +35,14 @@ import { mapGetters, mapActions } from 'vuex'
 import MapContainerToolbar from '@/components/Map/MapContainerToolbar.vue'
 import MapContainerCircle from '@/components/Map/MapContainerCircle.vue'
 import MapContainerMarker from '@/components/Map/MapContainerMarker.vue'
-import SpotDialog from '@/components/Spot/SpotDialog.vue'
+import SpotPostDialog from '@/components/Spot/SpotPostDialog.vue'
 
 export default {
   components: {
     MapContainerToolbar,
     MapContainerCircle,
     MapContainerMarker,
-    SpotDialog
+    SpotPostDialog
   },
 
   data() {
@@ -58,10 +58,12 @@ export default {
   },
 
   async mounted() {
-    // SearchMapMarker/methods/panTo(spot)
-    // CardFrame/methods/panTo(spot)
     this.$root.$on('panTo', spot => {
       this.panTo(spot.marker.position)
+    })
+
+    this.$root.$on('placeDetailSearch', spot => {
+      this.placeDetailSearch(spot)
     })
 
     this.autoNearbySearch()
@@ -72,6 +74,7 @@ export default {
       clearSpots: 'spot/clearSpots',
       geolocate: 'map/geolocate',
       nearbySearchMap: 'map/nearbySearch',
+      placeDetail: 'map/placeDetail',
       nearbySearchPost: 'post/nearbySearch',
       textSearchMap: 'map/textSearch',
       // textSearchPost: 'post/textSearch',
@@ -136,8 +139,8 @@ export default {
       var resultsInMap = await this.nearbySearchMap({ map, request })
       resultsInMap = await Promise.all(
         resultsInMap.map(async res => {
-          var formatted = await this.formatNewSpot(res)
-          var assigned = await this.collateSpot(formatted)
+          const formatted = await this.formatNewSpot(res)
+          const assigned = await this.collateSpot(formatted)
           return assigned
         })
       )
@@ -147,13 +150,20 @@ export default {
 
     // デモ用エリアへ移動して検索
     demoSearch() {
-      // this.beforeSearch()
       const center = { lat: 35.680959, lng: 139.767306 }
       this.panTo(center)
       this.center = center
-      // this.setMarker(center, 'you-are-here')
-      // this.panTo(center)
       this.nearbySearch()
+    },
+
+    // PlaceDetail検索
+    placeDetailSearch: async function(spot) {
+      const map = this.$refs.map.$mapObject
+      const detail = await this.placeDetail({ map, spot })
+      this.$store.commit('spot/assignProp', {
+        spot: detail,
+        prop: 'detail'
+      })
     },
 
     // キーワード検索
@@ -193,7 +203,7 @@ export default {
       if (this.currentUser) {
         this.$store.dispatch('post/geocode', event)
         this.$store.dispatch('post/placeIdGenerate', this.currentUser.data.id)
-        // Spot/SpotDialog/dialogOn
+        // Spot/SpotPostDialog/dialogOn
         this.$store.dispatch('dialogOn', 'dialogSpotCreate')
       } else {
         this.$store.dispatch('pushSnackbar', {
@@ -237,63 +247,6 @@ export default {
         zIndex: 1
       })
     }
-
-    // 周辺のマーカーを抽出する
-    // sortMarker(results, pos) {
-    //   return new Promise(resolve => {
-    //     const request = {
-    //       location: new google.maps.LatLng(pos.lat, pos.lng),
-    //       radius: 500
-    //     }
-    //     const sortedResults = results.filter(result => {
-    //       return (
-    //         google.maps.geometry.spherical.computeDistanceBetween(
-    //           result.geometry.location,
-    //           request.location
-    //         ) < request.radius
-    //       )
-    //     })
-    //     resolve(sortedResults)
-    //   })
-    // },
-
-    // spotのより詳細な情報を取得する
-    // getDetail(res) {
-    //   return new Promise((resolve, reject) => {
-    //     const map = this.$refs.map.$mapObject
-    //     const placeService = new google.maps.places.PlacesService(map)
-    //     const request = {
-    //       placeId: res.marker.place_id
-    //       // fields: ['opening_hours', 'photos', 'reviews']
-    //     }
-    //     placeService.getDetails(request, (result, status) => {
-    //       if (status == 'OK' || status == 'ZERO_RESULTS') {
-    //         // const opening_hours = result.opening_hours
-    //         //   ? result.opening_hours
-    //         //   : null
-    //         const address = result.formatted_address
-    //           ? result.formatted_address
-    //           : null
-    //         const phone = result.formatted_phone_number
-    //           ? result.formatted_phone_number
-    //           : null
-    //         const photos = result.photos ? result.photos : null
-    //         const reviews = result.reviews ? result.reviews : null
-    //         const website = result.website ? result.website : null
-
-    //         // res['opening_hours'] = opening_hours
-    //         res.marker['address'] = address
-    //         res.marker['phone'] = phone
-    //         res.marker['photos'] = photos
-    //         res.marker['reviews'] = reviews
-    //         res.marker['website'] = website
-    //         resolve(res)
-    //       } else {
-    //         reject(res)
-    //       }
-    //     })
-    //   })
-    // },
   }
 }
 </script>

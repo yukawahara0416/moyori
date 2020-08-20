@@ -32,6 +32,34 @@ export default {
       })
     },
 
+    placeDetail(context, { map, spot }) {
+      return new Promise((resolve, reject) => {
+        const placeService = new google.maps.places.PlacesService(map)
+        const request = {
+          placeId: spot.marker.place_id,
+          fields: [
+            'formatted_address',
+            'formatted_phone_number',
+            'opening_hours',
+            'photos',
+            'reviews',
+            'website'
+          ]
+        }
+        placeService.getDetails(request, (result, status) => {
+          if (status == 'OK' || status == 'ZERO_RESULTS') {
+            spot['detail'] = result
+            if (spot.detail.opening_hours) {
+              delete spot.detail.opening_hours.open_now
+            }
+            resolve(spot)
+          } else {
+            reject(spot)
+          }
+        })
+      })
+    },
+
     textSearch(context, { map, request }) {
       return new Promise(resolve => {
         const placeService = new google.maps.places.PlacesService(map)
@@ -127,33 +155,5 @@ export default {
         )
       })
     }
-
-    // placeDetail(context, { map, request }) {
-    //   const placeService = new google.maps.places.PlacesService(map)
-    //   placeService.getDetails(request, (result, status) => {
-    //     if (status == 'OK') {
-    //       // // const opening_hours = result.opening_hours
-    //       // //   ? result.opening_hours
-    //       // //   : null
-    //       // const address = result.formatted_address
-    //       //   ? result.formatted_address
-    //       //   : null
-    //       // const phone = result.formatted_phone_number
-    //       //   ? result.formatted_phone_number
-    //       //   : null
-    //       // const photos = result.photos ? result.photos : null
-    //       // const reviews = result.reviews ? result.reviews : null
-    //       // const website = result.website ? result.website : null
-
-    //       // // res['opening_hours'] = opening_hours
-    //       // res.marker['address'] = address
-    //       // res.marker['phone'] = phone
-    //       // res.marker['photos'] = photos
-    //       // res.marker['reviews'] = reviews
-    //       // res.marker['website'] = website
-    //       context.dispatch('addPlaceDetail', result)
-    //     }
-    //   })
-    // },
   }
 }
