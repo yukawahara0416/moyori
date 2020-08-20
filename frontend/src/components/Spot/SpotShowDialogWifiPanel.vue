@@ -6,19 +6,34 @@
           <v-icon>mdi-wifi</v-icon>
           Wifiサービス：
           <span class="ml-3">
-            <v-icon v-if="analyzeVote == 'excellent'" color="success">
-              mdi-circle-double
-            </v-icon>
-            <v-icon v-else-if="analyzeVote == 'good'" color="success">
-              mdi-circle-outline
-            </v-icon>
-            <v-icon v-else-if="analyzeVote == 'fair'" color="primary">
-              mdi-triangle-outline
-            </v-icon>
-            <v-icon v-else-if="analyzeVote == 'poor'" color="error">
-              mdi-close
-            </v-icon>
-            <v-icon v-else>mdi-help</v-icon>
+            <span v-if="analyzeVote == 'excellent'">
+              <v-icon class="mr-3" color="success">
+                mdi-circle-double
+              </v-icon>
+              <span>（かなり期待できます^_^）</span>
+            </span>
+            <span v-else-if="analyzeVote == 'good'">
+              <v-icon class="mr-3" color="success">
+                mdi-circle-outline
+              </v-icon>
+              <span>（そこそこ期待できます^_^）</span>
+            </span>
+            <span v-else-if="analyzeVote == 'fair'">
+              <v-icon class="mr-3" color="primary">
+                mdi-triangle-outline
+              </v-icon>
+              <span>（もしかしたらなくなってるかも^^;）</span>
+            </span>
+            <span v-else-if="analyzeVote == 'poor'">
+              <v-icon class="mr-3" color="error">
+                mdi-close
+              </v-icon>
+              <span>（なくなってる可能性大です^^;）</span>
+            </span>
+            <span v-else>
+              <v-icon class="mr-3">mdi-help</v-icon>
+              <span>（まだ投票されていません）</span>
+            </span>
           </span>
         </span>
       </v-expansion-panel-header>
@@ -67,15 +82,34 @@
           <span>{{ latestVote ? 'Wifiあるよ' : 'Wifiないよ' }}</span>
           」です。
         </p>
+
+        <google-chart-bar-chart
+          v-if="spot.wifi_withs.length !== 0 || spot.wifi_withouts.length !== 0"
+          :withs="spot.wifi_withs"
+          :withouts="spot.wifi_withouts"
+        />
+        <google-chart-area-chart
+          v-if="spot.wifi_withs.length !== 0 || spot.wifi_withouts.length !== 0"
+          :withs="spot.wifi_withs"
+          :withouts="spot.wifi_withouts"
+        />
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
 </template>
 
 <script>
+import GoogleChartBarChart from '@/components/Chart/GoogleChartBarChart.vue'
+import GoogleChartAreaChart from '@/components/Chart/GoogleChartAreaChart.vue'
+
 export default {
   props: {
     spot: Object
+  },
+
+  components: {
+    GoogleChartBarChart,
+    GoogleChartAreaChart
   },
 
   computed: {
