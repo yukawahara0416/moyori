@@ -47,6 +47,14 @@ export default {
       context.commit('spot/pushSpot', spot, { root: true })
     },
 
+    updateSpot(context, { spot, data }) {
+      context.commit(
+        'spot/updateData',
+        { spot: spot, data: data },
+        { root: true }
+      )
+    },
+
     clearSpotFormData(context) {
       context.commit('clearSpotFormData')
     },
@@ -98,6 +106,43 @@ export default {
         })
     },
 
+    editSpot(context, spot) {
+      axiosBase
+        .patch('/api/v1/spots/' + spot.data.id, spot.data, {
+          headers: context.rootState.auth.headers
+        })
+        .then(response => {
+          response.data.marker.position = new google.maps.LatLng(
+            response.data.marker.position.lat,
+            response.data.marker.position.lng
+          )
+          context.dispatch('updateSpot', {
+            spot: spot,
+            data: response.data.data
+          })
+          context.dispatch('dialogOff', null, { root: true })
+          context.dispatch('clearSpotFormData')
+          context.dispatch(
+            'pushSnackbar',
+            {
+              message: 'スポットの情報を更新しました。ありがとうございます！',
+              color: 'success'
+            },
+            { root: true }
+          )
+        })
+        .catch(() => {
+          context.dispatch(
+            'pushSnackbar',
+            {
+              message: '予期しないエラーが発生しました',
+              color: 'error'
+            },
+            { root: true }
+          )
+        })
+    },
+
     cancelPostSpot(context) {
       context.dispatch('dialogOff', null, { root: true })
       context.dispatch('clearSpotFormData')
@@ -105,6 +150,18 @@ export default {
         'pushSnackbar',
         {
           message: 'スポットを登録をキャンセルしました',
+          color: 'error'
+        },
+        { root: true }
+      )
+    },
+
+    cancelEditSpot(context) {
+      context.dispatch('dialogOff', null, { root: true })
+      context.dispatch(
+        'pushSnackbar',
+        {
+          message: 'スポットの編集をキャンセルしました',
           color: 'error'
         },
         { root: true }

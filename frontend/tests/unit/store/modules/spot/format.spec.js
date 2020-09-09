@@ -54,6 +54,7 @@ describe('actions', () => {
         position: { lat: null, lng: null },
         zIndex: 10
       },
+      detail: {},
       data: {},
       likes: [],
       wifi_withs: [],
@@ -125,6 +126,7 @@ describe('actions', () => {
         position: { lat: 33.569922, lng: 130.333353 },
         zIndex: 10
       },
+      detail: {},
       likes: [],
       wifi_withs: [],
       wifi_withouts: [],

@@ -3,7 +3,8 @@ export default {
     dialogSign: false,
     dialogProfileEdit: false,
     dialogProfileDelete: false,
-    dialogSpotCreate: false
+    dialogSpotCreate: false,
+    dialogSpotEdit: false
   },
 
   getters: {
@@ -21,6 +22,10 @@ export default {
 
     dialogSpotCreate(state) {
       return state.dialogSpotCreate
+    },
+
+    dialogSpotEdit(state) {
+      return state.dialogSpotEdit
     }
   },
 
@@ -34,6 +39,7 @@ export default {
       state.dialogProfileEdit = false
       state.dialogProfileDelete = false
       state.dialogSpotCreate = false
+      state.dialogSpotEdit = false
     }
   },
 
