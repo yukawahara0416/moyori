@@ -24,22 +24,9 @@
       <spot-show-dialog-image-slide :spot="spot" />
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions v-if="isOwnPosted">
       <v-spacer />
-
-      <v-btn
-        class="mb-3 px-10"
-        color="primary"
-        large
-        type="submit"
-        v-if="
-          currentUser && spot.data && spot.data.user_id == currentUser.data.id
-        "
-        @click="test(spot)"
-      >
-        スポットを編集する
-      </v-btn>
-
+      <spot-edit-dialog :spot="spot" />
       <v-spacer />
     </v-card-actions>
   </v-card>
@@ -54,6 +41,7 @@ import SpotShowDialogBusinessPanel from '@/components/Spot/SpotShowDialogBusines
 import SpotShowDialogWifiPanel from '@/components/Spot/SpotShowDialogWifiPanel.vue'
 import SpotShowDialogPowerPanel from '@/components/Spot/SpotShowDialogPowerPanel.vue'
 import SpotShowDialogImageSlide from '@/components/Spot/SpotShowDialogImageSlide.vue'
+import SpotEditDialog from '@/components/Spot/SpotEditDialog.vue'
 
 export default {
   props: {
@@ -68,18 +56,33 @@ export default {
     SpotShowDialogBusinessPanel,
     SpotShowDialogWifiPanel,
     SpotShowDialogPowerPanel,
-    SpotShowDialogImageSlide
+    SpotShowDialogImageSlide,
+    SpotEditDialog
   },
 
   computed: {
-    ...mapGetters(['currentUser'])
+    ...mapGetters(['headers', 'currentUser']),
+
+    isLoggedIn() {
+      return this.headers !== null ? true : false
+    },
+
+    isOwnPosted() {
+      if (this.isLoggedIn) {
+        if (this.spot.detail.formatted_address) {
+          return false
+        } else if (this.spot.data.user_id !== this.currentUser.data.id) {
+          return false
+        } else {
+          return true
+        }
+      } else {
+        return false
+      }
+    }
   },
 
   methods: {
-    test() {
-      console.log('testやで^^')
-    },
-
     closeDialog() {
       this.$emit('closeDialog')
     }
