@@ -80,6 +80,16 @@ export default {
       target[0][genre].push(data)
     },
 
+    updateData(state, { spot, data }) {
+      const target = state.spots.filter(function(item) {
+        if (item.marker.place_id !== null) {
+          return item.marker.place_id == spot.data.place_id
+        }
+      })
+      Object.assign(target[0].data, data)
+      Object.assign(target[0].marker, data)
+    },
+
     deleteData(state, { spot, data, genre }) {
       const target = state.spots.filter(function(item) {
         return item.marker.place_id == spot.data.place_id
