@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props: {
@@ -49,30 +49,29 @@ export default {
   },
 
   methods: {
+    ...mapActions(['pushSnackbar']),
+
     spotUpdateHandler: async function() {
-      var spot = this.spot
-      var id = this.id
+      const spot = this.spot
+      const id = this.id
       if (this.headers !== null) {
         if (this.isOriginalSpot) {
           if (this.isPostedByYou) {
             await this.updateSpot(spot, id)
           } else {
-            this.$store.dispatch('pushSnackbar', {
+            this.pushSnackbar({
               message: '投稿者ではないので更新できません',
               color: 'error'
             })
           }
         } else {
-          this.$store.dispatch('pushSnackbar', {
+          this.pushSnackbar({
             message: '更新可能なスポットではありません',
             color: 'error'
           })
         }
       } else {
-        this.$store.dispatch('pushSnackbar', {
-          message: 'ログインしてください',
-          color: 'error'
-        })
+        this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
       }
     },
 
