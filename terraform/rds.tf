@@ -7,7 +7,7 @@ resource "aws_db_instance" "example" {
   identifier                 = "${var.aws_resource_prefix}-db-instance"
   engine                     = "mysql"
   engine_version             = "8.0.16"
-  instance_class             = "db.t3.small"
+  instance_class             = "db.t3.micro"
   allocated_storage          = 20
   max_allocated_storage      = 100
   storage_type               = "gp2"
@@ -15,7 +15,7 @@ resource "aws_db_instance" "example" {
   kms_key_id                 = aws_kms_key.example.arn
   username                   = "root"
   password                   = "password"
-  multi_az                   = true
+  multi_az                   = false
   publicly_accessible        = false
   backup_window              = "09:10-09:40"
   backup_retention_period    = 30
