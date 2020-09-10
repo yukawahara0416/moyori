@@ -23,7 +23,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser']),
+    ...mapGetters(['headers', 'currentUser', 'dialogSign']),
 
     isLoggedIn() {
       return this.headers !== null ? true : false
@@ -92,8 +92,13 @@ export default {
           await this.wifiWith({ spot: result, type: type })
         }
       } else {
+        this.dialogOn()
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
       }
+    },
+
+    dialogOn() {
+      this.$store.dispatch('dialogOn', 'dialogSign')
     }
   }
 }
