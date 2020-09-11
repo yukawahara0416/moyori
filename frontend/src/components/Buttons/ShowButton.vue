@@ -9,6 +9,7 @@
 
     <spot-show-dialog
       :spot="spot"
+      :type="type"
       :dialog="dialog"
       @closeDialog="closeDialog"
     />
@@ -20,7 +21,8 @@ import SpotShowDialog from '@/components/Spot/SpotShowDialog.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: Object,
+    type: String
   },
 
   components: {
