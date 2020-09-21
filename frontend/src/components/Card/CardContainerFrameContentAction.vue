@@ -1,17 +1,33 @@
 <template>
   <div>
-    <v-card-actions>
+    <v-card-actions class="actions-padding-bottom">
       <v-spacer />
-
       <like-button :spot="spot" :type="type" />
-      <wifi-with-button :spot="spot" :type="type" />
-      <wifi-without-button :spot="spot" :type="type" />
-      <power-with-button :spot="spot" :type="type" />
-      <power-without-button :spot="spot" :type="type" />
+      <v-spacer />
       <comment-button :spot="spot" :type="type" />
-
       <v-spacer />
     </v-card-actions>
+
+    <v-card-actions class="actions-padding-top actions-padding-bottom">
+      <v-spacer />
+      <span>WiFiのある／なし</span>
+      <v-spacer />
+      <wifi-with-button :spot="spot" :type="type" />
+      <v-spacer />
+      <wifi-without-button :spot="spot" :type="type" />
+      <v-spacer />
+    </v-card-actions>
+
+    <v-card-actions class="actions-padding-top">
+      <v-spacer />
+      <span>電源のある／なし</span>
+      <v-spacer />
+      <power-with-button :spot="spot" :type="type" />
+      <v-spacer />
+      <power-without-button :spot="spot" :type="type" />
+      <v-spacer />
+    </v-card-actions>
+
     <v-card-actions>
       <v-spacer />
       <show-button :spot="spot" :type="type" />
@@ -46,3 +62,17 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+span {
+  font-size: 0.8em;
+}
+
+.actions-padding-top {
+  padding-top: 0px;
+}
+
+.actions-padding-bottom {
+  padding-bottom: 0px;
+}
+</style>

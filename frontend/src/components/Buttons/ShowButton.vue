@@ -3,7 +3,7 @@
     <template v-slot:activator="{ on }">
       <v-btn v-on="on" @click.stop="placeDetail(spot)">
         <v-icon class="mx-2">mdi-information-outline</v-icon>
-        詳細
+        詳細をみる
       </v-btn>
     </template>
 
