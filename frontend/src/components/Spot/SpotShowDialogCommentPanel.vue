@@ -1,33 +1,22 @@
 <template>
-  <v-card>
-    <v-form @submit.prevent>
-      <v-textarea
-        label="コメントを入力してください"
-        name="comment"
-        prepend-icon="mdi-comment"
-        rows="5"
-        type="text"
-        v-model="content"
-      />
-    </v-form>
-
-    <v-btn @click="commentHandler()" type="submit">コメント</v-btn>
-
-    <div v-for="(comment, id) in spot.comments" :key="id">
-      <p>{{ comment.content }}</p>
-      <v-btn
-        type="submit"
-        v-if="currentUser && comment.user_id == currentUser.data.id"
-        @click="deleteComment({ spot, comment, type })"
-      >
-        削除
-      </v-btn>
-    </div>
+  <v-card flat outlined>
+    <span v-if="spot.comments[0]">
+      <spot-show-dialog-comment-panel-index :spot="spot" :type="type" />
+    </span>
+    <span v-else>
+      <v-card flat class="ma-4">
+        <p>コメントはまだありません</p>
+      </v-card>
+    </span>
+    <v-card-actions>
+      <spot-show-dialog-comment-panel-post-dialog :spot="spot" :type="type" />
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import SpotShowDialogCommentPanelIndex from '@/components/Spot/SpotShowDialogCommentPanelIndex.vue'
+import SpotShowDialogCommentPanelPostDialog from '@/components/Spot/SpotShowDialogCommentPanelPostDialog.vue'
 
 export default {
   props: {
@@ -35,60 +24,9 @@ export default {
     type: String
   },
 
-  data() {
-    return {
-      content: ''
-    }
-  },
-
-  computed: {
-    ...mapGetters(['headers', 'currentUser', 'dialogSign']),
-
-    isLoggedIn() {
-      return this.headers !== null ? true : false
-    }
-  },
-
-  // ここからコピペしただけ手つかず
-  methods: {
-    ...mapActions({ saveSpot: 'map/saveSpot' }),
-    ...mapActions(['postComment', 'deleteComment', 'pushSnackbar']),
-
-    commentHandler: async function() {
-      const spot = this.spot
-      const type = this.type
-      const isPosted = Object.prototype.hasOwnProperty.call(
-        this.spot.data,
-        'id'
-      )
-      if (this.isLoggedIn) {
-        if (isPosted) {
-          await this.postComment({
-            spot: spot,
-            type: type,
-            content: this.content
-          })
-          this.content = ''
-        } else {
-          const result = await this.saveSpot({ spot: spot })
-          await this.postComment({
-            spot: result,
-            type: type,
-            content: this.content
-          })
-          this.content = ''
-        }
-      } else {
-        this.dialogOn()
-        this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
-      }
-    },
-
-    dialogOn() {
-      this.$store.dispatch('dialogOn', 'dialogSign')
-    }
+  components: {
+    SpotShowDialogCommentPanelIndex,
+    SpotShowDialogCommentPanelPostDialog
   }
 }
 </script>
-
-<style></style>
