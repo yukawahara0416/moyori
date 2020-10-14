@@ -30,7 +30,7 @@
 
     <v-card-actions>
       <v-spacer />
-      <show-button :spot="spot" :type="type" />
+      <spot-show-button :spot="spot" :type="type" />
       <v-spacer />
     </v-card-actions>
   </div>
@@ -43,7 +43,7 @@ import WifiWithoutButton from '@/components/Buttons/WifiWithoutButton.vue'
 import PowerWithButton from '@/components/Buttons/PowerWithButton.vue'
 import PowerWithoutButton from '@/components/Buttons/PowerWithoutButton.vue'
 import CommentButton from '@/components/Buttons/CommentButton.vue'
-import ShowButton from '@/components/Buttons/ShowButton.vue'
+import SpotShowButton from '@/components/Spot/SpotShowButton.vue'
 
 export default {
   props: {
@@ -58,7 +58,7 @@ export default {
     PowerWithButton,
     PowerWithoutButton,
     CommentButton,
-    ShowButton
+    SpotShowButton
   }
 }
 </script>
