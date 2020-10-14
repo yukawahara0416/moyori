@@ -3,13 +3,13 @@
     <v-dialog persistent v-model="dialog" width="600">
       <template v-slot:activator="{ on }">
         <v-btn
-          class="mb-3 px-10"
           color="primary"
-          large
+          icon
           type="submit"
           v-on="on"
           @click.stop="dialogOn"
         >
+          <v-icon>mdi-pencil</v-icon>
           スポットを編集する
         </v-btn>
       </template>
