@@ -1,14 +1,15 @@
 <template>
-  <v-dialog v-model="dialog" width="600">
+  <v-dialog v-model="dialog" scrollable width="600">
     <template v-slot:activator="{ on }">
       <v-btn v-on="on" @click.stop="placeDetail(spot)">
         <v-icon class="mx-2">mdi-information-outline</v-icon>
-        詳細
+        詳細をみる
       </v-btn>
     </template>
 
     <spot-show-dialog
       :spot="spot"
+      :type="type"
       :dialog="dialog"
       @closeDialog="closeDialog"
     />
@@ -20,7 +21,8 @@ import SpotShowDialog from '@/components/Spot/SpotShowDialog.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: Object,
+    type: String
   },
 
   components: {

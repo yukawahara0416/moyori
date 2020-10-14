@@ -9,18 +9,16 @@
         </v-btn>
       </template>
 
-      <comment-button-dialog
-        :spot="spot"
-        :type="type"
-        :is-logged-in="isLoggedIn"
-      />
+      <v-card>
+        <spot-show-dialog-comment-panel :spot="spot" :type="type" />
+      </v-card>
     </v-dialog>
   </v-row>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import CommentButtonDialog from '@/components/Buttons/CommentButtonDialog.vue'
+import SpotShowDialogCommentPanel from '@/components/Spot/SpotShowDialogCommentPanel.vue'
 import Counter from '@/components/Buttons/Counter.vue'
 
 export default {
@@ -31,7 +29,7 @@ export default {
 
   components: {
     Counter,
-    CommentButtonDialog
+    SpotShowDialogCommentPanel
   },
 
   data() {
@@ -59,6 +57,12 @@ export default {
       } else {
         return []
       }
+    }
+  },
+
+  methods: {
+    closeDialog() {
+      this.dialog = false
     }
   }
 }

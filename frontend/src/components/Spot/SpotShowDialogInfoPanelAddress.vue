@@ -1,11 +1,8 @@
 <template>
-  <span>
-    <p>住所： {{ address }}</p>
-    <v-btn class="mb-4" :href="url" target="_brank">
-      <v-icon class="mx-2">mdi-google</v-icon>
-      Googleマップでナビ
-    </v-btn>
-  </span>
+  <p>
+    住所：
+    <a :href="url" target="_brank">{{ address }}</a>
+  </p>
 </template>
 
 <script>

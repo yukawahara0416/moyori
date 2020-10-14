@@ -2,7 +2,7 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    postComment(context, { spot, type, content }) {
+    postComment(context, { spot, content, type }) {
       const params = { spot_id: spot.data.id, content: content }
       axiosBase
         .post('/api/v1/comments', params, {
@@ -21,7 +21,6 @@ export default {
                 type: type,
                 genre: 'comments'
               })
-
           context.dispatch('pushSnackbar', {
             message: 'コメントを投稿しました ありがとうございます！',
             color: 'success'

@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="mb-2 pa-3">
     <v-form @submit.prevent>
       <v-textarea
         label="コメントを入力してください"
@@ -11,18 +11,10 @@
       />
     </v-form>
 
-    <v-btn @click="commentHandler()" type="submit">コメント</v-btn>
-
-    <div v-for="(comment, id) in spot.comments" :key="id">
-      <p>{{ comment.content }}</p>
-      <v-btn
-        type="submit"
-        v-if="currentUser && comment.user_id == currentUser.data.id"
-        @click="deleteComment({ spot, comment, type })"
-      >
-        削除
-      </v-btn>
-    </div>
+    <v-card-actions>
+      <v-spacer />
+      <v-btn @click="commentHandler()" type="submit">コメント</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -33,7 +25,7 @@ export default {
   props: {
     spot: Object,
     type: String,
-    isLoggedIn: Boolean
+    dialog: Boolean
   },
 
   data() {
@@ -43,13 +35,16 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentUser'])
+    ...mapGetters(['headers', 'currentUser', 'dialogSign']),
+
+    isLoggedIn() {
+      return this.headers !== null ? true : false
+    }
   },
 
-  // ここからコピペしただけ手つかず
   methods: {
     ...mapActions({ saveSpot: 'map/saveSpot' }),
-    ...mapActions(['postComment', 'deleteComment', 'pushSnackbar']),
+    ...mapActions(['postComment', 'pushSnackbar']),
 
     commentHandler: async function() {
       const spot = this.spot
@@ -62,10 +57,11 @@ export default {
         if (isPosted) {
           await this.postComment({
             spot: spot,
-            type: type,
-            content: this.content
+            content: this.content,
+            type: type
           })
           this.content = ''
+          this.closeDialog()
         } else {
           const result = await this.saveSpot({ spot: spot })
           await this.postComment({
@@ -74,10 +70,15 @@ export default {
             content: this.content
           })
           this.content = ''
+          this.closeDialog()
         }
       } else {
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
       }
+    },
+
+    closeDialog() {
+      this.$emit('closeDialog')
     }
   }
 }
