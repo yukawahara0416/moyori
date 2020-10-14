@@ -64,7 +64,17 @@ module Api
           wifi_withouts = spot.wifi_withouts
           power_withs = spot.power_withs
           power_withouts = spot.power_withouts
-          comments = spot.comments
+          comments = Comment.joins(:user)
+                            .where(spot_id: spot.id)
+                            .select('
+                              comments.id,
+                              comments.content,
+                              spot_id,
+                              user_id,
+                              comments.created_at,
+                              comments.updated_at,
+                              users.name AS user_name')
+
           {
             data: spot,
             # marker: nil,
@@ -95,7 +105,16 @@ module Api
           wifi_withouts = spot.wifi_withouts
           power_withs = spot.power_withs
           power_withouts = spot.power_withouts
-          comments = spot.comments
+          comments = Comment.joins(:user)
+                            .where(spot_id: spot.id)
+                            .select('
+                              comments.id,
+                              comments.content,
+                              spot_id,
+                              user_id,
+                              comments.created_at,
+                              comments.updated_at,
+                              users.name AS user_name')
           {
             data: spot,
             marker: marker,
