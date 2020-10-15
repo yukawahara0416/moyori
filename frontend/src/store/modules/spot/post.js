@@ -143,31 +143,6 @@ export default {
         })
     },
 
-    cancelPostSpot(context) {
-      context.dispatch('dialogOff', null, { root: true })
-      context.dispatch('clearSpotFormData')
-      context.dispatch(
-        'pushSnackbar',
-        {
-          message: 'スポットを登録をキャンセルしました',
-          color: 'error'
-        },
-        { root: true }
-      )
-    },
-
-    cancelEditSpot(context) {
-      context.dispatch('dialogOff', null, { root: true })
-      context.dispatch(
-        'pushSnackbar',
-        {
-          message: 'スポットの編集をキャンセルしました',
-          color: 'error'
-        },
-        { root: true }
-      )
-    },
-
     geocode(context, event) {
       const geocoder = new google.maps.Geocoder()
       var latLng = {

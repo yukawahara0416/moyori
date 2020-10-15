@@ -8,12 +8,11 @@
     <v-card-actions>
       <v-spacer />
 
-      <v-btn @click="dialogOff()" color="green darken-1" text>
+      <v-btn color="green darken-1" text @click="closeDialog()">
         キャンセル
       </v-btn>
 
-      <v-btn @click="dialogOff()" color="green darken-1" text>
-        <!-- updateAccount() -->
+      <v-btn color="green darken-1" text @click="dialogOff()">
         OK
       </v-btn>
     </v-card-actions>
@@ -21,12 +20,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   methods: {
-    // ...mapActions(['updateAccount', 'dialogOff']),
-    ...mapActions(['dialogOff'])
+    closeDialog() {
+      this.$emit('onCloseDialog')
+    }
   }
 }
 </script>

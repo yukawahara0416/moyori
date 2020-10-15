@@ -47,7 +47,7 @@
     <v-card-actions>
       <v-spacer />
 
-      <v-btn class="mb-3 px-10" large @click="cancelEditSpot()">
+      <v-btn class="mb-3 px-10" large @click.stop="closeDialog()">
         キャンセル
       </v-btn>
 
@@ -79,8 +79,8 @@ export default {
       this.$store.dispatch('post/editSpot', this.spot)
     },
 
-    cancelEditSpot() {
-      this.$store.dispatch('post/cancelEditSpot')
+    closeDialog() {
+      this.$emit('onCloseDialog')
     }
   }
 }

@@ -29,7 +29,7 @@ export default {
         return this.dialogSign
       },
       set() {
-        this.$store.dispatch('dialogOff')
+        this.$store.dispatch('dialogOff', 'dialogSign')
       }
     }
   },

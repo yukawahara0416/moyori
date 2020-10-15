@@ -8,7 +8,7 @@
     <v-card-actions>
       <v-spacer />
 
-      <v-btn @click="dialogOff()" color="green darken-1" text>
+      <v-btn @click.stop="closeDialog()" color="green darken-1" text>
         キャンセル
       </v-btn>
 
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   methods: {
-    ...mapActions(['deleteAccount', 'dialogOff'])
+    closeDialog() {
+      this.$emit('onCloseDialog')
+    }
   }
 }
 </script>

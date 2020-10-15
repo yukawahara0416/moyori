@@ -1,18 +1,17 @@
 <template>
-  <v-dialog v-model="dialog" width="400">
-    <template v-slot:activator="{ on }">
-      <v-btn class="my-3" width="250" v-on="on" @click.stop="dialogOn">
-        <v-icon left>mdi-delete</v-icon>
-        アカウント削除
-      </v-btn>
-    </template>
+  <span>
+    <v-btn class="my-3" width="250" @click.stop="dialog = true">
+      <v-icon left>mdi-delete</v-icon>
+      アカウント削除
+    </v-btn>
 
-    <profile-actions-buttons-delete-dialog />
-  </v-dialog>
+    <v-dialog v-model="dialog" width="400">
+      <profile-actions-buttons-delete-dialog @onCloseDialog="closeDialog()" />
+    </v-dialog>
+  </span>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import ProfileActionsButtonsDeleteDialog from '@/components/Profile/ProfileActionsButtonsDeleteDialog.vue'
 
 export default {
@@ -20,22 +19,19 @@ export default {
     ProfileActionsButtonsDeleteDialog
   },
 
-  computed: {
-    ...mapGetters(['dialogProfileDelete']),
-
-    dialog: {
-      get() {
-        return this.dialogProfileDelete
-      },
-      set() {
-        this.$store.dispatch('dialogOff')
-      }
+  data() {
+    return {
+      dialog: false
     }
   },
 
   methods: {
-    dialogOn() {
-      this.$store.dispatch('dialogOn', 'dialogProfileDelete')
+    closeDialog() {
+      this.dialog = false
+      this.$store.dispatch('pushSnackbar', {
+        message: 'アカウントの削除をキャンセルしました',
+        color: 'success'
+      })
     }
   }
 }

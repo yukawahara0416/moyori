@@ -19,25 +19,23 @@
       <spot-show-dialog-image-slide :spot="spot" />
       <spot-show-dialog-wifi-panel :spot="spot" />
       <spot-show-dialog-power-panel :spot="spot" />
-      <spot-show-dialog-image-slide :spot="spot" />
       <spot-show-dialog-comment-panel :spot="spot" :type="type" />
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import SpotShowDialogInfoPanel from '@/components/Spot/SpotShowDialogInfoPanel.vue'
 import SpotShowDialogWifiPanel from '@/components/Spot/SpotShowDialogWifiPanel.vue'
 import SpotShowDialogPowerPanel from '@/components/Spot/SpotShowDialogPowerPanel.vue'
 import SpotShowDialogImageSlide from '@/components/Spot/SpotShowDialogImageSlide.vue'
 import SpotShowDialogCommentPanel from '@/components/Spot/SpotShowDialogCommentPanel.vue'
-import SpotEditDialog from '@/components/Spot/SpotEditDialog.vue'
 
 export default {
   props: {
     spot: Object,
-    type: String,
-    dialog: Boolean
+    type: String
   },
 
   components: {
@@ -45,8 +43,7 @@ export default {
     SpotShowDialogWifiPanel,
     SpotShowDialogPowerPanel,
     SpotShowDialogImageSlide,
-    SpotShowDialogCommentPanel,
-    SpotEditDialog
+    SpotShowDialogCommentPanel
   },
 
   computed: {

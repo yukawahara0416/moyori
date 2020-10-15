@@ -25,7 +25,7 @@ export default {
         return this.dialogSpotCreate
       },
       set() {
-        this.$store.dispatch('dialogOff')
+        this.$store.dispatch('dialogOff', 'dialogSpotCreate')
       }
     }
   },

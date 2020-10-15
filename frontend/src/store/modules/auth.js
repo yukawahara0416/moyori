@@ -42,9 +42,9 @@ export default {
     setSignInFormData(state, payload) {
       state.headers = {
         'access-token': payload['access-token'],
-        client: payload['client'],
+        'client': payload['client'],
         'content-type': payload['content-type'],
-        uid: payload['uid']
+        'uid': payload['uid']
       }
     },
 
@@ -67,9 +67,9 @@ export default {
     signIn(state, payload) {
       state.headers = {
         'access-token': payload['access-token'],
-        client: payload['client'],
+        'client': payload['client'],
         'content-type': payload['content-type'],
-        uid: payload['uid']
+        'uid': payload['uid']
       }
     },
 
@@ -85,7 +85,7 @@ export default {
         .then(function(response) {
           context.commit('setCurrentUser', { user: response.data })
           context.commit('signIn', response.headers)
-          context.commit('dialogOff')
+          context.commit('dialogOff', 'dialogSign')
           context.commit('clearSignUpFormData')
           context.commit('clearSignInFormData')
           context.dispatch('pushSnackbar', {
@@ -108,7 +108,7 @@ export default {
           .then(function(response) {
             context.commit('setCurrentUser', { user: response.data })
             context.commit('signIn', response.headers)
-            context.commit('dialogOff')
+            context.commit('dialogOff', 'dialogSign')
             context.commit('clearSignInFormData')
             context.commit('clearSignUpFormData')
             context.dispatch('pushSnackbar', {

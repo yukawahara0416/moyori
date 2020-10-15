@@ -1,18 +1,17 @@
 <template>
-  <v-dialog v-model="dialog" width="400">
-    <template v-slot:activator="{ on }">
-      <v-btn class="my-3" width="250" v-on="on" @click.stop="dialogOn">
-        <v-icon left>mdi-pencil</v-icon>
-        プロフィール編集
-      </v-btn>
-    </template>
+  <span>
+    <v-btn class="my-3" width="250" @click.stop="dialog = true">
+      <v-icon left>mdi-pencil</v-icon>
+      プロフィール編集
+    </v-btn>
 
-    <profile-actions-buttons-edit-dialog />
-  </v-dialog>
+    <v-dialog v-model="dialog" width="400">
+      <profile-actions-buttons-edit-dialog @onCloseDialog="closeDialog()" />
+    </v-dialog>
+  </span>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import ProfileActionsButtonsEditDialog from '@/components/Profile/ProfileActionsButtonsEditDialog.vue'
 
 export default {
@@ -20,22 +19,23 @@ export default {
     ProfileActionsButtonsEditDialog
   },
 
-  computed: {
-    ...mapGetters(['dialogProfileEdit']),
-
-    dialog: {
-      get() {
-        return this.dialogProfileEdit
-      },
-      set() {
-        this.$store.dispatch('dialogOff')
-      }
+  data() {
+    return {
+      dialog: false
     }
   },
 
   methods: {
     dialogOn() {
       this.$store.dispatch('dialogOn', 'dialogProfileEdit')
+    },
+
+    closeDialog() {
+      this.dialog = false
+      this.$store.dispatch('pushSnackbar', {
+        message: 'プロフィールの編集をキャンセルしました',
+        color: 'success'
+      })
     }
   }
 }
