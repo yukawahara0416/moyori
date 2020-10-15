@@ -14,11 +14,11 @@
         {{ daytime(comment.created_at) }}
       </span>
       <span v-if="currentUser && comment.user_id == currentUser.data.id">
-        <span class="ml-2">
-          <a href="#" @click="deleteComment({ spot, comment, type })">
-            削除する
-          </a>
-        </span>
+        <spot-show-dialog-comment-panel-index-button-delete
+          :spot="spot"
+          :type="type"
+          :comment="comment"
+        />
       </span>
       <p class="mx-3">{{ comment.content }}</p>
     </v-card>
@@ -26,12 +26,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
+import SpotShowDialogCommentPanelIndexButtonDelete from '@/components/Spot/SpotShowDialogCommentPanelIndexButtonDelete.vue'
 
 export default {
   props: {
     spot: Object,
     type: String
+  },
+
+  components: {
+    SpotShowDialogCommentPanelIndexButtonDelete
   },
 
   computed: {
@@ -43,10 +48,6 @@ export default {
         return created_at.substring(0, position)
       }
     }
-  },
-
-  methods: {
-    ...mapActions(['deleteComment'])
   }
 }
 </script>

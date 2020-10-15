@@ -19,6 +19,7 @@
       <spot-show-dialog-image-slide :spot="spot" />
       <spot-show-dialog-wifi-panel :spot="spot" />
       <spot-show-dialog-power-panel :spot="spot" />
+      <spot-show-dialog-image-slide :spot="spot" />
       <spot-show-dialog-comment-panel :spot="spot" :type="type" />
     </v-card-text>
   </v-card>
@@ -30,6 +31,7 @@ import SpotShowDialogWifiPanel from '@/components/Spot/SpotShowDialogWifiPanel.v
 import SpotShowDialogPowerPanel from '@/components/Spot/SpotShowDialogPowerPanel.vue'
 import SpotShowDialogImageSlide from '@/components/Spot/SpotShowDialogImageSlide.vue'
 import SpotShowDialogCommentPanel from '@/components/Spot/SpotShowDialogCommentPanel.vue'
+import SpotEditDialog from '@/components/Spot/SpotEditDialog.vue'
 
 export default {
   props: {
@@ -43,7 +45,30 @@ export default {
     SpotShowDialogWifiPanel,
     SpotShowDialogPowerPanel,
     SpotShowDialogImageSlide,
-    SpotShowDialogCommentPanel
+    SpotShowDialogCommentPanel,
+    SpotEditDialog
+  },
+
+  computed: {
+    ...mapGetters(['headers', 'currentUser']),
+
+    isLoggedIn() {
+      return this.headers !== null ? true : false
+    },
+
+    isOwnPosted() {
+      if (this.isLoggedIn) {
+        if (this.spot.detail.formatted_address) {
+          return false
+        } else if (this.spot.data.user_id !== this.currentUser.data.id) {
+          return false
+        } else {
+          return true
+        }
+      } else {
+        return false
+      }
+    }
   },
 
   methods: {
