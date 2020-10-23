@@ -8,8 +8,11 @@
         <p>コメントはまだありません</p>
       </v-card>
     </span>
+
     <v-card-actions>
+      <v-spacer />
       <spot-show-dialog-comment-panel-post-dialog :spot="spot" :type="type" />
+      <v-spacer />
     </v-card-actions>
   </v-card>
 </template>
