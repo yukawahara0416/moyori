@@ -115,6 +115,13 @@ module Api
                               comments.created_at,
                               comments.updated_at,
                               users.name AS user_name')
+
+          comments_add_image = []
+          comments.each do |comment|
+            comment_add_image = convert_to_add_image(comment)
+            comments_add_image.push(comment_add_image)
+          end
+
           {
             data: spot,
             marker: marker,
@@ -123,12 +130,21 @@ module Api
             wifi_withouts: wifi_withouts,
             power_withs: power_withs,
             power_withouts: power_withouts,
-            comments: comments
+            comments: comments_add_image
           }
         end
 
         def spot_params
           params.fetch(:spot, {}).permit(:address, :lat, :lng, :name, :place_id, :url)
+        end
+
+        def convert_to_add_image(comment)
+          url = rails_blob_url(comment.image) if comment.image.attached?
+
+          {
+            comment: comment,
+            image: url
+          }
         end
     end
   end
