@@ -42,9 +42,9 @@ export default {
     setSignInFormData(state, payload) {
       state.headers = {
         'access-token': payload['access-token'],
-        'client': payload['client'],
+        'client': payload['client'], // eslint-disable-line
         'content-type': payload['content-type'],
-        'uid': payload['uid']
+        'uid': payload['uid'] // eslint-disable-line
       }
     },
 
@@ -67,9 +67,9 @@ export default {
     signIn(state, payload) {
       state.headers = {
         'access-token': payload['access-token'],
-        'client': payload['client'],
+        'client': payload['client'], // eslint-disable-line
         'content-type': payload['content-type'],
-        'uid': payload['uid']
+        'uid': payload['uid'] // eslint-disable-line
       }
     },
 
