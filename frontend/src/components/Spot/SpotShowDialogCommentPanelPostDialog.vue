@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <span>
     <v-btn color="success" @click.stop="commentHandler">
       <v-icon class="mr-2">mdi-message-outline</v-icon>
       コメントする
@@ -13,7 +13,7 @@
         @closeDialog="closeDialog"
       />
     </v-dialog>
-  </v-row>
+  </span>
 </template>
 
 <script>
