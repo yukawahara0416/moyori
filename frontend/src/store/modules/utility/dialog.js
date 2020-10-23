@@ -19,7 +19,7 @@ export default {
       state[target] = true
     },
 
-    dialogOff(state) {
+    dialogOff(state, target) {
       state[target] = false
     },
 
