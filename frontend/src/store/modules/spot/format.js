@@ -14,6 +14,8 @@ export default {
 
         var place_id = 'place_id' in res ? res.place_id : null
 
+        var phone = 'phone' in res ? res.phone : null
+
         var position =
           'geometry' in res
             ? {
@@ -31,6 +33,7 @@ export default {
             image: image,
             name: name,
             on: false,
+            phone: phone,
             place_id: place_id,
             position: position,
             zIndex: 10
@@ -53,12 +56,13 @@ export default {
       return new Promise(resolve => {
         var formatted = {
           data: res.data,
+          picture: res.picture,
           marker: {
             address: res.marker.address,
             name: res.marker.name,
             on: res.marker.on,
-            image: res.marker.image,
             place_id: res.marker.place_id,
+            phone: res.marker.phone,
             position: {
               lat: parseFloat(res.marker.position.lat),
               lng: parseFloat(res.marker.position.lng)

@@ -89,7 +89,7 @@ export default {
           context.commit('clearSignUpFormData')
           context.commit('clearSignInFormData')
           context.dispatch('pushSnackbar', {
-            message: 'MoYoRiへようこそ！',
+            message: 'アカウントを登録しました。MoYoRiへようこそ！',
             color: 'success'
           })
         })
@@ -150,9 +150,32 @@ export default {
         })
     },
 
+    updateAccount(context, { user, avatar }) {
+      const formData = new FormData()
+      formData.append('[name]', user.data.name)
+      formData.append('[email]', user.data.email)
+      if (avatar !== null) formData.append('[avatar]', avatar)
+      axiosBase
+        .patch('/api/v1/auth/', formData, {
+          headers: context.state.headers
+        })
+        .then(() => {
+          context.dispatch('pushSnackbar', {
+            message: 'アカウントを編集しました',
+            color: 'success'
+          })
+        })
+        .catch(function() {
+          context.dispatch('pushSnackbar', {
+            message: '予期しないエラーが発生しました',
+            color: 'error'
+          })
+        })
+    },
+
     deleteAccount(context) {
       axiosBase
-        .delete('/api/v1/auth/', { headers: context.state.headers })
+        .delete('/api/v1/auth', { headers: context.state.headers })
         .then(function() {
           context.commit('signOut')
           context.dispatch('pushSnackbar', {

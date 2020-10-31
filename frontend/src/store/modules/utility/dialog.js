@@ -1,7 +1,8 @@
 export default {
   state: {
     dialogSign: false,
-    dialogSpotCreate: false
+    dialogSpotCreate: false,
+    dialogSpotEdit: false
   },
 
   getters: {
@@ -11,6 +12,10 @@ export default {
 
     dialogSpotCreate(state) {
       return state.dialogSpotCreate
+    },
+
+    dialogSpotEdit(state) {
+      return state.dialogSpotEdit
     }
   },
 

@@ -3,6 +3,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
 import vuetify from '@/plugins/vuetify'
+import vee from '@/plugins/vee-validate'
 import 'vuetify/dist/vuetify.min.css'
 import '@/plugins/maps.js'
 
@@ -13,5 +14,6 @@ new Vue({
   router,
   store,
   vuetify,
+  vee,
   render: h => h(App)
 })

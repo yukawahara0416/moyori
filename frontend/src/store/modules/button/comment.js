@@ -6,7 +6,7 @@ export default {
       const formData = new FormData()
       formData.append('comment[spot_id]', spot.data.id)
       formData.append('comment[content]', content)
-      formData.append('comment[image]', image)
+      if (image !== null) formData.append('comment[image]', image)
       axiosBase
         .post('/api/v1/comments', formData, {
           headers: context.rootState.auth.headers

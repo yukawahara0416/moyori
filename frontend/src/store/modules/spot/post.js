@@ -6,11 +6,12 @@ export default {
     spotFormData: {
       address: '',
       name: '',
-      image: '',
+      picture: null,
       place_id: '',
+      phone: null,
       lat: '',
       lng: '',
-      url: ''
+      url: null
     }
   },
 
@@ -29,11 +30,12 @@ export default {
       state.spotFormData = {
         address: '',
         name: '',
-        image: '',
+        picture: null,
         place_id: '',
+        phone: null,
         lat: '',
         lng: '',
-        url: ''
+        url: null
       }
     }
   },
@@ -73,8 +75,18 @@ export default {
     },
 
     postSpot(context, params) {
+      const formData = new FormData()
+      formData.append('spot[address]', params.address)
+      formData.append('spot[name]', params.name)
+      if (params.picture !== null)
+        formData.append('spot[picture]', params.picture)
+      formData.append('spot[place_id]', params.place_id)
+      if (params.phone !== null) formData.append('spot[phone]', params.phone)
+      formData.append('spot[lat]', params.lat)
+      formData.append('spot[lng]', params.lng)
+      if (params.url !== null) formData.append('spot[url]', params.url)
       axiosBase
-        .post('/api/v1/spots', params, {
+        .post('/api/v1/spots', formData, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
@@ -83,7 +95,7 @@ export default {
             response.data.marker.position.lng
           )
           context.dispatch('pushSpot', response.data)
-          context.dispatch('dialogOff', null, { root: true })
+          context.dispatch('dialogOff', 'dialogSpotCreate', { root: true })
           context.dispatch('clearSpotFormData')
           context.dispatch(
             'pushSnackbar',
@@ -106,9 +118,19 @@ export default {
         })
     },
 
-    editSpot(context, spot) {
+    editSpot(context, { spot, picture }) {
+      const formData = new FormData()
+      formData.append('spot[address]', spot.data.address)
+      formData.append('spot[name]', spot.data.name)
+      formData.append('spot[place_id]', spot.data.place_id)
+      formData.append('spot[lat]', spot.data.lat)
+      formData.append('spot[lng]', spot.data.lng)
+      if (spot.data.phone !== null)
+        formData.append('spot[phone]', spot.data.phone)
+      if (spot.data.url !== null) formData.append('spot[url]', spot.data.url)
+      if (picture !== null) formData.append('spot[picture]', picture)
       axiosBase
-        .patch('/api/v1/spots/' + spot.data.id, spot.data, {
+        .patch('/api/v1/spots/' + spot.data.id, formData, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
@@ -118,9 +140,9 @@ export default {
           )
           context.dispatch('updateSpot', {
             spot: spot,
-            data: response.data.data
+            data: response.data
           })
-          context.dispatch('dialogOff', null, { root: true })
+          context.dispatch('dialogOff', 'dialogSpotEdit', { root: true })
           context.dispatch('clearSpotFormData')
           context.dispatch(
             'pushSnackbar',
@@ -141,6 +163,10 @@ export default {
             { root: true }
           )
         })
+    },
+
+    cancelPostSpot(context) {
+      context.commit('clearSpotFormData')
     },
 
     geocode(context, event) {

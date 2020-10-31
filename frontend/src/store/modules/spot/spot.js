@@ -88,8 +88,9 @@ export default {
           return item.marker.place_id == spot.data.place_id
         }
       })
-      Object.assign(target[0].data, data)
-      Object.assign(target[0].marker, data)
+      Object.assign(target[0].data, data.data)
+      Object.assign(target[0].marker, data.data)
+      target[0].picture = data.picture
     },
 
     deleteData(state, { spot, data, genre }) {
