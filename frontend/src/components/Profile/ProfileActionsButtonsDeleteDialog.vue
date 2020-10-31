@@ -30,7 +30,7 @@
 export default {
   methods: {
     closeDialog() {
-      this.$emit('onCloseDialog')
+        this.$emit('closeDialog')
     }
   }
 }

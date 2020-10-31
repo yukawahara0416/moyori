@@ -5,8 +5,11 @@
       プロフィール編集
     </v-btn>
 
-    <v-dialog v-model="dialog" width="400">
-      <profile-actions-buttons-edit-dialog @onCloseDialog="closeDialog()" />
+    <v-dialog v-model="dialog" width="600">
+      <profile-actions-buttons-edit-dialog
+        :user="user"
+        @closeDialog="closeDialog()"
+      />
     </v-dialog>
   </span>
 </template>
@@ -15,6 +18,10 @@
 import ProfileActionsButtonsEditDialog from '@/components/Profile/ProfileActionsButtonsEditDialog.vue'
 
 export default {
+  props: {
+    user: Object
+  },
+
   components: {
     ProfileActionsButtonsEditDialog
   },
@@ -26,16 +33,16 @@ export default {
   },
 
   methods: {
-    dialogOn() {
-      this.$store.dispatch('dialogOn', 'dialogProfileEdit')
-    },
+    // dialogOn() {
+    //   this.$store.dispatch('dialogOn', 'dialogProfileEdit')
+    // },
 
     closeDialog() {
       this.dialog = false
-      this.$store.dispatch('pushSnackbar', {
-        message: 'プロフィールの編集をキャンセルしました',
-        color: 'success'
-      })
+      // this.$store.dispatch('pushSnackbar', {
+      //   message: 'プロフィールの編集をキャンセルしました',
+      //   color: 'success'
+      // })
     }
   }
 }

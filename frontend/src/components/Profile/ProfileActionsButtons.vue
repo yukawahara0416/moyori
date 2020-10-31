@@ -7,11 +7,11 @@
       style="flex-direction: column;"
       v-show="headers !== null && id == this.currentUser.data.id"
     >
-      <profile-actions-buttons-edit />
+      <profile-actions-buttons-edit :user="user" />
 
       <profile-actions-buttons-sign-out />
 
-      <profile-actions-buttons-delete />
+      <profile-actions-buttons-delete :user="user" />
     </v-row>
   </v-col>
 </template>
@@ -24,6 +24,7 @@ import ProfileActionsButtonsDelete from '@/components/Profile/ProfileActionsButt
 export default {
   props: {
     id: Number,
+    user: Object,
     headers: Object,
     currentUser: Object
   },

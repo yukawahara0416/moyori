@@ -10,7 +10,18 @@
 <script>
 export default {
   props: {
+    user: Object,
     currentUser: Object
+  },
+
+  computed: {
+    avatar() {
+      if (this.user.avatar) {
+        return this.user.avatar
+      } else {
+        return require('@/assets/noimage.png')
+      }
+    }
   }
 }
 </script>

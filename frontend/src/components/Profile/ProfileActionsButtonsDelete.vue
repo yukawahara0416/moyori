@@ -6,7 +6,7 @@
     </v-btn>
 
     <v-dialog v-model="dialog" width="400">
-      <profile-actions-buttons-delete-dialog @onCloseDialog="closeDialog()" />
+      <profile-actions-buttons-delete-dialog @closeDialog="closeDialog()" />
     </v-dialog>
   </span>
 </template>
@@ -15,6 +15,10 @@
 import ProfileActionsButtonsDeleteDialog from '@/components/Profile/ProfileActionsButtonsDeleteDialog.vue'
 
 export default {
+  props: {
+    user: Object
+  },
+
   components: {
     ProfileActionsButtonsDeleteDialog
   },

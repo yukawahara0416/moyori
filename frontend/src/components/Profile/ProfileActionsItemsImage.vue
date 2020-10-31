@@ -1,14 +1,6 @@
 <template>
   <v-avatar height="150px" width="150px">
-    <!-- <img alt="John" src="https://cdn.vuetifyjs.com/images/john.jpg" /> -->
-    <!-- <img :src="image" /> -->
-    <v-img
-      :src="
-        user.data
-          ? require('@/assets/noimage.png')
-          : require('@/assets/noimage.png')
-      "
-    />
+    <v-img :src="avatar" />
   </v-avatar>
 </template>
 
@@ -16,6 +8,16 @@
 export default {
   props: {
     user: Object
+  },
+
+  computed: {
+    avatar() {
+      if (this.user.avatar) {
+        return this.user.avatar
+      } else {
+        return require('@/assets/noimage.png')
+      }
+    }
   }
 }
 </script>
