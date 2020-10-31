@@ -1,7 +1,7 @@
 <template>
   <v-card flat outlined class="mb-2 py-2">
     <v-slide-group show-arrows>
-      <v-slide-item v-if="!photos">
+      <v-slide-item v-if="photos.length < 1">
         <v-card class="d-flex mx-2" flat outlined tile width="100px">
           <v-img
             aspect-ratio="1"
@@ -10,7 +10,7 @@
         </v-card>
       </v-slide-item>
 
-      <v-slide-item v-for="(photo, id) in photos" :key="id">
+      <v-slide-item v-for="(photo, id) in photos" :key="id" v-else>
         <spot-show-dialog-image-slide-dialog :photo="photo" />
       </v-slide-item>
     </v-slide-group>
@@ -29,18 +29,36 @@ export default {
     SpotShowDialogImageSlideDialog
   },
 
-  data() {
-    return {
-      picture: null
-    }
-  },
-
   computed: {
     photos() {
-      return this.spot.detail.photos
+      let array = []
+      if (this.spot.picture) {
+        array = array.concat(this.spot.picture)
+      }
+      array = array.concat(this.imageUrls, this.photoUrls)
+      return array
+    },
+
+    photoUrls() {
+      let array = []
+      if (this.spot.detail.photos) {
+        for (let i = 0; i < this.spot.detail.photos.length; i++) {
+          array.push(this.spot.detail.photos[i].getUrl())
+        }
+      }
+      return array
+    },
+
+    imageUrls() {
+      const filtered = this.spot.comments.filter(function(comment) {
+        return comment.image !== null
+      })
+      let array = []
+      for (let i = 0; i < filtered.length; i++) {
+        array.push(filtered[i].image)
+      }
+      return array
     }
   }
 }
 </script>
-
-<style></style>

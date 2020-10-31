@@ -1,17 +1,18 @@
 <template>
   <span>
-    <v-btn color="primary" type="submit" text @click.stop="dialog = true">
+    <v-btn color="primary" type="submit" text @click.stop="dialogOn">
       <v-icon>mdi-pencil</v-icon>
       スポットを編集する
     </v-btn>
 
     <v-dialog persistent v-model="dialog" width="600">
-      <spot-edit-dialog-form :spot="spot" @onCloseDialog="closeDialog()" />
+      <spot-edit-dialog-form :spot="spot" />
     </v-dialog>
   </span>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import SpotEditDialogForm from '@/components/Spot/SpotEditDialogForm.vue'
 
 export default {
@@ -23,19 +24,22 @@ export default {
     SpotEditDialogForm
   },
 
-  data() {
-    return {
-      dialog: false
+  computed: {
+    ...mapGetters(['dialogSpotEdit']),
+
+    dialog: {
+      get() {
+        return this.dialogSpotEdit
+      },
+      set() {
+        this.$store.dispatch('dialogOff', 'dialogSpotEdit')
+      }
     }
   },
 
   methods: {
-    closeDialog() {
-      this.dialog = false
-      this.$store.dispatch('pushSnackbar', {
-        message: 'スポットの編集をキャンセルしました',
-        color: 'success'
-      })
+    dialogOn() {
+      this.$store.dispatch('dialogOn', 'dialogSpotEdit')
     }
   }
 }

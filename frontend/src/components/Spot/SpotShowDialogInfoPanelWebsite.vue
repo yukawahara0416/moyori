@@ -1,8 +1,8 @@
 <template>
   <p>
     ＵＲＬ：
-    <a :href="spot.detail.website" target="_brank">
-      {{ spot.detail.website }}
+    <a :href="url">
+      {{ url }}
     </a>
   </p>
 </template>
@@ -11,6 +11,18 @@
 export default {
   props: {
     spot: Object
+  },
+
+  computed: {
+    url() {
+      if (this.spot.detail.website) {
+        return this.spot.detail.website
+      } else if (this.spot.data.url) {
+        return this.spot.data.url
+      } else {
+        return null
+      }
+    }
   }
 }
 </script>

@@ -1,20 +1,63 @@
 <template>
   <v-card class="mb-2 pa-3">
-    <v-form @submit.prevent>
-      <v-textarea
-        label="コメントを入力してください"
-        name="comment"
-        prepend-icon="mdi-comment"
-        rows="5"
-        type="text"
-        v-model="content"
-      />
-    </v-form>
+    <ValidationObserver ref="observer" v-slot="{ invalid }" immediate>
+      <v-form>
+        <ValidationProvider
+          name="コメント"
+          rules="required|max:300"
+          v-slot="{ errors, valid }"
+        >
+          <v-textarea
+            autofocus
+            label="コメント*"
+            name="comment"
+            prepend-icon="mdi-comment"
+            rows="5"
+            required
+            type="text"
+            v-model="content"
+            :clearable="true"
+            :error-messages="errors"
+            :success="valid"
+          />
+        </ValidationProvider>
 
-    <v-card-actions>
-      <v-spacer />
-      <v-btn @click="commentHandler()" type="submit">コメント</v-btn>
-    </v-card-actions>
+        <ValidationProvider
+          name="画像"
+          rules="image"
+          v-slot="{ errors, valid }"
+        >
+          <v-file-input
+            chips
+            counter
+            label="画像"
+            name="comment"
+            prepend-icon="mdi-camera"
+            show-size
+            v-model="image"
+            :clearable="true"
+            :error="errors.length > 0"
+            :error-messages="errors"
+            :success="valid"
+          />
+        </ValidationProvider>
+      </v-form>
+
+      <v-card-actions>
+        <v-spacer />
+
+        <v-btn
+          color="primary"
+          type="submit"
+          @click="commentHandler()"
+          :disabled="invalid"
+        >
+          コメント
+        </v-btn>
+
+        <v-spacer />
+      </v-card-actions>
+    </ValidationObserver>
   </v-card>
 </template>
 
@@ -30,7 +73,9 @@ export default {
 
   data() {
     return {
-      content: ''
+      content: '',
+      errors: [],
+      image: null
     }
   },
 
@@ -58,18 +103,22 @@ export default {
           await this.postComment({
             spot: spot,
             content: this.content,
+            image: this.image,
             type: type
           })
           this.content = ''
+          this.image = null
           this.closeDialog()
         } else {
           const result = await this.saveSpot({ spot: spot })
           await this.postComment({
             spot: result,
-            type: type,
-            content: this.content
+            content: this.content,
+            image: this.image,
+            type: type
           })
           this.content = ''
+          this.image = null
           this.closeDialog()
         }
       } else {
@@ -83,5 +132,3 @@ export default {
   }
 }
 </script>
-
-<style></style>
