@@ -1,5 +1,6 @@
 class Spot < ApplicationRecord
   belongs_to :user
+
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
   has_many :wifi_withs, dependent: :destroy
@@ -11,7 +12,13 @@ class Spot < ApplicationRecord
   has_many :power_withouts, dependent: :destroy
   has_many :power_without_users, through: :power_withouts, source: :user
   has_many :comments, dependent: :destroy
-  validates :place_id, uniqueness: true
+
+  has_one_attached :picture
+
+  validates :address, length: { maximum: 200 }
+  validates :name, length: { maximum: 40 }
+  validates :place_id, uniqueness: true, presence: true
+  validates :url, length: { maximum: 100 }
 
   scope :order_location_by, lambda { |lat, lng|
                               sort_by_near(lat, lng)
