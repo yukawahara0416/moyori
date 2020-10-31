@@ -6,9 +6,7 @@
         imgHeight_big: $vuetify.breakpoint.mdAndUp,
         imgHeight_small: $vuetify.breakpoint.smAndDown
       }"
-      :src="
-        spot.marker.image ? spot.marker.image : require('@/assets/noimage.png')
-      "
+      :src="image"
     />
   </v-col>
 </template>
@@ -17,6 +15,26 @@
 export default {
   props: {
     spot: Object
+  },
+
+  computed: {
+    image() {
+      if (this.spot.picture) {
+        return this.spot.picture
+      } else if (this.filterImages.length > 0) {
+        return this.filterImages[0].image
+      } else if (this.spot.marker.image) {
+        return this.spot.marker.image
+      } else {
+        return require('@/assets/noimage.png')
+      }
+    },
+
+    filterImages() {
+      return this.spot.comments.filter(function(comment) {
+        return comment.image !== null
+      })
+    }
   }
 }
 </script>
