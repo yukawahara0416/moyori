@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_20_032457) do
+ActiveRecord::Schema.define(version: 2020_10_27_014741) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.string "namespace"
@@ -102,11 +102,11 @@ ActiveRecord::Schema.define(version: 2020_10_20_032457) do
     t.string "address"
     t.decimal "lat", precision: 9, scale: 6
     t.decimal "lng", precision: 9, scale: 6
-    t.string "image"
     t.string "url"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone"
     t.index ["user_id"], name: "index_spots_on_user_id"
   end
 
@@ -124,8 +124,6 @@ ActiveRecord::Schema.define(version: 2020_10_20_032457) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "name"
-    t.string "nickname"
-    t.string "image"
     t.string "email"
     t.text "tokens"
     t.datetime "created_at", null: false
