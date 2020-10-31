@@ -6,16 +6,13 @@
     </v-btn>
 
     <v-dialog v-model="dialog" width="600">
-      <profile-actions-buttons-edit-dialog
-        :user="user"
-        @closeDialog="closeDialog()"
-      />
+      <profile-actions-edit-dialog :user="user" @closeDialog="closeDialog()" />
     </v-dialog>
   </span>
 </template>
 
 <script>
-import ProfileActionsButtonsEditDialog from '@/components/Profile/ProfileActionsButtonsEditDialog.vue'
+import ProfileActionsEditDialog from '@/components/Profile/ProfileActionsEditDialog.vue'
 
 export default {
   props: {
@@ -23,7 +20,7 @@ export default {
   },
 
   components: {
-    ProfileActionsButtonsEditDialog
+    ProfileActionsEditDialog
   },
 
   data() {
