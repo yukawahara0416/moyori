@@ -39,14 +39,17 @@ module Api
       end
 
       def create
-        spot = current_api_v1_user.spots.new(spot_params)
-        spot.save
+        spot = current_api_v1_user.spots.create!(spot_params)
         render json: convert_to_json_posted_spot(spot)
       end
 
       def update
         spot = current_api_v1_user.spots.find(params[:id])
         spot.update_attributes(spot_params)
+        if params.key?(:picture)
+          spot.picture.purge
+          spot.picture.attach(params[:picture])
+        end
         render json: convert_to_json_posted_spot(spot)
       end
 
@@ -74,6 +77,11 @@ module Api
                               comments.created_at,
                               comments.updated_at,
                               users.name AS user_name')
+          comments_add_image = []
+          comments.each do |comment|
+            comment_add_image = convert_to_add_image(comment)
+            comments_add_image.push(comment_add_image)
+          end
 
           {
             data: spot,
@@ -83,16 +91,17 @@ module Api
             wifi_withouts: wifi_withouts,
             power_withs: power_withs,
             power_withouts: power_withouts,
-            comments: comments
+            comments: comments_add_image
           }
         end
 
         def convert_to_json_posted_spot(spot)
           marker = {
             address: spot.address,
-            image: spot.image,
+            # image: spot.image,
             name: spot.name,
             on: false,
+            phone: spot.phone,
             place_id: spot.place_id,
             position: {
               lat: spot.lat,
@@ -100,6 +109,7 @@ module Api
             },
             zIndex: 10
           }
+          url = rails_blob_url(spot.picture) if spot.picture.attached?
           likes = spot.likes
           wifi_withs = spot.wifi_withs
           wifi_withouts = spot.wifi_withouts
@@ -124,6 +134,8 @@ module Api
 
           {
             data: spot,
+            detail: {},
+            picture: url,
             marker: marker,
             likes: likes,
             wifi_withs: wifi_withs,
@@ -135,7 +147,7 @@ module Api
         end
 
         def spot_params
-          params.fetch(:spot, {}).permit(:address, :lat, :lng, :name, :place_id, :url)
+          params.fetch(:spot, {}).permit(:address, :picture, :lat, :lng, :name, :place_id, :phone, :url)
         end
 
         def convert_to_add_image(comment)
