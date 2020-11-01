@@ -5,7 +5,7 @@
       justify="center"
       no-gutter
       style="flex-direction: column;"
-      v-show="headers !== null && id == this.currentUser.data.id"
+      v-show="isLoggedIn && isOwnPage"
     >
       <profile-actions-edit :user="user" />
 
@@ -33,6 +33,16 @@ export default {
     ProfileActionsEdit,
     ProfileActionsSignOut,
     ProfileActionsDelete
+  },
+
+  computed: {
+    isLoggedIn() {
+      return this.headers !== null ? true : false
+    },
+
+    isOwnPage() {
+      return this.id == this.currentUser.data.id ? true : false
+    }
   }
 }
 </script>
