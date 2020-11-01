@@ -18,7 +18,6 @@ import HeaderAvatarList from '@/components/Header/HeaderAvatarList.vue'
 
 export default {
   props: {
-    user: Object,
     currentUser: Object
   },
 

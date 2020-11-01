@@ -27,10 +27,6 @@ import HeaderSignButton from '@/components/Header/HeaderSignButton.vue'
 import HeaderTitle from '@/components/Header/HeaderTitle.vue'
 
 export default {
-  props: {
-    user: Object
-  },
-
   components: {
     HeaderAvatar,
     HeaderChip,
