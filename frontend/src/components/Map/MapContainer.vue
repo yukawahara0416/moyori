@@ -77,7 +77,6 @@ export default {
       placeDetail: 'map/placeDetail',
       nearbySearchPost: 'post/nearbySearch',
       textSearchMap: 'map/textSearch',
-      // textSearchPost: 'post/textSearch',
       addSpotsMap: 'map/addSpots',
       collateSpot: 'map/collateSpot',
       addSpotsPost: 'post/addSpots',
@@ -177,14 +176,6 @@ export default {
         query: keyword
       }
 
-      // var resultsInPost = await this.nearbySearchPost(center)
-      // resultsInPost = await Promise.all(
-      //   resultsInPost.map(async res => {
-      //     return await this.formatPostSpot(res)
-      //   })
-      // )
-      // this.addSpotsPost(resultsInPost)
-
       var resultsInMap = await this.textSearchMap({ map, request })
       resultsInMap = await Promise.all(
         resultsInMap.map(async res => {
@@ -203,14 +194,12 @@ export default {
       if (this.currentUser) {
         this.$store.dispatch('post/geocode', event)
         this.$store.dispatch('post/placeIdGenerate', this.currentUser.data.id)
-        // Spot/SpotPostDialog/dialogOn
         this.$store.dispatch('dialogOn', 'dialogSpotCreate')
       } else {
         this.$store.dispatch('pushSnackbar', {
           message: 'スポットを登録するには、ログインが必要です',
           color: 'error'
         })
-        // Header/HeaderSignButton/dialogOn
         this.$store.dispatch('dialogOn', 'dialogSign')
       }
     },
