@@ -78,25 +78,34 @@ module Api
         end
 
         def convert_to_json_posted_spot(spot)
-          marker = {
-            address: spot.address,
-            # image: spot.image,
-            name: spot.name,
-            on: false,
-            phone: spot.phone,
-            place_id: spot.place_id,
-            position: {
-              lat: spot.lat,
-              lng: spot.lng
-            },
-            zIndex: 10
-          }
           url = rails_blob_url(spot.picture) if spot.picture.attached?
-          likes = spot.likes
-          wifi_withs = spot.wifi_withs
-          wifi_withouts = spot.wifi_withouts
-          power_withs = spot.power_withs
-          power_withouts = spot.power_withouts
+          {
+            data: spot,
+            detail: {},
+            picture: url,
+            marker: {
+              address: spot.address,
+              name: spot.name,
+              on: false,
+              phone: spot.phone,
+              place_id: spot.place_id,
+              position: {
+                lat: spot.lat.to_f,
+                lng: spot.lng.to_f
+              },
+              zIndex: 10
+            },
+            likes: spot.likes,
+            wifi_withs: spot.wifi_withs,
+            wifi_withouts: spot.wifi_withouts,
+            power_withs: spot.power_withs,
+            power_withouts: spot.power_withouts,
+            comments: convert_to_comment(spot)
+          }
+        end
+
+        def convert_to_comment(spot)
+          comments_with_image = []
           comments = Comment.joins(:user)
                             .where(spot_id: spot.id)
                             .select('
@@ -107,34 +116,17 @@ module Api
                               comments.created_at,
                               comments.updated_at,
                               users.name AS user_name')
-
-          comments_add_image = []
-          comments.each do |comment|
-            comment_add_image = convert_to_add_image(comment)
-            comments_add_image.push(comment_add_image)
+          comments.each do |item|
+            comment_with_image = give_image_to_comment(item)
+            comments_with_image.push(comment_with_image)
           end
 
-          {
-            data: spot,
-            detail: {},
-            picture: url,
-            marker: marker,
-            likes: likes,
-            wifi_withs: wifi_withs,
-            wifi_withouts: wifi_withouts,
-            power_withs: power_withs,
-            power_withouts: power_withouts,
-            comments: comments_add_image
-          }
+          comments_with_image
         end
 
-        def convert_to_add_image(comment)
+        def give_image_to_comment(comment)
           url = rails_blob_url(comment.image) if comment.image.attached?
-
-          {
-            comment: comment,
-            image: url
-          }
+          { comment: comment, image: url }
         end
 
       # rubocop:enable
