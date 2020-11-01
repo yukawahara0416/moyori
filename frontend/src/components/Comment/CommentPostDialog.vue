@@ -6,7 +6,7 @@
     </v-btn>
 
     <v-dialog v-model="dialog" width="600">
-      <spot-show-dialog-comment-panel-post-dialog-form
+      <comment-post-dialog-form
         :spot="spot"
         :type="type"
         :dialog="dialog"
@@ -18,7 +18,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import SpotShowDialogCommentPanelPostDialogForm from '@/components/Spot/SpotShowDialogCommentPanelPostDialogForm.vue'
+import CommentPostDialogForm from '@/components/Comment/CommentPostDialogForm.vue'
 
 export default {
   props: {
@@ -27,7 +27,7 @@ export default {
   },
 
   components: {
-    SpotShowDialogCommentPanelPostDialogForm
+    CommentPostDialogForm
   },
 
   data() {

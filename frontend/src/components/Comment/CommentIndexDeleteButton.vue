@@ -5,7 +5,7 @@
     </v-btn>
 
     <v-dialog v-model="dialog" width="600">
-      <spot-show-dialog-comment-panel-index-button-delete-dialog
+      <comment-index-delete-button-dialog
         :spot="spot"
         :comment="comment"
         :type="type"
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import SpotShowDialogCommentPanelIndexButtonDeleteDialog from '@/components/Spot/SpotShowDialogCommentPanelIndexButtonDeleteDialog.vue'
+import CommentIndexDeleteButtonDialog from '@/components/Comment/CommentIndexDeleteButtonDialog.vue'
 
 export default {
   props: {
@@ -26,7 +26,7 @@ export default {
   },
 
   components: {
-    SpotShowDialogCommentPanelIndexButtonDeleteDialog
+    CommentIndexDeleteButtonDialog
   },
 
   data() {

@@ -18,7 +18,7 @@
         <template
           v-if="currentUser && comment.comment.user_id == currentUser.data.id"
         >
-          <spot-show-dialog-comment-panel-index-button-delete
+          <comment-index-delete-button
             :spot="spot"
             :type="type"
             :comment="comment"
@@ -71,7 +71,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import SpotShowDialogCommentPanelIndexButtonDelete from '@/components/Spot/SpotShowDialogCommentPanelIndexButtonDelete.vue'
+import CommentIndexDeleteButton from '@/components/Comment/CommentIndexDeleteButton.vue'
 
 export default {
   props: {
@@ -80,7 +80,7 @@ export default {
   },
 
   components: {
-    SpotShowDialogCommentPanelIndexButtonDelete
+    CommentIndexDeleteButton
   },
 
   data() {
