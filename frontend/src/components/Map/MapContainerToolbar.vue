@@ -4,7 +4,6 @@
       short
       style="position: absolute; left: 10px; top: 10px; z-index: 2;"
     >
-      <!-- <map-container-toolbar-text-form @text-search="textSearch" /> -->
       <map-container-toolbar-demo-button @demo-search="demoSearch" />
       <map-container-toolbar-nearby-button @nearby-search="nearbySearch" />
       <map-container-toolbar-panto-button @panto-location="panToLocation" />
@@ -14,7 +13,6 @@
 </template>
 
 <script>
-// import MapContainerToolbarTextForm from '@/components/Map/MapContainerToolbarTextForm.vue'
 import MapContainerToolbarPantoButton from '@/components/Map/MapContainerToolbarPantoButton.vue'
 import MapContainerToolbarNearbyButton from '@/components/Map/MapContainerToolbarNearbyButton.vue'
 import MapContainerToolbarDemoButton from '@/components/Map/MapContainerToolbarDemoButton.vue'
@@ -22,7 +20,6 @@ import MapContainerToolbarOptionButton from '@/components/Map/MapContainerToolba
 
 export default {
   components: {
-    // MapContainerToolbarTextForm,
     MapContainerToolbarPantoButton,
     MapContainerToolbarNearbyButton,
     MapContainerToolbarDemoButton,
@@ -30,10 +27,6 @@ export default {
   },
 
   methods: {
-    textSearch(keyword) {
-      this.$emit('text-search', keyword)
-    },
-
     panToLocation() {
       this.$emit('panto-location')
     },

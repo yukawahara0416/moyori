@@ -2,7 +2,6 @@
   <span>
     <map-container-toolbar
       @nearby-search="nearbySearch"
-      @text-search="textSearch"
       @panto-location="panToLocation"
       @demo-search="demoSearch"
     />
@@ -71,20 +70,17 @@ export default {
 
   methods: {
     ...mapActions({
-      clearSpots: 'spot/clearSpots',
-      geolocate: 'map/geolocate',
+      addSpotsStore: 'spot/addSpotsStore',
+      clearSpotsStore: 'spot/clearSpotsStore',
+      formatSpot: 'spot/formatSpot',
       nearbySearchMap: 'map/nearbySearch',
-      placeDetail: 'map/placeDetail',
-      nearbySearchPost: 'post/nearbySearch',
-      textSearchMap: 'map/textSearch',
-      addSpotsMap: 'map/addSpots',
       collateSpot: 'map/collateSpot',
-      addSpotsPost: 'post/addSpots',
+      placeDetail: 'map/placeDetail',
+      geolocate: 'map/geolocate',
+      nearbySearchPost: 'post/nearbySearch',
       postSpot: 'post/postSpot',
-      pushSpot: 'post/pushSpot',
-      placeIdGenerator: 'post/placeIdGenerator',
-      formatNewSpot: 'format/newSpotFormat',
-      formatPostSpot: 'format/postedSpotFormat'
+      unshiftSpotsStore: 'post/unshiftSpotsStore',
+      placeIdGenerator: 'post/placeIdGenerator'
     }),
     ...mapActions(['loadingOn', 'loadingOff', 'dialogOff']),
 
@@ -92,7 +88,7 @@ export default {
     beforeSearch() {
       this.dialogOff()
       this.loadingOn()
-      this.clearSpots()
+      this.clearSpotsStore()
     },
 
     // 検索開始後の処理
@@ -104,7 +100,7 @@ export default {
       })
     },
 
-    // views/Searchアクセス時に自動でNearbySearch
+    // 初回読み込み時に自動でNearbySearch
     autoNearbySearch: async function() {
       this.beforeSearch()
       const center = await this.geolocate()
@@ -119,31 +115,25 @@ export default {
     // 周辺スポットの検索
     nearbySearch: async function() {
       this.beforeSearch()
-      const map = this.$refs.map.$mapObject
       const center = this.center
+      const map = this.$refs.map.$mapObject
       const request = {
         location: new google.maps.LatLng(center.lat, center.lng),
         radius: 500,
         type: ['cafe']
       }
 
-      var resultsInPost = await this.nearbySearchPost(center)
-      resultsInPost = await Promise.all(
-        resultsInPost.map(async res => {
-          return await this.formatPostSpot(res)
-        })
-      )
-      this.addSpotsPost(resultsInPost)
-
-      var resultsInMap = await this.nearbySearchMap({ map, request })
-      resultsInMap = await Promise.all(
-        resultsInMap.map(async res => {
-          const formatted = await this.formatNewSpot(res)
-          const assigned = await this.collateSpot(formatted)
+      const nearbyPostSpots = await this.nearbySearchPost(center)
+      let nearbyMapSpots = await this.nearbySearchMap({ map, request })
+      nearbyMapSpots = await Promise.all(
+        nearbyMapSpots.map(async spot => {
+          const format = await this.formatSpot(spot)
+          const assigned = await this.collateSpot(format)
           return assigned
         })
       )
-      this.addSpotsMap(resultsInMap)
+      const nearbySpots = nearbyPostSpots.concat(nearbyMapSpots)
+      this.addSpotsStore(nearbySpots)
       this.afterSearch()
     },
 
@@ -159,38 +149,16 @@ export default {
     placeDetailSearch: async function(spot) {
       const map = this.$refs.map.$mapObject
       const detail = await this.placeDetail({ map, spot })
-      this.$store.commit('spot/assignProp', {
-        spot: detail,
+      this.$store.commit('spot/updateDataSpotsStore', {
+        spot: spot,
+        data: detail,
         prop: 'detail'
       })
     },
 
-    // キーワード検索
-    textSearch: async function(keyword) {
-      this.beforeSearch()
-      const map = this.$refs.map.$mapObject
-      const center = this.center
-      const request = {
-        location: new google.maps.LatLng(center.lat, center.lng),
-        radius: 500,
-        query: keyword
-      }
-
-      var resultsInMap = await this.textSearchMap({ map, request })
-      resultsInMap = await Promise.all(
-        resultsInMap.map(async res => {
-          var formatted = await this.formatNewSpot(res)
-          var assigned = await this.collateSpot(formatted)
-          return assigned
-        })
-      )
-      this.addSpotsMap(resultsInMap)
-      this.afterSearch()
-    },
-
     // スポット新規作成
     createSpot(event) {
-      this.$store.dispatch('post/clearSpotFormData')
+      this.$store.commit('post/clearSpotFormData')
       if (this.currentUser) {
         this.$store.dispatch('post/geocode', event)
         this.$store.dispatch('post/placeIdGenerate', this.currentUser.data.id)
