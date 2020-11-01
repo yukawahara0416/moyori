@@ -5,7 +5,6 @@ import createPersistedState from 'vuex-persistedstate'
 import spot from '@/store/modules/spot/spot.js'
 import map from '@/store/modules/spot/map.js'
 import post from '@/store/modules/spot/post.js'
-import format from '@/store/modules/spot/format.js'
 
 import auth from '@/store/modules/user/auth.js'
 import user from '@/store/modules/user/user.js'
@@ -28,7 +27,6 @@ export default new Vuex.Store({
     spot: spot,
     map: map,
     post: post,
-    format: format,
 
     auth,
     user: user,

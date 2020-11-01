@@ -4,14 +4,6 @@ import queryString from 'query-string'
 export default {
   namespaced: true,
   actions: {
-    addSpots(context, results) {
-      context.commit('spot/addSpots', results, { root: true })
-    },
-
-    // updateSpots(context, { spot, id }) {
-    //   context.commit('spot/updateSpots', { spot, id }, { root: true })
-    // },
-
     nearbySearch(context, { map, request }) {
       return new Promise(resolve => {
         const placeService = new google.maps.places.PlacesService(map)
@@ -33,7 +25,7 @@ export default {
     },
 
     placeDetail(context, { map, spot }) {
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
         const placeService = new google.maps.places.PlacesService(map)
         const request = {
           placeId: spot.marker.place_id,
@@ -48,33 +40,10 @@ export default {
         }
         placeService.getDetails(request, (result, status) => {
           if (status == 'OK' || status == 'ZERO_RESULTS') {
-            spot['detail'] = result
-            if (spot.detail.opening_hours) {
-              delete spot.detail.opening_hours.open_now
+            if (result.opening_hours) {
+              delete result.opening_hours.open_now
             }
-            resolve(spot)
-          } else {
-            reject(spot)
-          }
-        })
-      })
-    },
-
-    textSearch(context, { map, request }) {
-      return new Promise(resolve => {
-        const placeService = new google.maps.places.PlacesService(map)
-        placeService.textSearch(request, (results, status) => {
-          if (status == 'OK' || status == 'ZERO_RESULTS') {
-            resolve(results)
-          } else {
-            context.dispatch(
-              'pushSnackbar',
-              {
-                message: '予期しないエラーが発生しました',
-                color: 'error'
-              },
-              { root: true }
-            )
+            resolve(result)
           }
         })
       })
@@ -88,10 +57,12 @@ export default {
             headers: context.rootState.auth.headers
           })
           .then(response => {
+            console.log('saveSpot response is:')
             context.commit(
-              'spot/assignProp',
+              'spot/updateDataSpotsStore',
               {
-                spot: response.data,
+                spot: spot,
+                data: response.data.data,
                 prop: 'data'
               },
               { root: true }

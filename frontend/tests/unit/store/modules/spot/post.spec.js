@@ -44,8 +44,8 @@ beforeEach(() => {
       spots: () => []
     },
     mutations: {
-      addSpots: ({}, arg) => spotStore.commit('addSpots', arg), // eslint-disable-line no-empty-pattern
-      pushSpot: ({}, arg) => spotStore.commit('pushSpot', arg) // eslint-disable-line no-empty-pattern
+      addSpotsStore: ({}, arg) => spotStore.commit('addSpotsStore', arg), // eslint-disable-line no-empty-pattern
+      unshiftSpotsStore: ({}, arg) => spotStore.commit('unshiftSpotsStore', arg) // eslint-disable-line no-empty-pattern
     }
   }
   store.registerModule('spot', cloneDeep(mockStore))
@@ -71,14 +71,14 @@ describe('mutations', () => {
 })
 
 describe('actions', () => {
-  it('spot/addSpots', () => {
+  it('spot/addSpotsStore', () => {
     const result = { marker: { name: 'test' } }
-    store.dispatch('addSpots', result)
+    store.dispatch('addSpotsStore', result)
     expect(spotStore.state.spots[0]).toBe(result)
   })
-  it('spot/pushSpot', () => {
+  it('spot/unshiftSpotsStore', () => {
     const result = { marker: { name: 'test' } }
-    store.dispatch('pushSpot', result)
+    store.dispatch('unshiftSpotsStore', result)
     expect(spotStore.state.spots[0]).toBe(result)
   })
   it('clearSpotFormData', () => {

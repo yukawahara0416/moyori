@@ -127,17 +127,34 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters({ spotFormData: 'post/spotFormData' })
+    ...mapGetters({ spotFormData: 'post/spotFormData' }),
+
+    formData() {
+      const formData = new FormData()
+      formData.append('spot[address]', this.spotFormData.address)
+      formData.append('spot[name]', this.spotFormData.name)
+      if (this.spotFormData.picture !== null)
+        formData.append('spot[picture]', this.spotFormData.picture)
+      formData.append('spot[place_id]', this.spotFormData.place_id)
+      if (this.spotFormData.phone !== null)
+        formData.append('spot[phone]', this.spotFormData.phone)
+      formData.append('spot[lat]', this.spotFormData.lat)
+      formData.append('spot[lng]', this.spotFormData.lng)
+      if (this.spotFormData.url !== null)
+        formData.append('spot[url]', this.spotFormData.url)
+
+      return formData
+    }
   },
 
   methods: {
     postSpot() {
-      this.$store.dispatch('post/postSpot', this.spotFormData)
+      this.$store.dispatch('post/postSpot', this.formData)
     },
 
     cancelPostSpot() {
       this.$store.dispatch('dialogOff', 'dialogSpotCreate')
-      this.$store.dispatch('post/clearSpotFormData')
+      this.$store.commit('post/clearSpotFormData')
       this.$store.dispatch('pushSnackbar', {
         message: 'スポットの登録をキャンセルしました',
         color: 'success'

@@ -22,7 +22,7 @@ beforeEach(() => {
       filterSpots: () => {}
     },
     actions: {
-      clearSpots: jest.fn()
+      clearSpotsStore: jest.fn()
     }
   }
 
@@ -32,7 +32,7 @@ beforeEach(() => {
       geolocate: jest.fn(),
       nearbySearch: jest.fn(),
       textSearch: jest.fn(),
-      addSpots: jest.fn(),
+      addSpotsStore: jest.fn(),
       collateSpot: jest.fn()
     }
   }
@@ -41,9 +41,9 @@ beforeEach(() => {
     namespaced: true,
     actions: {
       nearbySearch: jest.fn(),
-      addSpots: jest.fn(),
+      addSpotsStore: jest.fn(),
       postSpot: jest.fn(),
-      pushSpot: jest.fn(),
+      unshiftSpotsStore: jest.fn(),
       placeIdGenerator: jest.fn()
     }
   }
@@ -100,9 +100,9 @@ afterEach(() => {
 })
 
 describe('actions', () => {
-  it('spot/clearSpots', () => {
-    wrapper.vm.clearSpots()
-    expect(spot.actions.clearSpots).toHaveBeenCalled()
+  it('spot/clearSpotsStore', () => {
+    wrapper.vm.clearSpotsStore()
+    expect(spot.actions.clearSpotsStore).toHaveBeenCalled()
   })
   it('map/geolocate', () => {
     wrapper.vm.geolocate()
@@ -116,9 +116,9 @@ describe('actions', () => {
     wrapper.vm.textSearchMap()
     expect(map.actions.textSearch).toHaveBeenCalled()
   })
-  it('map/addSpots', () => {
+  it('map/addSpotsStore', () => {
     wrapper.vm.addSpotsMap()
-    expect(map.actions.addSpots).toHaveBeenCalled()
+    expect(map.actions.addSpotsStore).toHaveBeenCalled()
   })
   it('map/collateSpot', () => {
     wrapper.vm.collateSpot()
@@ -132,17 +132,17 @@ describe('actions', () => {
   //   wrapper.vm.textSearchPost()
   //   expect(post.actions.textSearch).toHaveBeenCalled()
   // })
-  it('post/addSpots', () => {
+  it('post/addSpotsStore', () => {
     wrapper.vm.addSpotsPost()
-    expect(post.actions.addSpots).toHaveBeenCalled()
+    expect(post.actions.addSpotsStore).toHaveBeenCalled()
   })
   it('post/postSpot', () => {
     wrapper.vm.postSpot()
     expect(post.actions.postSpot).toHaveBeenCalled()
   })
-  it('post/pushSpot', () => {
-    wrapper.vm.pushSpot()
-    expect(post.actions.pushSpot).toHaveBeenCalled()
+  it('post/unshiftSpotsStore', () => {
+    wrapper.vm.unshiftSpotsStore()
+    expect(post.actions.unshiftSpotsStore).toHaveBeenCalled()
   })
   it('post/placeIdGenerator', () => {
     wrapper.vm.placeIdGenerator()

@@ -10,7 +10,7 @@ export default {
         })
         .then(response => {
           type === 'map'
-            ? context.commit('spot/pushData', {
+            ? context.commit('spot/pushDataSpotsStore', {
                 spot: spot,
                 data: response.data,
                 genre: 'wifi_withouts'
@@ -43,7 +43,7 @@ export default {
         })
         .then(response => {
           type === 'map'
-            ? context.commit('spot/deleteData', {
+            ? context.commit('spot/deleteDataSpotsStore', {
                 spot: spot,
                 data: response.data,
                 genre: 'wifi_withouts'

@@ -5,7 +5,7 @@
 
       <v-spacer />
 
-      <v-btn icon @click="closeDialog">
+      <v-btn icon @click="closeDialog()">
         <v-icon class="white--text">mdi-close</v-icon>
       </v-btn>
     </v-toolbar>
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import SpotShowDialogInfoPanel from '@/components/Spot/SpotShowDialogInfoPanel.vue'
 import SpotShowDialogWifiPanel from '@/components/Spot/SpotShowDialogWifiPanel.vue'
 import SpotShowDialogPowerPanel from '@/components/Spot/SpotShowDialogPowerPanel.vue'
@@ -44,28 +43,6 @@ export default {
     SpotShowDialogPowerPanel,
     SpotShowDialogImageSlide,
     SpotShowDialogCommentPanel
-  },
-
-  computed: {
-    ...mapGetters(['headers', 'currentUser']),
-
-    isLoggedIn() {
-      return this.headers !== null ? true : false
-    },
-
-    isOwnPosted() {
-      if (this.isLoggedIn) {
-        if (this.spot.detail.formatted_address) {
-          return false
-        } else if (this.spot.data.user_id !== this.currentUser.data.id) {
-          return false
-        } else {
-          return true
-        }
-      } else {
-        return false
-      }
-    }
   },
 
   methods: {

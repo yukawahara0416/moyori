@@ -99,7 +99,7 @@
       <v-card-actions>
         <v-spacer />
 
-        <v-btn class="mb-3 px-10" large @click.stop="cancelEditSpot()">
+        <v-btn class="mb-3 px-10" large @click.stop="cancelUpdateSpot()">
           キャンセル
         </v-btn>
 
@@ -110,7 +110,7 @@
           color="primary"
           large
           type="submit"
-          @click="editSpot()"
+          @click="updateSpot()"
           :disabled="invalid"
         >
           スポットを編集する
@@ -134,15 +134,33 @@ export default {
     }
   },
 
+  computed: {
+    formData() {
+      const formData = new FormData()
+      formData.append('spot[address]', this.spot.data.address)
+      formData.append('spot[name]', this.spot.data.name)
+      formData.append('spot[place_id]', this.spot.data.place_id)
+      formData.append('spot[lat]', this.spot.data.lat)
+      formData.append('spot[lng]', this.spot.data.lng)
+      if (this.spot.data.phone !== null)
+        formData.append('spot[phone]', this.spot.data.phone)
+      if (this.spot.data.url !== null)
+        formData.append('spot[url]', this.spot.data.url)
+      if (this.picture !== null) formData.append('spot[picture]', this.picture)
+
+      return formData
+    }
+  },
+
   methods: {
-    editSpot() {
-      this.$store.dispatch('post/editSpot', {
+    updateSpot() {
+      this.$store.dispatch('post/updateSpot', {
         spot: this.spot,
-        picture: this.picture
+        formData: this.formData
       })
     },
 
-    cancelEditSpot() {
+    cancelUpdateSpot() {
       this.$store.dispatch('dialogOff', 'dialogSpotEdit')
       this.$store.dispatch('post/clearSpotFormData')
       this.$store.dispatch('pushSnackbar', {
