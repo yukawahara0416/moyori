@@ -17,7 +17,7 @@ class Spot < ApplicationRecord
 
   validates :address, length: { maximum: 200 }
   validates :name, length: { maximum: 40 }
-  validates :place_id, uniqueness: true, presence: true
+  validates :place_id, presence: true, uniqueness: true
   validates :url, length: { maximum: 100 }
 
   scope :order_location_by, lambda { |lat, lng|
