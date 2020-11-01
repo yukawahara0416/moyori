@@ -32,10 +32,6 @@ export default {
   methods: {
     closeDialog() {
       this.dialog = false
-      this.$store.dispatch('pushSnackbar', {
-        message: 'アカウントの削除をキャンセルしました',
-        color: 'success'
-      })
     }
   }
 }

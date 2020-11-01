@@ -8,14 +8,14 @@
     <v-card-actions>
       <v-spacer />
 
-      <v-btn @click.stop="closeDialog()" color="green darken-1" text>
+      <v-btn @click.stop="cancelDeleteAccount()" color="green darken-1" text>
         キャンセル
       </v-btn>
 
       <v-btn
         @click="
           deleteAccount()
-          dialogOff()
+          closeDialog()
         "
         color="green darken-1"
         text
@@ -27,8 +27,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   methods: {
+    ...mapActions(['deleteAccount']),
+
+    cancelDeleteAccount() {
+      this.closeDialog()
+      this.$store.dispatch('pushSnackbar', {
+        message: 'アカウントの削除をキャンセルしました',
+        color: 'success'
+      })
+    },
+
     closeDialog() {
       this.$emit('closeDialog')
     }
