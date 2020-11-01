@@ -44,7 +44,7 @@ export default {
 
     isOwnPosted() {
       if (this.isLoggedIn) {
-        if (this.spot.detail.formatted_address) {
+        if (this.spot.marker.place_id.length >= 11) {
           return false
         } else if (this.spot.data.user_id !== this.currentUser.data.id) {
           return false

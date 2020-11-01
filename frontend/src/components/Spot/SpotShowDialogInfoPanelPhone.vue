@@ -17,8 +17,8 @@ export default {
     tel() {
       if (this.spot.detail.formatted_phone_number) {
         return this.spot.detail.formatted_phone_number
-      } else if (this.spot.data.phone) {
-        return this.spot.data.phone
+      } else if (this.spot.marker.phone) {
+        return this.spot.marker.phone
       } else {
         return null
       }

@@ -16,7 +16,7 @@ export default {
       if (this.spot.detail.formatted_address) {
         return this.spot.detail.formatted_address
       } else {
-        return this.spot.data.address
+        return this.spot.marker.address
       }
     },
 
