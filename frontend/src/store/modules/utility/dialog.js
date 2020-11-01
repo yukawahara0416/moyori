@@ -31,6 +31,7 @@ export default {
     dialogOffAll(state) {
       state.dialogSign = false
       state.dialogSpotCreate = false
+      state.dialogSpotEdit = false
     }
   },
 
