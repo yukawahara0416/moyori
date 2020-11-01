@@ -17,7 +17,7 @@
               name="profile-update"
               prepend-icon="mdi-account-circle-outline"
               type="text"
-              v-model="user.data.name"
+              v-model="name"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -34,7 +34,7 @@
               name="profile-update"
               prepend-icon="mdi-email-outline"
               type="text"
-              v-model="user.data.email"
+              v-model="email"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -53,7 +53,7 @@
               name="picture"
               prepend-icon="mdi-camera"
               show-size
-              v-model="avatar"
+              v-model="avatar_slot"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -85,24 +85,10 @@
         <v-spacer />
       </v-card-actions>
     </ValidationObserver>
-
-    <!-- <v-card-actions>
-      <v-spacer />
-
-      <v-btn color="green darken-1" text @click="closeDialog()">
-        キャンセル
-      </v-btn>
-
-      <v-btn color="green darken-1" text @click="dialogOff()">
-        OK
-      </v-btn>
-    </v-card-actions> -->
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   props: {
     user: Object
@@ -110,25 +96,31 @@ export default {
 
   data() {
     return {
-      avatar: null
+      name: this.user.data.name,
+      email: this.user.data.email,
+      avatar: this.user.avatar,
+      avatar_slot: null
     }
-  },
-
-  computed: {
-    ...mapGetters(['signUpFormData', 'currentUser'])
   },
 
   methods: {
     updateAccount() {
+      const formData = new FormData()
+      formData.append('[name]', this.name)
+      formData.append('[email]', this.email)
+      if (this.avatar_slot !== null)
+        formData.append('[avatar]', this.avatar_slot)
+
       this.$store.dispatch('updateAccount', {
-        user: this.user,
-        avatar: this.avatar
+        formData: formData,
+        id: this.user.data.id
       })
       this.closeDialog()
     },
 
     cancelUpdateAccount() {
       this.closeDialog()
+      this.clearEditFormData()
       this.$store.dispatch('pushSnackbar', {
         message: 'スポットの編集をキャンセルしました',
         color: 'success'
@@ -137,6 +129,13 @@ export default {
 
     closeDialog() {
       this.$emit('closeDialog')
+    },
+
+    clearEditFormData() {
+      this.name = this.user.data.name
+      this.email = this.user.data.email
+      this.avatar = this.user.avatar
+      this.avatar_slot = null
     }
   }
 }
