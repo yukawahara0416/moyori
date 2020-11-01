@@ -58,14 +58,14 @@ export default {
 
   created() {
     this.clearSpots()
-    this.clearUser()
+    this.clearUserStore()
     this.getUser(this.id)
   },
 
   methods: {
     ...mapActions({
       clearSpots: 'spot/clearSpots',
-      clearUser: 'user/clearUser',
+      clearUserStore: 'user/clearUserStore',
       getUser: 'user/getUser'
     })
   }

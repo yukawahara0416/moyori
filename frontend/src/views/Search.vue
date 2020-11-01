@@ -23,13 +23,13 @@ export default {
 
   created() {
     this.clearSpots()
-    this.clearUser()
+    this.clearUserStore()
   },
 
   methods: {
     ...mapActions({
       clearSpots: 'spot/clearSpots',
-      clearUser: 'user/clearUser'
+      clearUserStore: 'user/clearUserStore'
     })
   }
 }

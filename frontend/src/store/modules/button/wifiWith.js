@@ -15,7 +15,7 @@ export default {
                 data: response.data,
                 genre: 'wifi_withs'
               })
-            : context.commit('user/addUserData', {
+            : context.commit('user/addDataUserStore', {
                 spot: spot,
                 data: response.data,
                 type: type,
@@ -48,7 +48,7 @@ export default {
                 data: response.data,
                 genre: 'wifi_withs'
               })
-            : context.commit('user/deleteUserData', {
+            : context.commit('user/deleteDataUserStore', {
                 spot: spot,
                 data: response.data,
                 type: type,

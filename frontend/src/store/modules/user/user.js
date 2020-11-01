@@ -13,22 +13,31 @@ export default {
   },
 
   mutations: {
-    setUser(state, payload) {
+    setUserStore(state, payload) {
       state.user = payload
     },
 
-    clearUser(state) {
+    editUserStore(state, { name, email }) {
+      state.user.data.name = name
+      state.user.data.email = email
+    },
+
+    editUserAvatarStore(state, payload) {
+      state.user.avatar = payload
+    },
+
+    clearUserStore(state) {
       state.user = {}
     },
 
-    addUserData(state, { spot, data, type, genre }) {
+    addDataUserStore(state, { spot, data, type, genre }) {
       const target = state.user[type].filter(function(item) {
         return item.marker.place_id == spot.data.place_id
       })
       target[0][genre].push(data)
     },
 
-    deleteUserData(state, { spot, data, type, genre }) {
+    deleteDataUserStore(state, { spot, data, type, genre }) {
       const target = state.user[type].filter(function(item) {
         return item.marker.place_id == spot.data.place_id
       })
@@ -52,15 +61,11 @@ export default {
   },
 
   actions: {
-    setUser(context, response) {
-      context.commit('setUser', response)
-    },
-
     getUser(context, id) {
       axiosBase
         .get('/api/v1/users/' + id)
         .then(response => {
-          context.dispatch('setUser', response.data)
+          context.commit('setUserStore', response.data)
         })
         .catch(() => {
           context.dispatch(
@@ -74,8 +79,8 @@ export default {
         })
     },
 
-    clearUser(context) {
-      context.commit('clearUser')
+    clearUserStore(context) {
+      context.commit('clearUserStore')
     },
 
     spotlight(context, { spot, type }) {
