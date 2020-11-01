@@ -8,8 +8,7 @@ export default {
     signUpFormData: {
       name: '',
       email: '',
-      password: '',
-      password_confirmation: ''
+      password: ''
     },
     signInFormData: {
       email: '',
@@ -54,8 +53,7 @@ export default {
       state.signUpFormData = {
         name: '',
         email: '',
-        password: '',
-        password_confirmation: ''
+        password: ''
       }
     },
 

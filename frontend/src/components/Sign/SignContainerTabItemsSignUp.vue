@@ -76,7 +76,6 @@
                   v-slot="{ errors, valid }"
                   name="パスワード"
                   rules="required|alpha_num"
-                  vid="password"
                 >
                   <v-text-field
                     label="パスワード"
@@ -84,24 +83,6 @@
                     prepend-icon="mdi-lock-outline"
                     v-model="signUpFormData.password"
                     type="password"
-                    :clearable="true"
-                    :error-messages="errors"
-                    :success="valid"
-                  />
-                </ValidationProvider>
-
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  name="パスワード（確認用）"
-                  rules="required|alpha_num|confirmed:password"
-                >
-                  <v-text-field
-                    label="パスワード（確認用）"
-                    name="password_confirmation"
-                    prepend-icon="mdi-lock-outline"
-                    type="password"
-                    v-model="signUpFormData.password_confirmation"
-                    @keyup.enter="signUp()"
                     :clearable="true"
                     :error-messages="errors"
                     :success="valid"
