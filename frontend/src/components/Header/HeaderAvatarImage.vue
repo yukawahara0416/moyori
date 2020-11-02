@@ -1,6 +1,10 @@
 <template>
   <v-avatar class="white--text headline" color="success" size="36">
-    <img alt="" src="" v-if="currentUser.data.image" />
+    <v-img
+      v-if="currentUser.avatar"
+      :src="currentUser.avatar"
+      alt="プロフィール画像"
+    />
     <span class="white--text headline" v-else>
       {{ currentUser.data.name.slice(0, 1) }}
     </span>
@@ -10,20 +14,7 @@
 <script>
 export default {
   props: {
-    user: Object,
     currentUser: Object
-  },
-
-  computed: {
-    avatar() {
-      if (this.user.avatar) {
-        return this.user.avatar
-      } else {
-        return require('@/assets/noimage.png')
-      }
-    }
   }
 }
 </script>
-
-<style></style>
