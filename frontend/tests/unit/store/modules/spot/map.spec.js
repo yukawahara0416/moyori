@@ -26,17 +26,18 @@ beforeEach(() => {
     },
 
     mutations: {
-      addSpots: ({}, arg) => spotStore.commit('addSpots', arg), // eslint-disable-line no-empty-pattern
-      assignProp: ({}, arg) => spotStore.commit('assignProp', arg) // eslint-disable-line no-empty-pattern
+      addSpotsStore: ({}, arg) => spotStore.commit('addSpotsStore', arg), // eslint-disable-line no-empty-pattern
+      updateDataSpotsStore: ({}, arg) =>
+        spotStore.commit('updateDataSpotsStore', arg) // eslint-disable-line no-empty-pattern
     }
   }
   store.registerModule('spot', cloneDeep(mockStore))
 })
 
 describe('actions', () => {
-  it('spot/addSpots', async () => {
+  it('spot/addSpotsStore', async () => {
     var result = { marker: { name: 'test' } }
-    await store.dispatch('addSpots', result)
+    await store.dispatch('addSpotsStore', result)
     expect(spotStore.state.spots[0]).toBe(result)
   })
 
@@ -52,7 +53,7 @@ describe('actions', () => {
   //   }
   //   axiosMock.onPost('/api/v1/spots/save', params).reply(200, response)
   //   axiosBase.post('/api/v1/spots/save', params).then(res => {
-  //     store.dispatch('assignProp', {
+  //     store.dispatch('updateDataSpotsStore', {
   //       spot: res.data,
   //       id: 0,
   //       prop: 'data'

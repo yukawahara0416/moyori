@@ -1,24 +1,24 @@
 <template>
-  <v-row justify="center">
-    <v-btn color="success" @click.stop="commentHandler">
+  <span>
+    <v-btn color="primary" @click.stop="commentHandler()">
       <v-icon class="mr-2">mdi-message-outline</v-icon>
       コメントする
     </v-btn>
 
     <v-dialog v-model="dialog" width="600">
-      <spot-show-dialog-comment-panel-post-dialog-form
+      <comment-post-dialog-form
         :spot="spot"
         :type="type"
         :dialog="dialog"
         @closeDialog="closeDialog"
       />
     </v-dialog>
-  </v-row>
+  </span>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import SpotShowDialogCommentPanelPostDialogForm from '@/components/Spot/SpotShowDialogCommentPanelPostDialogForm.vue'
+import CommentPostDialogForm from '@/components/Comment/CommentPostDialogForm.vue'
 
 export default {
   props: {
@@ -27,7 +27,7 @@ export default {
   },
 
   components: {
-    SpotShowDialogCommentPanelPostDialogForm
+    CommentPostDialogForm
   },
 
   data() {

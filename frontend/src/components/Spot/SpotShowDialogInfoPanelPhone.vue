@@ -1,8 +1,8 @@
 <template>
   <p>
     電話番号：
-    <a :href="'tel:' + spot.detail.formatted_phone_number">
-      {{ spot.detail.formatted_phone_number }}
+    <a :href="'tel:' + tel">
+      {{ tel }}
     </a>
   </p>
 </template>
@@ -11,8 +11,18 @@
 export default {
   props: {
     spot: Object
+  },
+
+  computed: {
+    tel() {
+      if (this.spot.detail.formatted_phone_number) {
+        return this.spot.detail.formatted_phone_number
+      } else if (this.spot.marker.phone) {
+        return this.spot.marker.phone
+      } else {
+        return null
+      }
+    }
   }
 }
 </script>
-
-<style></style>

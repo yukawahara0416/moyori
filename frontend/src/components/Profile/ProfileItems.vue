@@ -1,0 +1,23 @@
+<template>
+  <v-col class="text-center">
+    <profile-items-image :user="user" />
+
+    <profile-items-name :user="user" />
+  </v-col>
+</template>
+
+<script>
+import ProfileItemsImage from '@/components/Profile/ProfileItemsImage.vue'
+import ProfileItemsName from '@/components/Profile/ProfileItemsName.vue'
+
+export default {
+  props: {
+    user: Object
+  },
+
+  components: {
+    ProfileItemsImage,
+    ProfileItemsName
+  }
+}
+</script>

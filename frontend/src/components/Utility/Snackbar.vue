@@ -1,8 +1,8 @@
 <template>
   <div class="text-right">
-    <v-snackbar :color="color" top v-model="snackbarState">
+    <v-snackbar top v-model="snackbar" :color="color">
       {{ message }}
-      <v-btn @click.native="snackbarState = false" color="white" text>
+      <v-btn color="white" text @click.native="snackbar = false">
         Close
       </v-btn>
     </v-snackbar>
@@ -15,7 +15,7 @@ export default {
     return {
       color: '',
       message: '',
-      snackbarState: false
+      snackbar: false
     }
   },
 
@@ -25,7 +25,7 @@ export default {
         return state.snackbar.color
       },
       newVal => {
-        var color = newVal
+        const color = newVal
         if (color !== '') {
           this.color = color
         }
@@ -36,10 +36,10 @@ export default {
         return state.snackbar.message
       },
       newVal => {
-        var message = newVal
+        const message = newVal
         if (message !== '') {
           this.message = message
-          this.snackbarState = true
+          this.snackbar = true
           this.$store.dispatch('clearSnackbar')
         }
       }

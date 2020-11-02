@@ -2,13 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
-import auth from '@/store/modules/auth.js'
-
 import spot from '@/store/modules/spot/spot.js'
 import map from '@/store/modules/spot/map.js'
 import post from '@/store/modules/spot/post.js'
-import format from '@/store/modules/spot/format.js'
 
+import auth from '@/store/modules/user/auth.js'
 import user from '@/store/modules/user/user.js'
 
 import dialog from '@/store/modules/utility/dialog.js'
@@ -26,12 +24,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    auth,
     spot: spot,
     map: map,
     post: post,
-    format: format,
 
+    auth,
     user: user,
 
     dialog,

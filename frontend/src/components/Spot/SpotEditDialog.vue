@@ -1,19 +1,11 @@
 <template>
   <span>
-    <v-dialog persistent v-model="dialog" width="600">
-      <template v-slot:activator="{ on }">
-        <v-btn
-          color="primary"
-          icon
-          type="submit"
-          v-on="on"
-          @click.stop="dialogOn"
-        >
-          <v-icon>mdi-pencil</v-icon>
-          スポットを編集する
-        </v-btn>
-      </template>
+    <v-btn color="primary" type="submit" text @click.stop="dialogOn">
+      <v-icon>mdi-pencil</v-icon>
+      スポットを編集する
+    </v-btn>
 
+    <v-dialog persistent v-model="dialog" width="600">
       <spot-edit-dialog-form :spot="spot" />
     </v-dialog>
   </span>
@@ -40,7 +32,7 @@ export default {
         return this.dialogSpotEdit
       },
       set() {
-        this.$store.dispatch('dialogOff')
+        this.$store.dispatch('dialogOff', 'dialogSpotEdit')
       }
     }
   },
@@ -52,5 +44,3 @@ export default {
   }
 }
 </script>
-
-<style></style>

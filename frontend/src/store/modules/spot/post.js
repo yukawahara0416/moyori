@@ -6,11 +6,12 @@ export default {
     spotFormData: {
       address: '',
       name: '',
-      image: '',
+      picture: null,
       place_id: '',
+      phone: null,
       lat: '',
       lng: '',
-      url: ''
+      url: null
     }
   },
 
@@ -29,36 +30,17 @@ export default {
       state.spotFormData = {
         address: '',
         name: '',
-        image: '',
+        picture: null,
         place_id: '',
+        phone: null,
         lat: '',
         lng: '',
-        url: ''
+        url: null
       }
     }
   },
 
   actions: {
-    addSpots(context, spot) {
-      context.commit('spot/addSpots', spot, { root: true })
-    },
-
-    pushSpot(context, spot) {
-      context.commit('spot/pushSpot', spot, { root: true })
-    },
-
-    updateSpot(context, { spot, data }) {
-      context.commit(
-        'spot/updateData',
-        { spot: spot, data: data },
-        { root: true }
-      )
-    },
-
-    clearSpotFormData(context) {
-      context.commit('clearSpotFormData')
-    },
-
     nearbySearch(context, center) {
       return new Promise(resolve => {
         const params = { lat: center.lat, lng: center.lng }
@@ -72,9 +54,9 @@ export default {
       })
     },
 
-    postSpot(context, params) {
+    postSpot(context, formData) {
       axiosBase
-        .post('/api/v1/spots', params, {
+        .post('/api/v1/spots', formData, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
@@ -82,9 +64,12 @@ export default {
             response.data.marker.position.lat,
             response.data.marker.position.lng
           )
-          context.dispatch('pushSpot', response.data)
-          context.dispatch('dialogOff', null, { root: true })
-          context.dispatch('clearSpotFormData')
+          context.commit('spot/unshiftSpotsStore', response.data, {
+            root: true
+          })
+          context.dispatch('spot/spotlight', response.data, { root: true })
+          context.dispatch('dialogOff', 'dialogSpotCreate', { root: true })
+          context.commit('clearSpotFormData')
           context.dispatch(
             'pushSnackbar',
             {
@@ -106,9 +91,9 @@ export default {
         })
     },
 
-    editSpot(context, spot) {
+    updateSpot(context, { spot, formData }) {
       axiosBase
-        .patch('/api/v1/spots/' + spot.data.id, spot.data, {
+        .patch('/api/v1/spots/' + spot.data.id, formData, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
@@ -116,12 +101,18 @@ export default {
             response.data.marker.position.lat,
             response.data.marker.position.lng
           )
-          context.dispatch('updateSpot', {
-            spot: spot,
-            data: response.data.data
-          })
-          context.dispatch('dialogOff', null, { root: true })
-          context.dispatch('clearSpotFormData')
+          context.commit(
+            'spot/updateDataSpotsStore',
+            { spot: spot, data: response.data.marker, prop: 'marker' },
+            { root: true }
+          )
+          context.commit(
+            'spot/updateDataSpotsStore',
+            { spot: spot, data: response.data.data, prop: 'data' },
+            { root: true }
+          )
+          context.dispatch('dialogOff', 'dialogSpotEdit', { root: true })
+          context.commit('clearSpotFormData')
           context.dispatch(
             'pushSnackbar',
             {
@@ -141,31 +132,6 @@ export default {
             { root: true }
           )
         })
-    },
-
-    cancelPostSpot(context) {
-      context.dispatch('dialogOff', null, { root: true })
-      context.dispatch('clearSpotFormData')
-      context.dispatch(
-        'pushSnackbar',
-        {
-          message: 'スポットを登録をキャンセルしました',
-          color: 'error'
-        },
-        { root: true }
-      )
-    },
-
-    cancelEditSpot(context) {
-      context.dispatch('dialogOff', null, { root: true })
-      context.dispatch(
-        'pushSnackbar',
-        {
-          message: 'スポットの編集をキャンセルしました',
-          color: 'error'
-        },
-        { root: true }
-      )
     },
 
     geocode(context, event) {

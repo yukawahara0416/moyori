@@ -35,57 +35,77 @@
             <v-toolbar-title>メールアドレスで登録</v-toolbar-title>
           </v-toolbar>
 
-          <v-card-text>
-            <v-form>
-              <v-text-field
-                label="名前"
-                name="signin"
-                prepend-icon="mdi-account-circle-outline"
-                type="text"
-                v-model="signUpFormData.name"
-              />
+          <ValidationObserver ref="observer" v-slot="{ invalid }">
+            <v-card-text>
+              <v-form>
+                <ValidationProvider
+                  v-slot="{ errors, valid }"
+                  name="名前"
+                  rules="required"
+                >
+                  <v-text-field
+                    label="名前*"
+                    name="signin"
+                    prepend-icon="mdi-account-circle-outline"
+                    type="text"
+                    v-model="signUpFormData.name"
+                    :clearable="true"
+                    :error-messages="errors"
+                    :success="valid"
+                  />
+                </ValidationProvider>
 
-              <v-text-field
-                label="メールアドレス"
-                name="signin"
-                prepend-icon="mdi-email-outline"
-                type="text"
-                v-model="signUpFormData.email"
-              />
+                <ValidationProvider
+                  v-slot="{ errors, valid }"
+                  name="メールアドレス"
+                  rules="required|email|max:40"
+                >
+                  <v-text-field
+                    label="メールアドレス*"
+                    name="signin"
+                    prepend-icon="mdi-email-outline"
+                    type="text"
+                    v-model="signUpFormData.email"
+                    :clearable="true"
+                    :error-messages="errors"
+                    :success="valid"
+                  />
+                </ValidationProvider>
 
-              <v-text-field
-                id="password"
-                label="パスワード"
-                name="password"
-                prepend-icon="mdi-lock-outline"
-                type="password"
-                v-model="signUpFormData.password"
-              />
+                <ValidationProvider
+                  v-slot="{ errors, valid }"
+                  name="パスワード"
+                  rules="required|alpha_num"
+                >
+                  <v-text-field
+                    label="パスワード"
+                    name="password"
+                    prepend-icon="mdi-lock-outline"
+                    v-model="signUpFormData.password"
+                    type="password"
+                    :clearable="true"
+                    :error-messages="errors"
+                    :success="valid"
+                  />
+                </ValidationProvider>
+              </v-form>
+            </v-card-text>
 
-              <v-text-field
-                id="password_confirmation"
-                label="パスワード（確認用）"
-                name="password_confirmation"
-                prepend-icon="mdi-lock-outline"
-                type="password"
-                v-model="signUpFormData.password_confirmation"
-              />
-            </v-form>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer />
-            <v-btn
-              class="mb-3 px-10"
-              @click.stop="signUp"
-              color="primary"
-              large
-              type="submit"
-            >
-              登録
-            </v-btn>
-            <v-spacer />
-          </v-card-actions>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                class="mb-3 px-10"
+                color="primary"
+                large
+                type="submit"
+                @click.stop="signUp()"
+                :disabled="invalid"
+              >
+                登録
+              </v-btn>
+              <v-spacer />
+            </v-card-actions>
+          </ValidationObserver>
         </v-card>
       </v-col>
 

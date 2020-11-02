@@ -52,7 +52,9 @@ export default {
     ownComment() {
       if (this.isLoggedIn) {
         return this.spot.comments.filter(comment => {
-          return comment.user_id == this.currentUser.data.id
+          if (comment.comment) {
+            return comment.comment.user_id == this.currentUser.data.id
+          }
         })
       } else {
         return []

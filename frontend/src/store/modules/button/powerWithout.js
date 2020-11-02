@@ -10,12 +10,12 @@ export default {
         })
         .then(response => {
           type === 'map'
-            ? context.commit('spot/pushData', {
+            ? context.commit('spot/pushDataSpotsStore', {
                 spot: spot,
                 data: response.data,
                 genre: 'power_withouts'
               })
-            : context.commit('user/addUserData', {
+            : context.commit('user/addDataUserStore', {
                 spot: spot,
                 data: response.data,
                 type: type,
@@ -43,12 +43,12 @@ export default {
         })
         .then(response => {
           type === 'map'
-            ? context.commit('spot/deleteData', {
+            ? context.commit('spot/deleteDataSpotsStore', {
                 spot: spot,
                 data: response.data,
                 genre: 'power_withouts'
               })
-            : context.commit('user/deleteUserData', {
+            : context.commit('user/deleteDataUserStore', {
                 spot: spot,
                 data: response.data,
                 type: type,

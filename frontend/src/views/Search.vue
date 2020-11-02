@@ -22,14 +22,14 @@ export default {
   },
 
   created() {
-    this.clearSpots()
-    this.clearUser()
+    this.clearSpotsStore()
+    this.clearUserStore()
   },
 
   methods: {
     ...mapActions({
-      clearSpots: 'spot/clearSpots',
-      clearUser: 'user/clearUser'
+      clearSpotsStore: 'spot/clearSpotsStore',
+      clearUserStore: 'user/clearUserStore'
     })
   }
 }

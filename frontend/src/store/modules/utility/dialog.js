@@ -1,8 +1,6 @@
 export default {
   state: {
     dialogSign: false,
-    dialogProfileEdit: false,
-    dialogProfileDelete: false,
     dialogSpotCreate: false,
     dialogSpotEdit: false
   },
@@ -10,14 +8,6 @@ export default {
   getters: {
     dialogSign(state) {
       return state.dialogSign
-    },
-
-    dialogProfileEdit(state) {
-      return state.dialogProfileEdit
-    },
-
-    dialogProfileDelete(state) {
-      return state.dialogProfileDelete
     },
 
     dialogSpotCreate(state) {
@@ -34,10 +24,12 @@ export default {
       state[target] = true
     },
 
-    dialogOff(state) {
+    dialogOff(state, target) {
+      state[target] = false
+    },
+
+    dialogOffAll(state) {
       state.dialogSign = false
-      state.dialogProfileEdit = false
-      state.dialogProfileDelete = false
       state.dialogSpotCreate = false
       state.dialogSpotEdit = false
     }
@@ -48,8 +40,10 @@ export default {
       context.commit('dialogOn', target)
     },
 
-    dialogOff(context) {
-      context.commit('dialogOff')
+    dialogOff(context, target) {
+      target
+        ? context.commit('dialogOff', target)
+        : context.commit('dialogOffAll')
     }
   }
 }

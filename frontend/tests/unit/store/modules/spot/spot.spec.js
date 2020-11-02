@@ -21,32 +21,32 @@ describe('getters', () => {
 })
 
 describe('mutations', () => {
-  it('addSpots', () => {
+  it('addSpotsStore', () => {
     const data = [{ marker: { name: 'test' } }]
-    store.commit('addSpots', data)
+    store.commit('addSpotsStore', data)
     expect(store.state.spots).toEqual(data)
   })
-  it('clearSpots', () => {
+  it('clearSpotsStore', () => {
     const data = [{ marker: { name: 'test' } }]
     store.replaceState({ spots: data })
-    store.commit('clearSpots')
+    store.commit('clearSpotsStore')
     expect(store.state.spots).toEqual([])
   })
-  it('pushSpot', () => {
+  it('unshiftSpotsStore', () => {
     const data = [{ marker: { name: 'test' } }]
-    store.commit('pushSpot', data[0])
+    store.commit('unshiftSpotsStore', data[0])
     expect(store.state.spots).toEqual(data)
   })
-  it('assignProp', () => {
+  it('updateDataSpotsStore', () => {
     const data = [{ marker: { name: 'test' }, data: { name: '' } }]
     store.replaceState({ spots: data })
     const spot = { marker: { name: 'test' }, data: { name: 'test' } }
     const id = 0
     const prop = 'data'
-    store.commit('assignProp', { spot, id, prop })
+    store.commit('updateDataSpotsStore', { spot, id, prop })
     expect(store.state.spots[0]).toEqual(spot)
   })
-  it('pushData', () => {
+  it('pushDataSpotsStore', () => {
     const init = [
       { marker: { name: 'test', place_id: 'testPlaceId' }, likes: [] }
     ]
@@ -60,10 +60,10 @@ describe('mutations', () => {
     const spot = { data: { place_id: 'testPlaceId' } }
     const data = { data: { name: 'test1' } }
     const genre = 'likes'
-    store.commit('pushData', { spot, data, genre })
+    store.commit('pushDataSpotsStore', { spot, data, genre })
     expect(store.state.spots[0]).toEqual(change[0])
   })
-  it('deleteData', () => {
+  it('deleteDataSpotsStore', () => {
     const init = [
       {
         marker: { name: 'test', place_id: 'testPlaceId' },
@@ -77,7 +77,7 @@ describe('mutations', () => {
     const spot = { data: { place_id: 'testPlaceId' } }
     const data = { data: { id: 2 } }
     const genre = 'likes'
-    store.commit('deleteData', { spot, data, genre })
+    store.commit('deleteDataSpotsStore', { spot, data, genre })
     expect(store.state.spots[0]).toEqual(change[0])
   })
   it('onSpotlight', () => {
@@ -106,15 +106,15 @@ describe('mutations', () => {
 })
 
 describe('actions', () => {
-  it('addSpots', () => {
+  it('addSpotsStore', () => {
     const data = [{ marker: { name: 'test' } }]
-    store.dispatch('addSpots', data)
+    store.dispatch('addSpotsStore', data)
     expect(store.state.spots).toEqual(data)
   })
-  it('clearSpots', () => {
+  it('clearSpotsStore', () => {
     const data = [{ marker: { name: 'test' } }]
     store.replaceState({ spots: data })
-    store.dispatch('clearSpots')
+    store.dispatch('clearSpotsStore')
     expect(store.state.spots).toEqual([])
   })
   it('spotlight', () => {

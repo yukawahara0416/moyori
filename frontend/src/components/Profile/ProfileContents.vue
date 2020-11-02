@@ -1,17 +1,17 @@
 <template>
-  <v-col cols="11" style="background-color: white; border-radius: 4px;">
+  <span>
     <profile-contents-tabs :tabs="tabs" @changeTabs="changeTabs" />
-    <profile-contents-tab-items
+    <profile-contents-items
       :tabs="tabs"
       :user="user"
       @changeTabs="changeTabs"
     />
-  </v-col>
+  </span>
 </template>
 
 <script>
 import ProfileContentsTabs from '@/components/Profile/ProfileContentsTabs.vue'
-import ProfileContentsTabItems from '@/components/Profile/ProfileContentsTabItems.vue'
+import ProfileContentsItems from '@/components/Profile/ProfileContentsItems.vue'
 
 export default {
   props: {
@@ -20,7 +20,7 @@ export default {
 
   components: {
     ProfileContentsTabs,
-    ProfileContentsTabItems
+    ProfileContentsItems
   },
 
   data() {

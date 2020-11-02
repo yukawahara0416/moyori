@@ -9,7 +9,7 @@
         width="100px"
         @click="dialog = true"
       >
-        <v-img aspect-ratio="1" :src="photo.getUrl()">
+        <v-img aspect-ratio="1" :src="photo">
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
               <v-progress-circular
@@ -23,7 +23,7 @@
     </template>
 
     <v-card class="pa-2">
-      <v-img align="center" :src="photo.getUrl()"></v-img>
+      <v-img align="center" :src="photo"></v-img>
     </v-card>
   </v-dialog>
 </template>
@@ -31,7 +31,7 @@
 <script>
 export default {
   props: {
-    photo: Object
+    photo: String
   },
 
   data() {

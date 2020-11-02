@@ -18,5 +18,9 @@ class User < ActiveRecord::Base
   has_many :power_withouts, dependent: :destroy
   has_many :power_without_spots, through: :power_withouts, source: :spot
   has_many :comments, dependent: :destroy
-  validates :name, presence: true
+
+  has_one_attached :avatar
+
+  validates :name, presence: true, length: { maximum: 40 }
+  validates :email, presence: true, length: { maximum: 40 }
 end

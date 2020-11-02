@@ -2,20 +2,23 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    postComment(context, { spot, content, type }) {
-      const params = { spot_id: spot.data.id, content: content }
+    postComment(context, { spot, content, image, type }) {
+      const formData = new FormData()
+      formData.append('comment[spot_id]', spot.data.id)
+      formData.append('comment[content]', content)
+      if (image !== null) formData.append('comment[image]', image)
       axiosBase
-        .post('/api/v1/comments', params, {
+        .post('/api/v1/comments', formData, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
           type === 'map'
-            ? context.commit('spot/pushData', {
+            ? context.commit('spot/pushDataSpotsStore', {
                 spot: spot,
                 data: response.data,
                 genre: 'comments'
               })
-            : context.commit('user/addUserData', {
+            : context.commit('user/addDataUserStore', {
                 spot: spot,
                 data: response.data,
                 type: type,
@@ -35,19 +38,19 @@ export default {
     },
 
     deleteComment(context, { spot, comment, type }) {
-      const params = { id: comment.id }
+      const params = { id: comment.comment.id }
       axiosBase
         .delete('/api/v1/comments/' + params.id, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
           type === 'map'
-            ? context.commit('spot/deleteData', {
+            ? context.commit('spot/deleteDataSpotsStore', {
                 spot: spot,
                 data: response.data,
                 genre: 'comments'
               })
-            : context.commit('user/deleteUserData', {
+            : context.commit('user/deleteDataUserStore', {
                 spot: spot,
                 data: response.data,
                 type: type,

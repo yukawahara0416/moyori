@@ -5,7 +5,7 @@
 
       <v-spacer />
 
-      <v-btn icon @click="closeDialog">
+      <v-btn icon @click="closeDialog()">
         <v-icon class="white--text">mdi-close</v-icon>
       </v-btn>
     </v-toolbar>
@@ -34,8 +34,7 @@ import SpotShowDialogCommentPanel from '@/components/Spot/SpotShowDialogCommentP
 export default {
   props: {
     spot: Object,
-    type: String,
-    dialog: Boolean
+    type: String
   },
 
   components: {

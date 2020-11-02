@@ -40,13 +40,13 @@ describe('mutations', () => {
     store.commit('setUser', data)
     expect(store.state.user).toEqual(data)
   })
-  it('clearUser', () => {
+  it('clearUserStore', () => {
     store.replaceState({ user: data })
-    store.commit('clearUser')
+    store.commit('clearUserStore')
     expect(store.state.user).toEqual({})
   })
 
-  it('addUserData', () => {
+  it('addDataUserStore', () => {
     const newData = {
       spot: { data: { place_id: 'testPlaceId' } },
       data: { data: { id: 2 } },
@@ -54,11 +54,11 @@ describe('mutations', () => {
       genre: 'likes'
     }
     store.replaceState({ user: data })
-    store.commit('addUserData', newData)
+    store.commit('addDataUserStore', newData)
     expect(store.state.user.posts[0].likes.length).toEqual(2)
   })
 
-  it('deleteUserData', () => {
+  it('deleteDataUserStore', () => {
     const unnecessaryData = {
       spot: { data: { place_id: 'testPlaceId' } },
       data: { data: { id: 2 } },
@@ -66,7 +66,7 @@ describe('mutations', () => {
       genre: 'likes'
     }
     store.replaceState({ user: data })
-    store.commit('deleteUserData', unnecessaryData)
+    store.commit('deleteDataUserStore', unnecessaryData)
     expect(store.state.user.posts[0].likes.length).toEqual(0)
   })
 
@@ -105,8 +105,8 @@ describe('actions', () => {
     })
   })
 
-  it('clearUser', () => {
-    store.dispatch('clearUser').then(() => {
+  it('clearUserStore', () => {
+    store.dispatch('clearUserStore').then(() => {
       expect(store.state.user).toEqual({})
     })
   })

@@ -12,66 +12,59 @@ export default {
 
     filterSpots(state) {
       let data = state.spots
-
       // いいね
       if (state.filterQuery.likes) {
         data = data.filter(function(item) {
           return item['likes'].length > 0
         })
       }
-
       // Wifi
       if (state.filterQuery.wifi_withs) {
         data = data.filter(function(item) {
           return item['wifi_withs'].length > 0
         })
       }
-
       // 電源
       if (state.filterQuery.power_withs) {
         data = data.filter(function(item) {
           return item['power_withs'].length > 0
         })
       }
-
       // コメント
       if (state.filterQuery.comments) {
         data = data.filter(function(item) {
           return item['comments'].length > 0
         })
       }
-
       return data
     }
   },
 
   mutations: {
-    addSpots(state, payload) {
+    addSpotsStore(state, payload) {
       state.spots = state.spots.concat(payload)
     },
 
-    clearSpots(state) {
-      state.spots = []
+    unshiftSpotsStore(state, spot) {
+      state.spots.unshift(spot)
     },
 
-    pushSpot(state, spot) {
-      state.spots.unshift(spot)
+    clearSpotsStore(state) {
+      state.spots = []
     },
 
     // deleteSpot(state, payload) {
     //   state.spots.splice(payload, 1)
     // },
 
-    assignProp(state, { spot, prop }) {
+    updateDataSpotsStore(state, { spot, data, prop }) {
       const target = state.spots.filter(function(item) {
-        if (item.marker.place_id !== null) {
-          return item.marker.place_id == spot.marker.place_id
-        }
+        return item.marker.place_id == spot.marker.place_id
       })
-      Object.assign(target[0][prop], spot[prop])
+      target[0][prop] = data
     },
 
-    pushData(state, { spot, data, genre }) {
+    pushDataSpotsStore(state, { spot, data, genre }) {
       const target = state.spots.filter(function(item) {
         if (item.marker.place_id !== null) {
           return item.marker.place_id == spot.data.place_id
@@ -80,17 +73,7 @@ export default {
       target[0][genre].push(data)
     },
 
-    updateData(state, { spot, data }) {
-      const target = state.spots.filter(function(item) {
-        if (item.marker.place_id !== null) {
-          return item.marker.place_id == spot.data.place_id
-        }
-      })
-      Object.assign(target[0].data, data)
-      Object.assign(target[0].marker, data)
-    },
-
-    deleteData(state, { spot, data, genre }) {
+    deleteDataSpotsStore(state, { spot, data, genre }) {
       const target = state.spots.filter(function(item) {
         return item.marker.place_id == spot.data.place_id
       })
@@ -120,38 +103,56 @@ export default {
   },
 
   actions: {
-    addSpots(context, results) {
+    addSpotsStore(context, results) {
       return new Promise(resolve => {
-        context.commit('addSpots', results)
+        context.commit('addSpotsStore', results)
         resolve()
       })
     },
 
-    clearSpots(context) {
-      context.commit('clearSpots')
+    clearSpotsStore(context) {
+      context.commit('clearSpotsStore')
     },
 
     spotlight(context, spot) {
       context.commit('offSpotlight')
       context.commit('onSpotlight', spot)
-    }
+    },
 
-    // updateSpot(context, { spot, id, params }) {
-    //   return new Promise(resolve => {
-    //     axiosBase
-    //       .patch('/api/v1/spots/' + spot.record.id, params, {
-    //         headers: context.rootState.auth.headers
-    //       })
-    //       .then(function(response) {
-    //         response.data['marker'] = spot.marker
-    //         response.data.marker.address = response.data.record.address
-    //         response.data.marker.name = response.data.record.name
-    //         response.data.marker.website = response.data.record.url
-    //         context.commit('assignProps', { props: response.data, id: id })
-    //         resolve(response.data)
-    //       })
-    //   })
-    // },
+    formatSpot(context, res) {
+      return new Promise(resolve => {
+        const image =
+          'photos' in res
+            ? res.photos[0].getUrl({ maxWidth: 320 })
+            : require('@/assets/noimage.png')
+
+        const formatted = {
+          marker: {
+            address: 'vicinity' in res ? res.vicinity : null,
+            name: 'name' in res ? res.name : null,
+            phone: 'phone' in res ? res.phone : null,
+            place_id: 'place_id' in res ? res.place_id : null,
+            image: image,
+            position: {
+              lat: res.geometry.location.lat(),
+              lng: res.geometry.location.lng()
+            },
+            on: false,
+            zIndex: 10
+          },
+          detail: {},
+          data: {},
+          likes: [],
+          wifi_withs: [],
+          wifi_withouts: [],
+          power_withs: [],
+          power_withouts: [],
+          comments: []
+        }
+
+        resolve(formatted)
+      })
+    }
 
     // deleteSpot(context, { spot, id }) {
     //   return new Promise(resolve => {

@@ -58,40 +58,62 @@
             <v-toolbar-title>メールアドレスでログイン</v-toolbar-title>
           </v-toolbar>
 
-          <v-card-text>
-            <v-form>
-              <v-text-field
-                label="メールアドレス"
-                name="login"
-                prepend-icon="mdi-email-outline"
-                type="text"
-                v-model="signInFormData.email"
-              />
+          <ValidationObserver ref="observer" v-slot="{ invalid }" immediate>
+            <v-card-text>
+              <v-form>
+                <ValidationProvider
+                  v-slot="{ errors, valid }"
+                  name="メールアドレス"
+                  rules="required|email|max:40"
+                >
+                  <v-text-field
+                    label="メールアドレス"
+                    name="login"
+                    prepend-icon="mdi-email-outline"
+                    type="text"
+                    v-model="signInFormData.email"
+                    :clearable="true"
+                    :error-messages="errors"
+                    :success="valid"
+                  />
+                </ValidationProvider>
 
-              <v-text-field
-                id="password"
-                label="パスワード"
-                name="password"
-                prepend-icon="mdi-lock-outline"
-                type="password"
-                v-model="signInFormData.password"
-              />
-            </v-form>
-          </v-card-text>
+                <ValidationProvider
+                  v-slot="{ errors, valid }"
+                  name="パスワード"
+                  rules="required"
+                >
+                  <v-text-field
+                    id="password"
+                    label="パスワード"
+                    name="password"
+                    prepend-icon="mdi-lock-outline"
+                    type="password"
+                    v-model="signInFormData.password"
+                    @keyup.enter="signIn()"
+                    :clearable="true"
+                    :error-messages="errors"
+                    :success="valid"
+                  />
+                </ValidationProvider>
+              </v-form>
+            </v-card-text>
 
-          <v-card-actions>
-            <v-spacer />
-            <v-btn
-              class="mb-3 px-10"
-              color="primary"
-              large
-              type="submit"
-              @click.stop="signIn"
-            >
-              ログイン
-            </v-btn>
-            <v-spacer />
-          </v-card-actions>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                class="mb-3 px-10"
+                color="primary"
+                large
+                type="submit"
+                @click.stop="signIn()"
+                :disabled="invalid"
+              >
+                ログイン
+              </v-btn>
+              <v-spacer />
+            </v-card-actions>
+          </ValidationObserver>
         </v-card>
       </v-col>
 
