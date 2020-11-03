@@ -1,6 +1,6 @@
 module Api
   module V1
-    class UsersController < ApiController
+    class UsersController < ApiController # rubocop:disable Metrics/ClassLength
       def show
         user = User.find(params[:id])
         render json: convert_to_json_user(user)
@@ -8,7 +8,7 @@ module Api
 
       private
 
-        def convert_to_json_user(user)
+        def convert_to_json_user(user) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           posts = []
           likes = []
           wifi_withs = []

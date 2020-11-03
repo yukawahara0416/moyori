@@ -57,7 +57,7 @@ export default {
 
   computed: {
     ...mapGetters({ spots: 'spot/spots', filterSpots: 'spot/filterSpots' }),
-    ...mapGetters(['currentUser', 'dialogSign', 'dialogSpotCreate'])
+    ...mapGetters(['headers', 'currentUser', 'dialogSign', 'dialogSpotCreate'])
   },
 
   async mounted() {
@@ -163,7 +163,7 @@ export default {
     // スポット新規作成
     createSpot(event) {
       this.$store.commit('post/clearSpotFormData')
-      if (this.currentUser) {
+      if (this.headers) {
         this.$store.dispatch('post/geocode', event)
         this.$store.dispatch('post/placeIdGenerate', this.currentUser.data.id)
         this.$store.dispatch('dialogOn', 'dialogSpotCreate')

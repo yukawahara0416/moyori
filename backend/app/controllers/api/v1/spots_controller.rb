@@ -1,6 +1,6 @@
 module Api
   module V1
-    class SpotsController < ApiController
+    class SpotsController < ApiController # rubocop:disable Metrics/ClassLength
       before_action :authenticate_api_v1_user!, only: %i[save create update destroy]
 
       def collate
