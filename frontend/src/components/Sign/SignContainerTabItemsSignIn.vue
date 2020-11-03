@@ -141,7 +141,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['signInFormData', 'currentUser', 'headers'])
+    ...mapGetters(['signInFormData'])
   },
 
   methods: {

@@ -80,7 +80,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser', 'dialogSign']),
+    ...mapGetters(['headers', 'dialogSign']),
 
     isLoggedIn() {
       return this.headers !== null ? true : false
