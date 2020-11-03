@@ -1,5 +1,7 @@
 <template>
   <span>
+    <tutorial-dialog />
+
     <map-container-toolbar
       @nearby-search="nearbySearch"
       @panto-location="panToLocation"
@@ -31,6 +33,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import TutorialDialog from '@/components/Tutorial/TutorialDialog.vue'
 import MapContainerToolbar from '@/components/Map/MapContainerToolbar.vue'
 import MapContainerCircle from '@/components/Map/MapContainerCircle.vue'
 import MapContainerMarker from '@/components/Map/MapContainerMarker.vue'
@@ -38,6 +41,7 @@ import SpotPostDialog from '@/components/Spot/SpotPostDialog.vue'
 
 export default {
   components: {
+    TutorialDialog,
     MapContainerToolbar,
     MapContainerCircle,
     MapContainerMarker,
