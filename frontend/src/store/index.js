@@ -9,6 +9,7 @@ import post from '@/store/modules/spot/post.js'
 import auth from '@/store/modules/user/auth.js'
 import user from '@/store/modules/user/user.js'
 
+import tutorial from '@/store/modules/utility/tutorial.js'
 import dialog from '@/store/modules/utility/dialog.js'
 import snackbar from '@/store/modules/utility/snackbar.js'
 import loading from '@/store/modules/utility/loading.js'
@@ -31,6 +32,7 @@ export default new Vuex.Store({
     auth,
     user: user,
 
+    tutorial,
     dialog,
     snackbar,
     loading,
@@ -45,6 +47,7 @@ export default new Vuex.Store({
 
   plugins: [
     createPersistedState({
+      // paths: ['auth.currentUser', 'auth.headers', 'tutorial.tutorialState'],
       paths: ['auth.currentUser', 'auth.headers'],
       storage: window.sessionStorage
     })
