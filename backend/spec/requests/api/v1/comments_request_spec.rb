@@ -23,7 +23,7 @@ RSpec.describe 'Api::V1::Comments', type: :request do
   it 'commentを削除できる' do
     post(api_v1_comments_path, params: comment_params, headers: @headers)
     json = JSON.parse(response.body)
-    expect { delete("/api/v1/comments/#{json['id']}", headers: @headers) }.to change(Comment, :count).by(-1)
+    expect { delete("/api/v1/comments/#{json['comment']['id']}", headers: @headers) }.to change(Comment, :count).by(-1)
     expect(response).to have_http_status(200)
   end
 end

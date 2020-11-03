@@ -10,7 +10,7 @@ RSpec.describe 'Api::V1::Spots', type: :request do
     get(collate_api_v1_spots_path, params: { place_id: spot.place_id })
     json = JSON.parse(response.body)
     expect(response).to have_http_status(200)
-    expect(json.length).to eq(7)
+    expect(json.length).to eq(9)
   end
 
   it 'place_idが一致するspotがなければ204を返す' do
