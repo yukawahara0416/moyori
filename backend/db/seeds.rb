@@ -3,15 +3,13 @@
 User.create!(
   name: 'テストユーザ',
   email: 'tester@example.com',
-  password: 'password',
-  password_confirmation: 'password'
+  password: 'password'
 )
 
 # if Rails.env == 'development'
 #   AdminUser.create!(
 #     email: 'admin@example.com',
 #     password: 'password',
-#     password_confirmation: 'password'
 #   )
 
 #   3.times do |u|
@@ -19,7 +17,6 @@ User.create!(
 #       name: Faker::Name.name,
 #       email: "tester-#{u + 1}@example.com",
 #       password: 'password',
-#       password_confirmation: 'password'
 #     )
 
 #     5.times do |s|
