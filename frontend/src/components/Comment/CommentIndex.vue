@@ -15,9 +15,7 @@
         <span class="ml-2">
           {{ daytime(comment.comment.created_at) }}
         </span>
-        <template
-          v-if="currentUser && comment.comment.user_id == currentUser.data.id"
-        >
+        <template v-if="comment.comment.user_id == currentUser.data.id">
           <comment-index-delete-button
             :spot="spot"
             :type="type"
