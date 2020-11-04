@@ -126,7 +126,7 @@ module Api
 
         def give_image_to_comment(comment)
           url = rails_blob_url(comment.image) if comment.image.attached?
-          { comment: comment, image: url }
+          { data: comment, image: url }
         end
 
       # rubocop:enable
