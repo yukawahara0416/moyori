@@ -38,23 +38,21 @@ export default {
     },
 
     powerWithsByCurrentUser() {
-      if (this.isLoggingIn) {
-        return this.spot.power_withs.filter(power_with => {
-          return power_with.user_id == this.currentUser.data.id
-        })
-      } else {
-        return []
-      }
+      if (this.spot.power_withs.length == 0) return []
+      if (this.isLoggingIn == false) return []
+
+      return this.spot.power_withs.filter(power_with => {
+        return power_with.user_id == this.currentUser.data.id
+      })
     },
 
     powerWithoutsByCurrentUser() {
-      if (this.isLoggingIn) {
-        return this.spot.power_withouts.filter(power_without => {
-          return power_without.user_id == this.currentUser.data.id
-        })
-      } else {
-        return []
-      }
+      if (this.spot.power_withouts.length == 0) return []
+      if (this.isLoggingIn == false) return []
+
+      return this.spot.power_withouts.filter(power_without => {
+        return power_without.user_id == this.currentUser.data.id
+      })
     }
   },
 
