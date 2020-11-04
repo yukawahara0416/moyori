@@ -87,7 +87,6 @@ export default {
       axiosBase
         .post('/api/v1/auth/', signUpFormData)
         .then(response => {
-          console.dir(response.data)
           context.commit('setCurrentUser', response.data.data)
           context.dispatch('editAvatar', response.data.data.id)
           context.commit('signIn', response.headers)
@@ -112,7 +111,6 @@ export default {
         axiosBase
           .post('/api/v1/auth/sign_in', signInFormData)
           .then(response => {
-            console.dir(response.data)
             context.commit('setCurrentUser', response.data.data)
             context.dispatch('editAvatar', response.data.data.id)
             context.commit('signIn', response.headers)

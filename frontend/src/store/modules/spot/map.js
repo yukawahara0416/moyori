@@ -57,7 +57,6 @@ export default {
             headers: context.rootState.auth.headers
           })
           .then(response => {
-            console.log('saveSpot response is:')
             context.commit(
               'spot/updateDataSpotsStore',
               {
