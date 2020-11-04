@@ -2,7 +2,7 @@
   <div>
     <v-btn icon @click="powerWithHandler()">
       <v-icon v-if="isPowerWithed" color="success">mdi-power-plug</v-icon>
-      <v-icon v-if="!isPowerWithed">mdi-power-plug</v-icon>
+      <v-icon v-else>mdi-power-plug</v-icon>
       <counter :spot="spot" :genre="'power_withs'" />
     </v-btn>
   </div>
