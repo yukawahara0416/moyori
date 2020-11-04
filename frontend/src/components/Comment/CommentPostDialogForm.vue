@@ -80,11 +80,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'dialogSign']),
-
-    isLoggedIn() {
-      return this.headers !== null ? true : false
-    }
+    ...mapGetters(['isLoggingIn', 'dialogSign'])
   },
 
   methods: {
@@ -98,7 +94,7 @@ export default {
         this.spot.data,
         'id'
       )
-      if (this.isLoggedIn) {
+      if (this.isLoggingIn) {
         if (isPosted) {
           await this.postComment({
             spot: spot,

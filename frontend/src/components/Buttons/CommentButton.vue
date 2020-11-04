@@ -39,18 +39,20 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser']),
-
-    isLoggedIn() {
-      return this.headers !== null ? true : false
-    },
+    ...mapGetters(['currentUser', 'isLoggingIn']),
 
     isCommented() {
       return this.ownComment.length > 0 ? true : false
     },
 
     ownComment() {
-      if (this.isLoggedIn) {
+      // if (this.isLoggingIn == false) return []
+      // if (this.isLoggingIn == true) {
+      //   return this.spot.comments.filter(comment => {
+      //     return comment.comment.user_id == this.currentUser.data.id
+      //   })
+      // }
+      if (this.isLoggingIn) {
         return this.spot.comments.filter(comment => {
           if (comment.comment) {
             return comment.comment.user_id == this.currentUser.data.id

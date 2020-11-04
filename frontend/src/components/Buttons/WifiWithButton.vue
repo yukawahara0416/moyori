@@ -23,11 +23,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser', 'dialogSign']),
-
-    isLoggedIn() {
-      return this.headers !== null ? true : false
-    },
+    ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
 
     isWifiWithed() {
       return this.ownWifiWith.length > 0 ? true : false
@@ -38,7 +34,7 @@ export default {
     },
 
     ownWifiWith() {
-      if (this.isLoggedIn) {
+      if (this.isLoggingIn) {
         return this.spot.wifi_withs.filter(wifi_with => {
           return wifi_with.user_id == this.currentUser.data.id
         })
@@ -48,7 +44,7 @@ export default {
     },
 
     ownWifiWithout() {
-      if (this.isLoggedIn) {
+      if (this.isLoggingIn) {
         return this.spot.wifi_withouts.filter(wifi_without => {
           return wifi_without.user_id == this.currentUser.data.id
         })
@@ -69,7 +65,7 @@ export default {
         this.spot.data,
         'id'
       )
-      if (this.isLoggedIn) {
+      if (this.isLoggingIn) {
         if (isPosted) {
           if (this.isWifiWithed) {
             await this.unWifiWith({

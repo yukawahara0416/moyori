@@ -5,7 +5,7 @@
       justify="center"
       no-gutter
       style="flex-direction: column;"
-      v-show="isLoggedIn && isOwnPage"
+      v-show="isLoggingIn && isOwnPage"
     >
       <profile-actions-edit :user="user" />
 
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ProfileActionsEdit from '@/components/Profile/ProfileActionsEdit.vue'
 import ProfileActionsSignOut from '@/components/Profile/ProfileActionsSignOut.vue'
 import ProfileActionsDelete from '@/components/Profile/ProfileActionsDelete.vue'
@@ -25,7 +26,6 @@ export default {
   props: {
     id: Number,
     user: Object,
-    headers: Object,
     currentUser: Object
   },
 
@@ -36,9 +36,7 @@ export default {
   },
 
   computed: {
-    isLoggedIn() {
-      return this.headers !== null ? true : false
-    },
+    ...mapGetters(['isLoggingIn']),
 
     isOwnPage() {
       return this.id == this.currentUser.data.id ? true : false

@@ -36,14 +36,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser']),
-
-    isLoggedIn() {
-      return this.headers !== null ? true : false
-    },
+    ...mapGetters(['currentUser', 'isLoggingIn']),
 
     isOwnPosted() {
-      if (this.isLoggedIn) {
+      if (this.isLoggingIn) {
         if (this.spot.marker.place_id.length >= 11) {
           return false
         } else if (this.spot.data.user_id !== this.currentUser.data.id) {

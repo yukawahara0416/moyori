@@ -25,11 +25,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser', 'dialogSign']),
-
-    isLoggedIn() {
-      return this.headers !== null ? true : false
-    },
+    ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
 
     isPowerWithed() {
       return this.ownPowerWith.length > 0 ? true : false
@@ -40,7 +36,7 @@ export default {
     },
 
     ownPowerWith() {
-      if (this.isLoggedIn) {
+      if (this.isLoggingIn) {
         return this.spot.power_withs.filter(power_with => {
           return power_with.user_id == this.currentUser.data.id
         })
@@ -50,7 +46,7 @@ export default {
     },
 
     ownPowerWithout() {
-      if (this.isLoggedIn) {
+      if (this.isLoggingIn) {
         return this.spot.power_withouts.filter(power_without => {
           return power_without.user_id == this.currentUser.data.id
         })
@@ -76,7 +72,7 @@ export default {
         this.spot.data,
         'id'
       )
-      if (this.isLoggedIn) {
+      if (this.isLoggingIn) {
         if (isPosted) {
           if (this.isPowerWithouted) {
             await this.unPowerWithout({
