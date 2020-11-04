@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn icon @click.stop="wifiWithoutHandler()">
-      <v-icon v-if="isWifiWithouted" color="error">mdi-wifi-off</v-icon>
+      <v-icon v-if="isWifiWithouting" color="error">mdi-wifi-off</v-icon>
       <v-icon v-else>mdi-wifi-off</v-icon>
       <counter :spot="spot" :genre="'wifi_withouts'" />
     </v-btn>
@@ -29,11 +29,11 @@ export default {
       return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
     },
 
-    isWifiWithed() {
+    isWifiWithing() {
       return this.ownWifiWith.length > 0 ? true : false
     },
 
-    isWifiWithouted() {
+    isWifiWithouting() {
       return this.ownWifiWithout.length > 0 ? true : false
     },
 
@@ -73,14 +73,14 @@ export default {
 
       if (this.isLoggingIn) {
         if (isPosted) {
-          if (this.isWifiWithouted) {
+          if (this.isWifiWithouting) {
             await this.unWifiWithout({
               spot: spot,
               wifi_without: this.ownWifiWithout[0],
               type: type
             })
           } else {
-            if (this.isWifiWithed) {
+            if (this.isWifiWithing) {
               await this.unWifiWith({
                 spot: spot,
                 wifi_with: this.ownWifiWith[0],
