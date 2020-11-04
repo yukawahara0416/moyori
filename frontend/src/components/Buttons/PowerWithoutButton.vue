@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn icon @click="powerWithoutHandler()">
-      <v-icon v-if="isPowerWithouted" color="error">
+      <v-icon v-if="isPowerWithouting" color="error">
         mdi-power-plug-off
       </v-icon>
       <v-icon v-else>mdi-power-plug-off</v-icon>
@@ -31,15 +31,15 @@ export default {
       return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
     },
 
-    isPowerWithed() {
-      return this.ownPowerWith.length > 0 ? true : false
+    isPowerWithing() {
+      return this.powerWithsByCurrentUser.length > 0 ? true : false
     },
 
-    isPowerWithouted() {
-      return this.ownPowerWithout.length > 0 ? true : false
+    isPowerWithouting() {
+      return this.powerWithoutsByCurrentUser.length > 0 ? true : false
     },
 
-    ownPowerWith() {
+    powerWithsByCurrentUser() {
       if (this.isLoggingIn) {
         return this.spot.power_withs.filter(power_with => {
           return power_with.user_id == this.currentUser.data.id
@@ -49,7 +49,7 @@ export default {
       }
     },
 
-    ownPowerWithout() {
+    powerWithoutsByCurrentUser() {
       if (this.isLoggingIn) {
         return this.spot.power_withouts.filter(power_without => {
           return power_without.user_id == this.currentUser.data.id
@@ -75,17 +75,17 @@ export default {
 
       if (this.isLoggingIn) {
         if (isPosted) {
-          if (this.isPowerWithouted) {
+          if (this.isPowerWithouting) {
             await this.unPowerWithout({
               spot: spot,
-              power_without: this.ownPowerWithout[0],
+              power_without: this.powerWithoutsByCurrentUser[0],
               type: type
             })
           } else {
-            if (this.isPowerWithed) {
+            if (this.isPowerWithing) {
               await this.unPowerWith({
                 spot: spot,
-                power_with: this.ownPowerWith[0],
+                power_with: this.powerWithsByCurrentUser[0],
                 type: type
               })
             }
