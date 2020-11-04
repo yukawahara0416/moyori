@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn icon @click="powerWithHandler()">
-      <v-icon v-if="isPowerWithed" color="success">mdi-power-plug</v-icon>
+      <v-icon v-if="isPowerWithing" color="success">mdi-power-plug</v-icon>
       <v-icon v-else>mdi-power-plug</v-icon>
       <counter :spot="spot" :genre="'power_withs'" />
     </v-btn>
@@ -25,15 +25,19 @@ export default {
   computed: {
     ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
 
-    isPowerWithed() {
-      return this.ownPowerWith.length > 0 ? true : false
+    isPostedSpot() {
+      return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
     },
 
-    isPowerWithouted() {
-      return this.ownPowerWithout.length > 0 ? true : false
+    isPowerWithing() {
+      return this.powerWithsByCurrentUser.length > 0 ? true : false
     },
 
-    ownPowerWith() {
+    isPowerWithouting() {
+      return this.powerWithoutsByCurrentUser.length > 0 ? true : false
+    },
+
+    powerWithsByCurrentUser() {
       if (this.isLoggingIn) {
         return this.spot.power_withs.filter(power_with => {
           return power_with.user_id == this.currentUser.data.id
@@ -43,7 +47,7 @@ export default {
       }
     },
 
-    ownPowerWithout() {
+    powerWithoutsByCurrentUser() {
       if (this.isLoggingIn) {
         return this.spot.power_withouts.filter(power_without => {
           return power_without.user_id == this.currentUser.data.id
@@ -66,23 +70,20 @@ export default {
     powerWithHandler: async function() {
       const spot = this.spot
       const type = this.type
-      const isPosted = Object.prototype.hasOwnProperty.call(
-        this.spot.data,
-        'id'
-      )
+
       if (this.isLoggingIn) {
         if (isPosted) {
-          if (this.isPowerWithed) {
+          if (this.isPowerWithing) {
             await this.unPowerWith({
               spot: spot,
-              power_with: this.ownPowerWith[0],
+              power_with: this.powerWithsByCurrentUser[0],
               type: type
             })
           } else {
-            if (this.isPowerWithouted) {
+            if (this.isPowerWithouting) {
               await this.unPowerWithout({
                 spot: spot,
-                power_without: this.ownPowerWithout[0],
+                power_without: this.powerWithoutsByCurrentUser[0],
                 type: type
               })
             }
