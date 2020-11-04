@@ -46,21 +46,12 @@ export default {
     },
 
     ownComment() {
-      // if (this.isLoggingIn == false) return []
-      // if (this.isLoggingIn == true) {
-      //   return this.spot.comments.filter(comment => {
-      //     return comment.comment.user_id == this.currentUser.data.id
-      //   })
-      // }
-      if (this.isLoggingIn) {
-        return this.spot.comments.filter(comment => {
-          if (comment.comment) {
-            return comment.comment.user_id == this.currentUser.data.id
-          }
-        })
-      } else {
-        return []
-      }
+      if (this.spot.comments.length == 0) return []
+      if (this.isLoggingIn == false) return []
+
+      return this.spot.comments.filter(comment => {
+        return comment.data.user_id == this.currentUser.data.id
+      })
     }
   },
 
