@@ -27,6 +27,10 @@ export default {
   computed: {
     ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
 
+    isPostedSpot() {
+      return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
+    },
+
     isPowerWithed() {
       return this.ownPowerWith.length > 0 ? true : false
     },
@@ -68,10 +72,7 @@ export default {
     powerWithoutHandler: async function() {
       const spot = this.spot
       const type = this.type
-      const isPosted = Object.prototype.hasOwnProperty.call(
-        this.spot.data,
-        'id'
-      )
+
       if (this.isLoggingIn) {
         if (isPosted) {
           if (this.isPowerWithouted) {
