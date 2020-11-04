@@ -3,8 +3,8 @@
     <v-dialog v-model="dialog" width="600">
       <template v-slot:activator="{ on }">
         <v-btn icon v-on="on">
-          <v-icon v-if="isCommented" color="success">mdi-message</v-icon>
-          <v-icon v-if="!isCommented">mdi-message-outline</v-icon>
+          <v-icon v-if="isCommenting" color="success">mdi-message</v-icon>
+          <v-icon v-else>mdi-message-outline</v-icon>
           <counter :spot="spot" :genre="'comments'" />
         </v-btn>
       </template>
@@ -39,26 +39,19 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser']),
+    ...mapGetters(['currentUser', 'isLoggingIn']),
 
-    isLoggedIn() {
-      return this.headers !== null ? true : false
+    isCommenting() {
+      return this.commentsByCurrentUser.length > 0 ? true : false
     },
 
-    isCommented() {
-      return this.ownComment.length > 0 ? true : false
-    },
+    commentsByCurrentUser() {
+      if (this.spot.comments.length == 0) return []
+      if (this.isLoggingIn == false) return []
 
-    ownComment() {
-      if (this.isLoggedIn) {
-        return this.spot.comments.filter(comment => {
-          if (comment.comment) {
-            return comment.comment.user_id == this.currentUser.data.id
-          }
-        })
-      } else {
-        return []
-      }
+      return this.spot.comments.filter(comment => {
+        return comment.data.user_id == this.currentUser.data.id
+      })
     }
   },
 

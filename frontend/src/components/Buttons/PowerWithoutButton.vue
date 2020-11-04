@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-btn icon @click="powerWithoutHandler()">
-      <v-icon v-if="isPowerWithouted" color="error">
+      <v-icon v-if="isPowerWithouting" color="error">
         mdi-power-plug-off
       </v-icon>
-      <v-icon v-if="!isPowerWithouted">mdi-power-plug-off</v-icon>
+      <v-icon v-else>mdi-power-plug-off</v-icon>
       <counter :spot="spot" :genre="'power_withouts'" />
     </v-btn>
   </div>
@@ -25,38 +25,36 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser', 'dialogSign']),
+    ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
 
-    isLoggedIn() {
-      return this.headers !== null ? true : false
+    isPostedSpot() {
+      return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
     },
 
-    isPowerWithed() {
-      return this.ownPowerWith.length > 0 ? true : false
+    isPowerWithing() {
+      return this.powerWithsByCurrentUser.length > 0 ? true : false
     },
 
-    isPowerWithouted() {
-      return this.ownPowerWithout.length > 0 ? true : false
+    isPowerWithouting() {
+      return this.powerWithoutsByCurrentUser.length > 0 ? true : false
     },
 
-    ownPowerWith() {
-      if (this.isLoggedIn) {
-        return this.spot.power_withs.filter(power_with => {
-          return power_with.user_id == this.currentUser.data.id
-        })
-      } else {
-        return []
-      }
+    powerWithsByCurrentUser() {
+      if (this.spot.power_withs.length == 0) return []
+      if (this.isLoggingIn == false) return []
+
+      return this.spot.power_withs.filter(power_with => {
+        return power_with.user_id == this.currentUser.data.id
+      })
     },
 
-    ownPowerWithout() {
-      if (this.isLoggedIn) {
-        return this.spot.power_withouts.filter(power_without => {
-          return power_without.user_id == this.currentUser.data.id
-        })
-      } else {
-        return []
-      }
+    powerWithoutsByCurrentUser() {
+      if (this.spot.power_withouts.length == 0) return []
+      if (this.isLoggingIn == false) return []
+
+      return this.spot.power_withouts.filter(power_without => {
+        return power_without.user_id == this.currentUser.data.id
+      })
     }
   },
 
@@ -72,35 +70,41 @@ export default {
     powerWithoutHandler: async function() {
       const spot = this.spot
       const type = this.type
-      const isPosted = Object.prototype.hasOwnProperty.call(
-        this.spot.data,
-        'id'
-      )
-      if (this.isLoggedIn) {
-        if (isPosted) {
-          if (this.isPowerWithouted) {
-            await this.unPowerWithout({
-              spot: spot,
-              power_without: this.ownPowerWithout[0],
-              type: type
-            })
-          } else {
-            if (this.isPowerWithed) {
-              await this.unPowerWith({
-                spot: spot,
-                power_with: this.ownPowerWith[0],
-                type: type
-              })
-            }
-            await this.powerWithout({ spot: spot, type: type })
-          }
-        } else {
-          const result = await this.saveSpot({ spot: spot })
-          await this.powerWithout({ spot: result, type: type })
-        }
-      } else {
+
+      if (this.isLoggingIn == false) {
         this.dialogOn()
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
+        return
+      }
+
+      if (this.isPostedSpot == false) {
+        const result = await this.saveSpot({ spot: spot })
+        await this.powerWithout({ spot: result, type: type })
+        return
+      }
+
+      if (this.isPowerWithing == true) {
+        await this.unPowerWith({
+          spot: spot,
+          power_with: this.powerWithsByCurrentUser[0],
+          type: type
+        })
+        await this.powerWithout({ spot: spot, type: type })
+        return
+      }
+
+      if (this.isPowerWithouting == false) {
+        await this.powerWithout({ spot: result, type: type })
+        return
+      }
+
+      if (this.isPowerWithouting == true) {
+        await this.unPowerWithout({
+          spot: spot,
+          power_without: this.powerWithoutsByCurrentUser[0],
+          type: type
+        })
+        return
       }
     },
 

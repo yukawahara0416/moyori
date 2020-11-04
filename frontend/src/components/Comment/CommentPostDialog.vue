@@ -37,18 +37,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'dialogSign']),
-
-    isLoggedIn() {
-      return this.headers !== null ? true : false
-    }
+    ...mapGetters(['isLoggingIn', 'dialogSign'])
   },
 
   methods: {
     ...mapActions(['pushSnackbar']),
 
     commentHandler() {
-      if (this.isLoggedIn) {
+      if (this.isLoggingIn) {
         this.dialog = true
       } else {
         this.dialogOn()

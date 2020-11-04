@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-btn icon @click.stop="likeHandler()">
-      <v-icon v-if="isLiked" color="error">mdi-heart</v-icon>
-      <v-icon v-if="!isLiked">mdi-heart-outline</v-icon>
+      <v-icon v-if="isLiking" color="error">mdi-heart</v-icon>
+      <v-icon v-else>mdi-heart-outline</v-icon>
       <counter :spot="spot" :genre="'likes'" />
     </v-btn>
   </div>
@@ -23,24 +23,23 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser', 'dialogSign']),
+    ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
 
-    isLoggedIn() {
-      return this.headers !== null ? true : false
+    isPostedSpot() {
+      return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
     },
 
-    isLiked() {
-      return this.ownLike.length > 0 ? true : false
+    isLiking() {
+      return this.likesByCurrentUser.length > 0 ? true : false
     },
 
-    ownLike() {
-      if (this.isLoggedIn) {
-        return this.spot.likes.filter(like => {
-          return like.user_id == this.currentUser.data.id
-        })
-      } else {
-        return []
-      }
+    likesByCurrentUser() {
+      if (this.spot.likes.length == 0) return []
+      if (this.isLoggingIn == false) return []
+
+      return this.spot.likes.filter(like => {
+        return like.user_id == this.currentUser.data.id
+      })
     }
   },
 
@@ -51,24 +50,33 @@ export default {
     likeHandler: async function() {
       const spot = this.spot
       const type = this.type
-      const isPosted = Object.prototype.hasOwnProperty.call(
-        this.spot.data,
-        'id'
-      )
-      if (this.isLoggedIn) {
-        if (isPosted) {
-          if (this.isLiked) {
-            await this.unlike({ spot: spot, like: this.ownLike[0], type: type })
-          } else {
-            await this.like({ spot: spot, type: type })
-          }
-        } else {
-          const result = await this.saveSpot({ spot: spot })
-          await this.like({ spot: result, type: type })
-        }
-      } else {
+
+      if (this.isLoggingIn == false) {
         this.dialogOn()
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
+        return
+      }
+
+      if (this.isLoggingIn == true) {
+        if (this.isPostedSpot == false) {
+          const result = await this.saveSpot({ spot: spot })
+          await this.like({ spot: result, type: type })
+          return
+        }
+
+        if (this.isPostedSpot == true && this.isLiking == false) {
+          await this.like({ spot: spot, type: type })
+          return
+        }
+
+        if (this.isPostedSpot == true && this.isLiking == true) {
+          await this.unlike({
+            spot: spot,
+            like: this.likesByCurrentUser[0],
+            type: type
+          })
+          return
+        }
       }
     },
 

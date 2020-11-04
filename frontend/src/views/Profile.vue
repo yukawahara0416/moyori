@@ -19,12 +19,7 @@
       >
         <profile-items :user="user" />
 
-        <profile-actions
-          :id="id"
-          :user="user"
-          :headers="headers"
-          :currentUser="currentUser"
-        />
+        <profile-actions :id="id" :user="user" :currentUser="currentUser" />
       </v-row>
     </v-col>
 
@@ -53,7 +48,7 @@ export default {
 
   computed: {
     ...mapGetters({ user: 'user/user' }),
-    ...mapGetters(['headers', 'currentUser'])
+    ...mapGetters(['currentUser'])
   },
 
   created() {

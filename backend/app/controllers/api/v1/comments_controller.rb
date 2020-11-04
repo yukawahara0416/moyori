@@ -35,7 +35,7 @@ module Api
           url = rails_blob_url(comment.image) if comment.image.attached?
 
           {
-            comment: data,
+            data: data,
             image: url
           }
         end
