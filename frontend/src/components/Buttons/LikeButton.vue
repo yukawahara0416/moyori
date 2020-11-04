@@ -50,6 +50,7 @@ export default {
     likeHandler: async function() {
       const spot = this.spot
       const type = this.type
+
       if (this.isLoggingIn == false) {
         this.dialogOn()
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
