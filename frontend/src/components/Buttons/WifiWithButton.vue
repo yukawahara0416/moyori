@@ -25,6 +25,10 @@ export default {
   computed: {
     ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
 
+    isPostedSpot() {
+      return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
+    },
+
     isWifiWithed() {
       return this.ownWifiWith.length > 0 ? true : false
     },
@@ -59,12 +63,8 @@ export default {
     wifiWithHandler: async function() {
       const spot = this.spot
       const type = this.type
-      const isPosted = Object.prototype.hasOwnProperty.call(
-        this.spot.data,
-        'id'
-      )
       if (this.isLoggingIn) {
-        if (isPosted) {
+        if (this.isPostedSpot) {
           if (this.isWifiWithed) {
             await this.unWifiWith({
               spot: spot,
