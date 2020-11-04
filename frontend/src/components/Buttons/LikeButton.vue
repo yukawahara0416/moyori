@@ -26,10 +26,10 @@ export default {
     ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
 
     isLiking() {
-      return this.ownLike.length > 0 ? true : false
+      return this.likesByCurrentUser.length > 0 ? true : false
     },
 
-    ownLike() {
+    likesByCurrentUser() {
       if (this.spot.likes.length == 0) return []
       if (this.isLoggingIn == false) return []
 
