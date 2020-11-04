@@ -25,6 +25,10 @@ export default {
       return state.headers
     },
 
+    isLoggingIn(state) {
+      return state.headers == null ? false : true
+    },
+
     signInFormData(state) {
       return state.signInFormData
     },
