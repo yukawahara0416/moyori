@@ -34,23 +34,21 @@ export default {
     },
 
     ownWifiWith() {
-      if (this.isLoggingIn) {
-        return this.spot.wifi_withs.filter(wifi_with => {
-          return wifi_with.user_id == this.currentUser.data.id
-        })
-      } else {
-        return []
-      }
+      if (this.spot.wifi_withs.length == 0) return []
+      if (this.isLoggingIn == false) return []
+
+      return this.spot.wifi_withs.filter(wifi_with => {
+        return wifi_with.user_id == this.currentUser.data.id
+      })
     },
 
     ownWifiWithout() {
-      if (this.isLoggingIn) {
-        return this.spot.wifi_withouts.filter(wifi_without => {
-          return wifi_without.user_id == this.currentUser.data.id
-        })
-      } else {
-        return []
-      }
+      if (this.spot.wifi_withouts.length == 0) return []
+      if (this.isLoggingIn == false) return []
+
+      return this.spot.wifi_withouts.filter(wifi_without => {
+        return wifi_without.user_id == this.currentUser.data.id
+      })
     }
   },
 
