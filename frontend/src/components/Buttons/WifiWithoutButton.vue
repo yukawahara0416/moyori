@@ -38,23 +38,21 @@ export default {
     },
 
     wifiWithsByCurrentUser() {
-      if (this.isLoggingIn) {
-        return this.spot.wifi_withs.filter(wifi_with => {
-          return wifi_with.user_id == this.currentUser.data.id
-        })
-      } else {
-        return []
-      }
+      if (this.spot.wifi_withs.length == 0) return []
+      if (this.isLoggingIn == false) return []
+
+      return this.spot.wifi_withs.filter(wifi_with => {
+        return wifi_with.user_id == this.currentUser.data.id
+      })
     },
 
     wifiWithoutsByCurrentUser() {
-      if (this.isLoggingIn) {
-        return this.spot.wifi_withouts.filter(wifi_without => {
-          return wifi_without.user_id == this.currentUser.data.id
-        })
-      } else {
-        return []
-      }
+      if (this.spot.wifi_withouts.length == 0) return []
+      if (this.isLoggingIn == false) return []
+
+      return this.spot.wifi_withouts.filter(wifi_without => {
+        return wifi_without.user_id == this.currentUser.data.id
+      })
     }
   },
 
@@ -71,31 +69,40 @@ export default {
       const spot = this.spot
       const type = this.type
 
-      if (this.isLoggingIn) {
-        if (isPosted) {
-          if (this.isWifiWithouting) {
-            await this.unWifiWithout({
-              spot: spot,
-              wifi_without: this.wifiWithoutsByCurrentUser[0],
-              type: type
-            })
-          } else {
-            if (this.isWifiWithing) {
-              await this.unWifiWith({
-                spot: spot,
-                wifi_with: this.wifiWithsByCurrentUser[0],
-                type: type
-              })
-            }
-            await this.wifiWithout({ spot: spot, type: type })
-          }
-        } else {
-          const result = await this.saveSpot({ spot: spot })
-          await this.wifiWithout({ spot: result, type: type })
-        }
-      } else {
+      if (this.isLoggingIn == false) {
         this.dialogOn()
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
+        return
+      }
+
+      if (this.isPostedSpot == false) {
+        const result = await this.saveSpot({ spot: spot })
+        await this.wifiWithout({ spot: result, type: type })
+        return
+      }
+
+      if (this.isWifiWithing == true) {
+        await this.unWifiWith({
+          spot: spot,
+          wifi_with: this.wifiWithsByCurrentUser[0],
+          type: type
+        })
+        await this.wifiWithout({ spot: spot, type: type })
+        return
+      }
+
+      if (this.isWifiWithouting == false) {
+        await this.wifiWithout({ spot: spot, type: type })
+        return
+      }
+
+      if (this.isWifiWithouting == true) {
+        await this.unWifiWithout({
+          spot: spot,
+          wifi_without: this.wifiWithoutsByCurrentUser[0],
+          type: type
+        })
+        return
       }
     },
 
