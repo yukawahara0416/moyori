@@ -4,7 +4,7 @@
       <v-icon v-if="isPowerWithouted" color="error">
         mdi-power-plug-off
       </v-icon>
-      <v-icon v-if="!isPowerWithouted">mdi-power-plug-off</v-icon>
+      <v-icon v-else>mdi-power-plug-off</v-icon>
       <counter :spot="spot" :genre="'power_withouts'" />
     </v-btn>
   </div>
