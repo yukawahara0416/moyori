@@ -71,31 +71,40 @@ export default {
       const spot = this.spot
       const type = this.type
 
-      if (this.isLoggingIn) {
-        if (isPosted) {
-          if (this.isPowerWithing) {
-            await this.unPowerWith({
-              spot: spot,
-              power_with: this.powerWithsByCurrentUser[0],
-              type: type
-            })
-          } else {
-            if (this.isPowerWithouting) {
-              await this.unPowerWithout({
-                spot: spot,
-                power_without: this.powerWithoutsByCurrentUser[0],
-                type: type
-              })
-            }
-            await this.powerWith({ spot: spot, type: type })
-          }
-        } else {
-          const result = await this.saveSpot({ spot: spot })
-          await this.powerWith({ spot: result, type: type })
-        }
-      } else {
+      if (this.isLoggingIn == false) {
         this.dialogOn()
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
+        return
+      }
+
+      if (this.isPostedSpot == false) {
+        const result = await this.saveSpot({ spot: spot })
+        await this.powerWith({ spot: result, type: type })
+        return
+      }
+
+      if (this.isPowerWithouting == true) {
+        await this.unPowerWithout({
+          spot: spot,
+          power_without: this.powerWithoutsByCurrentUser[0],
+          type: type
+        })
+        await this.powerWith({ spot: spot, type: type })
+        return
+      }
+
+      if (this.isPowerWithing == false) {
+        await this.powerWith({ spot: spot, type: type })
+        return
+      }
+
+      if (this.isPowerWithing == true) {
+        await this.unPowerWith({
+          spot: spot,
+          power_with: this.powerWithsByCurrentUser[0],
+          type: type
+        })
+        return
       }
     },
 
