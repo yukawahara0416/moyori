@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-btn icon @click.stop="wifiWithHandler()">
-      <v-icon v-if="isWifiWithed" color="success">mdi-wifi</v-icon>
-      <v-icon v-if="!isWifiWithed">mdi-wifi</v-icon>
+      <v-icon v-if="isWifiWithing" color="success">mdi-wifi</v-icon>
+      <v-icon v-else>mdi-wifi</v-icon>
       <counter :spot="spot" :genre="'wifi_withs'" />
     </v-btn>
   </div>
@@ -29,15 +29,15 @@ export default {
       return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
     },
 
-    isWifiWithed() {
-      return this.ownWifiWith.length > 0 ? true : false
+    isWifiWithing() {
+      return this.wifiWithsByCurrentUser.length > 0 ? true : false
     },
 
-    isWifiWithouted() {
-      return this.ownWifiWithout.length > 0 ? true : false
+    isWifiWithouting() {
+      return this.wifiWithoutsByCurrentUser.length > 0 ? true : false
     },
 
-    ownWifiWith() {
+    wifiWithsByCurrentUser() {
       if (this.spot.wifi_withs.length == 0) return []
       if (this.isLoggingIn == false) return []
 
@@ -46,7 +46,7 @@ export default {
       })
     },
 
-    ownWifiWithout() {
+    wifiWithoutsByCurrentUser() {
       if (this.spot.wifi_withouts.length == 0) return []
       if (this.isLoggingIn == false) return []
 
@@ -63,31 +63,41 @@ export default {
     wifiWithHandler: async function() {
       const spot = this.spot
       const type = this.type
-      if (this.isLoggingIn) {
-        if (this.isPostedSpot) {
-          if (this.isWifiWithed) {
-            await this.unWifiWith({
-              spot: spot,
-              wifi_with: this.ownWifiWith[0],
-              type: type
-            })
-          } else {
-            if (this.isWifiWithouted) {
-              await this.unWifiWithout({
-                spot: spot,
-                wifi_without: this.ownWifiWithout[0],
-                type: type
-              })
-            }
-            await this.wifiWith({ spot: spot, type: type })
-          }
-        } else {
-          const result = await this.saveSpot({ spot: spot })
-          await this.wifiWith({ spot: result, type: type })
-        }
-      } else {
+
+      if (this.isLoggingIn == false) {
         this.dialogOn()
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
+        return
+      }
+
+      if (this.isPostedSpot == false) {
+        const result = await this.saveSpot({ spot: spot })
+        await this.wifiWith({ spot: result, type: type })
+        return
+      }
+
+      if (this.isWifiWithouting == true) {
+        await this.unWifiWithout({
+          spot: spot,
+          wifi_without: this.wifiWithoutsByCurrentUser[0],
+          type: type
+        })
+        await this.wifiWith({ spot: spot, type: type })
+        return
+      }
+
+      if (this.isWifiWithing == false) {
+        await this.wifiWith({ spot: spot, type: type })
+        return
+      }
+
+      if (this.isWifiWithing == true) {
+        await this.unWifiWith({
+          spot: spot,
+          wifi_with: this.wifiWithsByCurrentUser[0],
+          type: type
+        })
+        return
       }
     },
 
