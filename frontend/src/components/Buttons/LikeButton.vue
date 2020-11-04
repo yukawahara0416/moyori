@@ -25,6 +25,10 @@ export default {
   computed: {
     ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
 
+    isPostedSpot() {
+      return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
+    },
+
     isLiking() {
       return this.likesByCurrentUser.length > 0 ? true : false
     },
@@ -46,10 +50,6 @@ export default {
     likeHandler: async function() {
       const spot = this.spot
       const type = this.type
-      const isPosted = Object.prototype.hasOwnProperty.call(
-        this.spot.data,
-        'id'
-      )
       if (this.isLoggingIn == false) {
         this.dialogOn()
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
@@ -57,19 +57,23 @@ export default {
       }
 
       if (this.isLoggingIn == true) {
-        if (isPosted == false) {
+        if (this.isPostedSpot == false) {
           const result = await this.saveSpot({ spot: spot })
           await this.like({ spot: result, type: type })
           return
         }
 
-        if (isPosted == true && this.isLiked == false) {
+        if (this.isPostedSpot == true && this.isLiking == false) {
           await this.like({ spot: spot, type: type })
           return
         }
 
-        if (isPosted == true && this.isLiked == true) {
-          await this.unlike({ spot: spot, like: this.ownLike[0], type: type })
+        if (this.isPostedSpot == true && this.isLiking == true) {
+          await this.unlike({
+            spot: spot,
+            like: this.likesByCurrentUser[0],
+            type: type
+          })
           return
         }
       }
