@@ -2,7 +2,7 @@
   <div>
     <v-btn icon @click.stop="wifiWithoutHandler()">
       <v-icon v-if="isWifiWithouted" color="error">mdi-wifi-off</v-icon>
-      <v-icon v-if="!isWifiWithouted">mdi-wifi-off</v-icon>
+      <v-icon v-else>mdi-wifi-off</v-icon>
       <counter :spot="spot" :genre="'wifi_withouts'" />
     </v-btn>
   </div>
