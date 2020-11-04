@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-btn icon @click.stop="likeHandler()">
-      <v-icon v-if="isLiked" color="error">mdi-heart</v-icon>
-      <v-icon v-if="!isLiked">mdi-heart-outline</v-icon>
+      <v-icon v-if="isLiking" color="error">mdi-heart</v-icon>
+      <v-icon v-else>mdi-heart-outline</v-icon>
       <counter :spot="spot" :genre="'likes'" />
     </v-btn>
   </div>
@@ -25,7 +25,7 @@ export default {
   computed: {
     ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
 
-    isLiked() {
+    isLiking() {
       return this.ownLike.length > 0 ? true : false
     },
 
