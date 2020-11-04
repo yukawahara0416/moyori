@@ -30,14 +30,14 @@ export default {
     },
 
     isWifiWithing() {
-      return this.ownWifiWith.length > 0 ? true : false
+      return this.wifiWithsByCurrentUser.length > 0 ? true : false
     },
 
     isWifiWithouting() {
-      return this.ownWifiWithout.length > 0 ? true : false
+      return this.wifiWithoutsByCurrentUser.length > 0 ? true : false
     },
 
-    ownWifiWith() {
+    wifiWithsByCurrentUser() {
       if (this.isLoggingIn) {
         return this.spot.wifi_withs.filter(wifi_with => {
           return wifi_with.user_id == this.currentUser.data.id
@@ -47,7 +47,7 @@ export default {
       }
     },
 
-    ownWifiWithout() {
+    wifiWithoutsByCurrentUser() {
       if (this.isLoggingIn) {
         return this.spot.wifi_withouts.filter(wifi_without => {
           return wifi_without.user_id == this.currentUser.data.id
@@ -76,14 +76,14 @@ export default {
           if (this.isWifiWithouting) {
             await this.unWifiWithout({
               spot: spot,
-              wifi_without: this.ownWifiWithout[0],
+              wifi_without: this.wifiWithoutsByCurrentUser[0],
               type: type
             })
           } else {
             if (this.isWifiWithing) {
               await this.unWifiWith({
                 spot: spot,
-                wifi_with: this.ownWifiWith[0],
+                wifi_with: this.wifiWithsByCurrentUser[0],
                 type: type
               })
             }
