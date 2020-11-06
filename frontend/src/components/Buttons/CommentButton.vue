@@ -17,7 +17,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import SpotShowDialogCommentPanel from '@/components/Spot/SpotShowDialogCommentPanel.vue'
-import Counter from '@/components/Buttons/Counter.vue'
+import Counter from '@/components/Utility/Counter.vue'
 
 export default {
   props: {
