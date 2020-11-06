@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Buttons/LikeButton.vue'
+import Component from '@/components/Card/Buttons/LikeButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)

@@ -4,7 +4,7 @@
       <v-spacer />
       <like-button :spot="spot" />
       <v-spacer />
-      <comment-button :spot="spot" />
+      <comment-index-show-button :spot="spot" />
       <v-spacer />
     </v-card-actions>
 
@@ -30,20 +30,20 @@
 
     <v-card-actions>
       <v-spacer />
-      <spot-show-button :spot="spot" />
+      <spot-detail-show-button :spot="spot" />
       <v-spacer />
     </v-card-actions>
   </div>
 </template>
 
 <script>
-import LikeButton from '@/components/Buttons/LikeButton.vue'
-import WifiWithButton from '@/components/Buttons/WifiWithButton.vue'
-import WifiWithoutButton from '@/components/Buttons/WifiWithoutButton.vue'
-import PowerWithButton from '@/components/Buttons/PowerWithButton.vue'
-import PowerWithoutButton from '@/components/Buttons/PowerWithoutButton.vue'
-import CommentButton from '@/components/Buttons/CommentButton.vue'
-import SpotShowButton from '@/components/Spot/SpotShowButton.vue'
+import LikeButton from '@/components/Card/Buttons/LikeButton.vue'
+import CommentIndexShowButton from '@/components/Card/Buttons/CommentIndexShowButton.vue'
+import WifiWithButton from '@/components/Card/Buttons/WifiWithButton.vue'
+import WifiWithoutButton from '@/components/Card/Buttons/WifiWithoutButton.vue'
+import PowerWithButton from '@/components/Card/Buttons/PowerWithButton.vue'
+import PowerWithoutButton from '@/components/Card/Buttons/PowerWithoutButton.vue'
+import SpotDetailShowButton from '@/components/Card/Buttons/SpotDetailShowButton.vue'
 
 export default {
   props: {
@@ -52,12 +52,12 @@ export default {
 
   components: {
     LikeButton,
+    CommentIndexShowButton,
     WifiWithButton,
     WifiWithoutButton,
     PowerWithButton,
     PowerWithoutButton,
-    CommentButton,
-    SpotShowButton
+    SpotDetailShowButton
   }
 }
 </script>

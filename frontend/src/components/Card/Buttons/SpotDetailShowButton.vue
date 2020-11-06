@@ -11,13 +11,13 @@
     </v-btn>
 
     <v-dialog v-model="dialog" scrollable width="600">
-      <spot-show-dialog :spot="spot" @closeDialog="closeDialog()" />
+      <spot-detail :spot="spot" @closeDialog="closeDialog()" />
     </v-dialog>
   </span>
 </template>
 
 <script>
-import SpotShowDialog from '@/components/Spot/SpotShowDialog.vue'
+import SpotDetail from '@/components/Spot/SpotDetail.vue'
 
 export default {
   props: {
@@ -25,7 +25,7 @@ export default {
   },
 
   components: {
-    SpotShowDialog
+    SpotDetail
   },
 
   data() {

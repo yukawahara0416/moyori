@@ -10,7 +10,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Counter from '@/components/Utility/Counter.vue'
+import Counter from '@/components/Card/Buttons/Counter.vue'
 
 export default {
   props: {

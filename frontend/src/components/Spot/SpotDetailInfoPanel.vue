@@ -1,10 +1,10 @@
 <template>
   <v-card flat outlined class="mb-2">
     <v-card-text>
-      <spot-show-dialog-info-panel-address :spot="spot" />
-      <spot-show-dialog-info-panel-phone :spot="spot" />
-      <spot-show-dialog-info-panel-website :spot="spot" />
-      <spot-show-dialog-info-panel-business :spot="spot" />
+      <spot-detail-info-panel-address :spot="spot" />
+      <spot-detail-info-panel-phone :spot="spot" />
+      <spot-detail-info-panel-website :spot="spot" />
+      <spot-detail-info-panel-business :spot="spot" />
     </v-card-text>
     <v-card-actions v-if="isOwnPosted">
       <v-spacer />
@@ -16,10 +16,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import SpotShowDialogInfoPanelAddress from '@/components/Spot/SpotShowDialogInfoPanelAddress.vue'
-import SpotShowDialogInfoPanelPhone from '@/components/Spot/SpotShowDialogInfoPanelPhone.vue'
-import SpotShowDialogInfoPanelWebsite from '@/components/Spot/SpotShowDialogInfoPanelWebsite.vue'
-import SpotShowDialogInfoPanelBusiness from '@/components/Spot/SpotShowDialogInfoPanelBusiness.vue'
+import SpotDetailInfoPanelAddress from '@/components/Spot/SpotDetailInfoPanelAddress.vue'
+import SpotDetailInfoPanelPhone from '@/components/Spot/SpotDetailInfoPanelPhone.vue'
+import SpotDetailInfoPanelWebsite from '@/components/Spot/SpotDetailInfoPanelWebsite.vue'
+import SpotDetailInfoPanelBusiness from '@/components/Spot/SpotDetailInfoPanelBusiness.vue'
 import SpotEditDialog from '@/components/Spot/SpotEditDialog.vue'
 
 export default {
@@ -28,10 +28,10 @@ export default {
   },
 
   components: {
-    SpotShowDialogInfoPanelAddress,
-    SpotShowDialogInfoPanelPhone,
-    SpotShowDialogInfoPanelWebsite,
-    SpotShowDialogInfoPanelBusiness,
+    SpotDetailInfoPanelAddress,
+    SpotDetailInfoPanelPhone,
+    SpotDetailInfoPanelWebsite,
+    SpotDetailInfoPanelBusiness,
     SpotEditDialog
   },
 

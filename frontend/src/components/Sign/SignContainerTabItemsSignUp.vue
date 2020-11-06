@@ -116,7 +116,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Policy from '@/components/Policy.vue'
+import Policy from '@/components/Sign/Policy.vue'
 
 export default {
   components: {
