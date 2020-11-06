@@ -24,7 +24,7 @@
     >
       <map-container-circle :center="center" />
 
-      <map-container-marker :spots="filterSpots" />
+      <map-container-marker :spots="filteredSpots" />
 
       <spot-post-dialog />
     </gmap-map>
@@ -56,7 +56,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ spots: 'spot/spots', filterSpots: 'spot/filterSpots' }),
+    ...mapGetters({ spots: 'spot/spots', filteredSpots: 'spot/filteredSpots' }),
     ...mapGetters(['headers', 'currentUser', 'dialogSign', 'dialogSpotCreate'])
   },
 

@@ -10,7 +10,7 @@ export default {
       return state.spots
     },
 
-    filterSpots(state) {
+    filteredSpots(state) {
       let data = state.spots
       // いいね
       if (state.filterQuery.likes) {
@@ -58,17 +58,17 @@ export default {
     // },
 
     updateDataSpotsStore(state, { spot, data, prop }) {
-      const target = state.spots.filter(function(item) {
+      const targetSpot = state.spots.filter(function(item) {
         return item.marker.place_id == spot.marker.place_id
       })
-      target[0][prop] = data
+      targetSpot[0][prop] = data
     },
 
     pushDataSpotsStore(state, { spot, data, genre }) {
       const target = state.spots.filter(function(item) {
-        if (item.marker.place_id !== null) {
-          return item.marker.place_id == spot.data.place_id
-        }
+        // if (item.marker.place_id !== null) {
+        return item.marker.place_id == spot.data.place_id
+        // }
       })
       target[0][genre].push(data)
     },

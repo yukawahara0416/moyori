@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
   data() {
@@ -80,8 +80,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['filterSpots']),
-
     isFiltered() {
       let data = Object.values(this.filterQuery)
       data = data.filter(function(value) {
