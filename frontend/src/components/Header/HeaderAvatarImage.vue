@@ -5,7 +5,7 @@
       :src="currentUser.avatar"
       alt="プロフィール画像"
     />
-    <span class="white--text headline" v-else>
+    <span v-else class="white--text headline">
       {{ currentUser.data.name.slice(0, 1) }}
     </span>
   </v-avatar>
