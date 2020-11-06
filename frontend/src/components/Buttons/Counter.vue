@@ -11,8 +11,8 @@ export default {
 
   computed: {
     count() {
-      const target = this.spot[this.genre]
-      return target.length > 0 ? target.length : 0
+      const targetSpots = this.spot[this.genre]
+      return targetSpots.length > 0 ? targetSpots.length : 0
     }
   }
 }
