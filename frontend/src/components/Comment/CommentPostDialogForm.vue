@@ -67,8 +67,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
     spot: Object,
-    type: String,
-    dialog: Boolean
+    type: String
   },
 
   data() {
@@ -80,7 +79,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isLoggingIn', 'dialogSign'])
+    ...mapGetters(['isLoggingIn', 'dialogSign']),
+
+    isPostedSpot() {
+      return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
+    }
   },
 
   methods: {
@@ -88,42 +91,36 @@ export default {
     ...mapActions(['postComment', 'pushSnackbar']),
 
     commentHandler: async function() {
-      const spot = this.spot
-      const type = this.type
-      const isPosted = Object.prototype.hasOwnProperty.call(
-        this.spot.data,
-        'id'
-      )
-      if (this.isLoggingIn) {
-        if (isPosted) {
-          await this.postComment({
-            spot: spot,
-            content: this.content,
-            image: this.image,
-            type: type
-          })
-          this.content = ''
-          this.image = null
-          this.closeDialog()
-        } else {
-          const result = await this.saveSpot({ spot: spot })
-          await this.postComment({
-            spot: result,
-            content: this.content,
-            image: this.image,
-            type: type
-          })
-          this.content = ''
-          this.image = null
-          this.closeDialog()
-        }
-      } else {
+      let spot = this.spot
+
+      if (this.isLoggingIn == false) {
+        this.$store.dispatch('dialogOn', 'dialogSign')
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
+        return
       }
+
+      if (this.isPostedSpot == false) {
+        spot = await this.saveSpot(spot)
+      }
+
+      await this.postComment({
+        spot: spot,
+        content: this.content,
+        image: this.image,
+        type: this.type
+      })
+
+      this.clearForm()
+      this.closeDialog()
     },
 
     closeDialog() {
       this.$emit('closeDialog')
+    },
+
+    clearForm() {
+      this.content = ''
+      this.image = null
     }
   }
 }
