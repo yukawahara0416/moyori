@@ -27,13 +27,10 @@ export default {
 
   computed: {
     countChartData() {
-      let chartData = [['Year', 'あり', 'なし']]
-      let day = ''
-      let withs = this.withs.length
-      let withouts = this.withouts.length
-      chartData.push([day, withs, withouts])
-
-      return chartData
+      return [
+        ['Year', 'あり', 'なし'],
+        ['', this.withs.length, this.withouts.length]
+      ]
     }
   }
 }
