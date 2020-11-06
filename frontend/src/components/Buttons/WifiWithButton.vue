@@ -71,7 +71,7 @@ export default {
       }
 
       if (this.isPostedSpot == false) {
-        const result = await this.saveSpot({ spot: spot })
+        const result = await this.saveSpot(spot)
         await this.wifiWith({ spot: result, type: type })
         return
       }

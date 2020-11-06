@@ -76,7 +76,7 @@ export default {
       }
 
       if (this.isPostedSpot == false) {
-        const result = await this.saveSpot({ spot: spot })
+        const result = await this.saveSpot(spot)
         await this.powerWith({ spot: result, type: type })
         return
       }
