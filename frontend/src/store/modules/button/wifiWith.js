@@ -1,4 +1,5 @@
 import { axiosBase } from '@/plugins/axios.js'
+import router from '@/router'
 
 export default {
   actions: {
@@ -9,18 +10,19 @@ export default {
           headers: context.rootState.auth.headers
         })
         .then(response => {
-          type === 'map'
-            ? context.commit('spot/pushDataSpotsStore', {
-                spot: spot,
-                data: response.data,
-                genre: 'wifi_withs'
-              })
-            : context.commit('user/addDataUserStore', {
-                spot: spot,
-                data: response.data,
-                type: type,
-                genre: 'wifi_withs'
-              })
+          if (router.currentRoute.name == 'search')
+            context.commit('spot/pushDataSpotsStore', {
+              spot: spot,
+              data: response.data,
+              genre: 'wifi_withs'
+            })
+          if (router.currentRoute.name == 'profile')
+            context.commit('user/addDataUserStore', {
+              spot: spot,
+              data: response.data,
+              type: type,
+              genre: 'wifi_withs'
+            })
 
           context.dispatch('pushSnackbar', {
             message: '「Wifiあるよ」しました　投票ありがとうございます！',
@@ -42,18 +44,19 @@ export default {
           headers: context.rootState.auth.headers
         })
         .then(response => {
-          type === 'map'
-            ? context.commit('spot/deleteDataSpotsStore', {
-                spot: spot,
-                data: response.data,
-                genre: 'wifi_withs'
-              })
-            : context.commit('user/deleteDataUserStore', {
-                spot: spot,
-                data: response.data,
-                type: type,
-                genre: 'wifi_withs'
-              })
+          if (router.currentRoute.name == 'search')
+            context.commit('spot/deleteDataSpotsStore', {
+              spot: spot,
+              data: response.data,
+              genre: 'wifi_withs'
+            })
+          if (router.currentRoute.name == 'profile')
+            context.commit('user/deleteDataUserStore', {
+              spot: spot,
+              data: response.data,
+              type: type,
+              genre: 'wifi_withs'
+            })
 
           context.dispatch('pushSnackbar', {
             message: '「WiFiあるよ」を取り消しました',

@@ -49,7 +49,7 @@ export default {
       })
     },
 
-    saveSpot(context, { spot }) {
+    saveSpot(context, spot) {
       return new Promise(resolve => {
         const params = { spot: { place_id: spot.marker.place_id } }
         axiosBase

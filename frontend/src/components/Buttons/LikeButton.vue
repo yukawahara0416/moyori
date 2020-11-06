@@ -57,27 +57,22 @@ export default {
         return
       }
 
-      if (this.isLoggingIn == true) {
-        if (this.isPostedSpot == false) {
-          const result = await this.saveSpot({ spot: spot })
-          await this.like({ spot: result, type: type })
-          return
-        }
-
-        if (this.isPostedSpot == true && this.isLiking == false) {
-          await this.like({ spot: spot, type: type })
-          return
-        }
-
-        if (this.isPostedSpot == true && this.isLiking == true) {
-          await this.unlike({
-            spot: spot,
-            like: this.likesByCurrentUser[0],
-            type: type
-          })
-          return
-        }
+      if (this.isPostedSpot == false) {
+        const result = await this.saveSpot(spot)
+        await this.like({ spot: result, type: type })
+        return
       }
+
+      if (this.isLiking == false) {
+        await this.like({ spot: spot, type: type })
+        return
+      }
+
+      await this.unlike({
+        spot: spot,
+        data: this.likesByCurrentUser[0],
+        type: type
+      })
     },
 
     dialogOn() {

@@ -31,26 +31,26 @@ export default {
     },
 
     addDataUserStore(state, { spot, data, type, genre }) {
-      const target = state.user[type].filter(function(item) {
-        return item.marker.place_id == spot.data.place_id
+      const targetSpot = state.user[type].filter(function(item) {
+        return item.data.place_id == spot.data.place_id
       })
-      target[0][genre].push(data)
+      targetSpot[0][genre].push(data)
     },
 
     deleteDataUserStore(state, { spot, data, type, genre }) {
-      const target = state.user[type].filter(function(item) {
+      const targetSpot = state.user[type].filter(function(item) {
         return item.marker.place_id == spot.data.place_id
       })
-      const items = target[0][genre]
+      const items = targetSpot[0][genre]
       const number = items.findIndex(({ id }) => id === data.id)
       items.splice(number, 1)
     },
 
     onSpotlight(state, { spot, type }) {
-      const target = state.user[type].filter(function(item) {
+      const targetSpot = state.user[type].filter(function(item) {
         return item.marker.place_id == spot.data.place_id
       })
-      target[0].marker.on = true
+      targetSpot[0].marker.on = true
     },
 
     offSpotlight(state, type) {

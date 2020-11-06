@@ -1,4 +1,5 @@
 import { axiosBase } from '@/plugins/axios.js'
+import router from '@/router'
 
 export default {
   actions: {
@@ -9,18 +10,20 @@ export default {
           headers: context.rootState.auth.headers
         })
         .then(response => {
-          type === 'map'
-            ? context.commit('spot/pushDataSpotsStore', {
-                spot: spot,
-                data: response.data,
-                genre: 'likes'
-              })
-            : context.commit('user/addDataUserStore', {
-                spot: spot,
-                data: response.data,
-                type: type,
-                genre: 'likes'
-              })
+          if (router.currentRoute.name == 'search')
+            context.commit('spot/pushDataSpotsStore', {
+              spot: spot,
+              data: response.data,
+              genre: 'likes'
+            })
+
+          if (router.currentRoute.name == 'profile')
+            context.commit('user/addDataUserStore', {
+              spot: spot,
+              data: response.data,
+              type: type,
+              genre: 'likes'
+            })
 
           context.dispatch('pushSnackbar', {
             message: 'いいねしました　投票ありがとうございます！',
@@ -35,25 +38,27 @@ export default {
         })
     },
 
-    unlike(context, { spot, like, type }) {
-      const params = { id: like.id }
+    unlike(context, { spot, data, type }) {
+      const params = { id: data.id }
       axiosBase
         .delete('/api/v1/likes/' + params.id, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
-          type === 'map'
-            ? context.commit('spot/deleteDataSpotsStore', {
-                spot: spot,
-                data: response.data,
-                genre: 'likes'
-              })
-            : context.commit('user/deleteDataUserStore', {
-                spot: spot,
-                data: response.data,
-                type: type,
-                genre: 'likes'
-              })
+          if (router.currentRoute.name == 'search')
+            context.commit('spot/deleteDataSpotsStore', {
+              spot: spot,
+              data: response.data,
+              genre: 'likes'
+            })
+
+          if (router.currentRoute.name == 'profile')
+            context.commit('user/deleteDataUserStore', {
+              spot: spot,
+              data: response.data,
+              type: type,
+              genre: 'likes'
+            })
 
           context.dispatch('pushSnackbar', {
             message: 'いいねを取り消しました',
