@@ -8,7 +8,6 @@
     <v-dialog v-model="dialog" width="600">
       <comment-post-dialog-form
         :spot="spot"
-        :type="type"
         :dialog="dialog"
         @closeDialog="closeDialog"
       />
@@ -22,8 +21,7 @@ import CommentPostDialogForm from '@/components/Comment/CommentPostDialogForm.vu
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   components: {

@@ -1,7 +1,7 @@
 <template>
   <v-card flat outlined>
     <span v-if="spot.comments[0]">
-      <comment-index :spot="spot" :type="type" />
+      <comment-index :spot="spot" />
     </span>
     <span v-else>
       <v-card flat class="ma-4">
@@ -11,7 +11,7 @@
 
     <v-card-actions>
       <v-spacer />
-      <comment-post-dialog :spot="spot" :type="type" />
+      <comment-post-dialog :spot="spot" />
       <v-spacer />
     </v-card-actions>
   </v-card>
@@ -23,8 +23,7 @@ import CommentPostDialog from '@/components/Comment/CommentPostDialog.vue'
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   components: {

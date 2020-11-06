@@ -66,8 +66,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   data() {
@@ -79,7 +78,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isLoggingIn', 'dialogSign']),
+    ...mapGetters(['isLoggingIn', 'tab']),
 
     isPostedSpot() {
       return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
@@ -107,7 +106,7 @@ export default {
         spot: spot,
         content: this.content,
         image: this.image,
-        type: this.type
+        active_tab: this.tab
       })
 
       this.clearForm()

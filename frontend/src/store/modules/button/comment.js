@@ -3,7 +3,7 @@ import router from '@/router'
 
 export default {
   actions: {
-    postComment(context, { spot, content, image, type }) {
+    postComment(context, { spot, content, image, active_tab }) {
       const formData = new FormData()
       formData.append('comment[spot_id]', spot.data.id)
       formData.append('comment[content]', content)
@@ -25,7 +25,7 @@ export default {
             context.commit('user/addDataUserStore', {
               spot: spot,
               data: response.data,
-              type: type,
+              active_tab: active_tab,
               genre: 'comments'
             })
 
@@ -42,7 +42,7 @@ export default {
         })
     },
 
-    deleteComment(context, { spot, comment, type }) {
+    deleteComment(context, { spot, comment, active_tab }) {
       const params = { id: comment.data.id }
       axiosBase
         .delete('/api/v1/comments/' + params.id, {
@@ -60,7 +60,7 @@ export default {
             context.commit('user/deleteDataUserStore', {
               spot: spot,
               data: response.data,
-              type: type,
+              active_tab: active_tab,
               genre: 'comments'
             })
 

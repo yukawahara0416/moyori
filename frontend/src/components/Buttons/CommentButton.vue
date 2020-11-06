@@ -1,16 +1,14 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" width="600">
-      <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on">
-          <v-icon v-if="isCommenting" color="success">mdi-message</v-icon>
-          <v-icon v-else>mdi-message-outline</v-icon>
-          <counter :spot="spot" :genre="'comments'" />
-        </v-btn>
-      </template>
+    <v-btn icon @click.stop="openDialog()">
+      <v-icon v-if="isCommenting" color="success">mdi-message</v-icon>
+      <v-icon v-else>mdi-message-outline</v-icon>
+      <counter :spot="spot" :genre="'comments'" />
+    </v-btn>
 
+    <v-dialog v-model="dialog" width="600">
       <v-card>
-        <spot-show-dialog-comment-panel :spot="spot" :type="type" />
+        <spot-show-dialog-comment-panel :spot="spot" />
       </v-card>
     </v-dialog>
   </v-row>
@@ -23,8 +21,7 @@ import Counter from '@/components/Buttons/Counter.vue'
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   components: {
@@ -56,8 +53,8 @@ export default {
   },
 
   methods: {
-    closeDialog() {
-      this.dialog = false
+    openDialog() {
+      this.dialog = true
     }
   }
 }

@@ -16,8 +16,7 @@ import Counter from '@/components/Buttons/Counter.vue'
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   components: {
@@ -25,7 +24,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
+    ...mapGetters(['currentUser', 'isLoggingIn', 'tab']),
 
     isPostedSpot() {
       return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
@@ -69,7 +68,7 @@ export default {
 
     powerWithoutHandler: async function() {
       const spot = this.spot
-      const type = this.type
+      const activeTab = this.tab
 
       if (this.isLoggingIn == false) {
         this.dialogOn()
@@ -79,7 +78,7 @@ export default {
 
       if (this.isPostedSpot == false) {
         const result = await this.saveSpot(spot)
-        await this.powerWithout({ spot: result, type: type })
+        await this.powerWithout({ spot: result, active_tab: activeTab })
         return
       }
 
@@ -87,14 +86,14 @@ export default {
         await this.unPowerWith({
           spot: spot,
           power_with: this.powerWithsByCurrentUser[0],
-          type: type
+          active_tab: activeTab
         })
-        await this.powerWithout({ spot: spot, type: type })
+        await this.powerWithout({ spot: spot, active_tab: activeTab })
         return
       }
 
       if (this.isPowerWithouting == false) {
-        await this.powerWithout({ spot: result, type: type })
+        await this.powerWithout({ spot: result, active_tab: activeTab })
         return
       }
 
@@ -102,7 +101,7 @@ export default {
         await this.unPowerWithout({
           spot: spot,
           power_without: this.powerWithoutsByCurrentUser[0],
-          type: type
+          active_tab: activeTab
         })
         return
       }

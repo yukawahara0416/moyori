@@ -8,7 +8,6 @@
       <comment-index-delete-button-dialog
         :spot="spot"
         :comment="comment"
-        :type="type"
         @closeDialog="closeDialog"
       />
     </v-dialog>
@@ -21,8 +20,7 @@ import CommentIndexDeleteButtonDialog from '@/components/Comment/CommentIndexDel
 export default {
   props: {
     spot: Object,
-    comment: Object,
-    type: String
+    comment: Object
   },
 
   components: {

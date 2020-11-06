@@ -1,11 +1,8 @@
 <template>
   <span>
-    <profile-contents-tabs :tabs="tabs" @changeTabs="changeTabs" />
-    <profile-contents-items
-      :tabs="tabs"
-      :user="user"
-      @changeTabs="changeTabs"
-    />
+    <profile-contents-tabs />
+
+    <profile-contents-items :user="user" />
   </span>
 </template>
 
@@ -21,18 +18,6 @@ export default {
   components: {
     ProfileContentsTabs,
     ProfileContentsItems
-  },
-
-  data() {
-    return {
-      tabs: null
-    }
-  },
-
-  methods: {
-    changeTabs(newValue) {
-      this.tabs = newValue
-    }
   }
 }
 </script>

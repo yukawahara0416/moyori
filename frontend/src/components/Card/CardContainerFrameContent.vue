@@ -8,7 +8,7 @@
 
       <v-divider class="mx-4"></v-divider>
 
-      <card-container-frame-content-action :spot="spot" :type="type" />
+      <card-container-frame-content-action :spot="spot" />
     </v-col>
   </v-row>
 </template>
@@ -21,8 +21,7 @@ import CardContainerFrameContentAction from '@/components/Card/CardContainerFram
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   components: {

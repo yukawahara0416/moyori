@@ -30,15 +30,15 @@ export default {
       state.user = {}
     },
 
-    addDataUserStore(state, { spot, data, type, genre }) {
-      const targetSpot = state.user[type].filter(function(item) {
+    addDataUserStore(state, { spot, data, active_tab, genre }) {
+      const targetSpot = state.user[active_tab].filter(function(item) {
         return item.data.place_id == spot.data.place_id
       })
       targetSpot[0][genre].push(data)
     },
 
-    deleteDataUserStore(state, { spot, data, type, genre }) {
-      const targetSpot = state.user[type].filter(function(item) {
+    deleteDataUserStore(state, { spot, data, active_tab, genre }) {
+      const targetSpot = state.user[active_tab].filter(function(item) {
         return item.marker.place_id == spot.data.place_id
       })
       const items = targetSpot[0][genre]
@@ -46,16 +46,16 @@ export default {
       items.splice(number, 1)
     },
 
-    onSpotlight(state, { spot, type }) {
-      const targetSpot = state.user[type].filter(function(item) {
+    onSpotlight(state, { spot, active_tab }) {
+      const targetSpot = state.user[active_tab].filter(function(item) {
         return item.marker.place_id == spot.data.place_id
       })
       targetSpot[0].marker.on = true
     },
 
-    offSpotlight(state, type) {
-      for (let i in state.user[type]) {
-        state.user[type][i].marker.on = false
+    offSpotlight(state, active_tab) {
+      for (let i in state.user[active_tab]) {
+        state.user[active_tab][i].marker.on = false
       }
     }
   },
@@ -83,9 +83,9 @@ export default {
       context.commit('clearUserStore')
     },
 
-    spotlight(context, { spot, type }) {
-      context.commit('offSpotlight', type)
-      context.commit('onSpotlight', { spot, type })
+    spotlight(context, { spot, active_tab }) {
+      context.commit('offSpotlight', active_tab)
+      context.commit('onSpotlight', { spot, active_tab })
     }
   }
 }

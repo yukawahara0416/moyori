@@ -19,7 +19,7 @@
       <spot-show-dialog-image-slide :spot="spot" />
       <spot-show-dialog-wifi-panel :spot="spot" />
       <spot-show-dialog-power-panel :spot="spot" />
-      <spot-show-dialog-comment-panel :spot="spot" :type="type" />
+      <spot-show-dialog-comment-panel :spot="spot" />
     </v-card-text>
   </v-card>
 </template>
@@ -33,8 +33,7 @@ import SpotShowDialogCommentPanel from '@/components/Spot/SpotShowDialogCommentP
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   components: {
