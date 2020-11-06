@@ -78,11 +78,11 @@ module Api
         end
 
         def convert_to_json_posted_spot(spot)
-          url = rails_blob_url(spot.picture) if spot.picture.attached?
+          picture = rails_blob_url(spot.picture) if spot.picture.attached?
           {
             data: spot,
             detail: {},
-            picture: url,
+            picture: picture,
             marker: {
               address: spot.address,
               name: spot.name,
@@ -125,8 +125,10 @@ module Api
         end
 
         def give_image_to_comment(comment)
-          url = rails_blob_url(comment.image) if comment.image.attached?
-          { data: comment, image: url }
+          comment_user = User.find(comment.user_id)
+          avatar = rails_blob_url(comment_user.avatar) if comment_user.avatar.attached?
+          image = rails_blob_url(comment.image) if comment.image.attached?
+          { data: comment, image: image, avatar: avatar }
         end
 
       # rubocop:enable
