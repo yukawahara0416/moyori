@@ -1,4 +1,5 @@
 import { axiosBase } from '@/plugins/axios.js'
+import router from '@/router'
 
 export default {
   actions: {
@@ -9,18 +10,20 @@ export default {
           headers: context.rootState.auth.headers
         })
         .then(response => {
-          type === 'map'
-            ? context.commit('spot/pushDataSpotsStore', {
-                spot: spot,
-                data: response.data,
-                genre: 'power_withouts'
-              })
-            : context.commit('user/addDataUserStore', {
-                spot: spot,
-                data: response.data,
-                type: type,
-                genre: 'power_withouts'
-              })
+          if (router.currentRoute.name == 'search')
+            context.commit('spot/pushDataSpotsStore', {
+              spot: spot,
+              data: response.data,
+              genre: 'power_withouts'
+            })
+
+          if (router.currentRoute.name == 'profile')
+            context.commit('user/addDataUserStore', {
+              spot: spot,
+              data: response.data,
+              type: type,
+              genre: 'power_withouts'
+            })
 
           context.dispatch('pushSnackbar', {
             message: '「電源ないよ」しました　投票ありがとうございます！',
@@ -42,18 +45,20 @@ export default {
           headers: context.rootState.auth.headers
         })
         .then(response => {
-          type === 'map'
-            ? context.commit('spot/deleteDataSpotsStore', {
-                spot: spot,
-                data: response.data,
-                genre: 'power_withouts'
-              })
-            : context.commit('user/deleteDataUserStore', {
-                spot: spot,
-                data: response.data,
-                type: type,
-                genre: 'wifi_withouts'
-              })
+          if (router.currentRoute.name == 'search')
+            context.commit('spot/deleteDataSpotsStore', {
+              spot: spot,
+              data: response.data,
+              genre: 'power_withouts'
+            })
+
+          if (router.currentRoute.name == 'profile')
+            context.commit('user/deleteDataUserStore', {
+              spot: spot,
+              data: response.data,
+              type: type,
+              genre: 'wifi_withouts'
+            })
 
           context.dispatch('pushSnackbar', {
             message: '「電源ないよ」を取り消しました',
