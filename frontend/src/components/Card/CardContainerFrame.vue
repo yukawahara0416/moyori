@@ -3,7 +3,7 @@
     class="mt-2 d-flex flex-column"
     height="100%"
     hover
-    :class="{ selected: spot.marker.on === true }"
+    :class="{ selected: isActive }"
     :id="id"
     @click="
       spotlight(spot)
@@ -28,9 +28,15 @@ export default {
     CardContainerFrameContent
   },
 
+  computed: {
+    isActive() {
+      return this.spot.marker.on
+    }
+  },
+
   methods: {
     spotlight(spot) {
-      this.type === 'map'
+      this.$route.name == 'search'
         ? this.$store.dispatch('spot/spotlight', spot)
         : this.$store.dispatch('user/spotlight', {
             spot: spot,
@@ -40,7 +46,7 @@ export default {
 
     // SearchMapWrap/mounted
     panTo(spot) {
-      this.type === 'map' ? this.$root.$emit('panTo', spot) : []
+      if (this.$route.name == 'search') this.$root.$emit('panTo', spot)
     }
   }
 }
