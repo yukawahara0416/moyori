@@ -11,7 +11,6 @@
         <comment-index-delete-button
           v-if="isCommentingByCurrentUser(comment)"
           :spot="spot"
-          :type="type"
           :comment="comment"
         />
       </v-card-subtitle>
@@ -41,8 +40,7 @@ import CommentIndexImage from '@/components/Comment/CommentIndexImage.vue'
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   components: {

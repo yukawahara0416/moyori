@@ -14,7 +14,7 @@
 
       <v-btn
         @click="
-          deleteComment({ spot, comment, type })
+          deleteComment()
           closeDialog()
         "
         color="green darken-1"
@@ -27,17 +27,26 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
     spot: Object,
-    comment: Object,
-    type: String
+    comment: Object
+  },
+
+  computed: {
+    ...mapGetters(['tab'])
   },
 
   methods: {
-    ...mapActions(['deleteComment']),
+    deleteComment() {
+      this.$store.dispatch('deleteComment', {
+        spot: this.spot,
+        comment: this.comment,
+        active_tab: this.tab
+      })
+    },
 
     closeDialog() {
       this.$emit('closeDialog')

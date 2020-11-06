@@ -3,7 +3,7 @@ import router from '@/router'
 
 export default {
   actions: {
-    wifiWith(context, { spot, type }) {
+    wifiWith(context, { spot, active_tab }) {
       const params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/wifi_withs', params, {
@@ -20,7 +20,7 @@ export default {
             context.commit('user/addDataUserStore', {
               spot: spot,
               data: response.data,
-              type: type,
+              active_tab: active_tab,
               genre: 'wifi_withs'
             })
 
@@ -37,7 +37,7 @@ export default {
         })
     },
 
-    unWifiWith(context, { spot, wifi_with, type }) {
+    unWifiWith(context, { spot, wifi_with, active_tab }) {
       const params = { id: wifi_with.id }
       axiosBase
         .delete('/api/v1/wifi_withs/' + params.id, {
@@ -54,7 +54,7 @@ export default {
             context.commit('user/deleteDataUserStore', {
               spot: spot,
               data: response.data,
-              type: type,
+              active_tab: active_tab,
               genre: 'wifi_withs'
             })
 

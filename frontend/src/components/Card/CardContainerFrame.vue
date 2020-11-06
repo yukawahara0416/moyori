@@ -10,18 +10,18 @@
       panTo(spot)
     "
   >
-    <card-container-frame-content :spot="spot" :type="type" />
+    <card-container-frame-content :spot="spot" />
   </v-card>
 </template>
 
 <script>
 import CardContainerFrameContent from '@/components/Card/CardContainerFrameContent.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
     spot: Object,
-    id: Number,
-    type: String
+    id: Number
   },
 
   components: {
@@ -29,6 +29,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['tab']),
+
     isActive() {
       return this.spot.marker.on
     }
@@ -40,7 +42,7 @@ export default {
         ? this.$store.dispatch('spot/spotlight', spot)
         : this.$store.dispatch('user/spotlight', {
             spot: spot,
-            type: this.type
+            active_tab: this.tab
           })
     },
 

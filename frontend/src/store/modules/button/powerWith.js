@@ -3,7 +3,7 @@ import router from '@/router'
 
 export default {
   actions: {
-    powerWith(context, { spot, type }) {
+    powerWith(context, { spot, active_tab }) {
       const params = { spot_id: spot.data.id }
       axiosBase
         .post('/api/v1/power_withs', params, {
@@ -21,7 +21,7 @@ export default {
             context.commit('user/addDataUserStore', {
               spot: spot,
               data: response.data,
-              type: type,
+              active_tab: active_tab,
               genre: 'power_withs'
             })
 
@@ -38,7 +38,7 @@ export default {
         })
     },
 
-    unPowerWith(context, { spot, power_with, type }) {
+    unPowerWith(context, { spot, power_with, active_tab }) {
       var params = { id: power_with.id }
       axiosBase
         .delete('/api/v1/power_withs/' + params.id, {
@@ -56,7 +56,7 @@ export default {
             context.commit('user/deleteDataUserStore', {
               spot: spot,
               data: response.data,
-              type: type,
+              active_tab: active_tab,
               genre: 'power_withs'
             })
 

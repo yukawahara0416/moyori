@@ -14,8 +14,7 @@ import Counter from '@/components/Buttons/Counter.vue'
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   components: {
@@ -23,7 +22,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
+    ...mapGetters(['currentUser', 'isLoggingIn', 'tab']),
 
     isPostedSpot() {
       return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
@@ -67,7 +66,7 @@ export default {
 
     wifiWithoutHandler: async function() {
       const spot = this.spot
-      const type = this.type
+      const activeTab = this.tab
 
       if (this.isLoggingIn == false) {
         this.dialogOn()
@@ -77,7 +76,7 @@ export default {
 
       if (this.isPostedSpot == false) {
         const result = await this.saveSpot(spot)
-        await this.wifiWithout({ spot: result, type: type })
+        await this.wifiWithout({ spot: result, active_tab: activeTab })
         return
       }
 
@@ -85,14 +84,14 @@ export default {
         await this.unWifiWith({
           spot: spot,
           wifi_with: this.wifiWithsByCurrentUser[0],
-          type: type
+          active_tab: activeTab
         })
-        await this.wifiWithout({ spot: spot, type: type })
+        await this.wifiWithout({ spot: spot, active_tab: activeTab })
         return
       }
 
       if (this.isWifiWithouting == false) {
-        await this.wifiWithout({ spot: spot, type: type })
+        await this.wifiWithout({ spot: spot, active_tab: activeTab })
         return
       }
 
@@ -100,7 +99,7 @@ export default {
         await this.unWifiWithout({
           spot: spot,
           wifi_without: this.wifiWithoutsByCurrentUser[0],
-          type: type
+          active_tab: activeTab
         })
         return
       }

@@ -2,9 +2,9 @@
   <div>
     <v-card-actions class="actions-padding-bottom">
       <v-spacer />
-      <like-button :spot="spot" :type="type" />
+      <like-button :spot="spot" />
       <v-spacer />
-      <comment-button :spot="spot" :type="type" />
+      <comment-button :spot="spot" />
       <v-spacer />
     </v-card-actions>
 
@@ -12,9 +12,9 @@
       <v-spacer />
       <span>WiFiのある／なし</span>
       <v-spacer />
-      <wifi-with-button :spot="spot" :type="type" />
+      <wifi-with-button :spot="spot" />
       <v-spacer />
-      <wifi-without-button :spot="spot" :type="type" />
+      <wifi-without-button :spot="spot" />
       <v-spacer />
     </v-card-actions>
 
@@ -22,15 +22,15 @@
       <v-spacer />
       <span>電源のある／なし</span>
       <v-spacer />
-      <power-with-button :spot="spot" :type="type" />
+      <power-with-button :spot="spot" />
       <v-spacer />
-      <power-without-button :spot="spot" :type="type" />
+      <power-without-button :spot="spot" />
       <v-spacer />
     </v-card-actions>
 
     <v-card-actions>
       <v-spacer />
-      <spot-show-button :spot="spot" :type="type" />
+      <spot-show-button :spot="spot" />
       <v-spacer />
     </v-card-actions>
   </div>
@@ -47,8 +47,7 @@ import SpotShowButton from '@/components/Spot/SpotShowButton.vue'
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   components: {

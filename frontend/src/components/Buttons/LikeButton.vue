@@ -14,8 +14,7 @@ import Counter from '@/components/Buttons/Counter.vue'
 
 export default {
   props: {
-    spot: Object,
-    type: String
+    spot: Object
   },
 
   components: {
@@ -23,7 +22,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentUser', 'isLoggingIn', 'dialogSign']),
+    ...mapGetters(['currentUser', 'isLoggingIn', 'tab']),
 
     isPostedSpot() {
       return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
@@ -49,7 +48,7 @@ export default {
 
     likeHandler: async function() {
       const spot = this.spot
-      const type = this.type
+      const activeTab = this.tab
 
       if (this.isLoggingIn == false) {
         this.dialogOn()
@@ -59,19 +58,19 @@ export default {
 
       if (this.isPostedSpot == false) {
         const result = await this.saveSpot(spot)
-        await this.like({ spot: result, type: type })
+        await this.like({ spot: result, active_tab: activeTab })
         return
       }
 
       if (this.isLiking == false) {
-        await this.like({ spot: spot, type: type })
+        await this.like({ spot: spot, active_tab: activeTab })
         return
       }
 
       await this.unlike({
         spot: spot,
         data: this.likesByCurrentUser[0],
-        type: type
+        active_tab: activeTab
       })
     },
 
