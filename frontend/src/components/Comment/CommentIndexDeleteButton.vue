@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn color="green darken-1" text @click.stop="dialog = !dialog">
+    <v-btn color="green darken-1" text @click.stop="openDialog()">
       削除する
     </v-btn>
 
@@ -34,6 +34,10 @@ export default {
   },
 
   methods: {
+    openDialog() {
+      this.dialog = true
+    },
+
     closeDialog() {
       this.dialog = false
     }

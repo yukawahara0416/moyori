@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn class="my-3" width="250" @click.stop="dialog = true">
+    <v-btn class="my-3" width="250" @click.stop="openDialog()">
       <v-icon left>mdi-delete</v-icon>
       アカウント削除
     </v-btn>
@@ -30,6 +30,10 @@ export default {
   },
 
   methods: {
+    openDialog() {
+      this.dialog = true
+    },
+
     closeDialog() {
       this.dialog = false
     }

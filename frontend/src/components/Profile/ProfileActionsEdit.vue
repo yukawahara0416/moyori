@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn class="my-3" width="250" @click.stop="dialog = true">
+    <v-btn class="my-3" width="250" @click.stop="openDialog()">
       <v-icon left>mdi-pencil</v-icon>
       プロフィール編集
     </v-btn>
@@ -30,16 +30,12 @@ export default {
   },
 
   methods: {
-    // dialogOn() {
-    //   this.$store.dispatch('dialogOn', 'dialogProfileEdit')
-    // },
+    openDialog() {
+      this.dialog = true
+    },
 
     closeDialog() {
       this.dialog = false
-      // this.$store.dispatch('pushSnackbar', {
-      //   message: 'プロフィールの編集をキャンセルしました',
-      //   color: 'success'
-      // })
     }
   }
 }

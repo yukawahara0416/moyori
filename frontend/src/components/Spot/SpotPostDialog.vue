@@ -1,11 +1,11 @@
 <template>
-  <v-dialog persistent v-model="dialog" width="600">
-    <template v-slot:activator="{ on }">
-      <div v-on="on" @click.stop="dialogOn"></div>
-    </template>
+  <span>
+    <div @click.stop="openDialog()"></div>
 
-    <spot-post-dialog-form />
-  </v-dialog>
+    <v-dialog persistent v-model="dialog" width="600">
+      <spot-post-dialog-form />
+    </v-dialog>
+  </span>
 </template>
 
 <script>
@@ -31,7 +31,7 @@ export default {
   },
 
   methods: {
-    dialogOn() {
+    openDialog() {
       this.$store.dispatch('dialogOn', 'dialogSpotCreate')
     }
   }
