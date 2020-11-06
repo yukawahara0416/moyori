@@ -37,27 +37,23 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isLoggingIn', 'dialogSign'])
+    ...mapGetters(['isLoggingIn'])
   },
 
   methods: {
     ...mapActions(['pushSnackbar']),
 
     commentHandler() {
-      if (this.isLoggingIn) {
-        this.dialog = true
-      } else {
-        this.dialogOn()
+      if (this.isLoggingIn == false) {
+        this.$store.dispatch('dialogOn', 'dialogSign')
         this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
+        return
       }
+      this.dialog = true
     },
 
     closeDialog() {
       this.dialog = false
-    },
-
-    dialogOn() {
-      this.$store.dispatch('dialogOn', 'dialogSign')
     }
   }
 }
