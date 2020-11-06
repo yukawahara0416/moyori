@@ -2,64 +2,28 @@
   <span>
     <v-card class="ma-4" flat v-for="(comment, id) in spot.comments" :key="id">
       <v-card-subtitle class="pa-0">
-        <v-btn icon>
-          <v-avatar class="white--text headline" color="success" size="24">
-            <!-- <img alt="" src="" v-if="comment.comment.user_image" /> -->
-            <!-- <span class="white--text headline" v-else> -->
-            <span class="white--text headline">
-              {{ comment.comment.user_name.slice(0, 1) }}
-            </span>
-          </v-avatar>
-        </v-btn>
-        <span class="ml-2">{{ comment.comment.user_name }} さん</span>
-        <span class="ml-2">
-          {{ daytime(comment.comment.created_at) }}
-        </span>
-        <template v-if="comment.comment.user_id == currentUser.data.id">
-          <comment-index-delete-button
-            :spot="spot"
-            :type="type"
-            :comment="comment"
-          />
-        </template>
+        <comment-index-avatar :comment="comment" />
+
+        <comment-index-username :comment="comment" />
+
+        <comment-index-day :comment="comment" />
+
+        <comment-index-delete-button
+          v-if="isCommentingByCurrentUser(comment)"
+          :spot="spot"
+          :type="type"
+          :comment="comment"
+        />
       </v-card-subtitle>
 
       <v-card-text class="pb-0">
         <v-row>
-          <v-col :cols="comment.image !== null ? 9 : 12" class="py-0">
-            <p class="mx-3">{{ comment.comment.content }}</p>
+          <v-col :cols="isImageExist(comment) ? 9 : 12" class="py-0">
+            <p class="mx-3">{{ comment.data.content }}</p>
           </v-col>
-          <v-col v-if="comment.image !== null" cols="3" class="pa-0">
-            <v-dialog v-model="dialog" width="600">
-              <template v-slot:activator="{ on }">
-                <v-img
-                  alt="スポット写真"
-                  v-on="on"
-                  :src="comment.image !== null ? comment.image : ''"
-                  @click="dialog = true"
-                >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="success lighten-5"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
-                </v-img>
-              </template>
 
-              <v-card class="pa-2">
-                <v-img
-                  align="center"
-                  :src="comment.image !== null ? comment.image : ''"
-                />
-              </v-card>
-            </v-dialog>
+          <v-col v-if="isImageExist(comment)" cols="3" class="pa-0">
+            <comment-index-image :comment="comment" />
           </v-col>
         </v-row>
       </v-card-text>
@@ -69,7 +33,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import CommentIndexAvatar from '@/components/Comment/CommentIndexAvatar.vue'
 import CommentIndexDeleteButton from '@/components/Comment/CommentIndexDeleteButton.vue'
+import CommentIndexUsername from '@/components/Comment/CommentIndexUsername.vue'
+import CommentIndexDay from '@/components/Comment/CommentIndexDay.vue'
+import CommentIndexImage from '@/components/Comment/CommentIndexImage.vue'
 
 export default {
   props: {
@@ -78,30 +46,25 @@ export default {
   },
 
   components: {
-    CommentIndexDeleteButton
-  },
-
-  data() {
-    return {
-      dialog: false
-    }
+    CommentIndexAvatar,
+    CommentIndexDeleteButton,
+    CommentIndexUsername,
+    CommentIndexDay,
+    CommentIndexImage
   },
 
   computed: {
     ...mapGetters(['currentUser']),
 
-    image() {
-      if (this.comment.image !== null) {
-        return this.comment.image
-      } else {
-        return ''
+    isImageExist() {
+      return function(comment) {
+        return comment.image !== null
       }
     },
 
-    daytime() {
-      return function(created_at) {
-        const position = created_at.indexOf('T')
-        return created_at.substring(0, position)
+    isCommentingByCurrentUser() {
+      return function(comment) {
+        return comment.data.user_id == this.currentUser.data.id
       }
     }
   }
