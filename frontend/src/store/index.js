@@ -13,6 +13,7 @@ import tutorial from '@/store/modules/utility/tutorial.js'
 import dialog from '@/store/modules/utility/dialog.js'
 import snackbar from '@/store/modules/utility/snackbar.js'
 import loading from '@/store/modules/utility/loading.js'
+import tab from '@/store/modules/utility/tab.js'
 
 import like from '@/store/modules/button/like.js'
 import wifiWith from '@/store/modules/button/wifiWith.js'
@@ -36,6 +37,7 @@ export default new Vuex.Store({
     dialog,
     snackbar,
     loading,
+    tab,
 
     like,
     wifiWith,
@@ -47,8 +49,8 @@ export default new Vuex.Store({
 
   plugins: [
     createPersistedState({
-      // paths: ['auth.currentUser', 'auth.headers', 'tutorial.tutorialState'],
-      paths: ['auth.currentUser', 'auth.headers'],
+      paths: ['auth.currentUser', 'auth.headers', 'tutorial.tutorialState'],
+      // paths: ['auth.currentUser', 'auth.headers'],
       storage: window.sessionStorage
     })
   ]
