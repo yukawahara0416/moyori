@@ -1,121 +1,11 @@
 <template>
   <v-container fluid>
     <v-row align="center" justify="center" style="flex-direction: column;">
-      <v-col>
-        <v-card class="mx-5">
-          <v-toolbar class="white--text" color="success" dense flat>
-            <v-toolbar-title>かんたんログイン</v-toolbar-title>
-          </v-toolbar>
-          <v-card-actions>
-            <v-row align="center" justify="center">
-              <v-col class="text-center">
-                <v-btn
-                  color="success"
-                  @click.stop="signInAsTestUser"
-                  large
-                  type="submit"
-                >
-                  <v-icon left>mdi-ninja</v-icon>
-                  テストユーザでログイン
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-actions>
-        </v-card>
-      </v-col>
+      <sign-container-tab-items-sign-in-easy />
 
-      <v-col>
-        <v-card class="mx-5">
-          <v-toolbar class="white--text" color="primary" dense flat>
-            <v-toolbar-title>SNSアカウントでログイン</v-toolbar-title>
-          </v-toolbar>
-          <v-card-actions>
-            <v-row
-              align="center"
-              justify="center"
-              style="flex-direction: column;"
-            >
-              <v-btn
-                class="my-3 white--text"
-                @click.stop="signIn"
-                color="#00acee"
-                large
-                type="submit"
-              >
-                <v-icon color="white" left>
-                  mdi-twitter
-                </v-icon>
-                Twitterアカウントでログイン
-              </v-btn>
-            </v-row>
-          </v-card-actions>
-        </v-card>
-      </v-col>
+      <sign-container-tab-items-sign-in-oauth />
 
-      <v-col>
-        <v-card class="mx-5">
-          <v-toolbar class="white--text" color="primary" dense flat>
-            <v-toolbar-title>メールアドレスでログイン</v-toolbar-title>
-          </v-toolbar>
-
-          <ValidationObserver ref="observer" v-slot="{ invalid }" immediate>
-            <v-card-text>
-              <v-form>
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  name="メールアドレス"
-                  rules="required|email|max:40"
-                >
-                  <v-text-field
-                    label="メールアドレス"
-                    name="login"
-                    prepend-icon="mdi-email-outline"
-                    type="text"
-                    v-model="signInFormData.email"
-                    :clearable="true"
-                    :error-messages="errors"
-                    :success="valid"
-                  />
-                </ValidationProvider>
-
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  name="パスワード"
-                  rules="required"
-                >
-                  <v-text-field
-                    id="password"
-                    label="パスワード"
-                    name="password"
-                    prepend-icon="mdi-lock-outline"
-                    type="password"
-                    v-model="signInFormData.password"
-                    @keyup.enter="signIn()"
-                    :clearable="true"
-                    :error-messages="errors"
-                    :success="valid"
-                  />
-                </ValidationProvider>
-              </v-form>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer />
-              <v-btn
-                class="mb-3 px-10"
-                color="primary"
-                large
-                type="submit"
-                @click.stop="signIn()"
-                :disabled="invalid"
-              >
-                ログイン
-              </v-btn>
-              <v-spacer />
-            </v-card-actions>
-          </ValidationObserver>
-        </v-card>
-      </v-col>
+      <sign-container-tab-items-sign-in-email />
 
       <policy />
     </v-row>
@@ -123,35 +13,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import SignContainerTabItemsSignInEasy from '@/components/Sign/SignContainerTabItemsSignInEasy.vue'
+import SignContainerTabItemsSignInOauth from '@/components/Sign/SignContainerTabItemsSignInOauth.vue'
+import SignContainerTabItemsSignInEmail from '@/components/Sign/SignContainerTabItemsSignInEmail.vue'
 import Policy from '@/components/Sign/Policy.vue'
 
 export default {
   components: {
+    SignContainerTabItemsSignInEasy,
+    SignContainerTabItemsSignInOauth,
+    SignContainerTabItemsSignInEmail,
     Policy
-  },
-
-  data() {
-    return {
-      testUser: {
-        email: 'tester@example.com',
-        password: 'password'
-      }
-    }
-  },
-
-  computed: {
-    ...mapGetters(['signInFormData'])
-  },
-
-  methods: {
-    signIn() {
-      this.$store.dispatch('signIn', this.signInFormData)
-    },
-    signInAsTestUser() {
-      this.$store.dispatch('signIn', this.testUser)
-    }
-    // signInByTwitter() {}
   }
 }
 </script>
