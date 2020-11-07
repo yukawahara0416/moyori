@@ -93,7 +93,7 @@ export default {
       }
 
       if (this.isPowerWithouting == false) {
-        await this.powerWithout({ spot: result, active_tab: activeTab })
+        await this.powerWithout({ spot: spot, active_tab: activeTab })
         return
       }
 
