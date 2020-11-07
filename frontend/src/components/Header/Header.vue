@@ -3,14 +3,16 @@
     <v-app-bar app flat>
       <v-toolbar flat>
         <header-title />
+
         <header-chip />
 
         <v-spacer />
 
-        <header-sign-button v-if="headers === null" />
-        <header-avatar v-else :currentUser="currentUser" />
+        <header-avatar v-if="isLoggingIn" />
 
-        <v-app-bar-nav-icon @click.stop="drawerState = !drawerState" />
+        <header-sign-button v-else />
+
+        <v-app-bar-nav-icon @click.stop="openDrawer()" />
       </v-toolbar>
     </v-app-bar>
 
@@ -42,7 +44,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser'])
+    ...mapGetters(['isLoggingIn'])
+  },
+
+  methods: {
+    openDrawer() {
+      this.drawerState = true
+    }
   }
 }
 </script>
