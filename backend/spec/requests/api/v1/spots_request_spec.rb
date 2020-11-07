@@ -10,7 +10,7 @@ RSpec.describe 'Api::V1::Spots', type: :request do
     get(collate_api_v1_spots_path, params: { place_id: spot.place_id })
     json = JSON.parse(response.body)
     expect(response).to have_http_status(200)
-    expect(json.length).to eq(9)
+    expect(json['data']['place_id']).to eq(spot.place_id)
   end
 
   it 'place_idが一致するspotがなければ204を返す' do
@@ -48,8 +48,10 @@ RSpec.describe 'Api::V1::Spots', type: :request do
     mock = FactoryBot.build(:spot)
     params = { spot: { place_id: mock.place_id } }
     post(api_v1_spots_path, params: params, headers: headers)
-    json = JSON.parse(response.body)
-    expect { delete("/api/v1/spots/#{json['data']['id']}", headers: headers) }.to change(Spot, :count).by(-1)
+    create_json = JSON.parse(response.body)
+    expect { delete("/api/v1/spots/#{create_json['data']['id']}", headers: headers) }.to change(Spot, :count).by(-1)
     expect(response).to have_http_status(200)
+    delete_json = JSON.parse(response.body)
+    expect(delete_json['id']).to eq(create_json['data']['id'])
   end
 end
