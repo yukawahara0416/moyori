@@ -3,9 +3,9 @@
     <tutorial-dialog />
 
     <map-container-toolbar
-      @nearby-search="nearbySearch"
-      @panto-location="panToLocation"
-      @demo-search="demoSearch"
+      @demo-search="demoSearch()"
+      @nearby-search="nearbySearch()"
+      @panto-location="panToLocation()"
     />
 
     <gmap-map
@@ -20,7 +20,7 @@
       }"
       :zoom="16"
       @center_changed="onCenter"
-      @click="createSpot($event)"
+      @click="openDialogSpotCreate($event)"
     >
       <map-container-circle :center="center" />
 
@@ -57,7 +57,7 @@ export default {
 
   computed: {
     ...mapGetters({ spots: 'spot/spots', filteredSpots: 'spot/filteredSpots' }),
-    ...mapGetters(['headers', 'currentUser', 'dialogSign', 'dialogSpotCreate'])
+    ...mapGetters(['currentUser', 'isLoggingIn'])
   },
 
   async mounted() {
@@ -69,30 +69,29 @@ export default {
       this.placeDetailSearch(spot)
     })
 
-    this.autoNearbySearch()
+    this.geolocationAndNearbySearch()
   },
 
   methods: {
-    ...mapActions({
-      addSpotsStore: 'spot/addSpotsStore',
-      clearSpotsStore: 'spot/clearSpotsStore',
-      formatSpot: 'spot/formatSpot',
-      nearbySearchMap: 'map/nearbySearch',
-      collateSpot: 'map/collateSpot',
-      placeDetail: 'map/placeDetail',
-      geolocate: 'map/geolocate',
-      nearbySearchPost: 'post/nearbySearch',
-      postSpot: 'post/postSpot',
-      unshiftSpotsStore: 'post/unshiftSpotsStore',
-      placeIdGenerator: 'post/placeIdGenerator'
-    }),
     ...mapActions(['loadingOn', 'loadingOff', 'dialogOff']),
+
+    // 位置情報を取得してから周辺検索
+    geolocationAndNearbySearch: async function() {
+      this.beforeSearch()
+      const locationInformation = await this.$store.dispatch('map/geolocate')
+      this.$gmapApiPromiseLazy().then(() => {
+        this.center = locationInformation
+        this.setMarker(locationInformation, 'you-are-here')
+        this.panTo(locationInformation)
+        this.nearbySearch()
+      })
+    },
 
     // 検索開始前の処理
     beforeSearch() {
       this.dialogOff()
       this.loadingOn()
-      this.clearSpotsStore()
+      this.$store.dispatch('spot/clearSpotsStore')
     },
 
     // 検索開始後の処理
@@ -102,97 +101,6 @@ export default {
         message: `${this.spots.length} 件ヒットしました`,
         color: 'success'
       })
-    },
-
-    // 初回読み込み時に自動でNearbySearch
-    autoNearbySearch: async function() {
-      this.beforeSearch()
-      const center = await this.geolocate()
-      this.$gmapApiPromiseLazy().then(() => {
-        this.center = center
-        this.setMarker(center, 'you-are-here')
-        this.panTo(center)
-        this.nearbySearch()
-      })
-    },
-
-    // 周辺スポットの検索
-    nearbySearch: async function() {
-      this.beforeSearch()
-      const center = this.center
-      const map = this.$refs.map.$mapObject
-      const request = {
-        location: new google.maps.LatLng(center.lat, center.lng),
-        radius: 500,
-        type: ['cafe']
-      }
-
-      const nearbyPostSpots = await this.nearbySearchPost(center)
-      let nearbyMapSpots = await this.nearbySearchMap({ map, request })
-      nearbyMapSpots = await Promise.all(
-        nearbyMapSpots.map(async spot => {
-          const format = await this.formatSpot(spot)
-          const assigned = await this.collateSpot(format)
-          return assigned
-        })
-      )
-      const nearbySpots = nearbyPostSpots.concat(nearbyMapSpots)
-      this.addSpotsStore(nearbySpots)
-      this.afterSearch()
-    },
-
-    // デモ用エリアへ移動して検索
-    demoSearch() {
-      const center = { lat: 35.680959, lng: 139.767306 }
-      this.panTo(center)
-      this.center = center
-      this.nearbySearch()
-    },
-
-    // PlaceDetail検索
-    placeDetailSearch: async function(spot) {
-      const map = this.$refs.map.$mapObject
-      const detail = await this.placeDetail({ map, spot })
-      this.$store.commit('spot/updateDataSpotsStore', {
-        spot: spot,
-        data: detail,
-        prop: 'detail'
-      })
-    },
-
-    // スポット新規作成
-    createSpot(event) {
-      this.$store.commit('post/clearSpotFormData')
-      if (this.headers) {
-        this.$store.dispatch('post/geocode', event)
-        this.$store.dispatch('post/placeIdGenerate', this.currentUser.data.id)
-        this.$store.dispatch('dialogOn', 'dialogSpotCreate')
-      } else {
-        this.$store.dispatch('pushSnackbar', {
-          message: 'スポットを登録するには、ログインが必要です',
-          color: 'error'
-        })
-        this.$store.dispatch('dialogOn', 'dialogSign')
-      }
-    },
-
-    // マップ中心の座標を監視
-    onCenter(pos) {
-      this.center = { lat: pos.lat(), lng: pos.lng() }
-    },
-
-    // マップの任意座標へ移動
-    panTo(pos) {
-      this.$refs.map.panTo(pos)
-    },
-
-    // 現在地へ移動
-    panToLocation: async function() {
-      this.loadingOn()
-      const center = await this.geolocate()
-      this.setMarker(center, 'you-are-here')
-      this.panTo(center)
-      this.loadingOff()
     },
 
     // マップにマーカーを追加
@@ -207,6 +115,94 @@ export default {
         },
         zIndex: 1
       })
+    },
+
+    // マップの任意座標へ移動
+    panTo(pos) {
+      this.$refs.map.panTo(pos)
+    },
+
+    // デモ用エリアへ移動して検索
+    demoSearch() {
+      const center = { lat: 35.680959, lng: 139.767306 }
+      this.panTo(center)
+      this.center = center
+      this.nearbySearch()
+    },
+
+    // 周辺スポットの検索
+    nearbySearch: async function() {
+      this.beforeSearch()
+      const center = this.center
+      const map = this.$refs.map.$mapObject
+      const request = {
+        location: new google.maps.LatLng(center.lat, center.lng),
+        radius: 500,
+        type: ['cafe']
+      }
+
+      const nearbyPostSpots = await this.$store.dispatch(
+        'post/nearbySearch',
+        center
+      )
+      let nearbyMapSpots = await this.$store.dispatch('map/nearbySearch', {
+        map,
+        request
+      })
+      nearbyMapSpots = await Promise.all(
+        nearbyMapSpots.map(async spot => {
+          const format = await this.$store.dispatch('spot/formatSpot', spot)
+          const assigned = await this.$store.dispatch('map/collateSpot', format)
+          return assigned
+        })
+      )
+      const nearbySpots = nearbyPostSpots.concat(nearbyMapSpots)
+      this.$store.dispatch('spot/addSpotsStore', nearbySpots)
+      this.afterSearch()
+    },
+
+    // 現在地へ移動
+    panToLocation: async function() {
+      this.loadingOn()
+      const center = await this.$store.dispatch('map/geolocate')
+      this.setMarker(center, 'you-are-here')
+      this.panTo(center)
+      this.loadingOff()
+    },
+
+    // PlaceDetail検索
+    placeDetailSearch: async function(spot) {
+      const map = this.$refs.map.$mapObject
+      const detail = await this.$store.dispatch('map/placeDetail', {
+        map,
+        spot
+      })
+      this.$store.commit('spot/updateDataSpotsStore', {
+        spot: spot,
+        data: detail,
+        prop: 'detail'
+      })
+    },
+
+    // マップ中心の座標を監視
+    onCenter(pos) {
+      this.center = { lat: pos.lat(), lng: pos.lng() }
+    },
+
+    // スポット新規作成ダイヤログを開く
+    openDialogSpotCreate(event) {
+      if (this.isLoggingIn == false) {
+        this.$store.dispatch('pushSnackbar', {
+          message: 'スポットを登録するには、ログインが必要です',
+          color: 'error'
+        })
+        this.$store.dispatch('dialogOn', 'dialogSign')
+      }
+
+      this.$store.commit('post/clearSpotFormData')
+      this.$store.dispatch('post/geocodeGenerate', event)
+      this.$store.dispatch('post/placeIdGenerate', this.currentUser.data.id)
+      this.$store.dispatch('dialogOn', 'dialogSpotCreate')
     }
   }
 }
