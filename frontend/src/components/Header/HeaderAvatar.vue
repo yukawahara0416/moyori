@@ -13,17 +13,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import HeaderAvatarImage from '@/components/Header/HeaderAvatarImage.vue'
 import HeaderAvatarList from '@/components/Header/HeaderAvatarList.vue'
 
 export default {
-  props: {
-    currentUser: Object
-  },
-
   components: {
     HeaderAvatarImage,
     HeaderAvatarList
+  },
+
+  computed: {
+    ...mapGetters(['currentUser'])
   }
 }
 </script>

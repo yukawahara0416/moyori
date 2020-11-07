@@ -1,8 +1,9 @@
 <template>
-  <v-list-item @click="signOut">
+  <v-list-item @click="signOut()">
     <v-list-item-avatar>
       <v-icon btn>mdi-logout</v-icon>
     </v-list-item-avatar>
+
     <v-list-item-content>
       <v-list-item-title>ログアウト</v-list-item-title>
     </v-list-item-content>
@@ -18,5 +19,3 @@ export default {
   }
 }
 </script>
-
-<style></style>
