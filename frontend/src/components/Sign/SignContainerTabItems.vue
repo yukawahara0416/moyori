@@ -1,9 +1,9 @@
 <template>
   <v-tabs-items v-model="childTabs">
-    <v-tab-item value="tab-1">
+    <v-tab-item value="signin">
       <sign-container-tab-items-sign-in />
     </v-tab-item>
-    <v-tab-item value="tab-2">
+    <v-tab-item value="signup">
       <sign-container-tab-items-sign-up />
     </v-tab-item>
   </v-tabs-items>
