@@ -133,19 +133,19 @@ export default {
         })
     },
 
-    geocode(context, event) {
+    geocodeGenerate(context, event) {
       const geocoder = new google.maps.Geocoder()
-      var latLng = {
+      const latLng = {
         lat: parseFloat(event.latLng.lat().toFixed(6)),
         lng: parseFloat(event.latLng.lng().toFixed(6))
       }
       geocoder.geocode({ latLng: latLng }, function(results, status) {
         if (status === 'OK') {
-          var address =
+          const address =
             status === 'OK'
               ? results[0].formatted_address.replace(/^日本、/, '')
               : ''
-          var geocodeData = {
+          const geocodeData = {
             address: address,
             lat: latLng.lat,
             lng: latLng.lng
