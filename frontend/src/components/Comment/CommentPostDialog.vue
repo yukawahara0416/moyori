@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import CommentPostDialogForm from '@/components/Comment/CommentPostDialogForm.vue'
 
 export default {
@@ -39,12 +39,13 @@ export default {
   },
 
   methods: {
-    ...mapActions(['pushSnackbar']),
-
     commentHandler() {
       if (this.isLoggingIn == false) {
         this.$store.dispatch('dialogOn', 'dialogSign')
-        this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
+        this.$$store.dispatch('pushSnackbar', {
+          message: 'ログインしてください',
+          color: 'error'
+        })
         return
       }
       this.dialog = true
