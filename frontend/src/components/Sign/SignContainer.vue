@@ -15,6 +15,7 @@
         >
           <v-col cols="12" style="background-color: white; border-radius: 4px;">
             <sign-container-tabs :tabs="tabs" @changeTabs="changeTabs" />
+
             <sign-container-tab-items :tabs="tabs" @changeTabs="changeTabs" />
           </v-col>
         </v-row>
