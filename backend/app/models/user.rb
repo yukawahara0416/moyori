@@ -21,6 +21,6 @@ class User < ActiveRecord::Base
 
   has_one_attached :avatar
 
-  validates :name, presence: true
-  validates :email, presence: true
+  validates :name, presence: true, length: { maximum: 40 }
+  validates :email, presence: true, length: { maximum: 100 }
 end
