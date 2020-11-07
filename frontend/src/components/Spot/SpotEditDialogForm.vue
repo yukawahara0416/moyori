@@ -156,7 +156,7 @@ export default {
     updateSpot() {
       this.$store.dispatch('post/updateSpot', {
         spot: this.spot,
-        formData: this.formData
+        form_data: this.formData
       })
     },
 

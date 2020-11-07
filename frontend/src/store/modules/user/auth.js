@@ -156,9 +156,9 @@ export default {
         })
     },
 
-    updateAccount(context, { formData, id }) {
+    updateAccount(context, { form_data, id }) {
       axiosBase
-        .patch('/api/v1/auth/', formData, {
+        .patch('/api/v1/auth/', form_data, {
           headers: context.state.headers
         })
         .then(response => {
