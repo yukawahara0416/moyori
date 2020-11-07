@@ -25,37 +25,44 @@ export default {
     spots: Array
   },
 
+  data() {
+    return {
+      shopList: [
+        { jp: 'スターバックス', en: 'starbucks' },
+        { jp: 'タリーズ', en: 'tullys' },
+        { jp: 'コメダ珈琲', en: 'komeda' },
+        { jp: 'ドトール', en: 'doutor' },
+        { jp: '上島珈琲', en: 'ueshima' },
+        { jp: 'WIRED CAFE', en: 'wired-cafe' }
+      ]
+    }
+  },
+
   computed: {
     icon: function() {
       return function(spot) {
         return {
-          url: require(`@/assets/${this.iconUrl(spot)}.png`),
+          url: require(`@/assets/${this.iconFileName(spot)}.png`),
           scaledSize: new google.maps.Size(50, 50)
         }
       }
     },
 
-    iconUrl: function() {
+    iconFileName: function() {
       return function(spot) {
-        var url =
-          'name' in spot.marker
-            ? spot.marker.on === false
-              ? spot.marker.name.indexOf('スターバックス') !== -1
-                ? 'starbucks'
-                : spot.marker.name.indexOf('タリーズ') !== -1
-                ? 'tullys'
-                : spot.marker.name.indexOf('コメダ珈琲') !== -1
-                ? 'komeda'
-                : spot.marker.name.indexOf('ドトール') !== -1
-                ? 'doutor'
-                : spot.marker.name.indexOf('上島珈琲') !== -1
-                ? 'ueshima'
-                : spot.marker.name.indexOf('WIRED CAFE') !== -1
-                ? 'wired-cafe'
-                : 'cafe'
-              : 'spotlight'
-            : 'cafe'
-        return url
+        if (spot.marker.on == true) {
+          return 'spotlight'
+        }
+
+        let fileName = 'cafe'
+
+        for (let i = 0; i < this.shopList.length; i++) {
+          if (spot.marker.name.indexOf(this.shopList[i].jp) !== -1) {
+            fileName = this.shopList[i].en
+          }
+        }
+
+        return fileName
       }
     }
   },
