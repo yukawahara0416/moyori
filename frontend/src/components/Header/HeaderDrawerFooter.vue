@@ -10,9 +10,3 @@
     </v-list-item>
   </v-list-item-group>
 </template>
-
-<script>
-export default {}
-</script>
-
-<style></style>
