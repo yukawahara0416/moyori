@@ -8,7 +8,7 @@
 
     <v-dialog v-model="dialog" width="600">
       <v-card>
-        <spot-show-dialog-comment-panel :spot="spot" />
+        <spot-detail-comment-panel :spot="spot" />
       </v-card>
     </v-dialog>
   </v-row>
@@ -16,8 +16,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import SpotShowDialogCommentPanel from '@/components/Spot/SpotShowDialogCommentPanel.vue'
-import Counter from '@/components/Buttons/Counter.vue'
+import SpotDetailCommentPanel from '@/components/Spot/SpotDetailCommentPanel.vue'
+import Counter from '@/components/Card/Buttons/Counter.vue'
 
 export default {
   props: {
@@ -26,7 +26,7 @@ export default {
 
   components: {
     Counter,
-    SpotShowDialogCommentPanel
+    SpotDetailCommentPanel
   },
 
   data() {

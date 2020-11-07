@@ -20,12 +20,12 @@ export default {
   },
 
   mutations: {
-    dialogOn(state, target) {
-      state[target] = true
+    dialogOn(state, targetDialog) {
+      state[targetDialog] = true
     },
 
-    dialogOff(state, target) {
-      state[target] = false
+    dialogOff(state, targetDialog) {
+      state[targetDialog] = false
     },
 
     dialogOffAll(state) {
@@ -36,13 +36,13 @@ export default {
   },
 
   actions: {
-    dialogOn(context, target) {
-      context.commit('dialogOn', target)
+    dialogOn(context, targetDialog) {
+      context.commit('dialogOn', targetDialog)
     },
 
-    dialogOff(context, target) {
-      target
-        ? context.commit('dialogOff', target)
+    dialogOff(context, targetDialog) {
+      targetDialog
+        ? context.commit('dialogOff', targetDialog)
         : context.commit('dialogOffAll')
     }
   }

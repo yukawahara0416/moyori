@@ -103,16 +103,22 @@ export default {
     }
   },
 
-  methods: {
-    updateAccount() {
+  computed: {
+    formData() {
       const formData = new FormData()
       formData.append('[name]', this.name)
       formData.append('[email]', this.email)
       if (this.avatar_slot !== null)
         formData.append('[avatar]', this.avatar_slot)
 
+      return formData
+    }
+  },
+
+  methods: {
+    updateAccount() {
       this.$store.dispatch('updateAccount', {
-        formData: formData,
+        form_data: this.formData,
         id: this.user.data.id
       })
       this.closeDialog()

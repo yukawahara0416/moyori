@@ -12,30 +12,27 @@ export default {
 
     filteredSpots(state) {
       let data = state.spots
-      // いいね
-      if (state.filterQuery.likes) {
+
+      if (state.filterQuery.likes)
         data = data.filter(function(item) {
           return item['likes'].length > 0
         })
-      }
-      // Wifi
-      if (state.filterQuery.wifi_withs) {
+
+      if (state.filterQuery.wifi_withs)
         data = data.filter(function(item) {
           return item['wifi_withs'].length > 0
         })
-      }
-      // 電源
-      if (state.filterQuery.power_withs) {
+
+      if (state.filterQuery.power_withs)
         data = data.filter(function(item) {
           return item['power_withs'].length > 0
         })
-      }
-      // コメント
-      if (state.filterQuery.comments) {
+
+      if (state.filterQuery.comments)
         data = data.filter(function(item) {
           return item['comments'].length > 0
         })
-      }
+
       return data
     }
   },
@@ -66,9 +63,7 @@ export default {
 
     pushDataSpotsStore(state, { spot, data, genre }) {
       const targetSpot = state.spots.filter(function(item) {
-        // if (item.marker.place_id !== null) {
         return item.marker.place_id == spot.data.place_id
-        // }
       })
       targetSpot[0][genre].push(data)
     },

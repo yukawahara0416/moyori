@@ -43,10 +43,9 @@ export default {
   actions: {
     nearbySearch(context, center) {
       return new Promise(resolve => {
-        const params = { lat: center.lat, lng: center.lng }
         axiosBase
           .get('/api/v1/spots/nearby', {
-            params: params
+            params: { lat: center.lat, lng: center.lng }
           })
           .then(response => {
             resolve(response.data)
@@ -54,9 +53,9 @@ export default {
       })
     },
 
-    postSpot(context, formData) {
+    postSpot(context, form_data) {
       axiosBase
-        .post('/api/v1/spots', formData, {
+        .post('/api/v1/spots', form_data, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
@@ -91,9 +90,9 @@ export default {
         })
     },
 
-    updateSpot(context, { spot, formData }) {
+    updateSpot(context, { spot, form_data }) {
       axiosBase
-        .patch('/api/v1/spots/' + spot.data.id, formData, {
+        .patch('/api/v1/spots/' + spot.data.id, form_data, {
           headers: context.rootState.auth.headers
         })
         .then(response => {

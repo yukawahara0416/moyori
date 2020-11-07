@@ -1,10 +1,10 @@
 <template>
   <v-tabs fixed-tabs v-model="childTabs">
-    <v-tab href="#tab-1">
+    <v-tab href="#signin">
       <v-icon left>mdi-login</v-icon>
       ログイン
     </v-tab>
-    <v-tab href="#tab-2">
+    <v-tab href="#signup">
       <v-icon left>mdi-account-plus</v-icon>
       新規登録
     </v-tab>

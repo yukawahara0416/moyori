@@ -4,11 +4,14 @@ import router from '@/router'
 export default {
   actions: {
     wifiWithout(context, { spot, active_tab }) {
-      const params = { spot_id: spot.data.id }
       axiosBase
-        .post('/api/v1/wifi_withouts', params, {
-          headers: context.rootState.auth.headers
-        })
+        .post(
+          '/api/v1/wifi_withouts',
+          { spot_id: spot.data.id },
+          {
+            headers: context.rootState.auth.headers
+          }
+        )
         .then(response => {
           if (router.currentRoute.name == 'search')
             context.commit('spot/pushDataSpotsStore', {
@@ -38,9 +41,8 @@ export default {
     },
 
     unWifiWithout(context, { spot, wifi_without, active_tab }) {
-      const params = { id: wifi_without.id }
       axiosBase
-        .delete('/api/v1/wifi_withouts/' + params.id, {
+        .delete('/api/v1/wifi_withouts/' + wifi_without.id, {
           headers: context.rootState.auth.headers
         })
         .then(response => {

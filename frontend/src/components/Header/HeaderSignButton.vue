@@ -1,15 +1,15 @@
 <template>
-  <v-dialog v-model="dialog" width="600">
-    <template v-slot:activator="{ on }">
-      <div class="my-2">
-        <v-btn color="primary" depressed large v-on="on" @click.stop="dialogOn">
-          はじめる
-        </v-btn>
-      </div>
-    </template>
+  <span>
+    <div class="my-2">
+      <v-btn color="primary" depressed large @click.stop="openDialog()">
+        はじめる
+      </v-btn>
+    </div>
 
-    <sign-container />
-  </v-dialog>
+    <v-dialog v-model="dialog" width="600">
+      <sign-container />
+    </v-dialog>
+  </span>
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
   },
 
   methods: {
-    dialogOn() {
+    openDialog() {
       this.$store.dispatch('dialogOn', 'dialogSign')
     }
   }

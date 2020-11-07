@@ -51,11 +51,14 @@ export default {
 
     saveSpot(context, spot) {
       return new Promise(resolve => {
-        const params = { spot: { place_id: spot.marker.place_id } }
         axiosBase
-          .post('/api/v1/spots/save', params, {
-            headers: context.rootState.auth.headers
-          })
+          .post(
+            '/api/v1/spots/save',
+            { spot: { place_id: spot.marker.place_id } },
+            {
+              headers: context.rootState.auth.headers
+            }
+          )
           .then(response => {
             context.commit(
               'spot/updateDataSpotsStore',

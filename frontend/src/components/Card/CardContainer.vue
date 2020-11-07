@@ -13,7 +13,7 @@
       v-for="(spot, id) in spots"
       :key="id"
     >
-      <card-container-frame :spot="spot" :id="id" :type="type" />
+      <card-container-frame :spot="spot" :id="id" />
     </v-col>
 
     <!-- カード配置調整（中央寄せ && 最下層端数左寄せ） -->
@@ -36,8 +36,7 @@ import CardContainerFill from '@/components/Card/CardContainerFill.vue'
 
 export default {
   props: {
-    spots: Array,
-    type: String
+    spots: Array
   },
 
   components: {

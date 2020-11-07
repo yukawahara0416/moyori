@@ -11,14 +11,14 @@
       </v-slide-item>
 
       <v-slide-item v-for="(photo, id) in photos" :key="id" v-else>
-        <spot-show-dialog-image-slide-dialog :photo="photo" />
+        <spot-detail-image-slide-dialog :photo="photo" />
       </v-slide-item>
     </v-slide-group>
   </v-card>
 </template>
 
 <script>
-import SpotShowDialogImageSlideDialog from '@/components/Spot/SpotShowDialogImageSlideDialog.vue'
+import SpotDetailImageSlideDialog from '@/components/Spot/SpotDetailImageSlideDialog.vue'
 
 export default {
   props: {
@@ -26,7 +26,7 @@ export default {
   },
 
   components: {
-    SpotShowDialogImageSlideDialog
+    SpotDetailImageSlideDialog
   },
 
   computed: {

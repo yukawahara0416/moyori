@@ -1,16 +1,18 @@
 <template>
   <div>
-    <v-btn icon @click="powerWithHandler()">
-      <v-icon v-if="isPowerWithing" color="success">mdi-power-plug</v-icon>
-      <v-icon v-else>mdi-power-plug</v-icon>
-      <counter :spot="spot" :genre="'power_withs'" />
+    <v-btn icon @click="powerWithoutHandler()">
+      <v-icon v-if="isPowerWithouting" color="error">
+        mdi-power-plug-off
+      </v-icon>
+      <v-icon v-else>mdi-power-plug-off</v-icon>
+      <counter :spot="spot" :genre="'power_withouts'" />
     </v-btn>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Counter from '@/components/Buttons/Counter.vue'
+import Counter from '@/components/Card/Buttons/Counter.vue'
 
 export default {
   props: {
@@ -58,13 +60,13 @@ export default {
   methods: {
     ...mapActions({ saveSpot: 'map/saveSpot' }),
     ...mapActions([
-      'powerWith',
-      'unPowerWith',
+      'powerWithout',
       'unPowerWithout',
+      'unPowerWith',
       'pushSnackbar'
     ]),
 
-    powerWithHandler: async function() {
+    powerWithoutHandler: async function() {
       const spot = this.spot
       const activeTab = this.tab
 
@@ -76,22 +78,7 @@ export default {
 
       if (this.isPostedSpot == false) {
         const result = await this.saveSpot(spot)
-        await this.powerWith({ spot: result, active_tab: activeTab })
-        return
-      }
-
-      if (this.isPowerWithouting == true) {
-        await this.unPowerWithout({
-          spot: spot,
-          power_without: this.powerWithoutsByCurrentUser[0],
-          active_tab: activeTab
-        })
-        await this.powerWith({ spot: spot, active_tab: activeTab })
-        return
-      }
-
-      if (this.isPowerWithing == false) {
-        await this.powerWith({ spot: spot, active_tab: activeTab })
+        await this.powerWithout({ spot: result, active_tab: activeTab })
         return
       }
 
@@ -99,6 +86,21 @@ export default {
         await this.unPowerWith({
           spot: spot,
           power_with: this.powerWithsByCurrentUser[0],
+          active_tab: activeTab
+        })
+        await this.powerWithout({ spot: spot, active_tab: activeTab })
+        return
+      }
+
+      if (this.isPowerWithouting == false) {
+        await this.powerWithout({ spot: result, active_tab: activeTab })
+        return
+      }
+
+      if (this.isPowerWithouting == true) {
+        await this.unPowerWithout({
+          spot: spot,
+          power_without: this.powerWithoutsByCurrentUser[0],
           active_tab: activeTab
         })
         return

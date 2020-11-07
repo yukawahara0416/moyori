@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn color="primary" type="submit" text @click.stop="dialogOn">
+    <v-btn color="primary" type="submit" text @click.stop="openDialog()">
       <v-icon>mdi-pencil</v-icon>
       スポットを編集する
     </v-btn>
@@ -38,7 +38,7 @@ export default {
   },
 
   methods: {
-    dialogOn() {
+    openDialog() {
       this.$store.dispatch('dialogOn', 'dialogSpotEdit')
     }
   }

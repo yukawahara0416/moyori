@@ -10,7 +10,3 @@
     </p>
   </v-col>
 </template>
-
-<script>
-export default {}
-</script>

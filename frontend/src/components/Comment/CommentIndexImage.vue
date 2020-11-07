@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-img alt="スポット写真" :src="comment.image" @click="dialog = true">
+    <v-img alt="スポット写真" :src="comment.image" @click="openDialog()">
       <template v-slot:placeholder>
         <v-row class="fill-height ma-0" align="center" justify="center">
           <v-progress-circular indeterminate color="success lighten-5" />
@@ -29,6 +29,12 @@ export default {
   data() {
     return {
       dialog: false
+    }
+  },
+
+  methods: {
+    openDialog() {
+      this.dialog = true
     }
   }
 }

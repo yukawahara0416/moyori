@@ -5,12 +5,12 @@ export default {
   },
 
   mutations: {
-    setMessage(state, message) {
-      state.message = message
+    setMessage(state, payload) {
+      state.message = payload
     },
 
-    setColor(state, color) {
-      state.color = color
+    setColor(state, payload) {
+      state.color = payload
     },
 
     clearMessage(state) {

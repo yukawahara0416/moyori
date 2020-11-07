@@ -3,14 +3,9 @@ import router from '@/router'
 
 export default {
   actions: {
-    postComment(context, { spot, content, image, active_tab }) {
-      const formData = new FormData()
-      formData.append('comment[spot_id]', spot.data.id)
-      formData.append('comment[content]', content)
-      if (image !== null) formData.append('comment[image]', image)
-
+    postComment(context, { spot, form_data, active_tab }) {
       axiosBase
-        .post('/api/v1/comments', formData, {
+        .post('/api/v1/comments', form_data, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
@@ -43,9 +38,8 @@ export default {
     },
 
     deleteComment(context, { spot, comment, active_tab }) {
-      const params = { id: comment.data.id }
       axiosBase
-        .delete('/api/v1/comments/' + params.id, {
+        .delete('/api/v1/comments/' + comment.data.id, {
           headers: context.rootState.auth.headers
         })
         .then(response => {

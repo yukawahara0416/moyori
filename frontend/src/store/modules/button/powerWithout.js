@@ -4,11 +4,14 @@ import router from '@/router'
 export default {
   actions: {
     powerWithout(context, { spot, active_tab }) {
-      const params = { spot_id: spot.data.id }
       axiosBase
-        .post('/api/v1/power_withouts', params, {
-          headers: context.rootState.auth.headers
-        })
+        .post(
+          '/api/v1/power_withouts',
+          { spot_id: spot.data.id },
+          {
+            headers: context.rootState.auth.headers
+          }
+        )
         .then(response => {
           if (router.currentRoute.name == 'search')
             context.commit('spot/pushDataSpotsStore', {
@@ -39,9 +42,8 @@ export default {
     },
 
     unPowerWithout(context, { spot, power_without, active_tab }) {
-      const params = { id: power_without.id }
       axiosBase
-        .delete('/api/v1/power_withouts/' + params.id, {
+        .delete('/api/v1/power_withouts/' + power_without.id, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
