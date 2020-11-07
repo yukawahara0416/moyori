@@ -82,6 +82,15 @@ export default {
 
     isPostedSpot() {
       return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
+    },
+
+    formData() {
+      const formData = new FormData()
+      formData.append('comment[spot_id]', this.spot.data.id)
+      formData.append('comment[content]', this.content)
+      if (this.image !== null) formData.append('comment[image]', this.image)
+
+      return formData
     }
   },
 
@@ -104,8 +113,7 @@ export default {
 
       await this.postComment({
         spot: spot,
-        content: this.content,
-        image: this.image,
+        form_data: this.formData,
         active_tab: this.tab
       })
 
