@@ -43,10 +43,9 @@ export default {
   actions: {
     nearbySearch(context, center) {
       return new Promise(resolve => {
-        const params = { lat: center.lat, lng: center.lng }
         axiosBase
           .get('/api/v1/spots/nearby', {
-            params: params
+            params: { lat: center.lat, lng: center.lng }
           })
           .then(response => {
             resolve(response.data)

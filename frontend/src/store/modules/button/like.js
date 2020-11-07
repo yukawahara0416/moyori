@@ -4,11 +4,14 @@ import router from '@/router'
 export default {
   actions: {
     like(context, { spot, active_tab }) {
-      const params = { spot_id: spot.data.id }
       axiosBase
-        .post('/api/v1/likes', params, {
-          headers: context.rootState.auth.headers
-        })
+        .post(
+          '/api/v1/likes',
+          { spot_id: spot.data.id },
+          {
+            headers: context.rootState.auth.headers
+          }
+        )
         .then(response => {
           if (router.currentRoute.name == 'search')
             context.commit('spot/pushDataSpotsStore', {
@@ -39,9 +42,8 @@ export default {
     },
 
     unlike(context, { spot, data, active_tab }) {
-      const params = { id: data.id }
       axiosBase
-        .delete('/api/v1/likes/' + params.id, {
+        .delete('/api/v1/likes/' + data.id, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
