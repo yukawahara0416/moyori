@@ -9,8 +9,11 @@
   >
     <v-list>
       <header-drawer-pages />
+
       <v-divider />
+
       <header-drawer-author />
+
       <header-drawer-footer />
     </v-list>
   </v-navigation-drawer>
