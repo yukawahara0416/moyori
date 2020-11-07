@@ -38,9 +38,8 @@ export default {
     },
 
     deleteComment(context, { spot, comment, active_tab }) {
-      const params = { id: comment.data.id }
       axiosBase
-        .delete('/api/v1/comments/' + params.id, {
+        .delete('/api/v1/comments/' + comment.data.id, {
           headers: context.rootState.auth.headers
         })
         .then(response => {
