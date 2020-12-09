@@ -1,8 +1,6 @@
 <template>
   <v-col
     class="pa-0"
-    cols="12"
-    md="6"
     no-gutter
     :class="{
       mapHeight_big: $vuetify.breakpoint.mdAndUp,
@@ -19,36 +17,23 @@ import MapContainer from '@/components/Map/MapContainer.vue'
 export default {
   components: {
     MapContainer
-  },
-
-  computed: {
-    vhHeight() {
-      switch (this.$vuetify.breakpoint.name) {
-        case 'xs':
-          return '60vh'
-        case 'sm':
-          return '70vh'
-        case 'md':
-          return '80vh'
-        case 'lg':
-          return '90vh'
-        case 'xl':
-          return '100vh'
-        default:
-          return '100vh'
-      }
-    }
   }
 }
 </script>
 
 <style scoped>
 .mapHeight_big {
-  height: 100%;
-  width: 100%;
+  position: fixed;
+  top: calc(132px);
+  right: 0;
+  width: calc(50vw);
+  height: calc(100vh - 132px);
 }
 .mapHeight_small {
-  height: 60%;
-  width: 100%;
+  position: fixed;
+  top: calc(132px);
+  left: 0;
+  width: calc(100vw);
+  height: calc(50vh - 132px);
 }
 </style>

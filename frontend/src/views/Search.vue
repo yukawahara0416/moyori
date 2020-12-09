@@ -1,24 +1,24 @@
 <template>
-  <v-row
-    class="ma-0"
-    fill-height
-    no-gutter
-    style="position: relative; height: calc(100vh - 64px);"
-  >
-    <search-map-container />
+  <span>
+    <search-filter />
+
     <search-card-container />
-  </v-row>
+
+    <search-map-container />
+  </span>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import SearchMapContainer from '@/components/Search/SearchMapContainer.vue'
+import { mapMutations } from 'vuex'
+import SearchFilter from '@/components/Search/SearchFilter.vue'
 import SearchCardContainer from '@/components/Search/SearchCardContainer.vue'
+import SearchMapContainer from '@/components/Search/SearchMapContainer.vue'
 
 export default {
   components: {
-    SearchMapContainer,
-    SearchCardContainer
+    SearchFilter,
+    SearchCardContainer,
+    SearchMapContainer
   },
 
   created() {
@@ -27,7 +27,7 @@ export default {
   },
 
   methods: {
-    ...mapActions({
+    ...mapMutations({
       clearSpotsStore: 'spot/clearSpotsStore',
       clearUserStore: 'user/clearUserStore'
     })
