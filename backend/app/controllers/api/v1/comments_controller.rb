@@ -22,14 +22,7 @@ module Api
 
         def convert_to_json_comment(comment)
           data = Comment.joins(:user)
-                        .select('
-                          comments.id,
-                          comments.content,
-                          spot_id,
-                          user_id,
-                          comments.created_at,
-                          comments.updated_at,
-                          users.name AS user_name')
+                        .select('users.name AS user_name')
                         .last
 
           url = rails_blob_url(comment.image) if comment.image.attached?
