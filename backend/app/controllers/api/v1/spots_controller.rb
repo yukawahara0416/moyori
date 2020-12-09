@@ -15,9 +15,10 @@ module Api
       def nearby
         lat = params[:lat]
         lng = params[:lng]
+        distance = params[:distance]
         spots = Spot.all
         spots = spots.order_location_by(
-          lat, lng
+          lat, lng, distance
         )
         nears = []
         spots.each do |spot|

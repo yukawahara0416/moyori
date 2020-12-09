@@ -20,11 +20,11 @@ class Spot < ApplicationRecord
   validates :place_id, presence: true, uniqueness: true
   validates :url, length: { maximum: 100 }
 
-  scope :order_location_by, lambda { |lat, lng|
-                              sort_by_near(lat, lng)
+  scope :order_location_by, lambda { |lat, lng, distance|
+                              sort_by_near(lat, lng, distance)
                             }
 
-  def self.sort_by_near(lat, lng)
+  def self.sort_by_near(lat, lng, distance)
     select("*, (
       6371 * acos(
           cos(radians(#{lat}))
@@ -34,7 +34,7 @@ class Spot < ApplicationRecord
           * sin(radians(lat))
       )
       ) AS distance")
-      .having('distance <= 0.5')
+      .having('distance <= ?', distance)
       .order(:distance)
   end
 end
