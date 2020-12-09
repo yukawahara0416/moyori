@@ -11,7 +11,7 @@
             <ValidationProvider
               v-slot="{ errors, valid }"
               name="名前"
-              rules="required"
+              rules="required|max:40"
             >
               <v-text-field
                 label="名前*"
@@ -28,7 +28,7 @@
             <ValidationProvider
               v-slot="{ errors, valid }"
               name="メールアドレス"
-              rules="required|email|max:40"
+              rules="required|email|max:100"
             >
               <v-text-field
                 label="メールアドレス*"
@@ -45,7 +45,7 @@
             <ValidationProvider
               v-slot="{ errors, valid }"
               name="パスワード"
-              rules="required|alpha_num"
+              rules="required|alpha_num|max:128|min:6"
             >
               <v-text-field
                 label="パスワード"

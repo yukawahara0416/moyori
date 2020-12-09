@@ -96,14 +96,17 @@ export default {
 
   methods: {
     ...mapActions({ saveSpot: 'map/saveSpot' }),
-    ...mapActions(['postComment', 'pushSnackbar']),
+    ...mapActions(['postComment']),
 
     commentHandler: async function() {
       let spot = this.spot
 
       if (this.isLoggingIn == false) {
         this.$store.dispatch('dialogOn', 'dialogSign')
-        this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
+        this.$$store.dispatch('pushSnackbar', {
+          message: 'ログインしてください',
+          color: 'error'
+        })
         return
       }
 

@@ -1,23 +1,12 @@
 <template>
   <v-tabs fixed-tabs v-model="childTabs">
-    <v-tab class="primary--text" href="#posts">
-      <v-icon>mdi-map-marker-outline</v-icon>
-    </v-tab>
-
-    <v-tab class="primary--text" href="#wifi_withs">
-      <v-icon>mdi-wifi</v-icon>
-    </v-tab>
-
-    <v-tab class="primary--text" href="#power_withs">
-      <v-icon>mdi-power-plug</v-icon>
-    </v-tab>
-
-    <v-tab class="primary--text" href="#comments">
-      <v-icon>mdi-message-outline</v-icon>
-    </v-tab>
-
-    <v-tab class="primary--text" href="#likes">
-      <v-icon>mdi-heart-outline</v-icon>
+    <v-tab
+      v-for="(tab, key) in tabList"
+      :key="key"
+      class="primary--text"
+      :href="'#' + tab.name"
+    >
+      <v-icon>{{ tab.icon }}</v-icon>
     </v-tab>
   </v-tabs>
 </template>
@@ -26,6 +15,18 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  data() {
+    return {
+      tabList: [
+        { name: 'posts', icon: 'mdi-map-marker-outline' },
+        { name: 'wifi_withs', icon: 'mdi-wifi' },
+        { name: 'power_withs', icon: 'mdi-power-plug' },
+        { name: 'comments', icon: 'mdi-message-outline' },
+        { name: 'likes', icon: 'mdi-heart-outline' }
+      ]
+    }
+  },
+
   computed: {
     ...mapGetters(['tab']),
 

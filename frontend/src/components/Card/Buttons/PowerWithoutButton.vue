@@ -59,12 +59,7 @@ export default {
 
   methods: {
     ...mapActions({ saveSpot: 'map/saveSpot' }),
-    ...mapActions([
-      'powerWithout',
-      'unPowerWithout',
-      'unPowerWith',
-      'pushSnackbar'
-    ]),
+    ...mapActions(['powerWithout', 'unPowerWithout', 'unPowerWith']),
 
     powerWithoutHandler: async function() {
       const spot = this.spot
@@ -72,7 +67,10 @@ export default {
 
       if (this.isLoggingIn == false) {
         this.dialogOn()
-        this.pushSnackbar({ message: 'ログインしてください', color: 'error' })
+        this.$$store.dispatch('pushSnackbar', {
+          message: 'ログインしてください',
+          color: 'error'
+        })
         return
       }
 
