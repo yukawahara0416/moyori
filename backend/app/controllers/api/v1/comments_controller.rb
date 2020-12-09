@@ -26,6 +26,7 @@ module Api
                         .last
 
           url = rails_blob_url(comment.image) if comment.image.attached?
+          avatar = rails_blob_url(user.avatar) if user.avatar.attached?
 
           {
             data: data,
