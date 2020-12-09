@@ -14,7 +14,6 @@ Rails.application.routes.draw do
       resources :spots, only: [:show, :create, :update, :destroy] do
         get 'collate', on: :collection
         get 'nearby', on: :collection
-        post 'save', on: :collection
       end
       resources :likes, only: [:create, :destroy]
       resources :wifi_withs, only: [:create, :destroy]
