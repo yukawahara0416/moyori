@@ -12,14 +12,7 @@
         キャンセル
       </v-btn>
 
-      <v-btn
-        @click="
-          deleteAccount()
-          closeDialog()
-        "
-        color="green darken-1"
-        text
-      >
+      <v-btn @click="deleteAccountHandler()" color="green darken-1" text>
         OK
       </v-btn>
     </v-card-actions>
@@ -27,17 +20,35 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters(['headers'])
+  },
+
   methods: {
-    ...mapActions(['deleteAccount']),
+    ...mapActions([
+      'deleteAccount',
+      'pushSnackbarSuccess',
+      'pushSnackbarError'
+    ]),
+
+    deleteAccountHandler: async function() {
+      const headers = this.headers
+      try {
+        await this.deleteAccount(headers)
+        this.closeDialog()
+        this.pushSnackbarSuccess({ message: 'アカウントを削除しました' })
+      } catch (error) {
+        this.pushSnackbarError({ message: error })
+      }
+    },
 
     cancelDeleteAccount() {
       this.closeDialog()
-      this.$store.dispatch('pushSnackbar', {
-        message: 'アカウントの削除をキャンセルしました',
-        color: 'success'
+      this.pushSnackbarSuccess({
+        message: 'アカウントの削除をキャンセルしました'
       })
     },
 
