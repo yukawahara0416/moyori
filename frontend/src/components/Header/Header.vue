@@ -1,14 +1,14 @@
 <template>
   <div>
-    <v-app-bar app flat>
-      <v-toolbar flat>
+    <v-app-bar app flat class="app-bar">
+      <v-toolbar flat class="toolbar">
         <header-title />
-
-        <header-chip />
 
         <v-spacer />
 
-        <header-avatar v-if="isLoggingIn" />
+        <header-tutorial-button />
+
+        <header-avatar-button v-if="isLoggingIn" />
 
         <header-sign-button v-else />
 
@@ -16,25 +16,25 @@
       </v-toolbar>
     </v-app-bar>
 
-    <header-drawer v-model="drawerState" />
+    <header-drawer-button v-model="drawerState" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import HeaderAvatar from '@/components/Header/HeaderAvatar.vue'
-import HeaderChip from '@/components/Header/HeaderChip.vue'
-import HeaderDrawer from '@/components/Header/HeaderDrawer.vue'
-import HeaderSignButton from '@/components/Header/HeaderSignButton.vue'
 import HeaderTitle from '@/components/Header/HeaderTitle.vue'
+import HeaderTutorialButton from '@/components/Header/HeaderTutorialButton.vue'
+import HeaderAvatarButton from '@/components/Header/HeaderAvatarButton.vue'
+import HeaderSignButton from '@/components/Header/HeaderSignButton.vue'
+import HeaderDrawerButton from '@/components/Header/HeaderDrawerButton.vue'
 
 export default {
   components: {
-    HeaderAvatar,
-    HeaderChip,
-    HeaderDrawer,
+    HeaderTitle,
+    HeaderTutorialButton,
+    HeaderAvatarButton,
     HeaderSignButton,
-    HeaderTitle
+    HeaderDrawerButton
   },
 
   data() {
@@ -44,7 +44,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isLoggingIn'])
+    ...mapGetters(['isLoggingIn']),
+
+    isSearchRoute() {
+      const route = this.$route.name
+      return route == 'search' ? true : false
+    }
   },
 
   methods: {
@@ -54,3 +59,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.app-bar {
+  background-color: white !important;
+  height: 64px;
+}
+.toolbar {
+  padding: 0px !important;
+}
+</style>
