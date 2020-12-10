@@ -2,6 +2,8 @@
   <v-app id="inspire">
     <Snackbar />
     <Header />
+    <tutorial-dialog />
+
     <v-content>
       <v-progress-linear indeterminate color="primary" v-show="loading" />
       <v-container class="pa-0" fluid>
@@ -15,11 +17,13 @@
 import { mapGetters } from 'vuex'
 import Snackbar from '@/components/Utility/Snackbar.vue'
 import Header from '@/components/Header/Header.vue'
+import TutorialDialog from '@/components/Tutorial/TutorialDialog.vue'
 
 export default {
   components: {
     Snackbar,
-    Header
+    Header,
+    TutorialDialog
   },
 
   computed: {
