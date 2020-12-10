@@ -4,23 +4,23 @@
       align="center"
       justify="center"
       no-gutter
-      style="flex-direction: column;"
+      class="profile-action-container"
       v-show="isLoggingIn && isOwnPage"
     >
-      <profile-actions-edit :user="user" />
+      <profile-actions-edit-button :user="user" />
 
-      <profile-actions-sign-out />
+      <profile-actions-sign-out-button />
 
-      <profile-actions-delete :user="user" />
+      <profile-actions-delete-button :user="user" />
     </v-row>
   </v-col>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import ProfileActionsEdit from '@/components/Profile/ProfileActionsEdit.vue'
-import ProfileActionsSignOut from '@/components/Profile/ProfileActionsSignOut.vue'
-import ProfileActionsDelete from '@/components/Profile/ProfileActionsDelete.vue'
+import ProfileActionsEditButton from '@/components/Profile/ProfileActionsEditButton.vue'
+import ProfileActionsSignOutButton from '@/components/Profile/ProfileActionsSignOutButton.vue'
+import ProfileActionsDeleteButton from '@/components/Profile/ProfileActionsDeleteButton.vue'
 
 export default {
   props: {
@@ -30,9 +30,9 @@ export default {
   },
 
   components: {
-    ProfileActionsEdit,
-    ProfileActionsSignOut,
-    ProfileActionsDelete
+    ProfileActionsEditButton,
+    ProfileActionsSignOutButton,
+    ProfileActionsDeleteButton
   },
 
   computed: {
@@ -44,3 +44,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.profile-action-container {
+  flex-direction: column;
+}
+</style>

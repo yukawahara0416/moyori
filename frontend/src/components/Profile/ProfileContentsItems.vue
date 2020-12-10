@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import CardContainer from '@/components/Card/CardContainer.vue'
 
 export default {
@@ -36,36 +36,40 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['tab']),
+    ...mapGetters(['profileTab']),
 
     childTabs: {
       get() {
-        return this.tab
+        return this.profileTab
       },
-      set(newValue) {
-        this.$store.dispatch('changeTab', newValue)
+      set(newVal) {
+        this.changeProfileTab(newVal)
       }
     },
 
     posts() {
-      return this.user.posts ? this.user.posts : []
+      return this.user.posts || []
     },
 
     wifi_withs() {
-      return this.user.wifi_withs ? this.user.wifi_withs : []
+      return this.user.wifi_withs || []
     },
 
     power_withs() {
-      return this.user.power_withs ? this.user.power_withs : []
+      return this.user.power_withs || []
     },
 
     comments() {
-      return this.user.comments ? this.user.comments : []
+      return this.user.comments || []
     },
 
     likes() {
-      return this.user.likes ? this.user.likes : []
+      return this.user.likes || []
     }
+  },
+
+  methods: {
+    ...mapMutations(['changeProfileTab'])
   }
 }
 </script>

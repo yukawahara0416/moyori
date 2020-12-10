@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   data() {
@@ -28,16 +28,20 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['tab']),
+    ...mapGetters(['profileTab']),
 
     childTabs: {
       get() {
-        return this.tab
+        return this.profileTab
       },
-      set(newValue) {
-        this.$store.dispatch('changeTab', newValue)
+      set(newVal) {
+        this.changeProfileTab(newVal)
       }
     }
+  },
+
+  methods: {
+    ...mapMutations(['changeProfileTab'])
   }
 }
 </script>
