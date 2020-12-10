@@ -89,6 +89,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   props: {
     user: Object
@@ -104,6 +106,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['headers']),
+
     formData() {
       const formData = new FormData()
       formData.append('[name]', this.name)
@@ -116,20 +120,31 @@ export default {
   },
 
   methods: {
-    updateAccount() {
-      this.$store.dispatch('updateAccount', {
-        form_data: this.formData,
-        id: this.user.data.id
-      })
-      this.closeDialog()
+    ...mapActions([
+      'updateAccount',
+      'pushSnackbarSuccess',
+      'pushSnackbarError'
+    ]),
+
+    updateAccount: async function() {
+      const params = this.formData
+      const headers = this.headers
+
+      try {
+        await this.updateAccount({ params, headers })
+        this.closeDialog()
+        this.clearEditFormData()
+        this.pushSnackbarSuccess({ message: 'アカウントを編集しました' })
+      } catch (error) {
+        this.pushSnackbarError({ message: error })
+      }
     },
 
     cancelUpdateAccount() {
       this.closeDialog()
       this.clearEditFormData()
-      this.$store.dispatch('pushSnackbar', {
-        message: 'スポットの編集をキャンセルしました',
-        color: 'success'
+      this.pushSnackbarSuccess({
+        message: 'スポットの編集をキャンセルしました'
       })
     },
 

@@ -13,79 +13,75 @@ export default {
   },
 
   mutations: {
+    // マイページで使用するユーザデータを格納します
     setUserStore(state, payload) {
       state.user = payload
     },
 
+    // ユーザデータを更新します
     editUserStore(state, { name, email }) {
       state.user.data.name = name
       state.user.data.email = email
     },
 
+    // ユーザアバターを更新します
     editUserAvatarStore(state, payload) {
       state.user.avatar = payload
     },
 
+    // ユーザデータを初期化します
     clearUserStore(state) {
       state.user = {}
     },
 
-    addDataUserStore(state, { spot, data, active_tab, genre }) {
-      const targetSpot = state.user[active_tab].filter(function(item) {
+    // ユーザが保有するスポットに情報を新規追加します
+    addDataUserStore(state, { spot, data, tab, prop }) {
+      const target = state.user[tab].filter(item => {
         return item.data.place_id == spot.data.place_id
       })
-      targetSpot[0][genre].push(data)
+
+      target[0][prop].push(data)
     },
 
-    deleteDataUserStore(state, { spot, data, active_tab, genre }) {
-      const targetSpot = state.user[active_tab].filter(function(item) {
-        return item.marker.place_id == spot.data.place_id
+    // ユーザが保有するスポットの情報を削除します
+    deleteDataUserStore(state, { spot, data, tab, prop }) {
+      const target = state.user[tab].filter(item => {
+        return item.data.place_id == spot.data.place_id
       })
-      const items = targetSpot[0][genre]
-      const number = items.findIndex(({ id }) => id === data.id)
-      items.splice(number, 1)
+      const items = target[0][prop]
+      const index = items.findIndex(({ id }) => id === data.id)
+      items.splice(index, 1)
     },
 
-    onSpotlight(state, { spot, active_tab }) {
-      const targetSpot = state.user[active_tab].filter(function(item) {
-        return item.marker.place_id == spot.data.place_id
+    onSpotlight(state, { spot, tab }) {
+      const target = state.user[tab].filter(item => {
+        return item.data.place_id == spot.data.place_id
       })
-      targetSpot[0].marker.on = true
+      target[0].data.on = true
     },
 
-    offSpotlight(state, active_tab) {
-      for (let i in state.user[active_tab]) {
-        state.user[active_tab][i].marker.on = false
+    offSpotlight(state, tab) {
+      for (let i in state.user[tab]) {
+        state.user[tab][i].data.on = false
       }
     }
   },
 
   actions: {
     getUser(context, id) {
-      axiosBase
+      return axiosBase
         .get('/api/v1/users/' + id)
         .then(response => {
-          context.commit('setUserStore', response.data)
+          return response
         })
         .catch(() => {
-          context.dispatch(
-            'pushSnackbar',
-            {
-              message: '予期しないエラーが発生しました',
-              color: 'error'
-            },
-            { root: true }
-          )
+          throw new Error('ユーザ情報の取得に失敗しました')
         })
     },
 
-    clearUserStore(context) {
-      context.commit('clearUserStore')
-    },
-
-    spotlight(context, { spot, active_tab }) {
-      context.commit('offSpotlight', active_tab)
-      context.commit('onSpotlight', { spot, active_tab })
+    spotlight(context, { spot, tab }) {
+      context.commit('offSpotlight', tab)
+      context.commit('onSpotlight', { spot, tab })
     }
   }
 }

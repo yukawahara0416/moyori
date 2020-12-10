@@ -1,36 +1,21 @@
 <template>
-  <v-row
-    align="center"
-    class="my-5"
-    justify="center"
-    no-gutter
-    style="flex-direction: column;"
-  >
-    <v-col
-      class="mb-5"
-      cols="8"
-      style="background-color: white; border-radius: 4px;"
-    >
-      <v-row
-        align="center"
-        justify="center"
-        no-gutter
-        style="flex-direction: column;"
-      >
+  <v-row align="center" class="row-default my-5" justify="center" no-gutter>
+    <v-col class="col-default mb-5" cols="8">
+      <v-row align="center" class="row-default" justify="center" no-gutter>
         <profile-items :user="user" />
-
         <profile-actions :id="id" :user="user" :currentUser="currentUser" />
       </v-row>
     </v-col>
 
-    <v-col cols="11" style="background-color: white; border-radius: 4px;">
+    <v-col cols="11" class="col-default" style="min-height: 50vh;">
       <profile-contents :user="user" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import ProfileItems from '@/components/Profile/ProfileItems.vue'
 import ProfileActions from '@/components/Profile/ProfileActions.vue'
 import ProfileContents from '@/components/Profile/ProfileContents.vue'
@@ -46,23 +31,62 @@ export default {
     ProfileContents
   },
 
+  async created() {
+    this.loadingOn()
+    this.clearSpotsStore()
+    this.clearUserStore()
+
+    try {
+      let response = await this.getUser(this.id)
+
+      const target = [
+        'posts',
+        'likes',
+        'wifi_withs',
+        'wifi_withouts',
+        'power_withs',
+        'power_withouts',
+        'comments'
+      ]
+
+      for (let i = 0; i < target.length; i++) {
+        response.data[target[i]] = response.data[target[i]].map(spot => {
+          return new Spot(spot)
+        })
+      }
+
+      this.setUserStore(response.data)
+    } catch (error) {
+      this.pushSnackbarError({ message: error })
+    } finally {
+      this.loadingOff()
+    }
+  },
+
   computed: {
     ...mapGetters({ user: 'user/user' }),
     ...mapGetters(['currentUser'])
   },
 
-  created() {
-    this.clearSpotsStore()
-    this.clearUserStore()
-    this.getUser(this.id)
-  },
-
   methods: {
-    ...mapActions({
+    ...mapMutations(['loadingOn', 'loadingOff']),
+    ...mapMutations({
       clearSpotsStore: 'spot/clearSpotsStore',
       clearUserStore: 'user/clearUserStore',
-      getUser: 'user/getUser'
-    })
+      setUserStore: 'user/setUserStore'
+    }),
+    ...mapActions(['pushSnackbarError']),
+    ...mapActions({ getUser: 'user/getUser' })
   }
 }
 </script>
+
+<style scoped>
+.row-default {
+  flex-direction: column;
+}
+.col-default {
+  background-color: white;
+  border-radius: 4px;
+}
+</style>
