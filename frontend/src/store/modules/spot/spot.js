@@ -7,6 +7,7 @@ export default {
   state: {
     spots: [],
     radius: { name: '500m', value: 500 },
+    type: { name: 'カフェ', value: 'cafe' },
     filterQuery: []
   },
 
@@ -17,6 +18,10 @@ export default {
 
     radius(state) {
       return state.radius
+    },
+
+    type(state) {
+      return state.type
     },
 
     filterQuery(state) {
@@ -76,10 +81,6 @@ export default {
     // },
 
     // スポットに情報を新規追加します
-    // 使用例）投票やコメントの投稿をスポットデータへ反映させる
-    // @param spot
-    // @param data spotに追加したい新規データ（投票やコメントなど）
-    // @param prop dataを格納したいプロパティ名（likesやcommentsなど）
     addDataSpotsStore(state, { spot, data, prop }) {
       const target = state.spots.filter(item => {
         return item.data.place_id == spot.data.place_id
@@ -88,10 +89,6 @@ export default {
     },
 
     // スポットの情報を削除します
-    // 使用例）投票やコメントの削除をスポットデータへ反映させる
-    // spot データを削除したいスポット
-    // data spotから削除したいデータ（投票やコメントなど）
-    // prop dataが格納されているプロパティ名（likesやcommentsなど）
     deleteDataSpotsStore(state, { spot, data, prop }) {
       const target = state.spots.filter(item => {
         return item.data.place_id == spot.data.place_id
@@ -102,9 +99,6 @@ export default {
     },
 
     // スポットの情報を更新します
-    // 使用例）スポット名や住所などの変更をスポットデータへ反映させる
-    // spot データを更新したいスポット
-    // data spotで更新したいデータ（スポット名・住所など）
     updateDataSpotsStore(state, { spot, data }) {
       const target = state.spots.filter(item => {
         return item.data.place_id == spot.data.place_id
@@ -114,6 +108,10 @@ export default {
 
     setRadius(state, payload) {
       state.radius = payload
+    },
+
+    setType(state, payload) {
+      state.type = payload
     },
 
     setFilterQuery(state, payload) {
