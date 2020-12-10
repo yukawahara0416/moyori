@@ -1,6 +1,6 @@
 <template>
   <v-card-title class="nowrap">
-    <p>{{ spot.marker.name }}</p>
+    <p class="ma-0">{{ spot.data.name }}</p>
   </v-card-title>
 </template>
 
@@ -16,5 +16,6 @@ export default {
 .nowrap p {
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
