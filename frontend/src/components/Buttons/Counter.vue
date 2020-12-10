@@ -6,13 +6,12 @@
 export default {
   props: {
     spot: Object,
-    genre: String
+    target: String
   },
 
   computed: {
     count() {
-      const targetSpots = this.spot[this.genre]
-      return targetSpots.length > 0 ? targetSpots.length : 0
+      return this.spot[this.target].length
     }
   }
 }
