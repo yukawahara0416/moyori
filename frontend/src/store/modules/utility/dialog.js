@@ -2,7 +2,8 @@ export default {
   state: {
     dialogSign: false,
     dialogSpotCreate: false,
-    dialogSpotEdit: false
+    dialogSpotEdit: false,
+    dialogTutorial: true
   },
 
   getters: {
@@ -16,16 +17,20 @@ export default {
 
     dialogSpotEdit(state) {
       return state.dialogSpotEdit
+    },
+
+    dialogTutorial(state) {
+      return state.dialogTutorial
     }
   },
 
   mutations: {
-    dialogOn(state, targetDialog) {
-      state[targetDialog] = true
+    dialogOn(state, target) {
+      state[target] = true
     },
 
-    dialogOff(state, targetDialog) {
-      state[targetDialog] = false
+    dialogOff(state, target) {
+      state[target] = false
     },
 
     dialogOffAll(state) {
@@ -36,13 +41,9 @@ export default {
   },
 
   actions: {
-    dialogOn(context, targetDialog) {
-      context.commit('dialogOn', targetDialog)
-    },
-
-    dialogOff(context, targetDialog) {
-      targetDialog
-        ? context.commit('dialogOff', targetDialog)
+    dialogOff(context, target) {
+      target
+        ? context.commit('dialogOff', target)
         : context.commit('dialogOffAll')
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <v-list-item @click="signOut()">
+  <v-list-item @click="signOutHandler()">
     <v-list-item-avatar>
       <v-icon btn>mdi-logout</v-icon>
     </v-list-item-avatar>
@@ -11,10 +11,25 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
+  computed: {
+    ...mapGetters(['headers'])
+  },
+
   methods: {
-    signOut() {
-      this.$store.dispatch('signOut')
+    ...mapActions(['signOut', 'pushSnackbarSuccess', 'pushSnackbarError']),
+
+    signOutHandler: async function() {
+      const headers = this.headers
+
+      try {
+        await this.signOut(headers)
+        this.pushSnackbarSuccess({ message: 'ログアウトしました' })
+      } catch (error) {
+        this.pushSnackbarError({ message: error })
+      }
     }
   }
 }

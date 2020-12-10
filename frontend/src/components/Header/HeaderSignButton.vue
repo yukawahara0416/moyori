@@ -1,10 +1,11 @@
 <template>
   <span>
-    <div class="my-2">
-      <v-btn color="primary" depressed large @click.stop="openDialog()">
-        はじめる
-      </v-btn>
-    </div>
+    <v-btn text @click.stop="openDialog('signin')">
+      ログイン
+    </v-btn>
+    <v-btn text @click.stop="openDialog('signup')">
+      新規登録
+    </v-btn>
 
     <v-dialog v-model="dialog" width="600">
       <sign-container />
@@ -13,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import SignContainer from '@/components/Sign/SignContainer.vue'
 
 export default {
@@ -29,14 +30,18 @@ export default {
         return this.dialogSign
       },
       set() {
-        this.$store.dispatch('dialogOff', 'dialogSign')
+        this.dialogOff('dialogSign')
       }
     }
   },
 
   methods: {
-    openDialog() {
-      this.$store.dispatch('dialogOn', 'dialogSign')
+    ...mapMutations(['dialogOn', 'changeSignTab']),
+    ...mapActions(['dialogOff']),
+
+    openDialog(tab) {
+      this.changeSignTab(tab)
+      this.dialogOn('dialogSign')
     }
   }
 }

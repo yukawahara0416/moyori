@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import TutorialDialogCarousel from '@/components/Tutorial/TutorialDialogCarousel.vue'
 
 export default {
@@ -14,16 +14,20 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['tutorialState']),
+    ...mapGetters(['dialogTutorial']),
 
     dialog: {
       get() {
-        return this.tutorialState
+        return this.dialogTutorial
       },
       set() {
-        this.$store.commit('closeTutorial')
+        this.dialogOff('dialogTutorial')
       }
     }
+  },
+
+  methods: {
+    ...mapActions(['dialogOff'])
   }
 }
 </script>

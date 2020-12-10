@@ -2,17 +2,16 @@
   <v-navigation-drawer
     absolute
     app
-    @input="input($event)"
     temporary
     right
+    class="drawer"
     :value="value"
+    @input="input($event)"
   >
     <v-list>
       <header-drawer-pages />
 
       <v-divider />
-
-      <header-drawer-author />
 
       <header-drawer-footer />
     </v-list>
@@ -21,7 +20,6 @@
 
 <script>
 import HeaderDrawerPages from '@/components/Header/HeaderDrawerPages.vue'
-import HeaderDrawerAuthor from '@/components/Header/HeaderDrawerAuthor.vue'
 import HeaderDrawerFooter from '@/components/Header/HeaderDrawerFooter.vue'
 
 export default {
@@ -31,7 +29,6 @@ export default {
 
   components: {
     HeaderDrawerPages,
-    HeaderDrawerAuthor,
     HeaderDrawerFooter
   },
 
@@ -42,3 +39,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.drawer {
+  z-index: 200;
+}
+</style>
