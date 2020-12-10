@@ -1,9 +1,10 @@
 <template>
-  <div class="text-center">
+  <div class="ml-3 text-center">
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
+        <v-btn class="test" icon v-bind="attrs" v-on="on">
           <header-avatar-image :currentUser="currentUser" />
+          <v-icon>mdi-chevron-down</v-icon>
         </v-btn>
       </template>
 
@@ -28,3 +29,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+button::before {
+  background-color: white;
+}
+</style>
