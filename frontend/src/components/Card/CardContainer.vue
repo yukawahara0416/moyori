@@ -1,19 +1,14 @@
 <template>
-  <v-row
-    align="stretch"
-    class="ma-0"
-    justify="space-around"
-    style="background-color: white;"
-  >
+  <v-row align="stretch" class="ma-0" justify="space-around">
     <v-col
-      class="mt-2"
       cols="12"
       sm="6"
-      lg="4"
+      :md="md"
+      :lg="lg"
       v-for="(spot, id) in spots"
       :key="id"
     >
-      <card-container-frame :spot="spot" :id="id" />
+      <card-frame :spot="spot" :id="id" />
     </v-col>
 
     <!-- カード配置調整（中央寄せ && 最下層端数左寄せ） -->
@@ -21,7 +16,8 @@
       class="ma-0 pa-0"
       cols="12"
       sm="6"
-      lg="4"
+      :md="md"
+      :lg="lg"
       v-for="e in empties"
       :key="e"
     >
@@ -31,7 +27,7 @@
 </template>
 
 <script>
-import CardContainerFrame from '@/components/Card/CardContainerFrame.vue'
+import CardFrame from '@/components/Card/CardFrame.vue'
 import CardContainerFill from '@/components/Card/CardContainerFill.vue'
 
 export default {
@@ -40,13 +36,27 @@ export default {
   },
 
   components: {
-    CardContainerFrame,
+    CardFrame,
     CardContainerFill
   },
 
   computed: {
     empties() {
-      return Array.from(new Array(this.spots.length))
+      const number = this.spots.length === 1 ? 2 : this.spots.length
+      return Array.from(new Array(number))
+    },
+
+    lg() {
+      const route = this.$route.name
+
+      if (route == 'profile') return 3
+      return 4
+    },
+
+    md() {
+      const route = this.$route.name
+      if (route == 'profile') return 4
+      return 6
     }
   }
 }
