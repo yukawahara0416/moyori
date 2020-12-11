@@ -12,38 +12,41 @@ beforeEach(() => {
   store = new Vuex.Store(cloneDeep(snackbar))
 })
 
+const message = 'test'
+const color = 'success'
+
 describe('mutations', () => {
   it('setMessage', () => {
-    const message = 'test'
     store.commit('setMessage', message)
     expect(store.state.message).toEqual(message)
   })
 
   it('setColor', () => {
-    const color = 'success'
     store.commit('setColor', color)
     expect(store.state.color).toEqual(color)
   })
 
   it('clearMessage', () => {
-    store.replaceState({ message: 'test' })
+    store.replaceState({ message: message })
     store.commit('clearMessage')
     expect(store.state.message).toEqual('')
   })
 })
 
 describe('actions', () => {
-  it('pushSnackbar', () => {
-    const message = 'test'
-    const color = 'success'
-    store.dispatch('pushSnackbar', { message, color })
-    expect(store.state.message).toBe(message)
-    expect(store.state.color).toBe(color)
+  it('pushSnackbarSuccess', () => {
+    store.replaceState({ message: '' })
+    store.replaceState({ color: '' })
+    store.dispatch('pushSnackbarSuccess', { message: message })
+    expect(store.state.message).toEqual(message)
+    expect(store.state.color).toEqual('success')
   })
 
-  it('clearSnackbar', () => {
-    store.replaceState({ message: 'test' })
-    store.dispatch('clearSnackbar')
-    expect(store.state.message).toBe('')
+  it('pushSnackbarError', () => {
+    store.replaceState({ message: '' })
+    store.replaceState({ color: '' })
+    store.dispatch('pushSnackbarError', { message: message })
+    expect(store.state.message).toEqual(message)
+    expect(store.state.color).toEqual('error')
   })
 })
