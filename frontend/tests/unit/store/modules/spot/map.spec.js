@@ -33,6 +33,18 @@ beforeEach(() => {
   // store.registerModule('auth', cloneDeep(authMockStore))
 })
 
+describe('getters', () => {
+  it('map', () => {
+    store.replaceState({ map: 'mapObject' })
+    expect(store.getters['map']).toEqual('mapObject')
+  })
+
+  it('google', () => {
+    store.replaceState({ google: 'googleObject' })
+    expect(store.getters['google']).toEqual('googleObject')
+  })
+})
+
 // describe('actions', () => {
 //   const spot = { marker: { place_id: 'test' } }
 //   const response = { state: '200 success', data: { id: 1 } }
