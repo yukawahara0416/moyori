@@ -33,15 +33,30 @@ beforeEach(() => {
   // store.registerModule('auth', cloneDeep(authMockStore))
 })
 
+const mapObject = { obj1: 'obj1' }
+
+const googleObject = { obj2: 'obj2' }
+
 describe('getters', () => {
   it('map', () => {
-    store.replaceState({ map: 'mapObject' })
-    expect(store.getters['map']).toEqual('mapObject')
+    store.replaceState({ map: mapObject })
+    expect(store.getters['map']).toEqual(mapObject)
   })
 
   it('google', () => {
-    store.replaceState({ google: 'googleObject' })
-    expect(store.getters['google']).toEqual('googleObject')
+    store.replaceState({ google: googleObject })
+    expect(store.getters['google']).toEqual(googleObject)
+  })
+})
+
+describe('mutations', () => {
+  it('mapMutation', () => {
+    store.commit('mapMutation', mapObject)
+    expect(store.state.map).toStrictEqual(mapObject)
+  })
+  it('googleMutation', () => {
+    store.commit('googleMutation', googleObject)
+    expect(store.state.google).toStrictEqual(googleObject)
   })
 })
 
