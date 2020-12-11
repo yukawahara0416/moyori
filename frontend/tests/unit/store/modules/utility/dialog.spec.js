@@ -47,13 +47,17 @@ describe('mutations', () => {
   })
 
   it('dialogOffAll', () => {
-    store.replaceState({ dialogSign: true })
-    store.replaceState({ dialogSpotCreate: true })
-    store.replaceState({ dialogSpotEdit: true })
+    store.replaceState({
+      dialogSign: true,
+      dialogSpotCreate: true,
+      dialogSpotEdit: true,
+      dialogTutorial: true
+    })
     store.commit('dialogOffAll')
     expect(store.state.dialogSign).toBe(false)
     expect(store.state.dialogSpotCreate).toBe(false)
     expect(store.state.dialogSpotEdit).toBe(false)
+    expect(store.state.dialogTutorial).toBe(false)
   })
 })
 
