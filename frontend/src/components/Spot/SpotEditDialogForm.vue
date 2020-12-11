@@ -110,7 +110,7 @@
           color="primary"
           large
           type="submit"
-          @click="updateSpot()"
+          @click="updateSpotHandler()"
           :disabled="invalid"
         >
           スポットを編集する
@@ -123,6 +123,8 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+
 export default {
   props: {
     spot: Object
@@ -135,13 +137,16 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['headers']),
+
     formData() {
       const formData = new FormData()
       formData.append('spot[address]', this.spot.data.address)
       formData.append('spot[name]', this.spot.data.name)
       formData.append('spot[place_id]', this.spot.data.place_id)
-      formData.append('spot[lat]', this.spot.data.lat)
-      formData.append('spot[lng]', this.spot.data.lng)
+
+      formData.append('spot[lat]', this.spot.data.position.lat)
+      formData.append('spot[lng]', this.spot.data.position.lng)
       if (this.spot.data.phone !== null)
         formData.append('spot[phone]', this.spot.data.phone)
       if (this.spot.data.url !== null)
@@ -153,20 +158,34 @@ export default {
   },
 
   methods: {
-    updateSpot() {
-      this.$store.dispatch('post/updateSpot', {
-        spot: this.spot,
-        form_data: this.formData
-      })
+    ...mapMutations(['clearSpotFormData']),
+    ...mapActions(['dialogOff', 'pushSnackbarSuccess', 'pushSnackbarError']),
+    ...mapActions({ updateSpot: 'spot/updateSpot' }),
+
+    updateSpotHandler: async function() {
+      const spot = this.spot
+      const form_data = this.formData
+      const headers = this.headers
+
+      try {
+        await this.updateSpot({ spot, form_data, headers })
+        this.closeDialog()
+        this.pushSnackbarSuccess({ message: 'スポットの情報を更新しました' })
+      } catch (error) {
+        this.pushSnackbarError({ message: error })
+      }
     },
 
     cancelUpdateSpot() {
-      this.$store.dispatch('dialogOff', 'dialogSpotEdit')
-      this.$store.dispatch('post/clearSpotFormData')
-      this.$store.dispatch('pushSnackbar', {
-        message: 'スポットの編集をキャンセルしました',
-        color: 'success'
+      this.closeDialog()
+      this.pushSnackbarSuccess({
+        message: 'スポットの編集をキャンセルしました'
       })
+    },
+
+    closeDialog() {
+      this.dialogOff('dialogSpotEdit')
+      this.clearSpotFormData()
     }
   }
 }

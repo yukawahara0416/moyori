@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import SpotPostDialogForm from '@/components/Spot/SpotPostDialogForm.vue'
 
 export default {
@@ -25,14 +25,17 @@ export default {
         return this.dialogSpotCreate
       },
       set() {
-        this.$store.dispatch('dialogOff', 'dialogSpotCreate')
+        this.dialogOff('dialogSpotCreate')
       }
     }
   },
 
   methods: {
+    ...mapMutations(['dialogOn']),
+    ...mapActions(['dialogOff']),
+
     openDialog() {
-      this.$store.dispatch('dialogOn', 'dialogSpotCreate')
+      this.dialogOn('dialogSpotCreate')
     }
   }
 }

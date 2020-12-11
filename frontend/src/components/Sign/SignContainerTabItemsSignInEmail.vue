@@ -2,11 +2,11 @@
   <v-col>
     <v-card class="mx-5">
       <v-toolbar class="white--text" color="primary" dense flat>
-        <v-toolbar-title>メールアドレスでログイン</v-toolbar-title>
+        メールアドレスでログイン
       </v-toolbar>
 
       <ValidationObserver ref="observer" v-slot="{ invalid }" immediate>
-        <v-card-text>
+        <v-card-text class="pb-0">
           <v-form>
             <ValidationProvider
               v-slot="{ errors, valid }"
@@ -51,12 +51,24 @@
           <v-btn
             class="mb-3 px-10"
             color="primary"
-            large
             type="submit"
             @click.stop="signIn()"
             :disabled="invalid"
           >
             ログイン
+          </v-btn>
+          <v-spacer />
+        </v-card-actions>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            text
+            class="mb-3"
+            color="primary"
+            type="submit"
+            @click.stop="changeSignTab('signup')"
+          >
+            新規登録はこちら
           </v-btn>
           <v-spacer />
         </v-card-actions>
@@ -66,16 +78,36 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['signInFormData'])
+    ...mapGetters(['isLoggingIn', 'signInFormData'])
   },
 
   methods: {
-    signIn() {
-      this.$store.dispatch('signIn', this.signInFormData)
+    ...mapMutations(['changeSignTab']),
+    ...mapActions([
+      'signIn',
+      'clearSignFormData',
+      'dialogOff',
+      'pushSnackbarSuccess',
+      'pushSnackbarError'
+    ]),
+
+    signIn: async function() {
+      try {
+        if (this.isLoggingIn == true) {
+          throw new Error('すでにログイン中です')
+        }
+
+        await this.signIn(this.signInFormData)
+        this.dialogOff('dialogSign')
+        this.clearSignFormData()
+        this.pushSnackbarSuccess({ message: 'ログインしました' })
+      } catch (error) {
+        this.pushSnackbarError({ message: error })
+      }
     }
   }
 }

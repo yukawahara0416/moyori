@@ -1,5 +1,5 @@
 <template>
-  <v-tabs-items v-model="childTabs">
+  <v-tabs-items v-model="childTab">
     <v-tab-item value="signin">
       <sign-container-tab-items-sign-in />
     </v-tab-item>
@@ -10,28 +10,31 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import SignContainerTabItemsSignIn from '@/components/Sign/SignContainerTabItemsSignIn.vue'
 import SignContainerTabItemsSignUp from '@/components/Sign/SignContainerTabItemsSignUp.vue'
 
 export default {
-  props: {
-    tabs: String
-  },
-
   components: {
     SignContainerTabItemsSignIn,
     SignContainerTabItemsSignUp
   },
 
   computed: {
-    childTabs: {
+    ...mapGetters(['signTab']),
+
+    childTab: {
       get() {
-        return this.tabs
+        return this.signTab
       },
-      set(newValue) {
-        this.$emit('changeTabs', newValue)
+      set(tab) {
+        this.changeSignTab(tab)
       }
     }
+  },
+
+  methods: {
+    ...mapMutations(['changeSignTab'])
   }
 }
 </script>

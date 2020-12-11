@@ -24,8 +24,14 @@ export default {
       context.commit('setColor', color)
     },
 
-    clearSnackbar(context) {
-      context.commit('clearMessage')
+    pushSnackbarSuccess(context, { message }) {
+      context.commit('setMessage', message)
+      context.commit('setColor', 'success')
+    },
+
+    pushSnackbarError(context, { message }) {
+      context.commit('setMessage', message)
+      context.commit('setColor', 'error')
     }
   }
 }

@@ -1,22 +1,12 @@
 <template>
   <v-card>
-    <v-row
-      align="center"
-      justify="center"
-      no-gutter
-      style="flex-direction: column;"
-    >
-      <v-col>
-        <v-row
-          align="center"
-          justify="center"
-          no-gutter
-          style="flex-direction: column;"
-        >
-          <v-col cols="12" style="background-color: white; border-radius: 4px;">
-            <sign-container-tabs :tabs="tabs" @changeTabs="changeTabs" />
+    <v-row align="center" justify="center" no-gutter class="row-defalut">
+      <v-col class="py-0">
+        <v-row align="center" justify="center" no-gutter class="row-defalut">
+          <v-col class="tab-container" cols="12">
+            <sign-container-tabs />
 
-            <sign-container-tab-items :tabs="tabs" @changeTabs="changeTabs" />
+            <sign-container-tab-items />
           </v-col>
         </v-row>
       </v-col>
@@ -32,18 +22,16 @@ export default {
   components: {
     SignContainerTabs,
     SignContainerTabItems
-  },
-
-  data() {
-    return {
-      tabs: null
-    }
-  },
-
-  methods: {
-    changeTabs(newValue) {
-      this.tabs = newValue
-    }
   }
 }
 </script>
+
+<style scoped>
+.row-defalut {
+  flex-direction: column;
+}
+.tab-container {
+  background-color: white;
+  border-radius: 4px;
+}
+</style>

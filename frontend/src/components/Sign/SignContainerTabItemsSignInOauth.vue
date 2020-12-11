@@ -2,16 +2,15 @@
   <v-col>
     <v-card class="mx-5">
       <v-toolbar class="white--text" color="primary" dense flat>
-        <v-toolbar-title>SNSアカウントでログイン</v-toolbar-title>
+        SNSアカウントでログイン
       </v-toolbar>
       <v-card-actions>
-        <v-row align="center" justify="center" style="flex-direction: column;">
+        <v-row align="center" justify="center" class="row-default">
           <v-btn
             class="my-3 white--text"
-            @click.stop="signIn()"
             color="#00acee"
-            large
             type="submit"
+            @click.stop="signIn(signInFormData)"
           >
             <v-icon color="white" left>
               mdi-twitter
@@ -25,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
@@ -33,11 +32,13 @@ export default {
   },
 
   methods: {
-    signIn() {
-      this.$store.dispatch('signIn', this.signInFormData)
-    }
-
-    // signInByTwitter() {}
+    ...mapActions(['signIn'])
   }
 }
 </script>
+
+<style scoped>
+.row-default {
+  flex-direction: column;
+}
+</style>

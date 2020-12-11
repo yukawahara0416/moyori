@@ -4,12 +4,15 @@ import router from '@/router'
 export default {
   state: {
     currentUser: { data: {}, avatar: '' },
+
     headers: null,
+
     signUpFormData: {
       name: '',
       email: '',
       password: ''
     },
+
     signInFormData: {
       email: '',
       password: ''
@@ -87,123 +90,86 @@ export default {
       axiosBase
         .post('/api/v1/auth/', signUpFormData)
         .then(response => {
-          context.commit('setCurrentUser', response.data.data)
-          context.dispatch('editAvatar', response.data.data.id)
-          context.commit('signIn', response.headers)
-          context.commit('dialogOff', 'dialogSign')
-          context.commit('clearSignInFormData')
-          context.commit('clearSignUpFormData')
-          context.dispatch('pushSnackbar', {
-            message: 'アカウントを登録しました。MoYoRiへようこそ！',
-            color: 'success'
-          })
+          const currentUser = response.data.data
+          const headers = response.headers
+
+          context.commit('setCurrentUser', currentUser)
+          context.dispatch('editAvatar', currentUser.id)
+          context.commit('signIn', headers)
         })
         .catch(() => {
-          context.dispatch('pushSnackbar', {
-            message: 'アカウント作成に失敗しました',
-            color: 'error'
-          })
+          throw new Error('アカウント作成に失敗しました')
         })
     },
 
     signIn(context, signInFormData) {
-      if (context.state.currentUser) {
-        axiosBase
-          .post('/api/v1/auth/sign_in', signInFormData)
-          .then(response => {
-            context.commit('setCurrentUser', response.data.data)
-            context.dispatch('editAvatar', response.data.data.id)
-            context.commit('signIn', response.headers)
-            context.commit('dialogOff', 'dialogSign')
-            context.commit('clearSignInFormData')
-            context.commit('clearSignUpFormData')
-            context.dispatch('pushSnackbar', {
-              message: 'ログインしました',
-              color: 'success'
-            })
-          })
-          .catch(() => {
-            context.dispatch('pushSnackbar', {
-              message: 'ログインに失敗しました',
-              color: 'error'
-            })
-          })
-      } else {
-        context.dispatch('pushSnackbar', {
-          message: 'すでにログイン中です',
-          color: 'error'
-        })
-      }
-    },
-
-    signOut(context) {
       axiosBase
-        .delete('api/v1/auth/sign_out', {
-          headers: context.state.headers
-        })
-        .then(() => {
-          context.commit('signOut')
-          context.dispatch('pushSnackbar', {
-            message: 'ログアウトしました',
-            color: 'success'
-          })
-        })
-        .catch(() => {
-          this.$store.dispatch('pushSnackbar', {
-            message: '予期しないエラーが発生しました',
-            color: 'error'
-          })
-        })
-    },
-
-    updateAccount(context, { form_data, id }) {
-      axiosBase
-        .patch('/api/v1/auth/', form_data, {
-          headers: context.state.headers
-        })
+        .post('/api/v1/auth/sign_in', signInFormData)
         .then(response => {
-          context.dispatch('editAvatar', id)
-          context.commit('user/editUserStore', {
-            name: response.data.data.name,
-            email: response.data.data.email
-          })
-          context.dispatch('pushSnackbar', {
-            message: 'アカウントを編集しました',
-            color: 'success'
-          })
+          const user = response.data.data
+          const headers = response.headers
+
+          context.commit('setCurrentUser', user)
+          context.dispatch('editAvatar', user.id)
+          context.commit('signIn', headers)
         })
         .catch(() => {
-          context.dispatch('pushSnackbar', {
-            message: '予期しないエラーが発生しました',
-            color: 'error'
-          })
+          throw new Error('ログインに失敗しました')
         })
     },
 
-    deleteAccount(context) {
+    signOut(context, headers) {
       axiosBase
-        .delete('/api/v1/auth', { headers: context.state.headers })
+        .delete('api/v1/auth/sign_out', { headers })
         .then(() => {
           context.commit('signOut')
-          context.dispatch('pushSnackbar', {
-            message: 'アカウントを削除しました',
-            color: 'success'
+        })
+        .catch(() => {
+          throw new Error('ログアウトに失敗しました')
+        })
+    },
+
+    updateAccount(context, { params, headers }) {
+      axiosBase
+        .patch('/api/v1/auth/', params, { headers })
+        .then(response => {
+          const user = response.data.data
+
+          context.dispatch('editAvatar', user.id)
+          context.commit('user/editUserStore', {
+            name: user.name,
+            email: user.email
           })
+        })
+        .catch(() => {
+          throw new Error('アカウントの編集に失敗しました')
+        })
+    },
+
+    deleteAccount(context, headers) {
+      axiosBase
+        .delete('/api/v1/auth', { headers })
+        .then(() => {
+          context.commit('signOut')
           router.push('/')
         })
         .catch(() => {
-          context.dispatch('pushSnackbar', {
-            message: '予期しないエラーが発生しました',
-            color: 'error'
-          })
+          throw new Error('アカウントの削除に失敗しました')
         })
     },
 
-    editAvatar(context, id) {
-      axiosBase.get('/api/v1/users/' + id).then(response => {
-        context.commit('editCurrentUserAvatar', response.data.avatar)
-        context.commit('user/editUserAvatarStore', response.data.avatar)
+    editAvatar(context, userId) {
+      axiosBase.get('/api/v1/users/' + userId).then(response => {
+        const avatar = response.data.avatar
+
+        context.commit('editCurrentUserAvatar', avatar)
+        context.commit('user/editUserAvatarStore', avatar)
       })
+    },
+
+    clearSignFormData(context) {
+      context.commit('clearSignInFormData')
+      context.commit('clearSignUpFormData')
     }
   }
 }

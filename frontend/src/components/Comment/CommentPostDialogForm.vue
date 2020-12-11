@@ -39,9 +39,61 @@
             :error="errors.length > 0"
             :error-messages="errors"
             :success="valid"
+            @change="onImagePicked"
           />
         </ValidationProvider>
       </v-form>
+
+      <v-card-actions>
+        <v-row>
+          <v-col class="py-0 pr-1" cols="6">
+            <v-card flat outlined class="mb-2">
+              <v-card-actions>
+                <v-spacer />
+                <span class="small-font">
+                  <v-icon color="success">mdi-wifi</v-icon>
+                  WiFiはありますか？
+                </span>
+                <v-spacer />
+              </v-card-actions>
+              <v-card-text class="py-0">
+                <v-radio-group v-model="wifi_radio" column dense class="mt-0">
+                  <span v-for="(item, id) in items.wifi_radio" :key="id">
+                    <v-radio
+                      class="mb-0"
+                      :label="item.label"
+                      :value="item.value"
+                    ></v-radio>
+                  </span>
+                </v-radio-group>
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col class="py-0 pl-1" cols="6">
+            <v-card flat outlined class="mb-2">
+              <v-card-actions>
+                <v-spacer />
+                <span class="small-font">
+                  <v-icon color="success">mdi-power-plug</v-icon>
+                  充電はできますか？
+                </span>
+                <v-spacer />
+              </v-card-actions>
+              <v-card-text class="py-0">
+                <v-radio-group v-model="power_radio" column dense class="mt-0">
+                  <span v-for="(item, id) in items.power_radio" :key="id">
+                    <v-radio
+                      class="mb-0"
+                      :label="item.label"
+                      :value="item.value"
+                    ></v-radio>
+                  </span>
+                </v-radio-group>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-card-actions>
 
       <v-card-actions>
         <v-spacer />
@@ -57,12 +109,23 @@
 
         <v-spacer />
       </v-card-actions>
+      <v-card
+        v-if="uploadImageUrl"
+        class="d-flex mx-2"
+        flat
+        outlined
+        tile
+        width="150px"
+      >
+        <v-img aspect-ratio="1" :src="uploadImageUrl" />
+      </v-card>
     </ValidationObserver>
   </v-card>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { placeDetail } from '@/plugins/maps.js'
 
 export default {
   props: {
@@ -73,55 +136,136 @@ export default {
     return {
       content: '',
       errors: [],
-      image: null
+      image: null,
+      uploadImageUrl: null,
+      wifi_radio: 'unknown',
+      power_radio: 'unknown',
+      items: {
+        wifi_radio: [
+          { label: 'あり', value: 'wifi_with' },
+          { label: 'なし', value: 'wifi_without' },
+          { label: 'わからない', value: 'unknown' }
+        ],
+        power_radio: [
+          { label: 'あり', value: 'power_with' },
+          { label: 'なし', value: 'power_without' },
+          { label: 'わからない', value: 'unknown' }
+        ]
+      }
     }
   },
 
   computed: {
-    ...mapGetters(['isLoggingIn', 'tab']),
+    ...mapGetters(['form', 'map', 'headers', 'isLoggingIn', 'profileTab']),
 
     isPostedSpot() {
-      return Object.prototype.hasOwnProperty.call(this.spot.data, 'id')
-    },
-
-    formData() {
-      const formData = new FormData()
-      formData.append('comment[spot_id]', this.spot.data.id)
-      formData.append('comment[content]', this.content)
-      if (this.image !== null) formData.append('comment[image]', this.image)
-
-      return formData
+      return this.spot.data.id !== null
     }
   },
 
   methods: {
-    ...mapActions({ saveSpot: 'map/saveSpot' }),
-    ...mapActions(['postComment']),
+    ...mapMutations(['assignSpotFormData', 'dialogOn', 'changeSignTab']),
+    ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
+    ...mapActions({ postSpot: 'spot/postSpot' }),
+    ...mapActions(['vote', 'pushSnackbarSuccess', 'pushSnackbarError']),
 
     commentHandler: async function() {
-      let spot = this.spot
+      const spot = this.spot
+      let newSpot = null
+      const params = new FormData()
+      const tab = this.profileTab
+      const headers = this.headers
+      const route = this.$route.name
 
-      if (this.isLoggingIn == false) {
-        this.$store.dispatch('dialogOn', 'dialogSign')
-        this.$$store.dispatch('pushSnackbar', {
-          message: 'ログインしてください',
-          color: 'error'
+      params.append('comment[content]', this.content)
+      if (this.image !== null) params.append('comment[image]', this.image)
+
+      try {
+        if (!this.isLoggingIn) {
+          this.changeSignTab('signin')
+          this.dialogOn('dialogSign')
+          throw new Error('ログインしてください')
+        }
+
+        // DBに未登録のスポットであれば登録します
+        if (!spot.isPosted()) {
+          // 登録前にPlaceDetail検索します
+          const map = this.map
+          const data = await placeDetail(map, spot)
+          this.updateDataSpotsStore({ spot, data })
+
+          // formDataを用意してPOSTします
+          this.assignSpotFormData(spot)
+          newSpot = await this.postSpot({ params: this.form, headers })
+          this.updateDataSpotsStore({ spot, data: newSpot.data })
+          params.append('comment[spot_id]', newSpot.data.id)
+        } else {
+          params.append('comment[spot_id]', spot.data.id)
+        }
+
+        // コメントを投稿します
+        await this.vote({
+          prop: 'comments',
+          spot: newSpot || spot,
+          params,
+          tab,
+          headers,
+          route
         })
-        return
+
+        this.voteHandler(newSpot || spot)
+        this.pushSnackbarSuccess({ message: 'コメントを投稿しました' })
+        this.closeDialog()
+        this.clearForm()
+      } catch (error) {
+        this.pushSnackbarError({ message: error })
+      }
+    },
+
+    voteHandler: async function(spot) {
+      const params = new FormData()
+      const tab = this.profileTab
+      const headers = this.headers
+      const route = this.$route.name
+
+      if (this.wifi_radio !== 'unknown') {
+        params.append(`${this.wifi_radio}[spot_id]`, spot.data.id)
+        await this.vote({
+          prop: `${this.wifi_radio}s`,
+          spot,
+          params,
+          tab,
+          headers,
+          route
+        })
       }
 
-      if (this.isPostedSpot == false) {
-        spot = await this.saveSpot(spot)
+      if (this.power_radio !== 'unknown') {
+        params.append(`${this.power_radio}[spot_id]`, spot.data.id)
+        await this.vote({
+          prop: `${this.power_radio}s`,
+          spot,
+          params,
+          tab,
+          headers,
+          route
+        })
       }
+    },
 
-      await this.postComment({
-        spot: spot,
-        form_data: this.formData,
-        active_tab: this.tab
-      })
-
-      this.clearForm()
-      this.closeDialog()
+    onImagePicked(file) {
+      if (file !== undefined && file !== null) {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader()
+        fr.readAsDataURL(file)
+        fr.addEventListener('load', () => {
+          this.uploadImageUrl = fr.result
+        })
+      } else {
+        this.uploadImageUrl = null
+      }
     },
 
     closeDialog() {
@@ -131,6 +275,8 @@ export default {
     clearForm() {
       this.content = ''
       this.image = null
+      this.wifi_radio = 'unknown'
+      this.power_radio = 'unknown'
     }
   }
 }

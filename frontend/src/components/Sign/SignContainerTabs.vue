@@ -1,5 +1,5 @@
 <template>
-  <v-tabs fixed-tabs v-model="childTabs">
+  <v-tabs fixed-tabs v-model="childTab">
     <v-tab href="#signin">
       <v-icon left>mdi-login</v-icon>
       ログイン
@@ -12,20 +12,24 @@
 </template>
 
 <script>
-export default {
-  props: {
-    tabs: String
-  },
+import { mapGetters, mapMutations } from 'vuex'
 
+export default {
   computed: {
-    childTabs: {
+    ...mapGetters(['signTab']),
+
+    childTab: {
       get() {
-        return this.tabs
+        return this.signTab
       },
-      set(newValue) {
-        this.$emit('changeTabs', newValue)
+      set(tab) {
+        this.changeSignTab(tab)
       }
     }
+  },
+
+  methods: {
+    ...mapMutations(['changeSignTab'])
   }
 }
 </script>

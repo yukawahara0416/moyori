@@ -1,6 +1,11 @@
 <template>
   <span>
-    <v-card class="ma-4" flat v-for="(comment, id) in spot.comments" :key="id">
+    <v-card
+      class="mx-4 my-1"
+      flat
+      v-for="(comment, id) in spot.comments"
+      :key="id"
+    >
       <v-card-subtitle class="pa-0">
         <comment-index-avatar :comment="comment" />
 
@@ -15,17 +20,7 @@
         />
       </v-card-subtitle>
 
-      <v-card-text class="pb-0">
-        <v-row>
-          <v-col :cols="isImageExist(comment) ? 9 : 12" class="py-0">
-            <p class="mx-3">{{ comment.data.content }}</p>
-          </v-col>
-
-          <v-col v-if="isImageExist(comment)" cols="3" class="pa-0">
-            <comment-index-image :comment="comment" />
-          </v-col>
-        </v-row>
-      </v-card-text>
+      <comment-index-content :comment="comment" />
     </v-card>
   </span>
 </template>
@@ -36,7 +31,7 @@ import CommentIndexAvatar from '@/components/Comment/CommentIndexAvatar.vue'
 import CommentIndexDeleteButton from '@/components/Comment/CommentIndexDeleteButton.vue'
 import CommentIndexUsername from '@/components/Comment/CommentIndexUsername.vue'
 import CommentIndexDay from '@/components/Comment/CommentIndexDay.vue'
-import CommentIndexImage from '@/components/Comment/CommentIndexImage.vue'
+import CommentIndexContent from '@/components/Comment/CommentIndexContent.vue'
 
 export default {
   props: {
@@ -48,21 +43,14 @@ export default {
     CommentIndexDeleteButton,
     CommentIndexUsername,
     CommentIndexDay,
-    CommentIndexImage
+    CommentIndexContent
   },
-
   computed: {
     ...mapGetters(['currentUser']),
 
-    isImageExist() {
-      return function(comment) {
-        return comment.image !== null
-      }
-    },
-
     isCommentingByCurrentUser() {
       return function(comment) {
-        return comment.data.user_id == this.currentUser.data.id
+        return comment.user_id == this.currentUser.data.id
       }
     }
   }

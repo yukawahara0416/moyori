@@ -1,7 +1,7 @@
 <template>
-  <p>
-    住所：
-    <a :href="url" target="_brank">{{ address }}</a>
+  <p class="mb-1">
+    <strong>住所：</strong>
+    <a :href="url" target="_blank">{{ address }}</a>
   </p>
 </template>
 
@@ -13,19 +13,15 @@ export default {
 
   computed: {
     address() {
-      if (this.spot.detail.formatted_address) {
-        return this.spot.detail.formatted_address
-      } else {
-        return this.spot.marker.address
-      }
+      return this.spot.data.address
     },
 
     url() {
       return (
         'https://www.google.com/maps/dir/?api=1&destination=' +
-        this.spot.marker.position.lat +
+        this.spot.data.position.lat +
         ',' +
-        this.spot.marker.position.lng
+        this.spot.data.position.lng
       )
     }
   }

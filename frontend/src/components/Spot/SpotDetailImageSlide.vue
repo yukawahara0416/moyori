@@ -1,8 +1,8 @@
 <template>
   <v-card flat outlined class="mb-2 py-2">
     <v-slide-group show-arrows>
-      <v-slide-item v-if="photos.length < 1">
-        <v-card class="d-flex mx-2" flat outlined tile width="100px">
+      <v-slide-item v-if="images.length < 1">
+        <v-card class="d-flex mx-2" flat outlined tile width="70px">
           <v-img
             aspect-ratio="1"
             :src="require('@/assets/noimage.png')"
@@ -10,7 +10,7 @@
         </v-card>
       </v-slide-item>
 
-      <v-slide-item v-for="(photo, id) in photos" :key="id" v-else>
+      <v-slide-item v-else v-for="(photo, id) in images" :key="id">
         <spot-detail-image-slide-dialog :photo="photo" />
       </v-slide-item>
     </v-slide-group>
@@ -30,34 +30,38 @@ export default {
   },
 
   computed: {
-    photos() {
-      let array = []
-      if (this.spot.picture) {
-        array = array.concat(this.spot.picture)
-      }
-      array = array.concat(this.imageUrls, this.photoUrls)
-      return array
+    images() {
+      return [...this.commentImages, ...this.gmapImages]
     },
 
-    photoUrls() {
-      let array = []
-      if (this.spot.detail.photos) {
-        for (let i = 0; i < this.spot.detail.photos.length; i++) {
-          array.push(this.spot.detail.photos[i].getUrl())
-        }
-      }
-      return array
-    },
+    commentImages() {
+      let arry = []
 
-    imageUrls() {
-      const filtered = this.spot.comments.filter(function(comment) {
+      const filtered = this.spot.comments.filter(comment => {
         return comment.image !== null
       })
-      let array = []
       for (let i = 0; i < filtered.length; i++) {
-        array.push(filtered[i].image)
+        arry.push(filtered[i].image)
       }
-      return array
+
+      return arry
+    },
+
+    gmapImages() {
+      let arry = []
+
+      if (!this.spot.data.image && !this.spot.data.photos) return arry
+
+      if (this.spot.data.photos) {
+        for (let i = 0; i < this.spot.data.photos.length; i++) {
+          arry = [...arry, this.spot.data.photos[i].getUrl()]
+        }
+        return arry
+      }
+
+      if (this.spot.data.image) arry = [...arry, this.spot.data.image]
+
+      return arry
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn color="primary" type="submit" text @click.stop="openDialog()">
+    <v-btn small color="primary" type="submit" text @click.stop="openDialog()">
       <v-icon>mdi-pencil</v-icon>
       スポットを編集する
     </v-btn>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import SpotEditDialogForm from '@/components/Spot/SpotEditDialogForm.vue'
 
 export default {
@@ -32,14 +32,17 @@ export default {
         return this.dialogSpotEdit
       },
       set() {
-        this.$store.dispatch('dialogOff', 'dialogSpotEdit')
+        this.dialogOff('dialogSpotEdit')
       }
     }
   },
 
   methods: {
+    ...mapMutations(['dialogOn']),
+    ...mapActions(['dialogOff']),
+
     openDialog() {
-      this.$store.dispatch('dialogOn', 'dialogSpotEdit')
+      this.dialogOn('dialogSpotEdit')
     }
   }
 }

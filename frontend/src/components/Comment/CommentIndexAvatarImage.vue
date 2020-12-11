@@ -2,7 +2,7 @@
   <v-avatar class="white--text headline" color="success" size="24">
     <v-img v-if="comment.avatar" :src="comment.avatar" alt="プロフィール画像" />
     <span v-else class="white--text headline">
-      {{ comment.data.user_name.slice(0, 1) }}
+      {{ comment.user_name.slice(0, 1) }}
     </span>
   </v-avatar>
 </template>

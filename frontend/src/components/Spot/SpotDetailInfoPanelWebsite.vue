@@ -1,7 +1,7 @@
 <template>
-  <p>
-    ＵＲＬ：
-    <a :href="url">
+  <p class="mb-1">
+    <strong>ＵＲＬ：</strong>
+    <a :href="url" target="_blank">
       {{ url }}
     </a>
   </p>
@@ -15,13 +15,7 @@ export default {
 
   computed: {
     url() {
-      if (this.spot.detail.website) {
-        return this.spot.detail.website
-      } else if (this.spot.data.url) {
-        return this.spot.data.url
-      } else {
-        return null
-      }
+      return this.spot.data.url
     }
   }
 }

@@ -2,11 +2,11 @@
   <v-col>
     <v-card class="mx-5">
       <v-toolbar class="white--text" color="primary" dense flat>
-        <v-toolbar-title>メールアドレスで登録</v-toolbar-title>
+        メールアドレスで登録
       </v-toolbar>
 
       <ValidationObserver ref="observer" v-slot="{ invalid }">
-        <v-card-text>
+        <v-card-text class="pb-0">
           <v-form>
             <ValidationProvider
               v-slot="{ errors, valid }"
@@ -67,12 +67,24 @@
           <v-btn
             class="mb-3 px-10"
             color="primary"
-            large
             type="submit"
-            @click.stop="signUp()"
+            @click.stop="signUpHanlder()"
             :disabled="invalid"
           >
             登録
+          </v-btn>
+          <v-spacer />
+        </v-card-actions>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            text
+            class="mb-3"
+            color="primary"
+            type="submit"
+            @click.stop="changeSignTab('signin')"
+          >
+            ログインはこちら
           </v-btn>
           <v-spacer />
         </v-card-actions>
@@ -82,7 +94,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   computed: {
@@ -90,8 +102,28 @@ export default {
   },
 
   methods: {
-    signUp() {
-      this.$store.dispatch('signUp', this.signUpFormData)
+    ...mapMutations(['changeSignTab']),
+    ...mapActions([
+      'signUp',
+      'clearSignInFormData',
+      'clearSignUpFormData',
+      'dialogOff',
+      'pushSnackbarSuccess',
+      'pushSnackbarError'
+    ]),
+
+    signUpHanlder: async function() {
+      try {
+        await this.signUp(this.signUpFormData)
+        this.dialogOff('dialogSign')
+        this.clearSignInFormData()
+        this.clearSignUpFormData()
+        this.pushSnackbarSuccess({
+          message: 'アカウントを登録しました。MoYoRiへようこそ！'
+        })
+      } catch (error) {
+        this.pushSnackbarError({ message: error })
+      }
     }
   }
 }
