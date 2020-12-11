@@ -24,23 +24,10 @@ describe('mutations', () => {
     store.commit('loadingOn')
     expect(store.state.loading).toBe(true)
   })
+
   it('loadingOff', () => {
     store.replaceState({ loading: true })
     store.commit('loadingOff')
     expect(store.state.loading).toBe(false)
-  })
-})
-
-describe('actions', () => {
-  it('loadingOn', () => {
-    store.dispatch('loadingOn').then(() => {
-      expect(store.state.loading).toBe(true)
-    })
-  })
-  it('loadingOff', () => {
-    store.replaceState({ loading: true })
-    store.dispatch('loadingOff').then(() => {
-      expect(store.state.loading).toBe(false)
-    })
   })
 })
