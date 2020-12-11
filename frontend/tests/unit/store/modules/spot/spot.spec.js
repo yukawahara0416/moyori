@@ -12,118 +12,114 @@ beforeEach(() => {
   store = new Vuex.Store(cloneDeep(spot))
 })
 
+const spotDataObj = {
+  marker: { name: 'test1', place_id: '123', on: false, zIndex: 10 },
+  data: { name: 'test1', place_id: '123' },
+  likes: []
+}
+
+const newData = {
+  marker: { name: 'test2', place_id: '456', on: false, zIndex: 10 },
+  data: { name: 'test2', place_id: '456' },
+  likes: []
+}
+
 describe('getters', () => {
   it('spots', () => {
-    const data = [{ marker: { name: 'test' } }]
-    store.replaceState({ spots: data })
-    expect(store.getters['spots']).toEqual(data)
+    expect(store.getters['spots']).toEqual([])
+    store.replaceState({ spots: [{ ...spotDataObj }] })
+    expect(store.getters.spots[0]).toMatchObject(spotDataObj)
   })
 })
 
 describe('mutations', () => {
   it('addSpotsStore', () => {
-    const data = [{ marker: { name: 'test' } }]
-    store.commit('addSpotsStore', data)
-    expect(store.state.spots).toEqual(data)
+    store.replaceState({ spots: [{ ...spotDataObj }] })
+    store.commit('addSpotsStore', newData)
+    expect(store.state.spots).toHaveLength(2)
+    expect(store.state.spots[1]).toMatchObject(newData)
   })
-  it('clearSpotsStore', () => {
-    const data = [{ marker: { name: 'test' } }]
-    store.replaceState({ spots: data })
-    store.commit('clearSpotsStore')
-    expect(store.state.spots).toEqual([])
-  })
+
   it('unshiftSpotsStore', () => {
-    const data = [{ marker: { name: 'test' } }]
-    store.commit('unshiftSpotsStore', data[0])
-    expect(store.state.spots).toEqual(data)
+    store.replaceState({ spots: [{ ...spotDataObj }] })
+    store.commit('unshiftSpotsStore', newData)
+    expect(store.state.spots).toHaveLength(2)
+    expect(store.state.spots[0]).toMatchObject(newData)
   })
+
+  it('clearSpotsStore', () => {
+    store.replaceState({ spots: [{ ...spotDataObj }] })
+    store.commit('clearSpotsStore')
+    expect(store.state.spots).toHaveLength(0)
+  })
+
   it('updateDataSpotsStore', () => {
-    const data = [{ marker: { name: 'test' }, data: { name: '' } }]
-    store.replaceState({ spots: data })
-    const spot = { marker: { name: 'test' }, data: { name: 'test' } }
-    const id = 0
+    store.replaceState({ spots: [{ ...spotDataObj }] })
+    const spot = { ...spotDataObj }
+    const data = { name: 'test1-update', place_id: '123' }
     const prop = 'data'
-    store.commit('updateDataSpotsStore', { spot, id, prop })
-    expect(store.state.spots[0]).toEqual(spot)
+    store.commit('updateDataSpotsStore', { spot, data, prop })
+    expect(store.state.spots[0].data).toMatchObject({ ...data })
   })
-  it('pushDataSpotsStore', () => {
-    const init = [
-      { marker: { name: 'test', place_id: 'testPlaceId' }, likes: [] }
-    ]
-    const change = [
-      {
-        marker: { name: 'test', place_id: 'testPlaceId' },
-        likes: [{ data: { name: 'test1' } }]
-      }
-    ]
-    store.replaceState({ spots: init })
-    const spot = { data: { place_id: 'testPlaceId' } }
-    const data = { data: { name: 'test1' } }
-    const genre = 'likes'
-    store.commit('pushDataSpotsStore', { spot, data, genre })
-    expect(store.state.spots[0]).toEqual(change[0])
+
+  it('addDataSpotsStore', () => {
+    store.replaceState({ spots: [{ ...spotDataObj }] })
+    const spot = { ...spotDataObj }
+    const data = { spot_id: '123' }
+    const prop = 'likes'
+    store.commit('addDataSpotsStore', { spot, data, prop })
+    expect(store.state.spots[0].likes).toHaveLength(1)
+    expect(store.state.spots[0].likes[0]).toMatchObject({ ...data })
   })
+
   it('deleteDataSpotsStore', () => {
-    const init = [
-      {
-        marker: { name: 'test', place_id: 'testPlaceId' },
-        likes: [{ data: { id: 2 } }]
-      }
-    ]
-    const change = [
-      { marker: { name: 'test', place_id: 'testPlaceId' }, likes: [] }
-    ]
-    store.replaceState({ spots: init })
-    const spot = { data: { place_id: 'testPlaceId' } }
+    store.replaceState({ spots: [{ ...spotDataObj }] })
+    const spot = { ...spotDataObj }
     const data = { data: { id: 2 } }
-    const genre = 'likes'
-    store.commit('deleteDataSpotsStore', { spot, data, genre })
-    expect(store.state.spots[0]).toEqual(change[0])
+    const prop = 'likes'
+    store.commit('deleteDataSpotsStore', { spot, data, prop })
+    expect(store.state.spots[0].likes).toHaveLength(0)
   })
+
   it('onSpotlight', () => {
-    const spot = { marker: { place_id: 'testPlaceId' } }
-    const data = [
-      { marker: { place_id: 'testPlaceId', on: false, zIndex: 10 } }
-    ]
-    store.replaceState({ spots: data })
+    store.replaceState({ spots: [{ ...spotDataObj }] })
+    const spot = { ...spotDataObj }
     store.commit('onSpotlight', spot)
-    expect(store.state.spots[0].marker.on).toEqual(true)
+    expect(store.state.spots[0].marker.on).toBeTruthy()
     expect(store.state.spots[0].marker.zIndex).toEqual(100)
   })
+
   it('offSpotlight', () => {
-    const init = [
-      { marker: { on: true, zIndex: 100 } },
-      { marker: { on: false, zIndex: 10 } }
-    ]
-    const change = [
-      { marker: { on: false, zIndex: 10 } },
-      { marker: { on: false, zIndex: 10 } }
-    ]
-    store.replaceState({ spots: init })
+    const initSpotData = { marker: { on: true, zIndex: 100 } }
+    store.replaceState({ spots: [{ ...initSpotData }] })
     store.commit('offSpotlight')
-    expect(store.state.spots).toEqual(change)
+    expect(store.state.spots[0].marker.on).toBeFalsy()
+    expect(store.state.spots[0].marker.zIndex).toEqual(10)
+  })
+
+  it('setFilterQuery', () => {
+    const filter = 'likes'
+    store.commit('setFilterQuery', filter)
+    expect(store.state.filterQuery).toStrictEqual(filter)
   })
 })
 
 describe('actions', () => {
   it('addSpotsStore', () => {
-    const data = [{ marker: { name: 'test' } }]
+    const data = { ...spotDataObj }
     store.dispatch('addSpotsStore', data)
-    expect(store.state.spots).toEqual(data)
+    expect(store.state.spots).toHaveLength(1)
   })
+
   it('clearSpotsStore', () => {
-    const data = [{ marker: { name: 'test' } }]
-    store.replaceState({ spots: data })
+    store.replaceState({ spots: [{ ...spotDataObj }] })
     store.dispatch('clearSpotsStore')
-    expect(store.state.spots).toEqual([])
+    expect(store.state.spots).toHaveLength(0)
   })
+
   it('spotlight', () => {
-    const spot = { marker: { place_id: 'testPlaceId' } }
-    const init = [
-      { marker: { place_id: 'testPlaceId', on: false, zIndex: 10 } },
-      { marker: { on: false, zIndex: 10 } }
-    ]
-    store.replaceState({ spots: init })
+    store.replaceState({ spots: [{ ...spotDataObj }] })
+    const spot = { ...spotDataObj }
     store.dispatch('spotlight', spot)
     expect(store.state.spots[0].marker.on).toEqual(true)
     expect(store.state.spots[0].marker.zIndex).toEqual(100)
