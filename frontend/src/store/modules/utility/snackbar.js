@@ -19,11 +19,6 @@ export default {
   },
 
   actions: {
-    pushSnackbar(context, { message, color }) {
-      context.commit('setMessage', message)
-      context.commit('setColor', color)
-    },
-
     pushSnackbarSuccess(context, { message }) {
       context.commit('setMessage', message)
       context.commit('setColor', 'success')
