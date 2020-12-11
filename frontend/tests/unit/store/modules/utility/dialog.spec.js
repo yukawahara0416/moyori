@@ -17,42 +17,58 @@ describe('getters', () => {
     store.replaceState({ dialogSign: true })
     expect(store.getters['dialogSign']).toBe(true)
   })
-  it('dialogProfileEdit', () => {
-    store.replaceState({ dialogProfileEdit: true })
-    expect(store.getters['dialogProfileEdit']).toBe(true)
-  })
-  it('dialogProfileDelete', () => {
-    store.replaceState({ dialogProfileDelete: true })
-    expect(store.getters['dialogProfileDelete']).toBe(true)
-  })
+
   it('dialogSpotCreate', () => {
     store.replaceState({ dialogSpotCreate: true })
     expect(store.getters['dialogSpotCreate']).toBe(true)
+  })
+
+  it('dialogSpotEdit', () => {
+    store.replaceState({ dialogSpotEdit: true })
+    expect(store.getters['dialogSpotEdit']).toBe(true)
+  })
+
+  it('dialogTutorial', () => {
+    store.replaceState({ dialogTutorial: true })
+    expect(store.getters['dialogTutorial']).toBe(true)
   })
 })
 
 describe('mutations', () => {
   it('dialogOn', () => {
-    const target = 'dialogSign'
-    store.commit('dialogOn', target)
+    store.commit('dialogOn', 'dialogSign')
     expect(store.state.dialogSign).toBe(true)
   })
 
   it('dialogOff', () => {
     store.replaceState({ dialogSign: true })
-    store.commit('dialogOff')
+    store.commit('dialogOff', 'dialogSign')
     expect(store.state.dialogSign).toBe(false)
+  })
+
+  it('dialogOffAll', () => {
+    store.replaceState({
+      dialogSign: true,
+      dialogSpotCreate: true,
+      dialogSpotEdit: true,
+      dialogTutorial: true
+    })
+    store.commit('dialogOffAll')
+    expect(store.state.dialogSign).toBe(false)
+    expect(store.state.dialogSpotCreate).toBe(false)
+    expect(store.state.dialogSpotEdit).toBe(false)
+    expect(store.state.dialogTutorial).toBe(false)
   })
 })
 
 describe('actions', () => {
-  it('dialogOn', () => {
-    const target = 'dialogSign'
-    store.dispatch('dialogOn', target).then(() => {
+  it('dialogOff', () => {
+    // dialogOff with target
+    store.replaceState({ dialogSign: true })
+    store.dispatch('dialogOff', 'dialogSpotCreate').then(() => {
       expect(store.state.dialogSign).toBe(true)
     })
-  })
-  it('dialogOff', () => {
+    //dialogOffAll
     store.replaceState({ dialogSign: true })
     store.dispatch('dialogOff').then(() => {
       expect(store.state.dialogSign).toBe(false)

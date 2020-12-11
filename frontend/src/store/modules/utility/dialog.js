@@ -37,6 +37,7 @@ export default {
       state.dialogSign = false
       state.dialogSpotCreate = false
       state.dialogSpotEdit = false
+      state.dialogTutorial = false
     }
   },
 
