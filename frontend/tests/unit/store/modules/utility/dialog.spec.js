@@ -62,20 +62,16 @@ describe('mutations', () => {
 })
 
 describe('actions', () => {
-  it('dialogOn', () => {
-    store.dispatch('dialogOn', 'dialogSign').then(() => {
-      expect(store.state.dialogSign).toBe(true)
-    })
-  })
-
   it('dialogOff', () => {
-    store.replaceState({ dialogSign: true })
-    store.dispatch('dialogOff').then(() => {
-      expect(store.state.dialogSign).toBe(false)
-    })
+    // dialogOff with target
     store.replaceState({ dialogSign: true })
     store.dispatch('dialogOff', 'dialogSpotCreate').then(() => {
       expect(store.state.dialogSign).toBe(true)
+    })
+    //dialogOffAll
+    store.replaceState({ dialogSign: true })
+    store.dispatch('dialogOff').then(() => {
+      expect(store.state.dialogSign).toBe(false)
     })
   })
 })
