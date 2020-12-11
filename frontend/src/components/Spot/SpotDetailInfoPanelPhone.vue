@@ -1,6 +1,6 @@
 <template>
-  <p>
-    電話番号：
+  <p class="mb-1">
+    <strong>電話番号：</strong>
     <a :href="'tel:' + tel">
       {{ tel }}
     </a>
@@ -15,13 +15,7 @@ export default {
 
   computed: {
     tel() {
-      if (this.spot.detail.formatted_phone_number) {
-        return this.spot.detail.formatted_phone_number
-      } else if (this.spot.marker.phone) {
-        return this.spot.marker.phone
-      } else {
-        return null
-      }
+      return this.spot.data.phone
     }
   }
 }

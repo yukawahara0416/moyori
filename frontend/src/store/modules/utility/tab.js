@@ -1,23 +1,26 @@
 export default {
   state: {
-    tab: 'posts'
+    signTab: 'signin',
+    profileTab: 'posts'
   },
 
   getters: {
-    tab(state) {
-      return state.tab
+    signTab(state) {
+      return state.signTab
+    },
+
+    profileTab(state) {
+      return state.profileTab
     }
   },
 
   mutations: {
-    changeTab(state, payload) {
-      state.tab = payload
-    }
-  },
+    changeSignTab(state, payload) {
+      state.signTab = payload
+    },
 
-  actions: {
-    changeTab(context, tabName) {
-      context.commit('changeTab', tabName)
+    changeProfileTab(state, payload) {
+      state.profileTab = payload
     }
   }
 }

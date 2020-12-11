@@ -1,6 +1,6 @@
 <template>
   <span class="ml-2">
-    {{ removeTimeFromDaytime(comment.data.created_at) }}
+    {{ removeTimeFromDaytime(comment.created_at) }}
   </span>
 </template>
 

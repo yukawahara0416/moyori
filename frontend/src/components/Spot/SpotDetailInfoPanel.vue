@@ -6,7 +6,8 @@
       <spot-detail-info-panel-website :spot="spot" />
       <spot-detail-info-panel-business :spot="spot" />
     </v-card-text>
-    <v-card-actions v-if="isOwnPosted">
+
+    <v-card-actions class="pt-0" v-if="isOwnPosted">
       <v-spacer />
       <spot-edit-dialog :spot="spot" />
       <v-spacer />
@@ -39,17 +40,16 @@ export default {
     ...mapGetters(['currentUser', 'isLoggingIn']),
 
     isOwnPosted() {
-      if (this.isLoggingIn) {
-        if (this.spot.marker.place_id.length >= 11) {
-          return false
-        } else if (this.spot.data.user_id !== this.currentUser.data.id) {
-          return false
-        } else {
-          return true
-        }
-      } else {
-        return false
-      }
+      const spotOwner = this.spot.data.user_id
+      const currentUser = this.currentUser.data.id
+
+      if (!this.isLoggingIn) return false
+
+      // GoogleMaps固有のスポットの場合は編集できません
+      // GoogleMapsのスポットかどうかは、place_idの文字数で判断しています
+      if (this.spot.data.place_id.length >= 11) return false
+
+      return spotOwner === currentUser
     }
   }
 }

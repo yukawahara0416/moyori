@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn color="green darken-1" text @click.stop="openDialog()">
+    <v-btn text small color="green darken-1" @click.stop="openDialog()">
       削除する
     </v-btn>
 

@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
-    <v-row align="center" justify="center" style="flex-direction: column;">
+    <v-row align="center" justify="center" class="row-default">
       <sign-container-tab-items-sign-in-easy />
 
-      <sign-container-tab-items-sign-in-oauth />
+      <!-- <sign-container-tab-items-sign-in-oauth /> -->
 
       <sign-container-tab-items-sign-in-email />
 
@@ -14,16 +14,22 @@
 
 <script>
 import SignContainerTabItemsSignInEasy from '@/components/Sign/SignContainerTabItemsSignInEasy.vue'
-import SignContainerTabItemsSignInOauth from '@/components/Sign/SignContainerTabItemsSignInOauth.vue'
+// import SignContainerTabItemsSignInOauth from '@/components/Sign/SignContainerTabItemsSignInOauth.vue'
 import SignContainerTabItemsSignInEmail from '@/components/Sign/SignContainerTabItemsSignInEmail.vue'
 import Policy from '@/components/Sign/Policy.vue'
 
 export default {
   components: {
     SignContainerTabItemsSignInEasy,
-    SignContainerTabItemsSignInOauth,
+    // SignContainerTabItemsSignInOauth,
     SignContainerTabItemsSignInEmail,
     Policy
   }
 }
 </script>
+
+<style scoped>
+.row-default {
+  flex-direction: column;
+}
+</style>

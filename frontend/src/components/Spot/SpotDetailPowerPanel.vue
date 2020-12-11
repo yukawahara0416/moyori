@@ -1,112 +1,36 @@
 <template>
   <v-card flat outlined class="mb-2">
-    <v-expansion-panels flat focusable accordion hover>
-      <v-expansion-panel>
-        <v-expansion-panel-header>
-          <span>
-            <v-icon>mdi-power-plug</v-icon>
-            電源サービス：
-            <span class="ml-3">
-              <span v-if="analyzeVote == 'excellent'">
-                <v-icon class="mr-3" color="success">
-                  mdi-circle-double
-                </v-icon>
-                <span>（かなり期待できます^_^）</span>
-              </span>
-              <span v-else-if="analyzeVote == 'good'">
-                <v-icon class="mr-3" color="success">
-                  mdi-circle-outline
-                </v-icon>
-                <span>（そこそこ期待できます^_^）</span>
-              </span>
-              <span v-else-if="analyzeVote == 'fair'">
-                <v-icon class="mr-3" color="primary">
-                  mdi-triangle-outline
-                </v-icon>
-                <span>（もしかしたらなくなってるかも^^;）</span>
-              </span>
-              <span v-else-if="analyzeVote == 'poor'">
-                <v-icon class="mr-3" color="error">
-                  mdi-close
-                </v-icon>
-                <span>（なくなってる可能性大です^^;）</span>
-              </span>
-              <span v-else>
-                <v-icon class="mr-3">mdi-help</v-icon>
-                <span>（まだ投票されていません）</span>
-              </span>
-            </span>
-          </span>
-        </v-expansion-panel-header>
+    <span v-for="(result, key) in results" :key="key">
+      <span v-show="analyzeVote === result.name">
+        <v-card-actions>
+          <v-spacer />
+          電源サービスの判定結果：
+          <v-icon class="mx-3" :color="result.color">{{ result.icon }}</v-icon>
 
-        <v-expansion-panel-content>
-          <p class="ml-3" v-if="compareVote == 'noVote'">
-            まだ投票されていません。
-          </p>
+          <v-spacer />
+        </v-card-actions>
 
-          <p class="ml-3" v-else-if="compareVote == 'draw'">
-            「
-            <v-icon class="mr-1" color="success">mdi-power-plug</v-icon>
-            電源あるよ」「
-            <v-icon class="mr-1" color="error">mdi-power-plug-off</v-icon>
-            電源ないよ」の投票数はおなじです。
-            <br />
-            直近の投票は「
-            <v-icon class="mr-1" :color="latestVote ? 'success' : 'error'">
-              {{ latestVote ? 'mdi-power-plug' : 'mdi-power-plug-off' }}
-            </v-icon>
-            <span>{{ latestVote ? '電源あるよ' : '電源ないよ' }}</span>
-            」です。
-          </p>
+        <v-card-actions class="pt-0">
+          <v-spacer />
 
-          <p class="ml-3" v-else>
-            投票数が多いのは「
-            <span v-if="compareVote == 'withs'">
-              <v-icon class="mr-1" color="success">
-                mdi-power-plug
-              </v-icon>
-              <span>電源あるよ</span>
-            </span>
-            <span v-else-if="compareVote == 'withouts'">
-              <v-icon class="mr-1" color="error">
-                mdi-power-plug-off
-              </v-icon>
-              <span>電源ないよ</span>
-            </span>
-            <span v-else />
-            」です。
-            <br />
-            直近の投票は「
-            <v-icon class="mr-1" :color="latestVote ? 'success' : 'error'">
-              {{ latestVote ? 'mdi-power-plug' : 'mdi-power-plug-off' }}
-            </v-icon>
-            <span>{{ latestVote ? '電源あるよ' : '電源ないよ' }}</span>
-            」です。
-          </p>
+          <strong>
+            {{ result.message }}
+          </strong>
 
-          <google-chart-bar-chart
-            v-if="
-              spot.power_withs.length !== 0 || spot.power_withouts.length !== 0
-            "
-            :withs="spot.power_withs"
-            :withouts="spot.power_withouts"
-          />
-          <google-chart-area-chart
-            v-if="
-              spot.power_withs.length !== 0 || spot.power_withouts.length !== 0
-            "
-            :withs="spot.power_withs"
-            :withouts="spot.power_withouts"
-          />
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+          <v-spacer />
+        </v-card-actions>
+
+        <power-chart-horizontal-bar :spot="spot" />
+
+        <power-chart-area :spot="spot" />
+      </span>
+    </span>
   </v-card>
 </template>
 
 <script>
-import GoogleChartBarChart from '@/components/Chart/GoogleChartBarChart.vue'
-import GoogleChartAreaChart from '@/components/Chart/GoogleChartAreaChart.vue'
+import PowerChartHorizontalBar from '@/components/Chart/PowerChartHorizontalBar.vue'
+import PowerChartArea from '@/components/Chart/PowerChartArea.vue'
 
 export default {
   props: {
@@ -114,69 +38,102 @@ export default {
   },
 
   components: {
-    GoogleChartBarChart,
-    GoogleChartAreaChart
+    PowerChartHorizontalBar,
+    PowerChartArea
+  },
+
+  data() {
+    return {
+      results: [
+        {
+          name: 'excellent',
+          color: 'success',
+          icon: 'mdi-circle-double',
+          message: 'かなり期待できます^_^'
+        },
+        {
+          name: 'good',
+          color: 'success',
+          icon: 'mdi-circle-outline',
+          message: 'そこそこ期待できます^_^'
+        },
+        {
+          name: 'fair',
+          color: 'primary',
+          icon: 'mdi-triangle-outline',
+          message: 'もしかしたらなくなってるかも^^;'
+        },
+        {
+          name: 'poor',
+          color: 'error',
+          icon: 'mdi-close',
+          message: 'なくなってる可能性大です^^;'
+        },
+        {
+          name: 'noVote',
+          color: 'gray',
+          icon: 'mdi-help',
+          message: 'まだ投票されていません'
+        }
+      ]
+    }
   },
 
   computed: {
-    compareVote() {
-      if (
-        this.spot.power_withs.length == 0 &&
-        this.spot.power_withouts.length == 0
-      ) {
-        return 'noVote'
-      } else if (
-        this.spot.power_withs.length == this.spot.power_withouts.length
-      ) {
-        return 'draw'
-      } else {
-        if (this.spot.power_withs.length > this.spot.power_withouts.length) {
-          return 'withs'
-        } else {
-          return 'withouts'
-        }
-      }
+    countVote() {
+      const withs = this.spot.power_withs
+      const withouts = this.spot.power_withouts
+
+      // 1票も投票がない場合
+      if (withs.length + withouts.length === 0) return 'noVote'
+      // 票数がおなじ場合
+      if (withs.length === withouts.length) return 'sameNumber'
+      // 票数がちがう場合
+      if (withs.length > withouts.length) return 'withsMany'
+      return 'withoutsMany'
     },
 
     latestVote() {
-      let powerWiths = []
-      for (let i = 0; i < this.spot.power_withs.length; i++) {
-        powerWiths.push(Date.parse(this.spot.power_withs[i].created_at))
-      }
+      const withs = this.spot.power_withs
+      const withouts = this.spot.power_withouts
+      const latestWiths = Math.max.apply(null, this.pickupDate(withs))
+      const latestWithouts = Math.max.apply(null, this.pickupDate(withouts))
 
-      let powerWithouts = []
-      for (let i = 0; i < this.spot.power_withouts.length; i++) {
-        powerWithouts.push(Date.parse(this.spot.power_withouts[i].created_at))
-      }
-
-      const latestPowerWiths = Math.max.apply(null, powerWiths)
-      const latestPowerWithouts = Math.max.apply(null, powerWithouts)
-      return latestPowerWiths > latestPowerWithouts ? true : false
+      if (latestWiths > latestWithouts) return 'withsNewer'
+      return 'withoutsNewer'
     },
 
     analyzeVote() {
-      if (this.compareVote == 'withs') {
-        if (this.latestVote) {
-          return 'excellent'
-        } else {
-          return 'good'
-        }
-      } else if (this.compareVote == 'withouts') {
-        if (this.latestVote) {
-          return 'fair'
-        } else {
-          return 'poor'
-        }
-      } else if (this.compareVote == 'draw') {
-        if (this.latestVote) {
-          return 'fair'
-        } else {
-          return 'poor'
-        }
-      } else {
-        return 'noVote'
+      // 1票も投票がない場合
+      if (this.countVote === 'noVote') return 'noVote'
+
+      if (this.countVote === 'withsMany') {
+        // withsの投票が多く、最新の投票がwithsなら「最も良い評価」
+        if (this.latestVote === 'withsNewer') return 'excellent'
+        // withsの投票が多く、最新の投票がwithoutsなら「まあまあの評価」
+        if (this.latestVote === 'withoutsNewer') return 'good'
       }
+
+      // withoutsの投票が多ければ、最新の投票がwithsでない限り「最低の評価」
+      if (this.latestVote === 'withsNewer') return 'fair'
+      return 'poor'
+    }
+  },
+
+  methods: {
+    pickupDate(target) {
+      const result = []
+      for (let i = 0; i < target.length; i++) {
+        result.push(Date.parse(target[i].created_at))
+      }
+      return result
     }
   }
 }
 </script>
+
+<style scoped>
+strong {
+  font-size: 0.9em;
+}
+</style>

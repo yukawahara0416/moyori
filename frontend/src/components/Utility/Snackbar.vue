@@ -10,15 +10,9 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      color: '',
-      message: '',
-      snackbar: false
-    }
-  },
+import { mapMutations } from 'vuex'
 
+export default {
   created() {
     this.$store.watch(
       state => {
@@ -40,10 +34,22 @@ export default {
         if (message !== '') {
           this.message = message
           this.snackbar = true
-          this.$store.dispatch('clearSnackbar')
+          this.clearMessage()
         }
       }
     )
+  },
+
+  data() {
+    return {
+      color: '',
+      message: '',
+      snackbar: false
+    }
+  },
+
+  methods: {
+    ...mapMutations(['clearMessage'])
   }
 }
 </script>

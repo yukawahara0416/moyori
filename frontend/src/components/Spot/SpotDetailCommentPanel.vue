@@ -1,5 +1,11 @@
 <template>
-  <v-card flat outlined>
+  <v-card flat outlined class="mb-2">
+    <v-card-actions class="mt-2">
+      <v-spacer />
+      <comment-post-dialog :spot="spot" />
+      <v-spacer />
+    </v-card-actions>
+
     <span v-if="spot.comments[0]">
       <comment-index :spot="spot" />
     </span>
@@ -8,12 +14,6 @@
         <p>コメントはまだありません</p>
       </v-card>
     </span>
-
-    <v-card-actions>
-      <v-spacer />
-      <comment-post-dialog :spot="spot" />
-      <v-spacer />
-    </v-card-actions>
   </v-card>
 </template>
 

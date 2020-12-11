@@ -17,15 +17,5 @@ export default {
     loadingOff(state) {
       state.loading = false
     }
-  },
-
-  actions: {
-    loadingOn(context) {
-      context.commit('loadingOn')
-    },
-
-    loadingOff(context) {
-      context.commit('loadingOff')
-    }
   }
 }
