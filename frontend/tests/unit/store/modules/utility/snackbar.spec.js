@@ -18,11 +18,13 @@ describe('mutations', () => {
     store.commit('setMessage', message)
     expect(store.state.message).toEqual(message)
   })
+
   it('setColor', () => {
     const color = 'success'
     store.commit('setColor', color)
     expect(store.state.color).toEqual(color)
   })
+
   it('clearMessage', () => {
     store.replaceState({ message: 'test' })
     store.commit('clearMessage')
@@ -34,15 +36,14 @@ describe('actions', () => {
   it('pushSnackbar', () => {
     const message = 'test'
     const color = 'success'
-    store.dispatch('pushSnackbar', { message, color }).then(() => {
-      expect(store.state.message).toBe(message)
-      expect(store.state.color).toBe(color)
-    })
+    store.dispatch('pushSnackbar', { message, color })
+    expect(store.state.message).toBe(message)
+    expect(store.state.color).toBe(color)
   })
+
   it('clearSnackbar', () => {
     store.replaceState({ message: 'test' })
-    store.dispatch('clearSnackbar').then(() => {
-      expect(store.state.message).toBe('')
-    })
+    store.dispatch('clearSnackbar')
+    expect(store.state.message).toBe('')
   })
 })
