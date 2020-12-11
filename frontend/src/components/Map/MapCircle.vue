@@ -10,14 +10,20 @@
       strokeOpacity: 0.3,
       strokeWeight: 1
     }"
-    :radius="500"
+    :radius="radius.value"
   />
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     center: Object
+  },
+
+  computed: {
+    ...mapGetters({ radius: 'spot/radius' })
   }
 }
 </script>
