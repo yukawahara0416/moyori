@@ -22,7 +22,7 @@ export default {
 
     unVote(context, { prop, spot, target, tab, headers, route }) {
       return axiosBase
-        .delete(`/api/v1/${prop}/` + target.id, { headers })
+        .delete(`/api/v1/${prop}/${target.id}`, { headers })
         .then(response => {
           const data = response.data
 
