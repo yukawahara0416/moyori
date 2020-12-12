@@ -1,7 +1,11 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import spot from '@/store/modules/spot/spot.js'
+import { axiosBase } from '@/plugins/axios.js'
+import MockAdapter from 'axios-mock-adapter'
 import { cloneDeep } from 'lodash'
+
+const axiosMock = new MockAdapter(axiosBase)
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -14,10 +18,10 @@ beforeEach(() => {
 
 const radius = { name: 'test', value: 1000 }
 const type = { name: 'test', value: 'test' }
+const filterQuery = 'likes'
 
 describe('getters', () => {
   const spot = { data: {}, likes: [{ test: 'test' }] }
-  const filterQuery = ['test']
 
   it('spots', () => {
     store.replaceState({ spots: [spot] })
@@ -35,13 +39,17 @@ describe('getters', () => {
   })
 
   it('filterQuery', () => {
-    store.replaceState({ filterQuery: filterQuery })
-    expect(store.getters.filterQuery).toEqual(filterQuery)
+    store.replaceState({ filterQuery: [filterQuery] })
+    expect(store.getters.filterQuery[0]).toEqual(filterQuery)
   })
 
   it('filteredSpots', () => {
-    store.replaceState({ spots: [spot], filterQuery: ['likes'] })
-    expect(store.getters.filteredSpots).toEqual([spot])
+    const like = { id: 2 }
+    const hasLikeSpot = spot
+    hasLikeSpot['likes'] = [like]
+
+    store.replaceState({ spots: [hasLikeSpot], filterQuery: [filterQuery] })
+    expect(store.getters.filteredSpots).toEqual([hasLikeSpot])
   })
 })
 
@@ -128,9 +136,25 @@ describe('mutations', () => {
 })
 
 describe('actions', () => {
-  const spot = { data: { place_id: '123', on: false, zIndex: 10 } }
+  const spot = { data: { id: 1, place_id: '123', on: false, zIndex: 10 } }
 
-  it('postSpot', () => {})
+  it('postSpot', () => {
+    const params = { test: 'test' }
+    const response = { state: '200 success', data: { place_id: '123' } }
+    const headers = {
+      'access-token': 'test',
+      'client': 'test',
+      'content-type': 'test',
+      'uid': 'test'
+    }
+
+    axiosMock.onPost('/api/v1/spots', params).reply(200, response)
+
+    return store.dispatch('postSpot', { params, headers }).then(res => {
+      expect(res.data.place_id).toEqual(response.data.place_id)
+    })
+  })
+
   it('updateSpot', () => {})
 
   it('spotlight', () => {
