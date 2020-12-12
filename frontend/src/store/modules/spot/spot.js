@@ -148,14 +148,11 @@ export default {
     },
 
     // ユーザが作成したスポット情報を更新します
-    updateSpot(context, { spot, form_data, headers }) {
+    updateSpot(context, { spot, params, headers }) {
       return axiosBase
-        .patch('/api/v1/spots/' + spot.data.id, form_data, { headers })
+        .patch(`/api/v1/spots/${spot.data.id}`, params, { headers })
         .then(response => {
-          context.commit('updateDataSpotsStore', {
-            spot,
-            data: response.data.data
-          })
+          return response.data.data
         })
         .catch(() => {
           throw new Error('スポットの更新に失敗しました')
