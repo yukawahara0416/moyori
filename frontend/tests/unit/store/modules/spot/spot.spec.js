@@ -80,15 +80,6 @@ describe('mutations', () => {
     expect(store.state.spots).toHaveLength(0)
   })
 
-  it('updateDataSpotsStore', () => {
-    store.replaceState({ spots: [{ ...spotDataObj }] })
-    const spot = { ...spotDataObj }
-    const data = { name: 'test1-update', place_id: '123' }
-    const prop = 'data'
-    store.commit('updateDataSpotsStore', { spot, data, prop })
-    expect(store.state.spots[0].data).toMatchObject({ ...data })
-  })
-
   it('addDataSpotsStore', () => {
     store.replaceState({ spots: [{ ...spotDataObj }] })
     const spot = { ...spotDataObj }
@@ -108,6 +99,24 @@ describe('mutations', () => {
     expect(store.state.spots[0].likes).toHaveLength(0)
   })
 
+  it('updateDataSpotsStore', () => {
+    store.replaceState({ spots: [{ ...spotDataObj }] })
+    const spot = { ...spotDataObj }
+    const data = { name: 'test1-update', place_id: '123' }
+    const prop = 'data'
+    store.commit('updateDataSpotsStore', { spot, data, prop })
+    expect(store.state.spots[0].data).toMatchObject({ ...data })
+  })
+
+  it('setRadius', () => {})
+  it('setType', () => {})
+
+  it('setFilterQuery', () => {
+    const filter = 'likes'
+    store.commit('setFilterQuery', filter)
+    expect(store.state.filterQuery).toStrictEqual(filter)
+  })
+
   it('onSpotlight', () => {
     store.replaceState({ spots: [{ ...spotDataObj }] })
     const spot = { ...spotDataObj }
@@ -122,12 +131,6 @@ describe('mutations', () => {
     store.commit('offSpotlight')
     expect(store.state.spots[0].marker.on).toBeFalsy()
     expect(store.state.spots[0].marker.zIndex).toEqual(10)
-  })
-
-  it('setFilterQuery', () => {
-    const filter = 'likes'
-    store.commit('setFilterQuery', filter)
-    expect(store.state.filterQuery).toStrictEqual(filter)
   })
 })
 
