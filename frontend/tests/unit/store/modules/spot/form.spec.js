@@ -55,3 +55,16 @@ describe('getters', () => {
     expect(store.getters['formData']).toMatchObject(formData)
   })
 })
+
+describe('mutations', () => {
+  it('assignSpotFormData', () => {
+    store.commit('assignSpotFormData', data)
+    expect(store.state.form).toEqual(data)
+  })
+
+  it('clearSpotFormData', () => {
+    store.replaceState({ form: data })
+    store.commit('clearSpotFormData')
+    expect(store.state.form).toMatchObject(init)
+  })
+})
