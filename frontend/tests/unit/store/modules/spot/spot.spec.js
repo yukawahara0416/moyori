@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import { cloneDeep } from 'lodash'
 import spot from '@/store/modules/spot/spot.js'
+import { cloneDeep } from 'lodash'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -26,9 +26,36 @@ const newData = {
 
 describe('getters', () => {
   it('spots', () => {
-    expect(store.getters['spots']).toEqual([])
-    store.replaceState({ spots: [{ ...spotDataObj }] })
-    expect(store.getters.spots[0]).toMatchObject(spotDataObj)
+    // expect(store.getters['spots']).toEqual([])
+    // store.replaceState({ spots: [{ ...spotDataObj }] })
+    // expect(store.getters.spots[0]).toMatchObject(spotDataObj)
+    const data = { test: 'test' }
+    store.replaceState({ spots: [{ ...data }] })
+    expect(store.getters.spots[0]).toMatchObject(data)
+  })
+
+  it('radius', () => {
+    const radius = { name: 'test', value: 1000 }
+    store.replaceState({ radius: radius })
+    expect(store.getters.radius).toMatchObject(radius)
+  })
+
+  it('type', () => {
+    const type = { name: 'test', value: 'test' }
+    store.replaceState({ type: type })
+    expect(store.getters.type).toMatchObject(type)
+  })
+
+  it('filterQuery', () => {
+    const filterQuery = ['test']
+    store.replaceState({ filterQuery: filterQuery })
+    expect(store.getters.filterQuery).toEqual(filterQuery)
+  })
+
+  it('filteredSpots', () => {
+    const spots = [{ data: {}, likes: [{ test: 'test' }] }]
+    store.replaceState({ spots: spots, filterQuery: ['likes'] })
+    expect(store.getters.filteredSpots).toEqual(spots)
   })
 })
 
