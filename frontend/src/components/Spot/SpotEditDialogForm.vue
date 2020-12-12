@@ -159,16 +159,18 @@ export default {
 
   methods: {
     ...mapMutations(['clearSpotFormData']),
+    ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
     ...mapActions(['dialogOff', 'pushSnackbarSuccess', 'pushSnackbarError']),
     ...mapActions({ updateSpot: 'spot/updateSpot' }),
 
     updateSpotHandler: async function() {
       const spot = this.spot
-      const form_data = this.formData
+      const params = this.formData
       const headers = this.headers
 
       try {
-        await this.updateSpot({ spot, form_data, headers })
+        const data = await this.updateSpot({ spot, params, headers })
+        await this.updateDataSpotsStore({ spot, data })
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'スポットの情報を更新しました' })
       } catch (error) {
