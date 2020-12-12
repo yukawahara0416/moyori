@@ -135,17 +135,8 @@ describe('mutations', () => {
 })
 
 describe('actions', () => {
-  it('addSpotsStore', () => {
-    const data = { ...spotDataObj }
-    store.dispatch('addSpotsStore', data)
-    expect(store.state.spots).toHaveLength(1)
-  })
-
-  it('clearSpotsStore', () => {
-    store.replaceState({ spots: [{ ...spotDataObj }] })
-    store.dispatch('clearSpotsStore')
-    expect(store.state.spots).toHaveLength(0)
-  })
+  it('postSpot', () => {})
+  it('updateSpot', () => {})
 
   it('spotlight', () => {
     store.replaceState({ spots: [{ ...spotDataObj }] })
