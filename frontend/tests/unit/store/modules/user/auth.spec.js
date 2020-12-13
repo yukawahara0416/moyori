@@ -37,11 +37,16 @@ describe('getters', () => {
   })
 
   it('signInFormData', () => {
-    const signInFormData = { email: '', password: '' }
+    const signInFormData = { email: 'test', password: 'test' }
     store.replaceState({ signInFormData: signInFormData })
     expect(store.getters.signInFormData).toMatchObject(signInFormData)
   })
-  it('signUpFormData', () => {})
+
+  it('signUpFormData', () => {
+    const signUpFormData = { name: 'test', email: 'test', password: 'test' }
+    store.replaceState({ signUpFormData: signUpFormData })
+    expect(store.getters.signUpFormData).toMatchObject(signUpFormData)
+  })
 })
 
 describe('mutations', () => {
