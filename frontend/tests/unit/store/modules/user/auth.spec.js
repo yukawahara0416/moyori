@@ -64,7 +64,12 @@ describe('mutations', () => {
     expect(store.state.currentUser.data.email).toEqual(email)
   })
 
-  it('editCurrentUserAvatar', () => {})
+  it('editCurrentUserAvatar', () => {
+    const avatar = 'test'
+    store.commit('editCurrentUserAvatar', avatar)
+    expect(store.state.currentUser.data.avatar).toEqual(avatar)
+  })
+
   it('clearSignUpFormData', () => {})
   it('clearSignInFormData', () => {})
   it('signIn', () => {})
