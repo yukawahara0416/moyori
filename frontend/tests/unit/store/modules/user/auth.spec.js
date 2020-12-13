@@ -141,7 +141,15 @@ describe('actions', () => {
     })
   })
 
-  it('signOut', () => {})
+  it('signOut', () => {
+    const headers = { test: 'test' }
+    const response = { data: { success: true } }
+    axiosMock.onDelete('api/v1/auth/sign_out', { headers }).reply(200, response)
+    store.dispatch('signOut').then(res => {
+      expect(res.data.data).toMatchObject(response.data)
+    })
+  })
+
   it('updateAccount', () => {})
   it('deleteAccount', () => {})
   it('editAvatar', () => {})
