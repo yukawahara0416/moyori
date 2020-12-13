@@ -29,7 +29,13 @@ describe('getters', () => {
     store.replaceState({ headers: headers })
     expect(store.getters.headers).toMatchObject(headers)
   })
-  it('isLoggingIn', () => {})
+
+  it('isLoggingIn', () => {
+    const headers = { test: 'test' }
+    store.replaceState({ headers: headers })
+    expect(store.getters.isLoggingIn).toBeTruthy()
+  })
+
   it('signInFormData', () => {})
   it('signUpFormData', () => {})
 })
