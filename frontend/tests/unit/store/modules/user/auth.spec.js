@@ -6,6 +6,7 @@ import { axiosBase } from '@/plugins/axios.js'
 import MockAdapter from 'axios-mock-adapter'
 
 const axiosMock = new MockAdapter(axiosBase)
+jest.mock('vue2-google-maps', () => 'vue2-google-maps')
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -17,7 +18,11 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
-  it('currentUser', () => {})
+  it('currentUser', () => {
+    const currentUser = { data: { id: 1 } }
+    store.replaceState({ currentUser: currentUser })
+    expect(store.getters.currentUser).toMatchObject(currentUser)
+  })
   it('headers', () => {})
   it('isLoggingIn', () => {})
   it('signInFormData', () => {})
