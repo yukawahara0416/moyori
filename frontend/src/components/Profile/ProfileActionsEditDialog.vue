@@ -76,7 +76,7 @@
           color="primary"
           large
           type="submit"
-          @click.stop="updateAccount()"
+          @click.stop="updateAccountHandler()"
           :disabled="invalid"
         >
           プロフィールを編集する
@@ -128,7 +128,7 @@ export default {
       'pushSnackbarError'
     ]),
 
-    updateAccount: async function() {
+    updateAccountHandler: async function() {
       const params = this.formData
       const headers = this.headers
 
