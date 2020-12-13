@@ -36,7 +36,11 @@ describe('getters', () => {
     expect(store.getters.isLoggingIn).toBeTruthy()
   })
 
-  it('signInFormData', () => {})
+  it('signInFormData', () => {
+    const signInFormData = { email: '', password: '' }
+    store.replaceState({ signInFormData: signInFormData })
+    expect(store.getters.signInFormData).toMatchObject(signInFormData)
+  })
   it('signUpFormData', () => {})
 })
 
