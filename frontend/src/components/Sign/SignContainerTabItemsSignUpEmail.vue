@@ -104,7 +104,7 @@ export default {
   methods: {
     ...mapMutations([
       'setCurrentUser',
-      'signIn',
+      'setHeaders',
       'clearSignInFormData',
       'clearSignUpFormData',
       'changeSignTab'
@@ -125,7 +125,7 @@ export default {
 
         await this.setCurrentUser(currentUser)
         // await this.editAvatar(currentUser.id)
-        await this.signIn(headers)
+        await this.setHeaders(headers)
 
         this.dialogOff('dialogSign')
         this.clearSignInFormData()

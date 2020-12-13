@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -34,8 +34,10 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['setHeaders', 'setCurrentUser']),
     ...mapActions([
       'signIn',
+      'editAvatar',
       'clearSignFormData',
       'dialogOff',
       'pushSnackbarSuccess',
@@ -48,7 +50,14 @@ export default {
           throw new Error('すでにログイン中です')
         }
 
-        await this.signIn(this.testUser)
+        const response = await this.signIn(this.testUser)
+        const currentUser = response.data.data
+        const headers = response.headers
+
+        await this.setCurrentUser(currentUser)
+        // await this.editAvatar(currentUser.id)
+        await this.setHeaders(headers)
+
         this.dialogOff('dialogSign')
         this.clearSignFormData()
         this.pushSnackbarSuccess({ message: 'ログインしました' })
