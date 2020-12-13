@@ -213,7 +213,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['form', 'headers', 'form', 'formData', 'profileTab'])
+    ...mapGetters(['form', 'headers', 'formData', 'profileTab'])
   },
 
   methods: {
@@ -233,8 +233,8 @@ export default {
 
       try {
         const newSpot = await this.postSpot({ params, headers })
-        this.unshiftSpotsStore(newSpot)
-        this.voteHandler(newSpot)
+        await this.unshiftSpotsStore(newSpot)
+        await this.voteHandler(newSpot)
         this.spotlight(newSpot)
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'スポットを登録しました' })

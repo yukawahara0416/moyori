@@ -123,7 +123,7 @@ export default {
     ...mapMutations({ editUserStore: 'user/editUserStore' }),
     ...mapActions([
       'updateAccount',
-      'editAvatar',
+      'getAvatar',
       'pushSnackbarSuccess',
       'pushSnackbarError'
     ]),
@@ -136,7 +136,7 @@ export default {
         const response = await this.updateAccount({ params, headers })
         const currentUser = response.data.data
 
-        // await this.editAvatar(currentUser.id)
+        // await this.getAvatar(currentUser.id)
         await this.editUserStore({
           name: currentUser.name,
           email: currentUser.email

@@ -111,7 +111,7 @@ export default {
     ]),
     ...mapActions([
       'signUp',
-      'editAvatar',
+      'getAvatar',
       'dialogOff',
       'pushSnackbarSuccess',
       'pushSnackbarError'
@@ -124,7 +124,7 @@ export default {
         const headers = response.headers
 
         await this.setCurrentUser(currentUser)
-        // await this.editAvatar(currentUser.id)
+        // await this.getAvatar(currentUser.id)
         await this.setHeaders(headers)
 
         this.dialogOff('dialogSign')

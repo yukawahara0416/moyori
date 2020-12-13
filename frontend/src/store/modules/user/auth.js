@@ -97,6 +97,7 @@ export default {
     },
 
     signIn(context, signInFormData) {
+      console.log('called')
       return axiosBase
         .post('/api/v1/auth/sign_in', signInFormData)
         .then(response => {
@@ -140,13 +141,19 @@ export default {
         })
     },
 
-    editAvatar(context, userId) {
-      axiosBase.get('/api/v1/users/' + userId).then(response => {
-        const avatar = response.data.avatar
+    getAvatar(context, userId) {
+      return axiosBase
+        .get('/api/v1/users/' + userId)
+        .then(response => {
+          return response
+          // const avatar = response.data.avatar
 
-        context.commit('editCurrentUserAvatar', avatar)
-        context.commit('user/editUserAvatarStore', avatar)
-      })
+          // context.commit('editCurrentUserAvatar', avatar)
+          // context.commit('user/editUserAvatarStore', avatar)
+        })
+        .catch(() => {
+          throw new Error('ユーザ画像の取得に失敗しました')
+        })
     }
   }
 }

@@ -173,5 +173,13 @@ describe('actions', () => {
     })
   })
 
-  it('editAvatar', () => {})
+  it('getAvatar', () => {
+    const userId = 1
+    const response = { data: { data: { id: 1 } } }
+
+    axiosMock.onGet(`/api/v1/users/${userId}`).reply(200, response)
+    store.dispatch('getAvatar', userId).then(res => {
+      expect(res.data.data).toMatchObject(response.data)
+    })
+  })
 })
