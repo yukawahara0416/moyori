@@ -112,7 +112,7 @@ export default {
       axiosBase
         .delete('api/v1/auth/sign_out', { headers })
         .then(() => {
-          context.commit('signOut')
+          context.commit('clearHeaders')
         })
         .catch(() => {
           throw new Error('ログアウトに失敗しました')
@@ -140,7 +140,7 @@ export default {
       axiosBase
         .delete('/api/v1/auth', { headers })
         .then(() => {
-          context.commit('signOut')
+          context.commit('clearHeaders')
           router.push('/')
         })
         .catch(() => {

@@ -19,6 +19,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['clearHeaders']),
     ...mapActions(['signOut', 'pushSnackbarSuccess', 'pushSnackbarError']),
 
     signOutHandler: async function() {
@@ -26,6 +27,7 @@ export default {
 
       try {
         await this.signOut(headers)
+        await this.clearHeaders()
         this.pushSnackbarSuccess({ message: 'ログアウトしました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })
