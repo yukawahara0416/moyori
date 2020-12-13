@@ -70,7 +70,7 @@ export default {
       }
     },
 
-    signIn(state, payload) {
+    setHeaders(state, payload) {
       state.headers = {
         'access-token': payload['access-token'],
         'client': payload['client'], // eslint-disable-line
@@ -98,15 +98,10 @@ export default {
     },
 
     signIn(context, signInFormData) {
-      axiosBase
+      return axiosBase
         .post('/api/v1/auth/sign_in', signInFormData)
         .then(response => {
-          const user = response.data.data
-          const headers = response.headers
-
-          context.commit('setCurrentUser', user)
-          context.dispatch('editAvatar', user.id)
-          context.commit('signIn', headers)
+          return response
         })
         .catch(() => {
           throw new Error('ログインに失敗しました')

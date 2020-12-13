@@ -91,14 +91,14 @@ describe('mutations', () => {
     })
   })
 
-  it('signIn', () => {
+  it('setHeaders', () => {
     const headers = {
       'access-token': 'test',
       'client': 'test', // eslint-disable-line
       'content-type': 'test',
       'uid': 'test' // eslint-disable-line
     }
-    store.commit('signIn', headers)
+    store.commit('setHeaders', headers)
     expect(store.state.headers).toMatchObject(headers)
   })
 
@@ -113,7 +113,11 @@ describe('mutations', () => {
 
 describe('actions', () => {
   it('signUp', () => {
-    const signUpFormData = { name: 'test', email: 'test', password: 'test' }
+    const signUpFormData = {
+      name: 'test',
+      email: 'test',
+      password: 'test'
+    }
     const response = { data: { data: { id: 1 } } }
 
     axiosMock.onPost('/api/v1/auth/', signUpFormData).reply(200, response)
@@ -122,7 +126,21 @@ describe('actions', () => {
     })
   })
 
-  it('signIn', () => {})
+  it('signIn', () => {
+    const signInFormData = {
+      email: 'test',
+      password: 'test'
+    }
+    const response = { data: { data: { id: 1 } } }
+
+    axiosMock
+      .onPost('/api/v1/auth/sign_in', signInFormData)
+      .reply(200, response)
+    store.dispatch('signIn', signInFormData).then(res => {
+      expect(res.data.data).toMatchObject(response.data)
+    })
+  })
+
   it('signOut', () => {})
   it('updateAccount', () => {})
   it('deleteAccount', () => {})
