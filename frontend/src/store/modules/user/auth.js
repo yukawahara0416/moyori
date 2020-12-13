@@ -52,7 +52,7 @@ export default {
     },
 
     editCurrentUserAvatar(state, payload) {
-      state.currentUser.avatar = payload
+      state.currentUser.data.avatar = payload
     },
 
     clearSignUpFormData(state) {

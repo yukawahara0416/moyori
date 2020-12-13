@@ -81,7 +81,16 @@ describe('mutations', () => {
     })
   })
 
-  it('clearSignInFormData', () => {})
+  it('clearSignInFormData', () => {
+    const signInFormData = { email: 'test', password: 'test' }
+    store.replaceState({ signInFormData: signInFormData })
+    store.commit('clearSignInFormData')
+    expect(store.state.signInFormData).toMatchObject({
+      email: '',
+      password: ''
+    })
+  })
+
   it('signIn', () => {})
   it('signOut', () => {})
 })
