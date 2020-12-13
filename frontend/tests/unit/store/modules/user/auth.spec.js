@@ -91,7 +91,17 @@ describe('mutations', () => {
     })
   })
 
-  it('signIn', () => {})
+  it('signIn', () => {
+    const headers = {
+      'access-token': 'test',
+      'client': 'test', // eslint-disable-line
+      'content-type': 'test',
+      'uid': 'test' // eslint-disable-line
+    }
+    store.commit('signIn', headers)
+    expect(store.state.headers).toMatchObject(headers)
+  })
+
   it('signOut', () => {})
 })
 
