@@ -109,14 +109,9 @@ export default {
     },
 
     signOut(context, headers) {
-      axiosBase
-        .delete('api/v1/auth/sign_out', { headers })
-        .then(() => {
-          context.commit('clearHeaders')
-        })
-        .catch(() => {
-          throw new Error('ログアウトに失敗しました')
-        })
+      axiosBase.delete('api/v1/auth/sign_out', { headers }).catch(() => {
+        throw new Error('ログアウトに失敗しました')
+      })
     },
 
     updateAccount(context, { params, headers }) {
