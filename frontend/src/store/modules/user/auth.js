@@ -79,7 +79,7 @@ export default {
       }
     },
 
-    signOut(state) {
+    clearHeaders(state) {
       state.headers = null
       state.currentUser = { data: {}, avatar: '' }
     }

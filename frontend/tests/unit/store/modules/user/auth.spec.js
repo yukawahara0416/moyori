@@ -102,10 +102,10 @@ describe('mutations', () => {
     expect(store.state.headers).toMatchObject(headers)
   })
 
-  it('signOut', () => {
+  it('clearHeaders', () => {
     const headers = { test: 'test' }
     const currentUser = { data: { test: 'test' }, avatar: 'test' }
-    store.commit('signOut')
+    store.commit('clearHeaders')
     expect(store.state.headers).toBeNull()
     expect(store.state.currentUser).toMatchObject({ data: {}, avatar: '' })
   })
