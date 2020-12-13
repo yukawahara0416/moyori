@@ -86,9 +86,16 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['changeSignTab']),
+    ...mapMutations([
+      'setHeaders',
+      'setCurrentUser',
+      'clearSignUpFormData',
+      'clearSignInFormData',
+      'changeSignTab'
+    ]),
     ...mapActions([
       'signIn',
+      'editAvatar',
       'clearSignFormData',
       'dialogOff',
       'pushSnackbarSuccess',
@@ -101,9 +108,17 @@ export default {
           throw new Error('すでにログイン中です')
         }
 
-        await this.signIn(this.signInFormData)
+        const response = await this.signIn(this.signInFormData)
+        const currentUser = response.data.data
+        const headers = response.headers
+
+        await this.setCurrentUser(currentUser)
+        // await this.editAvatar(currentUser.id)
+        await this.setHeaders(headers)
+
         this.dialogOff('dialogSign')
-        this.clearSignFormData()
+        this.clearSignInFormData()
+        this.clearSignUpFormData()
         this.pushSnackbarSuccess({ message: 'ログインしました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })

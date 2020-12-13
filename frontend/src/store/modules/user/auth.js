@@ -1,5 +1,4 @@
 import { axiosBase } from '@/plugins/axios.js'
-import router from '@/router'
 
 export default {
   state: {
@@ -52,7 +51,7 @@ export default {
     },
 
     editCurrentUserAvatar(state, payload) {
-      state.currentUser.avatar = payload
+      state.currentUser.data.avatar = payload
     },
 
     clearSignUpFormData(state) {
@@ -70,7 +69,7 @@ export default {
       }
     },
 
-    signIn(state, payload) {
+    setHeaders(state, payload) {
       state.headers = {
         'access-token': payload['access-token'],
         'client': payload['client'], // eslint-disable-line
@@ -79,7 +78,7 @@ export default {
       }
     },
 
-    signOut(state) {
+    clearHeaders(state) {
       state.headers = null
       state.currentUser = { data: {}, avatar: '' }
     }
@@ -87,15 +86,10 @@ export default {
 
   actions: {
     signUp(context, signUpFormData) {
-      axiosBase
+      return axiosBase
         .post('/api/v1/auth/', signUpFormData)
         .then(response => {
-          const currentUser = response.data.data
-          const headers = response.headers
-
-          context.commit('setCurrentUser', currentUser)
-          context.dispatch('editAvatar', currentUser.id)
-          context.commit('signIn', headers)
+          return response
         })
         .catch(() => {
           throw new Error('アカウント作成に失敗しました')
@@ -103,15 +97,10 @@ export default {
     },
 
     signIn(context, signInFormData) {
-      axiosBase
+      return axiosBase
         .post('/api/v1/auth/sign_in', signInFormData)
         .then(response => {
-          const user = response.data.data
-          const headers = response.headers
-
-          context.commit('setCurrentUser', user)
-          context.dispatch('editAvatar', user.id)
-          context.commit('signIn', headers)
+          return response
         })
         .catch(() => {
           throw new Error('ログインに失敗しました')
@@ -119,10 +108,10 @@ export default {
     },
 
     signOut(context, headers) {
-      axiosBase
+      return axiosBase
         .delete('api/v1/auth/sign_out', { headers })
-        .then(() => {
-          context.commit('signOut')
+        .then(response => {
+          return response
         })
         .catch(() => {
           throw new Error('ログアウトに失敗しました')
@@ -130,16 +119,10 @@ export default {
     },
 
     updateAccount(context, { params, headers }) {
-      axiosBase
+      return axiosBase
         .patch('/api/v1/auth/', params, { headers })
         .then(response => {
-          const user = response.data.data
-
-          context.dispatch('editAvatar', user.id)
-          context.commit('user/editUserStore', {
-            name: user.name,
-            email: user.email
-          })
+          return response
         })
         .catch(() => {
           throw new Error('アカウントの編集に失敗しました')
@@ -147,11 +130,10 @@ export default {
     },
 
     deleteAccount(context, headers) {
-      axiosBase
-        .delete('/api/v1/auth', { headers })
-        .then(() => {
-          context.commit('signOut')
-          router.push('/')
+      return axiosBase
+        .delete('/api/v1/auth/', { headers })
+        .then(response => {
+          return response
         })
         .catch(() => {
           throw new Error('アカウントの削除に失敗しました')
@@ -165,11 +147,6 @@ export default {
         context.commit('editCurrentUserAvatar', avatar)
         context.commit('user/editUserAvatarStore', avatar)
       })
-    },
-
-    clearSignFormData(context) {
-      context.commit('clearSignInFormData')
-      context.commit('clearSignUpFormData')
     }
   }
 }

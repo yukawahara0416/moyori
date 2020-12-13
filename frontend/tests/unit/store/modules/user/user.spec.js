@@ -11,7 +11,6 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let store
-let tabStore
 
 beforeEach(() => {
   store = new Vuex.Store(cloneDeep(user))

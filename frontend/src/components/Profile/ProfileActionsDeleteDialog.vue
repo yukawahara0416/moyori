@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+import router from '@/router'
 
 export default {
   computed: {
@@ -28,6 +29,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['clearHeaders']),
     ...mapActions([
       'deleteAccount',
       'pushSnackbarSuccess',
@@ -38,6 +40,8 @@ export default {
       const headers = this.headers
       try {
         await this.deleteAccount(headers)
+        await this.clearHeaders()
+        router.push('/')
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'アカウントを削除しました' })
       } catch (error) {
