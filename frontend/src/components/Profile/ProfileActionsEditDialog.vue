@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
@@ -120,8 +120,10 @@ export default {
   },
 
   methods: {
+    ...mapMutations({ editUserStore: 'user/editUserStore' }),
     ...mapActions([
       'updateAccount',
+      'editAvatar',
       'pushSnackbarSuccess',
       'pushSnackbarError'
     ]),
@@ -131,7 +133,15 @@ export default {
       const headers = this.headers
 
       try {
-        await this.updateAccount({ params, headers })
+        const response = await this.updateAccount({ params, headers })
+        const currentUser = response.data.data
+
+        // await this.editAvatar(currentUser.id)
+        await this.editUserStore({
+          name: currentUser.name,
+          email: currentUser.email
+        })
+
         this.closeDialog()
         this.clearEditFormData()
         this.pushSnackbarSuccess({ message: 'アカウントを編集しました' })

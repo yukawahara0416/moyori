@@ -120,16 +120,17 @@ export default {
     },
 
     updateAccount(context, { params, headers }) {
-      axiosBase
+      return axiosBase
         .patch('/api/v1/auth/', params, { headers })
         .then(response => {
-          const user = response.data.data
+          return response
+          // const user = response.data.data
 
-          context.dispatch('editAvatar', user.id)
-          context.commit('user/editUserStore', {
-            name: user.name,
-            email: user.email
-          })
+          // context.dispatch('editAvatar', user.id)
+          // context.commit('user/editUserStore', {
+          //   name: user.name,
+          //   email: user.email
+          // })
         })
         .catch(() => {
           throw new Error('アカウントの編集に失敗しました')

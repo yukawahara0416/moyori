@@ -105,6 +105,7 @@ describe('mutations', () => {
   it('clearHeaders', () => {
     const headers = { test: 'test' }
     const currentUser = { data: { test: 'test' }, avatar: 'test' }
+    store.replaceState({ headers: headers, currentUser: currentUser })
     store.commit('clearHeaders')
     expect(store.state.headers).toBeNull()
     expect(store.state.currentUser).toMatchObject({ data: {}, avatar: '' })
@@ -144,13 +145,24 @@ describe('actions', () => {
   it('signOut', () => {
     const headers = { test: 'test' }
     const response = { data: { success: true } }
+
     axiosMock.onDelete('api/v1/auth/sign_out', { headers }).reply(200, response)
     store.dispatch('signOut').then(res => {
       expect(res.data.data).toMatchObject(response.data)
     })
   })
 
-  it('updateAccount', () => {})
+  it('updateAccount', () => {
+    const params = { test: 'test' }
+    const headers = { test: 'test' }
+    const response = { data: { data: { id: 1 } } }
+
+    axiosMock.onPatch('/api/v1/auth/', params).reply(200, response)
+    store.dispatch('updateAccount', { params, headers }).then(res => {
+      expect(res.data.data).toMatchObject(response.data)
+    })
+  })
+
   it('deleteAccount', () => {})
   it('editAvatar', () => {})
   it('clearSignFormData', () => {})
