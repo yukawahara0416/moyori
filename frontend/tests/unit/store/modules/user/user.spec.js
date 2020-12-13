@@ -1,125 +1,139 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import { cloneDeep } from 'lodash'
 import user from '@/store/modules/user/user.js'
+import { cloneDeep } from 'lodash'
 import { axiosBase } from '@/plugins/axios.js'
 import MockAdapter from 'axios-mock-adapter'
+
+const axiosMock = new MockAdapter(axiosBase)
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-const axiosMock = new MockAdapter(axiosBase)
-
 let store
-let data
+let tabStore
 
 beforeEach(() => {
   store = new Vuex.Store(cloneDeep(user))
-
-  data = {
-    data: { id: 1 },
-    posts: [
-      {
-        data: { id: 1 },
-        marker: { place_id: 'testPlaceId', on: false },
-        likes: [{ data: { id: 2 } }]
-      }
-    ]
-  }
 })
 
 describe('getters', () => {
   it('user', () => {
-    store.replaceState({ user: data })
-    expect(store.getters['user']).toEqual(data)
+    const user = { test: 'test' }
+    store.replaceState({ user: user })
+    expect(store.getters.user).toMatchObject(user)
   })
 })
 
 describe('mutations', () => {
-  it('setUser', () => {
-    store.commit('setUser', data)
-    expect(store.state.user).toEqual(data)
+  it('setUserStore', () => {
+    const user = { test: 'test' }
+    store.commit('setUserStore', user)
+    expect(store.state.user).toMatchObject(user)
   })
+
+  it('editUserStore', () => {
+    const user = { data: { name: 'test', email: 'test' } }
+    const name = 'update'
+    const email = 'update'
+    store.replaceState({ user: user })
+    store.commit('editUserStore', { name, email })
+    expect(store.state.user.data.name).toEqual(name)
+    expect(store.state.user.data.email).toEqual(email)
+  })
+
+  it('editUserAvatarStore', () => {
+    const user = { data: { avatar: 'test' } }
+    const avatar = 'update'
+    store.replaceState({ user: user })
+    store.commit('editUserAvatarStore', avatar)
+    expect(store.state.user.data.avatar).toEqual(avatar)
+  })
+
   it('clearUserStore', () => {
-    store.replaceState({ user: data })
+    const user = { test: 'test' }
+    store.replaceState({ user: user })
     store.commit('clearUserStore')
-    expect(store.state.user).toEqual({})
+    expect(store.state.user).toMatchObject({})
   })
 
   it('addDataUserStore', () => {
-    const newData = {
-      spot: { data: { place_id: 'testPlaceId' } },
-      data: { data: { id: 2 } },
-      type: 'posts',
-      genre: 'likes'
+    const user = {
+      data: { id: 1 },
+      posts: [
+        {
+          data: { id: 1, place_id: '123' },
+          likes: [{ data: { id: 2 } }]
+        }
+      ]
     }
-    store.replaceState({ user: data })
-    store.commit('addDataUserStore', newData)
-    expect(store.state.user.posts[0].likes.length).toEqual(2)
+    const spot = user.posts[0]
+    const data = { data: { id: 3 } }
+    const tab = 'posts'
+    const prop = 'likes'
+
+    store.replaceState({ user: user })
+    store.commit('addDataUserStore', { spot, data, tab, prop })
+    expect(store.state.user.posts[0].likes).toHaveLength(2)
   })
 
   it('deleteDataUserStore', () => {
-    const unnecessaryData = {
-      spot: { data: { place_id: 'testPlaceId' } },
-      data: { data: { id: 2 } },
-      type: 'posts',
-      genre: 'likes'
+    const user = {
+      data: { id: 1 },
+      posts: [
+        {
+          data: { id: 1, place_id: '123' },
+          likes: [{ data: { id: 2 } }]
+        }
+      ]
     }
-    store.replaceState({ user: data })
-    store.commit('deleteDataUserStore', unnecessaryData)
-    expect(store.state.user.posts[0].likes.length).toEqual(0)
+    const spot = user.posts[0]
+    const data = user.posts[0].likes[0]
+    const tab = 'posts'
+    const prop = 'likes'
+
+    store.replaceState({ user: user })
+    store.commit('deleteDataUserStore', { spot, data, tab, prop })
+    expect(store.state.user.posts[0].likes).toHaveLength(0)
   })
 
-  it('onSpotlight', () => {
-    const spot = { data: { place_id: 'testPlaceId' } }
-    const select = {
-      spot: spot,
-      type: 'posts'
+  it('onSpotlight, offSpotlight', () => {
+    const user = {
+      data: { id: 1 },
+      posts: [{ data: { id: 1, place_id: '123', on: false } }]
     }
-    store.replaceState({ user: data })
-    store.commit('onSpotlight', select)
-    expect(store.state.user.posts[0].marker.on).toBe(true)
-  })
+    const spot = user.posts[0]
+    const tab = 'posts'
 
-  it('offSpotlight', () => {
-    data.posts[0].marker.on = true
-    store.replaceState({ user: data })
-    const type = 'posts'
-    store.commit('offSpotlight', type)
-    expect(store.state.user.posts[0].marker.on).toBe(false)
+    store.replaceState({ user: user })
+    store.commit('onSpotlight', { spot, tab })
+    expect(store.state.user.posts[0].data.on).toBe(true)
+    store.commit('offSpotlight', tab)
+    expect(store.state.user.posts[0].data.on).toBe(false)
   })
 })
 
 describe('actions', () => {
-  it('setUser', () => {
-    store.dispatch('setUser', data).then(() => {
-      expect(store.state.user).toEqual(data)
-    })
-  })
-
   it('getUser', () => {
     const id = 1
-    axiosMock.onGet('/api/v1/users/' + id).reply(200, data)
-    axiosBase.get('/api/v1/users/1').then(res => {
-      expect(res.data).toEqual(data)
-    })
-  })
-
-  it('clearUserStore', () => {
-    store.dispatch('clearUserStore').then(() => {
-      expect(store.state.user).toEqual({})
+    const response = { state: '200 success', data: { id: 1 } }
+    axiosMock.onGet(`/api/v1/users/${id}`).reply(200, response)
+    axiosBase.get(`/api/v1/users/${id}`).then(res => {
+      expect(res.data.data).toMatchObject(response.data)
     })
   })
 
   it('spotlight', () => {
-    const spot = { data: { place_id: 'testPlaceId' } }
-    const select = {
-      spot: spot,
-      type: 'posts'
+    const user = {
+      data: { id: 1 },
+      posts: [{ data: { id: 1, place_id: '123', on: false } }]
     }
-    store.replaceState({ user: data })
-    store.dispatch('spotlight', select).then(() => {
-      expect(store.state.user.posts[0].marker.on).toBe(true)
+    const spot = user.posts[0]
+    const tab = 'posts'
+
+    store.replaceState({ user: user })
+    store.dispatch('spotlight', { spot, tab }).then(() => {
+      expect(store.state.user.posts[0].data.on).toBe(true)
     })
   })
 })
