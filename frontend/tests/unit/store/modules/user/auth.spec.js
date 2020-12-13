@@ -23,7 +23,12 @@ describe('getters', () => {
     store.replaceState({ currentUser: currentUser })
     expect(store.getters.currentUser).toMatchObject(currentUser)
   })
-  it('headers', () => {})
+
+  it('headers', () => {
+    const headers = { test: 'test' }
+    store.replaceState({ headers: headers })
+    expect(store.getters.headers).toMatchObject(headers)
+  })
   it('isLoggingIn', () => {})
   it('signInFormData', () => {})
   it('signUpFormData', () => {})
