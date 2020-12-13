@@ -70,7 +70,17 @@ describe('mutations', () => {
     expect(store.state.currentUser.data.avatar).toEqual(avatar)
   })
 
-  it('clearSignUpFormData', () => {})
+  it('clearSignUpFormData', () => {
+    const signUpFormData = { name: 'test', email: 'test', password: 'test' }
+    store.replaceState({ signUpFormData: signUpFormData })
+    store.commit('clearSignUpFormData')
+    expect(store.state.signUpFormData).toMatchObject({
+      name: '',
+      email: '',
+      password: ''
+    })
+  })
+
   it('clearSignInFormData', () => {})
   it('signIn', () => {})
   it('signOut', () => {})
