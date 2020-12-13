@@ -37,7 +37,7 @@
                 prepend-icon="mdi-lock-outline"
                 type="password"
                 v-model="signInFormData.password"
-                @keyup.enter="signIn()"
+                @keyup.enter="signInHandler()"
                 :clearable="true"
                 :error-messages="errors"
                 :success="valid"
@@ -52,7 +52,7 @@
             class="mb-3 px-10"
             color="primary"
             type="submit"
-            @click.stop="signIn()"
+            @click.stop="signInHandler()"
             :disabled="invalid"
           >
             ログイン
@@ -102,7 +102,7 @@ export default {
       'pushSnackbarError'
     ]),
 
-    signIn: async function() {
+    signInHandler: async function() {
       try {
         if (this.isLoggingIn == true) {
           throw new Error('すでにログイン中です')
