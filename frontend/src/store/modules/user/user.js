@@ -26,7 +26,7 @@ export default {
 
     // ユーザアバターを更新します
     editUserAvatarStore(state, payload) {
-      state.user.avatar = payload
+      state.user.data.avatar = payload
     },
 
     // ユーザデータを初期化します
@@ -70,7 +70,7 @@ export default {
   actions: {
     getUser(context, id) {
       return axiosBase
-        .get('/api/v1/users/' + id)
+        .get(`/api/v1/users/${id}`)
         .then(response => {
           return response
         })
