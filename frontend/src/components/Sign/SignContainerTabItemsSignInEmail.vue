@@ -86,7 +86,13 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['setHeaders', 'setCurrentUser', 'changeSignTab']),
+    ...mapMutations([
+      'setHeaders',
+      'setCurrentUser',
+      'clearSignUpFormData',
+      'clearSignInFormData',
+      'changeSignTab'
+    ]),
     ...mapActions([
       'signIn',
       'editAvatar',
@@ -111,7 +117,8 @@ export default {
         await this.setHeaders(headers)
 
         this.dialogOff('dialogSign')
-        this.clearSignFormData()
+        this.clearSignInFormData()
+        this.clearSignUpFormData()
         this.pushSnackbarSuccess({ message: 'ログインしました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })

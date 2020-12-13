@@ -147,11 +147,6 @@ export default {
         context.commit('editCurrentUserAvatar', avatar)
         context.commit('user/editUserAvatarStore', avatar)
       })
-    },
-
-    clearSignFormData(context) {
-      context.commit('clearSignInFormData')
-      context.commit('clearSignUpFormData')
     }
   }
 }

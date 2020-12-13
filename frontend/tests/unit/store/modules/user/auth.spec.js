@@ -174,5 +174,4 @@ describe('actions', () => {
   })
 
   it('editAvatar', () => {})
-  it('clearSignFormData', () => {})
 })
