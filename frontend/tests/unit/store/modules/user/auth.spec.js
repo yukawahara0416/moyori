@@ -112,7 +112,16 @@ describe('mutations', () => {
 })
 
 describe('actions', () => {
-  it('signUp', () => {})
+  it('signUp', () => {
+    const signUpFormData = { name: 'test', email: 'test', password: 'test' }
+    const response = { data: { data: { id: 1 } } }
+
+    axiosMock.onPost('/api/v1/auth/', signUpFormData).reply(200, response)
+    store.dispatch('signUp', signUpFormData).then(res => {
+      expect(res.data.data).toMatchObject(response.data)
+    })
+  })
+
   it('signIn', () => {})
   it('signOut', () => {})
   it('updateAccount', () => {})
