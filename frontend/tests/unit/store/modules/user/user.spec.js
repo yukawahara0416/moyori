@@ -131,19 +131,6 @@ describe('actions', () => {
     })
   })
 
-  it('setUserStore', () => {
-    store.dispatch('setUserStore', { ...userData })
-    expect(store.state.user).toMatchObject({ ...userData })
-  })
-
-  it('clearUserStore', () => {
-    store.replaceState({ user: { ...userData } })
-    expect(store.state.user).toMatchObject({ ...userData })
-    store.dispatch('clearUserStore').then(() => {
-      expect(store.state.user).toEqual({})
-    })
-  })
-
   it('spotlight', () => {
     const spot = { data: { place_id: 'testPlaceId' } }
     const select = {
