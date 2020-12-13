@@ -1,5 +1,4 @@
 import { axiosBase } from '@/plugins/axios.js'
-import router from '@/router'
 
 export default {
   state: {
@@ -124,13 +123,6 @@ export default {
         .patch('/api/v1/auth/', params, { headers })
         .then(response => {
           return response
-          // const user = response.data.data
-
-          // context.dispatch('editAvatar', user.id)
-          // context.commit('user/editUserStore', {
-          //   name: user.name,
-          //   email: user.email
-          // })
         })
         .catch(() => {
           throw new Error('アカウントの編集に失敗しました')
@@ -138,11 +130,10 @@ export default {
     },
 
     deleteAccount(context, headers) {
-      axiosBase
-        .delete('/api/v1/auth', { headers })
-        .then(() => {
-          context.commit('clearHeaders')
-          router.push('/')
+      return axiosBase
+        .delete('/api/v1/auth/', { headers })
+        .then(response => {
+          return response
         })
         .catch(() => {
           throw new Error('アカウントの削除に失敗しました')

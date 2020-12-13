@@ -163,7 +163,16 @@ describe('actions', () => {
     })
   })
 
-  it('deleteAccount', () => {})
+  it('deleteAccount', () => {
+    const headers = { test: 'test' }
+    const response = { data: { data: { id: 1 } } }
+
+    axiosMock.onDelete('/api/v1/auth/').reply(200, response)
+    store.dispatch('deleteAccount', headers).then(res => {
+      expect(res.data.data).toMatchObject(response.data)
+    })
+  })
+
   it('editAvatar', () => {})
   it('clearSignFormData', () => {})
 })
