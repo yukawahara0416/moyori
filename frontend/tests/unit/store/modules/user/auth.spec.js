@@ -50,7 +50,12 @@ describe('getters', () => {
 })
 
 describe('mutations', () => {
-  it('setCurrentUser', () => {})
+  it('setCurrentUser', () => {
+    const currentUser = { data: { id: 1 } }
+    store.commit('setCurrentUser', currentUser)
+    expect(store.state.currentUser.data).toMatchObject(currentUser)
+  })
+
   it('editCurrentUser', () => {})
   it('editCurrentUserAvatar', () => {})
   it('clearSignUpFormData', () => {})
