@@ -102,11 +102,16 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['changeSignTab']),
-    ...mapActions([
-      'signUp',
+    ...mapMutations([
+      'setCurrentUser',
+      'signIn',
       'clearSignInFormData',
       'clearSignUpFormData',
+      'changeSignTab'
+    ]),
+    ...mapActions([
+      'signUp',
+      'editAvatar',
       'dialogOff',
       'pushSnackbarSuccess',
       'pushSnackbarError'
@@ -114,7 +119,14 @@ export default {
 
     signUpHanlder: async function() {
       try {
-        await this.signUp(this.signUpFormData)
+        const response = await this.signUp(this.signUpFormData)
+        const currentUser = response.data.data
+        const headers = response.headers
+
+        await this.setCurrentUser(currentUser)
+        // await this.editAvatar(currentUser.id)
+        await this.signIn(headers)
+
         this.dialogOff('dialogSign')
         this.clearSignInFormData()
         this.clearSignUpFormData()

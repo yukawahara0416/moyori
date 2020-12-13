@@ -87,15 +87,10 @@ export default {
 
   actions: {
     signUp(context, signUpFormData) {
-      axiosBase
+      return axiosBase
         .post('/api/v1/auth/', signUpFormData)
         .then(response => {
-          const currentUser = response.data.data
-          const headers = response.headers
-
-          context.commit('setCurrentUser', currentUser)
-          context.dispatch('editAvatar', currentUser.id)
-          context.commit('signIn', headers)
+          return response
         })
         .catch(() => {
           throw new Error('アカウント作成に失敗しました')
