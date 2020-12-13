@@ -5,8 +5,6 @@ import { cloneDeep } from 'lodash'
 import { axiosBase } from '@/plugins/axios.js'
 import MockAdapter from 'axios-mock-adapter'
 
-import tab from '@/store/modules/utility/tab.js'
-
 const axiosMock = new MockAdapter(axiosBase)
 
 const localVue = createLocalVue()
@@ -14,18 +12,9 @@ localVue.use(Vuex)
 
 let store
 let tabStore
-let tabMockStore
 
 beforeEach(() => {
   store = new Vuex.Store(cloneDeep(user))
-  tabStore = new Vuex.Store(cloneDeep(tab))
-
-  tabMockStore = {
-    state: {
-      tab: 'posts'
-    }
-  }
-  store.registerModule('tab', cloneDeep(tabMockStore))
 })
 
 describe('getters', () => {
@@ -82,6 +71,7 @@ describe('mutations', () => {
     const data = { data: { id: 3 } }
     const tab = 'posts'
     const prop = 'likes'
+
     store.replaceState({ user: user })
     store.commit('addDataUserStore', { spot, data, tab, prop })
     expect(store.state.user.posts[0].likes).toHaveLength(2)
@@ -101,6 +91,7 @@ describe('mutations', () => {
     const data = user.posts[0].likes[0]
     const tab = 'posts'
     const prop = 'likes'
+
     store.replaceState({ user: user })
     store.commit('deleteDataUserStore', { spot, data, tab, prop })
     expect(store.state.user.posts[0].likes).toHaveLength(0)
@@ -113,6 +104,7 @@ describe('mutations', () => {
     }
     const spot = user.posts[0]
     const tab = 'posts'
+
     store.replaceState({ user: user })
     store.commit('onSpotlight', { spot, tab })
     expect(store.state.user.posts[0].data.on).toBe(true)
@@ -132,14 +124,16 @@ describe('actions', () => {
   })
 
   it('spotlight', () => {
-    const spot = { data: { place_id: 'testPlaceId' } }
-    const select = {
-      spot: spot,
-      type: 'posts'
+    const user = {
+      data: { id: 1 },
+      posts: [{ data: { id: 1, place_id: '123', on: false } }]
     }
-    store.replaceState({ user: userData })
-    store.dispatch('spotlight', select).then(() => {
-      expect(store.state.user.posts[0].marker.on).toBe(true)
+    const spot = user.posts[0]
+    const tab = 'posts'
+
+    store.replaceState({ user: user })
+    store.dispatch('spotlight', { spot, tab }).then(() => {
+      expect(store.state.user.posts[0].data.on).toBe(true)
     })
   })
 })
