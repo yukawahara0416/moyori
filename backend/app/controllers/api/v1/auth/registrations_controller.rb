@@ -3,7 +3,7 @@ module Api
     module Auth
       class RegistrationsController < DeviseTokenAuth::RegistrationsController
         def render_create_success
-          render json: @resource
+          render json: convert_to_registrations(@resource)
         end
 
         private
