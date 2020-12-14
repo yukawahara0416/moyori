@@ -56,17 +56,17 @@ describe('mutations', () => {
     expect(store.state.currentUser.data).toMatchObject(currentUser)
   })
 
-  it('editCurrentUser', () => {
+  it('updateCurrentUser', () => {
     const name = 'update'
     const email = 'update'
-    store.commit('editCurrentUser', { name, email })
+    store.commit('updateCurrentUser', { name, email })
     expect(store.state.currentUser.data.name).toEqual(name)
     expect(store.state.currentUser.data.email).toEqual(email)
   })
 
-  it('editCurrentUserAvatar', () => {
+  it('setCurrentUserAvatar', () => {
     const avatar = 'test'
-    store.commit('editCurrentUserAvatar', avatar)
+    store.commit('setCurrentUserAvatar', avatar)
     expect(store.state.currentUser.data.avatar).toEqual(avatar)
   })
 
@@ -173,5 +173,13 @@ describe('actions', () => {
     })
   })
 
-  it('editAvatar', () => {})
+  it('getAvatar', () => {
+    const userId = 1
+    const response = { data: { data: { id: 1 } } }
+
+    axiosMock.onGet(`/api/v1/users/${userId}`).reply(200, response)
+    store.dispatch('getAvatar', userId).then(res => {
+      expect(res.data.data).toMatchObject(response.data)
+    })
+  })
 })

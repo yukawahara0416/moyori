@@ -37,7 +37,7 @@
                 prepend-icon="mdi-lock-outline"
                 type="password"
                 v-model="signInFormData.password"
-                @keyup.enter="signIn()"
+                @keyup.enter="signInHandler()"
                 :clearable="true"
                 :error-messages="errors"
                 :success="valid"
@@ -52,7 +52,7 @@
             class="mb-3 px-10"
             color="primary"
             type="submit"
-            @click.stop="signIn()"
+            @click.stop="signInHandler()"
             :disabled="invalid"
           >
             ログイン
@@ -89,32 +89,37 @@ export default {
     ...mapMutations([
       'setHeaders',
       'setCurrentUser',
+      'setCurrentUserAvatar',
       'clearSignUpFormData',
       'clearSignInFormData',
       'changeSignTab'
     ]),
     ...mapActions([
       'signIn',
-      'editAvatar',
+      'getAvatar',
       'clearSignFormData',
       'dialogOff',
       'pushSnackbarSuccess',
       'pushSnackbarError'
     ]),
 
-    signIn: async function() {
+    signInHandler: async function() {
       try {
         if (this.isLoggingIn == true) {
           throw new Error('すでにログイン中です')
         }
 
-        const response = await this.signIn(this.signInFormData)
+        let response = await this.signIn(this.signInFormData)
         const currentUser = response.data.data
         const headers = response.headers
 
         await this.setCurrentUser(currentUser)
-        // await this.editAvatar(currentUser.id)
         await this.setHeaders(headers)
+
+        response = await this.getAvatar(currentUser.id)
+        const avatar = response.data.data.avatar
+
+        await this.setCurrentUserAvatar(avatar)
 
         this.dialogOff('dialogSign')
         this.clearSignInFormData()

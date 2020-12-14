@@ -2,7 +2,7 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   state: {
-    currentUser: { data: {}, avatar: '' },
+    currentUser: { data: {} },
 
     headers: null,
 
@@ -45,13 +45,22 @@ export default {
       state.currentUser.data = payload
     },
 
-    editCurrentUser(state, { name, email }) {
-      state.currentUser.data.name = name
-      state.currentUser.data.email = email
+    setCurrentUserAvatar(state, payload) {
+      state.currentUser.data.avatar = payload
     },
 
-    editCurrentUserAvatar(state, payload) {
-      state.currentUser.data.avatar = payload
+    setHeaders(state, payload) {
+      state.headers = {
+        'access-token': payload['access-token'],
+        'client': payload['client'], // eslint-disable-line
+        'content-type': payload['content-type'],
+        'uid': payload['uid'] // eslint-disable-line
+      }
+    },
+
+    updateCurrentUser(state, { name, email }) {
+      state.currentUser.data.name = name
+      state.currentUser.data.email = email
     },
 
     clearSignUpFormData(state) {
@@ -66,15 +75,6 @@ export default {
       state.signInFormData = {
         email: '',
         password: ''
-      }
-    },
-
-    setHeaders(state, payload) {
-      state.headers = {
-        'access-token': payload['access-token'],
-        'client': payload['client'], // eslint-disable-line
-        'content-type': payload['content-type'],
-        'uid': payload['uid'] // eslint-disable-line
       }
     },
 
@@ -140,13 +140,15 @@ export default {
         })
     },
 
-    editAvatar(context, userId) {
-      axiosBase.get('/api/v1/users/' + userId).then(response => {
-        const avatar = response.data.avatar
-
-        context.commit('editCurrentUserAvatar', avatar)
-        context.commit('user/editUserAvatarStore', avatar)
-      })
+    getAvatar(context, userId) {
+      return axiosBase
+        .get('/api/v1/users/' + userId)
+        .then(response => {
+          return response
+        })
+        .catch(() => {
+          throw new Error('ユーザ画像の取得に失敗しました')
+        })
     }
   }
 }

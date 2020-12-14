@@ -76,7 +76,7 @@
           color="primary"
           large
           type="submit"
-          @click.stop="updateAccount()"
+          @click.stop="updateAccountHandler()"
           :disabled="invalid"
         >
           プロフィールを編集する
@@ -120,27 +120,35 @@ export default {
   },
 
   methods: {
-    ...mapMutations({ editUserStore: 'user/editUserStore' }),
+    ...mapMutations(['setCurrentUserAvatar']),
+    ...mapMutations({
+      editUserStore: 'user/editUserStore',
+      editUserAvatarStore: 'user/editUserAvatarStore'
+    }),
     ...mapActions([
       'updateAccount',
-      'editAvatar',
+      'getAvatar',
       'pushSnackbarSuccess',
       'pushSnackbarError'
     ]),
 
-    updateAccount: async function() {
+    updateAccountHandler: async function() {
       const params = this.formData
       const headers = this.headers
 
       try {
-        const response = await this.updateAccount({ params, headers })
+        let response = await this.updateAccount({ params, headers })
         const currentUser = response.data.data
 
-        // await this.editAvatar(currentUser.id)
+        response = await this.getAvatar(currentUser.id)
+        const avatar = response.data.data.avatar
+
         await this.editUserStore({
           name: currentUser.name,
           email: currentUser.email
         })
+        await this.editUserAvatarStore(avatar)
+        await this.setCurrentUserAvatar(avatar)
 
         this.closeDialog()
         this.clearEditFormData()
