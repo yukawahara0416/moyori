@@ -15,7 +15,7 @@ module Api
                 email: resource.email,
                 provider: resource.provider,
                 name: resource.name,
-                avatar: nil,
+                avatar: set_avatar(resource.id),
                 uid: resource.uid,
                 allow_password_change: resource.allow_password_change,
                 created_at: resource.created_at,
@@ -23,6 +23,13 @@ module Api
                 credentials: resource.credentials
               }
             }
+          end
+
+          def set_avatar(id)
+            user = User.find(id)
+            avatar = rails_blob_url(user.avatar) if user.avatar.attached?
+
+            avatar
           end
       end
     end
