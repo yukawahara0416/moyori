@@ -6,6 +6,10 @@ module Api
           render json: convert_to_registrations(@resource)
         end
 
+        def render_update_success
+          render json: convert_to_registrations(@resource)
+        end
+
         private
 
           def sign_up_params
