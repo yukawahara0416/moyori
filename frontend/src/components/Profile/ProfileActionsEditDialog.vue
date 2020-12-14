@@ -120,7 +120,11 @@ export default {
   },
 
   methods: {
-    ...mapMutations({ editUserStore: 'user/editUserStore' }),
+    ...mapMutations(['editCurrentUserAvatar']),
+    ...mapMutations({
+      editUserStore: 'user/editUserStore',
+      editUserAvatarStore: 'user/editUserAvatarStore'
+    }),
     ...mapActions([
       'updateAccount',
       'getAvatar',
@@ -133,14 +137,18 @@ export default {
       const headers = this.headers
 
       try {
-        const response = await this.updateAccount({ params, headers })
+        let response = await this.updateAccount({ params, headers })
         const currentUser = response.data.data
 
-        // await this.getAvatar(currentUser.id)
+        response = await this.getAvatar(currentUser.id)
+        const avatar = response.data.data.avatar
+
         await this.editUserStore({
           name: currentUser.name,
           email: currentUser.email
         })
+        await this.editUserAvatarStore(avatar)
+        await this.editCurrentUserAvatar(avatar)
 
         this.closeDialog()
         this.clearEditFormData()
