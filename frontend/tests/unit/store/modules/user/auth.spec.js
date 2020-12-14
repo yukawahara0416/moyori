@@ -56,17 +56,17 @@ describe('mutations', () => {
     expect(store.state.currentUser.data).toMatchObject(currentUser)
   })
 
-  it('editCurrentUser', () => {
+  it('updateCurrentUser', () => {
     const name = 'update'
     const email = 'update'
-    store.commit('editCurrentUser', { name, email })
+    store.commit('updateCurrentUser', { name, email })
     expect(store.state.currentUser.data.name).toEqual(name)
     expect(store.state.currentUser.data.email).toEqual(email)
   })
 
-  it('editCurrentUserAvatar', () => {
+  it('setCurrentUserAvatar', () => {
     const avatar = 'test'
-    store.commit('editCurrentUserAvatar', avatar)
+    store.commit('setCurrentUserAvatar', avatar)
     expect(store.state.currentUser.data.avatar).toEqual(avatar)
   })
 

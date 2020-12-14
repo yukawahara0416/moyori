@@ -120,7 +120,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['editCurrentUserAvatar']),
+    ...mapMutations(['setCurrentUserAvatar']),
     ...mapMutations({
       editUserStore: 'user/editUserStore',
       editUserAvatarStore: 'user/editUserAvatarStore'
@@ -148,7 +148,7 @@ export default {
           email: currentUser.email
         })
         await this.editUserAvatarStore(avatar)
-        await this.editCurrentUserAvatar(avatar)
+        await this.setCurrentUserAvatar(avatar)
 
         this.closeDialog()
         this.clearEditFormData()

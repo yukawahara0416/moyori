@@ -89,6 +89,7 @@ export default {
     ...mapMutations([
       'setHeaders',
       'setCurrentUser',
+      'setCurrentUserAvatar',
       'clearSignUpFormData',
       'clearSignInFormData',
       'changeSignTab'
@@ -108,13 +109,17 @@ export default {
           throw new Error('すでにログイン中です')
         }
 
-        const response = await this.signIn(this.signInFormData)
+        let response = await this.signIn(this.signInFormData)
         const currentUser = response.data.data
         const headers = response.headers
 
         await this.setCurrentUser(currentUser)
-        // await this.getAvatar(currentUser.id)
         await this.setHeaders(headers)
+
+        response = await this.getAvatar(currentUser.id)
+        const avatar = response.data.data.avatar
+
+        await this.setCurrentUserAvatar(avatar)
 
         this.dialogOff('dialogSign')
         this.clearSignInFormData()
