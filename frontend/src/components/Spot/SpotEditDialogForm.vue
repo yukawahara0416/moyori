@@ -132,7 +132,8 @@ export default {
 
   data() {
     return {
-      picture: null
+      picture: null,
+      uploadImageUrl: null
     }
   },
 
