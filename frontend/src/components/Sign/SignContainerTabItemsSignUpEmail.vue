@@ -105,7 +105,7 @@ export default {
     ...mapMutations([
       'setCurrentUser',
       'setHeaders',
-      'clearSignInFormData',
+      'clearSignInForm',
       'clearSignUpForm',
       'changeSignTab'
     ]),
@@ -126,7 +126,7 @@ export default {
         await this.setHeaders(headers)
 
         this.dialogOff('dialogSign')
-        this.clearSignInFormData()
+        this.clearSignInForm()
         this.clearSignUpForm()
         this.pushSnackbarSuccess({
           message: 'アカウントを登録しました。MoYoRiへようこそ！'
