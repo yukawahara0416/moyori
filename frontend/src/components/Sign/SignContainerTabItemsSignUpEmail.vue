@@ -18,7 +18,7 @@
                 name="signin"
                 prepend-icon="mdi-account-circle-outline"
                 type="text"
-                v-model="signUpFormData.name"
+                v-model="signUpForm.name"
                 :clearable="true"
                 :error-messages="errors"
                 :success="valid"
@@ -35,7 +35,7 @@
                 name="signin"
                 prepend-icon="mdi-email-outline"
                 type="text"
-                v-model="signUpFormData.email"
+                v-model="signUpForm.email"
                 :clearable="true"
                 :error-messages="errors"
                 :success="valid"
@@ -52,7 +52,7 @@
                 name="password"
                 prepend-icon="mdi-lock-outline"
                 type="password"
-                v-model="signUpFormData.password"
+                v-model="signUpForm.password"
                 @keyup.enter="signUp()"
                 :clearable="true"
                 :error-messages="errors"
@@ -98,15 +98,15 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['signUpFormData'])
+    ...mapGetters(['signUpForm'])
   },
 
   methods: {
     ...mapMutations([
       'setCurrentUser',
       'setHeaders',
-      'clearSignInFormData',
-      'clearSignUpFormData',
+      'clearSignInForm',
+      'clearSignUpForm',
       'changeSignTab'
     ]),
     ...mapActions([
@@ -118,7 +118,7 @@ export default {
 
     signUpHanlder: async function() {
       try {
-        const response = await this.signUp(this.signUpFormData)
+        const response = await this.signUp(this.signUpForm)
         const currentUser = response.data.data
         const headers = response.headers
 
@@ -126,8 +126,8 @@ export default {
         await this.setHeaders(headers)
 
         this.dialogOff('dialogSign')
-        this.clearSignInFormData()
-        this.clearSignUpFormData()
+        this.clearSignInForm()
+        this.clearSignUpForm()
         this.pushSnackbarSuccess({
           message: 'アカウントを登録しました。MoYoRiへようこそ！'
         })

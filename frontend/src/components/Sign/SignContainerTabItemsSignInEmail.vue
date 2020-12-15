@@ -18,7 +18,7 @@
                 name="login"
                 prepend-icon="mdi-email-outline"
                 type="text"
-                v-model="signInFormData.email"
+                v-model="signInForm.email"
                 :clearable="true"
                 :error-messages="errors"
                 :success="valid"
@@ -36,7 +36,7 @@
                 name="password"
                 prepend-icon="mdi-lock-outline"
                 type="password"
-                v-model="signInFormData.password"
+                v-model="signInForm.password"
                 @keyup.enter="signInHandler()"
                 :clearable="true"
                 :error-messages="errors"
@@ -82,21 +82,19 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['isLoggingIn', 'signInFormData'])
+    ...mapGetters(['isLoggingIn', 'signInForm'])
   },
 
   methods: {
     ...mapMutations([
       'setHeaders',
       'setCurrentUser',
-      'setCurrentUserAvatar',
-      'clearSignUpFormData',
-      'clearSignInFormData',
+      'clearSignUpForm',
+      'clearSignInForm',
       'changeSignTab'
     ]),
     ...mapActions([
       'signIn',
-      'getAvatar',
       'clearSignFormData',
       'dialogOff',
       'pushSnackbarSuccess',
@@ -109,21 +107,17 @@ export default {
           throw new Error('すでにログイン中です')
         }
 
-        let response = await this.signIn(this.signInFormData)
+        const response = await this.signIn(this.signInForm)
+
         const currentUser = response.data.data
         const headers = response.headers
 
         await this.setCurrentUser(currentUser)
         await this.setHeaders(headers)
 
-        response = await this.getAvatar(currentUser.id)
-        const avatar = response.data.data.avatar
-
-        await this.setCurrentUserAvatar(avatar)
-
         this.dialogOff('dialogSign')
-        this.clearSignInFormData()
-        this.clearSignUpFormData()
+        this.clearSignInForm()
+        this.clearSignUpForm()
         this.pushSnackbarSuccess({ message: 'ログインしました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })

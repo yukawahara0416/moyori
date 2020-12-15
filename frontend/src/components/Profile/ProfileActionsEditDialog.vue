@@ -100,7 +100,7 @@ export default {
     return {
       name: this.user.data.name,
       email: this.user.data.email,
-      avatar: this.user.avatar,
+      avatar: this.user.data.avatar,
       avatar_slot: null
     }
   },
@@ -120,14 +120,9 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['setCurrentUserAvatar']),
-    ...mapMutations({
-      editUserStore: 'user/editUserStore',
-      editUserAvatarStore: 'user/editUserAvatarStore'
-    }),
+    ...mapMutations({ updateUserStore: 'user/updateUserStore' }),
     ...mapActions([
       'updateAccount',
-      'getAvatar',
       'pushSnackbarSuccess',
       'pushSnackbarError'
     ]),
@@ -137,18 +132,14 @@ export default {
       const headers = this.headers
 
       try {
-        let response = await this.updateAccount({ params, headers })
+        const response = await this.updateAccount({ params, headers })
         const currentUser = response.data.data
 
-        response = await this.getAvatar(currentUser.id)
-        const avatar = response.data.data.avatar
-
-        await this.editUserStore({
+        await this.updateUserStore({
           name: currentUser.name,
-          email: currentUser.email
+          email: currentUser.email,
+          avatar: currentUser.avatar
         })
-        await this.editUserAvatarStore(avatar)
-        await this.setCurrentUserAvatar(avatar)
 
         this.closeDialog()
         this.clearEditFormData()
@@ -173,7 +164,7 @@ export default {
     clearEditFormData() {
       this.name = this.user.data.name
       this.email = this.user.data.email
-      this.avatar = this.user.avatar
+      this.avatar = this.user.data.avatar
       this.avatar_slot = null
     }
   }

@@ -6,13 +6,13 @@ export default {
 
     headers: null,
 
-    signUpFormData: {
+    signUpForm: {
       name: '',
       email: '',
       password: ''
     },
 
-    signInFormData: {
+    signInForm: {
       email: '',
       password: ''
     }
@@ -31,22 +31,18 @@ export default {
       return state.headers == null ? false : true
     },
 
-    signInFormData(state) {
-      return state.signInFormData
+    signInForm(state) {
+      return state.signInForm
     },
 
-    signUpFormData(state) {
-      return state.signUpFormData
+    signUpForm(state) {
+      return state.signUpForm
     }
   },
 
   mutations: {
     setCurrentUser(state, payload) {
       state.currentUser.data = payload
-    },
-
-    setCurrentUserAvatar(state, payload) {
-      state.currentUser.data.avatar = payload
     },
 
     setHeaders(state, payload) {
@@ -63,16 +59,16 @@ export default {
       state.currentUser.data.email = email
     },
 
-    clearSignUpFormData(state) {
-      state.signUpFormData = {
+    clearSignUpForm(state) {
+      state.signUpForm = {
         name: '',
         email: '',
         password: ''
       }
     },
 
-    clearSignInFormData(state) {
-      state.signInFormData = {
+    clearSignInForm(state) {
+      state.signInForm = {
         email: '',
         password: ''
       }
@@ -80,14 +76,14 @@ export default {
 
     clearHeaders(state) {
       state.headers = null
-      state.currentUser = { data: {}, avatar: '' }
+      state.currentUser = { data: {} }
     }
   },
 
   actions: {
-    signUp(context, signUpFormData) {
+    signUp(context, signUpForm) {
       return axiosBase
-        .post('/api/v1/auth/', signUpFormData)
+        .post('/api/v1/auth/', signUpForm)
         .then(response => {
           return response
         })
@@ -96,9 +92,9 @@ export default {
         })
     },
 
-    signIn(context, signInFormData) {
+    signIn(context, signInForm) {
       return axiosBase
-        .post('/api/v1/auth/sign_in', signInFormData)
+        .post('/api/v1/auth/sign_in', signInForm)
         .then(response => {
           return response
         })
@@ -137,17 +133,6 @@ export default {
         })
         .catch(() => {
           throw new Error('アカウントの削除に失敗しました')
-        })
-    },
-
-    getAvatar(context, userId) {
-      return axiosBase
-        .get('/api/v1/users/' + userId)
-        .then(response => {
-          return response
-        })
-        .catch(() => {
-          throw new Error('ユーザ画像の取得に失敗しました')
         })
     }
   }

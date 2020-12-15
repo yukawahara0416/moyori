@@ -10,7 +10,7 @@
             class="my-3 white--text"
             color="#00acee"
             type="submit"
-            @click.stop="signUp(signUpFormData)"
+            @click.stop="signUp(signUpForm)"
           >
             <v-icon color="white" left>
               mdi-twitter
@@ -28,7 +28,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['signUpFormData'])
+    ...mapGetters(['signUpForm'])
   },
 
   methods: {

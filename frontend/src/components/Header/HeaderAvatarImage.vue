@@ -1,8 +1,8 @@
 <template>
   <v-avatar class="white--text headline" color="success" size="36">
     <v-img
-      v-if="currentUser.avatar"
-      :src="currentUser.avatar"
+      v-if="currentUser.data.avatar"
+      :src="currentUser.data.avatar"
       alt="プロフィール画像"
     />
     <span v-else class="white--text headline">

@@ -36,16 +36,16 @@ describe('getters', () => {
     expect(store.getters.isLoggingIn).toBeTruthy()
   })
 
-  it('signInFormData', () => {
-    const signInFormData = { email: 'test', password: 'test' }
-    store.replaceState({ signInFormData: signInFormData })
-    expect(store.getters.signInFormData).toMatchObject(signInFormData)
+  it('signInForm', () => {
+    const signInForm = { email: 'test', password: 'test' }
+    store.replaceState({ signInForm: signInForm })
+    expect(store.getters.signInForm).toMatchObject(signInForm)
   })
 
-  it('signUpFormData', () => {
-    const signUpFormData = { name: 'test', email: 'test', password: 'test' }
-    store.replaceState({ signUpFormData: signUpFormData })
-    expect(store.getters.signUpFormData).toMatchObject(signUpFormData)
+  it('signUpForm', () => {
+    const signUpForm = { name: 'test', email: 'test', password: 'test' }
+    store.replaceState({ signUpForm: signUpForm })
+    expect(store.getters.signUpForm).toMatchObject(signUpForm)
   })
 })
 
@@ -64,28 +64,22 @@ describe('mutations', () => {
     expect(store.state.currentUser.data.email).toEqual(email)
   })
 
-  it('setCurrentUserAvatar', () => {
-    const avatar = 'test'
-    store.commit('setCurrentUserAvatar', avatar)
-    expect(store.state.currentUser.data.avatar).toEqual(avatar)
-  })
-
-  it('clearSignUpFormData', () => {
-    const signUpFormData = { name: 'test', email: 'test', password: 'test' }
-    store.replaceState({ signUpFormData: signUpFormData })
-    store.commit('clearSignUpFormData')
-    expect(store.state.signUpFormData).toMatchObject({
+  it('clearSignUpForm', () => {
+    const signUpForm = { name: 'test', email: 'test', password: 'test' }
+    store.replaceState({ signUpForm: signUpForm })
+    store.commit('clearSignUpForm')
+    expect(store.state.signUpForm).toMatchObject({
       name: '',
       email: '',
       password: ''
     })
   })
 
-  it('clearSignInFormData', () => {
-    const signInFormData = { email: 'test', password: 'test' }
-    store.replaceState({ signInFormData: signInFormData })
-    store.commit('clearSignInFormData')
-    expect(store.state.signInFormData).toMatchObject({
+  it('clearSignInForm', () => {
+    const signInForm = { email: 'test', password: 'test' }
+    store.replaceState({ signInForm: signInForm })
+    store.commit('clearSignInForm')
+    expect(store.state.signInForm).toMatchObject({
       email: '',
       password: ''
     })
@@ -114,30 +108,28 @@ describe('mutations', () => {
 
 describe('actions', () => {
   it('signUp', () => {
-    const signUpFormData = {
+    const signUpForm = {
       name: 'test',
       email: 'test',
       password: 'test'
     }
     const response = { data: { data: { id: 1 } } }
 
-    axiosMock.onPost('/api/v1/auth/', signUpFormData).reply(200, response)
-    store.dispatch('signUp', signUpFormData).then(res => {
+    axiosMock.onPost('/api/v1/auth/', signUpForm).reply(200, response)
+    store.dispatch('signUp', signUpForm).then(res => {
       expect(res.data.data).toMatchObject(response.data)
     })
   })
 
   it('signIn', () => {
-    const signInFormData = {
+    const signInForm = {
       email: 'test',
       password: 'test'
     }
     const response = { data: { data: { id: 1 } } }
 
-    axiosMock
-      .onPost('/api/v1/auth/sign_in', signInFormData)
-      .reply(200, response)
-    store.dispatch('signIn', signInFormData).then(res => {
+    axiosMock.onPost('/api/v1/auth/sign_in', signInForm).reply(200, response)
+    store.dispatch('signIn', signInForm).then(res => {
       expect(res.data.data).toMatchObject(response.data)
     })
   })
@@ -169,16 +161,6 @@ describe('actions', () => {
 
     axiosMock.onDelete('/api/v1/auth/').reply(200, response)
     store.dispatch('deleteAccount', headers).then(res => {
-      expect(res.data.data).toMatchObject(response.data)
-    })
-  })
-
-  it('getAvatar', () => {
-    const userId = 1
-    const response = { data: { data: { id: 1 } } }
-
-    axiosMock.onGet(`/api/v1/users/${userId}`).reply(200, response)
-    store.dispatch('getAvatar', userId).then(res => {
       expect(res.data.data).toMatchObject(response.data)
     })
   })

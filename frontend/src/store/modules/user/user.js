@@ -19,14 +19,10 @@ export default {
     },
 
     // ユーザデータを更新します
-    editUserStore(state, { name, email }) {
+    updateUserStore(state, { name, email, avatar }) {
       state.user.data.name = name
       state.user.data.email = email
-    },
-
-    // ユーザアバターを更新します
-    editUserAvatarStore(state, payload) {
-      state.user.data.avatar = payload
+      state.user.data.avatar = avatar
     },
 
     // ユーザデータを初期化します
