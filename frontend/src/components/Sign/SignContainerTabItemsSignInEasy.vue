@@ -37,13 +37,11 @@ export default {
     ...mapMutations([
       'setHeaders',
       'setCurrentUser',
-      'setCurrentUserAvatar',
       'clearSignUpFormData',
       'clearSignInFormData'
     ]),
     ...mapActions([
       'signIn',
-      'getAvatar',
       'clearSignFormData',
       'dialogOff',
       'pushSnackbarSuccess',
@@ -56,17 +54,13 @@ export default {
           throw new Error('すでにログイン中です')
         }
 
-        let response = await this.signIn(this.testUser)
+        const response = await this.signIn(this.testUser)
+
         const currentUser = response.data.data
         const headers = response.headers
 
         await this.setCurrentUser(currentUser)
         await this.setHeaders(headers)
-
-        response = await this.getAvatar(currentUser.id)
-        const avatar = response.data.data.avatar
-
-        await this.setCurrentUserAvatar(avatar)
 
         this.dialogOff('dialogSign')
         this.clearSignInFormData()
