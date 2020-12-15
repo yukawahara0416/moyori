@@ -64,12 +64,6 @@ describe('mutations', () => {
     expect(store.state.currentUser.data.email).toEqual(email)
   })
 
-  it('setCurrentUserAvatar', () => {
-    const avatar = 'test'
-    store.commit('setCurrentUserAvatar', avatar)
-    expect(store.state.currentUser.data.avatar).toEqual(avatar)
-  })
-
   it('clearSignUpForm', () => {
     const signUpForm = { name: 'test', email: 'test', password: 'test' }
     store.replaceState({ signUpForm: signUpForm })
