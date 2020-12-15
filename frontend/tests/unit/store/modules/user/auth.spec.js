@@ -36,10 +36,10 @@ describe('getters', () => {
     expect(store.getters.isLoggingIn).toBeTruthy()
   })
 
-  it('signInFormData', () => {
-    const signInFormData = { email: 'test', password: 'test' }
-    store.replaceState({ signInFormData: signInFormData })
-    expect(store.getters.signInFormData).toMatchObject(signInFormData)
+  it('signInForm', () => {
+    const signInForm = { email: 'test', password: 'test' }
+    store.replaceState({ signInForm: signInForm })
+    expect(store.getters.signInForm).toMatchObject(signInForm)
   })
 
   it('signUpForm', () => {
@@ -81,11 +81,11 @@ describe('mutations', () => {
     })
   })
 
-  it('clearSignInFormData', () => {
-    const signInFormData = { email: 'test', password: 'test' }
-    store.replaceState({ signInFormData: signInFormData })
-    store.commit('clearSignInFormData')
-    expect(store.state.signInFormData).toMatchObject({
+  it('clearSignInForm', () => {
+    const signInForm = { email: 'test', password: 'test' }
+    store.replaceState({ signInForm: signInForm })
+    store.commit('clearSignInForm')
+    expect(store.state.signInForm).toMatchObject({
       email: '',
       password: ''
     })
@@ -128,16 +128,14 @@ describe('actions', () => {
   })
 
   it('signIn', () => {
-    const signInFormData = {
+    const signInForm = {
       email: 'test',
       password: 'test'
     }
     const response = { data: { data: { id: 1 } } }
 
-    axiosMock
-      .onPost('/api/v1/auth/sign_in', signInFormData)
-      .reply(200, response)
-    store.dispatch('signIn', signInFormData).then(res => {
+    axiosMock.onPost('/api/v1/auth/sign_in', signInForm).reply(200, response)
+    store.dispatch('signIn', signInForm).then(res => {
       expect(res.data.data).toMatchObject(response.data)
     })
   })
