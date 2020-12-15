@@ -176,6 +176,7 @@ export default {
     },
 
     cancelUpdateAccount() {
+      this.uploadImageUrl = null
       this.closeDialog()
       this.clearEditFormData()
       this.pushSnackbarSuccess({
