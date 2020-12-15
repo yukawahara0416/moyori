@@ -45,10 +45,6 @@ export default {
       state.currentUser.data = payload
     },
 
-    setCurrentUserAvatar(state, payload) {
-      state.currentUser.data.avatar = payload
-    },
-
     setHeaders(state, payload) {
       state.headers = {
         'access-token': payload['access-token'],
