@@ -6,7 +6,7 @@ export default {
 
     headers: null,
 
-    signUpFormData: {
+    signUpForm: {
       name: '',
       email: '',
       password: ''
@@ -35,8 +35,8 @@ export default {
       return state.signInFormData
     },
 
-    signUpFormData(state) {
-      return state.signUpFormData
+    signUpForm(state) {
+      return state.signUpForm
     }
   },
 
@@ -63,8 +63,8 @@ export default {
       state.currentUser.data.email = email
     },
 
-    clearSignUpFormData(state) {
-      state.signUpFormData = {
+    clearSignUpForm(state) {
+      state.signUpForm = {
         name: '',
         email: '',
         password: ''
@@ -85,9 +85,9 @@ export default {
   },
 
   actions: {
-    signUp(context, signUpFormData) {
+    signUp(context, signUpForm) {
       return axiosBase
-        .post('/api/v1/auth/', signUpFormData)
+        .post('/api/v1/auth/', signUpForm)
         .then(response => {
           return response
         })
