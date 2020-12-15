@@ -209,12 +209,12 @@ export default {
       this.pushSnackbarSuccess({
         message: 'スポットの編集をキャンセルしました'
       })
-      this.clearForm()
     },
 
     closeDialog() {
       this.dialogOff('dialogSpotEdit')
       this.clearSpotFormData()
+      this.clearForm()
     },
 
     clearForm() {
