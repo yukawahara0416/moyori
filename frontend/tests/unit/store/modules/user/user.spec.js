@@ -41,14 +41,6 @@ describe('mutations', () => {
     expect(store.state.user.data.email).toEqual(email)
   })
 
-  it('editUserAvatarStore', () => {
-    const user = { data: { avatar: 'test' } }
-    const avatar = 'update'
-    store.replaceState({ user: user })
-    store.commit('editUserAvatarStore', avatar)
-    expect(store.state.user.data.avatar).toEqual(avatar)
-  })
-
   it('clearUserStore', () => {
     const user = { test: 'test' }
     store.replaceState({ user: user })
