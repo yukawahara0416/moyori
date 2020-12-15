@@ -101,7 +101,8 @@ export default {
       name: this.user.data.name,
       email: this.user.data.email,
       avatar: this.user.data.avatar,
-      avatar_slot: null
+      avatar_slot: null,
+      uploadImageUrl: null
     }
   },
 
