@@ -25,11 +25,6 @@ export default {
       state.user.data.avatar = avatar
     },
 
-    // ユーザアバターを更新します
-    editUserAvatarStore(state, payload) {
-      state.user.data.avatar = payload
-    },
-
     // ユーザデータを初期化します
     clearUserStore(state) {
       state.user = {}
