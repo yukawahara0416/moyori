@@ -37,7 +37,7 @@ export default {
     ...mapMutations([
       'setHeaders',
       'setCurrentUser',
-      'clearSignUpFormData',
+      'clearSignUpForm',
       'clearSignInFormData'
     ]),
     ...mapActions([
@@ -64,7 +64,7 @@ export default {
 
         this.dialogOff('dialogSign')
         this.clearSignInFormData()
-        this.clearSignUpFormData()
+        this.clearSignUpForm()
         this.pushSnackbarSuccess({ message: 'ログインしました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })
