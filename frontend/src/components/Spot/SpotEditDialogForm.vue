@@ -75,24 +75,33 @@
             />
           </ValidationProvider>
 
-          <ValidationProvider
-            v-slot="{ errors, valid }"
-            name="画像"
-            rules="image"
-          >
-            <v-file-input
-              chips
-              counter
-              label="画像"
-              name="picture"
-              prepend-icon="mdi-camera"
-              show-size
-              v-model="picture"
-              :clearable="true"
-              :error-messages="errors"
-              :success="valid"
-            />
-          </ValidationProvider>
+          <v-row class="pt-0 px-4">
+            <v-col class="pl-0 py-0" :cols="uploadImageUrl ? 8 : 12">
+              <ValidationProvider
+                v-slot="{ errors, valid }"
+                name="画像"
+                rules="image"
+              >
+                <v-file-input
+                  chips
+                  counter
+                  label="画像"
+                  name="picture"
+                  prepend-icon="mdi-camera"
+                  show-size
+                  v-model="picture"
+                  :clearable="true"
+                  :error-messages="errors"
+                  :success="valid"
+                />
+              </ValidationProvider>
+            </v-col>
+            <v-col class="py-0" v-if="uploadImageUrl" cols="4">
+              <v-card class="d-flex mx-2" flat outlined tile width="100px">
+                <v-img aspect-ratio="1" :src="uploadImageUrl" />
+              </v-card>
+            </v-col>
+          </v-row>
         </v-form>
       </v-card-text>
 
