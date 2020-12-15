@@ -138,17 +138,6 @@ export default {
         .catch(() => {
           throw new Error('アカウントの削除に失敗しました')
         })
-    },
-
-    getAvatar(context, userId) {
-      return axiosBase
-        .get('/api/v1/users/' + userId)
-        .then(response => {
-          return response
-        })
-        .catch(() => {
-          throw new Error('ユーザ画像の取得に失敗しました')
-        })
     }
   }
 }
