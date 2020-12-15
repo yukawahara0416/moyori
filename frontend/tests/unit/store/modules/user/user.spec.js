@@ -31,12 +31,12 @@ describe('mutations', () => {
     expect(store.state.user).toMatchObject(user)
   })
 
-  it('editUserStore', () => {
+  it('updateUserStore', () => {
     const user = { data: { name: 'test', email: 'test' } }
     const name = 'update'
     const email = 'update'
     store.replaceState({ user: user })
-    store.commit('editUserStore', { name, email })
+    store.commit('updateUserStore', { name, email })
     expect(store.state.user.data.name).toEqual(name)
     expect(store.state.user.data.email).toEqual(email)
   })
