@@ -55,7 +55,7 @@
                   name="picture"
                   prepend-icon="mdi-camera"
                   show-size
-                  v-model="avatar_slot"
+                  v-model="image"
                   :clearable="true"
                   :error-messages="errors"
                   :success="valid"
@@ -111,7 +111,7 @@ export default {
       name: this.user.data.name,
       email: this.user.data.email,
       avatar: this.user.data.avatar,
-      avatar_slot: null,
+      image: null,
       uploadImageUrl: null
     }
   },
@@ -123,8 +123,7 @@ export default {
       const formData = new FormData()
       formData.append('[name]', this.name)
       formData.append('[email]', this.email)
-      if (this.avatar_slot !== null)
-        formData.append('[avatar]', this.avatar_slot)
+      if (this.image !== null) formData.append('[avatar]', this.image)
 
       return formData
     }
@@ -153,7 +152,6 @@ export default {
         })
 
         this.closeDialog()
-        this.clearEditFormData()
         this.pushSnackbarSuccess({ message: 'アカウントを編集しました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })
@@ -176,9 +174,7 @@ export default {
     },
 
     cancelUpdateAccount() {
-      this.uploadImageUrl = null
       this.closeDialog()
-      this.clearEditFormData()
       this.pushSnackbarSuccess({
         message: 'スポットの編集をキャンセルしました'
       })
@@ -186,13 +182,15 @@ export default {
 
     closeDialog() {
       this.$emit('closeDialog')
+      this.clearForm()
     },
 
-    clearEditFormData() {
+    clearForm() {
       this.name = this.user.data.name
       this.email = this.user.data.email
       this.avatar = this.user.data.avatar
-      this.avatar_slot = null
+      this.image = null
+      this.uploadImageUrl = null
     }
   }
 }
