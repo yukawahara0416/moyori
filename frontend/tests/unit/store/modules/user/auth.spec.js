@@ -42,10 +42,10 @@ describe('getters', () => {
     expect(store.getters.signInFormData).toMatchObject(signInFormData)
   })
 
-  it('signUpFormData', () => {
-    const signUpFormData = { name: 'test', email: 'test', password: 'test' }
-    store.replaceState({ signUpFormData: signUpFormData })
-    expect(store.getters.signUpFormData).toMatchObject(signUpFormData)
+  it('signUpForm', () => {
+    const signUpForm = { name: 'test', email: 'test', password: 'test' }
+    store.replaceState({ signUpForm: signUpForm })
+    expect(store.getters.signUpForm).toMatchObject(signUpForm)
   })
 })
 
@@ -70,11 +70,11 @@ describe('mutations', () => {
     expect(store.state.currentUser.data.avatar).toEqual(avatar)
   })
 
-  it('clearSignUpFormData', () => {
-    const signUpFormData = { name: 'test', email: 'test', password: 'test' }
-    store.replaceState({ signUpFormData: signUpFormData })
-    store.commit('clearSignUpFormData')
-    expect(store.state.signUpFormData).toMatchObject({
+  it('clearSignUpForm', () => {
+    const signUpForm = { name: 'test', email: 'test', password: 'test' }
+    store.replaceState({ signUpForm: signUpForm })
+    store.commit('clearSignUpForm')
+    expect(store.state.signUpForm).toMatchObject({
       name: '',
       email: '',
       password: ''
@@ -114,15 +114,15 @@ describe('mutations', () => {
 
 describe('actions', () => {
   it('signUp', () => {
-    const signUpFormData = {
+    const signUpForm = {
       name: 'test',
       email: 'test',
       password: 'test'
     }
     const response = { data: { data: { id: 1 } } }
 
-    axiosMock.onPost('/api/v1/auth/', signUpFormData).reply(200, response)
-    store.dispatch('signUp', signUpFormData).then(res => {
+    axiosMock.onPost('/api/v1/auth/', signUpForm).reply(200, response)
+    store.dispatch('signUp', signUpForm).then(res => {
       expect(res.data.data).toMatchObject(response.data)
     })
   })
