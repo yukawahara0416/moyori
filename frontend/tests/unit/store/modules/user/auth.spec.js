@@ -98,11 +98,11 @@ describe('mutations', () => {
 
   it('clearHeaders', () => {
     const headers = { test: 'test' }
-    const currentUser = { data: { test: 'test' }, avatar: 'test' }
+    const currentUser = { data: { test: 'test' } }
     store.replaceState({ headers: headers, currentUser: currentUser })
     store.commit('clearHeaders')
     expect(store.state.headers).toBeNull()
-    expect(store.state.currentUser).toMatchObject({ data: {}, avatar: '' })
+    expect(store.state.currentUser).toMatchObject({ data: {} })
   })
 })
 
