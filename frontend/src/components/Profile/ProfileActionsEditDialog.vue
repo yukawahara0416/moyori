@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar class="white--text" color="primary" dense flat>
-      <v-toolbar-title>プロフィール編集</v-toolbar-title>
+      プロフィール編集
     </v-toolbar>
 
     <ValidationObserver ref="observer" v-slot="{ invalid }">
