@@ -76,7 +76,7 @@ export default {
 
     clearHeaders(state) {
       state.headers = null
-      state.currentUser = { data: {}, avatar: '' }
+      state.currentUser = { data: {} }
     }
   },
 
