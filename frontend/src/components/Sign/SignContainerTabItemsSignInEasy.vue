@@ -38,7 +38,7 @@ export default {
       'setHeaders',
       'setCurrentUser',
       'clearSignUpForm',
-      'clearSignInFormData'
+      'clearSignInForm'
     ]),
     ...mapActions([
       'signIn',
@@ -63,7 +63,7 @@ export default {
         await this.setHeaders(headers)
 
         this.dialogOff('dialogSign')
-        this.clearSignInFormData()
+        this.clearSignInForm()
         this.clearSignUpForm()
         this.pushSnackbarSuccess({ message: 'ログインしました' })
       } catch (error) {
