@@ -12,7 +12,7 @@ export default {
       password: ''
     },
 
-    signInFormData: {
+    signInForm: {
       email: '',
       password: ''
     }
@@ -31,8 +31,8 @@ export default {
       return state.headers == null ? false : true
     },
 
-    signInFormData(state) {
-      return state.signInFormData
+    signInForm(state) {
+      return state.signInForm
     },
 
     signUpForm(state) {
@@ -71,8 +71,8 @@ export default {
       }
     },
 
-    clearSignInFormData(state) {
-      state.signInFormData = {
+    clearSignInForm(state) {
+      state.signInForm = {
         email: '',
         password: ''
       }
@@ -96,9 +96,9 @@ export default {
         })
     },
 
-    signIn(context, signInFormData) {
+    signIn(context, signInForm) {
       return axiosBase
-        .post('/api/v1/auth/sign_in', signInFormData)
+        .post('/api/v1/auth/sign_in', signInForm)
         .then(response => {
           return response
         })
