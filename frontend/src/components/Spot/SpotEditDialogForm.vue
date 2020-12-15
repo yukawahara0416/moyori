@@ -93,6 +93,7 @@
                   :clearable="true"
                   :error-messages="errors"
                   :success="valid"
+                  @change="onImagePicked"
                 />
               </ValidationProvider>
             </v-col>
@@ -185,6 +186,21 @@ export default {
         this.pushSnackbarSuccess({ message: 'スポットの情報を更新しました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })
+      }
+    },
+
+    onImagePicked(file) {
+      if (file !== undefined && file !== null) {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader()
+        fr.readAsDataURL(file)
+        fr.addEventListener('load', () => {
+          this.uploadImageUrl = fr.result
+        })
+      } else {
+        this.uploadImageUrl = null
       }
     },
 
