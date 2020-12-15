@@ -290,7 +290,6 @@ export default {
     },
 
     cancelPostSpot() {
-      this.uploadImageUrl = null
       this.closeDialog()
       this.pushSnackbarSuccess({
         message: 'スポットの登録をキャンセルしました'
@@ -305,6 +304,7 @@ export default {
 
     clearForm() {
       this.image = null
+      this.uploadImageUrl = null
       this.wifi_radio = 'unknown'
       this.power_radio = 'unknown'
     }
