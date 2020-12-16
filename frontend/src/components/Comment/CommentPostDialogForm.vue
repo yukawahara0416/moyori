@@ -298,9 +298,6 @@ export default {
       params.append('wifi_with[spot_id]', spot.data.id)
 
       let target = null
-      // const tab = this.profileTab
-      // const headers = this.headers
-      // const route = this.$route.name
 
       // 「Wifiあるよ」の投票があれば処理を終了します
       if (this.isWifiWithing) return
@@ -334,9 +331,6 @@ export default {
       params.append('wifi_without[spot_id]', spot.data.id)
 
       let target = null
-      // const tab = this.profileTab
-      // const headers = this.headers
-      // const route = this.$route.name
 
       // 「Wifiないよ」の投票があれば処理を終了します
       if (this.isWifiWithouting) return
@@ -370,9 +364,6 @@ export default {
       params.append('power_with[spot_id]', spot.data.id)
 
       let target = null
-      // const tab = this.profileTab
-      // const headers = this.headers
-      // const route = this.$route.name
 
       // 「電源あるよ」の投票があれば処理を終了します
       if (this.isPowerWithing) return
@@ -406,9 +397,6 @@ export default {
       params.append('power_without[spot_id]', spot.data.id)
 
       let target = null
-      // const tab = this.profileTab
-      // const headers = this.headers
-      // const route = this.$route.name
 
       // 「電源ないよ」の投票があれば処理を終了します
       if (this.isPowerWithouting) return
@@ -436,37 +424,6 @@ export default {
         route
       })
     },
-
-    // voteHandler: async function(spot) {
-    //   const params = new FormData()
-    //   const tab = this.profileTab
-    //   const headers = this.headers
-    //   const route = this.$route.name
-
-    //   if (this.wifi_radio !== 'unknown') {
-    //     params.append(`${this.wifi_radio}[spot_id]`, spot.data.id)
-    //     await this.vote({
-    //       prop: `${this.wifi_radio}s`,
-    //       spot,
-    //       params,
-    //       tab,
-    //       headers,
-    //       route
-    //     })
-    //   }
-
-    //   if (this.power_radio !== 'unknown') {
-    //     params.append(`${this.power_radio}[spot_id]`, spot.data.id)
-    //     await this.vote({
-    //       prop: `${this.power_radio}s`,
-    //       spot,
-    //       params,
-    //       tab,
-    //       headers,
-    //       route
-    //     })
-    //   }
-    // },
 
     onImagePicked(file) {
       if (file !== undefined && file !== null) {
