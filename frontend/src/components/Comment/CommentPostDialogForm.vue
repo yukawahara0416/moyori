@@ -268,33 +268,33 @@ export default {
       if (this.wifi_radio === 'unknown' && this.power_radio === 'unknown')
         return
 
+      const params = new FormData()
       const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
 
       // 「Wifiあり」が選択された場合
       if (this.wifi_radio === 'wifi_with') {
-        await this.wifiWithHandler(spot, tab, headers, route)
+        await this.wifiWithHandler(spot, tab, headers, route, params)
       }
 
       // 「Wifiなし」が選択された場合
       if (this.wifi_radio === 'wifi_without') {
-        await this.wifiWithoutHandler(spot, tab, headers, route)
+        await this.wifiWithoutHandler(spot, tab, headers, route, params)
       }
 
       // 「電源あり」が選択された場合
       if (this.power_radio === 'power_with') {
-        await this.powerWithHandler(spot, tab, headers, route)
+        await this.powerWithHandler(spot, tab, headers, route, params)
       }
 
       // 「電源なし」が選択された場合
       if (this.power_radio === 'power_without') {
-        await this.powerWithoutHandler(spot, tab, headers, route)
+        await this.powerWithoutHandler(spot, tab, headers, route, params)
       }
     },
 
-    wifiWithHandler: async function(spot, tab, headers, route) {
-      const params = new FormData()
+    wifiWithHandler: async function(spot, tab, headers, route, params) {
       params.append('wifi_with[spot_id]', spot.data.id)
 
       let target = null
@@ -326,8 +326,7 @@ export default {
       })
     },
 
-    wifiWithoutHandler: async function(spot, tab, headers, route) {
-      const params = new FormData()
+    wifiWithoutHandler: async function(spot, tab, headers, route, params) {
       params.append('wifi_without[spot_id]', spot.data.id)
 
       let target = null
@@ -359,8 +358,7 @@ export default {
       })
     },
 
-    powerWithHandler: async function(spot, tab, headers, route) {
-      const params = new FormData()
+    powerWithHandler: async function(spot, tab, headers, route, params) {
       params.append('power_with[spot_id]', spot.data.id)
 
       let target = null
@@ -392,8 +390,7 @@ export default {
       })
     },
 
-    powerWithoutHandler: async function(spot, tab, headers, route) {
-      const params = new FormData()
+    powerWithoutHandler: async function(spot, tab, headers, route, params) {
       params.append('power_without[spot_id]', spot.data.id)
 
       let target = null
