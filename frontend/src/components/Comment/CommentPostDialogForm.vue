@@ -201,7 +201,12 @@ export default {
     ...mapMutations(['assignSpotFormData', 'dialogOn', 'changeSignTab']),
     ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
     ...mapActions({ postSpot: 'spot/postSpot' }),
-    ...mapActions(['vote', 'pushSnackbarSuccess', 'pushSnackbarError']),
+    ...mapActions([
+      'vote',
+      'unvote',
+      'pushSnackbarSuccess',
+      'pushSnackbarError'
+    ]),
 
     commentHandler: async function() {
       const spot = this.spot
@@ -280,7 +285,15 @@ export default {
       }
     },
 
-    wifiWithHandler: async function(spot) {},
+    wifiWithHandler: async function(spot) {
+      const params = new FormData()
+      params.append('wifi_with[spot_id]', spot.data.id)
+
+      let target = null
+      const tab = this.profileTab
+      const headers = this.headers
+      const route = this.$route.name
+    },
 
     wifiWithoutHandler: async function(spot) {},
 
