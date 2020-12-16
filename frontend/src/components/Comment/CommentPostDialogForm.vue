@@ -258,36 +258,36 @@ export default {
       }
     },
 
-    voteHandler: async function(spot) {
-      const params = new FormData()
-      const tab = this.profileTab
-      const headers = this.headers
-      const route = this.$route.name
+    // voteHandler: async function(spot) {
+    //   const params = new FormData()
+    //   const tab = this.profileTab
+    //   const headers = this.headers
+    //   const route = this.$route.name
 
-      if (this.wifi_radio !== 'unknown') {
-        params.append(`${this.wifi_radio}[spot_id]`, spot.data.id)
-        await this.vote({
-          prop: `${this.wifi_radio}s`,
-          spot,
-          params,
-          tab,
-          headers,
-          route
-        })
-      }
+    //   if (this.wifi_radio !== 'unknown') {
+    //     params.append(`${this.wifi_radio}[spot_id]`, spot.data.id)
+    //     await this.vote({
+    //       prop: `${this.wifi_radio}s`,
+    //       spot,
+    //       params,
+    //       tab,
+    //       headers,
+    //       route
+    //     })
+    //   }
 
-      if (this.power_radio !== 'unknown') {
-        params.append(`${this.power_radio}[spot_id]`, spot.data.id)
-        await this.vote({
-          prop: `${this.power_radio}s`,
-          spot,
-          params,
-          tab,
-          headers,
-          route
-        })
-      }
-    },
+    //   if (this.power_radio !== 'unknown') {
+    //     params.append(`${this.power_radio}[spot_id]`, spot.data.id)
+    //     await this.vote({
+    //       prop: `${this.power_radio}s`,
+    //       spot,
+    //       params,
+    //       tab,
+    //       headers,
+    //       route
+    //     })
+    //   }
+    // },
 
     onImagePicked(file) {
       if (file !== undefined && file !== null) {
