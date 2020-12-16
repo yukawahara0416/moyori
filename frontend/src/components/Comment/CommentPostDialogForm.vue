@@ -365,6 +365,32 @@ export default {
       const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
+
+      // 「電源あるよ」の投票があれば処理を終了します
+      if (this.isPowerWithing) return
+
+      // 「電源ないよ」の投票があれば「電源ないよ」を取り消します
+      if (this.isPowerWithouting) {
+        target = this.yourPowerWithout[0]
+        await this.unVote({
+          prop: 'power_withouts',
+          spot,
+          target,
+          tab,
+          headers,
+          route
+        })
+      }
+
+      // 「電源あるよ」を投票します
+      await this.vote({
+        prop: 'power_withs',
+        spot,
+        params,
+        tab,
+        headers,
+        route
+      })
     },
 
     powerWithoutHandler: async function(spot) {},
