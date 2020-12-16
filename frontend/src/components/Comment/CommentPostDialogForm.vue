@@ -203,7 +203,7 @@ export default {
     ...mapActions({ postSpot: 'spot/postSpot' }),
     ...mapActions([
       'vote',
-      'unvote',
+      'unVote',
       'pushSnackbarSuccess',
       'pushSnackbarError'
     ]),
@@ -253,7 +253,7 @@ export default {
         })
 
         // 投票します
-        this.voteHandler(newSpot || spot)
+        await this.voteHandler(newSpot || spot)
 
         this.pushSnackbarSuccess({ message: 'コメントを投稿しました' })
         this.closeDialog()
@@ -268,19 +268,23 @@ export default {
       if (this.wifi_radio === 'unknown' && this.power_radio === 'unknown')
         return
 
+      // 「Wifiあり」が選択された場合
       if (this.wifi_radio === 'wifi_with') {
-        // 「Wifiあり」が選択された場合
         await this.wifiWithHandler(spot)
-      } else {
-        // 「Wifiなし」が選択された場合
+      }
+
+      // 「Wifiなし」が選択された場合
+      if (this.wifi_radio === 'wifi_without') {
         await this.wifiWithoutHandler(spot)
       }
 
+      // 「電源あり」が選択された場合
       if (this.power_radio === 'power_with') {
-        // 「電源あり」が選択された場合
         await this.powerWithHandler(spot)
-      } else {
-        // 「電源なし」が選択された場合
+      }
+
+      // 「電源なし」が選択された場合
+      if (this.power_radio === 'power_without') {
         await this.powerWithoutHandler(spot)
       }
     },
