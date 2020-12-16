@@ -268,6 +268,10 @@ export default {
       if (this.wifi_radio === 'unknown' && this.power_radio === 'unknown')
         return
 
+      const tab = this.profileTab
+      const headers = this.headers
+      const route = this.$route.name
+
       // 「Wifiあり」が選択された場合
       if (this.wifi_radio === 'wifi_with') {
         await this.wifiWithHandler(spot)
@@ -294,9 +298,9 @@ export default {
       params.append('wifi_with[spot_id]', spot.data.id)
 
       let target = null
-      const tab = this.profileTab
-      const headers = this.headers
-      const route = this.$route.name
+      // const tab = this.profileTab
+      // const headers = this.headers
+      // const route = this.$route.name
 
       // 「Wifiあるよ」の投票があれば処理を終了します
       if (this.isWifiWithing) return
@@ -330,9 +334,9 @@ export default {
       params.append('wifi_without[spot_id]', spot.data.id)
 
       let target = null
-      const tab = this.profileTab
-      const headers = this.headers
-      const route = this.$route.name
+      // const tab = this.profileTab
+      // const headers = this.headers
+      // const route = this.$route.name
 
       // 「Wifiないよ」の投票があれば処理を終了します
       if (this.isWifiWithouting) return
@@ -366,9 +370,9 @@ export default {
       params.append('power_with[spot_id]', spot.data.id)
 
       let target = null
-      const tab = this.profileTab
-      const headers = this.headers
-      const route = this.$route.name
+      // const tab = this.profileTab
+      // const headers = this.headers
+      // const route = this.$route.name
 
       // 「電源あるよ」の投票があれば処理を終了します
       if (this.isPowerWithing) return
@@ -402,9 +406,9 @@ export default {
       params.append('power_without[spot_id]', spot.data.id)
 
       let target = null
-      const tab = this.profileTab
-      const headers = this.headers
-      const route = this.$route.name
+      // const tab = this.profileTab
+      // const headers = this.headers
+      // const route = this.$route.name
 
       // 「電源ないよ」の投票があれば処理を終了します
       if (this.isPowerWithouting) return
