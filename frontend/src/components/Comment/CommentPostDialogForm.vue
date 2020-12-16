@@ -293,6 +293,32 @@ export default {
       const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
+
+      // 「Wifiあるよ」の投票があれば処理を終了します
+      if (this.isWifiWithing) return
+
+      // 「Wifiないよ」の投票があれば「Wifiないよ」の投票を取り消します
+      if (this.isWifiWithouting) {
+        target = this.yourWifiWithout[0]
+        await this.unVote({
+          prop: 'wifi_withouts',
+          spot,
+          target,
+          tab,
+          headers,
+          route
+        })
+      }
+
+      // 「Wifiあるよ」を投票します
+      await this.vote({
+        prop: 'wifi_withs',
+        spot,
+        params,
+        tab,
+        headers,
+        route
+      })
     },
 
     wifiWithoutHandler: async function(spot) {},
