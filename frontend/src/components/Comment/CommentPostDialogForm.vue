@@ -280,6 +280,14 @@ export default {
       }
     },
 
+    wifiWithHandler: async function(spot) {},
+
+    wifiWithoutHandler: async function(spot) {},
+
+    powerWithHandler: async function(spot) {},
+
+    powerWithoutHandler: async function(spot) {},
+
     // voteHandler: async function(spot) {
     //   const params = new FormData()
     //   const tab = this.profileTab
