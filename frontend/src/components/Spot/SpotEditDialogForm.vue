@@ -180,7 +180,8 @@ export default {
       const headers = this.headers
 
       try {
-        const data = await this.updateSpot({ spot, params, headers })
+        const response = await this.updateSpot({ spot, params, headers })
+        const data = response.data
         await this.updateDataSpotsStore({ spot, data })
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'スポットの情報を更新しました' })
