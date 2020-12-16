@@ -155,7 +155,39 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['form', 'map', 'headers', 'isLoggingIn', 'profileTab'])
+    ...mapGetters(['form', 'map', 'headers', 'isLoggingIn', 'profileTab']),
+
+    isWifiWithing() {
+      return this.yourWifiWith.length > 0 ? true : false
+    },
+
+    isWifiWithouting() {
+      return this.yourWifiWithout.length > 0 ? true : false
+    },
+
+    yourWifiWith() {
+      return this.spot.hasYourVote('wifi_withs', this.currentUser.data.id)
+    },
+
+    yourWifiWithout() {
+      return this.spot.hasYourVote('wifi_withouts', this.currentUser.data.id)
+    },
+
+    isPowerWithing() {
+      return this.yourPowerWith.length > 0 ? true : false
+    },
+
+    isPowerWithouting() {
+      return this.yourPowerWithout.length > 0 ? true : false
+    },
+
+    yourPowerWith() {
+      return this.spot.hasYourVote('power_withs', this.currentUser.data.id)
+    },
+
+    yourPowerWithout() {
+      return this.spot.hasYourVote('power_withouts', this.currentUser.data.id)
+    }
   },
 
   methods: {
