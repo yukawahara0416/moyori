@@ -22,26 +22,35 @@
           />
         </ValidationProvider>
 
-        <ValidationProvider
-          name="画像"
-          rules="image"
-          v-slot="{ errors, valid }"
-        >
-          <v-file-input
-            chips
-            counter
-            label="画像"
-            name="comment"
-            prepend-icon="mdi-camera"
-            show-size
-            v-model="image"
-            :clearable="true"
-            :error="errors.length > 0"
-            :error-messages="errors"
-            :success="valid"
-            @change="onImagePicked"
-          />
-        </ValidationProvider>
+        <v-row class="pt-0 px-4">
+          <v-col class="pl-0 py-0" :cols="uploadImageUrl ? 8 : 12">
+            <ValidationProvider
+              name="画像"
+              rules="image"
+              v-slot="{ errors, valid }"
+            >
+              <v-file-input
+                chips
+                counter
+                label="画像"
+                name="comment"
+                prepend-icon="mdi-camera"
+                show-size
+                v-model="image"
+                :clearable="true"
+                :error="errors.length > 0"
+                :error-messages="errors"
+                :success="valid"
+                @change="onImagePicked"
+              />
+            </ValidationProvider>
+          </v-col>
+          <v-col class="py-0" v-if="uploadImageUrl" cols="4">
+            <v-card class="d-flex mx-2" flat outlined tile width="100px">
+              <v-img aspect-ratio="1" :src="uploadImageUrl" />
+            </v-card>
+          </v-col>
+        </v-row>
       </v-form>
 
       <v-card-actions>
@@ -109,16 +118,6 @@
 
         <v-spacer />
       </v-card-actions>
-      <v-card
-        v-if="uploadImageUrl"
-        class="d-flex mx-2"
-        flat
-        outlined
-        tile
-        width="150px"
-      >
-        <v-img aspect-ratio="1" :src="uploadImageUrl" />
-      </v-card>
     </ValidationObserver>
   </v-card>
 </template>
@@ -156,11 +155,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['form', 'map', 'headers', 'isLoggingIn', 'profileTab']),
-
-    isPostedSpot() {
-      return this.spot.data.id !== null
-    }
+    ...mapGetters(['form', 'map', 'headers', 'isLoggingIn', 'profileTab'])
   },
 
   methods: {
@@ -213,7 +208,9 @@ export default {
           route
         })
 
+        // 投票します
         this.voteHandler(newSpot || spot)
+
         this.pushSnackbarSuccess({ message: 'コメントを投稿しました' })
         this.closeDialog()
         this.clearForm()
