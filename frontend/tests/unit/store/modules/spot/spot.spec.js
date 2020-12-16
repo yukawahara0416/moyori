@@ -138,7 +138,7 @@ describe('mutations', () => {
 describe('actions', () => {
   const spot = { data: { id: 1, place_id: '123', on: false, zIndex: 10 } }
   const params = { place_id: '123' }
-  const response = { state: '200 success', data: { place_id: '123' } }
+  const response = { data: { place_id: '123' } }
   const headers = { test: 'test' }
 
   it('postSpot', () => {
@@ -155,7 +155,7 @@ describe('actions', () => {
       .reply(200, response)
 
     return store.dispatch('updateSpot', { spot, params, headers }).then(res => {
-      expect(res.place_id).toEqual(response.data.place_id)
+      expect(res.data.data.place_id).toEqual(response.data.place_id)
     })
   })
 

@@ -152,7 +152,7 @@ export default {
       return axiosBase
         .patch(`/api/v1/spots/${spot.data.id}`, params, { headers })
         .then(response => {
-          return response.data.data
+          return response
         })
         .catch(() => {
           throw new Error('スポットの更新に失敗しました')

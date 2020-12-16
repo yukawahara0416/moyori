@@ -75,24 +75,34 @@
             />
           </ValidationProvider>
 
-          <ValidationProvider
-            v-slot="{ errors, valid }"
-            name="画像"
-            rules="image"
-          >
-            <v-file-input
-              chips
-              counter
-              label="画像"
-              name="picture"
-              prepend-icon="mdi-camera"
-              show-size
-              v-model="picture"
-              :clearable="true"
-              :error-messages="errors"
-              :success="valid"
-            />
-          </ValidationProvider>
+          <v-row class="pt-0 px-4">
+            <v-col class="pl-0 py-0" :cols="uploadImageUrl ? 8 : 12">
+              <ValidationProvider
+                v-slot="{ errors, valid }"
+                name="画像"
+                rules="image"
+              >
+                <v-file-input
+                  chips
+                  counter
+                  label="画像"
+                  name="picture"
+                  prepend-icon="mdi-camera"
+                  show-size
+                  v-model="picture"
+                  :clearable="true"
+                  :error-messages="errors"
+                  :success="valid"
+                  @change="onImagePicked"
+                />
+              </ValidationProvider>
+            </v-col>
+            <v-col class="py-0" v-if="uploadImageUrl" cols="4">
+              <v-card class="d-flex mx-2" flat outlined tile width="100px">
+                <v-img aspect-ratio="1" :src="uploadImageUrl" />
+              </v-card>
+            </v-col>
+          </v-row>
         </v-form>
       </v-card-text>
 
@@ -132,7 +142,8 @@ export default {
 
   data() {
     return {
-      picture: null
+      picture: null,
+      uploadImageUrl: null
     }
   },
 
@@ -169,12 +180,28 @@ export default {
       const headers = this.headers
 
       try {
-        const data = await this.updateSpot({ spot, params, headers })
+        const response = await this.updateSpot({ spot, params, headers })
+        const data = response.data
         await this.updateDataSpotsStore({ spot, data })
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'スポットの情報を更新しました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })
+      }
+    },
+
+    onImagePicked(file) {
+      if (file !== undefined && file !== null) {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader()
+        fr.readAsDataURL(file)
+        fr.addEventListener('load', () => {
+          this.uploadImageUrl = fr.result
+        })
+      } else {
+        this.uploadImageUrl = null
       }
     },
 
@@ -188,6 +215,12 @@ export default {
     closeDialog() {
       this.dialogOff('dialogSpotEdit')
       this.clearSpotFormData()
+      this.clearForm()
+    },
+
+    clearForm() {
+      this.picture = null
+      this.uploadImageUrl = null
     }
   }
 }
