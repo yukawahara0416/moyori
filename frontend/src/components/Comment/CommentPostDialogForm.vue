@@ -274,26 +274,26 @@ export default {
 
       // 「Wifiあり」が選択された場合
       if (this.wifi_radio === 'wifi_with') {
-        await this.wifiWithHandler(spot)
+        await this.wifiWithHandler(spot, tab, headers, route)
       }
 
       // 「Wifiなし」が選択された場合
       if (this.wifi_radio === 'wifi_without') {
-        await this.wifiWithoutHandler(spot)
+        await this.wifiWithoutHandler(spot, tab, headers, route)
       }
 
       // 「電源あり」が選択された場合
       if (this.power_radio === 'power_with') {
-        await this.powerWithHandler(spot)
+        await this.powerWithHandler(spot, tab, headers, route)
       }
 
       // 「電源なし」が選択された場合
       if (this.power_radio === 'power_without') {
-        await this.powerWithoutHandler(spot)
+        await this.powerWithoutHandler(spot, tab, headers, route)
       }
     },
 
-    wifiWithHandler: async function(spot) {
+    wifiWithHandler: async function(spot, tab, headers, route) {
       const params = new FormData()
       params.append('wifi_with[spot_id]', spot.data.id)
 
@@ -329,7 +329,7 @@ export default {
       })
     },
 
-    wifiWithoutHandler: async function(spot) {
+    wifiWithoutHandler: async function(spot, tab, headers, route) {
       const params = new FormData()
       params.append('wifi_without[spot_id]', spot.data.id)
 
@@ -365,7 +365,7 @@ export default {
       })
     },
 
-    powerWithHandler: async function(spot) {
+    powerWithHandler: async function(spot, tab, headers, route) {
       const params = new FormData()
       params.append('power_with[spot_id]', spot.data.id)
 
@@ -401,7 +401,7 @@ export default {
       })
     },
 
-    powerWithoutHandler: async function(spot) {
+    powerWithoutHandler: async function(spot, tab, headers, route) {
       const params = new FormData()
       params.append('power_without[spot_id]', spot.data.id)
 
