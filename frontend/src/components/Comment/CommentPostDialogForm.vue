@@ -357,7 +357,15 @@ export default {
       })
     },
 
-    powerWithHandler: async function(spot) {},
+    powerWithHandler: async function(spot) {
+      const params = new FormData()
+      params.append('power_with[spot_id]', spot.data.id)
+
+      let target = null
+      const tab = this.profileTab
+      const headers = this.headers
+      const route = this.$route.name
+    },
 
     powerWithoutHandler: async function(spot) {},
 
