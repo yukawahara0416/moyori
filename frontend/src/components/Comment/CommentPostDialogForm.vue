@@ -155,7 +155,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['form', 'map', 'headers', 'isLoggingIn', 'profileTab']),
+    ...mapGetters([
+      'form',
+      'map',
+      'currentUser',
+      'headers',
+      'isLoggingIn',
+      'profileTab'
+    ]),
 
     isWifiWithing() {
       return this.yourWifiWith.length > 0 ? true : false
