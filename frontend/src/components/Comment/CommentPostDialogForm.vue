@@ -22,26 +22,35 @@
           />
         </ValidationProvider>
 
-        <ValidationProvider
-          name="画像"
-          rules="image"
-          v-slot="{ errors, valid }"
-        >
-          <v-file-input
-            chips
-            counter
-            label="画像"
-            name="comment"
-            prepend-icon="mdi-camera"
-            show-size
-            v-model="image"
-            :clearable="true"
-            :error="errors.length > 0"
-            :error-messages="errors"
-            :success="valid"
-            @change="onImagePicked"
-          />
-        </ValidationProvider>
+        <v-row class="pt-0 px-4">
+          <v-col class="pl-0 py-0" :cols="uploadImageUrl ? 8 : 12">
+            <ValidationProvider
+              name="画像"
+              rules="image"
+              v-slot="{ errors, valid }"
+            >
+              <v-file-input
+                chips
+                counter
+                label="画像"
+                name="comment"
+                prepend-icon="mdi-camera"
+                show-size
+                v-model="image"
+                :clearable="true"
+                :error="errors.length > 0"
+                :error-messages="errors"
+                :success="valid"
+                @change="onImagePicked"
+              />
+            </ValidationProvider>
+          </v-col>
+          <v-col class="py-0" v-if="uploadImageUrl" cols="4">
+            <v-card class="d-flex mx-2" flat outlined tile width="100px">
+              <v-img aspect-ratio="1" :src="uploadImageUrl" />
+            </v-card>
+          </v-col>
+        </v-row>
       </v-form>
 
       <v-card-actions>
@@ -109,16 +118,6 @@
 
         <v-spacer />
       </v-card-actions>
-      <v-card
-        v-if="uploadImageUrl"
-        class="d-flex mx-2"
-        flat
-        outlined
-        tile
-        width="150px"
-      >
-        <v-img aspect-ratio="1" :src="uploadImageUrl" />
-      </v-card>
     </ValidationObserver>
   </v-card>
 </template>
@@ -156,10 +155,45 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['form', 'map', 'headers', 'isLoggingIn', 'profileTab']),
+    ...mapGetters([
+      'form',
+      'map',
+      'currentUser',
+      'headers',
+      'isLoggingIn',
+      'profileTab'
+    ]),
 
-    isPostedSpot() {
-      return this.spot.data.id !== null
+    isWifiWithing() {
+      return this.yourWifiWith.length > 0 ? true : false
+    },
+
+    isWifiWithouting() {
+      return this.yourWifiWithout.length > 0 ? true : false
+    },
+
+    yourWifiWith() {
+      return this.spot.hasYourVote('wifi_withs', this.currentUser.data.id)
+    },
+
+    yourWifiWithout() {
+      return this.spot.hasYourVote('wifi_withouts', this.currentUser.data.id)
+    },
+
+    isPowerWithing() {
+      return this.yourPowerWith.length > 0 ? true : false
+    },
+
+    isPowerWithouting() {
+      return this.yourPowerWithout.length > 0 ? true : false
+    },
+
+    yourPowerWith() {
+      return this.spot.hasYourVote('power_withs', this.currentUser.data.id)
+    },
+
+    yourPowerWithout() {
+      return this.spot.hasYourVote('power_withouts', this.currentUser.data.id)
     }
   },
 
@@ -167,7 +201,12 @@ export default {
     ...mapMutations(['assignSpotFormData', 'dialogOn', 'changeSignTab']),
     ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
     ...mapActions({ postSpot: 'spot/postSpot' }),
-    ...mapActions(['vote', 'pushSnackbarSuccess', 'pushSnackbarError']),
+    ...mapActions([
+      'vote',
+      'unVote',
+      'pushSnackbarSuccess',
+      'pushSnackbarError'
+    ]),
 
     commentHandler: async function() {
       const spot = this.spot
@@ -213,7 +252,9 @@ export default {
           route
         })
 
-        this.voteHandler(newSpot || spot)
+        // 投票します
+        await this.voteHandler(newSpot || spot)
+
         this.pushSnackbarSuccess({ message: 'コメントを投稿しました' })
         this.closeDialog()
         this.clearForm()
@@ -223,34 +264,162 @@ export default {
     },
 
     voteHandler: async function(spot) {
+      // wifi・電源どちらも「わからない」の場合は、処理を終了します
+      if (this.wifi_radio === 'unknown' && this.power_radio === 'unknown')
+        return
+
       const params = new FormData()
       const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
 
-      if (this.wifi_radio !== 'unknown') {
-        params.append(`${this.wifi_radio}[spot_id]`, spot.data.id)
-        await this.vote({
-          prop: `${this.wifi_radio}s`,
+      // 「Wifiあり」が選択された場合
+      if (this.wifi_radio === 'wifi_with') {
+        await this.wifiWithHandler(spot, tab, headers, route, params)
+      }
+
+      // 「Wifiなし」が選択された場合
+      if (this.wifi_radio === 'wifi_without') {
+        await this.wifiWithoutHandler(spot, tab, headers, route, params)
+      }
+
+      // 「電源あり」が選択された場合
+      if (this.power_radio === 'power_with') {
+        await this.powerWithHandler(spot, tab, headers, route, params)
+      }
+
+      // 「電源なし」が選択された場合
+      if (this.power_radio === 'power_without') {
+        await this.powerWithoutHandler(spot, tab, headers, route, params)
+      }
+    },
+
+    wifiWithHandler: async function(spot, tab, headers, route, params) {
+      params.append('wifi_with[spot_id]', spot.data.id)
+
+      let target = null
+
+      // 「Wifiあるよ」の投票があれば処理を終了します
+      if (this.isWifiWithing) return
+
+      // 「Wifiないよ」の投票があれば「Wifiないよ」の投票を取り消します
+      if (this.isWifiWithouting) {
+        target = this.yourWifiWithout[0]
+        await this.unVote({
+          prop: 'wifi_withouts',
           spot,
-          params,
+          target,
           tab,
           headers,
           route
         })
       }
 
-      if (this.power_radio !== 'unknown') {
-        params.append(`${this.power_radio}[spot_id]`, spot.data.id)
-        await this.vote({
-          prop: `${this.power_radio}s`,
+      // 「Wifiあるよ」を投票します
+      await this.vote({
+        prop: 'wifi_withs',
+        spot,
+        params,
+        tab,
+        headers,
+        route
+      })
+    },
+
+    wifiWithoutHandler: async function(spot, tab, headers, route, params) {
+      params.append('wifi_without[spot_id]', spot.data.id)
+
+      let target = null
+
+      // 「Wifiないよ」の投票があれば処理を終了します
+      if (this.isWifiWithouting) return
+
+      // 「Wifiあるよ」の投票があれば取り消します
+      if (this.isWifiWithing) {
+        target = this.yourWifiWith[0]
+        await this.unVote({
+          prop: 'wifi_withs',
           spot,
-          params,
+          target,
           tab,
           headers,
           route
         })
       }
+
+      // 「Wifiないよ」を投票します
+      await this.vote({
+        prop: 'wifi_withouts',
+        spot,
+        params,
+        tab,
+        headers,
+        route
+      })
+    },
+
+    powerWithHandler: async function(spot, tab, headers, route, params) {
+      params.append('power_with[spot_id]', spot.data.id)
+
+      let target = null
+
+      // 「電源あるよ」の投票があれば処理を終了します
+      if (this.isPowerWithing) return
+
+      // 「電源ないよ」の投票があれば「電源ないよ」を取り消します
+      if (this.isPowerWithouting) {
+        target = this.yourPowerWithout[0]
+        await this.unVote({
+          prop: 'power_withouts',
+          spot,
+          target,
+          tab,
+          headers,
+          route
+        })
+      }
+
+      // 「電源あるよ」を投票します
+      await this.vote({
+        prop: 'power_withs',
+        spot,
+        params,
+        tab,
+        headers,
+        route
+      })
+    },
+
+    powerWithoutHandler: async function(spot, tab, headers, route, params) {
+      params.append('power_without[spot_id]', spot.data.id)
+
+      let target = null
+
+      // 「電源ないよ」の投票があれば処理を終了します
+      if (this.isPowerWithouting) return
+
+      // 「電源あるよ」の投票があれば「電源あるよ」を取り消します
+      if (this.isPowerWithing) {
+        target = this.yourPowerWith[0]
+        await this.unVote({
+          prop: 'power_withs',
+          spot,
+          target,
+          tab,
+          headers,
+          route
+        })
+      }
+
+      // 「電源ないよ」を投票します
+      await this.vote({
+        prop: 'power_withouts',
+        spot,
+        params,
+        tab,
+        headers,
+        route
+      })
     },
 
     onImagePicked(file) {
