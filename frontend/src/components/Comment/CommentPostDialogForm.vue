@@ -258,6 +258,28 @@ export default {
       }
     },
 
+    voteHandler: async function(spot) {
+      // wifi・電源どちらも「わからない」の場合は、処理を終了します
+      if (this.wifi_radio === 'unknown' && this.power_radio === 'unknown')
+        return
+
+      if (this.wifi_radio === 'wifi_with') {
+        // 「Wifiあり」が選択された場合
+        await this.wifiWithHandler(spot)
+      } else {
+        // 「Wifiなし」が選択された場合
+        await this.wifiWithoutHandler(spot)
+      }
+
+      if (this.power_radio === 'power_with') {
+        // 「電源あり」が選択された場合
+        await this.powerWithHandler(spot)
+      } else {
+        // 「電源なし」が選択された場合
+        await this.powerWithoutHandler(spot)
+      }
+    },
+
     // voteHandler: async function(spot) {
     //   const params = new FormData()
     //   const tab = this.profileTab
