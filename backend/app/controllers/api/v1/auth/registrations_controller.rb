@@ -2,6 +2,17 @@ module Api
   module V1
     module Auth
       class RegistrationsController < DeviseTokenAuth::RegistrationsController
+        def destroy
+          if @resource
+            @resource.destroy
+            @resource.avatar.prune
+            yield @resource if block_given?
+            render_destroy_success
+          else
+            render_destroy_error
+          end
+        end
+
         def render_create_success
           render json: convert_to_registrations(@resource)
         end
