@@ -257,7 +257,6 @@ export default {
 
         this.pushSnackbarSuccess({ message: 'コメントを投稿しました' })
         this.closeDialog()
-        this.clearForm()
       } catch (error) {
         this.pushSnackbarError({ message: error })
       }
@@ -439,11 +438,13 @@ export default {
 
     closeDialog() {
       this.$emit('closeDialog')
+      this.clearForm()
     },
 
     clearForm() {
       this.content = ''
       this.image = null
+      this.uploadImageUrl = null
       this.wifi_radio = 'unknown'
       this.power_radio = 'unknown'
     }
