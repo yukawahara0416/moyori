@@ -31,36 +31,8 @@ export default {
     ProfileContents
   },
 
-  async created() {
-    this.loadingOn()
-    this.clearSpotsStore()
-    this.clearUserStore()
-
-    try {
-      let response = await this.getUser(this.id)
-
-      const target = [
-        'posts',
-        'likes',
-        'wifi_withs',
-        'wifi_withouts',
-        'power_withs',
-        'power_withouts',
-        'comments'
-      ]
-
-      for (let i = 0; i < target.length; i++) {
-        response.data[target[i]] = response.data[target[i]].map(spot => {
-          return new Spot(spot)
-        })
-      }
-
-      this.setUserStore(response.data)
-    } catch (error) {
-      this.pushSnackbarError({ message: error })
-    } finally {
-      this.loadingOff()
-    }
+  created() {
+    this.fetchData()
   },
 
   computed: {
@@ -76,7 +48,39 @@ export default {
       setUserStore: 'user/setUserStore'
     }),
     ...mapActions(['pushSnackbarError']),
-    ...mapActions({ getUser: 'user/getUser' })
+    ...mapActions({ getUser: 'user/getUser' }),
+
+    fetchData: async function() {
+      this.loadingOn()
+      this.clearSpotsStore()
+      this.clearUserStore()
+
+      try {
+        let response = await this.getUser(this.id)
+
+        const target = [
+          'posts',
+          'likes',
+          'wifi_withs',
+          'wifi_withouts',
+          'power_withs',
+          'power_withouts',
+          'comments'
+        ]
+
+        for (let i = 0; i < target.length; i++) {
+          response.data[target[i]] = response.data[target[i]].map(spot => {
+            return new Spot(spot)
+          })
+        }
+
+        this.setUserStore(response.data)
+      } catch (error) {
+        this.pushSnackbarError({ message: error })
+      } finally {
+        this.loadingOff()
+      }
+    }
   }
 }
 </script>
