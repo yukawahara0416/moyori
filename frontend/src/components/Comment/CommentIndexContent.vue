@@ -1,7 +1,7 @@
 <template>
   <v-card-text class="pb-0">
     <v-row>
-      <v-col :cols="isImageExist(comment) ? 9 : 12" class="py-0">
+      <v-col :cols="isImageExist(comment) ? 10 : 12" class="py-0">
         <p class="mx-3" v-if="readMore">
           {{ comment.content.slice(0, maxChar) }}
 
@@ -14,7 +14,7 @@
         </p>
       </v-col>
 
-      <v-col v-if="isImageExist(comment)" cols="3" class="pa-0">
+      <v-col v-if="isImageExist(comment)" cols="2" class="pa-0">
         <comment-index-image :comment="comment" />
       </v-col>
     </v-row>
