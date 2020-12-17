@@ -10,6 +10,7 @@ module Api
 
       def destroy
         comment = current_api_v1_user.comments.find(params[:id])
+        comment.image.purge
         comment.destroy!
         render json: comment.as_json(only: :id)
       end
