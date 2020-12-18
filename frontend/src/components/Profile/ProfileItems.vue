@@ -1,6 +1,6 @@
 <template>
   <v-col class="text-center">
-    <profile-items-image :user="user" />
+    <profile-items-image :user="user" v-if="user.data !== undefined" />
 
     <profile-items-name :user="user" />
   </v-col>
