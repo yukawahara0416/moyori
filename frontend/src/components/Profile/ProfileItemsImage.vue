@@ -12,7 +12,7 @@ export default {
 
   computed: {
     avatar() {
-      if (this.user.data) {
+      if (this.user.data.avatar) {
         return this.user.data.avatar
       } else {
         return require('@/assets/noimage.png')
