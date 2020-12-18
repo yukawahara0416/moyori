@@ -130,6 +130,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations({ updateCurrentUser: 'updateCurrentUser' }),
     ...mapMutations({ updateUserStore: 'user/updateUserStore' }),
     ...mapActions([
       'updateAccount',
@@ -146,6 +147,12 @@ export default {
         const currentUser = response.data.data
 
         await this.updateUserStore({
+          name: currentUser.name,
+          email: currentUser.email,
+          avatar: currentUser.avatar
+        })
+
+        await this.updateCurrentUser({
           name: currentUser.name,
           email: currentUser.email,
           avatar: currentUser.avatar

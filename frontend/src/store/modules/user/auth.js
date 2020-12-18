@@ -54,9 +54,10 @@ export default {
       }
     },
 
-    updateCurrentUser(state, { name, email }) {
+    updateCurrentUser(state, { name, email, avatar }) {
       state.currentUser.data.name = name
       state.currentUser.data.email = email
+      state.currentUser.data.avatar = avatar
     },
 
     clearSignUpForm(state) {
