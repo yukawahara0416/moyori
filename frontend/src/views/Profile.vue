@@ -32,7 +32,12 @@ export default {
   },
 
   created() {
-    this.fetchData()
+    this.fetchData(this.id)
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    this.fetchData(to.params.id)
+    next()
   },
 
   computed: {
@@ -50,13 +55,13 @@ export default {
     ...mapActions(['pushSnackbarError']),
     ...mapActions({ getUser: 'user/getUser' }),
 
-    fetchData: async function() {
+    fetchData: async function(id) {
       this.loadingOn()
       this.clearSpotsStore()
       this.clearUserStore()
 
       try {
-        let response = await this.getUser(this.id)
+        let response = await this.getUser(id)
 
         const target = [
           'posts',
