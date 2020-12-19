@@ -97,6 +97,13 @@ describe('getters', () => {
   })
 })
 
+describe('methods', () => {
+  it('$emit.closeDialog', () => {
+    wrapper.vm.$emit('closeDialog')
+    expect(wrapper.emitted().closeDialog).toBeTruthy()
+  })
+})
+
 describe('actions', () => {
   // it('dialogOff', () => {
   //   wrapper.vm.dialogOff()
