@@ -77,7 +77,16 @@ describe('call at created hook', () => {
   })
 })
 
-describe('call at beforeRouteUpdate hook', () => {})
+describe('call at beforeRouteUpdate hook', () => {
+  let beforeRouteUpdate, to, next
+
+  beforeEach(() => {
+    beforeRouteUpdate = wrapper.vm.$options.beforeRouteUpdate[0]
+    to = { params: propsData.id }
+    next = jest.fn()
+    beforeRouteUpdate.call(wrapper.vm, to, null, next)
+  })
+})
 
 describe('getters', () => {
   it('user/user', () => {
