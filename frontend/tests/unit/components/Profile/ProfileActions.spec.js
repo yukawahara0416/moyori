@@ -13,7 +13,8 @@ let auth
 beforeEach(() => {
   propsData = {
     id: 1,
-    user: { data: { id: 1 }, posts: [{ data: { id: 1 } }] },
+    // user: { data: { id: 1 }, posts: [{ data: { id: 1 } }] },
+    user: { data: { id: 1 } },
     // headers: { uid: 'tester@example.com' },
     currentUser: { data: { id: 1 } }
   }
