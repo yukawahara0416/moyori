@@ -90,6 +90,10 @@ describe('call at beforeRouteUpdate hook', () => {
   it('fetchData', () => {
     expect(fetchData).toHaveBeenCalled()
   })
+
+  it('next', () => {
+    expect(next).toHaveBeenCalled()
+  })
 })
 
 describe('getters', () => {
