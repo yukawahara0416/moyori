@@ -64,7 +64,9 @@ describe('getters', () => {
   it('isLoggingIn', () => {
     expect(wrapper.vm.isLoggingIn).toEqual(auth.getters.isLoggingIn())
   })
+})
 
+describe('computed', () => {
   it('isOwnPage', () => {})
 })
 
