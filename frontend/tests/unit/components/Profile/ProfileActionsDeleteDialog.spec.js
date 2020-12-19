@@ -18,7 +18,11 @@ beforeEach(() => {
   }
 
   store = new Vuex.Store({
-    actions
+    modules: {
+      auth,
+      snackbar
+    }
+    // actions
   })
 
   wrapper = mount(Component, {
