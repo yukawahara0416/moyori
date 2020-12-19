@@ -7,18 +7,13 @@ localVue.use(Vuex)
 
 let wrapper
 let store
-// let actions
 let auth
 let snackbar
 
 const cancelDeleteAccount = jest.fn()
+const deleteAccountHandler = jest.fn()
 
 beforeEach(() => {
-  // actions = {
-  //   deleteAccount: jest.fn(),
-  //   dialogOff: jest.fn()
-  // }
-
   auth = {
     getters: {
       headers: () => {}
@@ -43,13 +38,12 @@ beforeEach(() => {
       auth,
       snackbar
     }
-    // actions
   })
 
   wrapper = mount(Component, {
     localVue,
     store,
-    methods: { cancelDeleteAccount }
+    methods: { cancelDeleteAccount, deleteAccountHandler }
   })
 })
 
@@ -74,6 +68,14 @@ describe('v-on', () => {
       .at(0)
       .trigger('click')
     expect(cancelDeleteAccount).toHaveBeenCalledTimes(1)
+  })
+
+  it('deleteAccountHandler', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+    expect(deleteAccountHandler).toHaveBeenCalledTimes(1)
   })
 
   // it('deleteAccount, dialogOff', () => {
