@@ -1,5 +1,4 @@
 // props id
-// created this.fetchData
 // getter user
 // getter currentUser
 
@@ -50,4 +49,16 @@ beforeEach(() => {
   //     fetchData
   //   }
   // })
+})
+
+describe('call at created hook', () => {
+  it('fetchData', () => {
+    const fetchData = jest.fn()
+    const wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      methods: { fetchData }
+    })
+    expect(fetchData).toHaveBeenCalled()
+  })
 })
