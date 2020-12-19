@@ -51,17 +51,13 @@ afterEach(() => {
   wrapper.destroy()
 })
 
-describe('v-on', () => {
-  // it('dialogOff', () => {
-  //   const event = jest.fn()
-  //   wrapper.setMethods({ dialogOff: event })
-  //   wrapper
-  //     .findAll('.v-btn')
-  //     .at(0)
-  //     .trigger('click')
-  //   expect(event).toHaveBeenCalledTimes(1)
-  // })
+describe('getters', () => {
+  it('headers', () => {
+    expect(wrapper.vm.headers).toEqual(auth.getters.headers())
+  })
+})
 
+describe('v-on', () => {
   it('cancelDeleteAccount', () => {
     wrapper
       .findAll('.v-btn')
@@ -77,24 +73,6 @@ describe('v-on', () => {
       .trigger('click')
     expect(deleteAccountHandler).toHaveBeenCalledTimes(1)
   })
-
-  // it('deleteAccount, dialogOff', () => {
-  //   const event1 = jest.fn()
-  //   const event2 = jest.fn()
-  //   wrapper.setMethods({ dialogOff: event1, deleteAccount: event2 })
-  //   wrapper
-  //     .findAll('.v-btn')
-  //     .at(1)
-  //     .trigger('click')
-  //   expect(event1).toHaveBeenCalledTimes(1)
-  //   expect(event2).toHaveBeenCalledTimes(1)
-  // })
-})
-
-describe('getters', () => {
-  it('headers', () => {
-    expect(wrapper.vm.headers).toEqual(auth.getters.headers())
-  })
 })
 
 describe('methods', () => {
@@ -102,17 +80,6 @@ describe('methods', () => {
     wrapper.vm.$emit('closeDialog')
     expect(wrapper.emitted().closeDialog).toBeTruthy()
   })
-})
-
-describe('actions', () => {
-  // it('dialogOff', () => {
-  //   wrapper.vm.dialogOff()
-  //   expect(actions.dialogOff).toHaveBeenCalled()
-  // })
-  // it('deleteAccount', () => {
-  //   wrapper.vm.deleteAccount()
-  //   expect(actions.deleteAccount).toHaveBeenCalled()
-  // })
 })
 
 describe('template', () => {
