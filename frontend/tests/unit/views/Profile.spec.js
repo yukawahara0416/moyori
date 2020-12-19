@@ -1,15 +1,3 @@
-// mutations
-// lodingOn
-// lodingOff
-// clearSpotsStore
-// clearUserStore
-// setUserStore
-
-// beforeRouteUpdate
-
-// actions
-// getUser
-
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/views/Profile.vue'
