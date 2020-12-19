@@ -77,6 +77,8 @@ describe('call at created hook', () => {
   })
 })
 
+describe('call at beforeRouteUpdate hook', () => {})
+
 describe('getters', () => {
   it('user/user', () => {
     expect(wrapper.vm.user).toEqual(user.getters.user())
