@@ -27,6 +27,8 @@ let auth
 const fetchData = jest.fn()
 
 beforeEach(() => {
+  propsData = { id: 1 }
+
   spot = {
     namespaced: true,
     mutations: {}
