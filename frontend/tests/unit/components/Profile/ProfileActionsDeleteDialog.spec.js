@@ -17,6 +17,12 @@ beforeEach(() => {
     dialogOff: jest.fn()
   }
 
+  auth = {
+    getters: {
+      headers: () => {}
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       auth,
