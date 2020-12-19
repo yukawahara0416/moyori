@@ -50,10 +50,10 @@ describe('props', () => {
     expect(wrapper.props().user).toStrictEqual(propsData.user)
     expect(wrapper.props().user instanceof Object).toBe(true)
   })
-  it('headers', () => {
-    expect(wrapper.props().headers).toStrictEqual(propsData.headers)
-    expect(wrapper.props().headers instanceof Object).toBe(true)
-  })
+  // it('headers', () => {
+  //   expect(wrapper.props().headers).toStrictEqual(propsData.headers)
+  //   expect(wrapper.props().headers instanceof Object).toBe(true)
+  // })
   it('currentUser', () => {
     expect(wrapper.props().currentUser).toStrictEqual(propsData.currentUser)
     expect(wrapper.props().currentUser instanceof Object).toBe(true)
