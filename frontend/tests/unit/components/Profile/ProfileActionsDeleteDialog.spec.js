@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Profile/ProfileActionsButtonsDeleteDialog.vue'
+import Component from '@/components/Profile/ProfileActionsDeleteDialog.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -8,6 +8,8 @@ localVue.use(Vuex)
 let wrapper
 let actions
 let store
+let auth
+let snackbar
 
 beforeEach(() => {
   actions = {
