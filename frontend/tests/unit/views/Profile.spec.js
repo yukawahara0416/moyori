@@ -5,6 +5,8 @@
 // clearUserStore
 // setUserStore
 
+// beforeRouteUpdate
+
 // actions
 // getUser
 
