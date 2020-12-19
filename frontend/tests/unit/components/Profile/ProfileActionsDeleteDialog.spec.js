@@ -91,6 +91,12 @@ describe('v-on', () => {
   // })
 })
 
+describe('getters', () => {
+  it('headers', () => {
+    expect(wrapper.vm.headers).toEqual(auth.getters.headers())
+  })
+})
+
 describe('actions', () => {
   // it('dialogOff', () => {
   //   wrapper.vm.dialogOff()
