@@ -64,6 +64,12 @@ beforeEach(() => {
   })
 })
 
+describe('props data', () => {
+  it('id', () => {
+    expect(wrapper.props().id).toEqual(propsData.id)
+  })
+})
+
 describe('call at created hook', () => {
   it('fetchData', () => {
     expect(fetchData).toHaveBeenCalled()
