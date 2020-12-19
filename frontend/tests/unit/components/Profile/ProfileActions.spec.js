@@ -14,7 +14,7 @@ beforeEach(() => {
   propsData = {
     id: 1,
     user: { data: { id: 1 }, posts: [{ data: { id: 1 } }] },
-    headers: { uid: 'tester@example.com' },
+    // headers: { uid: 'tester@example.com' },
     currentUser: { data: { id: 1 } }
   }
 
@@ -67,7 +67,9 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('isOwnPage', () => {})
+  it('isOwnPage', () => {
+    expect(wrapper.vm.isOwnPage).toBe(true)
+  })
 })
 
 describe('template', () => {
