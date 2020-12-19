@@ -7,6 +7,8 @@ localVue.use(Vuex)
 
 let wrapper
 let propsData
+let store
+let auth
 
 beforeEach(() => {
   propsData = {
@@ -15,6 +17,18 @@ beforeEach(() => {
     headers: { uid: 'tester@example.com' },
     currentUser: { data: { id: 1 } }
   }
+
+  auth = {
+    getters: {
+      isLoggingIn: () => true
+    }
+  }
+
+  store = new Vuex.Store({
+    modules: {
+      auth
+    }
+  })
 
   wrapper = shallowMount(Component, {
     propsData
