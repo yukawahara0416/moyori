@@ -61,7 +61,9 @@ describe('props', () => {
 })
 
 describe('getters', () => {
-  it('isLoggingIn', () => {})
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toEqual(auth.getters.isLoggingIn())
+  })
 
   it('isOwnPage', () => {})
 })
