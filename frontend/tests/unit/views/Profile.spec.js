@@ -19,10 +19,13 @@ import Component from '@/views/Profile.vue'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-// let wrapper
+let wrapper
 let store
 let spot
 let user
+let auth
+
+const fetchData = jest.fn()
 
 beforeEach(() => {
   spot = {
@@ -32,33 +35,35 @@ beforeEach(() => {
 
   user = {
     namespaced: true,
+    getters: {
+      user: () => {}
+    },
     mutations: {}
+  }
+
+  auth = {
+    getters: {
+      currentUser: () => {}
+    }
   }
 
   store = new Vuex.Store({
     modules: {
       spot,
-      user
+      user,
+      auth
     }
   })
 
-  // wrapper = shallowMount(Component, {
-  //   localVue,
-  //   store,
-  //   methods: {
-  //     fetchData
-  //   }
-  // })
+  wrapper = shallowMount(Component, {
+    localVue,
+    store,
+    methods: { fetchData }
+  })
 })
 
 describe('call at created hook', () => {
   it('fetchData', () => {
-    const fetchData = jest.fn()
-    const wrapper = shallowMount(Component, {
-      localVue,
-      store,
-      methods: { fetchData }
-    })
     expect(fetchData).toHaveBeenCalled()
   })
 })
