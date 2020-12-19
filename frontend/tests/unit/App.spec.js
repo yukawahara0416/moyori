@@ -1,19 +1,16 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
-import Vuetify from 'vuetify'
 import Component from '@/App.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(VueRouter)
-localVue.use(Vuetify)
 
 let wrapper
 let getters
 let store
 let router
-let vuetify
 
 beforeEach(() => {
   getters = {
@@ -25,14 +22,11 @@ beforeEach(() => {
   })
 
   router = new VueRouter()
-  vuetify = new Vuetify()
 
   wrapper = shallowMount(Component, {
     localVue,
     store,
-    router,
-    vuetify,
-    stubs: { 'snackbar-stub': '<div />', 'header-stub': '<div />' }
+    router
   })
 })
 
