@@ -11,6 +11,8 @@ let store
 let auth
 let snackbar
 
+const cancelDeleteAccount = jest.fn()
+
 beforeEach(() => {
   // actions = {
   //   deleteAccount: jest.fn(),
@@ -46,7 +48,8 @@ beforeEach(() => {
 
   wrapper = mount(Component, {
     localVue,
-    store
+    store,
+    methods: { cancelDeleteAccount }
   })
 })
 
@@ -65,17 +68,25 @@ describe('v-on', () => {
   //   expect(event).toHaveBeenCalledTimes(1)
   // })
 
-  it('deleteAccount, dialogOff', () => {
-    const event1 = jest.fn()
-    const event2 = jest.fn()
-    wrapper.setMethods({ dialogOff: event1, deleteAccount: event2 })
+  it('cancelDeleteAccount', () => {
     wrapper
       .findAll('.v-btn')
-      .at(1)
+      .at(0)
       .trigger('click')
-    expect(event1).toHaveBeenCalledTimes(1)
-    expect(event2).toHaveBeenCalledTimes(1)
+    expect(cancelDeleteAccount).toHaveBeenCalledTimes(1)
   })
+
+  // it('deleteAccount, dialogOff', () => {
+  //   const event1 = jest.fn()
+  //   const event2 = jest.fn()
+  //   wrapper.setMethods({ dialogOff: event1, deleteAccount: event2 })
+  //   wrapper
+  //     .findAll('.v-btn')
+  //     .at(1)
+  //     .trigger('click')
+  //   expect(event1).toHaveBeenCalledTimes(1)
+  //   expect(event2).toHaveBeenCalledTimes(1)
+  // })
 })
 
 describe('actions', () => {
