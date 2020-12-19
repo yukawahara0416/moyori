@@ -1,6 +1,4 @@
 // props id
-// getter user
-// getter currentUser
 
 // mutations
 // lodingOn
@@ -65,5 +63,15 @@ beforeEach(() => {
 describe('call at created hook', () => {
   it('fetchData', () => {
     expect(fetchData).toHaveBeenCalled()
+  })
+})
+
+describe('getters', () => {
+  it('user/user', () => {
+    expect(wrapper.vm.user).toEqual(user.getters.user())
+  })
+
+  it('currentUser', () => {
+    expect(wrapper.vm.currentUser).toEqual(auth.getters.currentUser())
   })
 })
