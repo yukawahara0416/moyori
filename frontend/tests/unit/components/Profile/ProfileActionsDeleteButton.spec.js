@@ -13,6 +13,7 @@ let wrapper
 let vuetify
 // let getters
 // let actions
+const openDialog = jest.fn()
 
 beforeEach(() => {
   // getters = {
@@ -34,7 +35,8 @@ beforeEach(() => {
   wrapper = mount(Component, {
     localVue,
     // store,
-    vuetify
+    vuetify,
+    methods: { openDialog }
   })
 })
 
@@ -55,15 +57,18 @@ beforeEach(() => {
 // })
 
 describe('v-on', () => {
-  const app = document.createElement('div')
-  app.setAttribute('data-app', true)
-  document.body.append(app)
+  // const app = document.createElement('div')
+  // app.setAttribute('data-app', true)
+  // document.body.append(app)
 
   it('dialogOn', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ dialogOn: event })
+    // const event = jest.fn()
+    // const openDialog = jest.fn()
+    // wrapper.setMethods({ dialogOn: event })
+    // wrapper.setMethods({ openDialog })
     wrapper.find('.v-btn').trigger('click')
-    expect(event).toHaveBeenCalledTimes(1)
+    // expect(event).toHaveBeenCalledTimes(1)
+    expect(openDialog).toHaveBeenCalledTimes(1)
   })
 })
 
