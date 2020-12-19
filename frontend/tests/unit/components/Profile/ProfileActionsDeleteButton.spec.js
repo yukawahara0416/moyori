@@ -14,6 +14,7 @@ let vuetify
 // let getters
 // let actions
 const openDialog = jest.fn()
+const closeDialog = jest.fn()
 
 beforeEach(() => {
   // getters = {
@@ -36,7 +37,7 @@ beforeEach(() => {
     localVue,
     // store,
     vuetify,
-    methods: { openDialog }
+    methods: { openDialog, closeDialog }
   })
 })
 
@@ -69,6 +70,12 @@ describe('v-on', () => {
     wrapper.find('.v-btn').trigger('click')
     // expect(event).toHaveBeenCalledTimes(1)
     expect(openDialog).toHaveBeenCalledTimes(1)
+  })
+
+  it('$emit.closeDialog', () => {
+    // wrapper.setMethods({ nearbySearch: jest.fn() })
+    wrapper.vm.$emit('closeDialog')
+    expect(wrapper.emitted().closeDialog).toBeTruthy()
   })
 })
 
