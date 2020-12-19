@@ -1,7 +1,7 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
-import Component from '@/components/Profile/ProfileActionsButtonsDelete.vue'
+import Component from '@/components/Profile/ProfileActionsDeleteButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
