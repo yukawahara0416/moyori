@@ -60,7 +60,11 @@ describe('props', () => {
   })
 })
 
-describe('getters', () => {})
+describe('getters', () => {
+  it('isLoggingIn', () => {})
+
+  it('isOwnPage', () => {})
+})
 
 describe('template', () => {
   it('snapshot', () => {
