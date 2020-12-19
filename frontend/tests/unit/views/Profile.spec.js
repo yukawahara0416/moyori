@@ -86,6 +86,10 @@ describe('call at beforeRouteUpdate hook', () => {
     next = jest.fn()
     beforeRouteUpdate.call(wrapper.vm, to, null, next)
   })
+
+  it('fetchData', () => {
+    expect(fetchData).toHaveBeenCalled()
+  })
 })
 
 describe('getters', () => {
