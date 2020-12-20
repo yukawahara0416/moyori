@@ -79,7 +79,10 @@ describe('computed', () => {
     expect(wrapper.vm.power_withs).toMatchObject(propsData.user.power_withs)
   })
 
-  it('comments', () => {})
+  it('comments', () => {
+    expect(wrapper.vm.comments).toMatchObject(propsData.user.comments)
+  })
+
   it('likes', () => {})
 })
 
