@@ -8,6 +8,7 @@ localVue.use(Vuex)
 let wrapper
 let store
 let auth
+let $route
 
 beforeEach(() => {
   auth = {
@@ -22,9 +23,16 @@ beforeEach(() => {
     }
   })
 
+  $route = {
+    name: 'search'
+  }
+
   wrapper = shallowMount(Component, {
     localVue,
-    store
+    store,
+    mocks: {
+      $route
+    }
   })
 })
 
