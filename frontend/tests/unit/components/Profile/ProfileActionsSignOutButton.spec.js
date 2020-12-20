@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Profile/ProfileActionsSignOutButton.spec.vue'
+import Component from '@/components/Profile/ProfileActionsSignOutButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -35,7 +35,9 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
-  it('headers', () => {})
+  it('headers', () => {
+    expect(wrapper.vm.headers).toEqual(auth.getters.headers())
+  })
 })
 
 describe('v-on', () => {
