@@ -10,8 +10,9 @@ let store
 let auth
 let snackbar
 
-const cancelDeleteAccount = jest.fn()
-const deleteAccountHandler = jest.fn()
+// const cancelDeleteAccount = jest.fn()
+// const deleteAccountHandler = jest.fn()
+const deleteAccount = jest.fn()
 
 beforeEach(() => {
   auth = {
@@ -21,9 +22,7 @@ beforeEach(() => {
     mutations: {
       clearHeaders: jest.fn()
     },
-    actions: {
-      deleteAccount: jest.fn()
-    }
+    actions: { deleteAccount }
   }
 
   snackbar = {
@@ -40,50 +39,78 @@ beforeEach(() => {
     }
   })
 
-  wrapper = mount(Component, {
-    localVue,
-    store,
-    methods: { cancelDeleteAccount, deleteAccountHandler }
-  })
+  // wrapper = mount(Component, {
+  //   localVue,
+  //   store,
+  //   methods: { cancelDeleteAccount, deleteAccountHandler }
+  // })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
+// afterEach(() => {
+//   wrapper.destroy()
+// })
 
-describe('getters', () => {
-  it('headers', () => {
-    expect(wrapper.vm.headers).toEqual(auth.getters.headers())
-  })
-})
+describe('with mock methods', () => {
+  const cancelDeleteAccount = jest.fn()
+  const deleteAccountHandler = jest.fn()
 
-describe('v-on', () => {
-  it('cancelDeleteAccount', () => {
-    wrapper
-      .findAll('.v-btn')
-      .at(0)
-      .trigger('click')
-    expect(cancelDeleteAccount).toHaveBeenCalledTimes(1)
+  beforeEach(() => {
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      methods: { cancelDeleteAccount, deleteAccountHandler }
+    })
   })
 
-  it('deleteAccountHandler', () => {
-    wrapper
-      .findAll('.v-btn')
-      .at(1)
-      .trigger('click')
-    expect(deleteAccountHandler).toHaveBeenCalledTimes(1)
+  describe('getters', () => {
+    it('headers', () => {
+      expect(wrapper.vm.headers).toEqual(auth.getters.headers())
+    })
+  })
+
+  describe('v-on', () => {
+    it('cancelDeleteAccount', () => {
+      wrapper
+        .findAll('.v-btn')
+        .at(0)
+        .trigger('click')
+      expect(cancelDeleteAccount).toHaveBeenCalledTimes(1)
+    })
+
+    it('deleteAccountHandler', () => {
+      wrapper
+        .findAll('.v-btn')
+        .at(1)
+        .trigger('click')
+      expect(deleteAccountHandler).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('methods', () => {
+    it('$emit.closeDialog', () => {
+      wrapper.vm.$emit('closeDialog')
+      expect(wrapper.emitted().closeDialog).toBeTruthy()
+    })
+  })
+
+  describe('template', () => {
+    it('snapshot', () => {
+      expect(wrapper.vm.$el).toMatchSnapshot()
+    })
   })
 })
 
 describe('methods', () => {
-  it('$emit.closeDialog', () => {
-    wrapper.vm.$emit('closeDialog')
-    expect(wrapper.emitted().closeDialog).toBeTruthy()
+  beforeEach(() => {
+    wrapper = mount(Component, {
+      localVue,
+      store
+    })
   })
-})
 
-describe('template', () => {
-  it('snapshot', () => {
-    expect(wrapper.vm.$el).toMatchSnapshot()
+  it('deleteAccountHandler', () => {
+    wrapper.vm.deleteAccountHandler()
+    // expect(deleteAccount).toHaveBeenCalled()
+    expect(auth.actions.deleteAccount).toHaveBeenCalled()
   })
 })
