@@ -8,6 +8,7 @@ localVue.use(Vuex)
 let wrapper
 let store
 let auth
+let snackbar
 
 beforeEach(() => {
   auth = {
@@ -19,6 +20,13 @@ beforeEach(() => {
     },
     actions: {
       signOut: jest.fn()
+    }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
