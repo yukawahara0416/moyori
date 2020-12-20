@@ -1,26 +1,36 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
+import Vuex from 'vuex'
 import Component from '@/components/Profile/ProfileContentsTabs.vue'
 
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
 let wrapper
-let propsData
+let store
+let tab
 
 beforeEach(() => {
-  propsData = {
-    tabs: 'tab-1'
+  tab = {
+    getters: {
+      profileTab: () => 'test'
+    }
   }
 
+  store = new Vuex.Store({
+    modules: {
+      tab
+    }
+  })
+
   wrapper = shallowMount(Component, {
-    propsData
+    localVue,
+    store
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
-describe('props', () => {
-  it('tabs', () => {
-    expect(wrapper.props().tabs).toEqual(propsData.tabs)
+describe('getters', () => {
+  it('profileTab', () => {
+    expect(wrapper.vm.profileTab).toEqual(tab.getters.profileTab())
   })
 })
 
