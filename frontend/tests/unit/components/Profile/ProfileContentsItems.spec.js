@@ -71,7 +71,9 @@ describe('computed', () => {
     expect(wrapper.vm.posts).toMatchObject(propsData.user.posts)
   })
 
-  it('wifi_withs', () => {})
+  it('wifi_withs', () => {
+    expect(wrapper.vm.wifi_withs).toMatchObject(propsData.user.wifi_withs)
+  })
   it('power_withs', () => {})
   it('comments', () => {})
   it('likes', () => {})
