@@ -1,34 +1,25 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Profile/ProfileContents.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 let propsData
 
 beforeEach(() => {
   propsData = {
-    user: { data: { id: 1 }, posts: [{ data: { id: 1 } }] }
+    user: { data: { id: 1 } }
   }
 
   wrapper = shallowMount(Component, {
+    localVue,
     propsData
   })
-})
-
-afterEach(() => {
-  wrapper.destroy()
 })
 
 describe('props', () => {
   it('user', () => {
     expect(wrapper.props().user).toEqual(propsData.user)
-  })
-})
-
-describe('v-on', () => {
-  it('changeTabs', () => {
-    wrapper.setMethods({ changeTabs: jest.fn() })
-    wrapper.vm.$emit('changeTabs')
-    expect(wrapper.emitted().changeTabs).toBeTruthy()
   })
 })
 
