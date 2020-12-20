@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Profile/ProfileActionsEditDialog.vue'
 
@@ -7,89 +7,83 @@ localVue.use(Vuex)
 
 let wrapper
 let propsData
-let actions
 let store
 let auth
+let snackbar
 
 beforeEach(() => {
-  actions = {
-    updateAccount: jest.fn(),
-    dialogOff: jest.fn()
-  }
-
   propsData = {
     user: { data: { id: 1, name: 'test', email: 'test', avatar: 'test' } }
   }
 
   auth = {
-    getters: {
-      headers: () => {}
+    getters: { headers: () => {} }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
   store = new Vuex.Store({
-    actions,
-    modules: {
-      auth
-    }
-  })
-
-  wrapper = mount(Component, {
-    localVue,
-    propsData,
-    store,
-    stubs: ['ValidationObserver']
+    modules: { auth, snackbar }
   })
 })
-
-describe('v-on', () => {
-  it('cancelUpdateAccount', () => {})
-  it('updateAccountHandler', () => {})
-})
-
-// afterEach(() => {
-//   wrapper.destroy()
-// })
-
-// describe('v-on', () => {
-//   it('dialogOff', () => {
-//     const event = jest.fn()
-//     wrapper.setMethods({ dialogOff: event })
-//     wrapper
-//       .findAll('.v-btn')
-//       .at(0)
-//       .trigger('click')
-//     expect(event).toHaveBeenCalledTimes(1)
-//   })
-//   it('updateAccount, dialogOff', () => {
-//     const event1 = jest.fn()
-//     const event2 = jest.fn()
-//     wrapper.setMethods({ updateAccount: event1, dialogOff: event2 })
-//     wrapper
-//       .findAll('.v-btn')
-//       .at(1)
-//       .trigger('click')
-//     // expect(event1).toHaveBeenCalledTimes(1)
-//     expect(event2).toHaveBeenCalledTimes(1)
-//   })
-// })
 
 describe('getters', () => {
   it('headers', () => {
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store,
+      stubs: ['ValidationObserver']
+    })
     expect(wrapper.vm.headers).toEqual(auth.getters.headers())
   })
 })
 
-// describe('actions', () => {
-//   // it('updateAccount', () => {
-//   //   wrapper.vm.updateAccount()
-//   //   expect(actions.updateAccount).toHaveBeenCalled()
-//   // })
-//   it('dialogOff', () => {
-//     wrapper.vm.dialogOff()
-//     expect(actions.dialogOff).toHaveBeenCalled()
-//   })
-// })
+describe('methods', () => {
+  it('cancelUpdateAccount', () => {
+    const closeDialog = jest.fn()
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: { closeDialog },
+      stubs: ['ValidationObserver']
+    })
+    wrapper.vm.cancelUpdateAccount()
+    expect(closeDialog).toHaveBeenCalled()
+    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+  })
+
+  it('$emit/closeDialog', () => {
+    const clearForm = jest.fn()
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: { clearForm },
+      stubs: ['ValidationObserver']
+    })
+    wrapper.vm.$emit('closeDialog')
+    expect(wrapper.emitted().closeDialog).toBeTruthy()
+  })
+
+  it('clearForm', () => {
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store,
+      stubs: ['ValidationObserver']
+    })
+    wrapper.vm.name = 'update'
+    wrapper.vm.clearForm()
+    expect(wrapper.vm.name).toEqual(propsData.user.data.name)
+  })
+})
 
 describe('template', () => {
   it('snapshot', () => {
