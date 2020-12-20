@@ -34,9 +34,11 @@ describe('getters', () => {
   })
 })
 
-// describe('computed', () => {
-//   it('childTabs', () => {})
-// })
+describe('computed', () => {
+  it('childTabs/get', () => {
+    expect(wrapper.vm.childTabs).toEqual(tab.getters.profileTab())
+  })
+})
 
 describe('template', () => {
   it('snapshot', () => {
