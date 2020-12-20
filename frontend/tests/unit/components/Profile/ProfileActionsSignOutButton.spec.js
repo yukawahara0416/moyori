@@ -34,8 +34,8 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
+describe('getters', () => {
+  it('headers', () => {})
 })
 
 describe('v-on', () => {
