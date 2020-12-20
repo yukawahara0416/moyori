@@ -1,21 +1,20 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Profile/ProfileItems.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 let propsData
 
 beforeEach(() => {
   propsData = {
-    user: { data: { id: 1 }, posts: [{ data: { id: 1 } }] }
+    user: { data: { id: 1 } }
   }
 
   wrapper = shallowMount(Component, {
+    localVue,
     propsData
   })
-})
-
-afterEach(() => {
-  wrapper.destroy()
 })
 
 describe('props', () => {
