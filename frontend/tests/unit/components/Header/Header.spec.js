@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Header/Header.vue'
 
@@ -6,40 +6,97 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
-let getters
 let store
+let auth
+let $route
 
 beforeEach(() => {
-  getters = {
-    headers: () => ({ uid: 'tester@example.com' }),
-    currentUser: () => ({ data: { id: 1 } })
+  auth = {
+    getters: {
+      isLoggingIn: () => false
+    }
   }
 
   store = new Vuex.Store({
-    getters
+    modules: {
+      auth
+    }
   })
 
-  wrapper = shallowMount(Component, {
-    localVue,
-    store
+  $route = {
+    name: 'search'
+  }
+})
+
+describe('with shallowMount wrapper', () => {
+  beforeEach(() => {
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      mocks: {
+        $route
+      }
+    })
+  })
+
+  describe('getters', () => {
+    it('isLoggingIn', () => {
+      expect(wrapper.vm.isLoggingIn).toEqual(auth.getters.isLoggingIn())
+    })
+  })
+
+  describe('computed', () => {
+    it('isSearchRoute', () => {
+      expect(wrapper.vm.isSearchRoute).toBe(true)
+    })
+  })
+
+  describe('methods', () => {
+    it('openDrawer', () => {
+      wrapper.vm.openDrawer()
+      expect(wrapper.vm.drawerState).toBe(true)
+    })
+  })
+
+  describe('template', () => {
+    it('snapshot', () => {
+      expect(wrapper.vm.$el).toMatchSnapshot()
+    })
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
-describe('getters', () => {
-  it('headers', () => {
-    expect(wrapper.vm.headers).toEqual(getters.headers())
+describe('with mount wrapper', () => {
+  beforeEach(() => {
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      mocks: {
+        $route
+      },
+      stubs: [
+        'v-app-bar',
+        'v-toolbar',
+        'header-title',
+        'header-tutorial-button',
+        'header-avatar-button',
+        'header-sign-button',
+        'header-drawer-button'
+      ]
+    })
   })
-  it('currentUser', () => {
-    expect(wrapper.vm.currentUser).toEqual(getters.currentUser())
-  })
-})
 
-describe('template', () => {
-  it('snapshot', () => {
-    expect(wrapper.vm.$el).toMatchSnapshot()
+  describe('v-on', () => {
+    it('openDrawer', () => {
+      const openDrawer = jest.fn()
+      wrapper.setMethods({ openDrawer })
+      wrapper.find('.v-app-bar__nav-icon').trigger('click')
+      expect(openDrawer).toHaveBeenCalled()
+    })
+  })
+
+  describe('template', () => {
+    it('snapshot', () => {
+      expect(wrapper.vm.$el).toMatchSnapshot()
+    })
   })
 })
