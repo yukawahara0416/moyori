@@ -34,6 +34,10 @@ describe('getters', () => {
   })
 })
 
+describe('computed', () => {
+  it('isSearchRoute', () => {})
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
