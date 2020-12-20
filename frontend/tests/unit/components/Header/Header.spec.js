@@ -48,6 +48,11 @@ describe('computed', () => {
   })
 })
 
+// ここからテスト
+describe('methods', () => {
+  it('openDrawer', () => {})
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
