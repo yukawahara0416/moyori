@@ -37,7 +37,8 @@ beforeEach(() => {
   wrapper = mount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    stubs: ['ValidationObserver']
   })
 })
 
