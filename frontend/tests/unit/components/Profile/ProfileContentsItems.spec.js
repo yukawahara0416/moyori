@@ -74,7 +74,11 @@ describe('computed', () => {
   it('wifi_withs', () => {
     expect(wrapper.vm.wifi_withs).toMatchObject(propsData.user.wifi_withs)
   })
-  it('power_withs', () => {})
+
+  it('power_withs', () => {
+    expect(wrapper.vm.power_withs).toMatchObject(propsData.user.power_withs)
+  })
+
   it('comments', () => {})
   it('likes', () => {})
 })
