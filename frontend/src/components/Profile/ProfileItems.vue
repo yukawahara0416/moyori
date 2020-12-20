@@ -2,7 +2,7 @@
   <v-col class="text-center">
     <profile-items-image :user="user" v-if="user.data !== undefined" />
 
-    <profile-items-name :user="user" />
+    <profile-items-name :user="user" v-if="user.data !== undefined" />
   </v-col>
 </template>
 
