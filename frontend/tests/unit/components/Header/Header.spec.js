@@ -54,7 +54,10 @@ describe('v-on', () => {
 
 // ここからテスト
 describe('methods', () => {
-  it('openDrawer', () => {})
+  it('openDrawer', () => {
+    wrapper.vm.openDrawer()
+    expect(wrapper.vm.drawerState).toBe(true)
+  })
 })
 
 describe('template', () => {
