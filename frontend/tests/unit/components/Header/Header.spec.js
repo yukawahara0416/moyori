@@ -6,17 +6,27 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
-let getters
+// let getters
 let store
+let auth
 
 beforeEach(() => {
-  getters = {
-    headers: () => ({ uid: 'tester@example.com' }),
-    currentUser: () => ({ data: { id: 1 } })
+  // getters = {
+  //   headers: () => ({ uid: 'tester@example.com' }),
+  //   currentUser: () => ({ data: { id: 1 } })
+  // }
+
+  auth = {
+    getters: {
+      isLoggingIn: () => false
+    }
   }
 
   store = new Vuex.Store({
-    getters
+    modules: {
+      auth
+    }
+    // getters
   })
 
   wrapper = shallowMount(Component, {
@@ -25,17 +35,21 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
+// afterEach(() => {
+//   wrapper.destroy()
+// })
 
 describe('getters', () => {
-  it('headers', () => {
-    expect(wrapper.vm.headers).toEqual(getters.headers())
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toEqual(auth.getters.isLoggingIn())
   })
-  it('currentUser', () => {
-    expect(wrapper.vm.currentUser).toEqual(getters.currentUser())
-  })
+  // it('headers', () => {
+  //   expect(wrapper.vm.headers).toEqual(getters.headers())
+  // })
+
+  // it('currentUser', () => {
+  //   expect(wrapper.vm.currentUser).toEqual(getters.currentUser())
+  // })
 })
 
 describe('template', () => {
