@@ -12,7 +12,14 @@ let tab
 
 beforeEach(() => {
   propsData = {
-    user: { data: { id: 1 } }
+    user: {
+      data: { id: 1 },
+      posts: [{ data: 'posts' }],
+      wifi_withs: [{ data: 'wifi_withs' }],
+      power_withs: [{ data: 'power_withs' }],
+      comment: [{ data: 'comments' }],
+      likes: [{ data: 'likes' }]
+    }
   }
 
   tab = {
@@ -59,6 +66,15 @@ describe('computed', () => {
     wrapper.vm.childTabs = 'update'
     expect(tab.mutations.changeProfileTab).toHaveBeenCalled()
   })
+
+  it('posts', () => {
+    expect(wrapper.vm.posts).toMatchObject(propsData.user.posts)
+  })
+
+  it('wifi_withs', () => {})
+  it('power_withs', () => {})
+  it('comments', () => {})
+  it('likes', () => {})
 })
 
 describe('template', () => {
