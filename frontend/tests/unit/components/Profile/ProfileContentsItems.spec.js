@@ -17,7 +17,7 @@ beforeEach(() => {
       posts: [{ data: 'posts' }],
       wifi_withs: [{ data: 'wifi_withs' }],
       power_withs: [{ data: 'power_withs' }],
-      comment: [{ data: 'comments' }],
+      comments: [{ data: 'comments' }],
       likes: [{ data: 'likes' }]
     }
   }
@@ -83,8 +83,9 @@ describe('computed', () => {
     expect(wrapper.vm.comments).toMatchObject(propsData.user.comments)
   })
 
-  it('likes', () => {})
-  expect(wrapper.vm.likes).toMatchObject(propsData.user.likes)
+  it('likes', () => {
+    expect(wrapper.vm.likes).toMatchObject(propsData.user.likes)
+  })
 })
 
 describe('template', () => {
