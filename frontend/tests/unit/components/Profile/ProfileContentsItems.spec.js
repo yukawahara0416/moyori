@@ -84,6 +84,7 @@ describe('computed', () => {
   })
 
   it('likes', () => {})
+  expect(wrapper.vm.likes).toMatchObject(propsData.user.likes)
 })
 
 describe('template', () => {
