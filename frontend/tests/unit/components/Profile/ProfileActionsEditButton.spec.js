@@ -8,7 +8,7 @@ let wrapper
 describe('props', () => {
   it('user', () => {
     const propsData = { user: { data: { id: 1 } } }
-    wrapper = mount(Component, { localVue, propsData })
+    wrapper = shallowMount(Component, { localVue, propsData })
     expect(wrapper.props().user).toStrictEqual(propsData.user)
     expect(wrapper.props().user instanceof Object).toBe(true)
   })
@@ -45,10 +45,17 @@ describe('methods', () => {
     wrapper.vm.openDialog()
     expect(wrapper.vm.dialog).toBe(true)
   })
+
+  it('closeDialog', () => {
+    wrapper.vm.dialog = true
+    wrapper.vm.closeDialog()
+    expect(wrapper.vm.dialog).toBe(false)
+  })
 })
 
 describe('template', () => {
   it('snapshot', () => {
+    wrapper = shallowMount(Component, { localVue })
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
