@@ -36,6 +36,7 @@ beforeEach(() => {
 
   wrapper = mount(Component, {
     localVue,
+    propsData,
     store
   })
 })
