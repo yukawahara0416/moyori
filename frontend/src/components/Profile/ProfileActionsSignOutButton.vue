@@ -1,5 +1,5 @@
 <template>
-  <v-btn class="my-3" @click="signOutHandler()" width="250">
+  <v-btn class="my-3" @click.stop="signOutHandler()" width="250">
     <v-icon left>mdi-logout</v-icon>
     ログアウト
   </v-btn>
