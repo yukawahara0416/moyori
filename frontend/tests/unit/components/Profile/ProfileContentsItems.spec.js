@@ -18,21 +18,29 @@ beforeEach(() => {
   tab = {
     getters: {
       profileTab: () => 'test'
+    },
+    mutations: {
+      changeProfileTab: jest.fn()
     }
   }
+
+  store = new Vuex.Store({
+    modules: {
+      tab
+    }
+  })
+
   wrapper = shallowMount(Component, {
     localVue,
-    propsData
+    propsData,
+    store
   })
-})
-
-afterEach(() => {
-  wrapper.destroy()
 })
 
 describe('props', () => {
   it('user', () => {
     expect(wrapper.props().user).toEqual(propsData.user)
+    expect(wrapper.props().user instanceof Object).toBe(true)
   })
 })
 
@@ -42,9 +50,16 @@ describe('getters', () => {
   })
 })
 
-// describe('computed', () => {
-//   it('childTabs', () => {})
-// })
+describe('computed', () => {
+  it('childTabs/get', () => {
+    expect(wrapper.vm.childTabs).toEqual(tab.getters.profileTab())
+  })
+
+  it('childTabs/set', () => {
+    wrapper.vm.childTabs = 'update'
+    expect(tab.mutations.changeProfileTab).toHaveBeenCalled()
+  })
+})
 
 describe('template', () => {
   it('snapshot', () => {
