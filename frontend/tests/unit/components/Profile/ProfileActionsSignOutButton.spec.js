@@ -10,6 +10,8 @@ let store
 let auth
 let snackbar
 
+const signOutHandler = jest.fn()
+
 beforeEach(() => {
   auth = {
     getters: {
@@ -32,13 +34,17 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      snackbar
     }
   })
 
   wrapper = mount(Component, {
     localVue,
-    store
+    store,
+    methods: {
+      signOutHandler
+    }
   })
 })
 
@@ -49,18 +55,9 @@ describe('getters', () => {
 })
 
 describe('v-on', () => {
-  it('signOut', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ signOut: event })
+  it('signOutHandler', () => {
     wrapper.find('.v-btn').trigger('click')
-    expect(event).toHaveBeenCalledTimes(1)
-  })
-})
-
-describe('actions', () => {
-  it('signOut', () => {
-    wrapper.vm.signOut()
-    expect(actions.signOut).toHaveBeenCalled()
+    expect(signOutHandler).toHaveBeenCalledTimes(1)
   })
 })
 
