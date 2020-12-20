@@ -6,16 +6,10 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
-// let getters
 let store
 let auth
 
 beforeEach(() => {
-  // getters = {
-  //   headers: () => ({ uid: 'tester@example.com' }),
-  //   currentUser: () => ({ data: { id: 1 } })
-  // }
-
   auth = {
     getters: {
       isLoggingIn: () => false
@@ -26,7 +20,6 @@ beforeEach(() => {
     modules: {
       auth
     }
-    // getters
   })
 
   wrapper = shallowMount(Component, {
@@ -35,21 +28,10 @@ beforeEach(() => {
   })
 })
 
-// afterEach(() => {
-//   wrapper.destroy()
-// })
-
 describe('getters', () => {
   it('isLoggingIn', () => {
     expect(wrapper.vm.isLoggingIn).toEqual(auth.getters.isLoggingIn())
   })
-  // it('headers', () => {
-  //   expect(wrapper.vm.headers).toEqual(getters.headers())
-  // })
-
-  // it('currentUser', () => {
-  //   expect(wrapper.vm.currentUser).toEqual(getters.currentUser())
-  // })
 })
 
 describe('template', () => {
