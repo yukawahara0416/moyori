@@ -6,16 +6,26 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
-let actions
 let store
+let auth
 
 beforeEach(() => {
-  actions = {
-    signOut: jest.fn()
+  auth = {
+    getters: {
+      headers: () => {}
+    },
+    mutations: {
+      clearHearders: jest.fn()
+    },
+    actions: {
+      signOut: jest.fn()
+    }
   }
 
   store = new Vuex.Store({
-    actions
+    modules: {
+      auth
+    }
   })
 
   wrapper = mount(Component, {
