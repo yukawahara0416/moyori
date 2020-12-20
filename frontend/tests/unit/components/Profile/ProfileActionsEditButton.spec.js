@@ -4,14 +4,27 @@ import Component from '@/components/Profile/ProfileActionsEditButton.vue'
 const localVue = createLocalVue()
 
 let wrapper
+let propsData
 
 const openDialog = jest.fn()
 const closeDialog = jest.fn()
 
 beforeEach(() => {
+  propsData = {
+    user: { data: { id: 1 } }
+  }
+
   wrapper = mount(Component, {
     localVue,
+    propsData,
     methods: { openDialog, closeDialog }
+  })
+})
+
+describe('props', () => {
+  it('user', () => {
+    expect(wrapper.props().user).toStrictEqual(propsData.user)
+    expect(wrapper.props().user instanceof Object).toBe(true)
   })
 })
 
