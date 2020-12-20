@@ -48,6 +48,10 @@ describe('computed', () => {
   })
 })
 
+describe('v-on', () => {
+  it('openDrawer', () => {})
+})
+
 // ここからテスト
 describe('methods', () => {
   it('openDrawer', () => {})
