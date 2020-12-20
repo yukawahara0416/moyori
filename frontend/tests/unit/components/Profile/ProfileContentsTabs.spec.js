@@ -13,6 +13,9 @@ beforeEach(() => {
   tab = {
     getters: {
       profileTab: () => 'test'
+    },
+    mutations: {
+      changeProfileTab: jest.fn()
     }
   }
 
@@ -37,6 +40,11 @@ describe('getters', () => {
 describe('computed', () => {
   it('childTabs/get', () => {
     expect(wrapper.vm.childTabs).toEqual(tab.getters.profileTab())
+  })
+
+  it('childTabs/set', () => {
+    wrapper.vm.childTabs = 'update'
+    expect(tab.mutations.changeProfileTab).toHaveBeenCalled()
   })
 })
 
