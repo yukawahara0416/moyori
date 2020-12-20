@@ -1,5 +1,5 @@
 import { mount, createLocalVue } from '@vue/test-utils'
-import Component from '@/components/Profile/ProfileActionsButtonsEdit.vue'
+import Component from '@/components/Profile/ProfileActionsEditButton.vue'
 // import Vuex from 'vuex'
 // import Vuetify from 'vuetify'
 
@@ -8,6 +8,9 @@ const localVue = createLocalVue()
 // localVue.use(Vuetify)
 
 let wrapper
+
+const openDialog = jest.fn()
+const closeDialog = jest.fn()
 
 // let store
 // let vuetify
@@ -32,7 +35,8 @@ beforeEach(() => {
   // vuetify = new Vuetify()
 
   wrapper = mount(Component, {
-    localVue
+    localVue,
+    methods: { openDialog, closeDialog }
     // store
     // vuetify
   })
@@ -53,16 +57,18 @@ beforeEach(() => {
 // })
 
 describe('v-on', () => {
-  const app = document.createElement('div')
-  app.setAttribute('data-app', true)
-  document.body.append(app)
+  // const app = document.createElement('div')
+  // app.setAttribute('data-app', true)
+  // document.body.append(app)
 
   it('dialogOn', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ dialogOn: event })
+    // const event = jest.fn()
+    // wrapper.setMethods({ dialogOn: event })
     wrapper.find('.v-btn').trigger('click')
-    expect(event).toHaveBeenCalledTimes(1)
+    expect(openDialog).toHaveBeenCalledTimes(1)
   })
+
+  it('$emit.closeDialog', () => {})
 })
 
 // describe('actions', () => {
