@@ -17,6 +17,10 @@ beforeEach(() => {
     dialogOff: jest.fn()
   }
 
+  propsData = {
+    user: { data: { id: 1, name: 'test', email: 'test', avatar: 'test' } }
+  }
+
   auth = {
     getters: {
       headers: () => {}
