@@ -68,7 +68,10 @@ describe('v-on', () => {
     expect(openDialog).toHaveBeenCalledTimes(1)
   })
 
-  it('$emit.closeDialog', () => {})
+  it('$emit.closeDialog', () => {
+    wrapper.vm.$emit('closeDialog')
+    expect(wrapper.emitted().closeDialog).toBeTruthy()
+  })
 })
 
 // describe('actions', () => {
