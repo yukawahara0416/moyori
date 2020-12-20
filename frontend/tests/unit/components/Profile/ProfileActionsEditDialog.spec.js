@@ -42,6 +42,11 @@ beforeEach(() => {
   })
 })
 
+describe('v-on', () => {
+  it('cancelUpdateAccount', () => {})
+  it('updateAccountHandler', () => {})
+})
+
 // afterEach(() => {
 //   wrapper.destroy()
 // })
