@@ -10,19 +10,11 @@ let store
 let auth
 let snackbar
 
-// const cancelDeleteAccount = jest.fn()
-// const deleteAccountHandler = jest.fn()
-const deleteAccount = jest.fn()
-
 beforeEach(() => {
   auth = {
-    getters: {
-      headers: () => {}
-    },
-    mutations: {
-      clearHeaders: jest.fn()
-    },
-    actions: { deleteAccount }
+    getters: { headers: () => {} },
+    mutations: { clearHeaders: jest.fn() },
+    actions: { deleteAccount: jest.fn() }
   }
 
   snackbar = {
@@ -38,17 +30,7 @@ beforeEach(() => {
       snackbar
     }
   })
-
-  // wrapper = mount(Component, {
-  //   localVue,
-  //   store,
-  //   methods: { cancelDeleteAccount, deleteAccountHandler }
-  // })
 })
-
-// afterEach(() => {
-//   wrapper.destroy()
-// })
 
 describe('with mock methods', () => {
   const cancelDeleteAccount = jest.fn()
@@ -100,17 +82,28 @@ describe('with mock methods', () => {
   })
 })
 
-describe('methods', () => {
+describe('without mock methods', () => {
+  const closeDialog = jest.fn()
+
   beforeEach(() => {
     wrapper = mount(Component, {
       localVue,
-      store
+      store,
+      methods: { closeDialog }
     })
   })
 
-  it('deleteAccountHandler', () => {
-    wrapper.vm.deleteAccountHandler()
-    // expect(deleteAccount).toHaveBeenCalled()
-    expect(auth.actions.deleteAccount).toHaveBeenCalled()
+  describe('methods', () => {
+    it('deleteAccountHandler', () => {
+      // koko
+      wrapper.vm.deleteAccountHandler()
+      expect(auth.actions.deleteAccount).toHaveBeenCalled()
+    })
+
+    it('cancelDeleteAccount', () => {
+      wrapper.vm.cancelDeleteAccount()
+      expect(closeDialog).toHaveBeenCalled()
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+    })
   })
 })
