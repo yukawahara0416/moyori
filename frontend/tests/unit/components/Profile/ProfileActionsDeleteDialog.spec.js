@@ -95,7 +95,6 @@ describe('without mock methods', () => {
 
   describe('methods', () => {
     it('deleteAccountHandler', () => {
-      // koko
       wrapper.vm.deleteAccountHandler()
       expect(auth.actions.deleteAccount).toHaveBeenCalled()
     })
