@@ -1,16 +1,16 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Vuetify from 'vuetify'
+// import Vuetify from 'vuetify'
 import Component from '@/components/Profile/ProfileActionsButtonsEdit.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
-localVue.use(Vuetify)
+// localVue.use(Vuetify)
 
 let wrapper
 
 let store
-let vuetify
+// let vuetify
 let getters
 let actions
 
@@ -29,12 +29,12 @@ beforeEach(() => {
     actions
   })
 
-  vuetify = new Vuetify()
+  // vuetify = new Vuetify()
 
   wrapper = mount(Component, {
     localVue,
-    store,
-    vuetify
+    store
+    // vuetify
   })
 })
 
