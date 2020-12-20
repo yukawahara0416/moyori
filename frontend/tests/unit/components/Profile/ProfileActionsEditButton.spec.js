@@ -1,52 +1,52 @@
 import { mount, createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
-// import Vuetify from 'vuetify'
 import Component from '@/components/Profile/ProfileActionsButtonsEdit.vue'
+// import Vuex from 'vuex'
+// import Vuetify from 'vuetify'
 
 const localVue = createLocalVue()
-localVue.use(Vuex)
+// localVue.use(Vuex)
 // localVue.use(Vuetify)
 
 let wrapper
 
-let store
+// let store
 // let vuetify
-let getters
-let actions
+// let getters
+// let actions
 
 beforeEach(() => {
-  getters = {
-    dialogProfileEdit: () => true
-  }
+  // getters = {
+  //   dialogProfileEdit: () => true
+  // }
 
-  actions = {
-    dialogOn: jest.fn(),
-    dialogOff: jest.fn()
-  }
+  // actions = {
+  //   dialogOn: jest.fn(),
+  //   dialogOff: jest.fn()
+  // }
 
-  store = new Vuex.Store({
-    getters,
-    actions
-  })
+  // store = new Vuex.Store({
+  //   getters,
+  //   actions
+  // })
 
   // vuetify = new Vuetify()
 
   wrapper = mount(Component, {
-    localVue,
-    store
+    localVue
+    // store
     // vuetify
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
+// afterEach(() => {
+//   wrapper.destroy()
+// })
 
-describe('getters', () => {
-  it('dialogProfileEdit', () => {
-    expect(wrapper.vm.dialogProfileEdit).toEqual(getters.dialogProfileEdit())
-  })
-})
+// describe('getters', () => {
+//   it('dialogProfileEdit', () => {
+//     expect(wrapper.vm.dialogProfileEdit).toEqual(getters.dialogProfileEdit())
+//   })
+// })
 
 // describe('computed', () => {
 //   it('dialog', () => {})
@@ -65,12 +65,12 @@ describe('v-on', () => {
   })
 })
 
-describe('actions', () => {
-  it('dialogOn', () => {
-    wrapper.vm.dialogOn()
-    expect(actions.dialogOn).toHaveBeenCalled()
-  })
-})
+// describe('actions', () => {
+//   it('dialogOn', () => {
+//     wrapper.vm.dialogOn()
+//     expect(actions.dialogOn).toHaveBeenCalled()
+//   })
+// })
 
 describe('template', () => {
   it('snapshot', () => {
