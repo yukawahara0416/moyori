@@ -1,5 +1,5 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
-import Component from '@/components/Profile/ProfileActionsItemsName.vue'
+import Component from '@/components/Profile/ProfileItemsName.vue'
 
 const localVue = createLocalVue()
 
@@ -21,6 +21,12 @@ describe('props', () => {
   it('user', () => {
     expect(wrapper.props().user).toEqual(propsData.user)
     expect(wrapper.props().user instanceof Object).toBe(true)
+  })
+})
+
+describe('computed', () => {
+  it('userName', () => {
+    expect(wrapper.vm.userName).toEqual(propsData.user.data.name)
   })
 })
 
