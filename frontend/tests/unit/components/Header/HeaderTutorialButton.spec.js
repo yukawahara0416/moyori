@@ -12,7 +12,7 @@ let dialog
 beforeEach(() => {
   dialog = {
     mutations: {
-      dialogOn: jest.fn('dialogTutorial')
+      dialogOn: jest.fn()
     }
   }
 
