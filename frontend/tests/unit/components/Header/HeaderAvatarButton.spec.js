@@ -19,7 +19,12 @@ beforeEach(() => {
       }
     }
   }
-  store = new Vuex.Store()
+
+  store = new Vuex.Store({
+    modules: {
+      auth
+    }
+  })
 
   wrapper = shallowMount(Component, {
     localVue,
