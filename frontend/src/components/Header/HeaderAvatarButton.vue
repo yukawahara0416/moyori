@@ -2,7 +2,7 @@
   <div class="ml-3 text-center">
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="test" icon v-bind="attrs" v-on="on">
+        <v-btn icon v-bind="attrs" v-on="on">
           <header-avatar-image :currentUser="currentUser" />
           <v-icon>mdi-chevron-down</v-icon>
         </v-btn>
