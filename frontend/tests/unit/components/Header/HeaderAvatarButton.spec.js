@@ -6,27 +6,15 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
-let propsData
 
 beforeEach(() => {
-  propsData = {
-    currentUser: { data: { id: 1 } }
-  }
-
   wrapper = shallowMount(Component, {
-    propsData
+    localVue
   })
 })
 
 afterEach(() => {
   wrapper.destroy()
-})
-
-describe('props', () => {
-  it('currentUser', () => {
-    expect(wrapper.props().currentUser).toStrictEqual(propsData.currentUser)
-    expect(wrapper.props().currentUser instanceof Object).toBe(true)
-  })
 })
 
 describe('template', () => {
