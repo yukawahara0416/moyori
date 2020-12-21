@@ -32,6 +32,10 @@ beforeEach(() => {
   })
 })
 
+describe('getters', () => {
+  it('currentUser', () => {})
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
