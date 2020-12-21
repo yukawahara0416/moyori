@@ -10,6 +10,15 @@ let store
 let auth
 
 beforeEach(() => {
+  auth = {
+    getters: {
+      currentUser: () => {
+        data: {
+          id: 1
+        }
+      }
+    }
+  }
   store = new Vuex.Store()
 
   wrapper = shallowMount(Component, {
