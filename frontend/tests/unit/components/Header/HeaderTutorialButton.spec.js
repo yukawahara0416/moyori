@@ -29,3 +29,7 @@ beforeEach(() => {
     }
   })
 })
+
+describe('v-on', () => {
+  it('click', () => {})
+})
