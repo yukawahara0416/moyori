@@ -8,3 +8,24 @@ localVue.use(Vuex)
 let wrapper
 let store
 let dialog
+
+beforeEach(() => {
+  dialog = {
+    mutations: {
+      dialogOn: jest.fn()
+    }
+  }
+
+  store = new Vuex.Store({
+    modules: {
+      dialog
+    }
+  })
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    modules: {
+      dialog
+    }
+  })
+})
