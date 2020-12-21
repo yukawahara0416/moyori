@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import Component from '@/components/Header/HeaderAvatar.vue'
+import Component from '@/components/Header/HeaderAvatarButton.vue'
 
 let wrapper
 let propsData
