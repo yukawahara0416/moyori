@@ -1,6 +1,6 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Header/Header.vue'
+import Component from '@/components/Header/HeaderTutorialButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -12,7 +12,7 @@ let dialog
 beforeEach(() => {
   dialog = {
     mutations: {
-      dialogOn: jest.fn()
+      dialogOn: jest.fn('dialogTutorial')
     }
   }
 
@@ -22,14 +22,15 @@ beforeEach(() => {
     }
   })
 
-  wrapper = shallowMount(Component, {
+  wrapper = mount(Component, {
     localVue,
-    modules: {
-      dialog
-    }
+    store
   })
 })
 
 describe('v-on', () => {
-  it('click', () => {})
+  it('click', () => {
+    wrapper.find('.v-btn').trigger('click')
+    expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+  })
 })
