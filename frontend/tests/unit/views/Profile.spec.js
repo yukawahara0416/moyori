@@ -7,12 +7,7 @@ import authStore from '@/store/modules/user/auth.js'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-let wrapper
-let propsData
-let store
-let spot
-let user
-let auth
+let wrapper, propsData, store, spot, user, auth
 
 const fetchData = jest.fn()
 
@@ -24,13 +19,6 @@ beforeEach(() => {
     mutations: {}
   }
 
-  // user = {
-  //   namespaced: true,
-  //   getters: {
-  //     user: () => {}
-  //   },
-  //   mutations: {}
-  // }
   user = {
     namespaced: true,
     state: {
