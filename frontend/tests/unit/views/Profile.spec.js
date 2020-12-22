@@ -7,17 +7,16 @@ import authStore from '@/store/modules/user/auth.js'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-let wrapper, propsData, store, spot, user, auth
+let wrapper
+let propsData
+let store
+let user
+let auth
 
 const fetchData = jest.fn()
 
 beforeEach(() => {
   propsData = { id: 1 }
-
-  spot = {
-    namespaced: true,
-    mutations: {}
-  }
 
   user = {
     namespaced: true,
@@ -40,7 +39,6 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      spot,
       user,
       auth
     }
@@ -50,7 +48,9 @@ beforeEach(() => {
     localVue,
     propsData,
     store,
-    methods: { fetchData }
+    methods: {
+      fetchData
+    }
   })
 })
 
@@ -68,7 +68,9 @@ describe('call at created hook', () => {
 })
 
 describe('call at beforeRouteUpdate hook', () => {
-  let beforeRouteUpdate, to, next
+  let beforeRouteUpdate
+  let to
+  let next
 
   beforeEach(() => {
     beforeRouteUpdate = wrapper.vm.$options.beforeRouteUpdate[0]
