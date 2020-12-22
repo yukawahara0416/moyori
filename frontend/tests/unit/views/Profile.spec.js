@@ -29,12 +29,6 @@ beforeEach(() => {
     getters: userStore.getters
   }
 
-  // auth = {
-  //   getters: {
-  //     currentUser: () => {}
-  //   }
-  // }
-
   auth = {
     state: {
       currentUser: {
