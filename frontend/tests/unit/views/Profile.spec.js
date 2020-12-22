@@ -1,6 +1,8 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/views/Profile.vue'
+import userStore from '@/store/modules/user/user.js'
+import authStore from '@/store/modules/user/auth.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -22,18 +24,36 @@ beforeEach(() => {
     mutations: {}
   }
 
+  // user = {
+  //   namespaced: true,
+  //   getters: {
+  //     user: () => {}
+  //   },
+  //   mutations: {}
+  // }
   user = {
     namespaced: true,
-    getters: {
-      user: () => {}
+    state: {
+      user: {
+        data: { id: 1 }
+      }
     },
-    mutations: {}
+    getters: userStore.getters
   }
 
+  // auth = {
+  //   getters: {
+  //     currentUser: () => {}
+  //   }
+  // }
+
   auth = {
-    getters: {
-      currentUser: () => {}
-    }
+    state: {
+      currentUser: {
+        data: { id: 1 }
+      }
+    },
+    getters: authStore.getters
   }
 
   store = new Vuex.Store({
@@ -81,16 +101,6 @@ describe('call at beforeRouteUpdate hook', () => {
 
   it('next', () => {
     expect(next).toHaveBeenCalled()
-  })
-})
-
-describe('getters', () => {
-  it('user/user', () => {
-    expect(wrapper.vm.user).toEqual(user.getters.user())
-  })
-
-  it('currentUser', () => {
-    expect(wrapper.vm.currentUser).toEqual(auth.getters.currentUser())
   })
 })
 
