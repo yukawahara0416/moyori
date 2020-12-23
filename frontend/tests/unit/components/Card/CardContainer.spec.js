@@ -1,5 +1,7 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Card/CardContainer.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 let propsData
@@ -7,8 +9,14 @@ let $route
 
 beforeEach(() => {
   propsData = {
-    spots: [{ data: { id: 1 } }, { data: { id: 2 } }]
-    // type: 'map'
+    spots: [
+      {
+        data: { id: 1 }
+      },
+      {
+        data: { id: 2 }
+      }
+    ]
   }
 
   $route = {
@@ -16,6 +24,7 @@ beforeEach(() => {
   }
 
   wrapper = shallowMount(Component, {
+    localVue,
     propsData,
     mocks: {
       $route
