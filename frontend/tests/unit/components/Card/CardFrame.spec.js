@@ -47,27 +47,25 @@ beforeEach(() => {
       tab
     }
   })
-
-  $route = {
-    name: 'search'
-  }
-
-  wrapper = mount(Component, {
-    localVue,
-    propsData,
-    store,
-    mocks: {
-      $route
-    },
-    stubs: ['card-frame-content']
-  })
 })
 
-// afterEach(() => {
-//   wrapper.destroy()
-// })
-
 describe('props', () => {
+  beforeEach(() => {
+    $route = {
+      name: 'search'
+    }
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      mocks: {
+        $route
+      },
+      stubs: ['card-frame-content']
+    })
+  })
+
   it('spot', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
     expect(wrapper.props().spot instanceof Object).toBe(true)
@@ -77,13 +75,25 @@ describe('props', () => {
     expect(wrapper.props().id).toStrictEqual(propsData.id)
     expect(typeof wrapper.vm.$props.id).toBe('number')
   })
-  // it('type', () => {
-  //   expect(wrapper.props().type).toStrictEqual(propsData.type)
-  //   expect(typeof wrapper.vm.$props.type).toBe('string')
-  // })
 })
 
 describe('v-on', () => {
+  beforeEach(() => {
+    $route = {
+      name: 'search'
+    }
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      mocks: {
+        $route
+      },
+      stubs: ['card-frame-content']
+    })
+  })
+
   it('spotlight, panTo', () => {
     const event1 = jest.fn()
     const event2 = jest.fn()
@@ -96,12 +106,39 @@ describe('v-on', () => {
 
 describe('actions', () => {
   it('spot/spotlight', () => {
+    $route = {
+      name: 'search'
+    }
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      mocks: {
+        $route
+      },
+      stubs: ['card-frame-content']
+    })
+
     wrapper.vm.spotlight()
     expect(spot.actions.spotlight).toHaveBeenCalled()
   })
 
   it('user/spotlight', () => {
-    wrapper.setProps({ type: 'user' })
+    $route = {
+      name: 'profile'
+    }
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      mocks: {
+        $route
+      },
+      stubs: ['card-frame-content']
+    })
+
     wrapper.vm.spotlight()
     expect(user.actions.spotlight).toHaveBeenCalled()
   })
