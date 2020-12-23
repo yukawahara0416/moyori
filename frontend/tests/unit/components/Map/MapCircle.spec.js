@@ -38,10 +38,6 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('props', () => {
   it('center', () => {
     expect(wrapper.props().center).toStrictEqual(propsData.center)
