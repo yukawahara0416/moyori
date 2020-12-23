@@ -14,10 +14,6 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('props', () => {
   it('currentUser', () => {
     expect(wrapper.props().currentUser).toStrictEqual(propsData.currentUser)
