@@ -127,6 +127,11 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
+  it('spot/spots', () => {})
+  it('spot/radius', () => {})
+  it('spot/type', () => {})
+  it('spot/filterSpots', () => {})
+
   it('currentUser', () => {
     expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
   })
@@ -138,28 +143,10 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('zoom 16 at radius.value is 500', () => {
-    wrapper.destroy()
-
-    store = new Vuex.Store({
-      modules: {
-        spot,
-        map,
-        auth
-      }
-    })
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      store,
-      stubs: ['gmap-map', 'map-circle', 'map-marker']
-    })
-
     expect(wrapper.vm.zoom).toEqual(16)
   })
 
   it('zoom 15 at radius.value is 1000', () => {
-    wrapper.destroy()
-
     spot.getters.radius = () => {
       return { name: '1km', value: 1000 }
     }
