@@ -58,14 +58,6 @@ beforeEach(() => {
   })
 })
 
-describe('test', () => {
-  it('test', () => {
-    console.log(wrapper.vm.currentUser)
-    console.log(auth.getters.currentUser())
-    expect(wrapper.vm.currentUser).toMatchObject(auth.getters.currentUser())
-  })
-})
-
 describe('props data', () => {
   it('id', () => {
     expect(wrapper.props().id).toEqual(propsData.id)
