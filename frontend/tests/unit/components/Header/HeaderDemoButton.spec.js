@@ -12,3 +12,7 @@ beforeEach(() => {
     localVue
   })
 })
+
+describe('v-on', () => {
+  it('demoSearch', () => {})
+})
