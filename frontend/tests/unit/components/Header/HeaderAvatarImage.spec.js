@@ -35,6 +35,9 @@ describe('props', () => {
 })
 
 describe('template', () => {
+  it('v-if="currentUser.data.avatar"', () => {})
+  it('v-else', () => {})
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
