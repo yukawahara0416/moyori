@@ -14,5 +14,8 @@ beforeEach(() => {
 })
 
 describe('v-on', () => {
-  it('demoSearch', () => {})
+  it('demoSearch', () => {
+    wrapper.find('.v-btn').trigger('click')
+    // expect()
+  })
 })
