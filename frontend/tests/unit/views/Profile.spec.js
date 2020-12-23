@@ -1,8 +1,8 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/views/Profile.vue'
-import userStore from '@/store/modules/user/user.js'
-import authStore from '@/store/modules/user/auth.js'
+// import userStore from '@/store/modules/user/user.js'
+// import authStore from '@/store/modules/user/auth.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -18,23 +18,48 @@ const fetchData = jest.fn()
 beforeEach(() => {
   propsData = { id: 1 }
 
+  // user = {
+  //   namespaced: true,
+  //   state: {
+  //     user: {
+  //       data: { id: 1 }
+  //     }
+  //   },
+  //   getters: userStore.getters
+  // }
+
   user = {
     namespaced: true,
-    state: {
-      user: {
-        data: { id: 1 }
+    getters: {
+      user: () => {
+        return {
+          data: {
+            id: 1
+          }
+        }
       }
-    },
-    getters: userStore.getters
+    }
   }
 
+  // auth = {
+  //   state: {
+  //     currentUser: {
+  //       data: { id: 1 }
+  //     }
+  //   },
+  //   getters: authStore.getters
+  // }
+
   auth = {
-    state: {
-      currentUser: {
-        data: { id: 1 }
+    getters: {
+      currentUser: () => {
+        return {
+          data: {
+            id: 1
+          }
+        }
       }
-    },
-    getters: authStore.getters
+    }
   }
 
   store = new Vuex.Store({
@@ -51,6 +76,14 @@ beforeEach(() => {
     methods: {
       fetchData
     }
+  })
+})
+
+describe('test', () => {
+  it('test', () => {
+    console.log(wrapper.vm.currentUser)
+    console.log(auth.getters.currentUser())
+    expect(wrapper.vm.currentUser).toMatchObject(auth.getters.currentUser())
   })
 })
 
