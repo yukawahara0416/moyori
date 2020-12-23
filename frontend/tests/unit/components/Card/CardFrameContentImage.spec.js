@@ -9,24 +9,24 @@ let wrapper
 let propsData
 let vuetify
 
-beforeEach(() => {
-  propsData = {
-    spot: {
-      data: { id: 1, name: 'test', image: 'test' },
-      comments: [{ image: 'test' }]
-    }
-  }
-
-  vuetify = new Vuetify()
-
-  wrapper = shallowMount(Component, {
-    localVue,
-    propsData,
-    vuetify
-  })
-})
-
 describe('props', () => {
+  beforeEach(() => {
+    propsData = {
+      spot: {
+        data: { id: 1, name: 'test', image: 'test' },
+        comments: [{ image: 'test' }]
+      }
+    }
+
+    vuetify = new Vuetify()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      vuetify
+    })
+  })
+
   it('spot', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
     expect(wrapper.props().spot instanceof Object).toBe(true)
@@ -34,11 +34,75 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('image', () => {
+  it('image, spot.data.image is true', () => {
+    propsData = {
+      spot: {
+        data: { id: 1, name: 'test', image: 'test' },
+        comments: [{ image: 'test' }]
+      }
+    }
+
+    vuetify = new Vuetify()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      vuetify
+    })
     expect(wrapper.vm.image).toEqual(propsData.spot.data.image)
   })
 
+  it('image/spot.data.image is false', () => {
+    propsData = {
+      spot: {
+        data: { id: 1, name: 'test', image: '' },
+        comments: [{ image: 'test' }]
+      }
+    }
+
+    vuetify = new Vuetify()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      vuetify
+    })
+    expect(wrapper.vm.image).toEqual(propsData.spot.comments[0].image)
+  })
+
+  it('image/spot.data.image & filterImages.length is false', () => {
+    propsData = {
+      spot: {
+        data: { id: 1, name: 'test', image: '' },
+        comments: []
+      }
+    }
+
+    vuetify = new Vuetify()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      vuetify
+    })
+    expect(wrapper.vm.image).toEqual(require('@/assets/noimage.png'))
+  })
+
   it('filterImages', () => {
+    propsData = {
+      spot: {
+        data: { id: 1, name: 'test', image: 'test' },
+        comments: [{ image: 'test' }]
+      }
+    }
+
+    vuetify = new Vuetify()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      vuetify
+    })
     expect(wrapper.vm.filterImages.length).toEqual(1)
   })
 })
