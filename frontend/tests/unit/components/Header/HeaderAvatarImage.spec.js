@@ -11,10 +11,17 @@ let store
 
 beforeEach(() => {
   propsData = {
-    currentUser: { data: { id: 1, name: 'test', image: 'image' } }
+    currentUser: {
+      data: {
+        id: 1,
+        name: 'test',
+        image: 'image'
+      }
+    }
   }
 
   wrapper = shallowMount(Component, {
+    localVue,
     propsData
   })
 })
