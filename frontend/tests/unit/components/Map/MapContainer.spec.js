@@ -58,13 +58,13 @@ beforeEach(() => {
   //   }
   // }
 
-  format = {
-    namespaced: true,
-    actions: {
-      newSpotFormat: jest.fn(),
-      postedSpotFormat: jest.fn()
-    }
-  }
+  // format = {
+  //   namespaced: true,
+  //   actions: {
+  //     newSpotFormat: jest.fn(),
+  //     postedSpotFormat: jest.fn()
+  //   }
+  // }
 
   getters = {
     currentUser: () => ({ data: { id: 1 } }),
@@ -81,9 +81,9 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       spot,
-      map,
-      post,
-      format
+      map
+      // post,
+      // format
     },
     getters,
     actions
