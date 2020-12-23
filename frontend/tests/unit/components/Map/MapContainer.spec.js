@@ -126,6 +126,11 @@ beforeEach(() => {
   // })
 })
 
+describe('getters', () => {
+  it('currentUser', () => {})
+  it('isLoggingIn', () => {})
+})
+
 describe('computed', () => {
   it('zoom 16 at radius.value is 500', () => {
     store = new Vuex.Store({
