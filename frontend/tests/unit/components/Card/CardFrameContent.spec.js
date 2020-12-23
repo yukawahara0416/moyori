@@ -28,10 +28,6 @@ describe('props', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
     expect(wrapper.props().spot instanceof Object).toBe(true)
   })
-  it('type', () => {
-    expect(wrapper.props().type).toStrictEqual(propsData.type)
-    expect(typeof wrapper.vm.$props.type).toBe('string')
-  })
 })
 
 describe('template', () => {
