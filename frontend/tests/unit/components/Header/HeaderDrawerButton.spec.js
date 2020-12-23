@@ -25,8 +25,12 @@ describe('props', () => {
   })
 })
 
-describe('emit', () => {
-  it('value', () => {
+describe('v-on', () => {
+  it('input', () => {})
+})
+
+describe('methods', () => {
+  it('emit/value', () => {
     wrapper.vm.input()
     expect(wrapper.emitted('input')).toBeTruthy()
   })
