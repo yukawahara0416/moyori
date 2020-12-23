@@ -12,7 +12,23 @@ let auth
 const signOutHandler = jest.fn()
 
 beforeEach(() => {
-  store = new Vuex.Store()
+  auth = {
+    getters: {
+      headers: () => {
+        return {
+          data: {
+            id: 1
+          }
+        }
+      }
+    }
+  }
+
+  store = new Vuex.Store({
+    modules: {
+      auth
+    }
+  })
 
   wrapper = mount(Component, {
     localVue,
