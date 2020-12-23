@@ -12,7 +12,7 @@ let map
 let auth
 // let post
 // let format
-let getters
+// let getters
 let actions
 
 beforeEach(() => {
@@ -79,11 +79,11 @@ beforeEach(() => {
   //   }
   // }
 
-  getters = {
-    currentUser: () => ({ data: { id: 1 } }),
-    dialogSign: () => true,
-    dialogSpotCreate: () => true
-  }
+  // getters = {
+  // currentUser: () => ({ data: { id: 1 } }),
+  // dialogSign: () => true,
+  // dialogSpotCreate: () => true
+  // }
 
   actions = {
     loadingOn: jest.fn(),
@@ -99,7 +99,7 @@ beforeEach(() => {
       // post,
       // format
     },
-    getters,
+    // getters,
     actions
   })
 
