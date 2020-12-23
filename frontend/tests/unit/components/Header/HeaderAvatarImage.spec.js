@@ -7,6 +7,7 @@ localVue.use(Vuex)
 
 let wrapper
 let propsData
+let store
 
 beforeEach(() => {
   propsData = {
