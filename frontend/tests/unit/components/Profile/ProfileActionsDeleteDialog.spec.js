@@ -56,8 +56,7 @@ describe('with mock methods', () => {
 
   describe('getters', () => {
     it('headers', () => {
-      console.log(auth.getters.headers())
-      expect(wrapper.vm.headers).toEqual(auth.getters.headers())
+      expect(wrapper.vm.headers).toEqual(store.getters.headers)
     })
   })
 
