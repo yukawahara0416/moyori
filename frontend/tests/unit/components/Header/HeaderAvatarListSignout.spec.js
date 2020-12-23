@@ -1,10 +1,14 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Header/HeaderAvatarListSignout.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 
 beforeEach(() => {
-  wrapper = mount(Component, {})
+  wrapper = mount(Component, {
+    localVue
+  })
 })
 
 afterEach(() => {
