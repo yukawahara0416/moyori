@@ -15,9 +15,9 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
+// afterEach(() => {
+//   wrapper.destroy()
+// })
 
 describe('props', () => {
   it('spots', () => {
