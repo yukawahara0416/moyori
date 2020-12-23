@@ -23,7 +23,11 @@ beforeEach(() => {
     }
   }
 
-  store = new Vuex.Store({})
+  store = new Vuex.Store({
+    modules: {
+      spot
+    }
+  })
 
   wrapper = shallowMount(Component, {
     localVue,
