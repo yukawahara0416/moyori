@@ -6,8 +6,8 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    spots: [{ data: { id: 1 } }, { data: { id: 2 } }],
-    type: 'map'
+    spots: [{ data: { id: 1 } }, { data: { id: 2 } }]
+    // type: 'map'
   }
 
   wrapper = shallowMount(Component, {
@@ -24,10 +24,10 @@ describe('props', () => {
     expect(wrapper.props().spots).toStrictEqual(propsData.spots)
     expect(wrapper.props().spots instanceof Array).toBe(true)
   })
-  it('type', () => {
-    expect(wrapper.props().type).toStrictEqual(propsData.type)
-    expect(typeof wrapper.vm.$props.type).toBe('string')
-  })
+  // it('type', () => {
+  //   expect(wrapper.props().type).toStrictEqual(propsData.type)
+  //   expect(typeof wrapper.vm.$props.type).toBe('string')
+  // })
 })
 
 // describe('computed', () => {
