@@ -1,8 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/views/Profile.vue'
-// import userStore from '@/store/modules/user/user.js'
-// import authStore from '@/store/modules/user/auth.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
