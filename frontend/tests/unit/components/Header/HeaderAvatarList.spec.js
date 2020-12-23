@@ -8,16 +8,18 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    currentUser: { data: { id: 1, name: 'test' } }
+    currentUser: {
+      data: {
+        id: 1,
+        name: 'test'
+      }
+    }
   }
 
   wrapper = shallowMount(Component, {
+    localVue,
     propsData
   })
-})
-
-afterEach(() => {
-  wrapper.destroy()
 })
 
 describe('props', () => {
