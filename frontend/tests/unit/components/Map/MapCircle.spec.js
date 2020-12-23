@@ -52,6 +52,10 @@ describe('getters', () => {
 })
 
 describe('template', () => {
+  it(':radius', () => {
+    expect(wrapper.find('gmap-circle-stub').attributes().radius).toEqual('500')
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
