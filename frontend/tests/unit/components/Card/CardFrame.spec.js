@@ -43,7 +43,8 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       spot,
-      user
+      user,
+      tab
     }
   })
 
