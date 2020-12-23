@@ -231,6 +231,8 @@ describe('methods', () => {
   })
 })
 
+describe('emit', () => {})
+
 // describe('actions', () => {
 //   it('spot/clearSpotsStore', () => {
 //     wrapper.vm.clearSpotsStore()
