@@ -16,16 +16,6 @@ const fetchData = jest.fn()
 beforeEach(() => {
   propsData = { id: 1 }
 
-  // user = {
-  //   namespaced: true,
-  //   state: {
-  //     user: {
-  //       data: { id: 1 }
-  //     }
-  //   },
-  //   getters: userStore.getters
-  // }
-
   user = {
     namespaced: true,
     getters: {
@@ -38,15 +28,6 @@ beforeEach(() => {
       }
     }
   }
-
-  // auth = {
-  //   state: {
-  //     currentUser: {
-  //       data: { id: 1 }
-  //     }
-  //   },
-  //   getters: authStore.getters
-  // }
 
   auth = {
     getters: {
