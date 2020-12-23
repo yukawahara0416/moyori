@@ -43,7 +43,10 @@ beforeEach(() => {
   }
 
   store = new Vuex.Store({
-    modules: { auth, snackbar }
+    modules: {
+      auth,
+      snackbar
+    }
   })
 })
 
@@ -55,7 +58,7 @@ describe('getters', () => {
       store,
       stubs: ['ValidationObserver']
     })
-    expect(wrapper.vm.headers).toEqual(auth.getters.headers())
+    expect(wrapper.vm.headers).toEqual(store.getters.headers)
   })
 })
 
