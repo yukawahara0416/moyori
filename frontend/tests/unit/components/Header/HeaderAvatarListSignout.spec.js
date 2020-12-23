@@ -9,6 +9,8 @@ let wrapper
 let store
 
 beforeEach(() => {
+  store = new Vuex.Store()
+
   wrapper = mount(Component, {
     localVue
   })
