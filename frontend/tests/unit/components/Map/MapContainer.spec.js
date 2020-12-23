@@ -47,16 +47,16 @@ beforeEach(() => {
   //   }
   // }
 
-  post = {
-    namespaced: true,
-    actions: {
-      nearbySearch: jest.fn(),
-      addSpotsStore: jest.fn(),
-      postSpot: jest.fn(),
-      unshiftSpotsStore: jest.fn(),
-      placeIdGenerator: jest.fn()
-    }
-  }
+  // post = {
+  //   namespaced: true,
+  //   actions: {
+  //     nearbySearch: jest.fn(),
+  //     addSpotsStore: jest.fn(),
+  //     postSpot: jest.fn(),
+  //     unshiftSpotsStore: jest.fn(),
+  //     placeIdGenerator: jest.fn()
+  //   }
+  // }
 
   format = {
     namespaced: true,
