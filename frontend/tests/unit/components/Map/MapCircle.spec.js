@@ -45,7 +45,11 @@ describe('props', () => {
   })
 })
 
-describe('getters', () => {})
+describe('getters', () => {
+  it('spot/radius', () => {
+    expect(wrapper.vm.radius).toMatchObject(store.getters['spot/radius'])
+  })
+})
 
 describe('template', () => {
   it('snapshot', () => {
