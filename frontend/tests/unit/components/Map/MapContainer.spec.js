@@ -144,6 +144,28 @@ describe('computed', () => {
 
     expect(wrapper.vm.zoom).toEqual(16)
   })
+
+  it('zoom 15 at radius.value is 1000', () => {
+    spot.getters.radius = () => {
+      return { name: '1km', value: 1000 }
+    }
+
+    store = new Vuex.Store({
+      modules: {
+        spot,
+        map,
+        auth
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      stubs: ['gmap-map', 'map-circle', 'map-marker']
+    })
+
+    expect(wrapper.vm.zoom).toEqual(15)
+  })
 })
 
 // describe('actions', () => {
