@@ -56,7 +56,7 @@ beforeEach(() => {
 
 describe('getters', () => {
   it('headers', () => {
-    expect(wrapper.vm.headers).toEqual(auth.getters.headers())
+    expect(wrapper.vm.headers).toEqual(store.getters.headers)
   })
 })
 
