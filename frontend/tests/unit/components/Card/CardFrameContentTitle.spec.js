@@ -1,21 +1,20 @@
-import { shallowMount } from '@vue/test-utils'
-import Component from '@/components/Card/CardContainerFrameContentTitle.vue'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
+import Component from '@/components/Card/CardFrameContentTitle.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 let propsData
 
 beforeEach(() => {
   propsData = {
-    spot: { marker: { name: 'test' }, data: { id: 1 } }
+    spot: { data: { name: 'test' } }
   }
 
   wrapper = shallowMount(Component, {
+    localVue,
     propsData
   })
-})
-
-afterEach(() => {
-  wrapper.destroy()
 })
 
 describe('props', () => {
@@ -26,6 +25,10 @@ describe('props', () => {
 })
 
 describe('template', () => {
+  it('spot.data.name', () => {
+    expect(wrapper.find('p').text()).toEqual(propsData.spot.data.name)
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
