@@ -38,7 +38,7 @@ describe('component', () => {
 
 describe('getters', () => {
   it('loading', () => {
-    expect(wrapper.vm.loading).toEqual(getters.loading())
+    expect(wrapper.vm.loading).toEqual(store.getters.loading)
   })
 })
 
