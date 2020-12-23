@@ -6,3 +6,9 @@ const localVue = createLocalVue()
 let wrapper
 
 const demoSearch = jest.fn()
+
+beforeEach(() => {
+  wrapper = mount(Component, {
+    localVue
+  })
+})
