@@ -97,7 +97,9 @@ describe('getters', () => {
     expect(wrapper.vm.user).toMatchObject(user.getters.user())
   })
 
-  it('currentUser', () => {})
+  it('currentUser', () => {
+    expect(wrapper.vm.currentUser).toMatchObject(auth.getters.currentUser())
+  })
 })
 
 describe('template', () => {
