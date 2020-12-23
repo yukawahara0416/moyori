@@ -131,7 +131,9 @@ describe('getters', () => {
     expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
   })
 
-  it('isLoggingIn', () => {})
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toBe(true)
+  })
 })
 
 describe('computed', () => {
