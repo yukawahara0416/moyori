@@ -11,7 +11,7 @@ let vuetify
 
 beforeEach(() => {
   propsData = {
-    spot: { data: { id: 1, name: 'test' }, comments: [] }
+    spot: { data: { id: 1, name: 'test', image: 'test' }, comments: [] }
   }
 
   vuetify = new Vuetify()
@@ -31,7 +31,10 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('image', () => {})
+  it('image', () => {
+    expect(wrapper.vm.image).toEqual(propsData.spot.data.image)
+  })
+
   it('filterImages', () => {})
 })
 
