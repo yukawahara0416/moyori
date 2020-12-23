@@ -47,6 +47,10 @@ describe('computed', () => {
   it('lg', () => {
     expect(wrapper.vm.lg).toEqual(4)
   })
+
+  it('md', () => {
+    expect(wrapper.vm.md).toEqual(6)
+  })
 })
 
 describe('template', () => {
