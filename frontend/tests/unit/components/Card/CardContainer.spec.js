@@ -3,6 +3,7 @@ import Component from '@/components/Card/CardContainer.vue'
 
 let wrapper
 let propsData
+let $route
 
 beforeEach(() => {
   propsData = {
@@ -10,8 +11,15 @@ beforeEach(() => {
     // type: 'map'
   }
 
+  $route = {
+    name: 'search'
+  }
+
   wrapper = shallowMount(Component, {
-    propsData
+    propsData,
+    mocks: {
+      $route
+    }
   })
 })
 
