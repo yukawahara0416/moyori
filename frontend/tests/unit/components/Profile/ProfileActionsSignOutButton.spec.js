@@ -15,7 +15,13 @@ const signOutHandler = jest.fn()
 beforeEach(() => {
   auth = {
     getters: {
-      headers: () => {}
+      headers: () => {
+        return {
+          data: {
+            id: 1
+          }
+        }
+      }
     },
     mutations: {
       clearHearders: jest.fn()
