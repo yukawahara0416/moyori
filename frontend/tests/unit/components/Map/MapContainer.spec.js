@@ -10,6 +10,8 @@ let store
 let spot
 let map
 let auth
+let dialog
+let loading
 // let post
 // let format
 // let getters
@@ -28,7 +30,7 @@ beforeEach(() => {
       },
       filteredSpots: () => [{ data: { id: 2 } }]
     },
-    actions: {
+    mutations: {
       clearSpotsStore: jest.fn()
     }
   }
@@ -46,6 +48,22 @@ beforeEach(() => {
         return { data: { id: 1 } }
       },
       isLoggingIn: () => true
+    }
+  }
+
+  dialog = {
+    mutations: {
+      dialogOn: jest.fn()
+    },
+    actions: {
+      dialogOff: jest.fn()
+    }
+  }
+
+  loading = {
+    mutations: {
+      loadingOn: jest.fn(),
+      loadingOff: jest.fn()
     }
   }
 
@@ -95,7 +113,9 @@ beforeEach(() => {
     modules: {
       spot,
       map,
-      auth
+      auth,
+      dialog,
+      loading
       // post,
       // format
     }
@@ -140,7 +160,7 @@ describe('getters', () => {
   })
 
   it('spot/filterSpots', () => {
-    expect(wrapper.vm.filterSpots.length).toEqual(1)
+    expect(wrapper.vm.filteredSpots.length).toEqual(1)
   })
 
   it('currentUser', () => {
@@ -202,7 +222,14 @@ describe('computed', () => {
   })
 })
 
-describe('methods', () => {})
+describe('methods', () => {
+  it('beforeSearch', () => {
+    wrapper.vm.beforeSearch()
+    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    expect(loading.mutations.loadingOn).toHaveBeenCalled()
+    expect(spot.mutations.clearSpotsStore).toHaveBeenCalled()
+  })
+})
 
 // describe('actions', () => {
 //   it('spot/clearSpotsStore', () => {
