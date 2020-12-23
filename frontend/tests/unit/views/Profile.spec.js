@@ -93,7 +93,10 @@ describe('call at beforeRouteUpdate hook', () => {
 })
 
 describe('getters', () => {
-  it('user', () => {})
+  it('user', () => {
+    expect(wrapper.vm.user).toMatchObject(user.getters.user())
+  })
+
   it('currentUser', () => {})
 })
 
