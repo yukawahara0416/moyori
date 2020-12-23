@@ -95,10 +95,6 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('actions', () => {
   it('spot/clearSpotsStore', () => {
     wrapper.vm.clearSpotsStore()
@@ -124,27 +120,27 @@ describe('actions', () => {
     wrapper.vm.collateSpot()
     expect(map.actions.collateSpot).toHaveBeenCalled()
   })
-  it('post/nearbySearch', () => {
+  it('form/nearbySearch', () => {
     wrapper.vm.nearbySearchPost()
     expect(post.actions.nearbySearch).toHaveBeenCalled()
   })
-  // it('post/textSearch', () => {
+  // it('form/textSearch', () => {
   //   wrapper.vm.textSearchPost()
   //   expect(post.actions.textSearch).toHaveBeenCalled()
   // })
-  it('post/addSpotsStore', () => {
+  it('form/addSpotsStore', () => {
     wrapper.vm.addSpotsPost()
     expect(post.actions.addSpotsStore).toHaveBeenCalled()
   })
-  it('post/postSpot', () => {
+  it('form/postSpot', () => {
     wrapper.vm.postSpot()
     expect(post.actions.postSpot).toHaveBeenCalled()
   })
-  it('post/unshiftSpotsStore', () => {
+  it('form/unshiftSpotsStore', () => {
     wrapper.vm.unshiftSpotsStore()
     expect(post.actions.unshiftSpotsStore).toHaveBeenCalled()
   })
-  it('post/placeIdGenerator', () => {
+  it('form/placeIdGenerator', () => {
     wrapper.vm.placeIdGenerator()
     expect(post.actions.placeIdGenerator).toHaveBeenCalled()
   })
