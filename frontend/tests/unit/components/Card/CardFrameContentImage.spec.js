@@ -30,6 +30,11 @@ describe('props', () => {
   })
 })
 
+describe('computed', () => {
+  it('image', () => {})
+  it('filterImages', () => {})
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
