@@ -16,6 +16,7 @@ beforeEach(() => {
   }
 
   spot = {
+    namespaced: true,
     getters: {
       radius: () => {
         return { name: '500m', value: 500 }
