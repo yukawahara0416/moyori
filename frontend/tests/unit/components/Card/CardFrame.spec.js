@@ -147,14 +147,6 @@ describe('methods', () => {
   })
 })
 
-// describe('emit', () => {
-//   it('panTo', () => {
-//     wrapper.vm.$root.$emit('panTo')
-//     const rootWrapper = createWrapper(wrapper.vm.$root)
-//     expect(wrapper.emitted('panTo')).toBeTruthy()
-//   })
-// })
-
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
