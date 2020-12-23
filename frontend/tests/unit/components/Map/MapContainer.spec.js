@@ -91,48 +91,53 @@ beforeEach(() => {
   //   dialogOff: jest.fn()
   // }
 
-  // store = new Vuex.Store({
-  //   modules: {
-  //     spot,
-  //     map,
-  //     auth
-  //     // post,
-  //     // format
-  //   }
-  //   // getters,
-  //   // actions
-  // })
+  store = new Vuex.Store({
+    modules: {
+      spot,
+      map,
+      auth
+      // post,
+      // format
+    }
+    // getters,
+    // actions
+  })
 
-  // wrapper = shallowMount(Component, {
-  //   localVue,
-  //   store,
-  //   stubs: [
-  //     // 'map-nearby-button',
-  //     // 'map-panto-button',
-  //     'gmap-map',
-  //     'map-circle',
-  //     'map-marker'
-  //     // 'spot-post-dialog'
+  wrapper = shallowMount(Component, {
+    localVue,
+    store,
+    stubs: [
+      // 'map-nearby-button',
+      // 'map-panto-button',
+      'gmap-map',
+      'map-circle',
+      'map-marker'
+      // 'spot-post-dialog'
 
-  //     // 'map-container-toolbar',
-  //     // 'gmap-map',
-  //     // 'map-container-circle',
-  //     // 'map-container-marker',
-  //     // 'spot-dialog'
-  //   ],
-  //   methods: {
-  //     autoNearbySearch: jest.fn()
-  //   }
-  // })
+      // 'map-container-toolbar',
+      // 'gmap-map',
+      // 'map-container-circle',
+      // 'map-container-marker',
+      // 'spot-dialog'
+    ],
+    methods: {
+      autoNearbySearch: jest.fn()
+    }
+  })
 })
 
 describe('getters', () => {
-  it('currentUser', () => {})
+  it('currentUser', () => {
+    expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
+  })
+
   it('isLoggingIn', () => {})
 })
 
 describe('computed', () => {
   it('zoom 16 at radius.value is 500', () => {
+    wrapper.destroy()
+
     store = new Vuex.Store({
       modules: {
         spot,
@@ -151,6 +156,8 @@ describe('computed', () => {
   })
 
   it('zoom 15 at radius.value is 1000', () => {
+    wrapper.destroy()
+
     spot.getters.radius = () => {
       return { name: '1km', value: 1000 }
     }
