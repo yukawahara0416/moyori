@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Card/CardContainerFrame.vue'
+import Component from '@/components/Card/CardFrame.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -43,13 +43,13 @@ beforeEach(() => {
     localVue,
     propsData,
     store,
-    stubs: ['card-container-frame-content']
+    stubs: ['card-frame-content']
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
+// afterEach(() => {
+//   wrapper.destroy()
+// })
 
 describe('props', () => {
   it('spot', () => {
