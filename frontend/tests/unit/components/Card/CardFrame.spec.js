@@ -48,6 +48,9 @@ beforeEach(() => {
     localVue,
     propsData,
     store,
+    mocks: {
+      $route
+    },
     stubs: ['card-frame-content']
   })
 })
