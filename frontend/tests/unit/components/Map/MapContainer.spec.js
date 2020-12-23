@@ -94,7 +94,8 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       spot,
-      map
+      map,
+      auth
       // post,
       // format
     },
