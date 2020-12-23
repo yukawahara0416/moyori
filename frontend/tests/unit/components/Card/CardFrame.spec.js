@@ -16,8 +16,7 @@ let $route
 beforeEach(() => {
   propsData = {
     spot: { marker: { name: 'test' }, data: { id: 1 } },
-    id: 1,
-    type: 'map'
+    id: 1
   }
 
   spot = {
@@ -78,6 +77,9 @@ describe('props', () => {
 })
 
 describe('v-on', () => {
+  const spotlight = jest.fn()
+  const panTo = jest.fn()
+
   beforeEach(() => {
     $route = {
       name: 'search'
@@ -90,21 +92,22 @@ describe('v-on', () => {
       mocks: {
         $route
       },
+      methods: {
+        spotlight,
+        panTo
+      },
       stubs: ['card-frame-content']
     })
   })
 
   it('spotlight, panTo', () => {
-    const event1 = jest.fn()
-    const event2 = jest.fn()
-    wrapper.setMethods({ spotlight: event1, panTo: event2 })
     wrapper.find('.v-card').trigger('click')
-    expect(event1).toHaveBeenCalledTimes(1)
-    expect(event2).toHaveBeenCalledTimes(1)
+    expect(spotlight).toHaveBeenCalledTimes(1)
+    expect(panTo).toHaveBeenCalledTimes(1)
   })
 })
 
-describe('actions', () => {
+describe('methods', () => {
   it('spot/spotlight', () => {
     $route = {
       name: 'search'
