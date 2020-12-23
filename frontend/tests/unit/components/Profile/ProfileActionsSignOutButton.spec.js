@@ -8,7 +8,6 @@ localVue.use(Vuex)
 let wrapper
 let store
 let auth
-let snackbar
 
 const signOutHandler = jest.fn()
 
@@ -22,26 +21,12 @@ beforeEach(() => {
           }
         }
       }
-    },
-    mutations: {
-      clearHearders: jest.fn()
-    },
-    actions: {
-      signOut: jest.fn()
-    }
-  }
-
-  snackbar = {
-    actions: {
-      pushSnackbarSuccess: jest.fn(),
-      pushSnackbarError: jest.fn()
     }
   }
 
   store = new Vuex.Store({
     modules: {
-      auth,
-      snackbar
+      auth
     }
   })
 

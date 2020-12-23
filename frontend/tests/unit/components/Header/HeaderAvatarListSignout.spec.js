@@ -1,27 +1,55 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
+import Vuex from 'vuex'
 import Component from '@/components/Header/HeaderAvatarListSignout.vue'
 
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
 let wrapper
+let store
+let auth
+
+const signOutHandler = jest.fn()
 
 beforeEach(() => {
-  wrapper = mount(Component, {})
-})
+  auth = {
+    getters: {
+      headers: () => {
+        return {
+          data: {
+            id: 1
+          }
+        }
+      }
+    }
+  }
 
-afterEach(() => {
-  wrapper.destroy()
-})
+  store = new Vuex.Store({
+    modules: {
+      auth
+    }
+  })
 
-describe('v-on', () => {
-  it('signOut', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ signOut: event })
-    wrapper.find('.v-list-item').trigger('click')
-    expect(event).toHaveBeenCalledTimes(1)
+  wrapper = mount(Component, {
+    localVue,
+    store,
+    methods: {
+      signOutHandler
+    }
   })
 })
 
-describe('actions', () => {
-  it('signOut', () => {})
+describe('getters', () => {
+  it('headers', () => {
+    expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
+  })
+})
+
+describe('v-on', () => {
+  it('signOutHandler', () => {
+    wrapper.find('.v-list-item').trigger('click')
+    expect(signOutHandler).toHaveBeenCalledTimes(1)
+  })
 })
 
 describe('template', () => {
