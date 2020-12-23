@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import Component from '@/components/Header/HeaderDrawer.vue'
+import Component from '@/components/Header/HeaderDrawerButton.vue'
 
 let wrapper
 let propsData
