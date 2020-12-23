@@ -39,10 +39,6 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('getters', () => {
   it('headers', () => {
     expect(wrapper.vm.headers).toEqual(getters.headers())
