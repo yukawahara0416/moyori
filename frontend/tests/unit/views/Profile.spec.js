@@ -100,6 +100,11 @@ describe('call at beforeRouteUpdate hook', () => {
   })
 })
 
+describe('getters', () => {
+  it('user', () => {})
+  it('currentUser', () => {})
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
