@@ -40,7 +40,9 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
-  it('headers', () => {})
+  it('headers', () => {
+    expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
+  })
 })
 
 describe('v-on', () => {
