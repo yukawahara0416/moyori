@@ -30,6 +30,12 @@ describe('props', () => {
 })
 
 describe('template', () => {
+  it('currentUser.data.namaさん', () => {
+    expect(wrapper.find('v-list-item-stub').text()).toEqual(
+      `${propsData.currentUser.data.name} さん`
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
