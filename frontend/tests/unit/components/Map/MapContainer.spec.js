@@ -40,6 +40,15 @@ beforeEach(() => {
     }
   }
 
+  auth = {
+    getters: {
+      currentUser: () => {
+        return { data: { id: 1 } }
+      },
+      isLoggingIn: () => true
+    }
+  }
+
   // map = {
   //   namespaced: true,
   //   actions: {
