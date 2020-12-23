@@ -15,6 +15,14 @@ beforeEach(() => {
     center: { lat: 36.204824, lng: 138.252923 }
   }
 
+  spot = {
+    getters: {
+      radius: () => {
+        return { name: '500m', value: 500 }
+      }
+    }
+  }
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
