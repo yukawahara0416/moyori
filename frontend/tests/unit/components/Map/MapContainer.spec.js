@@ -6,13 +6,14 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
+let store
 let spot
 let map
-let post
-let format
+let auth
+// let post
+// let format
 let getters
 let actions
-let store
 
 beforeEach(() => {
   spot = {
