@@ -141,8 +141,36 @@ beforeEach(() => {
       // 'spot-dialog'
     ]
     // methods: {
-    //   autoNearbySearch: jest.fn()
+    // autoNearbySearch: jest.fn(),
+    // demoSearch
     // }
+  })
+})
+
+describe('call at mount hook', () => {
+  it('demoSearch', () => {
+    const demoSearch = jest.fn()
+
+    store = new Vuex.Store({
+      modules: {
+        spot,
+        map,
+        auth,
+        dialog,
+        loading
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      stubs: ['gmap-map', 'map-circle', 'map-marker'],
+      methods: {
+        demoSearch
+      }
+    })
+
+    expect(demoSearch).toHaveBeenCalled()
   })
 })
 
