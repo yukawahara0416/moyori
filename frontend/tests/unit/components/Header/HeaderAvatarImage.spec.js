@@ -12,7 +12,7 @@ beforeEach(() => {
       data: {
         id: 1,
         name: 'test',
-        image: 'image'
+        avatar: 'test'
       }
     }
   }
