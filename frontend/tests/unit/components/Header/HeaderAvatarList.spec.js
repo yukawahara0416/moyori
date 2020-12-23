@@ -1,5 +1,7 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Header/HeaderAvatarList.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 let propsData
