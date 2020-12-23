@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import Component from '@/components/Card/CardContainerFrameContent.vue'
+import Component from '@/components/Card/CardFrameContent.vue'
 
 let wrapper
 let propsData
