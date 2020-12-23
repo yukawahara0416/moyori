@@ -26,7 +26,7 @@ beforeEach(() => {
       type: () => {
         return { name: 'カフェ', value: 'cafe' }
       },
-      filteredSpots: () => []
+      filteredSpots: () => [{ data: { id: 2 } }]
     },
     actions: {
       clearSpotsStore: jest.fn()
@@ -139,7 +139,9 @@ describe('getters', () => {
     expect(wrapper.vm.type).toMatchObject(store.getters['spot/type'])
   })
 
-  it('spot/filterSpots', () => {})
+  it('spot/filterSpots', () => {
+    expect(wrapper.vm.filterSpots.length).toEqual(1)
+  })
 
   it('currentUser', () => {
     expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
