@@ -119,10 +119,10 @@ beforeEach(() => {
       // 'map-container-circle',
       // 'map-container-marker',
       // 'spot-dialog'
-    ],
-    methods: {
-      autoNearbySearch: jest.fn()
-    }
+    ]
+    // methods: {
+    //   autoNearbySearch: jest.fn()
+    // }
   })
 })
 
@@ -135,7 +135,10 @@ describe('getters', () => {
     expect(wrapper.vm.radius).toMatchObject(store.getters['spot/radius'])
   })
 
-  it('spot/type', () => {})
+  it('spot/type', () => {
+    expect(wrapper.vm.type).toMatchObject(store.getters['spot/type'])
+  })
+
   it('spot/filterSpots', () => {})
 
   it('currentUser', () => {
