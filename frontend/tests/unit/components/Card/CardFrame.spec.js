@@ -7,9 +7,10 @@ localVue.use(Vuex)
 
 let wrapper
 let propsData
+let store
 let spot
 let user
-let store
+let tab
 let $route
 
 beforeEach(() => {
@@ -91,6 +92,7 @@ describe('actions', () => {
     wrapper.vm.spotlight()
     expect(spot.actions.spotlight).toHaveBeenCalled()
   })
+
   it('user/spotlight', () => {
     wrapper.setProps({ type: 'user' })
     wrapper.vm.spotlight()
