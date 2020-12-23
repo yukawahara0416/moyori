@@ -22,3 +22,9 @@ describe('v-on', () => {
     expect(demoSearch).toHaveBeenCalled()
   })
 })
+
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+})
