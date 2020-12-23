@@ -9,13 +9,16 @@ const demoSearch = jest.fn()
 
 beforeEach(() => {
   wrapper = mount(Component, {
-    localVue
+    localVue,
+    methods: {
+      demoSearch
+    }
   })
 })
 
 describe('v-on', () => {
   it('demoSearch', () => {
     wrapper.find('.v-btn').trigger('click')
-    // expect()
+    expect(demoSearch).toHaveBeenCalled()
   })
 })
