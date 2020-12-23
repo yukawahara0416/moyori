@@ -6,211 +6,201 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
+let store
 let spot
 let map
-let post
-let format
-let getters
-let actions
-let store
+let auth
+let dialog
+let loading
 
 beforeEach(() => {
   spot = {
     namespaced: true,
     getters: {
       spots: () => [{ data: { id: 1 } }, { data: { id: 2 } }],
-      filteredSpots: () => {}
+      radius: () => {
+        return { name: '500m', value: 500 }
+      },
+      type: () => {
+        return { name: 'カフェ', value: 'cafe' }
+      },
+      filteredSpots: () => [{ data: { id: 2 } }]
     },
-    actions: {
+    mutations: {
       clearSpotsStore: jest.fn()
     }
   }
 
   map = {
-    namespaced: true,
-    actions: {
-      geolocate: jest.fn(),
-      nearbySearch: jest.fn(),
-      textSearch: jest.fn(),
-      addSpotsStore: jest.fn(),
-      collateSpot: jest.fn()
+    mutations: {
+      mapMutation: jest.fn(),
+      googleMutation: jest.fn()
     }
   }
 
-  post = {
-    namespaced: true,
-    actions: {
-      nearbySearch: jest.fn(),
-      addSpotsStore: jest.fn(),
-      postSpot: jest.fn(),
-      unshiftSpotsStore: jest.fn(),
-      placeIdGenerator: jest.fn()
+  auth = {
+    getters: {
+      currentUser: () => {
+        return { data: { id: 1 } }
+      },
+      isLoggingIn: () => true
     }
   }
 
-  format = {
-    namespaced: true,
+  dialog = {
+    mutations: {
+      dialogOn: jest.fn()
+    },
     actions: {
-      newSpotFormat: jest.fn(),
-      postedSpotFormat: jest.fn()
+      dialogOff: jest.fn()
     }
   }
 
-  getters = {
-    currentUser: () => ({ data: { id: 1 } }),
-    dialogSign: () => true,
-    dialogSpotCreate: () => true
-  }
-
-  actions = {
-    loadingOn: jest.fn(),
-    loadingOff: jest.fn(),
-    dialogOff: jest.fn()
+  loading = {
+    mutations: {
+      loadingOn: jest.fn(),
+      loadingOff: jest.fn()
+    }
   }
 
   store = new Vuex.Store({
     modules: {
       spot,
       map,
-      post,
-      format
-    },
-    getters,
-    actions
+      auth,
+      dialog,
+      loading
+    }
   })
 
   wrapper = shallowMount(Component, {
     localVue,
     store,
-    stubs: [
-      'map-container-toolbar',
-      'gmap-map',
-      'map-container-circle',
-      'map-container-marker',
-      'spot-dialog'
-    ],
-    methods: {
-      autoNearbySearch: jest.fn()
-    }
+    stubs: ['gmap-map', 'map-circle', 'map-marker']
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
-describe('actions', () => {
-  it('spot/clearSpotsStore', () => {
-    wrapper.vm.clearSpotsStore()
-    expect(spot.actions.clearSpotsStore).toHaveBeenCalled()
-  })
-  it('map/geolocate', () => {
-    wrapper.vm.geolocate()
-    expect(map.actions.geolocate).toHaveBeenCalled()
-  })
-  it('map/nearbySearch', () => {
-    wrapper.vm.nearbySearchMap()
-    expect(map.actions.nearbySearch).toHaveBeenCalled()
-  })
-  it('map/textSearch', () => {
-    wrapper.vm.textSearchMap()
-    expect(map.actions.textSearch).toHaveBeenCalled()
-  })
-  it('map/addSpotsStore', () => {
-    wrapper.vm.addSpotsMap()
-    expect(map.actions.addSpotsStore).toHaveBeenCalled()
-  })
-  it('map/collateSpot', () => {
-    wrapper.vm.collateSpot()
-    expect(map.actions.collateSpot).toHaveBeenCalled()
-  })
-  it('post/nearbySearch', () => {
-    wrapper.vm.nearbySearchPost()
-    expect(post.actions.nearbySearch).toHaveBeenCalled()
-  })
-  // it('post/textSearch', () => {
-  //   wrapper.vm.textSearchPost()
-  //   expect(post.actions.textSearch).toHaveBeenCalled()
-  // })
-  it('post/addSpotsStore', () => {
-    wrapper.vm.addSpotsPost()
-    expect(post.actions.addSpotsStore).toHaveBeenCalled()
-  })
-  it('post/postSpot', () => {
-    wrapper.vm.postSpot()
-    expect(post.actions.postSpot).toHaveBeenCalled()
-  })
-  it('post/unshiftSpotsStore', () => {
-    wrapper.vm.unshiftSpotsStore()
-    expect(post.actions.unshiftSpotsStore).toHaveBeenCalled()
-  })
-  it('post/placeIdGenerator', () => {
-    wrapper.vm.placeIdGenerator()
-    expect(post.actions.placeIdGenerator).toHaveBeenCalled()
-  })
-  it('format/newSpotFormat', () => {
-    wrapper.vm.formatNewSpot()
-    expect(format.actions.newSpotFormat).toHaveBeenCalled()
-  })
-  it('format/postedSpotFormat', () => {
-    wrapper.vm.formatPostSpot()
-    expect(format.actions.postedSpotFormat).toHaveBeenCalled()
-  })
-  it('loadingOn', () => {
-    wrapper.vm.loadingOn()
-    expect(actions.loadingOn).toHaveBeenCalled()
-  })
-  it('loadingOff', () => {
-    wrapper.vm.loadingOff()
-    expect(actions.loadingOff).toHaveBeenCalled()
-  })
-  it('dialogOff', () => {
-    wrapper.vm.dialogOff()
-    expect(actions.dialogOff).toHaveBeenCalled()
-  })
-})
-
-describe('v-on', () => {
-  it('nearbySearch', () => {
-    wrapper.setMethods({ nearbySearch: jest.fn() })
-    wrapper.vm.$emit('nearbySearch')
-    expect(wrapper.emitted().nearbySearch).toBeTruthy()
-  })
-  it('textSearch', () => {
-    wrapper.setMethods({ textSearch: jest.fn() })
-    wrapper.vm.$emit('textSearch')
-    expect(wrapper.emitted().textSearch).toBeTruthy()
-  })
-  it('panToLocation', () => {
-    wrapper.setMethods({ panToLocation: jest.fn() })
-    wrapper.vm.$emit('panToLocation')
-    expect(wrapper.emitted().panToLocation).toBeTruthy()
-  })
+describe('call at mount hook', () => {
   it('demoSearch', () => {
-    wrapper.setMethods({ demoSearch: jest.fn() })
-    wrapper.vm.$emit('demoSearch')
-    expect(wrapper.emitted().demoSearch).toBeTruthy()
-  })
-  it('createSpot', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ createSpot: event })
-    wrapper.vm.createSpot()
-    expect(event).toHaveBeenCalledTimes(1)
+    const demoSearch = jest.fn()
+
+    store = new Vuex.Store({
+      modules: {
+        spot,
+        map,
+        auth,
+        dialog,
+        loading
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      stubs: ['gmap-map', 'map-circle', 'map-marker'],
+      methods: {
+        demoSearch
+      }
+    })
+
+    expect(demoSearch).toHaveBeenCalled()
   })
 })
 
 describe('getters', () => {
   it('spot/spots', () => {
-    expect(wrapper.vm.spots).toEqual(spot.getters.spots())
+    expect(wrapper.vm.spots.length).toEqual(2)
   })
+
+  it('spot/radius', () => {
+    expect(wrapper.vm.radius).toMatchObject(store.getters['spot/radius'])
+  })
+
+  it('spot/type', () => {
+    expect(wrapper.vm.type).toMatchObject(store.getters['spot/type'])
+  })
+
+  it('spot/filterSpots', () => {
+    expect(wrapper.vm.filteredSpots.length).toEqual(1)
+  })
+
   it('currentUser', () => {
-    expect(wrapper.vm.currentUser).toEqual(getters.currentUser())
+    expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
   })
-  it('dialogSign', () => {
-    expect(wrapper.vm.dialogSign).toEqual(getters.dialogSign())
+
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toBe(true)
   })
-  it('dialogSpotCreate', () => {
-    expect(wrapper.vm.dialogSpotCreate).toEqual(getters.dialogSpotCreate())
+})
+
+describe('computed', () => {
+  it('zoom 16 at radius.value is 500', () => {
+    expect(wrapper.vm.zoom).toEqual(16)
+  })
+
+  it('zoom 15 at radius.value is 1000', () => {
+    spot.getters.radius = () => {
+      return { name: '1km', value: 1000 }
+    }
+
+    store = new Vuex.Store({
+      modules: {
+        spot,
+        map,
+        auth
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      stubs: ['gmap-map', 'map-circle', 'map-marker']
+    })
+
+    expect(wrapper.vm.zoom).toEqual(15)
+  })
+
+  it('zoom 13 at radius.value is 3000', () => {
+    spot.getters.radius = () => {
+      return { name: '3km', value: 3000 }
+    }
+
+    store = new Vuex.Store({
+      modules: {
+        spot,
+        map,
+        auth
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      stubs: ['gmap-map', 'map-circle', 'map-marker']
+    })
+
+    expect(wrapper.vm.zoom).toEqual(13)
+  })
+})
+
+describe('methods', () => {
+  it('beforeSearch', () => {
+    wrapper.vm.beforeSearch()
+    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    expect(loading.mutations.loadingOn).toHaveBeenCalled()
+    expect(spot.mutations.clearSpotsStore).toHaveBeenCalled()
+  })
+})
+
+describe('emit', () => {
+  it('$emit.nearby-search', () => {
+    wrapper.vm.$emit('nearby-search')
+    expect(wrapper.emitted()['nearby-search']).toBeTruthy()
+  })
+
+  it('$emit.panto-location', () => {
+    wrapper.vm.$emit('panto-location')
+    expect(wrapper.emitted()['panto-location']).toBeTruthy()
   })
 })
 
