@@ -94,11 +94,11 @@ describe('call at beforeRouteUpdate hook', () => {
 
 describe('getters', () => {
   it('user', () => {
-    expect(wrapper.vm.user).toMatchObject(user.getters.user())
+    expect(wrapper.vm.user).toMatchObject(store.getters['user/user'])
   })
 
   it('currentUser', () => {
-    expect(wrapper.vm.currentUser).toMatchObject(auth.getters.currentUser())
+    expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
   })
 })
 
