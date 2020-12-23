@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import Component from '@/components/Map/MapContainerCircle.vue'
+import Component from '@/components/Map/MapCircle.vue'
 
 let wrapper
 let propsData
