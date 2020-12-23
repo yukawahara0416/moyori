@@ -40,6 +40,10 @@ beforeEach(() => {
     }
   })
 
+  $route = {
+    name: 'search'
+  }
+
   wrapper = mount(Component, {
     localVue,
     propsData,
