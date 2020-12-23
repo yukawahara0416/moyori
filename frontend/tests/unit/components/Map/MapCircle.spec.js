@@ -23,6 +23,8 @@ beforeEach(() => {
     }
   }
 
+  store = new Vuex.Store({})
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
