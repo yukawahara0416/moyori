@@ -10,6 +10,7 @@ let propsData
 let spot
 let user
 let store
+let $route
 
 beforeEach(() => {
   propsData = {
