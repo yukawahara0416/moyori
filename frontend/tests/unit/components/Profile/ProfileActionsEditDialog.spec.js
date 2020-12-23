@@ -13,11 +13,26 @@ let snackbar
 
 beforeEach(() => {
   propsData = {
-    user: { data: { id: 1, name: 'test', email: 'test', avatar: 'test' } }
+    user: {
+      data: {
+        id: 1,
+        name: 'test',
+        email: 'test',
+        avatar: 'test'
+      }
+    }
   }
 
   auth = {
-    getters: { headers: () => {} }
+    getters: {
+      headers: () => {
+        return {
+          data: {
+            id: 1
+          }
+        }
+      }
+    }
   }
 
   snackbar = {
