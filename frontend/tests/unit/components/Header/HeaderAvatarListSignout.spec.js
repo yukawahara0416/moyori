@@ -15,16 +15,17 @@ beforeEach(() => {
 
   wrapper = mount(Component, {
     localVue,
-    store
+    store,
+    methods: {
+      signOutHandler
+    }
   })
 })
 
 describe('v-on', () => {
-  it('signOut', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ signOut: event })
+  it('signOutHandler', () => {
     wrapper.find('.v-list-item').trigger('click')
-    expect(event).toHaveBeenCalledTimes(1)
+    expect(signOutHandler).toHaveBeenCalledTimes(1)
   })
 })
 
