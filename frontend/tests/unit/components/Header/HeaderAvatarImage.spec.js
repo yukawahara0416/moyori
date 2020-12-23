@@ -23,10 +23,6 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('props', () => {
   it('currentUser', async () => {
     expect(wrapper.props().currentUser).toStrictEqual(propsData.currentUser)
@@ -38,7 +34,9 @@ describe('template', () => {
   it('v-if="currentUser.data.avatar"', () => {
     expect(wrapper.html().includes('v-img-stub')).toBe(true)
   })
-  it('v-else', () => {})
+  it('v-else', () => {
+    expect(wrapper.html().includes('span')).toBe(false)
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
