@@ -22,6 +22,9 @@ beforeEach(() => {
       radius: () => {
         return { name: '500m', value: 500 }
       },
+      type: () => {
+        return { name: 'カフェ', value: 'cafe' }
+      },
       filteredSpots: () => []
     },
     actions: {
