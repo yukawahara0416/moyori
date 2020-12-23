@@ -8,6 +8,8 @@ localVue.use(Vuex)
 let wrapper
 let store
 
+const signOutHandler = jest.fn()
+
 beforeEach(() => {
   store = new Vuex.Store()
 
