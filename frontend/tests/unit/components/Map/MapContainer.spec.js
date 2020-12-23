@@ -231,7 +231,12 @@ describe('methods', () => {
   })
 })
 
-describe('emit', () => {})
+describe('emit', () => {
+  it('$emit.nearby-search', () => {
+    wrapper.vm.$emit('nearby-search')
+    expect(wrapper.emitted()['nearby-search']).toBeTruthy()
+  })
+})
 
 // describe('actions', () => {
 //   it('spot/clearSpotsStore', () => {
