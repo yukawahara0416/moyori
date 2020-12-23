@@ -14,10 +14,6 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('v-on', () => {
   it('signOut', () => {
     const event = jest.fn()
