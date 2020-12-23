@@ -1,5 +1,7 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Card/CardFrameContent.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 let propsData
@@ -12,6 +14,7 @@ beforeEach(() => {
   }
 
   wrapper = shallowMount(Component, {
+    localVue,
     propsData
   })
 })
