@@ -30,15 +30,22 @@ beforeEach(() => {
   }
 
   map = {
-    namespaced: true,
-    actions: {
-      geolocate: jest.fn(),
-      nearbySearch: jest.fn(),
-      textSearch: jest.fn(),
-      addSpotsStore: jest.fn(),
-      collateSpot: jest.fn()
+    mutations: {
+      mapMutation: jest.fn(),
+      googleMutation: jest.fn()
     }
   }
+
+  // map = {
+  //   namespaced: true,
+  //   actions: {
+  //     geolocate: jest.fn(),
+  //     nearbySearch: jest.fn(),
+  //     textSearch: jest.fn(),
+  //     addSpotsStore: jest.fn(),
+  //     collateSpot: jest.fn()
+  //   }
+  // }
 
   post = {
     namespaced: true,
