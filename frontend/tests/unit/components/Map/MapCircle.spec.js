@@ -32,6 +32,7 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
+    store,
     stubs: ['gmap-circle']
   })
 })
