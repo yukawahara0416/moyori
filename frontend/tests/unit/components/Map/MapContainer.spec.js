@@ -127,7 +127,10 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
-  it('spot/spots', () => {})
+  it('spot/spots', () => {
+    expect(wrapper.vm.spots.length).toEqual(2)
+  })
+
   it('spot/radius', () => {})
   it('spot/type', () => {})
   it('spot/filterSpots', () => {})
