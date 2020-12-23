@@ -91,43 +91,59 @@ beforeEach(() => {
   //   dialogOff: jest.fn()
   // }
 
-  store = new Vuex.Store({
-    modules: {
-      spot,
-      map,
-      auth
-      // post,
-      // format
-    }
-    // getters,
-    // actions
-  })
+  // store = new Vuex.Store({
+  //   modules: {
+  //     spot,
+  //     map,
+  //     auth
+  //     // post,
+  //     // format
+  //   }
+  //   // getters,
+  //   // actions
+  // })
 
-  wrapper = shallowMount(Component, {
-    localVue,
-    store,
-    stubs: [
-      'map-nearby-button',
-      'map-panto-button',
-      'gmap-map',
-      'map-circle',
-      'map-marker',
-      'spot-post-dialog'
+  // wrapper = shallowMount(Component, {
+  //   localVue,
+  //   store,
+  //   stubs: [
+  //     // 'map-nearby-button',
+  //     // 'map-panto-button',
+  //     'gmap-map',
+  //     'map-circle',
+  //     'map-marker'
+  //     // 'spot-post-dialog'
 
-      // 'map-container-toolbar',
-      // 'gmap-map',
-      // 'map-container-circle',
-      // 'map-container-marker',
-      // 'spot-dialog'
-    ],
-    methods: {
-      autoNearbySearch: jest.fn()
-    }
-  })
+  //     // 'map-container-toolbar',
+  //     // 'gmap-map',
+  //     // 'map-container-circle',
+  //     // 'map-container-marker',
+  //     // 'spot-dialog'
+  //   ],
+  //   methods: {
+  //     autoNearbySearch: jest.fn()
+  //   }
+  // })
 })
 
 describe('computed', () => {
-  it('zoom', () => {})
+  it('zoom 16 at radius.value is 500', () => {
+    store = new Vuex.Store({
+      modules: {
+        spot,
+        map,
+        auth
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      stubs: ['gmap-map', 'map-circle', 'map-marker']
+    })
+
+    expect(wrapper.vm.zoom).toEqual(16)
+  })
 })
 
 // describe('actions', () => {
