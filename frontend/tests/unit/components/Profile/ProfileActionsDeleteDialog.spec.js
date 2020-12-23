@@ -12,9 +12,19 @@ let snackbar
 
 beforeEach(() => {
   auth = {
-    getters: { headers: () => {} },
-    mutations: { clearHeaders: jest.fn() },
-    actions: { deleteAccount: jest.fn() }
+    getters: {
+      headers: () => {
+        return {
+          data: { id: 1 }
+        }
+      }
+    },
+    mutations: {
+      clearHeaders: jest.fn()
+    },
+    actions: {
+      deleteAccount: jest.fn()
+    }
   }
 
   snackbar = {
@@ -46,7 +56,7 @@ describe('with mock methods', () => {
 
   describe('getters', () => {
     it('headers', () => {
-      expect(wrapper.vm.headers).toEqual(auth.getters.headers())
+      expect(wrapper.vm.headers).toEqual(store.getters.headers)
     })
   })
 

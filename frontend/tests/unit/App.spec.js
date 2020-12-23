@@ -8,8 +8,8 @@ localVue.use(Vuex)
 localVue.use(VueRouter)
 
 let wrapper
-let getters
 let store
+let getters
 let router
 
 beforeEach(() => {
@@ -38,7 +38,7 @@ describe('component', () => {
 
 describe('getters', () => {
   it('loading', () => {
-    expect(wrapper.vm.loading).toEqual(getters.loading())
+    expect(wrapper.vm.loading).toEqual(store.getters.loading)
   })
 })
 

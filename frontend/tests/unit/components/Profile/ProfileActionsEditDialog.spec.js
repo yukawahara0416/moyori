@@ -13,11 +13,26 @@ let snackbar
 
 beforeEach(() => {
   propsData = {
-    user: { data: { id: 1, name: 'test', email: 'test', avatar: 'test' } }
+    user: {
+      data: {
+        id: 1,
+        name: 'test',
+        email: 'test',
+        avatar: 'test'
+      }
+    }
   }
 
   auth = {
-    getters: { headers: () => {} }
+    getters: {
+      headers: () => {
+        return {
+          data: {
+            id: 1
+          }
+        }
+      }
+    }
   }
 
   snackbar = {
@@ -28,7 +43,10 @@ beforeEach(() => {
   }
 
   store = new Vuex.Store({
-    modules: { auth, snackbar }
+    modules: {
+      auth,
+      snackbar
+    }
   })
 })
 
@@ -40,7 +58,7 @@ describe('getters', () => {
       store,
       stubs: ['ValidationObserver']
     })
-    expect(wrapper.vm.headers).toEqual(auth.getters.headers())
+    expect(wrapper.vm.headers).toEqual(store.getters.headers)
   })
 })
 

@@ -1,17 +1,32 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Header/HeaderAvatarButton.vue'
-import authStore from '@/store/modules/user/auth.js'
-import { cloneDeep } from 'lodash'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
 let store
+let auth
 
 beforeEach(() => {
-  store = new Vuex.Store(cloneDeep(authStore))
+  auth = {
+    getters: {
+      currentUser: () => {
+        return {
+          data: {
+            id: 1
+          }
+        }
+      }
+    }
+  }
+
+  store = new Vuex.Store({
+    modules: {
+      auth
+    }
+  })
 
   wrapper = shallowMount(Component, {
     localVue,

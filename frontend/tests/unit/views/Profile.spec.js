@@ -8,7 +8,6 @@ localVue.use(Vuex)
 let wrapper
 let propsData
 let store
-let spot
 let user
 let auth
 
@@ -17,28 +16,33 @@ const fetchData = jest.fn()
 beforeEach(() => {
   propsData = { id: 1 }
 
-  spot = {
-    namespaced: true,
-    mutations: {}
-  }
-
   user = {
     namespaced: true,
     getters: {
-      user: () => {}
-    },
-    mutations: {}
+      user: () => {
+        return {
+          data: {
+            id: 1
+          }
+        }
+      }
+    }
   }
 
   auth = {
     getters: {
-      currentUser: () => {}
+      currentUser: () => {
+        return {
+          data: {
+            id: 1
+          }
+        }
+      }
     }
   }
 
   store = new Vuex.Store({
     modules: {
-      spot,
       user,
       auth
     }
@@ -48,7 +52,9 @@ beforeEach(() => {
     localVue,
     propsData,
     store,
-    methods: { fetchData }
+    methods: {
+      fetchData
+    }
   })
 })
 
@@ -66,7 +72,9 @@ describe('call at created hook', () => {
 })
 
 describe('call at beforeRouteUpdate hook', () => {
-  let beforeRouteUpdate, to, next
+  let beforeRouteUpdate
+  let to
+  let next
 
   beforeEach(() => {
     beforeRouteUpdate = wrapper.vm.$options.beforeRouteUpdate[0]
@@ -85,11 +93,17 @@ describe('call at beforeRouteUpdate hook', () => {
 })
 
 describe('getters', () => {
-  it('user/user', () => {
-    expect(wrapper.vm.user).toEqual(user.getters.user())
+  it('user', () => {
+    expect(wrapper.vm.user).toMatchObject(store.getters['user/user'])
   })
 
   it('currentUser', () => {
-    expect(wrapper.vm.currentUser).toEqual(auth.getters.currentUser())
+    expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
+  })
+})
+
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })

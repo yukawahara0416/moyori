@@ -33,13 +33,13 @@ beforeEach(() => {
 
 describe('getters', () => {
   it('profileTab', () => {
-    expect(wrapper.vm.profileTab).toEqual(tab.getters.profileTab())
+    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
   })
 })
 
 describe('computed', () => {
   it('childTabs/get', () => {
-    expect(wrapper.vm.childTabs).toEqual(tab.getters.profileTab())
+    expect(wrapper.vm.childTabs).toEqual(store.getters.profileTab)
   })
 
   it('childTabs/set', () => {
