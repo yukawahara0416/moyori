@@ -126,6 +126,10 @@ beforeEach(() => {
   })
 })
 
+describe('computed', () => {
+  it('zoom', () => {})
+})
+
 // describe('actions', () => {
 //   it('spot/clearSpotsStore', () => {
 //     wrapper.vm.clearSpotsStore()
