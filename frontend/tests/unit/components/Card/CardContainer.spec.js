@@ -43,6 +43,10 @@ describe('computed', () => {
   it('empties', () => {
     expect(wrapper.vm.empties.length).toEqual(propsData.spots.length)
   })
+
+  it('lg', () => {
+    expect(wrapper.vm.lg).toEqual(4)
+  })
 })
 
 describe('template', () => {
