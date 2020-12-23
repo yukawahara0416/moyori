@@ -22,7 +22,7 @@ beforeEach(() => {
       radius: () => {
         return { name: '500m', value: 500 }
       },
-      filteredSpots: () => {}
+      filteredSpots: () => []
     },
     actions: {
       clearSpotsStore: jest.fn()
