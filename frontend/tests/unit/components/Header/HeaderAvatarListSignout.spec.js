@@ -22,6 +22,10 @@ beforeEach(() => {
   })
 })
 
+describe('getters', () => {
+  it('headers', () => {})
+})
+
 describe('v-on', () => {
   it('signOutHandler', () => {
     wrapper.find('.v-list-item').trigger('click')
