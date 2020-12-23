@@ -34,6 +34,12 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    getters: {
+      profileTab: () => 'posts'
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       spot,
