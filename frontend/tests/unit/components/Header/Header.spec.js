@@ -41,7 +41,7 @@ describe('with shallowMount wrapper', () => {
 
   describe('getters', () => {
     it('isLoggingIn', () => {
-      expect(wrapper.vm.isLoggingIn).toEqual(auth.getters.isLoggingIn())
+      expect(wrapper.vm.isLoggingIn).toEqual(store.getters.isLoggingIn)
     })
   })
 
