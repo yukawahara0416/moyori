@@ -8,8 +8,8 @@ localVue.use(Vuex)
 localVue.use(VueRouter)
 
 let wrapper
-let getters
 let store
+let getters
 let router
 
 beforeEach(() => {
