@@ -28,14 +28,16 @@ afterEach(() => {
 })
 
 describe('props', () => {
-  it('currentUser', () => {
+  it('currentUser', async () => {
     expect(wrapper.props().currentUser).toStrictEqual(propsData.currentUser)
     expect(wrapper.props().currentUser instanceof Object).toBe(true)
   })
 })
 
 describe('template', () => {
-  it('v-if="currentUser.data.avatar"', () => {})
+  it('v-if="currentUser.data.avatar"', () => {
+    expect(wrapper.html().includes('v-img-stub')).toBe(true)
+  })
   it('v-else', () => {})
 
   it('snapshot', () => {
