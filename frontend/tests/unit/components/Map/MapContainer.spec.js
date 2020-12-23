@@ -13,7 +13,7 @@ let auth
 // let post
 // let format
 // let getters
-let actions
+// let actions
 
 beforeEach(() => {
   spot = {
@@ -85,11 +85,11 @@ beforeEach(() => {
   // dialogSpotCreate: () => true
   // }
 
-  actions = {
-    loadingOn: jest.fn(),
-    loadingOff: jest.fn(),
-    dialogOff: jest.fn()
-  }
+  // actions = {
+  //   loadingOn: jest.fn(),
+  //   loadingOff: jest.fn(),
+  //   dialogOff: jest.fn()
+  // }
 
   store = new Vuex.Store({
     modules: {
@@ -98,9 +98,9 @@ beforeEach(() => {
       auth
       // post,
       // format
-    },
+    }
     // getters,
-    actions
+    // actions
   })
 
   wrapper = shallowMount(Component, {
