@@ -8,7 +8,7 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    currentUser: { data: { id: 1 } }
+    currentUser: { data: { id: 1, name: 'test' } }
   }
 
   wrapper = shallowMount(Component, {
