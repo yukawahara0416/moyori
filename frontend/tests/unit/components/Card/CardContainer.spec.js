@@ -32,19 +32,11 @@ beforeEach(() => {
   })
 })
 
-// afterEach(() => {
-//   wrapper.destroy()
-// })
-
 describe('props', () => {
   it('spots', () => {
     expect(wrapper.props().spots).toStrictEqual(propsData.spots)
     expect(wrapper.props().spots instanceof Array).toBe(true)
   })
-  // it('type', () => {
-  //   expect(wrapper.props().type).toStrictEqual(propsData.type)
-  //   expect(typeof wrapper.vm.$props.type).toBe('string')
-  // })
 })
 
 describe('computed', () => {
