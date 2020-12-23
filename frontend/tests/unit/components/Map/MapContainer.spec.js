@@ -131,7 +131,10 @@ describe('getters', () => {
     expect(wrapper.vm.spots.length).toEqual(2)
   })
 
-  it('spot/radius', () => {})
+  it('spot/radius', () => {
+    expect(wrapper.vm.radius).toMatchObject(store.getters['spot/radius'])
+  })
+
   it('spot/type', () => {})
   it('spot/filterSpots', () => {})
 
