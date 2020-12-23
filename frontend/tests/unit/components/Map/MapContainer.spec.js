@@ -236,6 +236,11 @@ describe('emit', () => {
     wrapper.vm.$emit('nearby-search')
     expect(wrapper.emitted()['nearby-search']).toBeTruthy()
   })
+
+  it('$emit.panto-location', () => {
+    wrapper.vm.$emit('panto-location')
+    expect(wrapper.emitted()['panto-location']).toBeTruthy()
+  })
 })
 
 // describe('actions', () => {
