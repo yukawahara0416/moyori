@@ -1,5 +1,7 @@
-import { shallowMount } from '@vue/test-utils'
-import Component from '@/components/Header/HeaderDrawer.vue'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
+import Component from '@/components/Header/HeaderDrawerButton.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 let propsData
@@ -10,12 +12,9 @@ beforeEach(() => {
   }
 
   wrapper = shallowMount(Component, {
+    localVue,
     propsData
   })
-})
-
-afterEach(() => {
-  wrapper.destroy()
 })
 
 describe('props', () => {
@@ -25,8 +24,8 @@ describe('props', () => {
   })
 })
 
-describe('emit', () => {
-  it('value', () => {
+describe('methods', () => {
+  it('emit/value', () => {
     wrapper.vm.input()
     expect(wrapper.emitted('input')).toBeTruthy()
   })
