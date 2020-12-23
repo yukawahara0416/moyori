@@ -12,7 +12,8 @@ beforeEach(() => {
   store = new Vuex.Store()
 
   wrapper = mount(Component, {
-    localVue
+    localVue,
+    store
   })
 })
 
