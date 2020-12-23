@@ -38,9 +38,11 @@ describe('props', () => {
   // })
 })
 
-// describe('computed', () => {
-//   it('empties', () => {})
-// })
+describe('computed', () => {
+  it('empties', () => {
+    expect(wrapper.vm.empties.length).toEqual(propsData.spots.length)
+  })
+})
 
 describe('template', () => {
   it('snapshot', () => {
