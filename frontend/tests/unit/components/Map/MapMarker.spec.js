@@ -10,6 +10,8 @@ let propsData
 let spot
 let store
 
+const scroll = jest.fn()
+
 beforeEach(() => {
   propsData = {
     spots: [
@@ -26,7 +28,7 @@ beforeEach(() => {
           id: 2,
           name: 'test2',
           position: { lat: 37.204824, lng: 139.252923 },
-          zIndex: 11
+          zIndex: 10
         }
       }
     ]
@@ -66,27 +68,6 @@ describe('props', () => {
 // describe('computed', () => {
 //   it('iconUrl', () => {})
 // })
-
-describe('v-on', () => {
-  it('spotlight', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ spotlight: event })
-    wrapper.vm.spotlight()
-    expect(event).toHaveBeenCalledTimes(1)
-  })
-  it('panTo', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ panTo: event })
-    wrapper.vm.panTo()
-    expect(event).toHaveBeenCalledTimes(1)
-  })
-  it('scroll', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ scroll: event })
-    wrapper.vm.scroll()
-    expect(event).toHaveBeenCalledTimes(1)
-  })
-})
 
 // describe('emit', () => {
 //   it('panTo', () => {
