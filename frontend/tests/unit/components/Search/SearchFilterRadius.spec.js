@@ -41,7 +41,9 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('select/get', () => {})
+  it('select/get', () => {
+    expect(wrapper.vm.select).toMatchObject(store.getters['spot/radius'])
+  })
   it('select/set', () => {})
 })
 
