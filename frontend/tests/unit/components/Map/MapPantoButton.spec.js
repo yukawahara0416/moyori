@@ -1,5 +1,7 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Map/MapPantoButton.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 
