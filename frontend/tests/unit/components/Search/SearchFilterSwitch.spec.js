@@ -40,6 +40,10 @@ describe('getters', () => {
   it('', () => {})
 })
 
+describe('computed', () => {
+  it('', () => {})
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
