@@ -14,20 +14,20 @@ beforeEach(() => {
   propsData = {
     spots: [
       {
-        marker: {
+        data: {
+          id: 1,
           name: 'test1',
           position: { lat: 36.204824, lng: 138.252923 },
           zIndex: 10
-        },
-        data: { id: 1 }
+        }
       },
       {
-        marker: {
+        data: {
+          id: 2,
           name: 'test2',
           position: { lat: 37.204824, lng: 139.252923 },
           zIndex: 11
-        },
-        data: { id: 2 }
+        }
       }
     ]
   }
