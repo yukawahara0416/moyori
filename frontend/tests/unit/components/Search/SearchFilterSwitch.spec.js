@@ -6,10 +6,15 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
+let propsData
 let store
 let spot
 
 beforeEach(() => {
+  propsData = {
+    spots: [{ data: { id: 1 } }, { data: { id: 2 } }]
+  }
+
   spot = {
     namespaced: true,
     getters: {
@@ -28,12 +33,13 @@ beforeEach(() => {
 
   wrapper = shallowMount(Component, {
     localVue,
+    propsData,
     store
   })
 })
 
 describe('props', () => {
-  it('', () => {})
+  it('spots', () => {})
 })
 
 describe('getters', () => {
