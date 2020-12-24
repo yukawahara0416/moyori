@@ -27,6 +27,13 @@ beforeEach(() => {
   })
 
   wrapper = shallowMount(Component, {
-    localVue
+    localVue,
+    store
+  })
+})
+
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
