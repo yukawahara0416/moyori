@@ -18,6 +18,11 @@ beforeEach(() => {
   })
 })
 
+describe('props', () => {
+  it('spots', () => {})
+  it('filteredSpots', () => {})
+})
+
 describe('template', () => {
   it('v-card-subtitle text', () => {
     expect(wrapper.find('v-card-subtitle-stub').text()).toEqual(
