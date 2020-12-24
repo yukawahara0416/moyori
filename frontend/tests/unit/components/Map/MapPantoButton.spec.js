@@ -1,14 +1,10 @@
 import { mount } from '@vue/test-utils'
-import Component from '@/components/Map/MapContainerToolbarPantoButton.vue'
+import Component from '@/components/Map/MapPantoButton.vue'
 
 let wrapper
 
 beforeEach(() => {
   wrapper = mount(Component, {})
-})
-
-afterEach(() => {
-  wrapper.destroy()
 })
 
 describe('v-on', () => {
