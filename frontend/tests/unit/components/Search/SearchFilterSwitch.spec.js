@@ -39,7 +39,10 @@ beforeEach(() => {
 })
 
 describe('props', () => {
-  it('spots', () => {})
+  it('spots', () => {
+    expect(wrapper.props().spots).toStrictEqual(propsData.spots)
+    expect(wrapper.props().spots instanceof Array).toBe(true)
+  })
 })
 
 describe('getters', () => {
