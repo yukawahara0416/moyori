@@ -36,6 +36,10 @@ describe('props', () => {
   it('', () => {})
 })
 
+describe('getters', () => {
+  it('', () => {})
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
