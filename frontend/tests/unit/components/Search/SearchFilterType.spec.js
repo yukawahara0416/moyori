@@ -8,3 +8,10 @@ localVue.use(Vuex)
 let wrapper
 let store
 let spot
+
+beforeEach(() => {
+  wrapper = shallowMount(Component, {
+    localVue,
+    store
+  })
+})
