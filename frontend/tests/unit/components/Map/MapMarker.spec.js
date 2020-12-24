@@ -18,6 +18,7 @@ beforeEach(() => {
           id: 1,
           name: 'test1',
           position: { lat: 36.204824, lng: 138.252923 },
+          on: true,
           zIndex: 10
         }
       },
@@ -26,6 +27,16 @@ beforeEach(() => {
           id: 2,
           name: 'test2',
           position: { lat: 37.204824, lng: 139.252923 },
+          on: false,
+          zIndex: 10
+        }
+      },
+      {
+        data: {
+          id: 3,
+          name: 'testスターバックスtest',
+          position: { lat: 37.204824, lng: 139.252923 },
+          on: false,
           zIndex: 10
         }
       }
@@ -63,9 +74,19 @@ describe('props', () => {
   })
 })
 
-// describe('computed', () => {
-//   it('iconUrl', () => {})
-// })
+describe('computed', () => {
+  it('iconFileName = spotlight', () => {
+    expect(wrapper.vm.iconFileName(propsData.spots[0])).toEqual('spotlight')
+  })
+
+  it('iconFileName = cafe', () => {
+    expect(wrapper.vm.iconFileName(propsData.spots[1])).toEqual('cafe')
+  })
+
+  it('iconFileName = starbucks', () => {
+    expect(wrapper.vm.iconFileName(propsData.spots[2])).toEqual('starbucks')
+  })
+})
 
 describe('actions', () => {
   it('spot/spotlight', () => {
