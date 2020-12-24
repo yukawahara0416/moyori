@@ -65,7 +65,10 @@ describe('computed', () => {
     expect(wrapper.vm.select).toEqual(store.getters['spot/filterQuery'])
   })
 
-  it('select/set', () => {})
+  it('select/set', () => {
+    wrapper.vm.select = 'update'
+    expect(spot.mutations.setFilterQuery).toHaveBeenCalled()
+  })
 })
 
 describe('template', () => {
