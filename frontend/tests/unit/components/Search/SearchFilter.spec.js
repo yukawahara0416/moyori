@@ -35,7 +35,11 @@ describe('getters', () => {
     expect(wrapper.vm.spots).toMatchObject(store.getters['spot/spots'])
   })
 
-  it('spot/filteredSpots', () => {})
+  it('spot/filteredSpots', () => {
+    expect(wrapper.vm.filteredSpots).toMatchObject(
+      store.getters['spot/filteredSpots']
+    )
+  })
 })
 
 describe('template', () => {
