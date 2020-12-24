@@ -12,9 +12,6 @@ let spot
 beforeEach(() => {
   spot = {
     namespaced: true,
-    state: {
-      radius: { name: '500m', value: 500 }
-    },
     getters: {
       radius: () => {
         return { name: '500m', value: 500 }
@@ -55,6 +52,12 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('v-select has :items', () => {
+    expect(wrapper.find('v-select-stub').attributes().items).toEqual(
+      '[object Object],[object Object],[object Object],[object Object]'
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
