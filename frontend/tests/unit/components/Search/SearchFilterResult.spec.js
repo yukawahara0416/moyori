@@ -24,7 +24,10 @@ describe('props', () => {
     expect(wrapper.props().spots instanceof Array).toBe(true)
   })
 
-  it('filteredSpots', () => {})
+  it('filteredSpots', () => {
+    expect(wrapper.props().filteredSpots).toStrictEqual(propsData.filteredSpots)
+    expect(wrapper.props().filteredSpots instanceof Array).toBe(true)
+  })
 })
 
 describe('template', () => {
