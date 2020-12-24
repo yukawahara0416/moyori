@@ -4,3 +4,11 @@ import Component from '@/components/Search/SearchFilterRadius.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+let wrapper
+
+beforeEach(() => {
+  wrapper = shallowMount(Component, {
+    localVue
+  })
+})
