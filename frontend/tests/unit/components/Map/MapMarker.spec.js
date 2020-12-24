@@ -84,8 +84,14 @@ describe('template', () => {
     ).toEqual('test1')
   })
 
-  it(':position', () => {})
-  it(':zIndex', () => {})
+  it(':zIndex', () => {
+    expect(
+      wrapper
+        .findAll('gmap-marker-stub')
+        .at(0)
+        .attributes().zindex
+    ).toEqual('10')
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
