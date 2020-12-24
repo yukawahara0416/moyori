@@ -12,6 +12,9 @@ let spot
 beforeEach(() => {
   spot = {
     namespaced: true,
+    state: {
+      radius: { name: '500m', value: 500 }
+    },
     getters: {
       radius: () => {
         return { name: '500m', value: 500 }
@@ -44,7 +47,11 @@ describe('computed', () => {
   it('select/get', () => {
     expect(wrapper.vm.select).toMatchObject(store.getters['spot/radius'])
   })
-  it('select/set', () => {})
+
+  it('select/set', () => {
+    wrapper.vm.select = 'update'
+    expect(spot.mutations.setRadius).toHaveBeenCalled()
+  })
 })
 
 describe('template', () => {
