@@ -7,9 +7,24 @@ localVue.use(Vuex)
 
 let wrapper
 let store
+let spot
 
 beforeEach(() => {
-  store = new Vuex.Store()
+  spot = {
+    namespaced: true,
+    getters: {
+      filterQuery: () => {}
+    },
+    mutations: {
+      setFilterQuery: jest.fn()
+    }
+  }
+
+  store = new Vuex.Store({
+    modules: {
+      spot
+    }
+  })
 
   wrapper = shallowMount(Component, {
     localVue
