@@ -11,6 +11,7 @@ let spot
 
 beforeEach(() => {
   spot = {
+    namespaced: true,
     getters: {
       spots: () => [],
       filteredSpots: () => []
