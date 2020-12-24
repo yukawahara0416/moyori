@@ -1,18 +1,29 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Map/MapNearbyButton.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 
 beforeEach(() => {
-  wrapper = mount(Component, {})
+  wrapper = mount(Component, {
+    localVue
+  })
 })
 
 describe('v-on', () => {
   it('nearbySearch', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ nearbySearch: event })
-    wrapper.find('button').trigger('click')
-    expect(event).toHaveBeenCalledTimes(1)
+    const nearbySearch = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      methods: {
+        nearbySearch
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(nearbySearch).toHaveBeenCalledTimes(1)
   })
 })
 
