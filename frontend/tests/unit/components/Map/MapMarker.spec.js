@@ -56,10 +56,6 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('props', () => {
   it('spots', () => {
     expect(wrapper.props().spots).toStrictEqual(propsData.spots)
