@@ -43,6 +43,28 @@ describe('getters', () => {
 })
 
 describe('template', () => {
+  describe('search-filter-result', () => {
+    it('has :spots', () => {
+      expect(
+        wrapper.find('search-filter-result-stub').attributes().spots
+      ).toEqual('[object Object],[object Object]')
+    })
+
+    it('has :filteredSpots', () => {
+      expect(
+        wrapper.find('search-filter-result-stub').attributes().filteredspots
+      ).toEqual('[object Object]')
+    })
+  })
+
+  describe('search-filter-switch', () => {
+    it('has :spots', () => {
+      expect(
+        wrapper.find('search-filter-switch-stub').attributes().spots
+      ).toEqual('[object Object],[object Object]')
+    })
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
