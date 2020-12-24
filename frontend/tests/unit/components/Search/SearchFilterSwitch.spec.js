@@ -32,6 +32,10 @@ beforeEach(() => {
   })
 })
 
+describe('props', () => {
+  it('', () => {})
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
