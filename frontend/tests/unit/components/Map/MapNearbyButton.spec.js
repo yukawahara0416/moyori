@@ -7,10 +7,6 @@ beforeEach(() => {
   wrapper = mount(Component, {})
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('v-on', () => {
   it('nearbySearch', () => {
     const event = jest.fn()
