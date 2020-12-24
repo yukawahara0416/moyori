@@ -13,10 +13,17 @@ beforeEach(() => {
 
 describe('v-on', () => {
   it('panToLocation', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ panToLocation: event })
+    const panToLocation = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      methods: {
+        panToLocation
+      }
+    })
+
     wrapper.find('button').trigger('click')
-    expect(event).toHaveBeenCalledTimes(1)
+    expect(panToLocation).toHaveBeenCalledTimes(1)
   })
 })
 
