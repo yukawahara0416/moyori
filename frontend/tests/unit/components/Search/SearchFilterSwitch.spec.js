@@ -6,8 +6,11 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
+let store
 
 beforeEach(() => {
+  store = new Vuex.Store()
+
   wrapper = shallowMount(Component, {
     localVue
   })
