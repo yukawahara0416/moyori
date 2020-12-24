@@ -18,7 +18,14 @@ beforeEach(() => {
   spot = {
     namespaced: true,
     getters: {
-      filterQuery: () => {}
+      filterQuery: () => [
+        {
+          name: 'Wifi',
+          icon: 'mdi-wifi',
+          color: 'success',
+          value: 'wifi_withs'
+        }
+      ]
     },
     mutations: {
       setFilterQuery: jest.fn()
@@ -46,7 +53,11 @@ describe('props', () => {
 })
 
 describe('getters', () => {
-  it('', () => {})
+  it('filterQuery', () => {
+    expect(wrapper.vm.filterQuery).toMatchObject(
+      store.getters['spot/filterQuery']
+    )
+  })
 })
 
 describe('computed', () => {
