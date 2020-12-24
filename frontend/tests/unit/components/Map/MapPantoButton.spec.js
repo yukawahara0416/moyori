@@ -6,7 +6,9 @@ const localVue = createLocalVue()
 let wrapper
 
 beforeEach(() => {
-  wrapper = mount(Component, {})
+  wrapper = mount(Component, {
+    localVue
+  })
 })
 
 describe('v-on', () => {
