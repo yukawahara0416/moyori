@@ -10,8 +10,6 @@ let propsData
 let spot
 let store
 
-const scroll = jest.fn()
-
 beforeEach(() => {
   propsData = {
     spots: [
@@ -69,14 +67,6 @@ describe('props', () => {
 //   it('iconUrl', () => {})
 // })
 
-// describe('emit', () => {
-//   it('panTo', () => {
-//     wrapper.vm.$root.$emit('panTo')
-//     const rootWrapper = createWrapper(wrapper.vm.$root)
-//     expect(wrapper.emitted('panTo')).toBeTruthy()
-//   })
-// })
-
 describe('actions', () => {
   it('spot/spotlight', () => {
     wrapper.vm.spotlight()
@@ -85,6 +75,18 @@ describe('actions', () => {
 })
 
 describe('template', () => {
+  it(':title', () => {
+    expect(
+      wrapper
+        .findAll('gmap-marker-stub')
+        .at(0)
+        .attributes().title
+    ).toEqual('test1')
+  })
+
+  it(':position', () => {})
+  it(':zIndex', () => {})
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
