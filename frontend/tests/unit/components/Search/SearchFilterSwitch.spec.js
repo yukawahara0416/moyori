@@ -61,7 +61,11 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('', () => {})
+  it('select/get', () => {
+    expect(wrapper.vm.select).toEqual(store.getters['spot/filterQuery'])
+  })
+
+  it('select/set', () => {})
 })
 
 describe('template', () => {
