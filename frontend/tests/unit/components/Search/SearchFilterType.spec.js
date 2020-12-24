@@ -10,6 +10,18 @@ let store
 let spot
 
 beforeEach(() => {
+  spot = {
+    namespaced: true,
+    getters: {
+      type: () => {
+        return { name: 'カフェ', value: 'cafe' }
+      }
+    },
+    mutations: {
+      setType: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       spot
