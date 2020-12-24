@@ -31,7 +31,9 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
-  it('spot/spots', () => {})
+  it('spot/spots', () => {
+    expect(wrapper.vm.spots).toMatchObject(store.getters['spot/spots'])
+  })
 
   it('spot/filteredSpots', () => {})
 })
