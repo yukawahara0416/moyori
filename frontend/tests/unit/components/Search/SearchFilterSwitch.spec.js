@@ -45,6 +45,8 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('v-select has :items', () => {})
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
