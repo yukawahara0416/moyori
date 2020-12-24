@@ -10,6 +10,13 @@ let store
 let spot
 
 beforeEach(() => {
+  spot = {
+    getters: {
+      spots: () => [],
+      filteredSpots: () => []
+    }
+  }
+
   store = new Vuex.Store()
 
   wrapper = shallowMount(Component, {
