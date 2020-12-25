@@ -18,3 +18,4 @@ beforeEach(() => {
 
 describe('getters', () => {})
 describe('v-on', () => {})
+describe('template', () => {})
