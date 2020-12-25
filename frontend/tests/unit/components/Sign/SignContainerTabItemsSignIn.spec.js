@@ -12,10 +12,6 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('getters', () => {
   it('signInFormData', () => {
     expect(wrapper.vm.signInFormData).toEqual(getters.signInFormData())
