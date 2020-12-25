@@ -10,3 +10,5 @@ beforeEach(() => {
     localVue
   })
 })
+
+describe('getters', () => {})
