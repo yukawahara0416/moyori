@@ -1,37 +1,13 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
 import Component from '@/components/Sign/SignContainerTabItemsSignIn.vue'
 
 const localVue = createLocalVue()
-localVue.use(Vuex)
 
 let wrapper
-let getters
-let actions
-let store
 
 beforeEach(() => {
-  getters = {
-    signInFormData: () => ({
-      email: 'tester@example.com',
-      password: 'password'
-    }),
-    currentUser: () => ({ data: { id: 1 } }),
-    headers: () => ({ uid: 'tester@example.com' })
-  }
-
-  actions = {
-    signIn: jest.fn()
-  }
-
-  store = new Vuex.Store({
-    getters,
-    actions
-  })
-
   wrapper = shallowMount(Component, {
     localVue,
-    store,
     stubs: ['policy']
   })
 })
