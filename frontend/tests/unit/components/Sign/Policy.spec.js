@@ -14,6 +14,17 @@ beforeEach(() => {
   })
 })
 
+describe('router-link', () => {
+  it('to="/rules"', () => {
+    expect(
+      wrapper
+        .findAll(RouterLinkStub)
+        .at(0)
+        .props().to
+    ).toBe('/rules')
+  })
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
