@@ -37,5 +37,11 @@ beforeEach(() => {
 })
 
 describe('getters', () => {})
+
 describe('v-on', () => {})
-describe('template', () => {})
+
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+})
