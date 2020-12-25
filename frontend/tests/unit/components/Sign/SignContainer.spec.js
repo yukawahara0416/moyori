@@ -11,10 +11,6 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('v-on', () => {
   it('changeTabs', () => {
     wrapper.setMethods({ changeTabs: jest.fn() })
