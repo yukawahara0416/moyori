@@ -48,10 +48,6 @@ describe('computed', () => {
   })
 })
 
-// describe('emit', () => {
-//   it('childTabs', () => {})
-// })
-
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
