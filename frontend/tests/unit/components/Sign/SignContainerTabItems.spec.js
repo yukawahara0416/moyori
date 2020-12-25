@@ -10,6 +10,15 @@ let store
 let tab
 
 beforeEach(() => {
+  tab = {
+    getters: {
+      signTab: () => 'signin'
+    },
+    mutations: {
+      changeSignTab: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       tab
