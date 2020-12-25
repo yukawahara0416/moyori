@@ -12,3 +12,5 @@ let auth
 beforeEach(() => {
   wrapper = shallowMount(Component, {})
 })
+
+describe('getters', () => {})
