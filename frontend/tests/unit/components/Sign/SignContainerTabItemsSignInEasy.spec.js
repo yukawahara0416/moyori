@@ -4,3 +4,9 @@ import Component from '@/components/Sign/SignContainerTabItemsSignInEasy.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+beforeEach(() => {
+  wrapper = shallowMount(Component, {
+    localVue
+  })
+})
