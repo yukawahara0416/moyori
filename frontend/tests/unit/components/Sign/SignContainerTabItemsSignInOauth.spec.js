@@ -27,7 +27,10 @@ beforeEach(() => {
     }
   })
 
-  wrapper = mount(Component, {})
+  wrapper = mount(Component, {
+    localVue,
+    store
+  })
 })
 
 describe('getters', () => {
