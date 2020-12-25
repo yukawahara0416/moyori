@@ -15,6 +15,9 @@ beforeEach(() => {
       signUpForm: () => {
         return { name: 'test', email: 'test@example.com', password: 'passowrd' }
       }
+    },
+    actions: {
+      signUp: jest.fn()
     }
   }
 
