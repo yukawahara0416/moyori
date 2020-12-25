@@ -23,6 +23,15 @@ describe('router-link', () => {
         .props().to
     ).toBe('/rules')
   })
+
+  it('to="privacy"', () => {
+    expect(
+      wrapper
+        .findAll(RouterLinkStub)
+        .at(1)
+        .props().to
+    ).toBe('privacy')
+  })
 })
 
 describe('template', () => {
