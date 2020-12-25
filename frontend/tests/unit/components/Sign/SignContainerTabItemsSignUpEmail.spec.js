@@ -4,3 +4,7 @@ import Component from '@/components/Sign/SignContainerTabItemsSignUpEmail.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+let wrapper
+let store
+let auth
