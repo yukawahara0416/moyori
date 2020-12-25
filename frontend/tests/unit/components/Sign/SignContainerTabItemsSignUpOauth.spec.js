@@ -22,7 +22,9 @@ beforeEach(() => {
   }
 
   store = new Vuex.Store({
-    modules: {}
+    modules: {
+      auth
+    }
   })
 
   wrapper = shallowMount(Component, {})
