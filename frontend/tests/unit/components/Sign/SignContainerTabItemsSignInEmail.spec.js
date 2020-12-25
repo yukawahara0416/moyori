@@ -10,7 +10,12 @@ let store
 let auth
 
 beforeEach(() => {
+  store = new Vuex.Store({
+    modules: {}
+  })
+
   wrapper = mount(Component, {
-    localVue
+    localVue,
+    store
   })
 })
