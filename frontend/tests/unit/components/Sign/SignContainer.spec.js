@@ -1,21 +1,13 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Sign/SignContainer.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 
 beforeEach(() => {
-  wrapper = shallowMount(Component, {})
-})
-
-afterEach(() => {
-  wrapper.destroy()
-})
-
-describe('v-on', () => {
-  it('changeTabs', () => {
-    wrapper.setMethods({ changeTabs: jest.fn() })
-    wrapper.vm.$emit('changeTabs')
-    expect(wrapper.emitted().changeTabs).toBeTruthy()
+  wrapper = shallowMount(Component, {
+    localVue
   })
 })
 
