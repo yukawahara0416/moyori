@@ -37,11 +37,17 @@ beforeEach(() => {
 
 describe('getters', () => {
   it('spots', () => {
-    expect(wrapper.vm.spots).toEqual(spot.getters.spots())
+    expect(wrapper.vm.spots).toEqual(store.getters.spots)
   })
 })
 
 describe('template', () => {
+  it('card-container has :spots', () => {
+    expect(wrapper.find('card-container-stub').attributes().spots).toEqual(
+      '[object Object],[object Object]'
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
