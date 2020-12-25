@@ -42,7 +42,10 @@ describe('computed', () => {
     expect(wrapper.vm.childTab).toEqual(store.getters.signTab)
   })
 
-  it('childTabs/set', () => {})
+  it('childTabs/set', () => {
+    wrapper.vm.childTab = 'update'
+    expect(tab.mutations.changeSignTab).toHaveBeenCalled()
+  })
 })
 
 // describe('emit', () => {
