@@ -16,8 +16,7 @@ beforeEach(() => {
   spot = {
     namespaced: true,
     getters: {
-      spots: () => [{ data: { id: 1 } }, { data: { id: 2 } }],
-      filteredSpots: () => {}
+      filteredSpots: () => [{ data: { id: 1 } }]
     }
   }
 
