@@ -6,3 +6,4 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
+let store
