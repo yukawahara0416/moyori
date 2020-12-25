@@ -31,6 +31,12 @@ beforeEach(() => {
   })
 })
 
+describe('getters', () => {
+  it('signTab', () => {
+    expect(wrapper.vm.signTab).toEqual(store.getters.signTab)
+  })
+})
+
 // describe('computed', () => {
 //   it('childTabs', () => {})
 // })
