@@ -7,6 +7,7 @@ localVue.use(Vuex)
 
 let wrapper
 let store
+let tab
 
 beforeEach(() => {
   store = new Vuex.Store()
