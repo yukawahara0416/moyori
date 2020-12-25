@@ -10,8 +10,21 @@ let store
 let auth
 
 beforeEach(() => {
+  auth = {
+    getters: {
+      signInForm: () => {
+        return { email: 'test@example.com', password: 'password' }
+      },
+      actions: {
+        signIn: jest.fn()
+      }
+    }
+  }
+
   store = new Vuex.Store({
-    modules: {}
+    modules: {
+      auth
+    }
   })
 
   wrapper = mount(Component, {})
