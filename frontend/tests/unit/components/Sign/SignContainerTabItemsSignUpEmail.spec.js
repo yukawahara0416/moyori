@@ -14,3 +14,5 @@ beforeEach(() => {
 })
 
 describe('getters', () => {})
+
+describe('template', () => {})
