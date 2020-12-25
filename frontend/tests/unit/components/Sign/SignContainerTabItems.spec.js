@@ -10,7 +10,11 @@ let store
 let tab
 
 beforeEach(() => {
-  store = new Vuex.Store()
+  store = new Vuex.Store({
+    modules: {
+      tab
+    }
+  })
 
   wrapper = shallowMount(Component, {
     localVue
