@@ -39,7 +39,12 @@ describe('getters', () => {
   })
 })
 
-describe('v-on', () => {})
+describe('v-on', () => {
+  it('signIn', () => {
+    wrapper.find('.v-btn').trigger('click')
+    expect(auth.actions.signIn).toHaveBeenCalled()
+  })
+})
 
 describe('template', () => {
   it('snapshot', () => {
