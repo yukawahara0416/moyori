@@ -37,9 +37,12 @@ describe('getters', () => {
   })
 })
 
-// describe('computed', () => {
-//   it('childTabs', () => {})
-// })
+describe('computed', () => {
+  it('childTabs/get', () => {
+    expect(wrapper.vm.childTab).toEqual(store.getters.signTab)
+  })
+  it('childTabs/set', () => {})
+})
 
 describe('template', () => {
   it('snapshot', () => {
