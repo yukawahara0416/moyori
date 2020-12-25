@@ -35,3 +35,5 @@ beforeEach(() => {
     }
   })
 })
+
+describe('getters', () => {})
