@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Sign/SignContainerTabItemsSignInEasy.vue'
+import Component from '@/components/Sign/SignContainerTabItemsSignInEmail.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -32,11 +32,16 @@ beforeEach(() => {
     store,
     methods: {
       signInHandler
-    }
+    },
+    stubs: ['ValidationObserver']
   })
 })
 
-describe('getters', () => {})
+describe('getters', () => {
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
+  })
+})
 
 describe('v-on', () => {})
 
