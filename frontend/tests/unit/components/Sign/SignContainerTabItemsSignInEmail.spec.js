@@ -9,6 +9,8 @@ let wrapper
 let store
 let auth
 
+const signInHandler = jest.fn()
+
 beforeEach(() => {
   auth = {
     getters: {
