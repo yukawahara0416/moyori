@@ -16,7 +16,7 @@ beforeEach(() => {
   spot = {
     namespaced: true,
     getters: {
-      filteredSpots: () => [{ data: { id: 1 } }]
+      filteredSpots: () => [{ data: { id: 1 } }, { data: { id: 2 } }]
     }
   }
 
@@ -33,10 +33,6 @@ beforeEach(() => {
     store,
     vuetify
   })
-})
-
-afterEach(() => {
-  wrapper.destroy()
 })
 
 describe('getters', () => {
