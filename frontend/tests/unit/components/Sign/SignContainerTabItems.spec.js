@@ -38,7 +38,9 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('childTabs/get', () => {})
+  it('childTabs/get', () => {
+    expect(wrapper.vm.childTab).toEqual(store.getters.signTab)
+  })
 
   it('childTabs/set', () => {})
 })
