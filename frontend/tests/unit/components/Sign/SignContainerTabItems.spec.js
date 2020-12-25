@@ -8,7 +8,9 @@ localVue.use(Vuex)
 let wrapper
 
 beforeEach(() => {
-  wrapper = shallowMount(Component, {})
+  wrapper = shallowMount(Component, {
+    localVue
+  })
 })
 
 // describe('computed', () => {
