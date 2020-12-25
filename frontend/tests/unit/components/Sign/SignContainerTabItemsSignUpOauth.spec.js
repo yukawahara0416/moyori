@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Sign/SignContainerTabItemsSignUpOauth.vue'
 
@@ -27,7 +27,7 @@ beforeEach(() => {
     }
   })
 
-  wrapper = shallowMount(Component, {
+  wrapper = mount(Component, {
     localVue,
     store
   })
