@@ -40,7 +40,13 @@ describe('getters', () => {
   })
 })
 
-describe('computed', () => {})
+describe('computed', () => {
+  it('select/get', () => {
+    expect(wrapper.vm.select).toMatchObject(store.getters['spot/type'])
+  })
+
+  it('select/set', () => {})
+})
 
 describe('template', () => {
   it('v-select has :items', () => {})
