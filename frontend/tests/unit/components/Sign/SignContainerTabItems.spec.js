@@ -35,9 +35,9 @@ describe('getters', () => {
   it('signTab', () => {})
 })
 
-// describe('computed', () => {
-//   it('childTabs', () => {})
-// })
+describe('computed', () => {
+  it('childTabs', () => {})
+})
 
 // describe('emit', () => {
 //   it('childTabs', () => {})
