@@ -29,6 +29,9 @@ beforeEach(() => {
 
   wrapper = mount(Component, {
     localVue,
-    store
+    store,
+    methods: {
+      signInHandler
+    }
   })
 })
