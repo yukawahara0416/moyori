@@ -28,6 +28,10 @@ beforeEach(() => {
   })
 })
 
-describe('getters', () => {})
+describe('getters', () => {
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
+  })
+})
 describe('v-on', () => {})
 describe('template', () => {})
