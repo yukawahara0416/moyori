@@ -9,6 +9,8 @@ let wrapper
 let store
 let auth
 
+const signInAsTestUser = jest.fn()
+
 beforeEach(() => {
   auth = {
     getters: {
@@ -34,7 +36,12 @@ describe('getters', () => {
   })
 })
 
-describe('v-on', () => {})
+describe('v-on', () => {
+  it('signInAsTestUser', () => {
+    wrapper.find('.v-btn').trigger('click')
+    expect(signInAsTestUser).toHaveBeenCalled()
+  })
+})
 
 describe('template', () => {
   it('snapshot', () => {
