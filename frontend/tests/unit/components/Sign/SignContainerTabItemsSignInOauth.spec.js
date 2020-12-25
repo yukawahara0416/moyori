@@ -16,6 +16,9 @@ beforeEach(() => {
   wrapper = mount(Component, {})
 })
 
-describe('getters', () => {})
+describe('getters', () => {
+  expect(wrapper.vm.signInForm).toMatchObject(store.getters.signInForm)
+})
+
 describe('v-on', () => {})
 describe('template', () => {})
