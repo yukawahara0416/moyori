@@ -14,10 +14,10 @@ beforeEach(() => {
     getters: {
       signInForm: () => {
         return { email: 'test@example.com', password: 'password' }
-      },
-      actions: {
-        signIn: jest.fn()
       }
+    },
+    actions: {
+      signIn: jest.fn()
     }
   }
 
