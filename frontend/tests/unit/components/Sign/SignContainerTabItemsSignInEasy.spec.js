@@ -7,6 +7,7 @@ localVue.use(Vuex)
 
 let wrapper
 let store
+let auth
 
 beforeEach(() => {
   store = new Vuex.Store({
