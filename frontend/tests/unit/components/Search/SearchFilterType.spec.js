@@ -34,7 +34,11 @@ beforeEach(() => {
   })
 })
 
-describe('getters', () => {})
+describe('getters', () => {
+  it('spot/type', () => {
+    expect(wrapper.vm.type).toMatchObject(store.getters['spot/type'])
+  })
+})
 
 describe('computed', () => {})
 
