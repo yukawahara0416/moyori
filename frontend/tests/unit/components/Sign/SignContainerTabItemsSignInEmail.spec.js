@@ -41,6 +41,10 @@ describe('getters', () => {
   it('isLoggingIn', () => {
     expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
   })
+
+  it('signInForm', () => {
+    expect(wrapper.vm.signInForm).toMatchObject(store.getters.signInForm)
+  })
 })
 
 describe('v-on', () => {})
