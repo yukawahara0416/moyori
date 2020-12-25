@@ -8,3 +8,7 @@ localVue.use(Vuex)
 let wrapper
 let store
 let auth
+
+beforeEach(() => {
+  wrapper = shallowMount(Component, {})
+})
