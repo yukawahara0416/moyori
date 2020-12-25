@@ -31,6 +31,10 @@ beforeEach(() => {
   })
 })
 
+describe('getters', () => {
+  it('signTab', () => {})
+})
+
 // describe('computed', () => {
 //   it('childTabs', () => {})
 // })
