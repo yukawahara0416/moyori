@@ -10,9 +10,20 @@ let store
 let auth
 
 beforeEach(() => {
+  auth = {
+    getters: {
+      signUpForm: () => {
+        return { name: 'test', email: 'test@example.com', password: 'passowrd' }
+      }
+    }
+  }
+
   store = new Vuex.Store({
-    modules: {}
+    modules: {
+      auth
+    }
   })
+
   wrapper = shallowMount(Component, {})
 })
 
