@@ -1,34 +1,59 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
+import Vuex from 'vuex'
 import Component from '@/components/Sign/SignContainerTabs.vue'
 
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
 let wrapper
-let propsData
+let store
+let tab
 
 beforeEach(() => {
-  propsData = {
-    tabs: 'tab-1'
+  tab = {
+    getters: {
+      signTab: () => 'signup'
+    },
+    mutations: {
+      changeSignTab: jest.fn()
+    }
   }
 
+  store = new Vuex.Store({
+    modules: {
+      tab
+    }
+  })
+
   wrapper = shallowMount(Component, {
-    propsData
+    localVue,
+    store
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
-describe('props', () => {
-  it('tabs', () => {
-    expect(wrapper.props().tabs).toEqual(propsData.tabs)
+describe('getters', () => {
+  it('signTab', () => {
+    expect(wrapper.vm.signTab).toEqual(store.getters.signTab)
   })
 })
 
-// describe('computed', () => {
-//   it('childTabs', () => {})
-// })
+describe('computed', () => {
+  it('childTab/get', () => {
+    expect(wrapper.vm.childTab).toEqual(store.getters.signTab)
+  })
+
+  it('childTab/set', () => {
+    wrapper.vm.childTab = 'signin'
+    expect(tab.mutations.changeSignTab).toHaveBeenCalled()
+  })
+})
 
 describe('template', () => {
+  it('v-tabs has value', () => {
+    expect(wrapper.find('v-tabs-stub').attributes().value).toEqual(
+      store.getters.signTab
+    )
+  })
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
