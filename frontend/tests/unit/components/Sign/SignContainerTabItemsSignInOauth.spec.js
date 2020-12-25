@@ -7,3 +7,7 @@ localVue.use(Vuex)
 
 let wrapper
 let store
+
+beforeEach(() => {
+  wrapper = mount(Component, {})
+})
