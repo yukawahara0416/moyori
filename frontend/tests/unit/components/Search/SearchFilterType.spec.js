@@ -45,7 +45,10 @@ describe('computed', () => {
     expect(wrapper.vm.select).toMatchObject(store.getters['spot/type'])
   })
 
-  it('select/set', () => {})
+  it('select/set', () => {
+    wrapper.vm.select = 'update'
+    expect(spot.mutations.setType).toHaveBeenCalled()
+  })
 })
 
 describe('template', () => {
