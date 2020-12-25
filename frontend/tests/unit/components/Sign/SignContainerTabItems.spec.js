@@ -7,10 +7,6 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {})
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 // describe('computed', () => {
 //   it('childTabs', () => {})
 // })
