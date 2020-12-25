@@ -1,10 +1,14 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Sign/SignContainer.vue'
+
+const localVue = createLocalVue()
 
 let wrapper
 
 beforeEach(() => {
-  wrapper = shallowMount(Component, {})
+  wrapper = shallowMount(Component, {
+    localVue
+  })
 })
 
 afterEach(() => {
