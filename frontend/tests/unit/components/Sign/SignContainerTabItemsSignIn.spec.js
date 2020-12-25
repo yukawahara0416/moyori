@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Sign/SignContainerTabItemsSignIn.vue'
 
@@ -29,7 +29,7 @@ beforeEach(() => {
     actions
   })
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
     store,
     stubs: ['policy']
