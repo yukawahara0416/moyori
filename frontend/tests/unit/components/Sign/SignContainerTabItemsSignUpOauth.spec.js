@@ -37,4 +37,4 @@ describe('getters', () => {})
 
 describe('v-on', () => {})
 
-describe('', () => {})
+describe('template', () => {})
