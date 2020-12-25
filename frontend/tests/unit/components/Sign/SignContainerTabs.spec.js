@@ -49,6 +49,11 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('v-tabs has value', () => {
+    expect(wrapper.find('v-tabs-stub').attributes().value).toEqual(
+      store.getters.signTab
+    )
+  })
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
