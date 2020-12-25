@@ -4,3 +4,9 @@ import Component from '@/components/Sign/Policy.vue'
 const localVue = createLocalVue()
 
 let wrapper
+
+beforeEach(() => {
+  wrapper = shallowMount(Component, {
+    localVue
+  })
+})
