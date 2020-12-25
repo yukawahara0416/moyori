@@ -38,10 +38,14 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('childTabs/get', () => {
+  it('childTab/get', () => {
     expect(wrapper.vm.childTab).toEqual(store.getters.signTab)
   })
-  it('childTabs/set', () => {})
+
+  it('childTab/set', () => {
+    wrapper.vm.childTab = 'signin'
+    expect(tab.mutations.changeSignTab).toHaveBeenCalled()
+  })
 })
 
 describe('template', () => {
