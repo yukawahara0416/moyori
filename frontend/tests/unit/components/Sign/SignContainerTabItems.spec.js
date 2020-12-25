@@ -2,26 +2,13 @@ import { shallowMount } from '@vue/test-utils'
 import Component from '@/components/Sign/SignContainerTabItems.vue'
 
 let wrapper
-let propsData
 
 beforeEach(() => {
-  propsData = {
-    tabs: 'tab-1'
-  }
-
-  wrapper = shallowMount(Component, {
-    propsData
-  })
+  wrapper = shallowMount(Component, {})
 })
 
 afterEach(() => {
   wrapper.destroy()
-})
-
-describe('props', () => {
-  it('tabs', () => {
-    expect(wrapper.props().tabs).toEqual(propsData.tabs)
-  })
 })
 
 // describe('computed', () => {
