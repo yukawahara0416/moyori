@@ -31,6 +31,10 @@ beforeEach(() => {
   })
 })
 
-describe('getters', () => {})
+describe('getters', () => {
+  it('signUpForm', () => {
+    expect(wrapper.vm.signUpForm).toMatchObject(store.getters.signUpForm)
+  })
+})
 
 describe('template', () => {})
