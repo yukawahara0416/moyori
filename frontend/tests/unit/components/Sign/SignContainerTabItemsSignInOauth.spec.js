@@ -34,8 +34,15 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
-  expect(wrapper.vm.signInForm).toMatchObject(store.getters.signInForm)
+  it('signInForm', () => {
+    expect(wrapper.vm.signInForm).toMatchObject(store.getters.signInForm)
+  })
 })
 
 describe('v-on', () => {})
-describe('template', () => {})
+
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+})
