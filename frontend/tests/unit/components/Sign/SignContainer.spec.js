@@ -11,14 +11,6 @@ beforeEach(() => {
   })
 })
 
-describe('v-on', () => {
-  it('changeTabs', () => {
-    wrapper.setMethods({ changeTabs: jest.fn() })
-    wrapper.vm.$emit('changeTabs')
-    expect(wrapper.emitted().changeTabs).toBeTruthy()
-  })
-})
-
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
