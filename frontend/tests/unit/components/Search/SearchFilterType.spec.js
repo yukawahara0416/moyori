@@ -52,7 +52,11 @@ describe('computed', () => {
 })
 
 describe('template', () => {
-  it('v-select has :items', () => {})
+  it('v-select has :items', () => {
+    expect(wrapper.find('v-select-stub').attributes().items).toEqual(
+      '[object Object],[object Object],[object Object],[object Object]'
+    )
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
