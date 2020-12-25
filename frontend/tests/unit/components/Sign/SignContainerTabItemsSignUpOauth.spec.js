@@ -10,5 +10,9 @@ let store
 let auth
 
 beforeEach(() => {
+  store = new Vuex.Store({
+    modules: {}
+  })
+
   wrapper = shallowMount(Component, {})
 })
