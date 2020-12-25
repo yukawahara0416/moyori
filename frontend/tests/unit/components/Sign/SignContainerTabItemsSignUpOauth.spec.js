@@ -27,5 +27,8 @@ beforeEach(() => {
     }
   })
 
-  wrapper = shallowMount(Component, {})
+  wrapper = shallowMount(Component, {
+    localVue,
+    store
+  })
 })
