@@ -33,5 +33,11 @@ describe('getters', () => {
     expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
   })
 })
+
 describe('v-on', () => {})
-describe('template', () => {})
+
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+})
