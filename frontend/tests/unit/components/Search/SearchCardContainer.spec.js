@@ -16,8 +16,7 @@ beforeEach(() => {
   spot = {
     namespaced: true,
     getters: {
-      spots: () => [{ data: { id: 1 } }, { data: { id: 2 } }],
-      filteredSpots: () => {}
+      filteredSpots: () => [{ data: { id: 1 } }, { data: { id: 2 } }]
     }
   }
 
@@ -36,17 +35,19 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('getters', () => {
   it('spots', () => {
-    expect(wrapper.vm.spots).toEqual(spot.getters.spots())
+    expect(wrapper.vm.spots).toEqual(store.getters.spots)
   })
 })
 
 describe('template', () => {
+  it('card-container has :spots', () => {
+    expect(wrapper.find('card-container-stub').attributes().spots).toEqual(
+      '[object Object],[object Object]'
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
