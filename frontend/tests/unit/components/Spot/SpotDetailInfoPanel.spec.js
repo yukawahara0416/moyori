@@ -54,5 +54,11 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {})
 })
+
+describe('getters', () => {
+  it('currentUser', () => {})
+  it('isLoggingIn', () => {})
+})
+
   })
 })
