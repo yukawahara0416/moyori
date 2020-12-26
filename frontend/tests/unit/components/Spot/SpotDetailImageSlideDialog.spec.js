@@ -45,6 +45,7 @@ describe('v-on', () => {
       .at(0)
       .trigger('click')
     expect(openDialog).toHaveBeenCalled()
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
 
