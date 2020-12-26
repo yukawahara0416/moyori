@@ -60,5 +60,9 @@ describe('getters', () => {
   it('isLoggingIn', () => {})
 })
 
+describe('computed', () => {
+  it('isOwnPosted', () => {})
+})
+
   })
 })
