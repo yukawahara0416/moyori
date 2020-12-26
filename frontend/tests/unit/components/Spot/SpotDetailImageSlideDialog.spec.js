@@ -25,7 +25,26 @@ describe('props', () => {
 })
 
 describe('v-on', () => {
-  it('openDialog', () => {})
+  it('openDialog', () => {
+    const openDialog = jest.fn()
+    propsData = {
+      photo: 'test'
+    }
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      methods: {
+        openDialog
+      }
+    })
+
+    wrapper
+      .findAll('.v-card')
+      .at(0)
+      .trigger('click')
+    expect(openDialog).toHaveBeenCalled()
+  })
 })
 
 describe('methods', () => {
