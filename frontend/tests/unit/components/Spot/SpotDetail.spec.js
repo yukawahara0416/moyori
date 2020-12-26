@@ -36,7 +36,12 @@ describe('emit', () => {
 })
 
 describe('template', () => {
-  it('spot-detail-title has :spot', () => {})
+  it('spot-detail-title has :spot', () => {
+    expect(
+      wrapper.find('spot-detail-image-slide-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
+
   it('spot-detail-image-slide has :spot', () => {})
   it('spot-detail-wifi-panel has :spot', () => {})
   it('spot-detail-power-panel has :spot', () => {})
