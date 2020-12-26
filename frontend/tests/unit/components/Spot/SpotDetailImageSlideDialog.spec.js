@@ -30,3 +30,7 @@ describe('props', () => {
 describe('v-on', () => {
   it('openDialog', () => {})
 })
+
+describe('methods', () => {
+  it('openDialog', () => {})
+})
