@@ -50,7 +50,10 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  it('openDialog', () => {})
+  it('openDialog', () => {
+    wrapper.vm.openDialog()
+    expect(wrapper.vm.dialog).toBe(true)
+  })
 })
 
 describe('template', () => {
