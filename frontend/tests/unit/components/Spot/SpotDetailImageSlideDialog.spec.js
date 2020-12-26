@@ -18,7 +18,10 @@ beforeEach(() => {
 })
 
 describe('props', () => {
-  it('photo', () => {})
+  it('photo', () => {
+    expect(wrapper.props().photo).toStrictEqual(propsData.photo)
+    expect(typeof wrapper.vm.$props.photo).toBe('string')
+  })
 })
 
 describe('v-on', () => {
