@@ -21,6 +21,8 @@ describe('props', () => {})
 
 describe('computed', () => {})
 
+describe('template', () => {})
+
 // template
 // v-if v-slide-item
 // v-img
