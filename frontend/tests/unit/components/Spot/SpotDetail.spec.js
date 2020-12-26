@@ -1,12 +1,6 @@
 // emit
 
 //template
-// spot-detail-title spot
-// spot-detail-image-slide spot
-// spot-detail-wifi-panel spot
-// spot-detail-power-panel spot
-// spot-detail-comment-panel spot
-// spot-detail-info-panel spot
 
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Spot/SpotDetail.vue'
@@ -42,6 +36,13 @@ describe('emit', () => {
 })
 
 describe('template', () => {
+  it('spot-detail-title has :spot', () => {})
+  it('spot-detail-image-slide has :spot', () => {})
+  it('spot-detail-wifi-panel has :spot', () => {})
+  it('spot-detail-power-panel has :spot', () => {})
+  it('spot-detail-comment-panel has :spot', () => {})
+  it('spot-detail-info-panel has :spot', () => {})
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
