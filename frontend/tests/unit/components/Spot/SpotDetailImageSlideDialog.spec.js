@@ -22,3 +22,7 @@ beforeEach(() => {
     propsData
   })
 })
+
+describe('props', () => {
+  it('photo', () => {})
+})
