@@ -34,3 +34,11 @@ describe('v-on', () => {
 describe('methods', () => {
   it('openDialog', () => {})
 })
+
+describe('template', () => {
+  it('v-img has :src', () => {})
+
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+})
