@@ -37,6 +37,13 @@ beforeEach(() => {
       isLoggingIn: () => true
     }
   }
+
+  store = new Vuex.Store({
+    modules: {
+      auth
+    }
+  })
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData
