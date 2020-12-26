@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Spot/SpotDetailImageSlideDialog.vue'
 
 const localVue = createLocalVue()
@@ -11,7 +11,7 @@ beforeEach(() => {
     photo: 'test'
   }
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
     propsData
   })
@@ -27,6 +27,7 @@ describe('props', () => {
 describe('v-on', () => {
   it('openDialog', () => {
     const openDialog = jest.fn()
+
     propsData = {
       photo: 'test'
     }
