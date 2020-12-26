@@ -17,6 +17,8 @@ afterEach(() => {
 // computed images
 // commentImages
 
+describe('props', () => {})
+
 // template
 // v-if v-slide-item
 // v-img
