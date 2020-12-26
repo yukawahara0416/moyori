@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Sign/SignTabitemsSignInEasy.vue'
+import Component from '@/components/Sign/SignTabitemsSigninOauth.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -9,12 +9,15 @@ let wrapper
 let store
 let auth
 
-const signInAsTestUser = jest.fn()
-
 beforeEach(() => {
   auth = {
     getters: {
-      isLoggingIn: () => true
+      signInForm: () => {
+        return { email: 'test@example.com', password: 'password' }
+      }
+    },
+    actions: {
+      signIn: jest.fn()
     }
   }
 
@@ -26,23 +29,20 @@ beforeEach(() => {
 
   wrapper = mount(Component, {
     localVue,
-    store,
-    methods: {
-      signInAsTestUser
-    }
+    store
   })
 })
 
 describe('getters', () => {
-  it('isLoggingIn', () => {
-    expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
+  it('signInForm', () => {
+    expect(wrapper.vm.signInForm).toMatchObject(store.getters.signInForm)
   })
 })
 
 describe('v-on', () => {
-  it('signInAsTestUser', () => {
+  it('signIn', () => {
     wrapper.find('.v-btn').trigger('click')
-    expect(signInAsTestUser).toHaveBeenCalled()
+    expect(auth.actions.signIn).toHaveBeenCalled()
   })
 })
 

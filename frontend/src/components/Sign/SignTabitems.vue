@@ -1,7 +1,7 @@
 <template>
   <v-tabs-items v-model="childTab">
     <v-tab-item value="signin">
-      <sign-tabitems-sign-in />
+      <sign-tabitems-signin />
     </v-tab-item>
     <v-tab-item value="signup">
       <sign-tabitems-sign-up />
@@ -11,12 +11,12 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import SignTabitemsSignIn from '@/components/Sign/SignTabitemsSignIn.vue'
+import SignTabitemsSignin from '@/components/Sign/SignTabitemsSignin.vue'
 import SignTabitemsSignUp from '@/components/Sign/SignTabitemsSignUp.vue'
 
 export default {
   components: {
-    SignTabitemsSignIn,
+    SignTabitemsSignin,
     SignTabitemsSignUp
   },
 
