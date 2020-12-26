@@ -45,7 +45,12 @@ describe('template', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
-  it('comment-post-dialog has :spot', () => {})
+  it('comment-post-dialog has :spot', () => {
+    expect(wrapper.find('comment-post-dialog-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
+
   it('comment-index has :spot', () => {})
 
   it('snapshot', () => {
