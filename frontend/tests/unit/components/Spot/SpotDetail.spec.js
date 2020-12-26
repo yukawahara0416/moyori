@@ -10,7 +10,7 @@
 // spot-detail-info-panel spot
 
 import { shallowMount, createLocalVue } from '@vue/test-utils'
-import Component from '@/components/Search/SearchMapContainer.vue'
+import Component from '@/components/Spot/SpotDetail.vue'
 
 const localVue = createLocalVue()
 
@@ -26,6 +26,10 @@ beforeEach(() => {
     localVue
   })
 })
+
+describe('props', () => {})
+
+describe('emit', () => {})
 
 describe('template', () => {
   it('snapshot', () => {
