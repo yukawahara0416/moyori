@@ -29,6 +29,12 @@ describe('props', () => {
 })
 
 describe('template', () => {
+  it('v-if="spot.comments[0]', () => {
+    expect(wrapper.find('comment-index-stub').exists()).toBe(true)
+  })
+
+  it('v-else', () => {})
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
