@@ -26,3 +26,7 @@ beforeEach(() => {
 describe('props', () => {
   it('photo', () => {})
 })
+
+describe('v-on', () => {
+  it('openDialog', () => {})
+})
