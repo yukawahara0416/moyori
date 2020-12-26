@@ -15,6 +15,7 @@ import Component from '@/components/Search/SearchMapContainer.vue'
 const localVue = createLocalVue()
 
 let wrapper
+let propsData
 
 beforeEach(() => {
   wrapper = shallowMount(Component, {
