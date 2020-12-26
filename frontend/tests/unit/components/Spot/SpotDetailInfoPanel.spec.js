@@ -64,5 +64,14 @@ describe('computed', () => {
   it('isOwnPosted', () => {})
 })
 
+describe('template', () => {
+  it(' has :spot', () => {})
+  it(' has :spot', () => {})
+  it(' has :spot', () => {})
+  it(' has :spot', () => {})
+  it(' has :spot', () => {})
+  it('v-if="isOwnPosted"', () => {})
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
