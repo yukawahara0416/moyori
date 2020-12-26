@@ -15,6 +15,7 @@ import Vuex from 'vuex'
 import Component from '@/components/Spot/SpotDetailInfoPanel.vue'
 
 const localVue = createLocalVue()
+localVue.use(Vuex)
 
 let wrapper
 let propsData
