@@ -45,11 +45,16 @@ describe('computed', () => {
 })
 
 describe('template', () => {
-  it('v-if="images.length < 1"', () => {
+  it('v-else v-slide-item count 3', () => {
     expect(wrapper.findAll('v-slide-item-stub').length).toBe(3)
   })
 
-  it('v-else', () => {})
+  it('v-else spot-detail-image-slide-dialog has :photo', () => {
+    const target = wrapper.findAll('spot-detail-image-slide-dialog-stub')
+    expect(target.at(0).attributes().photo).toEqual('test2')
+    expect(target.at(1).attributes().photo).toEqual('test3')
+    expect(target.at(2).attributes().photo).toEqual('test1')
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
