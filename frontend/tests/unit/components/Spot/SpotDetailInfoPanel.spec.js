@@ -29,6 +29,14 @@ beforeEach(() => {
     }
   }
 
+  auth = {
+    getters: {
+      currentUser: () => {
+        return { data: { id: 1 } }
+      },
+      isLoggingIn: () => true
+    }
+  }
   wrapper = shallowMount(Component, {
     localVue,
     propsData
