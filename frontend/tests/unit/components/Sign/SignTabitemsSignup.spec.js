@@ -1,5 +1,5 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
-import Component from '@/components/Sign/SignTabitemsSignUp.vue'
+import Component from '@/components/Sign/SignTabitemsSignup.vue'
 
 const localVue = createLocalVue()
 
