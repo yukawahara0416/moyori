@@ -1,5 +1,3 @@
-// props
-// v-if
 // template spot
 
 import { shallowMount, createLocalVue } from '@vue/test-utils'
@@ -33,7 +31,22 @@ describe('template', () => {
     expect(wrapper.find('comment-index-stub').exists()).toBe(true)
   })
 
-  it('v-else', () => {})
+  it('v-else', () => {
+    propsData = {
+      spot: { data: { id: 1 }, comments: [] }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.find('p').text()).toBe('コメントはまだありません')
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
+  it('comment-post-dialog has :spot', () => {})
+  it('comment-index has :spot', () => {})
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
