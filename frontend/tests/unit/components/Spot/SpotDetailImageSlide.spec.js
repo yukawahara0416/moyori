@@ -5,3 +5,10 @@ const localVue = createLocalVue()
 
 let wrapper
 let propsData
+
+afterEach(() => {
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData
+  })
+})
