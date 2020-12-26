@@ -1,4 +1,3 @@
-// props spot
 // emit
 
 //template
@@ -23,7 +22,8 @@ beforeEach(() => {
   }
 
   wrapper = shallowMount(Component, {
-    localVue
+    localVue,
+    propsData
   })
 })
 
@@ -34,7 +34,12 @@ describe('props', () => {
   })
 })
 
-describe('emit', () => {})
+describe('emit', () => {
+  it('closeDialog', () => {
+    wrapper.vm.closeDialog()
+    expect(wrapper.emitted('closeDialog')).toBeTruthy()
+  })
+})
 
 describe('template', () => {
   it('snapshot', () => {
