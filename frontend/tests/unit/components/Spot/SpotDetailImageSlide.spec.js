@@ -56,6 +56,26 @@ describe('template', () => {
     expect(target.at(2).attributes().photo).toEqual('test1')
   })
 
+  it('v-if="images.length < 1"', () => {
+    propsData = {
+      spot: {
+        data: { id: 1, image: null },
+        comments: [
+          { id: 1, image: null },
+          { id: 2, image: null }
+        ]
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.find('v-img-stub').exists()).toBe(true)
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
