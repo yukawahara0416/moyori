@@ -45,12 +45,13 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('v-if="images.length < 1"', () => {
+    expect(wrapper.findAll('v-slide-item-stub').length).toBe(3)
+  })
+
+  it('v-else', () => {})
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
-
-// template
-// v-if v-slide-item
-// v-img
-// v-else
