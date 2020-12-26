@@ -1,11 +1,11 @@
 <template>
   <v-container fluid>
     <v-row align="center" justify="center" class="row-default">
-      <sign-container-tab-items-sign-in-easy />
+      <sign-tabitems-sign-in-easy />
 
-      <!-- <sign-container-tab-items-sign-in-oauth /> -->
+      <!-- <sign-tabitems-sign-in-oauth /> -->
 
-      <sign-container-tab-items-sign-in-email />
+      <sign-tabitems-sign-in-email />
 
       <policy />
     </v-row>
@@ -13,16 +13,16 @@
 </template>
 
 <script>
-import SignContainerTabItemsSignInEasy from '@/components/Sign/SignContainerTabItemsSignInEasy.vue'
-// import SignContainerTabItemsSignInOauth from '@/components/Sign/SignContainerTabItemsSignInOauth.vue'
-import SignContainerTabItemsSignInEmail from '@/components/Sign/SignContainerTabItemsSignInEmail.vue'
+import SignTabitemsSignInEasy from '@/components/Sign/SignTabitemsSignInEasy.vue'
+// import SignTabitemsSignInOauth from '@/components/Sign/SignTabitemsSignInOauth.vue'
+import SignTabitemsSignInEmail from '@/components/Sign/SignTabitemsSignInEmail.vue'
 import Policy from '@/components/Sign/Policy.vue'
 
 export default {
   components: {
-    SignContainerTabItemsSignInEasy,
-    // SignContainerTabItemsSignInOauth,
-    SignContainerTabItemsSignInEmail,
+    SignTabitemsSignInEasy,
+    // SignTabitemsSignInOauth,
+    SignTabitemsSignInEmail,
     Policy
   }
 }

@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Sign/SignContainerTabItemsSignInEasy.vue'
+import Component from '@/components/Sign/SignTabitemsSignInEasy.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)

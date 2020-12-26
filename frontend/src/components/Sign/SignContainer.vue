@@ -6,7 +6,7 @@
           <v-col class="tab-container" cols="12">
             <sign-tabs />
 
-            <sign-container-tab-items />
+            <sign-tabitems />
           </v-col>
         </v-row>
       </v-col>
@@ -16,12 +16,12 @@
 
 <script>
 import SignTabs from '@/components/Sign/SignTabs.vue'
-import SignContainerTabItems from '@/components/Sign/SignContainerTabItems.vue'
+import SignTabitems from '@/components/Sign/SignTabitems.vue'
 
 export default {
   components: {
     SignTabs,
-    SignContainerTabItems
+    SignTabitems
   }
 }
 </script>
