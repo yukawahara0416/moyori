@@ -12,3 +12,12 @@ afterEach(() => {
     propsData
   })
 })
+
+// props
+// computed images
+// commentImages
+
+// template
+// v-if v-slide-item
+// v-img
+// v-else
