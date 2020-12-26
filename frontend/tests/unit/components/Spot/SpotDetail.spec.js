@@ -1,7 +1,3 @@
-// emit
-
-//template
-
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Spot/SpotDetail.vue'
 
@@ -66,7 +62,11 @@ describe('template', () => {
     ).toEqual('[object Object]')
   })
 
-  it('spot-detail-info-panel has :spot', () => {})
+  it('spot-detail-info-panel has :spot', () => {
+    expect(
+      wrapper.find('spot-detail-info-panel-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
