@@ -57,7 +57,11 @@ describe('methods', () => {
 })
 
 describe('template', () => {
-  it('v-img has :src', () => {})
+  it('v-img has :src', () => {
+    const target = wrapper.findAll('v-img-stub')
+    expect(target.at(0).attributes().src).toEqual('test')
+    expect(target.at(1).attributes().src).toEqual('test')
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
