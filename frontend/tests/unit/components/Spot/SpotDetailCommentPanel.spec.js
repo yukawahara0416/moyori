@@ -1,5 +1,3 @@
-// template spot
-
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Spot/SpotDetailCommentPanel.vue'
 
@@ -51,7 +49,11 @@ describe('template', () => {
     )
   })
 
-  it('comment-index has :spot', () => {})
+  it('comment-index has :spot', () => {
+    expect(wrapper.find('comment-index-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
