@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
     <v-row align="center" justify="center" class="row-default">
-      <!-- <sign-tabitems-signp-oauth /> -->
+      <!-- <sign-tabitems-signup-oauth /> -->
 
-      <sign-tabitems-signp-email />
+      <sign-tabitems-signup-email />
 
       <policy />
     </v-row>
