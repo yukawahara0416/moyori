@@ -19,6 +19,8 @@ afterEach(() => {
 
 describe('props', () => {})
 
+describe('computed', () => {})
+
 // template
 // v-if v-slide-item
 // v-img
