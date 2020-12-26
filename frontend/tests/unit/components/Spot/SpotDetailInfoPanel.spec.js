@@ -51,5 +51,8 @@ beforeEach(() => {
   })
 })
 
+describe('props', () => {
+  it('spot', () => {})
+})
   })
 })
