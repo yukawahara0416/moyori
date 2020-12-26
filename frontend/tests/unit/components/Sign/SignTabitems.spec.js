@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Sign/SignContainerTabs.vue'
+import Component from '@/components/Sign/SignTabitems.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -12,7 +12,7 @@ let tab
 beforeEach(() => {
   tab = {
     getters: {
-      signTab: () => 'signup'
+      signTab: () => 'signin'
     },
     mutations: {
       changeSignTab: jest.fn()
@@ -38,22 +38,17 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('childTab/get', () => {
+  it('childTabs/get', () => {
     expect(wrapper.vm.childTab).toEqual(store.getters.signTab)
   })
 
-  it('childTab/set', () => {
-    wrapper.vm.childTab = 'signin'
+  it('childTabs/set', () => {
+    wrapper.vm.childTab = 'update'
     expect(tab.mutations.changeSignTab).toHaveBeenCalled()
   })
 })
 
 describe('template', () => {
-  it('v-tabs has value', () => {
-    expect(wrapper.find('v-tabs-stub').attributes().value).toEqual(
-      store.getters.signTab
-    )
-  })
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })

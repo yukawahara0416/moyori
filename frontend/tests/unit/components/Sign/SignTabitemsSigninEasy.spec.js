@@ -1,6 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Sign/SignContainerTabItemsSignInEmail.vue'
+import Component from '@/components/Sign/SignTabitemsSigninEasy.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -9,15 +9,12 @@ let wrapper
 let store
 let auth
 
-const signInHandler = jest.fn()
+const signInAsTestUser = jest.fn()
 
 beforeEach(() => {
   auth = {
     getters: {
-      isLoggingIn: () => true,
-      signInForm: () => {
-        return { email: 'test@expample.com', password: 'password' }
-      }
+      isLoggingIn: () => true
     }
   }
 
@@ -31,9 +28,8 @@ beforeEach(() => {
     localVue,
     store,
     methods: {
-      signInHandler
-    },
-    stubs: ['ValidationObserver']
+      signInAsTestUser
+    }
   })
 })
 
@@ -41,13 +37,14 @@ describe('getters', () => {
   it('isLoggingIn', () => {
     expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
   })
-
-  it('signInForm', () => {
-    expect(wrapper.vm.signInForm).toMatchObject(store.getters.signInForm)
-  })
 })
 
-describe('v-on', () => {})
+describe('v-on', () => {
+  it('signInAsTestUser', () => {
+    wrapper.find('.v-btn').trigger('click')
+    expect(signInAsTestUser).toHaveBeenCalled()
+  })
+})
 
 describe('template', () => {
   it('snapshot', () => {

@@ -4,9 +4,9 @@
       <v-col class="py-0">
         <v-row align="center" justify="center" no-gutter class="row-defalut">
           <v-col class="tab-container" cols="12">
-            <sign-container-tabs />
+            <sign-tabs />
 
-            <sign-container-tab-items />
+            <sign-tabitems />
           </v-col>
         </v-row>
       </v-col>
@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import SignContainerTabs from '@/components/Sign/SignContainerTabs.vue'
-import SignContainerTabItems from '@/components/Sign/SignContainerTabItems.vue'
+import SignTabs from '@/components/Sign/SignTabs.vue'
+import SignTabitems from '@/components/Sign/SignTabitems.vue'
 
 export default {
   components: {
-    SignContainerTabs,
-    SignContainerTabItems
+    SignTabs,
+    SignTabitems
   }
 }
 </script>

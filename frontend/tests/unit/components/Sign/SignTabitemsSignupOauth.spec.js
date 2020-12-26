@@ -1,6 +1,6 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Sign/SignContainerTabItemsSignUpEmail.vue'
+import Component from '@/components/Sign/SignTabitemsSignupOauth.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -15,6 +15,9 @@ beforeEach(() => {
       signUpForm: () => {
         return { name: 'test', email: 'test@example.com', password: 'passowrd' }
       }
+    },
+    actions: {
+      signUp: jest.fn()
     }
   }
 
@@ -24,16 +27,22 @@ beforeEach(() => {
     }
   })
 
-  wrapper = shallowMount(Component, {
+  wrapper = mount(Component, {
     localVue,
-    store,
-    stubs: ['ValidationObserver']
+    store
   })
 })
 
 describe('getters', () => {
   it('signUpForm', () => {
     expect(wrapper.vm.signUpForm).toMatchObject(store.getters.signUpForm)
+  })
+})
+
+describe('v-on', () => {
+  it('signUp', () => {
+    wrapper.find('.v-btn').trigger('click')
+    expect(auth.actions.signUp).toHaveBeenCalled()
   })
 })
 

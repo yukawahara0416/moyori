@@ -1,5 +1,5 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
-import Component from '@/components/Sign/SignContainerTabItemsSignUp.vue'
+import Component from '@/components/Sign/SignTabitemsSignin.vue'
 
 const localVue = createLocalVue()
 
@@ -7,7 +7,8 @@ let wrapper
 
 beforeEach(() => {
   wrapper = shallowMount(Component, {
-    localVue
+    localVue,
+    stubs: ['policy']
   })
 })
 
