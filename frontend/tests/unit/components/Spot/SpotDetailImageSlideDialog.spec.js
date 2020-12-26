@@ -11,3 +11,14 @@ const localVue = createLocalVue()
 
 let wrapper
 let propsData
+
+beforeEach(() => {
+  propsData = {
+    photo: 'test'
+  }
+
+  wrapper = mount(Component, {
+    localVue,
+    propsData
+  })
+})
