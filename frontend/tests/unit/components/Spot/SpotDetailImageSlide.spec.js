@@ -44,7 +44,11 @@ describe('computed', () => {
   })
 })
 
-describe('template', () => {})
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+})
 
 // template
 // v-if v-slide-item
