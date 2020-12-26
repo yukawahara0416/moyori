@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Sign/SignContainerTabs.vue'
+import Component from '@/components/Sign/SignTabs.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
