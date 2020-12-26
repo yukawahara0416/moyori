@@ -60,7 +60,12 @@ describe('template', () => {
     ).toEqual('[object Object]')
   })
 
-  it('spot-detail-comment-panel has :spot', () => {})
+  it('spot-detail-comment-panel has :spot', () => {
+    expect(
+      wrapper.find('spot-detail-comment-panel-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
+
   it('spot-detail-info-panel has :spot', () => {})
 
   it('snapshot', () => {
