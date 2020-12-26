@@ -17,3 +17,10 @@ const localVue = createLocalVue()
 
 let wrapper
 let propsData
+
+  propsData = {
+    spot: {
+      data: { id: 1, place_id: 'aaaaaaaaaaa', use_id: 1, image: 'test1' }
+    }
+  }
+
