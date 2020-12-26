@@ -18,6 +18,10 @@ let wrapper
 let propsData
 
 beforeEach(() => {
+  propsData = {
+    spot: { data: { id: 1 } }
+  }
+
   wrapper = shallowMount(Component, {
     localVue
   })
