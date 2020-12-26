@@ -54,7 +54,12 @@ describe('template', () => {
     ).toEqual('[object Object]')
   })
 
-  it('spot-detail-power-panel has :spot', () => {})
+  it('spot-detail-power-panel has :spot', () => {
+    expect(
+      wrapper.find('spot-detail-power-panel-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
+
   it('spot-detail-comment-panel has :spot', () => {})
   it('spot-detail-info-panel has :spot', () => {})
 
