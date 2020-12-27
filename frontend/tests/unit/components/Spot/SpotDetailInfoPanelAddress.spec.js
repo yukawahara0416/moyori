@@ -54,6 +54,8 @@ describe('template', () => {
 
   it('a.text has address', () => {
   })
+
   it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
