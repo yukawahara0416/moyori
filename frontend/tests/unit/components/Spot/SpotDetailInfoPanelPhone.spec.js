@@ -28,5 +28,6 @@ describe('props', () => {
 
 describe('computed', () => {
   it('tel', () => {
+    expect(wrapper.vm.tel).toEqual(propsData.spot.data.phone)
   })
 })
