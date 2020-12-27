@@ -72,3 +72,6 @@ beforeEach(() => {
     stubs: ['ValidationObserver']
   })
 })
+
+describe('getters', () => {
+})
