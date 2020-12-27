@@ -246,6 +246,7 @@ describe('computed', () => {
     expect(wrapper.find('strong').text()).toEqual('なくなってる可能性大です^^;')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
+})
 describe('methods', () => {
   it('pickupDate', () => {
     propsData = {
@@ -267,6 +268,9 @@ describe('methods', () => {
     const result = wrapper.vm.pickupDate(propsData.spot.wifi_withs)
     expect(result).toMatchObject([1606780800000])
   })
+})
+
+describe('template', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
