@@ -124,12 +124,12 @@ describe('computed', () => {
 })
 
 describe('template', () => {
-  it(' has :spot', () => {})
-  it(' has :spot', () => {})
-  it(' has :spot', () => {})
-  it(' has :spot', () => {})
-  it(' has :spot', () => {})
-  it('v-if="isOwnPosted"', () => {})
+  it('spot-detail-info-panel-address has :spot', () => {
+    expect(
+      wrapper.find('spot-detail-info-panel-address-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
