@@ -25,5 +25,11 @@ describe('computed', () => {
   it('url', () => {
   })
 })
+describe('template', () => {
+  it('a has :href', () => {
+  })
+  it('a.text has {{ url }}', () => {
+  })
+  it('snapshot', () => {
   })
 })
