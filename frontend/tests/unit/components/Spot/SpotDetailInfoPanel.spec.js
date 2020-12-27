@@ -158,6 +158,23 @@ describe('template', () => {
     expect(wrapper.find('v-card-actions-stub').exists()).toBe(true)
   })
 
+  it('v-if="isOwnPosted" is false', () => {
+    propsData = {
+      spot: {
+        data: { id: 1, place_id: 'aaaaaaaaaaxx', user_id: 1 }
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store
+    })
+
+    expect(wrapper.find('v-card-actions-stub').exists()).toBe(false)
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
