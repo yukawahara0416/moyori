@@ -26,3 +26,6 @@ describe('v-on', () => {
     expect(closeDialog).toHaveBeenCalled()
   })
 })
+
+describe('emit', () => {
+})
