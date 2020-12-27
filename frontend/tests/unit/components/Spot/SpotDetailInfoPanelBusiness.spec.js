@@ -119,5 +119,19 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-if="spot.data.opening_hours" is false', () => {
+    propsData = {
+      spot: { data: { id: 1 } }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    const target = wrapper.find('.mx-3')
+    expect(target.exists()).toBe(false)
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
   })
 })
