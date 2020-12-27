@@ -144,5 +144,25 @@ describe('template', () => {
     expect(wrapper.find('.mx-3').text()).toContain('...続きをよむ')
   })
 
+  it('v-if="readMore is false {{ businessDays }}', () => {
+    propsData = {
+      spot: {
+        data: {
+          id: 1,
+          opening_hours: {
+            weekday_text: ['月曜日: 10時00分～19時30分']
+          }
+        }
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.find('.mx-3').text()).toContain('月/ 10:00～19:30')
+    expect(wrapper.find('.mx-3').text()).not.toContain('...続きをよむ')
+  })
   })
 })
