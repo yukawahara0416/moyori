@@ -41,4 +41,8 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
+  it('dialog/get', () => {
+    expect(wrapper.vm.dialog).toBe(store.getters.dialogSpotCreate)
+  })
+
 })
