@@ -92,4 +92,20 @@ describe('getters', () => {
 })
 
 describe('methods', () => {
+  it('cancelPostSpot', () => {
+    const closeDialog = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      methods: {
+        closeDialog
+      },
+      stubs: ['ValidationObserver']
+    })
+
+    wrapper.vm.cancelPostSpot()
+    expect(closeDialog).toHaveBeenCalled()
+    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+  })
 })
