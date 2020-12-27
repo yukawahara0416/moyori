@@ -67,4 +67,30 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
+  it('openDialog', () => {
+    const openDialog = jest.fn()
+
+    dialog = {
+      getters: {
+        dialogSpotEdit: () => false
+      }
+    }
+
+    store = new Vuex.Store({
+      modules: {
+        dialog
+      }
+    })
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      methods: {
+        openDialog
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(openDialog).toHaveBeenCalled()
+  })
 })
