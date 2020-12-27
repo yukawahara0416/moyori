@@ -35,4 +35,7 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
+  it('dialogSpotCreate', () => {
+    expect(wrapper.vm.dialogSpotCreate).toBe(store.getters.dialogSpotCreate)
+  })
 })
