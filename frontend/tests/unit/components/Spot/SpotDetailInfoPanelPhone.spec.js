@@ -34,6 +34,7 @@ describe('computed', () => {
 
 describe('template', () => {
   it('a has :href', () => {
+    expect(wrapper.find('a').attributes().href).toEqual('tel:123456789')
   })
   it('a.text is {{ tel }}', () => {
   })
