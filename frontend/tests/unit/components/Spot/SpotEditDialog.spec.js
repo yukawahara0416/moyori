@@ -103,4 +103,9 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('spot-edit-dialog-form has :spot', () => {
+    expect(
+      wrapper.find('spot-edit-dialog-form-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
 })
