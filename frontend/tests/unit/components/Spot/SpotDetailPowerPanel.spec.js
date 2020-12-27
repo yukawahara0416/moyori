@@ -245,3 +245,6 @@ describe('computed', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
+
+describe('methods', () => {
+})
