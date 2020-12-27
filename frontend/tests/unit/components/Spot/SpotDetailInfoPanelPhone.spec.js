@@ -31,3 +31,12 @@ describe('computed', () => {
     expect(wrapper.vm.tel).toEqual(propsData.spot.data.phone)
   })
 })
+
+describe('template', () => {
+  it('a has :href', () => {
+  })
+  it('a.text is {{ tel }}', () => {
+  })
+  it('snapshot', () => {
+  })
+})
