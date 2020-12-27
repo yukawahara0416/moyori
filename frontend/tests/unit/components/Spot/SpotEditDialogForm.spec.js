@@ -67,4 +67,10 @@ beforeEach(() => {
     }
   })
 
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData,
+    store,
+    stubs: ['ValidationObserver']
+  })
 })
