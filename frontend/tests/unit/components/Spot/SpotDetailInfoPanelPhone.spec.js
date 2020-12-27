@@ -11,3 +11,8 @@ let propsData
       data: { id: 1, phone: '123456789' }
     }
   }
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData
+  })
