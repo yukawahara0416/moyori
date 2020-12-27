@@ -20,3 +20,8 @@ beforeEach(() => {
     propsData
   })
 })
+
+describe('props', () => {
+  it('spot', () => {
+  })
+})
