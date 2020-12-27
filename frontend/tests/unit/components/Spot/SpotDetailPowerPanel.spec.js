@@ -29,4 +29,21 @@ describe('props', () => {
 })
 
 describe('computed', () => {
+  it('countVote return noVote', () => {
+    propsData = {
+      spot: {
+        data: { id: 1 },
+        power_withs: [],
+        power_withouts: []
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.vm.countVote).toEqual('noVote')
+  })
+
 })
