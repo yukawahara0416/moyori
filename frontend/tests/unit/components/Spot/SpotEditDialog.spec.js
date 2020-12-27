@@ -41,3 +41,6 @@ beforeEach(() => {
     store
   })
 })
+
+describe('props', () => {
+})
