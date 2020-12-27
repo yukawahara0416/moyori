@@ -275,4 +275,11 @@ describe('template', () => {
       wrapper.find('power-chart-horizontal-bar-stub').attributes().spot
     ).toEqual('[object Object]')
   })
+
+  it('power-chart-area has :spot', () => {
+    expect(wrapper.find('power-chart-area-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
+
 })
