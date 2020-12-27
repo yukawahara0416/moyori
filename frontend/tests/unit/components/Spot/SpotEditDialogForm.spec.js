@@ -87,4 +87,7 @@ describe('getters', () => {
     expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
   })
 })
+
+describe('computed', () => {
+})
 })
