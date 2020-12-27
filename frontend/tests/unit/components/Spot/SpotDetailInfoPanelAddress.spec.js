@@ -7,3 +7,5 @@
  * computed address
  * computed url
  */
+
+import { shallowMount, createLocalVue } from '@vue/test-utils'
