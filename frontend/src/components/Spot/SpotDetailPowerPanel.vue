@@ -1,7 +1,7 @@
 <template>
   <v-card flat outlined class="mb-2">
     <span v-for="(result, key) in results" :key="key">
-      <span v-show="analyzeVote === result.name">
+      <span v-if="analyzeVote === result.name">
         <v-card-actions>
           <v-spacer />
           電源サービスの判定結果：
