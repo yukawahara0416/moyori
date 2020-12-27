@@ -35,6 +35,7 @@ describe('template', () => {
     expect(wrapper.find('a').attributes().href).toEqual(wrapper.vm.url)
   })
   it('a.text has {{ url }}', () => {
+    expect(wrapper.find('a').text()).toEqual(wrapper.vm.url)
   })
   it('snapshot', () => {
   })
