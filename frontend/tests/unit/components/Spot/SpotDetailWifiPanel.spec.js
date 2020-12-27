@@ -246,6 +246,7 @@ describe('computed', () => {
     expect(wrapper.find('strong').text()).toEqual('なくなってる可能性大です^^;')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
+describe('methods', () => {
       }
     }
 
@@ -254,9 +255,7 @@ describe('computed', () => {
       propsData
     })
 
-    expect(wrapper.vm.analyzeVote).toEqual('good')
-    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-circle-outline')
-    expect(wrapper.find('strong').text()).toEqual('そこそこ期待できます^_^')
+})
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
