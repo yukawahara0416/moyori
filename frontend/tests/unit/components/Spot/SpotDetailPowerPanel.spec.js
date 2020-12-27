@@ -268,3 +268,6 @@ describe('methods', () => {
     expect(result).toMatchObject([1606780800000])
   })
 })
+
+describe('template', () => {
+})
