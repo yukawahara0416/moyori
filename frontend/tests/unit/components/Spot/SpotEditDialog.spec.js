@@ -4,3 +4,8 @@ import Component from '@/components/Spot/SpotEditDialog.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+let wrapper
+let propsData
+let store
+let dialog
