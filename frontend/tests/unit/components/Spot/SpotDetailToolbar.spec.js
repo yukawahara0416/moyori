@@ -11,3 +11,5 @@ beforeEach(() => {
   })
 })
 
+describe('v-on', () => {
+})
