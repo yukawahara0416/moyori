@@ -36,7 +36,9 @@ describe('template', () => {
   it('a has :href', () => {
     expect(wrapper.find('a').attributes().href).toEqual('tel:123456789')
   })
+
   it('a.text is {{ tel }}', () => {
+    expect(wrapper.find('a').text()).toEqual(wrapper.vm.tel)
   })
   it('snapshot', () => {
   })
