@@ -57,6 +57,31 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
+  it('isOwnPosted is false with isLoggingIn is false', () => {
+    auth = {
+      getters: {
+        currentUser: () => {
+          return { data: { id: 1 } }
+        },
+        isLoggingIn: () => false
+      }
+    }
+
+    store = new Vuex.Store({
+      modules: {
+        auth
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store
+    })
+
+    expect(wrapper.vm.isOwnPosted).toBe(false)
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
   it('isOwnPosted is true with return spotOwner === currentUser', () => {
     expect(wrapper.vm.isOwnPosted).toBe(true)
   })
