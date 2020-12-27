@@ -30,4 +30,11 @@ describe('template', () => {
   it('{{ spot.data.name }}', () => {
     expect(wrapper.find('.ml-2').text()).toEqual(propsData.spot.data.name)
   })
+
+  it('like-button has :spot', () => {
+    expect(wrapper.find('like-button-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
+
 })
