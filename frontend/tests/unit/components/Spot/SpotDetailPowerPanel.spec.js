@@ -197,4 +197,29 @@ describe('computed', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
+  it('analyzeVote return fair', () => {
+    propsData = {
+      spot: {
+        data: { id: 1 },
+        power_withs: [{ id: 2, created_at: '2020-12-31T00:00:00.000Z' }],
+        power_withouts: [
+          { id: 3, created_at: '2020-12-01T00:00:00.000Z' },
+          { id: 4, created_at: '2020-12-01T00:00:00.000Z' }
+        ]
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.vm.analyzeVote).toEqual('fair')
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-triangle-outline')
+    expect(wrapper.find('strong').text()).toEqual(
+      'もしかしたらなくなってるかも^^;'
+    )
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
 })
