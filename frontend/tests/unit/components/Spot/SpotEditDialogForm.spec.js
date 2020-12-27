@@ -40,4 +40,10 @@ beforeEach(() => {
     }
   }
 
+  form = {
+    mutations: {
+      clearSpotFormData: jest.fn()
+    }
+  }
+
 })
