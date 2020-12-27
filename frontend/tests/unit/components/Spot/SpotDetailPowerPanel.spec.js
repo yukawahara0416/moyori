@@ -270,4 +270,9 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('power-chart-horizontal-bar has :spot', () => {
+    expect(
+      wrapper.find('power-chart-horizontal-bar-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
 })
