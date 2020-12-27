@@ -145,8 +145,6 @@ describe('computed', () => {
       propsData
     })
 
-    console.log(wrapper.vm.analyzeVote)
-
     expect(wrapper.vm.analyzeVote).toEqual('noVote')
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-help')
     expect(wrapper.find('strong').text()).toEqual('まだ投票されていません')
@@ -247,6 +245,7 @@ describe('computed', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
+
 describe('methods', () => {
   it('pickupDate', () => {
     propsData = {
@@ -283,6 +282,7 @@ describe('template', () => {
     )
   })
 
+  it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
