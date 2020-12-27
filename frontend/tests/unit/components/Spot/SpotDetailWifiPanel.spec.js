@@ -271,6 +271,11 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('wifi-chart-horizontal-bar has :spot', () => {
+    expect(
+      wrapper.find('wifi-chart-horizontal-bar-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
