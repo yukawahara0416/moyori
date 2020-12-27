@@ -140,5 +140,9 @@ describe('template', () => {
     )
   })
 
+  it('v-if="readMore is true ...続きをよむ', () => {
+    expect(wrapper.find('.mx-3').text()).toContain('...続きをよむ')
+  })
+
   })
 })
