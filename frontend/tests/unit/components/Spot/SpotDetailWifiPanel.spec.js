@@ -113,4 +113,22 @@ describe('computed', () => {
 
     expect(wrapper.vm.latestVote).toEqual('withsNewer')
   })
+
+  it('latestVote return withoutsNewer', () => {
+    propsData = {
+      spot: {
+        data: { id: 1 },
+        wifi_withs: [{ id: 2, created_at: '2020-12-01T00:00:00.000Z' }],
+        wifi_withouts: [{ id: 3, created_at: '2020-12-31T00:00:00.000Z' }]
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.vm.latestVote).toEqual('withoutsNewer')
+  })
+
 })
