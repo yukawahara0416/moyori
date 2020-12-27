@@ -28,3 +28,9 @@ let dialog
     }
   }
 
+  store = new Vuex.Store({
+    modules: {
+      dialog
+    }
+  })
+
