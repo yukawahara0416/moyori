@@ -65,4 +65,6 @@ describe('computed', () => {
     expect(dialog.actions.dialogOff).toHaveBeenCalled()
   })
 })
-describe('getters', () => {
+
+describe('v-on', () => {
+})
