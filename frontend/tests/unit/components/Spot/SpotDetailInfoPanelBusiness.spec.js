@@ -38,6 +38,7 @@ describe('props', () => {
     expect(wrapper.props().spot instanceof Object).toBe(true)
   })
 })
+
 describe('computed', () => {
   it('businessDays', () => {
     const return_text =
@@ -94,6 +95,7 @@ describe('computed', () => {
     expect(wrapper.vm.readMore).toBe(false)
   })
 })
+
 describe('v-on', () => {
   it('activateReadMore', () => {
     const activateReadMore = jest.fn()
@@ -164,5 +166,8 @@ describe('template', () => {
     expect(wrapper.find('.mx-3').text()).toContain('月/ 10:00～19:30')
     expect(wrapper.find('.mx-3').text()).not.toContain('...続きをよむ')
   })
+
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
