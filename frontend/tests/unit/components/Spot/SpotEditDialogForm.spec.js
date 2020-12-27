@@ -102,4 +102,7 @@ describe('computed', () => {
     expect(wrapper.vm.formData).toEqual(formData)
   })
 })
+
+describe('methods', () => {
+})
 })
