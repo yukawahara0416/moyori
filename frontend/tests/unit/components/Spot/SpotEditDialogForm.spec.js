@@ -52,4 +52,10 @@ beforeEach(() => {
     }
   }
 
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn()
+    }
+  }
+
 })
