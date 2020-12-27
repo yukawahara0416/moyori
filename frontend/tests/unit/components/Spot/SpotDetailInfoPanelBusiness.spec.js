@@ -133,5 +133,12 @@ describe('template', () => {
     expect(target.exists()).toBe(false)
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
+
+  it('v-if="readMore is true {{ businessDays.slice(0, maxChar) }}', () => {
+    expect(wrapper.find('.mx-3').text()).toContain(
+      '月/ 10:00～19:30、火/ 10:00～19:30、'
+    )
+  })
+
   })
 })
