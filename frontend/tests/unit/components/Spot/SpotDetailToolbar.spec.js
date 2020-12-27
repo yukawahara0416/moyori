@@ -4,3 +4,7 @@ import Component from '@/components/Spot/SpotDetailToolbar.vue'
 const localVue = createLocalVue()
 
 let wrapper
+
+  wrapper = shallowMount(Component, {
+    localVue
+  })
