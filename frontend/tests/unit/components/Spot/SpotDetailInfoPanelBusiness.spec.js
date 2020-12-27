@@ -94,6 +94,8 @@ describe('computed', () => {
     expect(wrapper.vm.readMore).toBe(false)
   })
 })
+describe('v-on', () => {
+})
   })
 })
   })
