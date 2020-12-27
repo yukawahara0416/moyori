@@ -33,3 +33,6 @@ describe('emit', () => {
     expect(wrapper.emitted()['closeDialog']).toBeTruthy()
   })
 })
+
+describe('template', () => {
+})
