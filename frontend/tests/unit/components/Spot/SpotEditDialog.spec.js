@@ -34,3 +34,8 @@ let dialog
     }
   })
 
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData,
+    store
+  })
