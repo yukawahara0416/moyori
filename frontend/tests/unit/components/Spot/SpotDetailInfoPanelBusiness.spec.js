@@ -45,6 +45,11 @@ describe('computed', () => {
 
     expect(wrapper.vm.businessDays).toEqual(return_text)
   })
+
+  it('isAboveLimit is true', () => {
+    expect(wrapper.vm.isAboveLimit).toBe(true)
+  })
+
   })
 })
   })
