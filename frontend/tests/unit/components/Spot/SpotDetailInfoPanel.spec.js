@@ -82,6 +82,24 @@ describe('computed', () => {
     expect(wrapper.vm.isOwnPosted).toBe(false)
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
+
+  it('isOwnPosted is false with spot.data.place_id.length > 11', () => {
+    propsData = {
+      spot: {
+        data: { id: 1, place_id: 'aaaaaaaaaaxx', user_id: 1 }
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store
+    })
+
+    expect(wrapper.props().spot.data.place_id.length >= 11).toBe(true)
+    expect(wrapper.vm.isOwnPosted).toBe(false)
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
   it('isOwnPosted is true with return spotOwner === currentUser', () => {
     expect(wrapper.vm.isOwnPosted).toBe(true)
   })
