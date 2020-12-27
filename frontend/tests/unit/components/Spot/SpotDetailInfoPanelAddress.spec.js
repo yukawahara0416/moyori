@@ -47,5 +47,13 @@ describe('computed', () => {
     )
   })
 })
+
+describe('template', () => {
+  it('a has :href="url"', () => {
+  })
+
+  it('a.text has address', () => {
+  })
+  it('snapshot', () => {
   })
 })
