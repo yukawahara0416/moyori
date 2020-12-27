@@ -63,4 +63,20 @@ describe('computed', () => {
     expect(wrapper.vm.countVote).toEqual('sameNumber')
   })
 
+  it('countVote return withsMany', () => {
+    propsData = {
+      spot: {
+        data: { id: 1 },
+        power_withs: [{ id: 2 }, { id: 3 }],
+        power_withouts: [{ id: 4 }]
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.vm.countVote).toEqual('withsMany')
+  })
 })
