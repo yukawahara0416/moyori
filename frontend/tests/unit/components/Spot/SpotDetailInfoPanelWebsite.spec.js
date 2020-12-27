@@ -21,5 +21,9 @@ beforeEach(() => {
 
 describe('props', () => {
   it('spot', () => {
+describe('computed', () => {
+  it('url', () => {
+  })
+})
   })
 })
