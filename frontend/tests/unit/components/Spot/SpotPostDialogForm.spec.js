@@ -14,4 +14,13 @@ let tab
 let snackbar
 
 beforeEach(() => {
+  auth = {
+    getters: {
+      headers: () => {
+        return {
+          data: { id: 1 }
+        }
+      }
+    }
+  }
 })
