@@ -58,4 +58,13 @@ beforeEach(() => {
     }
   }
 
+  store = new Vuex.Store({
+    modules: {
+      auth,
+      form,
+      dialog,
+      snackbar
+    }
+  })
+
 })
