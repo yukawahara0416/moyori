@@ -74,4 +74,7 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
+  it('form', () => {
+    expect(wrapper.vm.form).toMatchObject(store.getters.form)
+  })
 })
