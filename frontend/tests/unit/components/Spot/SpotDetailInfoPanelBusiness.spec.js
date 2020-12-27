@@ -39,7 +39,12 @@ describe('props', () => {
   })
 })
 describe('computed', () => {
-})
+  it('businessDays', () => {
+    const return_text =
+      '月/ 10:00～19:30、火/ 10:00～19:30、水/ 10:00～19:30、木/ 10:00～19:30、金/ 10:00～19:30、土/ 10:00～19:30、日/ 10:00～19:30'
+
+    expect(wrapper.vm.businessDays).toEqual(return_text)
+  })
   })
 })
   })
