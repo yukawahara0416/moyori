@@ -52,4 +52,18 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
+  it('openDialog', () => {
+    const openDialog = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      methods: {
+        openDialog
+      }
+    })
+
+    wrapper.find('div').trigger('click')
+    expect(openDialog).toHaveBeenCalled()
+  })
 })
