@@ -47,9 +47,9 @@ describe('props', () => {
 })
 
 describe('getters', () => {
-  it('currentUser', () => {})
-  it('isLoggingIn', () => {})
-})
+  it('currentUser', () => {
+    expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
+  })
 
 describe('computed', () => {
   it('isOwnPosted', () => {})
