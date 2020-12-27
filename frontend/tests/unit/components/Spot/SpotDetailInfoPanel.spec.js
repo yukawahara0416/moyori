@@ -57,7 +57,9 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('isOwnPosted', () => {})
+  it('isOwnPosted is true with return spotOwner === currentUser', () => {
+    expect(wrapper.vm.isOwnPosted).toBe(true)
+  })
 })
 
 describe('template', () => {
