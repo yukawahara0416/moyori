@@ -131,4 +131,26 @@ describe('computed', () => {
     expect(wrapper.vm.latestVote).toEqual('withoutsNewer')
   })
 
+  it('analyzeVote return noVote', () => {
+    propsData = {
+      spot: {
+        data: { id: 1 },
+        wifi_withs: [],
+        wifi_withouts: []
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    console.log(wrapper.vm.analyzeVote)
+
+    expect(wrapper.vm.analyzeVote).toEqual('noVote')
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-help')
+    expect(wrapper.find('strong').text()).toEqual('まだ投票されていません')
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
 })
