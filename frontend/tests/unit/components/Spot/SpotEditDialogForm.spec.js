@@ -14,4 +14,19 @@ let dialog
 let snackbar
 
 beforeEach(() => {
+  propsData = {
+    spot: {
+      data: {
+        id: 1,
+        name: 'testname',
+        address: 'testaddress',
+        phone: 'testphone',
+        url: 'testurl',
+        position: {
+          lat: 'testlat',
+          lng: 'testlng'
+        }
+      }
+    }
+  }
 })
