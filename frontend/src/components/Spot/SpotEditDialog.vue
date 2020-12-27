@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import SpotEditDialogForm from '@/components/Spot/SpotEditDialogForm.vue'
 
 export default {
