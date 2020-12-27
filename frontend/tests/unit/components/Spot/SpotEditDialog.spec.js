@@ -54,5 +54,7 @@ describe('getters', () => {
     expect(wrapper.vm.dialogSpotEdit).toBe(store.getters.dialogSpotEdit)
   })
 })
+
+describe('computed', () => {
 })
 describe('getters', () => {
