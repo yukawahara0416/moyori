@@ -10,4 +10,16 @@ let store
 let dialog
 
 beforeEach(() => {
+  dialog = {
+    getters: {
+      dialogSpotCreate: () => false
+    },
+    mutations: {
+      dialogOn: jest.fn()
+    },
+    actions: {
+      dialogOff: jest.fn()
+    }
+  }
+
 })
