@@ -32,6 +32,7 @@ describe('computed', () => {
 })
 describe('template', () => {
   it('a has :href', () => {
+    expect(wrapper.find('a').attributes().href).toEqual(wrapper.vm.url)
   })
   it('a.text has {{ url }}', () => {
   })
