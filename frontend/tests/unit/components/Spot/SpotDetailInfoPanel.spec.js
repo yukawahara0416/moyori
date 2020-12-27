@@ -153,6 +153,11 @@ describe('template', () => {
       '[object Object]'
     )
   })
+
+  it('v-if="isOwnPosted" is true', () => {
+    expect(wrapper.find('v-card-actions-stub').exists()).toBe(true)
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
