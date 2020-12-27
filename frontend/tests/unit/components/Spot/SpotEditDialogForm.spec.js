@@ -139,5 +139,12 @@ describe('methods', () => {
     expect(clearForm).toHaveBeenCalled()
   })
 
+  it('clearForm', () => {
+    wrapper.vm.picture = 'updata'
+    wrapper.vm.uploadImageUrl = 'updata'
+    wrapper.vm.clearForm()
+    expect(wrapper.vm.picture).toEqual(null)
+    expect(wrapper.vm.uploadImageUrl).toEqual(null)
+  })
 })
 })
