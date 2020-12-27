@@ -110,11 +110,14 @@ describe('v-on', () => {
     expect(activateReadMore).toHaveBeenCalled()
   })
 })
+
 describe('methods', () => {
   it('activateReadMore', () => {
     wrapper.vm.activateReadMore()
     expect(wrapper.vm.readMoreToggle).toBe(true)
   })
 })
+
+describe('template', () => {
   })
-  })
+})
