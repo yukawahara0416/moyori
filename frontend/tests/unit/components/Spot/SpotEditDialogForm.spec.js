@@ -121,5 +121,23 @@ describe('methods', () => {
     expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
   })
 
+  it('closeDialog', () => {
+    const clearForm = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      methods: {
+        clearForm
+      },
+      stubs: ['ValidationObserver']
+    })
+
+    wrapper.vm.closeDialog()
+    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    expect(form.mutations.clearSpotFormData).toHaveBeenCalled()
+    expect(clearForm).toHaveBeenCalled()
+  })
+
 })
 })
