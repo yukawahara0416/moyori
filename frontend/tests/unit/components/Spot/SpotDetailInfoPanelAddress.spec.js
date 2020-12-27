@@ -42,6 +42,9 @@ describe('computed', () => {
   })
 
   it('url', () => {
+    expect(wrapper.vm.url).toEqual(
+      'https://www.google.com/maps/dir/?api=1&destination=lat,lng'
+    )
   })
 })
   })
