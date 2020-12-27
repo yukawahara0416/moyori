@@ -147,6 +147,12 @@ describe('template', () => {
       wrapper.find('spot-detail-info-panel-business-stub').attributes().spot
     ).toEqual('[object Object]')
   })
+
+  it('spot-edit-dialog has :spot', () => {
+    expect(wrapper.find('spot-edit-dialog-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
