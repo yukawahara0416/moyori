@@ -6,6 +6,7 @@ const localVue = createLocalVue()
 let wrapper
 let propsData
 
+beforeEach(() => {
   propsData = {
     spot: {
       data: {
@@ -29,3 +30,4 @@ let propsData
     localVue,
     propsData
   })
+})
