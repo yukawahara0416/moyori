@@ -74,6 +74,26 @@ describe('computed', () => {
     expect(wrapper.vm.readMore).toBe(true)
   })
 
+  it('readMore is false', () => {
+    propsData = {
+      spot: {
+        data: {
+          id: 1,
+          opening_hours: {
+            weekday_text: ['test']
+          }
+        }
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.vm.readMore).toBe(false)
+  })
+})
   })
 })
   })
