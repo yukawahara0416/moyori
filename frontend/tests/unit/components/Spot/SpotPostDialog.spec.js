@@ -74,3 +74,6 @@ describe('methods', () => {
     expect(dialog.mutations.dialogOn).toHaveBeenCalled()
   })
 })
+
+describe('template', () => {
+})
