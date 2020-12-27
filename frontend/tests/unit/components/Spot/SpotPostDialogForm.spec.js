@@ -23,4 +23,19 @@ beforeEach(() => {
       }
     }
   }
+
+  form = {
+    getters: {
+      form: () => {
+        return {
+          place_id: ''
+        }
+      },
+      formData: () => 'formData'
+    },
+    mutations: {
+      clearSpotFormData: jest.fn()
+    }
+  }
+
 })
