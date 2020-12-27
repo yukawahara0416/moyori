@@ -12,4 +12,17 @@ beforeEach(() => {
 })
 
 describe('v-on', () => {
+  it('closeDialog', () => {
+    const closeDialog = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      methods: {
+        closeDialog
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(closeDialog).toHaveBeenCalled()
+  })
 })
