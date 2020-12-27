@@ -50,6 +50,9 @@ describe('props', () => {
 })
 
 describe('getters', () => {
+  it('dialogSpotEdit', () => {
+    expect(wrapper.vm.dialogSpotEdit).toBe(store.getters.dialogSpotEdit)
+  })
 })
 })
 describe('getters', () => {
