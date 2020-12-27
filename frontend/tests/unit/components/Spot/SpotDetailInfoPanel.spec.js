@@ -51,6 +51,11 @@ describe('getters', () => {
     expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
   })
 
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
+  })
+})
+
 describe('computed', () => {
   it('isOwnPosted', () => {})
 })
