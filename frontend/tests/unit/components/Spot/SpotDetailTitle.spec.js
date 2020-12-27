@@ -27,4 +27,7 @@ describe('props', () => {
 })
 
 describe('template', () => {
+  it('{{ spot.data.name }}', () => {
+    expect(wrapper.find('.ml-2').text()).toEqual(propsData.spot.data.name)
+  })
 })
