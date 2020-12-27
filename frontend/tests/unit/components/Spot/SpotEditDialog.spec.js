@@ -10,6 +10,7 @@ let propsData
 let store
 let dialog
 
+beforeEach(() => {
   propsData = {
     spot: {
       data: { id: 1 }
@@ -39,3 +40,4 @@ let dialog
     propsData,
     store
   })
+})
