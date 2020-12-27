@@ -82,4 +82,8 @@ describe('getters', () => {
     expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
   })
 
+  it('formData', () => {
+    expect(wrapper.vm.formData).toEqual(store.getters.formData)
+  })
+
 })
