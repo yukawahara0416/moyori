@@ -38,5 +38,6 @@ describe('template', () => {
     expect(wrapper.find('a').text()).toEqual(wrapper.vm.url)
   })
   it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
