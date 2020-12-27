@@ -69,4 +69,8 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
+  it('openDialog', () => {
+    wrapper.vm.openDialog()
+    expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+  })
 })
