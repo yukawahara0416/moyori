@@ -147,4 +147,6 @@ describe('methods', () => {
     expect(wrapper.vm.uploadImageUrl).toEqual(null)
   })
 })
+
+describe('template', () => {
 })
