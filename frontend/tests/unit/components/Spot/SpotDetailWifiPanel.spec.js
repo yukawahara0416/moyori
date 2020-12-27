@@ -247,6 +247,15 @@ describe('computed', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 describe('methods', () => {
+  it('pickupDate', () => {
+    propsData = {
+      spot: {
+        data: { id: 1 },
+        wifi_withs: [{ id: 2, created_at: '2020-12-01T00:00:00.000Z' }],
+        wifi_withouts: [
+          { id: 3, created_at: '2020-12-31T00:00:00.000Z' },
+          { id: 4, created_at: '2020-12-31T00:00:00.000Z' }
+        ]
       }
     }
 
@@ -255,7 +264,9 @@ describe('methods', () => {
       propsData
     })
 
-})
+    const result = wrapper.vm.pickupDate(propsData.spot.wifi_withs)
+    expect(result).toMatchObject([1606780800000])
+  })
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
