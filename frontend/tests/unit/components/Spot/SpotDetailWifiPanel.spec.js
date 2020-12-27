@@ -153,4 +153,27 @@ describe('computed', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
+  it('analyzeVote return excellent', () => {
+    propsData = {
+      spot: {
+        data: { id: 1 },
+        wifi_withs: [
+          { id: 2, created_at: '2020-12-01T00:00:00.000Z' },
+          { id: 3, created_at: '2020-12-31T00:00:00.000Z' }
+        ],
+        wifi_withouts: [{ id: 4, created_at: '2020-12-01T00:00:00.000Z' }]
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.vm.analyzeVote).toEqual('excellent')
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-circle-double')
+    expect(wrapper.find('strong').text()).toEqual('かなり期待できます^_^')
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
 })
