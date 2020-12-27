@@ -4,3 +4,12 @@ import Component from '@/components/Spot/SpotPostDialogForm.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+let wrapper
+let store
+let auth
+let form
+let dialog
+let tab
+let snackbar
+
