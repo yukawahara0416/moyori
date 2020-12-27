@@ -108,4 +108,8 @@ describe('template', () => {
       wrapper.find('spot-edit-dialog-form-stub').attributes().spot
     ).toEqual('[object Object]')
   })
+
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
