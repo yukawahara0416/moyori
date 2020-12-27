@@ -27,6 +27,7 @@ describe('props', () => {
 })
 describe('computed', () => {
   it('url', () => {
+    expect(wrapper.vm.url).toEqual(propsData.spot.data.url)
   })
 })
 describe('template', () => {
