@@ -14,3 +14,7 @@ let propsData
     }
   }
 
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData
+  })
