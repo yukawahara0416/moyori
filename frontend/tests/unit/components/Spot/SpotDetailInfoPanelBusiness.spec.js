@@ -95,7 +95,19 @@ describe('computed', () => {
   })
 })
 describe('v-on', () => {
-})
+  it('activateReadMore', () => {
+    const activateReadMore = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      methods: {
+        activateReadMore
+      }
+    })
+
+    wrapper.find('a').trigger('click')
+    expect(activateReadMore).toHaveBeenCalled()
   })
 })
   })
