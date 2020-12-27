@@ -198,7 +198,32 @@ describe('computed', () => {
     expect(wrapper.find('strong').text()).toEqual('そこそこ期待できます^_^')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
-  it('analyzeVote return good', () => {
+
+  it('analyzeVote return fair', () => {
+    propsData = {
+      spot: {
+        data: { id: 1 },
+        wifi_withs: [{ id: 2, created_at: '2020-12-31T00:00:00.000Z' }],
+        wifi_withouts: [
+          { id: 3, created_at: '2020-12-01T00:00:00.000Z' },
+          { id: 4, created_at: '2020-12-01T00:00:00.000Z' }
+        ]
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.vm.analyzeVote).toEqual('fair')
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-triangle-outline')
+    expect(wrapper.find('strong').text()).toEqual(
+      'もしかしたらなくなってるかも^^;'
+    )
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
     propsData = {
       spot: {
         data: { id: 1 },
