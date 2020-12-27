@@ -59,5 +59,10 @@ describe('computed', () => {
   it('dialog/get', () => {
     expect(wrapper.vm.dialog).toBe(store.getters.dialogSpotEdit)
   })
+
+  it('dialog/set', () => {
+    wrapper.vm.dialog = true
+    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+  })
 })
 describe('getters', () => {
