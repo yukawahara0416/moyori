@@ -69,6 +69,11 @@ describe('computed', () => {
 
     expect(wrapper.vm.isAboveLimit).toBe(false)
   })
+
+  it('readMore is true', () => {
+    expect(wrapper.vm.readMore).toBe(true)
+  })
+
   })
 })
   })
