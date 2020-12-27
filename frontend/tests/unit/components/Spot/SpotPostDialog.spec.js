@@ -3,3 +3,4 @@ import Vuex from 'vuex'
 import Component from '@/components/Spot/SpotPostDialog.vue'
 
 const localVue = createLocalVue()
+localVue.use(Vuex)
