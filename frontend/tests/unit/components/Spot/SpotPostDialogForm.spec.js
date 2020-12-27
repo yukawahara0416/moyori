@@ -38,4 +38,10 @@ beforeEach(() => {
     }
   }
 
+  dialog = {
+    actions: {
+      dialogOff: jest.fn()
+    }
+  }
+
 })
