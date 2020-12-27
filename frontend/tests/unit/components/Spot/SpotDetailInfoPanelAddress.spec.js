@@ -54,6 +54,7 @@ describe('template', () => {
   })
 
   it('a.text has address', () => {
+    expect(wrapper.find('a').text()).toBe(wrapper.vm.address)
   })
 
   it('snapshot', () => {
