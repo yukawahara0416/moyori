@@ -55,4 +55,15 @@ beforeEach(() => {
       pushSnackbarSuccess: jest.fn()
     }
   }
+
+  store = new Vuex.Store({
+    modules: {
+      auth,
+      form,
+      dialog,
+      tab,
+      snackbar
+    }
+  })
+
 })
