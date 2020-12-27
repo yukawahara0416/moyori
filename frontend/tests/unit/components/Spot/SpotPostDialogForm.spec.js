@@ -86,4 +86,7 @@ describe('getters', () => {
     expect(wrapper.vm.formData).toEqual(store.getters.formData)
   })
 
+  it('profileTab', () => {
+    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
+  })
 })
