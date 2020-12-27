@@ -22,4 +22,10 @@ beforeEach(() => {
     }
   }
 
+  store = new Vuex.Store({
+    modules: {
+      dialog
+    }
+  })
+
 })
