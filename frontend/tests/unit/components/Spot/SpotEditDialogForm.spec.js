@@ -104,5 +104,22 @@ describe('computed', () => {
 })
 
 describe('methods', () => {
+  it('cancelUpdateSpot', () => {
+    const closeDialog = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      methods: {
+        closeDialog
+      },
+      stubs: ['ValidationObserver']
+    })
+
+    wrapper.vm.cancelUpdateSpot()
+    expect(closeDialog).toHaveBeenCalled()
+    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+  })
+
 })
 })
