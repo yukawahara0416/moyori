@@ -5,6 +5,9 @@ const localVue = createLocalVue()
 
 let wrapper
 
+beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue
   })
+})
+
