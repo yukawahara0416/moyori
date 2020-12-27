@@ -16,3 +16,15 @@ let dialog
     }
   }
 
+  dialog = {
+    getters: {
+      dialogSpotEdit: () => false
+    },
+    mutations: {
+      dialogOn: jest.fn()
+    },
+    actions: {
+      dialogOff: jest.fn()
+    }
+  }
+
