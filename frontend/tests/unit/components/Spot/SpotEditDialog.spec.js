@@ -9,3 +9,10 @@ let wrapper
 let propsData
 let store
 let dialog
+
+  propsData = {
+    spot: {
+      data: { id: 1 }
+    }
+  }
+
