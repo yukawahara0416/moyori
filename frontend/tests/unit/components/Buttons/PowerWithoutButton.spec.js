@@ -62,4 +62,14 @@ beforeEach(() => {
     }
   }
 
+  map = {
+    getters: {
+      map: () => {
+        return {
+          data: 'test'
+        }
+      }
+    }
+  }
+
 })
