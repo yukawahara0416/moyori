@@ -14,3 +14,5 @@ let data
 let store
 let map
 
+beforeEach(() => {
+})
