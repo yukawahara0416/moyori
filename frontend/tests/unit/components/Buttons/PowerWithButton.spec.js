@@ -227,4 +227,19 @@ describe('v-on', () => {
     expect(mouseover).toHaveBeenCalled()
   })
 
+  it('mouseleave mouseleave', () => {
+    const mouseleave = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        mouseleave
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('mouseleave')
+    expect(mouseleave).toHaveBeenCalled()
+  })
 })
