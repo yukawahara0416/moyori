@@ -95,3 +95,6 @@ describe('computed', () => {
     expect(wrapper.vm.yourComments).toMatchObject([options.comments[0]])
   })
 })
+
+describe('v-on', () => {
+})
