@@ -257,4 +257,8 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-if="isPowerWithing"', () => {
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-power-plug-off')
+  })
+
 })
