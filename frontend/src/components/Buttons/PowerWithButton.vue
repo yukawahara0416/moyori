@@ -6,8 +6,8 @@
       @mouseover="mouseover()"
       @mouseleave="mouseleave()"
     >
-      <v-icon v-show="isPowerWithing" color="success">{{ icon }}</v-icon>
-      <v-icon v-show="!isPowerWithing" :color="color">{{ icon }}</v-icon>
+      <v-icon v-if="isPowerWithing" color="success">{{ icon }}</v-icon>
+      <v-icon v-else :color="color">{{ icon }}</v-icon>
       <counter :spot="spot" :target="'power_withs'" />
     </v-btn>
   </div>
