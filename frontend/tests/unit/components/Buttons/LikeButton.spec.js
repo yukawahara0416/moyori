@@ -153,6 +153,12 @@ describe('computed', () => {
 
     expect(wrapper.vm.isLiking).toBe(false)
   })
+
+  it('yourLike', () => {
+    expect(wrapper.vm.yourLike).toMatchObject([options.likes[0]])
+  })
+})
+
 describe('v-on', () => {
   it('likeHandler', () => {
     const event = jest.fn()
