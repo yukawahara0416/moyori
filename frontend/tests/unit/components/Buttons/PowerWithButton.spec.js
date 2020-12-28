@@ -249,4 +249,9 @@ describe('methods', () => {
     wrapper.vm.mouseover()
     expect(wrapper.vm.color).toEqual('success')
   })
+
+  it('mouseleave', () => {
+    wrapper.vm.mouseleave()
+    expect(wrapper.vm.color).toEqual(null)
+  })
 })
