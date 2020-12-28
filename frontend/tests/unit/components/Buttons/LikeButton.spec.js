@@ -90,10 +90,6 @@ beforeEach(() => {
   })
 })
 
-afterEach(() => {
-  wrapper.destroy()
-})
-
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
@@ -108,7 +104,6 @@ describe('getters', () => {
 
   it('currentUser', () => {
     expect(wrapper.vm.currentUser).toEqual(store.getters.currentUser)
-    expect(wrapper.vm.currentUser).toEqual(getters.currentUser())
   })
 
   it('isLoggingIn', () => {
