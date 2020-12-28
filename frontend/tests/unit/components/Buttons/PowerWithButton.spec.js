@@ -94,3 +94,5 @@ beforeEach(() => {
   })
 })
 
+describe('getters', () => {
+})
