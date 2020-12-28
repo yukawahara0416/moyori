@@ -248,4 +248,8 @@ describe('methods', () => {
     expect(wrapper.vm.color).toEqual('error')
   })
 
+  it('mouseleave', () => {
+    wrapper.vm.mouseleave()
+    expect(wrapper.vm.color).toEqual(null)
+  })
 })
