@@ -169,4 +169,30 @@ describe('template', () => {
   it('v-if="isCommenting"', () => {
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-message')
   })
+
+  it('v-else', () => {
+    options = {
+      data: { id: 1 },
+      comments: [
+        { id: 1, user_id: 2 },
+        { id: 2, user_id: 2 }
+      ]
+    }
+
+    data = new Spot(options)
+
+    propsData = {
+      spot: data
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store
+    })
+
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-message-outline')
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
 })
