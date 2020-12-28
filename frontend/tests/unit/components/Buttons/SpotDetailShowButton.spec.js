@@ -104,3 +104,6 @@ describe('methods', () => {
     expect(wrapper.vm.dialog).toBe(false)
   })
 })
+
+describe('emit', () => {
+})
