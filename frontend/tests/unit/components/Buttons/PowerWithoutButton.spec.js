@@ -195,4 +195,20 @@ describe('comnputed', () => {
 })
 
 describe('v-on', () => {
+  it('click powerWithoutHandler', () => {
+    const powerWithoutHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        powerWithoutHandler
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(powerWithoutHandler).toHaveBeenCalled()
+  })
+
 })
