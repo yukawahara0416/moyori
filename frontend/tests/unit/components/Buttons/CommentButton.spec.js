@@ -5,3 +5,11 @@ import Component from '@/components/Buttons/CommentButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+let wrapper
+let propsData
+let store
+let options
+let data
+let auth
+
