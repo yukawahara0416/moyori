@@ -253,3 +253,6 @@ describe('methods', () => {
     expect(wrapper.vm.color).toEqual(null)
   })
 })
+
+describe('template', () => {
+})
