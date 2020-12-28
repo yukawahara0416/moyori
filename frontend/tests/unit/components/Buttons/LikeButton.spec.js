@@ -121,7 +121,38 @@ describe('computed', () => {
     expect(wrapper.vm.isLiking).toBe(true)
   })
 
-})
+  it('isLiking is false', () => {
+    options = {
+      data: { id: 1 },
+      likes: [
+        { id: 1, user_id: 2 },
+        { id: 2, user_id: 2 }
+      ]
+    }
+
+    data = new Spot(options)
+
+    propsData = {
+      spot: data
+    }
+
+    store = new Vuex.Store({
+      modules: {
+        auth,
+        form,
+        map,
+        tab
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store
+    })
+
+    expect(wrapper.vm.isLiking).toBe(false)
+  })
 describe('v-on', () => {
   it('likeHandler', () => {
     const event = jest.fn()
