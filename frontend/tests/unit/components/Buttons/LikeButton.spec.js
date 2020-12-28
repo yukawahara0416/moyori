@@ -176,12 +176,20 @@ describe('v-on', () => {
     expect(likeHandler).toHaveBeenCalled()
   })
 
-})
+  it('mouseover mouseover', () => {
+    const mouseover = jest.fn()
 
-describe('actions', () => {
-  it('map/saveSpot', () => {
-    wrapper.vm.saveSpot()
-    expect(map.actions.saveSpot).toHaveBeenCalled()
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        mouseover
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('mouseover')
+    expect(mouseover).toHaveBeenCalled()
   })
   it('like', () => {
     wrapper.vm.like()
