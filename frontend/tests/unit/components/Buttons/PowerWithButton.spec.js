@@ -32,5 +32,9 @@ beforeEach(() => {
 
   data = new Spot(options)
 
+  propsData = {
+    spot: data
+  }
+
 })
 
