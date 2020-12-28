@@ -241,3 +241,6 @@ describe('v-on', () => {
     expect(mouseleave).toHaveBeenCalled()
   })
 })
+
+describe('methods', () => {
+})
