@@ -224,6 +224,10 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-if="isLiking"', () => {
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-heart')
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
