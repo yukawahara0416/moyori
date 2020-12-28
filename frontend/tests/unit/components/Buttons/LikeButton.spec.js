@@ -76,10 +76,11 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      map
-    },
-    getters,
-    actions
+      auth,
+      form,
+      map,
+      tab
+    }
   })
 
   wrapper = mount(Component, {
