@@ -208,7 +208,9 @@ describe('v-on', () => {
     expect(mouseleave).toHaveBeenCalled()
   })
 })
+describe('methods', () => {
   })
+})
 })
 
 describe('template', () => {
