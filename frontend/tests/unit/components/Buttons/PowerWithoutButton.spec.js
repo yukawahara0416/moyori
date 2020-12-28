@@ -103,4 +103,8 @@ describe('getters', () => {
     expect(wrapper.vm.map).toMatchObject(store.getters.map)
   })
 
+  it('headers', () => {
+    expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
+  })
+
 })
