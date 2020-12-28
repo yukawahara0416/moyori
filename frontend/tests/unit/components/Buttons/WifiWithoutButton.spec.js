@@ -191,3 +191,6 @@ describe('computed', () => {
     expect(wrapper.vm.yourWifiWithout).toMatchObject([options.wifi_withouts[0]])
   })
 })
+
+describe('v-on', () => {
+})
