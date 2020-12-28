@@ -19,4 +19,5 @@ beforeEach(() => {
     data: { id: 1, place_id: 'aaaaaaaaaaa' }
   }
 
+  data = new Spot(options)
 })
