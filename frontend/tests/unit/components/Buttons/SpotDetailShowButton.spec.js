@@ -106,4 +106,8 @@ describe('methods', () => {
 })
 
 describe('emit', () => {
+  it('closeDialog', () => {
+    wrapper.vm.$emit('closeDialog')
+    expect(wrapper.emitted().closeDialog).toBeTruthy()
+  })
 })
