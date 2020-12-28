@@ -44,4 +44,7 @@ describe('template', () => {
     expect(wrapper.find('p').text()).toEqual(wrapper.vm.count.toString())
   })
 
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
