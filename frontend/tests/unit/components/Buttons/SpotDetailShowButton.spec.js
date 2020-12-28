@@ -15,4 +15,8 @@ let store
 let map
 
 beforeEach(() => {
+  options = {
+    data: { id: 1, place_id: 'aaaaaaaaaaa' }
+  }
+
 })
