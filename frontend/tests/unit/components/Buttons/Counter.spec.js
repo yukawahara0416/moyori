@@ -38,3 +38,6 @@ describe('computed', () => {
     expect(wrapper.vm.count).toEqual(2)
   })
 })
+
+describe('template', () => {
+})
