@@ -210,4 +210,21 @@ describe('v-on', () => {
     wrapper.find('.v-btn').trigger('click')
     expect(powerWithHandler).toHaveBeenCalled()
   })
+
+  it('mouseover mouseover', () => {
+    const mouseover = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        mouseover
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('mouseover')
+    expect(mouseover).toHaveBeenCalled()
+  })
+
 })
