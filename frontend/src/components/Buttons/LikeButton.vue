@@ -9,8 +9,8 @@
       @mouseover="mouseover()"
       @mouseleave="mouseleave()"
     >
-      <v-icon v-show="isLiking" color="error">mdi-heart</v-icon>
-      <v-icon v-show="!isLiking" :color="color">
+      <v-icon v-if="isLiking" color="error">mdi-heart</v-icon>
+      <v-icon v-else :color="color">
         {{ icon }}
       </v-icon>
       <counter :spot="spot" :target="'likes'" />
