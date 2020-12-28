@@ -56,4 +56,7 @@ describe('props', () => {
 })
 
 describe('getters', () => {
+  it('map', () => {
+    expect(wrapper.vm.map).toMatchObject(store.getters.map)
+  })
 })
