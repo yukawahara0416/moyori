@@ -30,4 +30,6 @@ beforeEach(() => {
     ]
   }
 
+  data = new Spot(options)
+
 })
