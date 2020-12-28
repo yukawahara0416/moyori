@@ -253,6 +253,12 @@ describe('template', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
+  it('counter has :spot', () => {
+    expect(wrapper.find('counter-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
