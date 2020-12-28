@@ -48,9 +48,14 @@ beforeEach(() => {
     }
   }
 
-  getters = {
-    headers: () => ({ uid: 'tester@example.com' }),
-    currentUser: () => ({ data: { id: 1 } })
+  form = {
+    getters: {
+      form: () => {
+        return {
+          place_id: ''
+        }
+      }
+    }
   }
 
   actions = {
