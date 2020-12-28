@@ -63,4 +63,8 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
+  it('isCommenting is true', () => {
+    expect(wrapper.vm.isCommenting).toBe(true)
+  })
+
 })
