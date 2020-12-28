@@ -86,8 +86,7 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store,
-    stubs: ['counter']
+    store
   })
 })
 
