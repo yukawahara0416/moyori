@@ -215,7 +215,12 @@ describe('methods', () => {
     expect(wrapper.vm.icon).toEqual('mdi-heart')
     expect(wrapper.vm.color).toEqual('error')
   })
-})
+
+  it('mouseleave', () => {
+    wrapper.vm.mouseleave()
+    expect(wrapper.vm.icon).toEqual('mdi-heart-outline')
+    expect(wrapper.vm.color).toEqual(null)
+  })
 })
 
 describe('template', () => {
