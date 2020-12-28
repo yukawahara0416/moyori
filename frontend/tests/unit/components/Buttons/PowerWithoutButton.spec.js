@@ -193,3 +193,6 @@ describe('comnputed', () => {
     ])
   })
 })
+
+describe('v-on', () => {
+})
