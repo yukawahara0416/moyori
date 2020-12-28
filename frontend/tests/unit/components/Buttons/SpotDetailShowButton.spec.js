@@ -25,4 +25,14 @@ beforeEach(() => {
     spot: data
   }
 
+  map = {
+    getters: {
+      map: () => {
+        return {
+          data: 'test'
+        }
+      }
+    }
+  }
+
 })
