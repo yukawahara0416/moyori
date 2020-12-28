@@ -4,3 +4,4 @@ import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Buttons/WifiWithoutButton.vue'
 
 const localVue = createLocalVue()
+localVue.use(Vuex)
