@@ -187,4 +187,7 @@ describe('computed', () => {
     expect(wrapper.vm.yourWifiWith).toMatchObject([options.wifi_withs[0]])
   })
 
+  it('yourWifiWithout', () => {
+    expect(wrapper.vm.yourWifiWithout).toMatchObject([options.wifi_withouts[0]])
+  })
 })
