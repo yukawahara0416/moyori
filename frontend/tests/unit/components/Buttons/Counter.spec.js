@@ -14,5 +14,10 @@ beforeEach(() => {
     },
     target: 'comments'
   }
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData
+  })
 })
 
