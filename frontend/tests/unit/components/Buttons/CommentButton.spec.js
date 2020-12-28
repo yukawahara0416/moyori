@@ -90,4 +90,8 @@ describe('computed', () => {
 
     expect(wrapper.vm.isCommenting).toBe(false)
   })
+
+  it('yourComments', () => {
+    expect(wrapper.vm.yourComments).toMatchObject([options.comments[0]])
+  })
 })
