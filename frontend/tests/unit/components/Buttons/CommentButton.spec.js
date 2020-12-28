@@ -158,4 +158,9 @@ describe('methods', () => {
     expect(wrapper.vm.color).toEqual('success')
   })
 
+  it('mouseleave', () => {
+    wrapper.vm.mouseleave()
+    expect(wrapper.vm.icon).toEqual('mdi-message-outline')
+    expect(wrapper.vm.color).toEqual(null)
+  })
 })
