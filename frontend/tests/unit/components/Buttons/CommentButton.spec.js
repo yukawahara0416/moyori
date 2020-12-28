@@ -152,4 +152,10 @@ describe('methods', () => {
     expect(wrapper.vm.dialog).toBe(true)
   })
 
+  it('mouseover', () => {
+    wrapper.vm.mouseover()
+    expect(wrapper.vm.icon).toEqual('mdi-message')
+    expect(wrapper.vm.color).toEqual('success')
+  })
+
 })
