@@ -6,3 +6,6 @@ const localVue = createLocalVue()
 let wrapper
 let propsData
 
+beforeEach(() => {
+})
+
