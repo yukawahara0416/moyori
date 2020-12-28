@@ -25,8 +25,7 @@ beforeEach(() => {
       { id: 2, user_id: 2 }
     ]
   }
-    id: 1,
-    type: 'map'
+  data = new Spot(options)
   }
 
   map = {
