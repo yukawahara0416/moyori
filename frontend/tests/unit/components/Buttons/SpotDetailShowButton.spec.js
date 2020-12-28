@@ -113,4 +113,10 @@ describe('emit', () => {
 })
 
 describe('template', () => {
+  it('spot-detail has :spot', () => {
+    expect(wrapper.find('spot-detail-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
+
 })
