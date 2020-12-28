@@ -78,5 +78,14 @@ beforeEach(() => {
     }
   }
 
+  store = new Vuex.Store({
+    modules: {
+      auth,
+      form,
+      map,
+      tab
+    }
+  })
+
 })
 
