@@ -53,4 +53,8 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
+  it('currentUser', () => {
+    expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
+  })
+
 })
