@@ -52,5 +52,15 @@ beforeEach(() => {
     }
   }
 
+  form = {
+    getters: {
+      form: () => {
+        return {
+          place_id: ''
+        }
+      }
+    }
+  }
+
 })
 
