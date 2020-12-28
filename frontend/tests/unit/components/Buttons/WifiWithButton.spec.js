@@ -193,4 +193,20 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
+  it('click wifiWithHandler', () => {
+    const wifiWithHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        wifiWithHandler
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(wifiWithHandler).toHaveBeenCalled()
+  })
+
 })
