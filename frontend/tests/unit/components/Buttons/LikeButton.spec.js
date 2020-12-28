@@ -228,6 +228,31 @@ describe('template', () => {
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-heart')
   })
 
+  it('v-else', () => {
+    options = {
+      data: { id: 1 },
+      likes: [
+        { id: 1, user_id: 2 },
+        { id: 2, user_id: 2 }
+      ]
+    }
+
+    data = new Spot(options)
+
+    propsData = {
+      spot: data
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store
+    })
+
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-heart-outline')
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
