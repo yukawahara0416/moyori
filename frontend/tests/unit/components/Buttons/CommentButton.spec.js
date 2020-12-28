@@ -97,4 +97,20 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
+  it('click openDialog', () => {
+    const openDialog = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        openDialog
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(openDialog).toHaveBeenCalled()
+  })
+
 })
