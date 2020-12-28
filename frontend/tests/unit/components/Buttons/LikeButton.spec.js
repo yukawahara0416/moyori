@@ -117,6 +117,9 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
+  it('isLiking is true', () => {
+    expect(wrapper.vm.isLiking).toBe(true)
+  })
 
 })
 describe('v-on', () => {
