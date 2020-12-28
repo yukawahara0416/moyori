@@ -33,3 +33,5 @@ describe('props', () => {
   })
 })
 
+describe('computed', () => {
+})
