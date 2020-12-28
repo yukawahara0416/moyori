@@ -99,10 +99,6 @@ describe('props', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
     expect(wrapper.props().spot instanceof Object).toBe(true)
   })
-  it('type', () => {
-    expect(wrapper.props().type).toStrictEqual(propsData.type)
-    expect(typeof wrapper.vm.$props.type).toBe('string')
-  })
 })
 
 describe('getters', () => {
@@ -118,13 +114,11 @@ describe('getters', () => {
   it('isLoggingIn', () => {
     expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
   })
+})
 
-// describe('computed', () => {
-//   it('isLoggedIn', () => {})
-//   it('isLiked', () => {})
-//   it('ownLike', () => {})
-// })
+describe('computed', () => {
 
+})
 describe('v-on', () => {
   it('likeHandler', () => {
     const event = jest.fn()
