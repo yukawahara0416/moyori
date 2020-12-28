@@ -152,4 +152,8 @@ describe('computed', () => {
     expect(wrapper.vm.isWifiWithing).toBe(false)
   })
 
+  it('isWifiWithouting is true', () => {
+    expect(wrapper.vm.isWifiWithouting).toBe(true)
+  })
+
 })
