@@ -91,3 +91,6 @@ describe('v-on', () => {
     expect(openDialog).toHaveBeenCalled()
   })
 })
+
+describe('methods', () => {
+})
