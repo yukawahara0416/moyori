@@ -93,3 +93,6 @@ beforeEach(() => {
     store
   })
 })
+
+describe('getters', () => {
+})
