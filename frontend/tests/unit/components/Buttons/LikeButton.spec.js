@@ -8,10 +8,14 @@ localVue.use(Vuex)
 
 let wrapper
 let propsData
-let map
-let getters
-let actions
+let options
+let data
+
 let store
+let auth
+let form
+let map
+let tab
 
 beforeEach(() => {
   propsData = {
