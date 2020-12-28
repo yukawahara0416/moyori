@@ -99,4 +99,8 @@ describe('getters', () => {
     expect(wrapper.vm.form).toBe(store.getters.form)
   })
 
+  it('map', () => {
+    expect(wrapper.vm.map).toMatchObject(store.getters.map)
+  })
+
 })
