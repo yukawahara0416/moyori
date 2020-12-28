@@ -187,4 +187,9 @@ describe('comnputed', () => {
     expect(wrapper.vm.yourPowerWith).toMatchObject([options.power_withs[0]])
   })
 
+  it('yourPowerWithout', () => {
+    expect(wrapper.vm.yourPowerWithout).toMatchObject([
+      options.power_withouts[0]
+    ])
+  })
 })
