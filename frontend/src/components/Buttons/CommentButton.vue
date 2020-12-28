@@ -9,8 +9,8 @@
       @mouseover="mouseover()"
       @mouseleave="mouseleave()"
     >
-      <v-icon v-show="isCommenting" color="success">mdi-message</v-icon>
-      <v-icon v-show="!isCommenting" :color="color">{{ icon }}</v-icon>
+      <v-icon v-if="isCommenting" color="success">mdi-message</v-icon>
+      <v-icon v-else :color="color">{{ icon }}</v-icon>
       <counter :spot="spot" :target="'comments'" />
     </v-btn>
 
