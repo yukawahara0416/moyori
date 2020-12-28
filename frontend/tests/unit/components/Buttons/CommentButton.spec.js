@@ -61,3 +61,6 @@ describe('getters', () => {
     expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
   })
 })
+
+describe('computed', () => {
+})
