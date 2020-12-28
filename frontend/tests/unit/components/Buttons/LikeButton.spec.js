@@ -161,11 +161,21 @@ describe('computed', () => {
 
 describe('v-on', () => {
   it('likeHandler', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ likeHandler: event })
+    const likeHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        likeHandler
+      }
+    })
+
     wrapper.find('.v-btn').trigger('click')
-    expect(event).toHaveBeenCalledTimes(1)
+    expect(likeHandler).toHaveBeenCalled()
   })
+
 })
 
 describe('actions', () => {
