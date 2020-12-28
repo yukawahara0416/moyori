@@ -208,7 +208,12 @@ describe('v-on', () => {
     expect(mouseleave).toHaveBeenCalled()
   })
 })
+
 describe('methods', () => {
+  it('mouseover', () => {
+    wrapper.vm.mouseover()
+    expect(wrapper.vm.icon).toEqual('mdi-heart')
+    expect(wrapper.vm.color).toEqual('error')
   })
 })
 })
