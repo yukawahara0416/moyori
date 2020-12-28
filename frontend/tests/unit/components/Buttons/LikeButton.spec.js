@@ -191,17 +191,23 @@ describe('v-on', () => {
     wrapper.find('.v-btn').trigger('mouseover')
     expect(mouseover).toHaveBeenCalled()
   })
-  it('like', () => {
-    wrapper.vm.like()
-    expect(actions.like).toHaveBeenCalled()
+
+  it('mouseleave mouseleave', () => {
+    const mouseleave = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        mouseleave
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('mouseleave')
+    expect(mouseleave).toHaveBeenCalled()
   })
-  it('unlike', () => {
-    wrapper.vm.unlike()
-    expect(actions.unlike).toHaveBeenCalled()
-  })
-  it('pushSnackbar', () => {
-    wrapper.vm.pushSnackbar()
-    expect(actions.pushSnackbar).toHaveBeenCalled()
+})
   })
 })
 
