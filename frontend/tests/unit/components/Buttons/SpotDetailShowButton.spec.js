@@ -62,4 +62,32 @@ describe('getters', () => {
 })
 
 describe('v-on', () => {
+  it('placeDetail, openDialog', () => {
+    const placeDetail = jest.fn()
+    const openDialog = jest.fn()
+
+    options = {
+      data: { id: 1, place_id: 'aaaaaaaaaaa' }
+    }
+
+    data = new Spot(options)
+
+    propsData = {
+      spot: data
+    }
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      methods: {
+        placeDetail,
+        openDialog
+      },
+      stubs: ['v-dialog', 'spot-detail']
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(placeDetail).toHaveBeenCalled()
+    expect(openDialog).toHaveBeenCalled()
+  })
 })
