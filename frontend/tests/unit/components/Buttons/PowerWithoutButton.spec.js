@@ -245,4 +245,9 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
+  it('mouseover', () => {
+    wrapper.vm.mouseover()
+    expect(wrapper.vm.color).toEqual('error')
+  })
+
 })
