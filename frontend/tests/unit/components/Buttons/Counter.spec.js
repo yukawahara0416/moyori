@@ -40,4 +40,8 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('{{ count }}', () => {
+    expect(wrapper.find('p').text()).toEqual(wrapper.vm.count.toString())
+  })
+
 })
