@@ -60,3 +60,6 @@ describe('getters', () => {
     expect(wrapper.vm.map).toMatchObject(store.getters.map)
   })
 })
+
+describe('v-on', () => {
+})
