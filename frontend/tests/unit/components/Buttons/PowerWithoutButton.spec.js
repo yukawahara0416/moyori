@@ -121,4 +121,8 @@ describe('getters', () => {
 })
 
 describe('comnputed', () => {
+  it('isPowerWithing is true', () => {
+    expect(wrapper.vm.isPowerWithing).toBe(true)
+  })
+
 })
