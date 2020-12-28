@@ -35,4 +35,10 @@ beforeEach(() => {
     }
   }
 
+  store = new Vuex.Store({
+    modules: {
+      map
+    }
+  })
+
 })
