@@ -6,8 +6,8 @@
       @mouseover="mouseover()"
       @mouseleave="mouseleave()"
     >
-      <v-icon v-show="isWifiWithouting" color="error">{{ icon }}</v-icon>
-      <v-icon v-show="!isWifiWithouting" :color="color">{{ icon }}</v-icon>
+      <v-icon v-if="isWifiWithouting" color="error">{{ icon }}</v-icon>
+      <v-icon v-else :color="color">{{ icon }}</v-icon>
       <counter :spot="spot" :target="'wifi_withouts'" />
     </v-btn>
   </div>
