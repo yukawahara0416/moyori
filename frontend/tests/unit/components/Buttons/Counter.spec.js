@@ -34,4 +34,7 @@ describe('props', () => {
 })
 
 describe('computed', () => {
+  it('count', () => {
+    expect(wrapper.vm.count).toEqual(2)
+  })
 })
