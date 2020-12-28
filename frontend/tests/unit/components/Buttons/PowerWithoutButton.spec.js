@@ -72,4 +72,10 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    getters: {
+      profileTab: () => 'posts'
+    }
+  }
+
 })
