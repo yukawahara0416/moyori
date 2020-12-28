@@ -58,10 +58,14 @@ beforeEach(() => {
     }
   }
 
-  actions = {
-    like: jest.fn(),
-    unlike: jest.fn(),
-    pushSnackbar: jest.fn()
+  map = {
+    getters: {
+      map: () => {
+        return {
+          data: 'test'
+        }
+      }
+    }
   }
 
   store = new Vuex.Store({
