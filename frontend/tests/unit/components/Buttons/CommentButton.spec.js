@@ -166,4 +166,7 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-if="isCommenting"', () => {
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-message')
+  })
 })
