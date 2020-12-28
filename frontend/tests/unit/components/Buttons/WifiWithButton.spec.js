@@ -120,5 +120,9 @@ describe('getters', () => {
   })
 })
 
-describe('comnputed', () => {
+describe('computed', () => {
+  it('isWifiWithing is true', () => {
+    expect(wrapper.vm.isWifiWithing).toBe(true)
+  })
+
 })
