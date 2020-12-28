@@ -183,4 +183,8 @@ describe('comnputed', () => {
     expect(wrapper.vm.isPowerWithouting).toBe(false)
   })
 
+  it('yourPowerWith', () => {
+    expect(wrapper.vm.yourPowerWith).toMatchObject([options.power_withs[0]])
+  })
+
 })
