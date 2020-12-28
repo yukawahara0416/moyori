@@ -32,10 +32,19 @@ beforeEach(() => {
     spot: data
   }
 
-  map = {
-    namespaced: true,
-    actions: {
-      saveSpot: jest.fn()
+  auth = {
+    getters: {
+      headers: () => {
+        return {
+          data: { id: 1 }
+        }
+      },
+      currentUser: () => {
+        return {
+          data: { id: 1 }
+        }
+      },
+      isLoggingIn: () => true
     }
   }
 
