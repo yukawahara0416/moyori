@@ -21,3 +21,6 @@ beforeEach(() => {
   })
 })
 
+describe('props', () => {
+})
+
