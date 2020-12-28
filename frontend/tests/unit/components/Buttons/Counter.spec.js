@@ -27,5 +27,9 @@ describe('props', () => {
     expect(wrapper.props().spot instanceof Object).toBe(true)
   })
 
+  it('target', () => {
+    expect(wrapper.props().target).toStrictEqual(propsData.target)
+    expect(typeof wrapper.vm.$props.target).toBe('string')
+  })
 })
 
