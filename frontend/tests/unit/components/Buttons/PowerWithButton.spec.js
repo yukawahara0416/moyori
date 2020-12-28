@@ -192,3 +192,7 @@ describe('comnputed', () => {
       options.power_withouts[0]
     ])
   })
+})
+
+describe('v-on', () => {
+})
