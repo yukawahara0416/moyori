@@ -200,4 +200,11 @@ describe('template', () => {
       '[object Object]'
     )
   })
+
+  it('spot-detail-comment-panel has :spot', () => {
+    expect(
+      wrapper.find('spot-detail-comment-panel-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
+
 })
