@@ -1,64 +1,93 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Component from '@/components/Card/Buttons/LikeButton.vue'
+import { Spot } from '@/class/Spot.js'
+import Component from '@/components/Buttons/LikeButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
 let propsData
-let map
-let getters
-let actions
+let options
+let data
+
 let store
+let auth
+let form
+let map
+let tab
 
 beforeEach(() => {
-  propsData = {
-    spot: {
-      marker: { name: 'test' },
-      data: { id: 1 },
-      likes: [{ data: { id: 1 } }]
-    },
-    id: 1,
-    type: 'map'
+  options = {
+    data: { id: 1 },
+    likes: [
+      { id: 1, user_id: 1 },
+      { id: 2, user_id: 2 }
+    ]
   }
 
-  map = {
-    namespaced: true,
-    actions: {
-      saveSpot: jest.fn()
+  data = new Spot(options)
+
+  propsData = {
+    spot: data
+  }
+
+  auth = {
+    getters: {
+      headers: () => {
+        return {
+          data: { id: 1 }
+        }
+      },
+      currentUser: () => {
+        return {
+          data: { id: 1 }
+        }
+      },
+      isLoggingIn: () => true
     }
   }
 
-  getters = {
-    headers: () => ({ uid: 'tester@example.com' }),
-    currentUser: () => ({ data: { id: 1 } })
+  form = {
+    getters: {
+      form: () => {
+        return {
+          place_id: ''
+        }
+      }
+    }
   }
 
-  actions = {
-    like: jest.fn(),
-    unlike: jest.fn(),
-    pushSnackbar: jest.fn()
+  map = {
+    getters: {
+      map: () => {
+        return {
+          data: 'test'
+        }
+      }
+    }
+  }
+
+  tab = {
+    getters: {
+      profileTab: () => 'posts'
+    }
   }
 
   store = new Vuex.Store({
     modules: {
-      map
-    },
-    getters,
-    actions
+      auth,
+      form,
+      map,
+      tab
+    }
   })
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store,
-    stubs: ['counter']
+    store
   })
-})
-
-afterEach(() => {
-  wrapper.destroy()
 })
 
 describe('props', () => {
@@ -66,56 +95,165 @@ describe('props', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
     expect(wrapper.props().spot instanceof Object).toBe(true)
   })
-  it('type', () => {
-    expect(wrapper.props().type).toStrictEqual(propsData.type)
-    expect(typeof wrapper.vm.$props.type).toBe('string')
-  })
 })
 
 describe('getters', () => {
   it('headers', () => {
-    expect(wrapper.vm.headers).toEqual(getters.headers())
+    expect(wrapper.vm.headers).toEqual(store.getters.headers)
   })
+
   it('currentUser', () => {
-    expect(wrapper.vm.currentUser).toEqual(getters.currentUser())
+    expect(wrapper.vm.currentUser).toEqual(store.getters.currentUser)
+  })
+
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
   })
 })
 
-// describe('computed', () => {
-//   it('isLoggedIn', () => {})
-//   it('isLiked', () => {})
-//   it('ownLike', () => {})
-// })
+describe('computed', () => {
+  it('isLiking is true', () => {
+    expect(wrapper.vm.isLiking).toBe(true)
+  })
+
+  it('isLiking is false', () => {
+    options = {
+      data: { id: 1 },
+      likes: [
+        { id: 1, user_id: 2 },
+        { id: 2, user_id: 2 }
+      ]
+    }
+
+    data = new Spot(options)
+
+    propsData = {
+      spot: data
+    }
+
+    store = new Vuex.Store({
+      modules: {
+        auth,
+        form,
+        map,
+        tab
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store
+    })
+
+    expect(wrapper.vm.isLiking).toBe(false)
+  })
+
+  it('yourLike', () => {
+    expect(wrapper.vm.yourLike).toMatchObject([options.likes[0]])
+  })
+})
 
 describe('v-on', () => {
   it('likeHandler', () => {
-    const event = jest.fn()
-    wrapper.setMethods({ likeHandler: event })
+    const likeHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        likeHandler
+      }
+    })
+
     wrapper.find('.v-btn').trigger('click')
-    expect(event).toHaveBeenCalledTimes(1)
+    expect(likeHandler).toHaveBeenCalled()
+  })
+
+  it('mouseover mouseover', () => {
+    const mouseover = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        mouseover
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('mouseover')
+    expect(mouseover).toHaveBeenCalled()
+  })
+
+  it('mouseleave mouseleave', () => {
+    const mouseleave = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        mouseleave
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('mouseleave')
+    expect(mouseleave).toHaveBeenCalled()
   })
 })
 
-describe('actions', () => {
-  it('map/saveSpot', () => {
-    wrapper.vm.saveSpot()
-    expect(map.actions.saveSpot).toHaveBeenCalled()
+describe('methods', () => {
+  it('mouseover', () => {
+    wrapper.vm.mouseover()
+    expect(wrapper.vm.icon).toEqual('mdi-heart')
+    expect(wrapper.vm.color).toEqual('error')
   })
-  it('like', () => {
-    wrapper.vm.like()
-    expect(actions.like).toHaveBeenCalled()
-  })
-  it('unlike', () => {
-    wrapper.vm.unlike()
-    expect(actions.unlike).toHaveBeenCalled()
-  })
-  it('pushSnackbar', () => {
-    wrapper.vm.pushSnackbar()
-    expect(actions.pushSnackbar).toHaveBeenCalled()
+
+  it('mouseleave', () => {
+    wrapper.vm.mouseleave()
+    expect(wrapper.vm.icon).toEqual('mdi-heart-outline')
+    expect(wrapper.vm.color).toEqual(null)
   })
 })
 
 describe('template', () => {
+  it('v-if="isLiking"', () => {
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-heart')
+  })
+
+  it('v-else', () => {
+    options = {
+      data: { id: 1 },
+      likes: [
+        { id: 1, user_id: 2 },
+        { id: 2, user_id: 2 }
+      ]
+    }
+
+    data = new Spot(options)
+
+    propsData = {
+      spot: data
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store
+    })
+
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-heart-outline')
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
+  it('counter has :spot', () => {
+    expect(wrapper.find('counter-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
