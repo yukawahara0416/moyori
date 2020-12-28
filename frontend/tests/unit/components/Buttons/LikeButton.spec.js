@@ -109,9 +109,12 @@ describe('getters', () => {
   it('headers', () => {
     expect(wrapper.vm.headers).toEqual(store.getters.headers)
   })
+
   it('currentUser', () => {
+    expect(wrapper.vm.currentUser).toEqual(store.getters.currentUser)
     expect(wrapper.vm.currentUser).toEqual(getters.currentUser())
   })
+
 })
 
 // describe('computed', () => {
