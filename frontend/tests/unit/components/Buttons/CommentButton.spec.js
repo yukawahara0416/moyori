@@ -67,4 +67,27 @@ describe('computed', () => {
     expect(wrapper.vm.isCommenting).toBe(true)
   })
 
+  it('isCommenting is false', () => {
+    options = {
+      data: { id: 1 },
+      comments: [
+        { id: 1, user_id: 2 },
+        { id: 2, user_id: 2 }
+      ]
+    }
+
+    data = new Spot(options)
+
+    propsData = {
+      spot: data
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store
+    })
+
+    expect(wrapper.vm.isCommenting).toBe(false)
+  })
 })
