@@ -255,4 +255,8 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-if="isWifiWithing"', () => {
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-wifi')
+  })
+
 })
