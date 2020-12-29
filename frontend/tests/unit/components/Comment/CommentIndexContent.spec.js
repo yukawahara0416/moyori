@@ -156,4 +156,8 @@ describe('template', () => {
     expect(wrapper.find('p').text()).toEqual(propsData.comment.content)
   })
 
+  it('v-if isImageExist is true', () => {
+    expect(wrapper.find('comment-index-image-stub').exists()).toBe(true)
+  })
+
 })
