@@ -29,4 +29,17 @@ describe('computed', () => {
     expect(wrapper.vm.isImageExist(propsData.comment)).toBe(true)
   })
 
+  it('isImageExist is false', () => {
+    propsData = {
+      comment: { id: 1, content: 'test', image: null }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.vm.isImageExist(propsData.comment)).toBe(false)
+  })
+
 })
