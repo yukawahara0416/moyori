@@ -42,4 +42,21 @@ describe('computed', () => {
     expect(wrapper.vm.isImageExist(propsData.comment)).toBe(false)
   })
 
+  it('isAboveLimit is true', () => {
+    propsData = {
+      comment: {
+        id: 1,
+        content: 'a'.repeat(101),
+        image: 'test'
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.vm.isAboveLimit).toBe(true)
+  })
+
 })
