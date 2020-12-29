@@ -33,3 +33,6 @@ beforeEach(() => {
     vuetify
   })
 })
+
+describe('v-on', () => {
+})
