@@ -116,6 +116,10 @@ describe('getters', () => {
     expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
   })
 
+  it('form', () => {
+    expect(wrapper.vm.form).toMatchObject(store.getters.form)
+  })
+
 })
   data = new Spot(options)
   data = new Spot(options)
