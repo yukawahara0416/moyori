@@ -17,4 +17,14 @@ beforeEach(() => {
     comment: { id: 1 }
   }
 
+  auth = {
+    getters: {
+      headers: () => {
+        return {
+          data: { id: 1 }
+        }
+      }
+    }
+  }
+
 })
