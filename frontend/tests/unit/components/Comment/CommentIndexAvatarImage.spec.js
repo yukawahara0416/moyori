@@ -7,4 +7,8 @@ let wrapper
 let propsData
 
 beforeEach(() => {
+  propsData = {
+    comment: { id: 1, user_id: 1, user_name: 'test', avatar: 'test' }
+  }
+
 })
