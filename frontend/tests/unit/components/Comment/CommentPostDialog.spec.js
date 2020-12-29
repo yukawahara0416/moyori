@@ -41,4 +41,19 @@ describe('getters', () => {
 })
 
 describe('v-on', () => {
+  it('click commentHandler', () => {
+    const commentHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        commentHandler
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(commentHandler).toHaveBeenCalled()
+  })
 })
