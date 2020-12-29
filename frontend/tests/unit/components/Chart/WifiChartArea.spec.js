@@ -39,4 +39,8 @@ describe('computed', () => {
     expect(wrapper.vm.withCount).toEqual(propsData.spot.wifi_withs.length)
   })
 
+  it('withoutCount', () => {
+    expect(wrapper.vm.withoutCount).toEqual(propsData.spot.wifi_withouts.length)
+  })
+
 })
