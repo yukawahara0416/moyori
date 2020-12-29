@@ -31,4 +31,18 @@ describe('props', () => {
 })
 
 describe('v-on', () => {
+  it('click openDialog', () => {
+    const openDialog = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      methods: {
+        openDialog
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(openDialog).toHaveBeenCalled()
+  })
 })
