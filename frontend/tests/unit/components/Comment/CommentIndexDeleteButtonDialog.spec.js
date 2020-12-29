@@ -4,3 +4,10 @@ import Component from '@/components/Comment/CommentIndexDeleteButtonDialog.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+let wrapper
+let propsData
+let store
+let auth
+let tab
+
