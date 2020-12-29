@@ -77,3 +77,6 @@ describe('computed', () => {
     expect(wrapper.vm.chartData.datasets[1]).toMatchObject(resultWithouts)
   })
 })
+
+describe('methods', () => {
+})
