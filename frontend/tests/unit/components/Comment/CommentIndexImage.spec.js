@@ -41,3 +41,6 @@ describe('v-on', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
+
+describe('methods', () => {
+})
