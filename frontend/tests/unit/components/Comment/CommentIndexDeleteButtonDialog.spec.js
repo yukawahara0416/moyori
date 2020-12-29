@@ -70,4 +70,23 @@ describe('getters', () => {
 })
 
 describe('v-on', () => {
+  it('click closeDialog', () => {
+    const closeDialog = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        closeDialog
+      }
+    })
+
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+
+    expect(closeDialog).toHaveBeenCalled()
+  })
 })
