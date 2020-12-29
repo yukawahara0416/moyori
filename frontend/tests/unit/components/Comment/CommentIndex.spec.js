@@ -58,4 +58,8 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
+  it('isCommentingByCurrentUser', () => {
+    const comment = propsData.spot.comments[0]
+    expect(wrapper.vm.isCommentingByCurrentUser(comment)).toBe(true)
+  })
 })
