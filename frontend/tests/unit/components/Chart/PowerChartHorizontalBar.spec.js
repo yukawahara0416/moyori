@@ -35,4 +35,8 @@ describe('props', () => {
 })
 
 describe('computed', () => {
+  it('withCount', () => {
+    expect(wrapper.vm.withCount).toEqual(propsData.spot.power_withs.length)
+  })
+
 })
