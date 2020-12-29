@@ -16,3 +16,6 @@ beforeEach(() => {
     propsData
   })
 })
+
+describe('props', () => {
+})
