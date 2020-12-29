@@ -80,6 +80,12 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    getters: {
+      profileTab: () => 'posts'
+    }
+  }
+
   data = new Spot(options)
   data = new Spot(options)
 })
