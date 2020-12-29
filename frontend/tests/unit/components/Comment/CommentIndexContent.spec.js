@@ -122,4 +122,17 @@ describe('template', () => {
     expect(wrapper.find('v-col-stub').attributes().cols).toEqual('10')
   })
 
+  it(':cols="isImageExist(comment) is 12"', () => {
+    propsData = {
+      comment: { id: 1, content: 'test', image: null }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.find('v-col-stub').attributes().cols).toEqual('12')
+  })
+
 })
