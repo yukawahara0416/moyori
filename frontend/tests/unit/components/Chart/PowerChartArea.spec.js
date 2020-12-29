@@ -49,4 +49,33 @@ describe('computed', () => {
     expect(wrapper.vm.hasData).toBe(true)
   })
 
+  it('chartData', () => {
+    const resultWiths = {
+      label: 'あり',
+      data: [
+        { x: 0, y: 0 },
+        { x: '2020-12-01T00:00:00.000Z', y: 1 },
+        { x: '2020-12-02T00:00:00.000Z', y: 2 }
+      ],
+      pointRadius: 2,
+      borderWidth: 2,
+      borderColor: '#4CAF4F',
+      fill: false
+    }
+    expect(wrapper.vm.chartData.datasets[0]).toMatchObject(resultWiths)
+
+    const resultWithouts = {
+      label: 'なし',
+      data: [
+        { x: 0, y: 0 },
+        { x: '2020-12-03T00:00:00.000Z', y: 1 },
+        { x: '2020-12-04T00:00:00.000Z', y: 2 }
+      ],
+      pointRadius: 2,
+      borderWidth: 2,
+      borderColor: '#FF5252',
+      fill: false
+    }
+    expect(wrapper.vm.chartData.datasets[1]).toMatchObject(resultWithouts)
+  })
 })
