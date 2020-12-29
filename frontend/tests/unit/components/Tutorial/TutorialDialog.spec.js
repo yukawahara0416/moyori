@@ -30,3 +30,6 @@ beforeEach(() => {
     store
   })
 })
+
+describe('getters', () => {
+})
