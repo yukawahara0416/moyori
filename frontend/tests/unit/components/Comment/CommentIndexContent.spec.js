@@ -116,3 +116,6 @@ describe('methods', () => {
     expect(wrapper.vm.readMoreToggle).toBe(true)
   })
 })
+
+describe('template', () => {
+})
