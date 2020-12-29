@@ -102,3 +102,6 @@ describe('methods', () => {
     expect(wrapper.vm.sortData(resultWiths)).toMatchObject(resultWiths)
   })
 })
+
+describe('template', () => {
+})
