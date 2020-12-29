@@ -79,4 +79,7 @@ describe('template', () => {
     ).toEqual('[object Object]')
   })
 
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
