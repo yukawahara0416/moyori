@@ -68,3 +68,6 @@ describe('getters', () => {
     expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
   })
 })
+
+describe('v-on', () => {
+})
