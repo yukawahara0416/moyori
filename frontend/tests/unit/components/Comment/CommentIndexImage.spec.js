@@ -25,4 +25,19 @@ describe('props', () => {
 })
 
 describe('v-on', () => {
+  it('click openDialog', () => {
+    const openDialog = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      methods: {
+        openDialog
+      }
+    })
+
+    wrapper.find('.v-image').trigger('click')
+    expect(openDialog).toHaveBeenCalled()
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
