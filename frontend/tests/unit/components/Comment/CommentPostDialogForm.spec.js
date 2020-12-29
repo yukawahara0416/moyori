@@ -104,6 +104,10 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
+  it('headers', () => {
+    expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
+  })
+
 })
   data = new Spot(options)
   data = new Spot(options)
