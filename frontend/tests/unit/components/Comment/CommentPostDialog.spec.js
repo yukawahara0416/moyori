@@ -79,4 +79,8 @@ describe('template', () => {
       wrapper.find('comment-post-dialog-form-stub').attributes().spot
     ).toEqual('[object Object]')
   })
+
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
