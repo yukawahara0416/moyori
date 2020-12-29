@@ -48,4 +48,8 @@ describe('router-link', () => {
 })
 
 describe('template', () => {
+  it('v-if="comment.avatar"', () => {
+    expect(wrapper.find('v-img-stub').exists()).toBe(true)
+  })
+
 })
