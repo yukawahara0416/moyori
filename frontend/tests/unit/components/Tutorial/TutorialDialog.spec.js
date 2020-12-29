@@ -49,4 +49,7 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
