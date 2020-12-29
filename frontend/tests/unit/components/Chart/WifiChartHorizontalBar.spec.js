@@ -47,4 +47,28 @@ describe('computed', () => {
     expect(wrapper.vm.hasData).toBe(true)
   })
 
+  it('chartData', () => {
+    const resultWiths = {
+      label: 'あり',
+      data: [wrapper.vm.withCount],
+      datalabels: {
+        color: 'white',
+        display: true
+      },
+      backgroundColor: '#4CAF4F'
+    }
+    expect(wrapper.vm.chartData.datasets[0]).toMatchObject(resultWiths)
+
+    const resultWithouts = {
+      label: 'なし',
+      data: [wrapper.vm.withoutCount],
+      datalabels: {
+        color: 'white',
+        display: true
+      },
+      backgroundColor: '#FF5252',
+      barThickness: 20
+    }
+    expect(wrapper.vm.chartData.datasets[1]).toMatchObject(resultWithouts)
+  })
 })
