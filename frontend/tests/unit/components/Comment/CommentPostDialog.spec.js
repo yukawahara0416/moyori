@@ -11,4 +11,8 @@ let store
 let auth
 
 beforeEach(() => {
+  propsData = {
+    spot: { data: { id: 1 } }
+  }
+
 })
