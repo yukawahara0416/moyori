@@ -82,4 +82,10 @@ describe('template', () => {
     )
   })
 
+  it('power-without-button has :spot', () => {
+    expect(wrapper.find('power-without-button-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
+
 })
