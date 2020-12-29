@@ -160,4 +160,17 @@ describe('template', () => {
     expect(wrapper.find('comment-index-image-stub').exists()).toBe(true)
   })
 
+  it('v-if isImageExist is false', () => {
+    propsData = {
+      comment: { id: 1, content: 'test', image: null }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.find('comment-index-image-stub').exists()).toBe(false)
+  })
+
 })
