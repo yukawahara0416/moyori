@@ -11,4 +11,8 @@ beforeEach(() => {
     comment: { id: 1, content: 'test', image: 'test' }
   }
 
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData
+  })
 })
