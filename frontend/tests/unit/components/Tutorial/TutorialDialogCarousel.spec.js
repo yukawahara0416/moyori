@@ -12,3 +12,5 @@ let store
 let tutorial
 let vuetify
 
+beforeEach(() => {
+})
