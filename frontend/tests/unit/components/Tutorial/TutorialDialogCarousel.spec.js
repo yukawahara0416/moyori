@@ -35,4 +35,14 @@ beforeEach(() => {
 })
 
 describe('v-on', () => {
+  it('click closeTutorial', () => {
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(tutorial.mutations.closeTutorial).toHaveBeenCalled()
+  })
 })
