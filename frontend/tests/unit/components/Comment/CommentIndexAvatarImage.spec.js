@@ -52,4 +52,23 @@ describe('template', () => {
     expect(wrapper.find('v-img-stub').exists()).toBe(true)
   })
 
+  it('v-else {{ comment.user_name.slice(0, 1) }}', () => {
+    propsData = {
+      comment: { id: 1, user_id: 1, user_name: 'test', avatar: null }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      stubs: {
+        RouterLink: RouterLinkStub
+      }
+    })
+    expect(wrapper.find('v-img-stub').exists()).toBe(false)
+    expect(wrapper.find('span').text()).toEqual(
+      propsData.comment.user_name.slice(0, 1)
+    )
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
 })
