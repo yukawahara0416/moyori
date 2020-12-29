@@ -25,4 +25,8 @@ describe('props', () => {
 })
 
 describe('computed', () => {
+  it('isImageExist is true', () => {
+    expect(wrapper.vm.isImageExist(propsData.comment)).toBe(true)
+  })
+
 })
