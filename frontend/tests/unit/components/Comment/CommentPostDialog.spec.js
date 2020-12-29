@@ -15,4 +15,10 @@ beforeEach(() => {
     spot: { data: { id: 1 } }
   }
 
+  auth = {
+    getters: {
+      isLoggingIn: () => true
+    }
+  }
+
 })
