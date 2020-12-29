@@ -10,3 +10,5 @@ let propsData
 let store
 let auth
 
+beforeEach(() => {
+})
