@@ -3,3 +3,6 @@ import Component from '@/components/Chart/PowerChartHorizontalBar.vue'
 
 const localVue = createLocalVue()
 
+let wrapper
+let propsData
+
