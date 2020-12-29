@@ -204,6 +204,10 @@ describe('computed', () => {
     expect(wrapper.vm.yourWifiWithout).toMatchObject([options.wifi_withouts[0]])
   })
 
+  it('isPowerWithing is true', () => {
+    expect(wrapper.vm.isPowerWithing).toBe(true)
+  })
+
   data = new Spot(options)
 })
 })
