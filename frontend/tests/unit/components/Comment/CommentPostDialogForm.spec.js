@@ -237,5 +237,9 @@ describe('computed', () => {
     expect(wrapper.vm.isPowerWithing).toBe(false)
   })
 
+  it('isPowerWithouting is true', () => {
+    expect(wrapper.vm.isPowerWithouting).toBe(true)
+  })
+
 })
 })
