@@ -25,4 +25,6 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
 })
