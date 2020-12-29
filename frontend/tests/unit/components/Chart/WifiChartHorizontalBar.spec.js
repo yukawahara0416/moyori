@@ -74,4 +74,10 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('wifi-with-button has :spot', () => {
+    expect(wrapper.find('wifi-with-button-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
+
 })
