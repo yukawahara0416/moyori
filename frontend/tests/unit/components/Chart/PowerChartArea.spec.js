@@ -39,4 +39,10 @@ describe('computed', () => {
     expect(wrapper.vm.withCount).toEqual(propsData.spot.power_withs.length)
   })
 
+  it('withoutCount', () => {
+    expect(wrapper.vm.withoutCount).toEqual(
+      propsData.spot.power_withouts.length
+    )
+  })
+
 })
