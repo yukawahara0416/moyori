@@ -3,3 +3,4 @@ import Vuex from 'vuex'
 import Component from '@/components/Tutorial/TutorialDialog.vue'
 
 const localVue = createLocalVue()
+localVue.use(Vuex)
