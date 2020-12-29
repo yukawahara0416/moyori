@@ -71,4 +71,10 @@ describe('template', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
+  it(':src', () => {
+    expect(wrapper.find('v-img-stub').attributes().src).toEqual(
+      propsData.comment.avatar
+    )
+  })
+
 })
