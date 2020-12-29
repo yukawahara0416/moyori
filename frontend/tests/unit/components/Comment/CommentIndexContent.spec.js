@@ -63,4 +63,21 @@ describe('computed', () => {
     expect(wrapper.vm.isAboveLimit).toBe(false)
   })
 
+  it('readMore is true', () => {
+    propsData = {
+      comment: {
+        id: 1,
+        content: 'a'.repeat(101),
+        image: 'test'
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.vm.readMore).toBe(true)
+  })
+
 })
