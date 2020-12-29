@@ -11,4 +11,9 @@ beforeEach(() => {
     spot: { data: { id: 1 } },
     comment: { id: 1 }
   }
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData
+  })
 })
