@@ -124,7 +124,11 @@ describe('getters', () => {
     expect(wrapper.vm.map).toMatchObject(store.getters.map)
   })
 
+  it('profileTab', () => {
+    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
+  })
 })
+
   data = new Spot(options)
   data = new Spot(options)
 })
