@@ -13,4 +13,10 @@ let tutorial
 let vuetify
 
 beforeEach(() => {
+  tutorial = {
+    mutations: {
+      closeTutorial: jest.fn()
+    }
+  }
+
 })
