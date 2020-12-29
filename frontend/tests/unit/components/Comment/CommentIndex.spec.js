@@ -92,4 +92,10 @@ describe('template', () => {
     ).toEqual('[object Object]')
   })
 
+  it('comment-index-content has :comment', () => {
+    expect(
+      wrapper.find('comment-index-content-stub').attributes().comment
+    ).toEqual('[object Object]')
+  })
+
 })
