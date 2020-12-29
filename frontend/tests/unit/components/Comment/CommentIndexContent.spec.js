@@ -152,4 +152,8 @@ describe('template', () => {
     expect(wrapper.find('a').text()).toContain('...続きをよむ')
   })
 
+  it('v-else readMore', () => {
+    expect(wrapper.find('p').text()).toEqual(propsData.comment.content)
+  })
+
 })
