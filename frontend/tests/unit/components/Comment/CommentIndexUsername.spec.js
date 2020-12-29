@@ -30,4 +30,8 @@ describe('template', () => {
       `${propsData.comment.user_name} さん`
     )
   })
+
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
