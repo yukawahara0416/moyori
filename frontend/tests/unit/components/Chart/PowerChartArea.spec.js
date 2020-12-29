@@ -81,4 +81,15 @@ describe('computed', () => {
 })
 
 describe('methods', () => {
+  const withs = [
+    { id: 1, created_at: '2020-12-01T00:00:00.000Z' },
+    { id: 2, created_at: '2020-12-02T00:00:00.000Z' }
+  ]
+
+  const resultWiths = [
+    { x: 0, y: 0 },
+    { x: '2020-12-01T00:00:00.000Z', y: 1 },
+    { x: '2020-12-02T00:00:00.000Z', y: 2 }
+  ]
+
 })
