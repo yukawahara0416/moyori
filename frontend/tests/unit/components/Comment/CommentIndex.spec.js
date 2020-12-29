@@ -71,4 +71,10 @@ describe('template', () => {
     ).toEqual('[object Object]')
   })
 
+  it('comment-index-username has :comment', () => {
+    expect(
+      wrapper.find('comment-index-username-stub').attributes().comment
+    ).toEqual('[object Object]')
+  })
+
 })
