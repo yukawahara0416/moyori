@@ -31,3 +31,6 @@ describe('computed', () => {
     ).toEqual('2020-12-02')
   })
 })
+
+describe('template', () => {
+})
