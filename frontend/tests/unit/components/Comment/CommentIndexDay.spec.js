@@ -25,4 +25,9 @@ describe('props', () => {
 })
 
 describe('computed', () => {
+  it('removeTimeFromDaytime', () => {
+    expect(
+      wrapper.vm.removeTimeFromDaytime(propsData.comment.created_at)
+    ).toEqual('2020-12-02')
+  })
 })
