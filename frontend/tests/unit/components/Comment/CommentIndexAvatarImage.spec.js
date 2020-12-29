@@ -46,3 +46,6 @@ describe('router-link', () => {
     ).toEqual(propsData.comment.user_id)
   })
 })
+
+describe('template', () => {
+})
