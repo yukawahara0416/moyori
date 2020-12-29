@@ -21,4 +21,10 @@ beforeEach(() => {
     }
   }
 
+  store = new Vuex.Store({
+    modules: {
+      auth
+    }
+  })
+
 })
