@@ -24,4 +24,8 @@ describe('props', () => {
     expect(wrapper.props().spot instanceof Object).toBe(true)
   })
 
+  it('comment', () => {
+    expect(wrapper.props().comment).toStrictEqual(propsData.comment)
+    expect(wrapper.props().comment instanceof Object).toBe(true)
+  })
 })
