@@ -112,6 +112,10 @@ describe('getters', () => {
     expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
   })
 
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
+  })
+
 })
   data = new Spot(options)
   data = new Spot(options)
