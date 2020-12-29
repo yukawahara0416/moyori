@@ -77,4 +77,10 @@ describe('template', () => {
     ).toEqual('[object Object]')
   })
 
+  it('comment-index-day has :comment', () => {
+    expect(wrapper.find('comment-index-day-stub').attributes().comment).toEqual(
+      '[object Object]'
+    )
+  })
+
 })
