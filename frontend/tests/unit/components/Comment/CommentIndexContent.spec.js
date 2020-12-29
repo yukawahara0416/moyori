@@ -86,4 +86,26 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
+  it('click activateReadMore', () => {
+    const activateReadMore = jest.fn()
+
+    propsData = {
+      comment: {
+        id: 1,
+        content: 'a'.repeat(101),
+        image: 'test'
+      }
+    }
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      methods: {
+        activateReadMore
+      }
+    })
+
+    wrapper.find('a').trigger('click')
+    expect(activateReadMore).toHaveBeenCalled()
+  })
 })
