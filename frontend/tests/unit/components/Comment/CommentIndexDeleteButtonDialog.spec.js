@@ -110,3 +110,6 @@ describe('v-on', () => {
     expect(deleteCommentHandler).toHaveBeenCalled()
   })
 })
+
+describe('emit', () => {
+})
