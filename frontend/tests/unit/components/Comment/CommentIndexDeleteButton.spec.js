@@ -46,3 +46,6 @@ describe('v-on', () => {
     expect(openDialog).toHaveBeenCalled()
   })
 })
+
+describe('emit', () => {
+})
