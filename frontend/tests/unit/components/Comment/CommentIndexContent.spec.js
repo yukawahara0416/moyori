@@ -135,4 +135,21 @@ describe('template', () => {
     expect(wrapper.find('v-col-stub').attributes().cols).toEqual('12')
   })
 
+  it('v-if readMore', () => {
+    propsData = {
+      comment: {
+        id: 1,
+        content: 'a'.repeat(101),
+        image: 'test'
+      }
+    }
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData
+    })
+
+    expect(wrapper.find('a').text()).toContain('...続きをよむ')
+  })
+
 })
