@@ -80,4 +80,10 @@ describe('template', () => {
     )
   })
 
+  it('wifi-without-button has :spot', () => {
+    expect(wrapper.find('wifi-without-button-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
+
 })
