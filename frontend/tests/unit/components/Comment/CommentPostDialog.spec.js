@@ -57,3 +57,6 @@ describe('v-on', () => {
     expect(commentHandler).toHaveBeenCalled()
   })
 })
+
+describe('emit', () => {
+})
