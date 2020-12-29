@@ -9,3 +9,5 @@ let wrapper
 let store
 let dialog
 
+beforeEach(() => {
+})
