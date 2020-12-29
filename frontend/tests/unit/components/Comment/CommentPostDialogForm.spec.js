@@ -120,6 +120,10 @@ describe('getters', () => {
     expect(wrapper.vm.form).toMatchObject(store.getters.form)
   })
 
+  it('map', () => {
+    expect(wrapper.vm.map).toMatchObject(store.getters.map)
+  })
+
 })
   data = new Spot(options)
   data = new Spot(options)
