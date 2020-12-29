@@ -65,4 +65,10 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('comment-index-avatar has :comment', () => {
+    expect(
+      wrapper.find('comment-index-avatar-stub').attributes().comment
+    ).toEqual('[object Object]')
+  })
+
 })
