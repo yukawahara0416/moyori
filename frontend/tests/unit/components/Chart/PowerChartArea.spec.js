@@ -100,4 +100,7 @@ describe('methods', () => {
     expect(wrapper.vm.xyData(withs)).toMatchObject(resultWiths)
   })
 
+  it('sortData', () => {
+    expect(wrapper.vm.sortData(resultWiths)).toMatchObject(resultWiths)
+  })
 })
