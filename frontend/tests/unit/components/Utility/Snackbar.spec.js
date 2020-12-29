@@ -21,3 +21,6 @@ beforeEach(() => {
     store
   })
 })
+
+describe('template', () => {
+})
