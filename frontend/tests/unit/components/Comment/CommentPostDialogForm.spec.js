@@ -108,6 +108,10 @@ describe('getters', () => {
     expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
   })
 
+  it('currentUser', () => {
+    expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
+  })
+
 })
   data = new Spot(options)
   data = new Spot(options)
