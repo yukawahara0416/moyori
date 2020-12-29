@@ -316,4 +316,6 @@ describe('methods', () => {
     expect(wrapper.vm.power_radio).toEqual('unknown')
   })
 })
+
+describe('template', () => {
 })
