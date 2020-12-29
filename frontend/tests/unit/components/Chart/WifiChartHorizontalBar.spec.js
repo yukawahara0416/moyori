@@ -20,4 +20,9 @@ beforeEach(() => {
       ]
     }
   }
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData
+  })
 })
