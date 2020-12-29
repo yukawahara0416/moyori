@@ -28,4 +28,13 @@ describe('props', () => {
 })
 
 describe('router-link', () => {
+  it('{ name: "profile" }', () => {
+    expect(
+      wrapper
+        .findAll(RouterLinkStub)
+        .at(0)
+        .props().to.name
+    ).toEqual('profile')
+  })
+
 })
