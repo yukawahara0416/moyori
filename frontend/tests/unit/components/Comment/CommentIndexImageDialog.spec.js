@@ -28,4 +28,8 @@ describe('template', () => {
   it('v-img has :src', () => {
     expect(wrapper.find('v-img-stub').attributes().src).toEqual('test')
   })
+
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
