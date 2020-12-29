@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import TutorialDialogCarousel from '@/components/Tutorial/TutorialDialogCarousel.vue'
 
 export default {
