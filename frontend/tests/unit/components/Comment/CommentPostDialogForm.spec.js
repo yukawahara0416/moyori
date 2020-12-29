@@ -70,6 +70,16 @@ beforeEach(() => {
     }
   }
 
+  map = {
+    getters: {
+      map: () => {
+        return {
+          data: 'test'
+        }
+      }
+    }
+  }
+
   data = new Spot(options)
   data = new Spot(options)
 })
