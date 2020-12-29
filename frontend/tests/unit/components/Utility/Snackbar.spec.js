@@ -10,4 +10,10 @@ let wrapper
 let store
 
 beforeEach(() => {
+  store = new Vuex.Store({
+    modules: {
+      snackbar: snackStore
+    }
+  })
+
 })
