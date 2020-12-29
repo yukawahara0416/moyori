@@ -12,4 +12,9 @@ let auth
 let tab
 
 beforeEach(() => {
+  propsData = {
+    spot: { data: { id: 1 } },
+    comment: { id: 1 }
+  }
+
 })
