@@ -86,6 +86,15 @@ beforeEach(() => {
     }
   }
 
+  store = new Vuex.Store({
+    modules: {
+      auth,
+      form,
+      map,
+      tab
+    }
+  })
+
   data = new Spot(options)
   data = new Spot(options)
 })
