@@ -63,3 +63,6 @@ describe('computed', () => {
     expect(wrapper.vm.isCommentingByCurrentUser(comment)).toBe(true)
   })
 })
+
+describe('template', () => {
+})
