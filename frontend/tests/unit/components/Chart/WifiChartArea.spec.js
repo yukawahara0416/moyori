@@ -89,4 +89,9 @@ describe('methods', () => {
     { x: '2020-12-01T00:00:00.000Z', y: 1 },
     { x: '2020-12-02T00:00:00.000Z', y: 2 }
   ]
+
+  it('convertChartData', () => {
+    expect(wrapper.vm.convertChartData(withs)).toEqual(resultWiths)
+  })
+
 })
