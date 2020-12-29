@@ -25,4 +25,9 @@ describe('props', () => {
 })
 
 describe('template', () => {
+  it('comment.user_name', () => {
+    expect(wrapper.find('span').text()).toEqual(
+      `${propsData.comment.user_name} さん`
+    )
+  })
 })
