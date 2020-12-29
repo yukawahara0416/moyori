@@ -118,4 +118,7 @@ describe('template', () => {
     expect(wrapper.find('comment-index-delete-button').exists()).toBe(false)
   })
 
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
