@@ -80,4 +80,7 @@ describe('computed', () => {
     expect(wrapper.vm.readMore).toBe(true)
   })
 
+  it('readMore is false', () => {
+    expect(wrapper.vm.readMore).toBe(false)
+  })
 })
