@@ -83,4 +83,13 @@ describe('template', () => {
     )
   })
 
+  it('comment-index-delete-button has :comment and :spot', () => {
+    expect(
+      wrapper.find('comment-index-delete-button-stub').attributes().comment
+    ).toEqual('[object Object]')
+    expect(
+      wrapper.find('comment-index-delete-button-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
+
 })
