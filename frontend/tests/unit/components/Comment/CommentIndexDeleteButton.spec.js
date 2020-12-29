@@ -68,4 +68,15 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('comment-index-delete-button-dialog has :spot :comment', () => {
+    expect(
+      wrapper.find('comment-index-delete-button-dialog-stub').attributes().spot
+    ).toEqual('[object Object]')
+
+    expect(
+      wrapper.find('comment-index-delete-button-dialog-stub').attributes()
+        .comment
+    ).toEqual('[object Object]')
+  })
+
 })
