@@ -59,4 +59,8 @@ describe('computed', () => {
     expect(wrapper.vm.isAboveLimit).toBe(true)
   })
 
+  it('isAboveLimit is false', () => {
+    expect(wrapper.vm.isAboveLimit).toBe(false)
+  })
+
 })
