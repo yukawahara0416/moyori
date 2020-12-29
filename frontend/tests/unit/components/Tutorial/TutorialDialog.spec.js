@@ -47,3 +47,6 @@ describe('computed', () => {
     expect(dialog.actions.dialogOff).toHaveBeenCalled()
   })
 })
+
+describe('template', () => {
+})
