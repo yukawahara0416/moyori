@@ -282,5 +282,24 @@ describe('computed', () => {
 })
 
 describe('methods', () => {
+  it('closeDialog', () => {
+    const clearForm = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        clearForm
+      },
+      stubs: ['ValidationObserver']
+    })
+
+    wrapper.vm.closeDialog()
+    wrapper.vm.$emit('closeDialog')
+    expect(wrapper.emitted().closeDialog).toBeTruthy()
+    expect(clearForm).toHaveBeenCalled()
+  })
+
 })
 })
