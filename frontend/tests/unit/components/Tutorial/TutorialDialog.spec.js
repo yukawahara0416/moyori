@@ -32,4 +32,7 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
+  it('dialogTutorial', () => {
+    expect(wrapper.vm.dialogTutorial).toBe(store.getters.dialogTutorial)
+  })
 })
