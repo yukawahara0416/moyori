@@ -58,3 +58,6 @@ describe('props', () => {
     expect(wrapper.props().comment instanceof Object).toBe(true)
   })
 })
+
+describe('getters', () => {
+})
