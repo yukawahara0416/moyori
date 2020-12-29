@@ -37,4 +37,12 @@ describe('router-link', () => {
     ).toEqual('profile')
   })
 
+  it('{ params: { id: comment.user_id } }', () => {
+    expect(
+      wrapper
+        .findAll(RouterLinkStub)
+        .at(0)
+        .props().to.params.id
+    ).toEqual(propsData.comment.user_id)
+  })
 })
