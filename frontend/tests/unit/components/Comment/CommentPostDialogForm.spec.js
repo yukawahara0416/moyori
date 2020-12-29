@@ -196,6 +196,10 @@ describe('computed', () => {
     expect(wrapper.vm.isWifiWithouting).toBe(false)
   })
 
+  it('yourWifiWith', () => {
+    expect(wrapper.vm.yourWifiWith).toMatchObject([options.wifi_withs[0]])
+  })
+
   data = new Spot(options)
 })
 })
