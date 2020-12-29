@@ -54,12 +54,12 @@ export default {
       return chartOptions
     },
 
-    removeTimeFromDaytime() {
-      return function(daytime) {
-        const indexEnd = daytime.indexOf('T')
-        return daytime.substring(0, indexEnd)
-      }
-    },
+    // removeTimeFromDaytime() {
+    //   return function(daytime) {
+    //     const indexEnd = daytime.indexOf('T')
+    //     return daytime.substring(0, indexEnd)
+    //   }
+    // },
 
     chartData() {
       // データ形式を変換して時間で昇順に並べ替えます
