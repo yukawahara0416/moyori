@@ -21,4 +21,13 @@ beforeEach(() => {
     }
   }
 
+  auth = {
+    getters: {
+      currentUser: () => {
+        return {
+          data: { id: 1 }
+        }
+      }
+    }
+  }
 })
