@@ -280,4 +280,7 @@ describe('computed', () => {
     ])
   })
 })
+
+describe('methods', () => {
+})
 })
