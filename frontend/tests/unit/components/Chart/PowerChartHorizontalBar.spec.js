@@ -76,4 +76,10 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('power-with-button has :spot', () => {
+    expect(wrapper.find('power-with-button-stub').attributes().spot).toEqual(
+      '[object Object]'
+    )
+  })
+
 })
