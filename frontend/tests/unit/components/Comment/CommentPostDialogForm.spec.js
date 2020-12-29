@@ -5,3 +5,14 @@ import Component from '@/components/Comment/CommentPostDialogForm.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+let wrapper
+let propsData
+let options
+let data
+
+let store
+let auth
+let form
+let map
+let tab
