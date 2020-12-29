@@ -33,3 +33,6 @@ describe('props', () => {
     expect(wrapper.props().spot instanceof Object).toBe(true)
   })
 })
+
+describe('computed', () => {
+})
