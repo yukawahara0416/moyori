@@ -10,4 +10,13 @@ let store
 let dialog
 
 beforeEach(() => {
+  dialog = {
+    getters: {
+      dialogTutorial: () => false
+    },
+    actions: {
+      dialogOff: jest.fn()
+    }
+  }
+
 })
