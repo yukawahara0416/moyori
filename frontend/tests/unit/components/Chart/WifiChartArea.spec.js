@@ -94,4 +94,8 @@ describe('methods', () => {
     expect(wrapper.vm.convertChartData(withs)).toEqual(resultWiths)
   })
 
+  it('xyData', () => {
+    expect(wrapper.vm.xyData(withs)).toMatchObject(resultWiths)
+  })
+
 })
