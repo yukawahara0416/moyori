@@ -56,3 +56,6 @@ describe('getters', () => {
     expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
   })
 })
+
+describe('computed', () => {
+})
