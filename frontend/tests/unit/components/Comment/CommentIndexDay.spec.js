@@ -33,4 +33,10 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('removeTimeFromDaytime(comment.created_at)', () => {
+    expect(wrapper.find('span').text()).toEqual(
+      wrapper.vm.removeTimeFromDaytime(propsData.comment.created_at)
+    )
+  })
+
 })
