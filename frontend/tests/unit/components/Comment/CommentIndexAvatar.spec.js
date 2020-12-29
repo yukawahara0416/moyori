@@ -25,4 +25,10 @@ describe('props', () => {
 })
 
 describe('template', () => {
+  it('comment-index-avatar-image-stub has :comment', () => {
+    expect(
+      wrapper.find('comment-index-avatar-image-stub').attributes().comment
+    ).toEqual('[object Object]')
+  })
+
 })
