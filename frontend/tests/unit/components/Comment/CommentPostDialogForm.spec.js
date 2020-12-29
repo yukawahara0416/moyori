@@ -103,6 +103,8 @@ beforeEach(() => {
   })
 })
 
+describe('getters', () => {
+})
   data = new Spot(options)
   data = new Spot(options)
 })
