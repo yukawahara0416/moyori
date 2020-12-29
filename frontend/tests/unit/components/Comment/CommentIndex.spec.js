@@ -98,4 +98,24 @@ describe('template', () => {
     ).toEqual('[object Object]')
   })
 
+  it('v-if="isCommentingByCurrentUser(comment)"', () => {
+    propsData = {
+      spot: {
+        data: { id: 1 },
+        comments: [
+          { id: 1, user_id: 2 },
+          { id: 2, user_id: 2 }
+        ]
+      }
+    }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store
+    })
+
+    expect(wrapper.find('comment-index-delete-button').exists()).toBe(false)
+  })
+
 })
