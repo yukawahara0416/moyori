@@ -118,4 +118,8 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it(':cols="isImageExist(comment) is 10"', () => {
+    expect(wrapper.find('v-col-stub').attributes().cols).toEqual('10')
+  })
+
 })
