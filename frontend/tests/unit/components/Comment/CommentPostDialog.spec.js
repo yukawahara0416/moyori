@@ -74,4 +74,9 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('comment-post-dialog-form has :spot', () => {
+    expect(
+      wrapper.find('comment-post-dialog-form-stub').attributes().spot
+    ).toEqual('[object Object]')
+  })
 })
