@@ -3,3 +3,4 @@ import Vuex from 'vuex'
 import Component from '@/components/Comment/CommentPostDialog.vue'
 
 const localVue = createLocalVue()
+localVue.use(Vuex)
