@@ -36,3 +36,6 @@ describe('getters', () => {
     expect(wrapper.vm.dialogTutorial).toBe(store.getters.dialogTutorial)
   })
 })
+
+describe('computed', () => {
+})
