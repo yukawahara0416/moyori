@@ -37,4 +37,8 @@ beforeEach(() => {
       { id: 4, user_id: 2 }
     ]
   }
+
+  data = new Spot(options)
+  data = new Spot(options)
+  data = new Spot(options)
 })
