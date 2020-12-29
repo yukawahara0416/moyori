@@ -44,6 +44,22 @@ beforeEach(() => {
     spot: data
   }
 
+  auth = {
+    getters: {
+      headers: () => {
+        return {
+          data: { id: 1 }
+        }
+      },
+      currentUser: () => {
+        return {
+          data: { id: 1 }
+        }
+      },
+      isLoggingIn: () => true
+    }
+  }
+
   data = new Spot(options)
   data = new Spot(options)
 })
