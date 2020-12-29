@@ -5,3 +5,7 @@ import Component from '@/components/Utility/Snackbar.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+let wrapper
+let store
+
