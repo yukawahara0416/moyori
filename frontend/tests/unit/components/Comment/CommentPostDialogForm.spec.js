@@ -129,6 +129,8 @@ describe('getters', () => {
   })
 })
 
+describe('computed', () => {
   data = new Spot(options)
   data = new Spot(options)
+})
 })
