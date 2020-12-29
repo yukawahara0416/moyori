@@ -60,4 +60,9 @@ describe('methods', () => {
     expect(wrapper.vm.dialog).toBe(true)
   })
 
+  it('closeDialog', () => {
+    wrapper.vm.dialog = true
+    wrapper.vm.closeDialog()
+    expect(wrapper.vm.dialog).toBe(false)
+  })
 })
