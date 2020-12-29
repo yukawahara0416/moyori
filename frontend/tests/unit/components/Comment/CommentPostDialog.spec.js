@@ -35,4 +35,7 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
+  })
 })
