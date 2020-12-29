@@ -4,3 +4,4 @@ import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Comment/CommentPostDialogForm.vue'
 
 const localVue = createLocalVue()
+localVue.use(Vuex)
