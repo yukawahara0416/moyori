@@ -11,4 +11,11 @@ beforeEach(() => {
     comment: { id: 1, user_id: 1, user_name: 'test', avatar: 'test' }
   }
 
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData,
+    stubs: {
+      RouterLink: RouterLinkStub
+    }
+  })
 })
