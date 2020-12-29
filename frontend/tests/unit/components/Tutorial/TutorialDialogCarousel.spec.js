@@ -6,3 +6,9 @@ import Component from '@/components/Tutorial/TutorialDialogCarousel.vue'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(Vuetify)
+
+let wrapper
+let store
+let tutorial
+let vuetify
+
