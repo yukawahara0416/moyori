@@ -42,4 +42,8 @@ describe('computed', () => {
     expect(wrapper.vm.dialog).toBe(store.getters.dialogTutorial)
   })
 
+  it('dialog/set', () => {
+    wrapper.vm.dialog = 'update'
+    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+  })
 })
