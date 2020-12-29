@@ -45,4 +45,8 @@ describe('computed', () => {
     )
   })
 
+  it('hasData', () => {
+    expect(wrapper.vm.hasData).toBe(true)
+  })
+
 })
