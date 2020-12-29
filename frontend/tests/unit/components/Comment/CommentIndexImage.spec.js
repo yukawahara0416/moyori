@@ -56,4 +56,10 @@ describe('template', () => {
     )
   })
 
+  it('comment-index-image-dialog has :comment', () => {
+    expect(
+      wrapper.find('comment-index-image-dialog-stub').attributes().comment
+    ).toEqual('[object Object]')
+  })
+
 })
