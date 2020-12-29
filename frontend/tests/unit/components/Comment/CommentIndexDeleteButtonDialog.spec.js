@@ -60,4 +60,8 @@ describe('props', () => {
 })
 
 describe('getters', () => {
+  it('headers', () => {
+    expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
+  })
+
 })
