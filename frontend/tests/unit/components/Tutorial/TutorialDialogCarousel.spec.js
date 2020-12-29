@@ -46,3 +46,6 @@ describe('v-on', () => {
     expect(tutorial.mutations.closeTutorial).toHaveBeenCalled()
   })
 })
+
+describe('template', () => {
+})
