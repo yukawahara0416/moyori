@@ -109,3 +109,6 @@ describe('v-on', () => {
     expect(activateReadMore).toHaveBeenCalled()
   })
 })
+
+describe('methods', () => {
+})
