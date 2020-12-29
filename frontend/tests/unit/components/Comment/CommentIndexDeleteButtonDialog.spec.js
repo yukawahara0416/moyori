@@ -89,4 +89,24 @@ describe('v-on', () => {
 
     expect(closeDialog).toHaveBeenCalled()
   })
+
+  it('click deleteCommentHandler', () => {
+    const deleteCommentHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        deleteCommentHandler
+      }
+    })
+
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+
+    expect(deleteCommentHandler).toHaveBeenCalled()
+  })
 })
