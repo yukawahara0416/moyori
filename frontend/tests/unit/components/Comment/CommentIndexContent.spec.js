@@ -173,4 +173,7 @@ describe('template', () => {
     expect(wrapper.find('comment-index-image-stub').exists()).toBe(false)
   })
 
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
