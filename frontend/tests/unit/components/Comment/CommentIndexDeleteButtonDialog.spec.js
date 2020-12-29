@@ -64,4 +64,7 @@ describe('getters', () => {
     expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
   })
 
+  it('profileTab', () => {
+    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
+  })
 })
