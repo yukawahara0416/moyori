@@ -60,6 +60,16 @@ beforeEach(() => {
     }
   }
 
+  form = {
+    getters: {
+      form: () => {
+        return {
+          place_id: ''
+        }
+      }
+    }
+  }
+
   data = new Spot(options)
   data = new Spot(options)
 })
