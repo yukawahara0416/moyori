@@ -48,3 +48,6 @@ describe('methods', () => {
     expect(wrapper.vm.dialog).toBe(true)
   })
 })
+
+describe('template', () => {
+})
