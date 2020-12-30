@@ -4,3 +4,6 @@ import Component from '@/views/Rules.vue'
 const localVue = createLocalVue()
 
 let wrapper
+
+beforeEach(() => {
+})
