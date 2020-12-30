@@ -1,7 +1,9 @@
 <template>
   <v-col class="text-center">
     <p class="mb-0">
-      <router-link to="/rules">利用規約</router-link>
+      <router-link to="/rules" @click.native="closeDialog()">
+        利用規約
+      </router-link>
       及び
       <router-link to="privacy">プライバシーポリシー</router-link>
       に
