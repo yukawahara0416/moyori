@@ -35,6 +35,10 @@ export default {
 
   methods: {
     ...mapMutations(['dialogOff']),
+
+    closeDialog() {
+      this.dialogOff('dialogTutorial')
+    }
   }
 }
 </script>
