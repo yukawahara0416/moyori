@@ -14,3 +14,6 @@
     </p>
   </v-col>
 </template>
+
+<script>
+</script>
