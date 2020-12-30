@@ -11,7 +11,7 @@
     </v-carousel>
     <v-card-actions>
       <v-spacer />
-      <v-btn text @click="closeTutorial()">スキップ</v-btn>
+      <v-btn text @click="closeDialog()">スキップ</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -34,7 +34,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['closeTutorial'])
+    ...mapMutations(['dialogOff']),
   }
 }
 </script>
