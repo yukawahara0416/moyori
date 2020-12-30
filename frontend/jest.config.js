@@ -1,5 +1,9 @@
 module.exports = {
   preset: '@vue/cli-plugin-unit-jest',
   setupFilesAfterEnv: ['<rootDir>/tests/jest-setup.js'],
-  transformIgnorePatterns: ['node_modules/(?!vue2-google-maps)']
+  transformIgnorePatterns: ['node_modules/(?!vue2-google-maps)'],
+  moduleNameMapper: {
+    '/^@/(.*)$/': '/app/frontend/src/$1'
+  },
+  resolver: null
 }
