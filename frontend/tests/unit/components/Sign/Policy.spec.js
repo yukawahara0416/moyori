@@ -15,6 +15,13 @@ beforeEach(() => {
       dialogOff: jest.fn()
     }
   }
+
+  store = new Vuex.Store({
+    modules: {
+      dialog
+    }
+  })
+
   wrapper = shallowMount(Component, {
     localVue,
     stubs: {
