@@ -1,4 +1,5 @@
 import { shallowMount, createLocalVue, RouterLinkStub } from '@vue/test-utils'
+import Vuex from 'vuex'
 import Component from '@/components/Sign/Policy.vue'
 
 const localVue = createLocalVue()
