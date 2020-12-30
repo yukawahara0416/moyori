@@ -10,6 +10,11 @@ let store
 let dialog
 
 beforeEach(() => {
+  dialog = {
+    mutations: {
+      dialogOff: jest.fn()
+    }
+  }
   wrapper = shallowMount(Component, {
     localVue,
     stubs: {
