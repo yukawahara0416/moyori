@@ -21,7 +21,7 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      tutorial
+      dialog
     }
   })
 
