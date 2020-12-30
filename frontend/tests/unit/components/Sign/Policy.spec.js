@@ -52,7 +52,12 @@ describe('router-link', () => {
 })
 
 describe('v-on', () => {
+  it('click closeDialog', () => {
+    wrapper.findAll('a').trigger('click')
+    expect(dialog.mutations.dialogOff).toHaveBeenCalledTimes(2)
+  })
 })
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
