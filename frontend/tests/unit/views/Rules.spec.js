@@ -10,3 +10,6 @@ beforeEach(() => {
     localVue
   })
 })
+
+describe('template', () => {
+})
