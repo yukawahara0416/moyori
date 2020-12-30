@@ -9,19 +9,19 @@ localVue.use(Vuetify)
 
 let wrapper
 let store
-let tutorial
+let dialog
 let vuetify
 
 beforeEach(() => {
-  tutorial = {
+  dialog = {
     mutations: {
-      closeTutorial: jest.fn()
+      dialogOff: jest.fn()
     }
   }
 
   store = new Vuex.Store({
     modules: {
-      tutorial
+      dialog
     }
   })
 
@@ -43,7 +43,7 @@ describe('v-on', () => {
     })
 
     wrapper.find('.v-btn').trigger('click')
-    expect(tutorial.mutations.closeTutorial).toHaveBeenCalled()
+    expect(dialog.mutations.dialogOff).toHaveBeenCalled()
   })
 })
 
