@@ -43,7 +43,7 @@ describe('v-on', () => {
     })
 
     wrapper.find('.v-btn').trigger('click')
-    expect(tutorial.mutations.closeTutorial).toHaveBeenCalled()
+    expect(dialog.mutations.dialogOff).toHaveBeenCalled()
   })
 })
 
