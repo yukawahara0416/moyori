@@ -5,7 +5,9 @@
         利用規約
       </router-link>
       及び
-      <router-link to="privacy">プライバシーポリシー</router-link>
+      <router-link to="privacy" @click.native="closeDialog()">
+        プライバシーポリシー
+      </router-link>
       に
       <br />
       同意の上ご利用ください
