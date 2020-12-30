@@ -9,13 +9,13 @@ localVue.use(Vuetify)
 
 let wrapper
 let store
-let tutorial
+let dialog
 let vuetify
 
 beforeEach(() => {
-  tutorial = {
+  dialog = {
     mutations: {
-      closeTutorial: jest.fn()
+      dialogOff: jest.fn()
     }
   }
 
