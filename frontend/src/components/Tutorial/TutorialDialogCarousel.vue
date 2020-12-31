@@ -32,6 +32,7 @@ export default {
         { text: 'First', image: require('@/assets/wifi_no.png') },
         { text: 'Second', image: require('@/assets/cafe_nomad_man.png') },
         { text: 'Third', image: require('@/assets/card_sample.png') },
+        { text: 'Fourth', image: require('@/assets/click_sample.png') }
       ]
     }
   },
