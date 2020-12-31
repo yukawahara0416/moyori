@@ -30,6 +30,7 @@ export default {
       colors: ['indigo', 'warning', 'pink darken-2', 'red lighten-1'],
       slides: [
         { text: 'First', image: require('@/assets/wifi_no.png') },
+        { text: 'Second', image: require('@/assets/cafe_nomad_man.png') },
       ]
     }
   },
