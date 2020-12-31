@@ -5,6 +5,7 @@
         <v-sheet :color="colors[i]" height="100%">
           <v-row class="fill-height" align="center" justify="center">
             <v-col cols="6">
+              <v-img :src="slide.image" max-height="300" contain />
             </v-col>
             <v-col cols="6">
               <div class="display-3">{{ slide.text }} Slide</div>
