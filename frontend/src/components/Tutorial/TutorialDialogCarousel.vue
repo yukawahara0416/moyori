@@ -16,7 +16,7 @@
     </v-carousel>
     <v-card-actions>
       <v-spacer />
-      <v-btn text @click="closeDialog()">スキップ</v-btn>
+      <v-btn text @click="dialogOff('dialogTutorial')">スキップ</v-btn>
     </v-card-actions>
   </v-card>
 </template>
