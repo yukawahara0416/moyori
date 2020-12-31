@@ -29,6 +29,7 @@ export default {
     return {
       colors: ['indigo', 'warning', 'pink darken-2', 'red lighten-1'],
       slides: [
+        { text: 'First', image: require('@/assets/wifi_no.png') },
       ]
     }
   },
