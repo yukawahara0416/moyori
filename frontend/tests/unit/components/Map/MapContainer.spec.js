@@ -186,7 +186,7 @@ describe('computed', () => {
 describe('methods', () => {
   it('beforeSearch', () => {
     wrapper.vm.beforeSearch()
-    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    expect(dialog.actions.dialogOff).toHaveBeenCalledTimes(3)
     expect(loading.mutations.loadingOn).toHaveBeenCalled()
     expect(spot.mutations.clearSpotsStore).toHaveBeenCalled()
   })

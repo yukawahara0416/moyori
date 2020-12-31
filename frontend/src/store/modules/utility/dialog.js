@@ -3,7 +3,7 @@ export default {
     dialogSign: false,
     dialogSpotCreate: false,
     dialogSpotEdit: false,
-    dialogTutorial: false
+    dialogTutorial: true
   },
 
   getters: {

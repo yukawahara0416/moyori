@@ -108,7 +108,9 @@ export default {
 
     // 検索開始前の処理
     beforeSearch() {
-      this.dialogOff()
+      this.dialogOff('dialogSign')
+      this.dialogOff('dialogSpotCreate')
+      this.dialogOff('dialogSpotEdit')
       this.loadingOn()
       this.clearSpotsStore()
     },
