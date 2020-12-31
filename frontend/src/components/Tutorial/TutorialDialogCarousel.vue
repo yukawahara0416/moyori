@@ -4,14 +4,19 @@
       <v-carousel-item v-for="(slide, i) in slides" :key="i">
         <v-sheet :color="colors[i]" height="100%">
           <v-row class="fill-height" align="center" justify="center">
-            <div class="display-3">{{ slide }} Slide</div>
+            <v-col cols="6">
+              <v-img :src="slide.image" max-height="300" contain />
+            </v-col>
+            <v-col cols="6">
+              <div class="display-3">{{ slide.text }} Slide</div>
+            </v-col>
           </v-row>
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
     <v-card-actions>
       <v-spacer />
-      <v-btn text @click="closeDialog()">スキップ</v-btn>
+      <v-btn text @click="dialogOff('dialogTutorial')">スキップ</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -22,23 +27,18 @@ import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      colors: [
-        'indigo',
-        'warning',
-        'pink darken-2',
-        'red lighten-1',
-        'deep-purple accent-4'
-      ],
-      slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth']
+      colors: ['indigo', 'warning', 'pink darken-2', 'red lighten-1'],
+      slides: [
+        { text: 'First', image: require('@/assets/wifi_no.png') },
+        { text: 'Second', image: require('@/assets/cafe_nomad_man.png') },
+        { text: 'Third', image: require('@/assets/card_sample.png') },
+        { text: 'Fourth', image: require('@/assets/click_sample.png') }
+      ]
     }
   },
 
   methods: {
-    ...mapMutations(['dialogOff']),
-
-    closeDialog() {
-      this.dialogOff('dialogTutorial')
-    }
+    ...mapMutations(['dialogOff'])
   }
 }
 </script>

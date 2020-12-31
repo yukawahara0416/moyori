@@ -35,7 +35,7 @@ beforeEach(() => {
 })
 
 describe('v-on', () => {
-  it('click closeTutorial', () => {
+  it('click dialogOff', () => {
     wrapper = mount(Component, {
       localVue,
       store,
