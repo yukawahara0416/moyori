@@ -2,13 +2,14 @@
   <v-card>
     <v-carousel height="400" hide-delimiter-background :continuous="false">
       <v-carousel-item v-for="(slide, i) in slides" :key="i">
-        <v-sheet :color="colors[i]" height="100%">
+        <v-sheet :color="slide.color" height="100%">
           <v-row class="fill-height" align="center" justify="center">
             <v-col cols="6">
               <v-img :src="slide.image" max-height="300" contain />
             </v-col>
             <v-col cols="6">
-              <div class="display-3">{{ slide.text }} Slide</div>
+              <div class="headline mr-5 mb-3">{{ slide.title }}</div>
+              <div class="mr-5">{{ slide.content }}</div>
             </v-col>
           </v-row>
         </v-sheet>
@@ -27,12 +28,21 @@ import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      colors: ['indigo', 'warning', 'pink darken-2', 'red lighten-1'],
       slides: [
-        { text: 'First', image: require('@/assets/wifi_no.png') },
-        { text: 'Second', image: require('@/assets/cafe_nomad_man.png') },
-        { text: 'Third', image: require('@/assets/card_sample.png') },
-        { text: 'Fourth', image: require('@/assets/click_sample.png') }
+        {
+          title: 'スポットに投票しよう！',
+          content:
+            '「Wifiサービスのあり／なし」「電源サービスのあり／なし」をワンクリックで投票することが出来ます。（＊ユーザ登録が必要です）',
+          image: require('@/assets/card_sample.png'),
+          color: 'pink darken-2'
+        },
+        {
+          title: 'スポットを投稿しよう！',
+          content:
+            'マップをクリックするだけで、新しいスポットを投稿することができます。（＊ユーザ登録が必要です）',
+          image: require('@/assets/click_sample.png'),
+          color: 'red lighten-1'
+        }
       ]
     }
   },
