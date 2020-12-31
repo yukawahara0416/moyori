@@ -28,6 +28,8 @@ export default {
   data() {
     return {
       colors: ['indigo', 'warning', 'pink darken-2', 'red lighten-1'],
+      slides: [
+      ]
     }
   },
 
