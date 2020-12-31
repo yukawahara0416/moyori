@@ -31,6 +31,7 @@ export default {
       slides: [
         { text: 'First', image: require('@/assets/wifi_no.png') },
         { text: 'Second', image: require('@/assets/cafe_nomad_man.png') },
+        { text: 'Third', image: require('@/assets/card_sample.png') },
       ]
     }
   },
