@@ -7,6 +7,7 @@
             <v-col cols="6">
             </v-col>
             <v-col cols="6">
+              <div class="display-3">{{ slide.text }} Slide</div>
             </v-col>
           </v-row>
         </v-sheet>
