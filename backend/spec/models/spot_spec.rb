@@ -34,10 +34,10 @@ RSpec.describe Spot, type: :model do
     expect(spot.errors.messages[:address]).to include 'is too long (maximum is 200 characters)'
   end
 
-  it 'nameが41文字以上で無効' do
-    spot = FactoryBot.build(:spot, name: 'a' * 41)
+  it 'nameが101文字以上で無効' do
+    spot = FactoryBot.build(:spot, name: 'a' * 101)
     spot.valid?
-    expect(spot.errors.messages[:name]).to include 'is too long (maximum is 40 characters)'
+    expect(spot.errors.messages[:name]).to include 'is too long (maximum is 100 characters)'
   end
 
   it 'urlが101文字以上で無効' do
