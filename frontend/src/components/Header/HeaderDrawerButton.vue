@@ -1,6 +1,5 @@
 <template>
   <v-navigation-drawer
-    absolute
     app
     temporary
     right
