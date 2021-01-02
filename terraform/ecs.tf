@@ -6,31 +6,31 @@ resource "aws_ecs_cluster" "example" {
   name = "${var.aws_resource_prefix}-cluster"
 }
 
-# resource "aws_ecs_service" "example" {
-#   name                              = "${var.aws_resource_prefix}-service"
-#   cluster                           = aws_ecs_cluster.example.arn
-#   task_definition                   = "${aws_ecs_task_definition.example.family}:${max("${aws_ecs_task_definition.example.revision}", "${data.aws_ecs_task_definition.example.revision}")}"
-#   desired_count                     = 2
-#   launch_type                       = "FARGATE"
-#   platform_version                  = "1.3.0"
-#   health_check_grace_period_seconds = 60
-#   network_configuration {
-#     assign_public_ip = false
-#     security_groups  = [module.ecs_sg.security_group_id]
-#     subnets = [
-#       aws_subnet.private_1a.id,
-#       aws_subnet.private_1c.id,
-#     ]
-#   }
-#   load_balancer {
-#     target_group_arn = aws_lb_target_group.example.arn
-#     container_name = "frontend"
-#     container_port = 8080
-#   }
-#   # lifecycle {
-#   #   ignore_changes = [task_definition]
-#   # }
-# }
+resource "aws_ecs_service" "example" {
+  name                              = "${var.aws_resource_prefix}-service"
+  cluster                           = aws_ecs_cluster.example.arn
+  task_definition                   = "${aws_ecs_task_definition.example.family}:${max("${aws_ecs_task_definition.example.revision}", "${data.aws_ecs_task_definition.example.revision}")}"
+  desired_count                     = 2
+  launch_type                       = "FARGATE"
+  platform_version                  = "1.3.0"
+  health_check_grace_period_seconds = 60
+  network_configuration {
+    assign_public_ip = false
+    security_groups  = [module.ecs_sg.security_group_id]
+    subnets = [
+      aws_subnet.private_1a.id,
+      aws_subnet.private_1c.id,
+    ]
+  }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.example.arn
+    container_name   = "frontend"
+    container_port   = 8080
+  }
+  # lifecycle {
+  #   ignore_changes = [task_definition]
+  # }
+}
 
 resource "aws_ecs_task_definition" "example" {
   family                   = "${var.aws_resource_prefix}-task"
@@ -107,32 +107,32 @@ resource "aws_ecs_task_definition" "example" {
   TASK_DEFINITION
 }
 
-# resource "aws_ecs_task_definition" "example_batch" {
-#   family                   = "${var.aws_resource_prefix}-batch"
-#   cpu                      = "256"
-#   memory                   = "512"
-#   network_mode             = "awsvpc"
-#   requires_compatibilities = ["FARGATE"]
-#   execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
-#   container_definitions    = <<TASK_DEFINITION
-#   [
-#     {
-#       "name": "alpine",
-#       "image": "alpine:latest",
-#       "essential": true,
-#       "logConfiguration": {
-#         "logDriver": "awslogs",
-#         "options": {
-#           "awslogs-region": "${var.aws_region}",
-#           "awslogs-stream-prefix": "batch",
-#           "awslogs-group": "/ecs-scheduled-tasks/${var.aws_resource_prefix}"
-#         }
-#       },
-#       "command": ["/bin/date"]
-#     }
-#   ]
-#   TASK_DEFINITION
-# }
+resource "aws_ecs_task_definition" "example_batch" {
+  family                   = "${var.aws_resource_prefix}-batch"
+  cpu                      = "256"
+  memory                   = "512"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
+  container_definitions    = <<TASK_DEFINITION
+  [
+    {
+      "name": "alpine",
+      "image": "alpine:latest",
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-region": "${var.aws_region}",
+          "awslogs-stream-prefix": "batch",
+          "awslogs-group": "/ecs-scheduled-tasks/${var.aws_resource_prefix}"
+        }
+      },
+      "command": ["/bin/date"]
+    }
+  ]
+  TASK_DEFINITION
+}
 
 module "ecs_sg" {
   source      = "./modules/security_group"
