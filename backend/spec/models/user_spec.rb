@@ -27,6 +27,12 @@ RSpec.describe User, type: :model do
     expect(user.errors.messages[:password]).to include "can't be blank"
   end
 
+  it 'emailが101文字以上だと無効' do
+    user = FactoryBot.build(:user, email: 'a' * 101)
+    user.valid?
+    expect(user.errors.messages[:email]).to include 'is too long (maximum is 100 characters)'
+  end
+
   it 'passwordが5文字以下だと無効' do
     user = FactoryBot.build(:user, password: 'a' * 5)
     user.valid?

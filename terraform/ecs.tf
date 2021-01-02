@@ -61,7 +61,10 @@ resource "aws_ecs_task_definition" "example" {
           "protocol": "tcp"
         }
       ],
-      "environment": [{ "name": "NODE_ENV", "value": "production" }]
+      "environment": [
+        { "name": "NODE_ENV", "value": "production" },
+        { "name": "VUE_APP_GMAP_API_KEY", "value": "${var.vue_app_gmap_api_key}" }
+      ]
     },
 
     {

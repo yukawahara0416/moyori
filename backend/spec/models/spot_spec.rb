@@ -8,17 +8,42 @@ RSpec.describe Spot, type: :model do
     expect(spot).to be_valid
   end
 
-  it 'user_id, place_id, title, lat, lngがあれば有効' do
-    lat = '33.583745'
-    lng = '130.325260'
+  it 'user_id, place_id' do
     spot = Spot.new(
       user_id: user.id,
-      place_id: 'abcdefg12345',
-      title: 'example_spot',
-      lat: lat.to_f,
-      lng: lng.to_f
+      place_id: 'abcdefg12345'
     )
     expect(spot).to be_valid
+  end
+
+  it 'user_idがなければ無効' do
+    spot = FactoryBot.build(:spot, user_id: nil)
+    spot.valid?
+    expect(spot.errors.messages[:user]).to include 'must exist'
+  end
+
+  it 'place_idがなければ無効' do
+    spot = FactoryBot.build(:spot, place_id: nil)
+    spot.valid?
+    expect(spot.errors.messages[:place_id]).to include "can't be blank"
+  end
+
+  it 'addressが201文字以上で無効' do
+    spot = FactoryBot.build(:spot, address: 'a' * 201)
+    spot.valid?
+    expect(spot.errors.messages[:address]).to include 'is too long (maximum is 200 characters)'
+  end
+
+  it 'nameが101文字以上で無効' do
+    spot = FactoryBot.build(:spot, name: 'a' * 101)
+    spot.valid?
+    expect(spot.errors.messages[:name]).to include 'is too long (maximum is 100 characters)'
+  end
+
+  it 'urlが101文字以上で無効' do
+    spot = FactoryBot.build(:spot, url: 'a' * 101)
+    spot.valid?
+    expect(spot.errors.messages[:url]).to include 'is too long (maximum is 100 characters)'
   end
 
   it '重複したplace_idだと無効' do

@@ -1,0 +1,63 @@
+<template>
+  <v-row align="stretch" class="ma-0" justify="space-around">
+    <v-col
+      cols="12"
+      sm="6"
+      :md="md"
+      :lg="lg"
+      v-for="(spot, id) in spots"
+      :key="id"
+    >
+      <card-frame :spot="spot" :id="id" />
+    </v-col>
+
+    <!-- カード配置調整（中央寄せ && 最下層端数左寄せ） -->
+    <v-col
+      class="ma-0 pa-0"
+      cols="12"
+      sm="6"
+      :md="md"
+      :lg="lg"
+      v-for="e in empties"
+      :key="e"
+    >
+      <card-container-fill />
+    </v-col>
+  </v-row>
+</template>
+
+<script>
+import CardFrame from '@/components/Card/CardFrame.vue'
+import CardContainerFill from '@/components/Card/CardContainerFill.vue'
+
+export default {
+  props: {
+    spots: Array
+  },
+
+  components: {
+    CardFrame,
+    CardContainerFill
+  },
+
+  computed: {
+    empties() {
+      const number = this.spots.length === 1 ? 2 : this.spots.length
+      return Array.from(new Array(number))
+    },
+
+    lg() {
+      const route = this.$route.name
+
+      if (route == 'profile') return 3
+      return 4
+    },
+
+    md() {
+      const route = this.$route.name
+      if (route == 'profile') return 4
+      return 6
+    }
+  }
+}
+</script>

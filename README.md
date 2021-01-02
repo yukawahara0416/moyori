@@ -1,9 +1,14 @@
 # MoYoRi
-Wifi、電源がつかえるカフェの情報共有サービス  
+Wifi・電源難民のための口コミ投票サービスです。  
   
 https://mo-yo-ri.com/  
   
-- 制作期間３ヶ月  
+転職活動用のポートフォリオとして制作しました。  
+ユーザーは「優良なWifi・電源スポット情報」に効率的にアクセスできます。  
+外出中のスキマ時間に、勉強する場所を探すのに苦労したのが制作のきっかけです。  
+既存のサービスでは満足できなかった点を課題として捉え、このサービスで解決しました。  
+  
+- 制作期間６ヶ月  
   - 平日２時間  
   - 休日６時間  
 - 完全独学  
@@ -11,8 +16,7 @@ https://mo-yo-ri.com/
 ## アーキテクチャ
 <img src="https://i.gyazo.com/0112d3fb29f7f8a777a155b39f6c0f0f.png">  
   
-- コンポーネント  
-  
+### コンポーネント
 | 項目 | 使用技術 |
 | :--- | :--- |
 | クラウド | AWS（ALB・Route53・ECR・ECS/Fargate・RDS・S3） |
@@ -20,22 +24,29 @@ https://mo-yo-ri.com/
 | IaC | Terraform |
 | CI/CD | CircleCI |
   
-- アプリケーション  
-  
+### アプリケーション
 | 項目 | 使用技術 |
 | :--- | :--- |
-| バックエンド | 言語：　Ruby <br> FW：　Rails <br> テスト：　RSpec・Rubocop |
-| フロントエンド | 言語：　JavaScript <br> FW：　Vue（Vuex・VueRouter・Vuetify） <br> テスト：　Vue-unit-test・ESlint・Prettier |
+| バックエンド | 言語：　Ruby <br> FW：　Rails <br> テスト：　RSpec・Rubocop・FactoryBot <br> gem：　devise_token_auth・omniauth |
+| フロントエンド | 言語：　JavaScript <br> FW：　Vue <br> テスト：　Jest・Vue-unit-test・ESlint・Prettier <br> ライブラリ：　Vuex・VueRouter・axios・Vuetify・vee-validate |
 | データベース | MySQL |
-| 外部API | GoogleMapsJavaScriptAPI |
+| 外部API | GoogleMapsJavaScriptAPI・GoogleCharts |
+| 開発ツール | Git/GitHub <br> Slack <br> MacBook Pro 2017 <br> VSCode |
   
-## WHY
-既存のサービスでは満足できなかったので、自分でつくりました。  
-外回りの営業中にできた空き時間で勉強をしていましたが、  
-現在地周辺のスポットをさがすのに苦労したのがきっかけです。  
+## ER図
+<img src="https://gyazo.com/107547d8a69fa7abdcf8b6fd54953eb8.png">  
   
-## WHAT
-既存サービスのなにを不満に感じたか＝制作で注力したポイント  
+## 注目ポイント
+　Docker/AWS/Terraform/CircleCIでの開発に挑戦しています。  
+　Rails/VueでのBFFアプリの開発に挑戦しています。  
+　外出中のスマホ利用を想定し、UI/UXにこだわりました。  
+　バックエンド・フロントエンドともにテストコードを実装しています。  
+　チーム開発（GithubFlow）を意識し、PRやISSUEを活用しています。  
+　rebase/mergeを使い分け、ログを汚さない開発に注意しました。  
+  
+## 気をつけたポイント
+既存サービスのなにを不満に感じた以下のポイントに注意して制作しました。  
+ユーザー様に提供する価値は「優良なスポット情報へ効率的にアクセスできる」です。  
 - 情報の鮮度  
   - GoogleAPIを利用し、高い情報鮮度を維持できます  
 - 情報の信頼度  
@@ -54,9 +65,31 @@ Facebook：　https://www.facebook.com/yu.kawahara.92
 Wantedly：　https://www.wantedly.com/users/105529007  
 Qiita：　https://qiita.com/yukawahara0416  
   
+## 実装機能
+ユーザリソースのCRUD機能  
+管理者ユーザリソースのCRUD機能  
+スポットリソースのCRUD機能  
+ログイン機能  
+かんたんログイン機能  
+OAuthログイン機能  
+マップ上でスポットを周辺検索する機能  
+マップ上でスポットを新規作成する機能  
+いいね機能  
+コメント機能  
+画像投稿機能  
+Wifi・電源サービスの有無を投票する機能  
+投票データを分析して期待度を表示するグラフ機能  
+  
+## 今後の課題
+　インフラでは大規模アクセス・並列処理・組み合わせ問題などに配慮できる知識と経験を習得したい。  
+　バックエンドではActiveRecordに頼りきりだったのでSQLを学びなおしたい。  
+　フロントエンドではTypeScriptを習得したい。  
+  
 #### 参照WEB
 　公式ドキュメント（英語でも必ず読みました）  
 　Railsチュートリアル  
+　Terraformチュートリアル  
+　CircleCIチュートリアル  
   
 #### 参照書籍
 　Webを支える技術  

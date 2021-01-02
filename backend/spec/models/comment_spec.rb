@@ -24,6 +24,12 @@ RSpec.describe Comment, type: :model do
     expect(comment.errors.messages[:content]).to include "can't be blank"
   end
 
+  it 'contentが空白だと無効' do
+    comment = FactoryBot.build(:comment, content: '')
+    comment.valid?
+    expect(comment.errors.messages[:content]).to include "can't be blank"
+  end
+
   it 'user_idがなければ無効' do
     comment = FactoryBot.build(:comment, user_id: nil)
     comment.valid?

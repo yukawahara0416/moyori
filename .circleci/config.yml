@@ -13,34 +13,34 @@ jobs:
       - checkout
       - run:
           name: docker-compose up
-          command: docker-compose up -d --build
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
       - run:
           name: docker-compose stop because Can't connect to MySQL server on 'db' (115)
           command: docker-compose stop
       - run:
           name: docker-compose up
-          command: docker-compose up -d
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
       - run:
           name: setup db
-          command: docker-compose run --rm backend bundle exec rails db:create db:migrate
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm backend bundle exec rails db:create db:migrate db:seed
       - run:
           name: rubocop
-          command: docker-compose run --rm backend bundle exec rubocop --auto-correct
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm backend bundle exec rubocop --auto-correct
       - run:
           name: rspec
-          command: docker-compose run --rm backend bundle exec rspec
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm backend bundle exec rspec
       # - run:
       #     name: yarn install
-      #     command: docker-compose run --rm frontend yarn install
+      #     command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm frontend yarn install
       - run:
           name: eslint
-          command: docker-compose run --rm frontend vue-cli-service lint
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm frontend vue-cli-service lint
       - run:
           name: unit test
-          command: docker-compose run --rm frontend vue-cli-service test:unit
+          command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm frontend vue-cli-service test:unit --runInBand
       # - run:
       #     name: e2e test
-      #     command: docker-compose run --rm frontend vue-cli-service test:e2e
+      #     command: docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm frontend vue-cli-service test:e2e
       - run:
           name: docker-compose down
           command: docker-compose down
@@ -56,10 +56,10 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          path: "./backend"
+          path: './backend'
           region: AWS_DEFAULT_REGION
-          repo: "${AWS_RESOURCE_NAME_PREFIX}-backend"
-          tag: "latest"
+          repo: '${AWS_RESOURCE_NAME_PREFIX}-backend'
+          tag: 'latest'
           filters:
             branches:
               only: master
@@ -70,10 +70,10 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          path: "./frontend"
+          path: './frontend'
           region: AWS_DEFAULT_REGION
-          repo: "${AWS_RESOURCE_NAME_PREFIX}-frontend"
-          tag: "latest"
+          repo: '${AWS_RESOURCE_NAME_PREFIX}-frontend'
+          tag: 'latest'
           filters:
             branches:
               only: master
@@ -86,10 +86,10 @@ workflows:
           aws-access-key-id: ${AWS_ACCESS_KEY_ID}
           aws-secret-access-key: ${AWS_SECRET_ACCESS_KEY}
           aws-region: AWS_DEFAULT_REGION
-          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-          container-image-name-updates: "container=backend,tag=latest"
-          family: "${AWS_RESOURCE_NAME_PREFIX}-task"
-          service-name: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          cluster-name: '${AWS_RESOURCE_NAME_PREFIX}-cluster'
+          container-image-name-updates: 'container=backend,tag=latest'
+          family: '${AWS_RESOURCE_NAME_PREFIX}-task'
+          service-name: '${AWS_RESOURCE_NAME_PREFIX}-service'
           filters:
             branches:
               only: master
@@ -103,10 +103,10 @@ workflows:
           aws-access-key-id: ${AWS_ACCESS_KEY_ID}
           aws-secret-access-key: ${AWS_SECRET_ACCESS_KEY}
           aws-region: AWS_DEFAULT_REGION
-          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-          container-image-name-updates: "container=frontend,tag=latest"
-          family: "${AWS_RESOURCE_NAME_PREFIX}-task"
-          service-name: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          cluster-name: '${AWS_RESOURCE_NAME_PREFIX}-cluster'
+          container-image-name-updates: 'container=frontend,tag=latest'
+          family: '${AWS_RESOURCE_NAME_PREFIX}-task'
+          service-name: '${AWS_RESOURCE_NAME_PREFIX}-service'
           filters:
             branches:
               only: master

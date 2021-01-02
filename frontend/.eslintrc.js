@@ -15,9 +15,25 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
+        printWidth: 80,
+        tabWidth: 2,
+        useTabs: false,
+        semi: false,
         singleQuote: true,
+        quoteProps: 'as-needed',
+        jsxSingleQuote: false,
         trailingComma: 'none',
-        semi: false
+        bracketSpacing: true,
+        jsxBracketSameLine: true,
+        arrowParens: 'avoid',
+        rangeStart: 0,
+        filepath: 'none',
+        requirePragma: false,
+        insertPragma: false,
+        proseWrap: 'preserve',
+        htmlWhitespaceSensitivity: 'ignore',
+        vueIndentScriptAndStyle: false,
+        endOfLine: 'lf'
       }
     ],
     'no-undef': 0
@@ -25,7 +41,10 @@ module.exports = {
   globals: {},
   overrides: [
     {
-      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+      ],
       env: {
         jest: true
       }

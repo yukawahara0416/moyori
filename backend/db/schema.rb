@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_041912) do
+ActiveRecord::Schema.define(version: 2020_12_05_042217) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.string "namespace"
@@ -26,6 +26,27 @@ ActiveRecord::Schema.define(version: 2020_05_19_041912) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -39,9 +60,9 @@ ActiveRecord::Schema.define(version: 2020_05_19_041912) do
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
-    t.text "content"
-    t.bigint "user_id"
-    t.bigint "spot_id"
+    t.text "content", null: false
+    t.bigint "user_id", null: false
+    t.bigint "spot_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["spot_id"], name: "index_comments_on_spot_id"
@@ -49,8 +70,8 @@ ActiveRecord::Schema.define(version: 2020_05_19_041912) do
   end
 
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "spot_id"
+    t.bigint "user_id", null: false
+    t.bigint "spot_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["spot_id"], name: "index_likes_on_spot_id"
@@ -58,8 +79,8 @@ ActiveRecord::Schema.define(version: 2020_05_19_041912) do
   end
 
   create_table "power_withouts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "spot_id"
+    t.bigint "user_id", null: false
+    t.bigint "spot_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["spot_id"], name: "index_power_withouts_on_spot_id"
@@ -67,8 +88,8 @@ ActiveRecord::Schema.define(version: 2020_05_19_041912) do
   end
 
   create_table "power_withs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "spot_id"
+    t.bigint "user_id", null: false
+    t.bigint "spot_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["spot_id"], name: "index_power_withs_on_spot_id"
@@ -76,16 +97,18 @@ ActiveRecord::Schema.define(version: 2020_05_19_041912) do
   end
 
   create_table "spots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
-    t.string "place_id"
-    t.string "title"
-    t.string "adress"
+    t.string "place_id", null: false
+    t.string "name"
+    t.string "address"
     t.decimal "lat", precision: 9, scale: 6
     t.decimal "lng", precision: 9, scale: 6
-    t.string "image"
+    t.text "image"
+    t.string "phone"
     t.string "url"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_spots_on_place_id", unique: true
     t.index ["user_id"], name: "index_spots_on_user_id"
   end
 
@@ -102,10 +125,8 @@ ActiveRecord::Schema.define(version: 2020_05_19_041912) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.string "name"
-    t.string "nickname"
-    t.string "image"
-    t.string "email"
+    t.string "name", null: false
+    t.string "email", null: false
     t.text "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -116,8 +137,8 @@ ActiveRecord::Schema.define(version: 2020_05_19_041912) do
   end
 
   create_table "wifi_withouts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "spot_id"
+    t.bigint "user_id", null: false
+    t.bigint "spot_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["spot_id"], name: "index_wifi_withouts_on_spot_id"
@@ -125,14 +146,15 @@ ActiveRecord::Schema.define(version: 2020_05_19_041912) do
   end
 
   create_table "wifi_withs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "spot_id"
+    t.bigint "user_id", null: false
+    t.bigint "spot_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["spot_id"], name: "index_wifi_withs_on_spot_id"
     t.index ["user_id"], name: "index_wifi_withs_on_user_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "spots"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "spots"

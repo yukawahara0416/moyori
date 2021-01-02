@@ -14,7 +14,7 @@ resource "aws_ecr_lifecycle_policy" "example_frontend" {
           "tagStatus": "tagged",
           "tagPrefixList": ["release"],
           "countType": "imageCountMoreThan",
-          "countNumber": 10
+          "countNumber": 1
         },
         "action": {
           "type": "expire"
@@ -41,7 +41,7 @@ resource "aws_ecr_lifecycle_policy" "example_backend" {
           "tagStatus": "tagged",
           "tagPrefixList": ["release"],
           "countType": "imageCountMoreThan",
-          "countNumber": 10
+          "countNumber": 1
         },
         "action": {
           "type": "expire"

@@ -1,27 +1,49 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
+import Vuex from 'vuex'
 import VueRouter from 'vue-router'
-import Vuetify from 'vuetify'
 import Component from '@/App.vue'
 
 const localVue = createLocalVue()
+localVue.use(Vuex)
 localVue.use(VueRouter)
-localVue.use(Vuetify)
-
-const router = new VueRouter()
-const vuetify = new Vuetify()
 
 let wrapper
+let store
+let getters
+let router
 
 beforeEach(() => {
+  getters = {
+    loading: () => true
+  }
+
+  store = new Vuex.Store({
+    getters
+  })
+
+  router = new VueRouter()
+
   wrapper = shallowMount(Component, {
     localVue,
-    router,
-    vuetify
+    store,
+    router
   })
 })
 
-describe('Testing App component', () => {
-  it('is a Vue instance', () => {
+describe('component', () => {
+  it('instance', () => {
     expect(wrapper.isVueInstance).toBeTruthy()
+  })
+})
+
+describe('getters', () => {
+  it('loading', () => {
+    expect(wrapper.vm.loading).toEqual(store.getters.loading)
+  })
+})
+
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
