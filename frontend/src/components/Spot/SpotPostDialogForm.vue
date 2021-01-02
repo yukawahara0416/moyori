@@ -10,7 +10,7 @@
           <ValidationProvider
             v-slot="{ errors, valid }"
             name="スポット名"
-            rules="required|max:40"
+            rules="required|max:100"
           >
             <v-text-field
               class="pl-1 pr-4"

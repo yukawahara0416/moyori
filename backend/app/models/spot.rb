@@ -16,7 +16,7 @@ class Spot < ApplicationRecord
   has_one_attached :picture
 
   validates :address, length: { maximum: 200 }
-  validates :name, length: { maximum: 40 }
+  validates :name, length: { maximum: 100 }
   validates :place_id, presence: true, uniqueness: true
   validates :url, length: { maximum: 100 }
 
