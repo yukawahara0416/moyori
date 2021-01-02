@@ -30,6 +30,13 @@ export default {
     return {
       slides: [
         {
+          title: '集中できるスポットをシェアしよう！',
+          content:
+            '外出中に「近くにWi-Fiがあって充電もできるカフェがないかな？」と困ったことはありませんか？MoYoRiならすぐに見つけられます。',
+          image: require('@/assets/cafe_nomad_man.png'),
+          color: 'indigo'
+        },
+        {
           title: 'スポットに投票しよう！',
           content:
             '「Wifiサービスのあり／なし」「電源サービスのあり／なし」をワンクリックで投票することが出来ます。（＊ユーザ登録が必要です）',
