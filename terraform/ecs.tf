@@ -35,7 +35,7 @@ resource "aws_ecs_service" "example" {
 resource "aws_ecs_task_definition" "example" {
   family                   = "${var.aws_resource_prefix}-task"
   cpu                      = "256"
-  memory                   = "512"
+  memory                   = "1024"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
