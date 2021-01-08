@@ -6,7 +6,7 @@
 
         <v-spacer />
 
-        <header-tutorial-button />
+      <header-tutorial-button v-if="$vuetify.breakpoint.smAndUp" />
 
         <header-avatar-button v-if="isLoggingIn" />
 
