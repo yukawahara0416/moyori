@@ -1,7 +1,11 @@
 <template>
   <div class="filter-container">
     <v-row class="ml-5">
-      <search-filter-result :spots="spots" :filteredSpots="filteredSpots" />
+      <search-filter-result
+        v-if="$vuetify.breakpoint.smAndUp"
+        :spots="spots"
+        :filteredSpots="filteredSpots"
+      />
 
       <search-filter-radius />
 
