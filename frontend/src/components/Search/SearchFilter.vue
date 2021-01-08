@@ -37,18 +37,8 @@ export default {
     SearchFilterSwitch
   },
 
-  mounted() {
-    scrollTo()
-  },
-
   computed: {
     ...mapGetters({ spots: 'spot/spots', filteredSpots: 'spot/filteredSpots' })
-  },
-
-  methods: {
-    scrollTo() {
-      window.scrollTo(0, -300)
-    }
   }
 }
 </script>
