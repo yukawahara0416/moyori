@@ -36,6 +36,7 @@ beforeEach(() => {
     store,
     vuetify,
     methods: {
+      scrollTo
     }
   })
 })
