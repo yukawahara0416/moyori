@@ -95,7 +95,7 @@ export default {
           // formDataを用意してPOSTします
           this.assignSpotFormData(spot)
           newSpot = await this.postSpot({ params: this.form, headers })
-          this.updateDataSpotsStore({ spot, data: newSpot.data })
+          this.updateDataSpotsStore({ spot, data: newSpot })
           params.append('like[spot_id]', newSpot.data.id)
         } else {
           params.append('like[spot_id]', spot.data.id)
