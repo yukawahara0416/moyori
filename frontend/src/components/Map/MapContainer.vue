@@ -81,11 +81,7 @@ export default {
     }),
     ...mapGetters(['currentUser', 'isLoggingIn']),
 
-    zoom() {
-      if (this.radius.value === 1000) return 15
-      if (this.radius.value === 3000) return 13
-      return 16
-    }
+    zoom() {}
   },
 
   methods: {
