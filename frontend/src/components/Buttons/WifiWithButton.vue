@@ -98,7 +98,7 @@ export default {
           // formDataを用意してPOSTします
           this.assignSpotFormData(spot)
           newSpot = await this.postSpot({ params: this.form, headers })
-          this.updateDataSpotsStore({ spot, data: newSpot.data })
+          this.updateDataSpotsStore({ spot, data: newSpot })
           params.append('wifi_with[spot_id]', newSpot.data.id)
         } else {
           params.append('wifi_with[spot_id]', spot.data.id)
