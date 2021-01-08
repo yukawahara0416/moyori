@@ -88,6 +88,7 @@ export default {
       if (this.radius.value === 1000 && this.$vuetify.breakpoint.mdAndUp)
         return 15
       if (this.$vuetify.breakpoint.smAndDown) return 15
+      return 16
     }
   },
 
