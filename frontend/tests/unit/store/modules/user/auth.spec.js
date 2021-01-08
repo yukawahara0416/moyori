@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import auth from '@/store/modules/user/auth.js'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 import { axiosBase } from '@/plugins/axios.js'
 import MockAdapter from 'axios-mock-adapter'
 
