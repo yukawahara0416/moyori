@@ -42,7 +42,7 @@ export default new Vuex.Store({
       storage: window.sessionStorage
     }),
     createPersistedState({
-    }),
+      key: 'local',
     })
   ]
 })
