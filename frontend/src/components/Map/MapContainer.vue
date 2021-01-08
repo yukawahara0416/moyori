@@ -100,7 +100,6 @@ export default {
     ]),
     ...mapMutations({
       addSpotsStore: 'spot/addSpotsStore',
-      updateDataSpotsStore: 'spot/updateDataSpotsStore',
       clearSpotsStore: 'spot/clearSpotsStore',
       setRadius: 'spot/setRadius'
     }),
