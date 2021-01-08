@@ -38,7 +38,7 @@ export default {
   },
 
   mounted() {
-    window.scrollTo(0, -300)
+    scrollTo()
   },
 
   computed: {
