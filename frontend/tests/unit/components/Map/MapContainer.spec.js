@@ -81,6 +81,7 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue,
     store,
+    vuetify,
     stubs: ['gmap-map', 'map-circle', 'map-marker']
   })
 })
@@ -102,6 +103,7 @@ describe('call at mount hook', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
+      vuetify,
       stubs: ['gmap-map', 'map-circle', 'map-marker'],
       methods: {
         demoSearch
@@ -159,6 +161,7 @@ describe('computed', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
+      vuetify,
       stubs: ['gmap-map', 'map-circle', 'map-marker']
     })
 
@@ -181,6 +184,7 @@ describe('computed', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
+      vuetify,
       stubs: ['gmap-map', 'map-circle', 'map-marker']
     })
 
