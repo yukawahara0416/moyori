@@ -66,6 +66,8 @@ beforeEach(() => {
     }
   }
 
+  vuetify = new Vuetify()
+
   store = new Vuex.Store({
     modules: {
       spot,
