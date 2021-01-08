@@ -31,9 +31,9 @@ export default {
 }
 .mapHeight_small {
   position: fixed;
-  top: calc(132px);
+  top: calc(116px);
   left: 0;
   width: calc(100vw);
-  height: calc(50vh - 132px);
+  height: calc(50vh - 116px);
 }
 </style>
