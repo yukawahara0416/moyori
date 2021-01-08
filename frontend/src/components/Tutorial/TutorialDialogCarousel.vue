@@ -1,6 +1,11 @@
 <template>
   <v-card>
-    <v-carousel height="400" hide-delimiter-background :continuous="false">
+    <v-carousel
+      height="400"
+      hide-delimiter-background
+      :show-arrows="false"
+      :continuous="false"
+    >
       <v-carousel-item v-for="(slide, i) in slides" :key="i">
         <v-sheet :color="slide.color" height="100%">
           <v-row class="fill-height" align="center" justify="center">
