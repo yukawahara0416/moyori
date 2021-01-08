@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import merge from 'lodash/merge'
 
 /**
  * import { Spot } from '@/class/Spot.js'
@@ -86,5 +86,5 @@ function valueMerge(value, target) {
     'comments'
   ]
   const type = keyword.includes(target) ? [] : {}
-  return _.merge(type, Spot.default[target], value[target])
+  return merge(type, Spot.default[target], value[target])
 }
