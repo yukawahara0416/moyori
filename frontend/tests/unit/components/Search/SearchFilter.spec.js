@@ -12,6 +12,8 @@ let store
 let spot
 let vuetify
 
+const scrollTo = jest.fn()
+
 beforeEach(() => {
   spot = {
     namespaced: true,
