@@ -35,6 +35,8 @@ beforeEach(() => {
     localVue,
     store,
     vuetify,
+    methods: {
+    }
   })
 })
 
