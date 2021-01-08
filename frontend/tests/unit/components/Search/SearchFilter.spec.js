@@ -29,6 +29,8 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
   wrapper = shallowMount(Component, {
     localVue,
     store
