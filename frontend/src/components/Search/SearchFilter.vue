@@ -49,4 +49,8 @@ export default {
   height: 64px;
   top: 68px;
 }
+.sm_and_down {
+  height: 56px;
+  top: 60px;
+}
 </style>
