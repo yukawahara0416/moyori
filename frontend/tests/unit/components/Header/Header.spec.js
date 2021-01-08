@@ -11,6 +11,7 @@ let wrapper
 let store
 let auth
 let $route
+let vuetify
 
 beforeEach(() => {
   auth = {
