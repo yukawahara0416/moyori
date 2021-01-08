@@ -1,14 +1,17 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import Component from '@/components/Header/Header.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Vuetify)
 
 let wrapper
 let store
 let auth
 let $route
+let vuetify
 
 beforeEach(() => {
   auth = {
@@ -26,6 +29,8 @@ beforeEach(() => {
   $route = {
     name: 'search'
   }
+
+  vuetify = new Vuetify()
 })
 
 describe('with shallowMount wrapper', () => {
@@ -33,6 +38,7 @@ describe('with shallowMount wrapper', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
+      vuetify,
       mocks: {
         $route
       }
@@ -70,6 +76,7 @@ describe('with mount wrapper', () => {
     wrapper = mount(Component, {
       localVue,
       store,
+      vuetify,
       mocks: {
         $route
       },

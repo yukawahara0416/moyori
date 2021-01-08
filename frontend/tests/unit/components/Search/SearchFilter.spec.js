@@ -1,13 +1,18 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import Component from '@/components/Search/SearchFilter.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Vuetify)
 
 let wrapper
 let store
 let spot
+let vuetify
+
+const scrollTo = jest.fn()
 
 beforeEach(() => {
   spot = {
@@ -24,9 +29,15 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
   wrapper = shallowMount(Component, {
     localVue,
-    store
+    store,
+    vuetify,
+    methods: {
+      scrollTo
+    }
   })
 })
 

@@ -39,7 +39,7 @@ export default {
   position: fixed;
   bottom: 0px;
   background-color: white;
-  width: 100vw;
-  height: 50vh;
+  width: calc(100vw);
+  height: calc(50vh);
 }
 </style>

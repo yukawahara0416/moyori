@@ -1,19 +1,17 @@
 <template>
   <div>
     <v-app-bar app flat class="app-bar">
-      <v-toolbar flat class="toolbar">
-        <header-title />
+      <header-title />
 
-        <v-spacer />
+      <v-spacer />
 
-        <header-tutorial-button />
+      <header-tutorial-button v-if="$vuetify.breakpoint.smAndUp" />
 
-        <header-avatar-button v-if="isLoggingIn" />
+      <header-avatar-button v-if="isLoggingIn" />
 
-        <header-sign-button v-else />
+      <header-sign-button v-else />
 
-        <v-app-bar-nav-icon @click.stop="openDrawer()" />
-      </v-toolbar>
+      <v-app-bar-nav-icon @click.stop="openDrawer()" />
     </v-app-bar>
 
     <header-drawer-button v-model="drawerState" />
@@ -63,9 +61,6 @@ export default {
 <style scoped>
 .app-bar {
   background-color: white !important;
-  height: 64px;
-}
-.toolbar {
   padding: 0px !important;
 }
 </style>
