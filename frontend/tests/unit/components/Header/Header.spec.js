@@ -38,6 +38,7 @@ describe('with shallowMount wrapper', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
+      vuetify,
       mocks: {
         $route
       }
@@ -75,6 +76,7 @@ describe('with mount wrapper', () => {
     wrapper = mount(Component, {
       localVue,
       store,
+      vuetify,
       mocks: {
         $route
       },
