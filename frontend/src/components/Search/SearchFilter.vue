@@ -45,4 +45,8 @@ export default {
   width: 100%;
   background-color: white;
 }
+.md_and_up {
+  height: 64px;
+  top: 68px;
+}
 </style>
