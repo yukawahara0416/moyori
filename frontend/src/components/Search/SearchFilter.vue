@@ -37,6 +37,10 @@ export default {
     SearchFilterSwitch
   },
 
+  mounted() {
+    window.scrollTo(0, -300)
+  },
+
   computed: {
     ...mapGetters({ spots: 'spot/spots', filteredSpots: 'spot/filteredSpots' })
   }
@@ -46,8 +50,6 @@ export default {
 <style scoped>
 .filter-container {
   position: fixed;
-  top: 68px;
-  height: 68px;
   width: 100%;
   background-color: white;
 }
