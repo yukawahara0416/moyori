@@ -14,6 +14,7 @@ let map
 let auth
 let dialog
 let loading
+let vuetify
 
 beforeEach(() => {
   spot = {
