@@ -2,7 +2,7 @@ import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import { Spot } from '@/class/Spot.js'
 import { axiosBase } from '@/plugins/axios.js'
-import _ from 'lodash'
+import merge from 'lodash/merge'
 import queryString from 'query-string'
 
 Vue.use(VueGoogleMaps, {
@@ -165,7 +165,7 @@ function collateGmapSpot(spot) {
       .get('/api/v1/spots/collate?' + query)
       .then(response => {
         if (response.status === 200) {
-          const collated = _.merge(spot, response.data)
+          const collated = merge(spot, response.data)
           resolve(collated)
         }
         resolve(spot)

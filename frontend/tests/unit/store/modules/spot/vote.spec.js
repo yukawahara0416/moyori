@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import vote from '@/store/modules/spot/vote.js'
 import { axiosBase } from '@/plugins/axios.js'
 import MockAdapter from 'axios-mock-adapter'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 
 const axiosMock = new MockAdapter(axiosBase)
 

@@ -1,6 +1,6 @@
 import { axiosBase } from '@/plugins/axios.js'
 import { Spot } from '@/class/Spot.js'
-import _ from 'lodash'
+import merge from 'lodash/merge'
 
 export default {
   namespaced: true,
@@ -103,7 +103,7 @@ export default {
       const target = state.spots.filter(item => {
         return item.data.place_id == spot.data.place_id
       })
-      _.merge(target[0], data)
+      merge(target[0], data)
     },
 
     setRadius(state, payload) {
