@@ -44,6 +44,7 @@ export default new Vuex.Store({
     createPersistedState({
       key: 'local',
       paths: ['dialog.dialogTutorial'],
+      storage: window.localStorage
     })
   ]
 })
