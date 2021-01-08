@@ -47,6 +47,7 @@ export default {
 
   methods: {
     scrollTo() {
+      window.scrollTo(0, -300)
     }
   }
 }
