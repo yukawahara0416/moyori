@@ -43,6 +43,9 @@ export default {
 
   computed: {
     ...mapGetters({ spots: 'spot/spots', filteredSpots: 'spot/filteredSpots' })
+  },
+
+  methods: {
   }
 }
 </script>
