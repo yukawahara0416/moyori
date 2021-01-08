@@ -29,6 +29,8 @@ beforeEach(() => {
   $route = {
     name: 'search'
   }
+
+  vuetify = new Vuetify()
 })
 
 describe('with shallowMount wrapper', () => {
