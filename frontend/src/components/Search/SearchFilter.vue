@@ -1,5 +1,11 @@
 <template>
-  <div class="filter-container">
+  <div
+    class="filter-container"
+    :class="{
+      md_and_up: $vuetify.breakpoint.mdAndUp,
+      sm_and_down: $vuetify.breakpoint.smAndDown
+    }"
+  >
     <v-row class="ml-5">
       <search-filter-result
         v-if="$vuetify.breakpoint.smAndUp"
