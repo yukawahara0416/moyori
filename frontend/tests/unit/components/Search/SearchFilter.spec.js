@@ -10,6 +10,7 @@ localVue.use(Vuetify)
 let wrapper
 let store
 let spot
+let vuetify
 
 beforeEach(() => {
   spot = {
