@@ -18,6 +18,8 @@ import MapContainer from '@/components/Map/MapContainer.vue'
 export default {
   components: {
     MapContainer
+  },
+
   mounted() {
     window.addEventListener('resize', this.handleResize)
   },
@@ -40,6 +42,11 @@ export default {
     }
   },
 
+  methods: {
+    handleResize() {
+  }
+}
+}
 </script>
 
 <style scoped>
