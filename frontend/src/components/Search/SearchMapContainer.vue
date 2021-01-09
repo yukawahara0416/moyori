@@ -18,6 +18,8 @@ import MapContainer from '@/components/Map/MapContainer.vue'
 export default {
   components: {
     MapContainer
+  mounted() {
+  },
   }
 }
 </script>
