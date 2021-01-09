@@ -28,6 +28,7 @@ export default {
 
   data() {
     return {
+      height: window.innerHeight
     }
   },
 }
