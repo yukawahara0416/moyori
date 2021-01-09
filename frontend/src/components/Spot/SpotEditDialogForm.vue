@@ -123,7 +123,7 @@
           @click="updateSpotHandler()"
           :disabled="invalid"
         >
-          スポットを編集する
+          スポットを編集
         </v-btn>
 
         <v-spacer />
