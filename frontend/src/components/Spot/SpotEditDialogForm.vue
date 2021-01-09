@@ -109,21 +109,21 @@
       <v-card-actions>
         <v-spacer />
 
-        <v-btn class="mb-3 px-10" large @click.stop="cancelUpdateSpot()">
+        <v-btn class="mb-3" large @click.stop="cancelUpdateSpot()">
           キャンセル
         </v-btn>
 
         <v-spacer />
 
         <v-btn
-          class="mb-3 px-10"
+          class="mb-3"
           color="primary"
           large
           type="submit"
           @click="updateSpotHandler()"
           :disabled="invalid"
         >
-          スポットを編集する
+          スポットを編集
         </v-btn>
 
         <v-spacer />
