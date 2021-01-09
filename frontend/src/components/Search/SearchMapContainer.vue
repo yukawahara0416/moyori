@@ -33,7 +33,10 @@ export default {
   },
 
   computed: {
-}
+    styleVariables() {
+      return {
+      }
+    }
   },
 
 </script>
