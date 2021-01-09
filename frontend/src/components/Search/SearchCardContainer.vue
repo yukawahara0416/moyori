@@ -56,11 +56,12 @@ export default {
 
 <style scoped>
 .indexHeight_big {
+  --checkbox-height: 100vh;
   position: fixed;
   top: 132px;
   background-color: white;
   width: 50vw;
-  height: calc(100vh - 132px);
+  height: calc(var(--checkbox-height) - 132px);
 }
 .indexHeight_small {
   position: fixed;
