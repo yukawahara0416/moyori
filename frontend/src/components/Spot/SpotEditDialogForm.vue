@@ -116,7 +116,7 @@
         <v-spacer />
 
         <v-btn
-          class="mb-3 px-10"
+          class="mb-3"
           color="primary"
           large
           type="submit"
