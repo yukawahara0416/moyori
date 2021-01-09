@@ -7,6 +7,7 @@
       indexHeight_big: $vuetify.breakpoint.mdAndUp,
       indexHeight_small: $vuetify.breakpoint.smAndDown
     }"
+    :style="styleVariables"
   >
     <card-container :spots="filteredSpots" />
   </v-container>
