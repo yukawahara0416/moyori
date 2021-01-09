@@ -23,6 +23,7 @@ export default {
   },
 
   mounted() {
+    window.addEventListener('resize', this.handleResize)
   },
 
   computed: {
