@@ -27,6 +27,7 @@ export default {
   },
 
   beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
   },
 
   computed: {
