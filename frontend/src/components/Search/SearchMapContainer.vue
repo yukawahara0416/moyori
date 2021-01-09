@@ -35,6 +35,7 @@ export default {
   computed: {
     styleVariables() {
       return {
+        '--checkbox-height': `${this.height}px`
       }
     }
   },
