@@ -16,7 +16,6 @@ export default {
   data() {
     return {
       pages: [
-        { title: 'MoYoRiとは', icon: 'mdi-help-circle-outline', to: '/about' },
         { title: '利用規約', icon: 'mdi-book-open-page-variant', to: '/rules' },
         { title: 'プライバシーポリシー', icon: 'mdi-security', to: '/privacy' }
       ]

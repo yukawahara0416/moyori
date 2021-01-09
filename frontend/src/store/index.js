@@ -37,8 +37,14 @@ export default new Vuex.Store({
 
   plugins: [
     createPersistedState({
-      paths: ['auth.currentUser', 'auth.headers', 'dialog.dialogTutorial'],
+      key: 'session',
+      paths: ['auth.currentUser', 'auth.headers'],
       storage: window.sessionStorage
+    }),
+    createPersistedState({
+      key: 'local',
+      paths: ['dialog.dialogTutorial'],
+      storage: window.localStorage
     })
   ]
 })

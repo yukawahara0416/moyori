@@ -1,9 +1,11 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import Component from '@/components/Map/MapContainer.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Vuetify)
 
 let wrapper
 let store
@@ -12,6 +14,7 @@ let map
 let auth
 let dialog
 let loading
+let vuetify
 
 beforeEach(() => {
   spot = {
@@ -63,6 +66,8 @@ beforeEach(() => {
     }
   }
 
+  vuetify = new Vuetify()
+
   store = new Vuex.Store({
     modules: {
       spot,
@@ -76,6 +81,7 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue,
     store,
+    vuetify,
     stubs: ['gmap-map', 'map-circle', 'map-marker']
   })
 })
@@ -97,6 +103,7 @@ describe('call at mount hook', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
+      vuetify,
       stubs: ['gmap-map', 'map-circle', 'map-marker'],
       methods: {
         demoSearch
@@ -154,6 +161,7 @@ describe('computed', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
+      vuetify,
       stubs: ['gmap-map', 'map-circle', 'map-marker']
     })
 
@@ -176,6 +184,7 @@ describe('computed', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
+      vuetify,
       stubs: ['gmap-map', 'map-circle', 'map-marker']
     })
 

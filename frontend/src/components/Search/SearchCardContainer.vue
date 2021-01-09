@@ -7,6 +7,7 @@
       indexHeight_big: $vuetify.breakpoint.mdAndUp,
       indexHeight_small: $vuetify.breakpoint.smAndDown
     }"
+    :style="styleVariables"
   >
     <card-container :spots="filteredSpots" />
   </v-container>
@@ -21,25 +22,53 @@ export default {
     CardContainer
   },
 
+  mounted() {
+    window.addEventListener('resize', this.handleResize)
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
+  },
+
+  data() {
+    return {
+      height: window.innerHeight
+    }
+  },
+
   computed: {
-    ...mapGetters({ filteredSpots: 'spot/filteredSpots' })
+    ...mapGetters({ filteredSpots: 'spot/filteredSpots' }),
+
+    styleVariables() {
+      return {
+        '--checkbox-height': `${this.height}px`
+      }
+    }
+  },
+
+  methods: {
+    handleResize() {
+      this.height = window.innerHeight
+    }
   }
 }
 </script>
 
 <style scoped>
 .indexHeight_big {
+  --checkbox-height: 100vh;
   position: fixed;
   top: 132px;
   background-color: white;
   width: 50vw;
-  height: calc(100vh - 132px);
+  height: calc(var(--checkbox-height) - 132px);
 }
 .indexHeight_small {
+  --checkbox-height: 100vh;
   position: fixed;
   bottom: 0px;
   background-color: white;
-  width: calc(100vw);
-  height: calc(50vh);
+  width: 100vw;
+  height: calc(var(--checkbox-height) / 2);
 }
 </style>

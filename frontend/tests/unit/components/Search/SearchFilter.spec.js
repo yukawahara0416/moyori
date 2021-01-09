@@ -12,8 +12,6 @@ let store
 let spot
 let vuetify
 
-const scrollTo = jest.fn()
-
 beforeEach(() => {
   spot = {
     namespaced: true,
@@ -34,10 +32,7 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue,
     store,
-    vuetify,
-    methods: {
-      scrollTo
-    }
+    vuetify
   })
 })
 

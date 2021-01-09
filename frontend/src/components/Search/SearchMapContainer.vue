@@ -6,6 +6,7 @@
       mapHeight_big: $vuetify.breakpoint.mdAndUp,
       mapHeight_small: $vuetify.breakpoint.smAndDown
     }"
+    :style="styleVariables"
   >
     <map-container />
   </v-col>
@@ -17,23 +18,53 @@ import MapContainer from '@/components/Map/MapContainer.vue'
 export default {
   components: {
     MapContainer
+  },
+
+  mounted() {
+    window.addEventListener('resize', this.handleResize)
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
+  },
+
+  data() {
+    return {
+      height: window.innerHeight
+    }
+  },
+
+  computed: {
+    styleVariables() {
+      return {
+        '--checkbox-height': `${this.height}px`
+      }
+    }
+  },
+
+  methods: {
+    handleResize() {
+      this.height = window.innerHeight
+    }
   }
 }
 </script>
 
 <style scoped>
 .mapHeight_big {
+  --checkbox-height: 100vh;
   position: fixed;
   top: calc(132px);
   right: 0;
   width: calc(50vw);
-  height: calc(100vh - 132px);
+  height: calc(var(--checkbox-height) - 132px);
 }
 .mapHeight_small {
+  --checkbox-height: 100vh;
   position: fixed;
   top: calc(116px);
   left: 0;
   width: calc(100vw);
-  height: calc(50vh - 116px);
+  height: calc(var(--checkbox-height) / 2 - 116px);
 }
 </style>
