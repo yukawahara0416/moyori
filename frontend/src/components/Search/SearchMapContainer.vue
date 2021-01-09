@@ -60,10 +60,11 @@ export default {
   height: calc(var(--checkbox-height) - 132px);
 }
 .mapHeight_small {
+  --checkbox-height: 100vh;
   position: fixed;
   top: calc(116px);
   left: 0;
   width: calc(100vw);
-  height: calc(50vh - 116px);
+  height: calc(var(--checkbox-height) / 2 - 116px);
 }
 </style>
