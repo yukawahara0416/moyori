@@ -45,6 +45,11 @@ export default {
       }
     }
   },
+
+  methods: {
+    handleResize() {
+      this.height = window.innerHeight
+    }
   }
 }
 </script>
