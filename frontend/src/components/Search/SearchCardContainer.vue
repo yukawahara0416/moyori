@@ -37,7 +37,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ filteredSpots: 'spot/filteredSpots' })
+    ...mapGetters({ filteredSpots: 'spot/filteredSpots' }),
+
+    styleVariables() {
+      return {
+        '--checkbox-height': `${this.height}px`
+      }
+    }
+  },
   }
 }
 </script>
