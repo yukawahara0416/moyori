@@ -19,6 +19,7 @@ export default {
   components: {
     MapContainer
   mounted() {
+    window.addEventListener('resize', this.handleResize)
   },
   }
 }
