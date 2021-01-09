@@ -26,6 +26,9 @@ export default {
     window.addEventListener('resize', this.handleResize)
   },
 
+  beforeDestroy() {
+  },
+
   computed: {
     ...mapGetters({ filteredSpots: 'spot/filteredSpots' })
   }
