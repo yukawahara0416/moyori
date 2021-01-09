@@ -6,6 +6,7 @@
       mapHeight_big: $vuetify.breakpoint.mdAndUp,
       mapHeight_small: $vuetify.breakpoint.smAndDown
     }"
+    :style="styleVariables"
   >
     <map-container />
   </v-col>
