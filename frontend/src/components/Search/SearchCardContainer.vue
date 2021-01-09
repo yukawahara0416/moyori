@@ -22,6 +22,9 @@ export default {
     CardContainer
   },
 
+  mounted() {
+  },
+
   computed: {
     ...mapGetters({ filteredSpots: 'spot/filteredSpots' })
   }
