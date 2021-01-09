@@ -30,6 +30,11 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
 
+  data() {
+    return {
+    }
+  },
+
   computed: {
     ...mapGetters({ filteredSpots: 'spot/filteredSpots' })
   }
