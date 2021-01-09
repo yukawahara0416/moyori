@@ -25,7 +25,11 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
   },
-  }
+
+  data() {
+    return {
+    }
+  },
 }
 </script>
 
