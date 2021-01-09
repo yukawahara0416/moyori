@@ -24,7 +24,7 @@ const routes = [
   {
     path: '/rules',
     name: 'rules',
-    component: () => import('../views/Rules.vue')
+    component: Rules
   },
   {
     path: '/privacy',
