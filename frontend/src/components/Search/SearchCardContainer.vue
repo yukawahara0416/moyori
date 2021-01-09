@@ -64,10 +64,11 @@ export default {
   height: calc(var(--checkbox-height) - 132px);
 }
 .indexHeight_small {
+  --checkbox-height: 100vh;
   position: fixed;
   bottom: 0px;
   background-color: white;
-  width: calc(100vw);
-  height: calc(50vh);
+  width: 100vw;
+  height: calc(var(--checkbox-height) / 2);
 }
 </style>
