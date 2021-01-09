@@ -31,7 +31,11 @@ export default {
       height: window.innerHeight
     }
   },
+
+  computed: {
 }
+  },
+
 </script>
 
 <style scoped>
