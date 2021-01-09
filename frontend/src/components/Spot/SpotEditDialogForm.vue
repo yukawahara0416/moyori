@@ -109,7 +109,7 @@
       <v-card-actions>
         <v-spacer />
 
-        <v-btn class="mb-3 px-10" large @click.stop="cancelUpdateSpot()">
+        <v-btn class="mb-3" large @click.stop="cancelUpdateSpot()">
           キャンセル
         </v-btn>
 
