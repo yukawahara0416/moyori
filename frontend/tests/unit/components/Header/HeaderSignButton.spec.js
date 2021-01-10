@@ -56,6 +56,7 @@ describe('with mocked methods', () => {
     wrapper = mount(Component, {
       localVue,
       store,
+      vuetify,
       methods: {
         openDialog
       },
@@ -97,6 +98,7 @@ describe('without mocked methods', () => {
     wrapper = mount(Component, {
       localVue,
       store,
+      vuetify,
       stubs: ['sign-container', 'v-dialog']
     })
   })
