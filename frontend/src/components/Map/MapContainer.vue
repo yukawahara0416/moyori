@@ -247,6 +247,7 @@ export default {
   position: absolute;
   bottom: 200px;
   right: 10px;
+  transform: translate(0px, 0px);
   z-index: 100;
 }
 .gmap {

@@ -2,6 +2,8 @@ module Api
   module V1
     module Auth
       class RegistrationsController < DeviseTokenAuth::RegistrationsController
+        skip_before_action :verify_authenticity_token
+
         def destroy
           if @resource
             @resource.destroy
