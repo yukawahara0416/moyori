@@ -7,7 +7,11 @@
     >
       ログイン
     </v-btn>
-    <v-btn text @click.stop="openDialog('signup')">
+    <v-btn
+      text
+      :small="$vuetify.breakpoint.smAndDown"
+      @click.stop="openDialog('signup')"
+    >
       新規登録
     </v-btn>
 
