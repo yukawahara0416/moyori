@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   get "*path" => redirect('/'), constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
   }
 
   namespace :api, format: 'json' do
