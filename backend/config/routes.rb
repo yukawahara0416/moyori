@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
+  get "*path" => redirect('/'), constraints: lambda { |req|
+  }
+
   namespace :api, format: 'json' do
     namespace :v1 do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
