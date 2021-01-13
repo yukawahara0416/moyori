@@ -21,7 +21,7 @@ module Api
           power_withouts = []
           comments = []
 
-          avatar = rails_blob_url(user.avatar) if user.avatar.attached?
+          # avatar = rails_blob_url(user.avatar) if user.avatar.attached?
 
           user.spots.where.not('char_length(place_id) > 10').each do |spot|
             json = convert_to_json(spot)
