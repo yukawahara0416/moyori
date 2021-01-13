@@ -57,4 +57,7 @@ Rails.application.configure do
   if Rails.env.development?
     BetterErrors::Middleware.allow_ip! "0.0.0.0/0"
   end
+
+  Rails.application.routes.default_url_options[:host] = 'localhost'
+  Rails.application.routes.default_url_options[:port] = 3000
 end
