@@ -24,6 +24,7 @@ module Api
 
           # avatar = rails_blob_url(user.avatar) if user.avatar.attached?
           # avatar = user.avatar_url
+          avatar = user.avatar.attachment.service.send(:object_for, user.avatar.key).public_url if user.avatar.attached?
 
           user.spots.where.not('char_length(place_id) > 10').each do |spot|
             json = convert_to_json(spot)
