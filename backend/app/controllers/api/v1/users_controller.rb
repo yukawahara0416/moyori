@@ -23,7 +23,7 @@ module Api
           comments = []
 
           # avatar = rails_blob_url(user.avatar) if user.avatar.attached?
-          avatar = user.avatar_url
+          # avatar = user.avatar_url
 
           user.spots.where.not('char_length(place_id) > 10').each do |spot|
             json = convert_to_json(spot)
