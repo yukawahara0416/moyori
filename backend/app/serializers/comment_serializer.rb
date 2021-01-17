@@ -8,8 +8,12 @@ class CommentSerializer < ActiveModel::Serializer
              :image,
              :created_at,
              :updated_at
+
   def user_name
     user = User.find(object.user_id)
     user.name
+  end
+
+  def avatar
   end
 end
