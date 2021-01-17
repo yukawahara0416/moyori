@@ -15,5 +15,6 @@ class CommentSerializer < ActiveModel::Serializer
   end
 
   def avatar
+    user = User.find(object.user_id)
   end
 end
