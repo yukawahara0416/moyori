@@ -26,6 +26,7 @@ data "aws_iam_policy_document" "alb_log" {
 }
 
 resource "aws_s3_bucket" "moyori-image" {
+  bucket = "aws-kawahara-image-test"
 }
 # resource "aws_s3_bucket" "force_destroy" {
 #   bucket        = "force-destroy-${var.github_organization}-${var.github_repo}"
