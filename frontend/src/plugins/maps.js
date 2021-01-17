@@ -165,7 +165,7 @@ function collateGmapSpot(spot) {
       .get('/api/v1/spots/collate?' + query)
       .then(response => {
         if (response.status === 200) {
-          const collated = merge(spot, response.data)
+          const collated = merge(spot, response.data[0])
           resolve(collated)
         }
         resolve(spot)

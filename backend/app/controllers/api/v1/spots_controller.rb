@@ -1,7 +1,6 @@
 module Api
   module V1
     class SpotsController < ApiController
-      include Common
       before_action :authenticate_api_v1_user!, only: %i[save create update destroy]
 
       def collate
@@ -9,7 +8,7 @@ module Api
         if spot == []
           head :no_content
         else
-          render json: convert_to_json(spot[0])
+          render status: 200, json: spot
         end
       end
 
@@ -21,22 +20,17 @@ module Api
         spots = spots.order_location_by(
           lat, lng, distance
         )
-        nears = []
-        spots.each do |spot|
-          near = convert_to_json(spot)
-          nears.push(near)
-        end
-        render json: nears
+        render status: 200, json: spots, each_serializer: SpotSerializer
       end
 
       def show
         spot = Spot.find(params[:id])
-        render json: convert_to_json(spot)
+        render status: 200, json: spot
       end
 
       def create
         spot = current_api_v1_user.spots.create!(spot_params)
-        render json: convert_to_json(spot)
+        render status: 200, json: spot
       end
 
       def update
@@ -46,7 +40,7 @@ module Api
           spot.picture.purge
           spot.picture.attach(params[:picture])
         end
-        render json: convert_to_json(spot)
+        render status: 200, json: spot
       end
 
       def destroy
