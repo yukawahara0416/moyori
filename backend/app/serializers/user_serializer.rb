@@ -3,7 +3,8 @@ class UserSerializer < ActiveModel::Serializer
 
   def data
     {
-      id: object.id
+      id: object.id,
+      email: object.email
     }
   end
 
