@@ -15,7 +15,8 @@ class SpotSerializer < ActiveModel::Serializer
       on: false,
       zIndex: 10,
       image: object.image,
-      picture: picture
+      picture: picture,
+      phone: object.phone
     }
   end
 end
