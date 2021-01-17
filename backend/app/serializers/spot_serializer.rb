@@ -20,4 +20,7 @@ class SpotSerializer < ActiveModel::Serializer
       url: object.url
     }
   end
+
+  def picture
+  end
 end
