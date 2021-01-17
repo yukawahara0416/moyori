@@ -5,7 +5,8 @@ class UserSerializer < ActiveModel::Serializer
     {
       id: object.id,
       email: object.email,
-      name: object.name
+      name: object.name,
+      avatar: avatar
     }
   end
 
