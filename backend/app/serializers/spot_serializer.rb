@@ -13,7 +13,8 @@ class SpotSerializer < ActiveModel::Serializer
         lng: object.lng.to_f
       },
       on: false,
-      zIndex: 10
+      zIndex: 10,
+      image: object.image
     }
   end
 end
