@@ -6,5 +6,6 @@ class CommentSerializer < ActiveModel::Serializer
              :avatar,
              :content,
              :image,
-             :created_at
+             :created_at,
+             :updated_at
 end
