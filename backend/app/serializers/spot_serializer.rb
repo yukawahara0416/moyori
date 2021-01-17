@@ -3,7 +3,8 @@ class SpotSerializer < ActiveModel::Serializer
 
   def data
     {
-      id: object.id
+      id: object.id,
+      user_id: object.user_id
     }
   end
 end
