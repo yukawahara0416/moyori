@@ -18,4 +18,7 @@ class CommentSerializer < ActiveModel::Serializer
     user = User.find(object.user_id)
     user.avatar.attachment.service.send(:object_for, user.avatar.key).public_url if user.avatar.attached?
   end
+
+  def image
+  end
 end
