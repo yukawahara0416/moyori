@@ -45,7 +45,7 @@ module Api
           spot.picture.purge
           spot.picture.attach(params[:picture])
         end
-        render json: convert_to_json(spot)
+        render status: 200, json: spot
       end
 
       def destroy
