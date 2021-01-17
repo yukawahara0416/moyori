@@ -10,4 +10,7 @@ class UserSerializer < ActiveModel::Serializer
     }
   end
 
+  def avatar
+  end
+
 end
