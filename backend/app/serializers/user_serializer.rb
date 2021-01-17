@@ -11,7 +11,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def avatar
-    object.avatar.attachment.service.send(:object_for, object.avatar.key).public_url
+    object.avatar.attachment.service.send(:object_for, object.avatar.key).public_url if object.avatar.attached?
   end
 
 end
