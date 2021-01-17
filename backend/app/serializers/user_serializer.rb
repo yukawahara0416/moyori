@@ -15,4 +15,5 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   has_many :spots, key: :posts
+  has_many :likes
 end
