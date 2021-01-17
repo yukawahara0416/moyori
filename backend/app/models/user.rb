@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:twitter]
   include DeviseTokenAuth::Concerns::User
-  include Rails.application.routes.url_helpers
 
   has_many :spots, dependent: :destroy
   has_many :likes, dependent: :destroy
