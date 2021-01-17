@@ -5,6 +5,7 @@ module Api
 
       def create
         comment = current_api_v1_user.comments.create!(comments_params)
+        render status: 200, json: comment
       end
 
       def destroy
