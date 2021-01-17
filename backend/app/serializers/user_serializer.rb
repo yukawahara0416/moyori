@@ -14,4 +14,5 @@ class UserSerializer < ActiveModel::Serializer
     object.avatar.attachment.service.send(:object_for, object.avatar.key).public_url if object.avatar.attached?
   end
 
+  has_many :spots
 end
