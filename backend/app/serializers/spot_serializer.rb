@@ -26,4 +26,5 @@ class SpotSerializer < ActiveModel::Serializer
   end
 
   has_many :likes
+  has_many :wifi_withs
 end
