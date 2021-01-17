@@ -4,5 +4,6 @@ class CommentSerializer < ActiveModel::Serializer
              :user_id,
              :user_name,
              :avatar,
-             :content
+             :content,
+             :image
 end
