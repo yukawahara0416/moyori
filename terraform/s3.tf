@@ -34,7 +34,10 @@ resource "aws_s3_bucket" "moyori-image" {
     allowed_methods = ["GET", "POST", "PUT"]
     allowed_origins = ["*"]
     expose_headers  = []
+    max_age_seconds = 3000
   }
+}
+
 # resource "aws_s3_bucket" "force_destroy" {
 #   bucket        = "force-destroy-${var.github_organization}-${var.github_repo}"
 #   force_destroy = true
