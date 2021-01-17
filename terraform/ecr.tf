@@ -37,8 +37,7 @@ resource "aws_ecr_lifecycle_policy" "example_backend" {
         "rulePriority": 1,
         "description": "Keep last 1 release images",
         "selection": {
-          "tagStatus": "tagged",
-          "tagPrefixList": ["release"],
+          "tagStatus": "any",
           "countType": "imageCountMoreThan",
           "countNumber": 1
         },
