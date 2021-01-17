@@ -8,4 +8,6 @@ class CommentSerializer < ActiveModel::Serializer
              :image,
              :created_at,
              :updated_at
+  def user_name
+  end
 end
