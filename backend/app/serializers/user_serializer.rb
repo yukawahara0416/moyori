@@ -20,4 +20,5 @@ class UserSerializer < ActiveModel::Serializer
   has_many :wifi_withouts
   has_many :power_withs
   has_many :power_withouts
+  has_many :comments
 end
