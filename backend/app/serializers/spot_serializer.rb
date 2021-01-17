@@ -1,3 +1,3 @@
 class SpotSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :data
 end
