@@ -8,7 +8,7 @@ module Api
         if spot == []
           head :no_content
         else
-          render json: convert_to_json(spot[0])
+          render status: 200, json: spot
         end
       end
 
