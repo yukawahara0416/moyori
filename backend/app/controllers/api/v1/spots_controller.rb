@@ -30,7 +30,7 @@ module Api
 
       def show
         spot = Spot.find(params[:id])
-        render json: convert_to_json(spot)
+        render status: 200, json: spot
       end
 
       def create
