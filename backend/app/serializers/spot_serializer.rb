@@ -7,7 +7,9 @@ class SpotSerializer < ActiveModel::Serializer
       user_id: object.user_id,
       place_id: object.place_id,
       name: object.name,
-      address: object.address
+      address: object.address,
+      position: {
+      }
     }
   end
 end
