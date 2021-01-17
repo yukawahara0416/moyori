@@ -3,5 +3,6 @@ class CommentSerializer < ActiveModel::Serializer
              :spot_id,
              :user_id,
              :user_name,
-             :avatar
+             :avatar,
+             :content
 end
