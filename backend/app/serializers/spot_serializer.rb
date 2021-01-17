@@ -9,7 +9,8 @@ class SpotSerializer < ActiveModel::Serializer
       name: object.name,
       address: object.address,
       position: {
-        lat: object.lat.to_f
+        lat: object.lat.to_f,
+        lng: object.lng.to_f
       }
     }
   end
