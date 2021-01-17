@@ -6,7 +6,6 @@ module Api
 
       def show
         user = User.find(params[:id])
-        # render json: convert_to_json_user(user)
         render status: 200, json: user
       end
 
