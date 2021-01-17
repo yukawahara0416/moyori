@@ -1,7 +1,6 @@
 module Api
   module V1
     class SpotsController < ApiController
-      include Common
       before_action :authenticate_api_v1_user!, only: %i[save create update destroy]
 
       def collate
