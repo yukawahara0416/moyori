@@ -20,12 +20,13 @@ module Api
         spots = spots.order_location_by(
           lat, lng, distance
         )
-        nears = []
-        spots.each do |spot|
-          near = convert_to_json(spot)
-          nears.push(near)
-        end
-        render json: nears
+        # nears = []
+        # spots.each do |spot|
+        #   near = convert_to_json(spot)
+        #   nears.push(near)
+        # end
+        # render json: nears
+        render status: 200, json: spots, each_serializer: SpotSerializer
       end
 
       def show
