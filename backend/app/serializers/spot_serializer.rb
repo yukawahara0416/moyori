@@ -12,8 +12,8 @@ class SpotSerializer < ActiveModel::Serializer
         lat: object.lat.to_f,
         lng: object.lng.to_f
       },
-      on: false
-      }
+      on: false,
+      zIndex: 10
     }
   end
 end
