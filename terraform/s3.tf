@@ -30,6 +30,7 @@ resource "aws_s3_bucket" "moyori-image" {
   acl    = "null"
   tags   = {}
   cors_rule {
+    allowed_headers = ["*"]
   }
 # resource "aws_s3_bucket" "force_destroy" {
 #   bucket        = "force-destroy-${var.github_organization}-${var.github_repo}"
