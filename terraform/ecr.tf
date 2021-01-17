@@ -9,7 +9,7 @@ resource "aws_ecr_lifecycle_policy" "example_frontend" {
     "rules": [
       {
         "rulePriority": 1,
-        "description": "Keep last 10 release tagged images",
+        "description": "Keep last 1 release images",
         "selection": {
           "tagStatus": "tagged",
           "tagPrefixList": ["release"],
