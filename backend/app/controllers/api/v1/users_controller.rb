@@ -6,8 +6,7 @@ module Api
 
       def show
         user = User.find(params[:id])
-        render json: convert_to_json_user(user)
-        # render json: user, serializer: UserSerializer
+        # render json: convert_to_json_user(user)
       end
 
       private
