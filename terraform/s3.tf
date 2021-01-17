@@ -29,7 +29,8 @@ resource "aws_s3_bucket" "moyori-image" {
   bucket = "aws-kawahara-image-test"
   acl    = "null"
   tags   = {}
-}
+  cors_rule {
+  }
 # resource "aws_s3_bucket" "force_destroy" {
 #   bucket        = "force-destroy-${var.github_organization}-${var.github_repo}"
 #   force_destroy = true
