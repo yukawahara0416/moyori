@@ -35,7 +35,7 @@ module Api
 
       def create
         spot = current_api_v1_user.spots.create!(spot_params)
-        render json: convert_to_json(spot)
+        render status: 200, json: spot
       end
 
       def update
