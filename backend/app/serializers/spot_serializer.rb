@@ -22,5 +22,6 @@ class SpotSerializer < ActiveModel::Serializer
   end
 
   def picture
+    object.picture.attachment.service.send(:object_for, object.picture.key).public_url
   end
 end
