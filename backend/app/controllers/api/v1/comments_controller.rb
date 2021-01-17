@@ -4,8 +4,7 @@ module Api
       before_action :authenticate_api_v1_user!, only: %i[create destroy]
 
       def create
-        @comment = current_api_v1_user.comments.create!(comments_params)
-        render json: convert_to_json_comment(@comment)
+        comment = current_api_v1_user.comments.create!(comments_params)
       end
 
       def destroy
