@@ -9,5 +9,6 @@ class CommentSerializer < ActiveModel::Serializer
              :created_at,
              :updated_at
   def user_name
+    user = User.find(object.user_id)
   end
 end
