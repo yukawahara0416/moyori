@@ -1,5 +1,6 @@
 <template>
   <v-img
+    referrerpolicy="strict-origin"
     class="img-container white--text align-end"
     :class="{
       imgHeight_big: $vuetify.breakpoint.mdAndUp,
