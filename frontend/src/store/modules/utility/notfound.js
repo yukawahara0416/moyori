@@ -4,6 +4,9 @@ export default {
   },
 
   getters: {
+    isNotFound(state) {
+      return state.notFound
+    }
   },
 
   mutations: {
