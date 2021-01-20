@@ -10,5 +10,8 @@ export default {
   },
 
   mutations: {
+    setNotFound(state, val) {
+      state.notFound = val
+    }
   }
 }
