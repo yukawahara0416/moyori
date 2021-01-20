@@ -33,7 +33,8 @@ export default new Vuex.Store({
     dialog,
     snackbar,
     loading,
-    tab
+    tab,
+    notfound
   },
 
   plugins: [
