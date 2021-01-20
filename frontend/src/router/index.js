@@ -4,6 +4,7 @@ import Search from '@/views/Search.vue'
 import Profile from '@/views/Profile.vue'
 import Rules from '@/views/Rules.vue'
 import Privacy from '@/views/Privacy.vue'
+import NotFound from '@/views/NotFound.vue'
 
 Vue.use(VueRouter)
 
