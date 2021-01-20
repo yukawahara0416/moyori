@@ -33,6 +33,7 @@ const routes = [
   {
     path: '*',
     name: 'notfound',
+    component: NotFound
   }
 ]
 
