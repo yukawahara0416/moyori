@@ -29,6 +29,8 @@ const routes = [
     name: 'profile',
     component: Profile,
     props: route => ({ id: Number(route.params.id) })
+  },
+  {
   }
 ]
 
