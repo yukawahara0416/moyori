@@ -1,18 +1,19 @@
 <template>
     <not-found v-if="isNotFound" />
-  <v-row align="center" class="row-default my-5" justify="center" no-gutter>
-    <v-col class="col-default mb-5" cols="8">
-      <v-row align="center" class="row-default" justify="center" no-gutter>
-        <profile-items :user="user" />
-        <profile-actions :id="id" :user="user" :currentUser="currentUser" />
-      </v-row>
-    </v-col>
+    <template v-else>
+      <v-row align="center" class="row-default my-5" justify="center" no-gutter>
+        <v-col class="col-default mb-5" cols="8">
+          <v-row align="center" class="row-default" justify="center" no-gutter>
+            <profile-items :user="user" />
+            <profile-actions :id="id" :user="user" :currentUser="currentUser" />
+          </v-row>
+        </v-col>
 
-    <v-col cols="11" class="col-default" style="min-height: 50vh;">
-      <profile-contents :user="user" />
-    </v-col>
-  </v-row>
-</template>
+        <v-col cols="11" class="col-default" style="min-height: 50vh;">
+          <profile-contents :user="user" />
+        </v-col>
+      </v-row>
+    </template>
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
