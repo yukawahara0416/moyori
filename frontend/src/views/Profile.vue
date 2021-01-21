@@ -53,7 +53,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['loadingOn', 'loadingOff']),
+    ...mapMutations(['loadingOn', 'loadingOff', 'setNotFound']),
     ...mapMutations({
       clearSpotsStore: 'spot/clearSpotsStore',
       clearUserStore: 'user/clearUserStore',
