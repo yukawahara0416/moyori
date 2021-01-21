@@ -1,4 +1,5 @@
 <template>
+  <div>
     <not-found v-if="isNotFound" />
     <template v-else>
       <v-row align="center" class="row-default my-5" justify="center" no-gutter>
@@ -14,6 +15,8 @@
         </v-col>
       </v-row>
     </template>
+  </div>
+</template>
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
