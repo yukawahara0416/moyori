@@ -24,6 +24,7 @@ import { Spot } from '@/class/Spot.js'
 import ProfileItems from '@/components/Profile/ProfileItems.vue'
 import ProfileActions from '@/components/Profile/ProfileActions.vue'
 import ProfileContents from '@/components/Profile/ProfileContents.vue'
+import NotFound from '@/views//NotFound.vue'
 
 export default {
   props: {
