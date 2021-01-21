@@ -15,6 +15,7 @@ import dialog from '@/store/modules/utility/dialog.js'
 import snackbar from '@/store/modules/utility/snackbar.js'
 import loading from '@/store/modules/utility/loading.js'
 import tab from '@/store/modules/utility/tab.js'
+import notfound from '@/store/modules/utility/notfound.js'
 
 Vue.use(Vuex)
 
@@ -32,7 +33,8 @@ export default new Vuex.Store({
     dialog,
     snackbar,
     loading,
-    tab
+    tab,
+    notfound
   },
 
   plugins: [

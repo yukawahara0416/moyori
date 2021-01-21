@@ -1,16 +1,21 @@
 <template>
-  <v-row align="center" class="row-default my-5" justify="center" no-gutter>
-    <v-col class="col-default mb-5" cols="8">
-      <v-row align="center" class="row-default" justify="center" no-gutter>
-        <profile-items :user="user" />
-        <profile-actions :id="id" :user="user" :currentUser="currentUser" />
-      </v-row>
-    </v-col>
+  <div>
+    <not-found v-if="isNotFound" />
+    <template v-else>
+      <v-row align="center" class="row-default my-5" justify="center" no-gutter>
+        <v-col class="col-default mb-5" cols="8">
+          <v-row align="center" class="row-default" justify="center" no-gutter>
+            <profile-items :user="user" />
+            <profile-actions :id="id" :user="user" :currentUser="currentUser" />
+          </v-row>
+        </v-col>
 
-    <v-col cols="11" class="col-default" style="min-height: 50vh;">
-      <profile-contents :user="user" />
-    </v-col>
-  </v-row>
+        <v-col cols="11" class="col-default" style="min-height: 50vh;">
+          <profile-contents :user="user" />
+        </v-col>
+      </v-row>
+    </template>
+  </div>
 </template>
 
 <script>
@@ -19,6 +24,7 @@ import { Spot } from '@/class/Spot.js'
 import ProfileItems from '@/components/Profile/ProfileItems.vue'
 import ProfileActions from '@/components/Profile/ProfileActions.vue'
 import ProfileContents from '@/components/Profile/ProfileContents.vue'
+import NotFound from '@/views//NotFound.vue'
 
 export default {
   props: {
@@ -28,7 +34,8 @@ export default {
   components: {
     ProfileItems,
     ProfileActions,
-    ProfileContents
+    ProfileContents,
+    NotFound
   },
 
   created() {
@@ -42,11 +49,11 @@ export default {
 
   computed: {
     ...mapGetters({ user: 'user/user' }),
-    ...mapGetters(['currentUser'])
+    ...mapGetters(['currentUser', 'isNotFound'])
   },
 
   methods: {
-    ...mapMutations(['loadingOn', 'loadingOff']),
+    ...mapMutations(['loadingOn', 'loadingOff', 'setNotFound']),
     ...mapMutations({
       clearSpotsStore: 'spot/clearSpotsStore',
       clearUserStore: 'user/clearUserStore',
@@ -62,6 +69,7 @@ export default {
 
       try {
         let response = await this.getUser(id)
+        this.setNotFound(false)
 
         const target = [
           'posts',
@@ -82,6 +90,7 @@ export default {
         this.setUserStore(response.data)
       } catch (error) {
         this.pushSnackbarError({ message: error })
+        this.setNotFound(true)
       } finally {
         this.loadingOff()
       }
