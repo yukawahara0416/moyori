@@ -42,6 +42,12 @@ beforeEach(() => {
     }
   }
 
+  notfound = {
+    getters: {
+      isNotFound: () => false
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       user,
