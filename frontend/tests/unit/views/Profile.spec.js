@@ -10,6 +10,7 @@ let propsData
 let store
 let user
 let auth
+let notfound
 
 const fetchData = jest.fn()
 
@@ -41,10 +42,17 @@ beforeEach(() => {
     }
   }
 
+  notfound = {
+    getters: {
+      isNotFound: () => false
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       user,
-      auth
+      auth,
+      notfound
     }
   })
 
@@ -99,6 +107,10 @@ describe('getters', () => {
 
   it('currentUser', () => {
     expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
+  })
+
+  it('isNotFound', () => {
+    expect(wrapper.vm.isNotFound).toEqual(store.getters.isNotFound)
   })
 })
 
