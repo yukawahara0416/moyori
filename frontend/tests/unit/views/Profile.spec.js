@@ -51,7 +51,8 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       user,
-      auth
+      auth,
+      notfound
     }
   })
 
