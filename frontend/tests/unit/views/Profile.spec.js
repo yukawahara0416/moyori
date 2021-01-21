@@ -108,6 +108,10 @@ describe('getters', () => {
   it('currentUser', () => {
     expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
   })
+
+  it('isNotFound', () => {
+    expect(wrapper.vm.isNotFound).toEqual(store.getters.isNotFound)
+  })
 })
 
 describe('template', () => {
