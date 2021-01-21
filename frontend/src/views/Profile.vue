@@ -69,6 +69,7 @@ export default {
 
       try {
         let response = await this.getUser(id)
+        this.setNotFound(false)
 
         const target = [
           'posts',
@@ -89,6 +90,7 @@ export default {
         this.setUserStore(response.data)
       } catch (error) {
         this.pushSnackbarError({ message: error })
+        this.setNotFound(true)
       } finally {
         this.loadingOff()
       }
