@@ -34,7 +34,8 @@ export default {
   components: {
     ProfileItems,
     ProfileActions,
-    ProfileContents
+    ProfileContents,
+    NotFound
   },
 
   created() {
