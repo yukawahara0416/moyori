@@ -10,6 +10,7 @@ let propsData
 let store
 let user
 let auth
+let notfound
 
 const fetchData = jest.fn()
 
