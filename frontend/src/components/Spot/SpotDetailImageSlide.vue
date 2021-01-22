@@ -36,6 +36,11 @@ export default {
     },
 
     postImage() {
+      let arry = []
+
+      if (this.spot.data.picture) arry = [this.spot.data.picture]
+
+      return arry
     },
 
     commentImages() {
