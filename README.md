@@ -27,6 +27,7 @@ https://mo-yo-ri.com/
 ### アプリケーション
 | 項目 | 使用技術 |
 | :--- | :--- |
+| バックエンド | 言語：　Ruby <br> FW：　RailsAPI <br> テスト：　RSpec・Rubocop・FactoryBot <br> gem：　devise_token_auth・omniauth・acrive_model_serializers |
 | フロントエンド | 言語：　JavaScript <br> FW：　Vue.js <br> テスト：　Jest・Vue-unit-test・ESlint・Prettier <br> ライブラリ：　Vuex・VueRouter・axios・Vuetify・vee-validate・chart.js |
 | データベース | MySQL |
 | 外部API | GoogleMapsJavaScriptAPI |
