@@ -16,6 +16,14 @@ https://mo-yo-ri.com/
 ## アーキテクチャ
 <img src="https://i.gyazo.com/0112d3fb29f7f8a777a155b39f6c0f0f.png">  
   
+### 注目ポイント
+　Docker/AWS/Terraform/CircleCIでの開発に挑戦しています。  
+　Rails/VueでのBFFアプリの開発に挑戦しています。  
+　外出中のスマホ利用を想定し、UI/UXにこだわりました。  
+　バックエンド・フロントエンドともにテストコードを実装しています。  
+　チーム開発（GithubFlow）を意識し、PRやISSUEを活用しています。  
+　rebase/mergeを使い分け、ログを汚さない開発に注意しました。  
+  
 ### コンポーネント
 | 項目 | 使用技術 |
 | :--- | :--- |
@@ -27,23 +35,15 @@ https://mo-yo-ri.com/
 ### アプリケーション
 | 項目 | 使用技術 |
 | :--- | :--- |
-| バックエンド | 言語：　Ruby <br> FW：　Rails <br> テスト：　RSpec・Rubocop・FactoryBot <br> gem：　devise_token_auth・omniauth |
-| フロントエンド | 言語：　JavaScript <br> FW：　Vue <br> テスト：　Jest・Vue-unit-test・ESlint・Prettier <br> ライブラリ：　Vuex・VueRouter・axios・Vuetify・vee-validate |
+| バックエンド | 言語：　Ruby <br> FW：　RailsAPI <br> テスト：　RSpec・Rubocop・FactoryBot <br> gem：　devise_token_auth・omniauth・acrive_model_serializers |
+| フロントエンド | 言語：　JavaScript <br> FW：　Vue.js <br> テスト：　Jest・Vue-unit-test・ESlint・Prettier <br> ライブラリ：　Vuex・VueRouter・axios・Vuetify・vee-validate・chart.js |
 | データベース | MySQL |
-| 外部API | GoogleMapsJavaScriptAPI・GoogleCharts |
+| 外部API | GoogleMapsJavaScriptAPI |
 | 開発ツール | Git/GitHub <br> Slack <br> MacBook Pro 2017 <br> VSCode |
   
 ## ER図
 <img src="https://gyazo.com/107547d8a69fa7abdcf8b6fd54953eb8.png">  
-  
-## 注目ポイント
-　Docker/AWS/Terraform/CircleCIでの開発に挑戦しています。  
-　Rails/VueでのBFFアプリの開発に挑戦しています。  
-　外出中のスマホ利用を想定し、UI/UXにこだわりました。  
-　バックエンド・フロントエンドともにテストコードを実装しています。  
-　チーム開発（GithubFlow）を意識し、PRやISSUEを活用しています。  
-　rebase/mergeを使い分け、ログを汚さない開発に注意しました。  
-  
+
 ## 気をつけたポイント
 既存サービスのなにを不満に感じた以下のポイントに注意して制作しました。  
 ユーザー様に提供する価値は「優良なスポット情報へ効率的にアクセスできる」です。  
