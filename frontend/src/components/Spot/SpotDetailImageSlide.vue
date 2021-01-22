@@ -35,6 +35,9 @@ export default {
       return [...this.postImage, ...this.commentImages, ...this.gmapImages]
     },
 
+    postImage() {
+    },
+
     commentImages() {
       let arry = []
 
