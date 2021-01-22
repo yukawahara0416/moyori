@@ -30,7 +30,7 @@ https://mo-yo-ri.com/
 | バックエンド | 言語：　Ruby <br> FW：　Rails <br> テスト：　RSpec・Rubocop・FactoryBot <br> gem：　devise_token_auth・omniauth |
 | フロントエンド | 言語：　JavaScript <br> FW：　Vue <br> テスト：　Jest・Vue-unit-test・ESlint・Prettier <br> ライブラリ：　Vuex・VueRouter・axios・Vuetify・vee-validate |
 | データベース | MySQL |
-| 外部API | GoogleMapsJavaScriptAPI・GoogleCharts |
+| 外部API | GoogleMapsJavaScriptAPI |
 | 開発ツール | Git/GitHub <br> Slack <br> MacBook Pro 2017 <br> VSCode |
   
 ## ER図
