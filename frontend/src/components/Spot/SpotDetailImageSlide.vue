@@ -32,7 +32,7 @@ export default {
 
   computed: {
     images() {
-      return [...this.commentImages, ...this.gmapImages]
+      return [...this.postImage, ...this.commentImages, ...this.gmapImages]
     },
 
     commentImages() {
