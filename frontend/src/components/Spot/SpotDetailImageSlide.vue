@@ -5,6 +5,7 @@
         <v-card class="d-flex mx-2" flat outlined tile width="70px">
           <v-img
             aspect-ratio="1"
+            referrerpolicy="strict-origin"
             :src="require('@/assets/noimage.png')"
           ></v-img>
         </v-card>
