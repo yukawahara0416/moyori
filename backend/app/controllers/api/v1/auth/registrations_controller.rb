@@ -20,7 +20,7 @@ module Api
         end
 
         def render_update_success
-          render json: convert_to_registrations(@resource)
+          render json: @resource, serializer: UserSerializer
         end
 
         private
