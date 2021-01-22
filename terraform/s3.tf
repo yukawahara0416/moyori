@@ -25,19 +25,6 @@ data "aws_iam_policy_document" "alb_log" {
   }
 }
 
-resource "aws_s3_bucket" "moyori-image" {
-  bucket = "aws-kawahara-image-test"
-  acl    = "null"
-  tags   = {}
-  cors_rule {
-    allowed_headers = ["*"]
-    allowed_methods = ["GET", "POST", "PUT"]
-    allowed_origins = ["*"]
-    expose_headers  = []
-    max_age_seconds = 3000
-  }
-}
-
 # resource "aws_s3_bucket" "force_destroy" {
 #   bucket        = "force-destroy-${var.github_organization}-${var.github_repo}"
 #   force_destroy = true

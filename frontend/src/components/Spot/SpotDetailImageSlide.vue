@@ -5,6 +5,7 @@
         <v-card class="d-flex mx-2" flat outlined tile width="70px">
           <v-img
             aspect-ratio="1"
+            referrerpolicy="strict-origin"
             :src="require('@/assets/noimage.png')"
           ></v-img>
         </v-card>
@@ -31,7 +32,15 @@ export default {
 
   computed: {
     images() {
-      return [...this.commentImages, ...this.gmapImages]
+      return [...this.postImage, ...this.commentImages, ...this.gmapImages]
+    },
+
+    postImage() {
+      let arry = []
+
+      if (this.spot.data.picture) arry = [this.spot.data.picture]
+
+      return arry
     },
 
     commentImages() {
