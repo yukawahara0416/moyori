@@ -49,7 +49,8 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    vuetify
   })
 })
 
@@ -83,6 +84,7 @@ describe('v-on', () => {
 
     wrapper = mount(Component, {
       localVue,
+      vuetify,
       propsData,
       methods: {
         placeDetail,
