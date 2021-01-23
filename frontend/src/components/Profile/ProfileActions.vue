@@ -7,7 +7,7 @@
       class="profile-action-container"
       v-show="isLoggingIn && isOwnPage"
     >
-      <profile-actions-edit-button :user="user" />
+      <profile-actions-edit-button v-show="!isTestUser" :user="user" />
 
       <profile-actions-sign-out-button />
 
