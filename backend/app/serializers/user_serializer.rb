@@ -15,10 +15,8 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   has_many :spots, key: :posts
-  has_many :likes
-  has_many :wifi_withs
-  has_many :wifi_withouts
-  has_many :power_withs
-  has_many :power_withouts
-  has_many :comments
+
+  has_many :likes do
+  end
+  end
 end
