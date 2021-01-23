@@ -49,6 +49,9 @@ class UserSerializer < ActiveModel::Serializer
     end
     spots
 
+  has_many :power_withouts do
+  end
+
   end
     spots
   end
