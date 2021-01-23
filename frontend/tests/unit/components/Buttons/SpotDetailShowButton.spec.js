@@ -15,6 +15,7 @@ let data
 
 let store
 let map
+let vuetify
 
 beforeEach(() => {
   options = {
