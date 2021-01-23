@@ -11,7 +11,7 @@
 
       <profile-actions-sign-out-button />
 
-      <profile-actions-delete-button :user="user" />
+      <profile-actions-delete-button v-show="!isTestUser" :user="user" />
     </v-row>
   </v-col>
 </template>
