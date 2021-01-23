@@ -7,11 +7,11 @@
       class="profile-action-container"
       v-show="isLoggingIn && isOwnPage"
     >
-      <profile-actions-edit-button :user="user" />
+      <profile-actions-edit-button v-show="!isTestUser" :user="user" />
 
       <profile-actions-sign-out-button />
 
-      <profile-actions-delete-button :user="user" />
+      <profile-actions-delete-button v-show="!isTestUser" :user="user" />
     </v-row>
   </v-col>
 </template>
@@ -40,6 +40,10 @@ export default {
 
     isOwnPage() {
       return this.id == this.currentUser.data.id ? true : false
+    },
+
+    isTestUser() {
+      return this.id == 1 ? true : false
     }
   }
 }
