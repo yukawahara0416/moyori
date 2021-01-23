@@ -45,7 +45,7 @@ module Api
 
       def destroy
         spot = current_api_v1_user.spots.find(params[:id])
-        spot.picture.purge
+        spot.picture.purge if spot.picture.attached?
         spot.destroy!
         render json: spot.as_json(only: :id)
       end
