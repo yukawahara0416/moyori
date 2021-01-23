@@ -40,6 +40,10 @@ export default {
 
     isOwnPage() {
       return this.id == this.currentUser.data.id ? true : false
+    },
+
+    isTestUser() {
+      return this.id == 1 ? true : false
     }
   }
 }
