@@ -37,7 +37,7 @@ module Api
         spot = current_api_v1_user.spots.find(params[:id])
         spot.update_attributes(spot_params)
         if params.key?(:picture)
-          spot.picture.purge
+          spot.picture.purge if spot.picture.attached?
           spot.picture.attach(params[:picture])
         end
         render status: 200, json: spot
