@@ -1,5 +1,5 @@
 <template>
-  <v-card-actions class="card-action-container pt-0">
+  <v-card-actions class="card-action-container py-0">
     <v-spacer />
     <power-with-button :spot="spot" />
     <chart-bar
