@@ -42,7 +42,7 @@ https://mo-yo-ri.com/
 | 開発ツール | Git/GitHub <br> Slack <br> MacBook Pro 2017 <br> VSCode |
   
 ## ER図
-<img src="https://gyazo.com/107547d8a69fa7abdcf8b6fd54953eb8.png">  
+<img src="https://i.gyazo.com/64999b969c909a8a93722010f06824d5.png">  
 
 ## 気をつけたポイント
 既存サービスのなにを不満に感じた以下のポイントに注意して制作しました。  
