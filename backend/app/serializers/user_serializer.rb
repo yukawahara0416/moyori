@@ -36,6 +36,7 @@ class UserSerializer < ActiveModel::Serializer
     spots = []
     object.wifi_withouts.each do |item|
       spot = Spot.find(item.spot_id)
+      spots.push(spot)
     end
     spots
   end
