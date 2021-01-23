@@ -1,5 +1,5 @@
 <template>
-  <v-row align="stretch" class="ma-0" justify="space-around">
+  <v-row align="stretch" class="mt-0 mb-3 ml-0 mr-3" justify="space-around">
     <v-col
       cols="12"
       sm="6"
