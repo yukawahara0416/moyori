@@ -1,7 +1,5 @@
 <template>
-  <div>お探しのページは見つかりませんでした</div>
+  <span>
+    <v-img :src="require('@/assets/notfound.jpg')" />
+  </span>
 </template>
-
-<script>
-export default {}
-</script>
