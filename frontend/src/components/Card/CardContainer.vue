@@ -1,6 +1,7 @@
 <template>
   <v-row align="stretch" class="mt-0 mb-3 ml-0 mr-3" justify="space-around">
     <v-col
+      class="pb-0 pr-0"
       cols="12"
       sm="6"
       :md="md"
