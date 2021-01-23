@@ -50,6 +50,7 @@ class UserSerializer < ActiveModel::Serializer
     spots
 
   has_many :power_withouts do
+    spots = []
   end
 
   end
