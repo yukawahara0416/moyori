@@ -53,6 +53,7 @@ class UserSerializer < ActiveModel::Serializer
     spots = []
     object.power_withouts.each do |item|
       spot = Spot.find(item.spot_id)
+      spots.push(spot)
     end
     spots
 
