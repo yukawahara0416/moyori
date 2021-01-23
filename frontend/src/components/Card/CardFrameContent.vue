@@ -2,7 +2,7 @@
   <v-row class="pa-0">
     <v-col
       class="py-0"
-      cols="4"
+      cols="5"
       md="12"
       :class="{
         cardImgPadding_small: $vuetify.breakpoint.smAndDown
@@ -13,7 +13,7 @@
 
     <v-col
       class="py-0"
-      cols="8"
+      cols="7"
       md="12"
       :class="{
         cardContentPadding_small: $vuetify.breakpoint.smAndDown
