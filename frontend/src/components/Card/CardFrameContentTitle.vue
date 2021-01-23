@@ -1,5 +1,5 @@
 <template>
-  <v-card-title class="nowrap">
+  <v-card-title class="nowrap py-2">
     <p class="ma-0">{{ spot.data.name }}</p>
   </v-card-title>
 </template>

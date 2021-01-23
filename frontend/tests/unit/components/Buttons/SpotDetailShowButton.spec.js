@@ -1,10 +1,12 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Buttons/SpotDetailShowButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Vuetify)
 
 let wrapper
 let propsData
@@ -13,6 +15,7 @@ let data
 
 let store
 let map
+let vuetify
 
 beforeEach(() => {
   options = {
@@ -41,10 +44,13 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    vuetify
   })
 })
 
@@ -78,6 +84,7 @@ describe('v-on', () => {
 
     wrapper = mount(Component, {
       localVue,
+      vuetify,
       propsData,
       methods: {
         placeDetail,

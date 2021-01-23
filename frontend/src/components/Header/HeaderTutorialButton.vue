@@ -1,7 +1,11 @@
 <template>
-  <v-btn text @click.stop="dialogOn('dialogTutorial')">
+  <v-btn
+    text
+    :small="$vuetify.breakpoint.smAndDown"
+    @click.stop="dialogOn('dialogTutorial')"
+  >
     <v-icon class="mr-1">mdi-help-circle</v-icon>
-    使い方
+    <span v-if="$vuetify.breakpoint.smAndUp">使い方</span>
   </v-btn>
 </template>
 
