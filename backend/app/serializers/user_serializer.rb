@@ -48,6 +48,7 @@ class UserSerializer < ActiveModel::Serializer
       spots.push(spot)
     end
     spots
+  end
 
   has_many :power_withouts do
     spots = []
@@ -56,7 +57,9 @@ class UserSerializer < ActiveModel::Serializer
       spots.push(spot)
     end
     spots
+  end
 
+  has_many :comments do
   end
     spots
   end
