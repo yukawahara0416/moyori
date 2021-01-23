@@ -10,6 +10,7 @@ localVue.use(Vuetify)
 let wrapper
 let store
 let dialog
+let vuetify
 
 beforeEach(() => {
   dialog = {
