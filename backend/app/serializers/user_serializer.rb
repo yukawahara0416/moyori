@@ -60,6 +60,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   has_many :comments do
+    spots = []
   end
     spots
   end
