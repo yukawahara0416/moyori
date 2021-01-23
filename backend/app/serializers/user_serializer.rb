@@ -51,7 +51,8 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :power_withouts do
     spots = []
-  end
+    object.power_withouts.each do |item|
+    end
     spots
 
   end
