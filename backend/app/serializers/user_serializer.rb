@@ -19,5 +19,6 @@ class UserSerializer < ActiveModel::Serializer
   has_many :likes do
     spots = []
   end
+    spots
   end
 end
