@@ -19,6 +19,7 @@ class UserSerializer < ActiveModel::Serializer
   has_many :likes do
     spots = []
     object.likes.each do |item|
+      spot = Spot.find(item.spot_id)
     end
   end
     spots
