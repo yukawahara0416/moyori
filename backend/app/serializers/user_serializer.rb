@@ -34,6 +34,7 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :wifi_withouts do
     spots = []
+    spots
   end
 
   end
