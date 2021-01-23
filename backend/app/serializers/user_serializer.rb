@@ -15,10 +15,58 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   has_many :spots, key: :posts
-  has_many :likes
-  has_many :wifi_withs
-  has_many :wifi_withouts
-  has_many :power_withs
-  has_many :power_withouts
-  has_many :comments
+
+  has_many :likes do
+    spots = []
+    object.likes.each do |item|
+      spot = Spot.find(item.spot_id)
+      spots.push(spot)
+    end
+    spots
+  end
+
+  has_many :wifi_withs do
+    spots = []
+    object.wifi_withs.each do |item|
+      spot = Spot.find(item.spot_id)
+      spots.push(spot)
+    end
+    spots
+  end
+
+  has_many :wifi_withouts do
+    spots = []
+    object.wifi_withouts.each do |item|
+      spot = Spot.find(item.spot_id)
+      spots.push(spot)
+    end
+    spots
+  end
+
+  has_many :power_withs do
+    spots = []
+    object.power_withs.each do |item|
+      spot = Spot.find(item.spot_id)
+      spots.push(spot)
+    end
+    spots
+  end
+
+  has_many :power_withouts do
+    spots = []
+    object.power_withouts.each do |item|
+      spot = Spot.find(item.spot_id)
+      spots.push(spot)
+    end
+    spots
+  end
+
+  has_many :comments do
+    spots = []
+    object.comments.each do |item|
+      spot = Spot.find(item.spot_id)
+      spots.push(spot)
+    end
+    spots
+  end
 end
