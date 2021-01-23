@@ -6,6 +6,7 @@ import Component from '@/components/Buttons/SpotDetailShowButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Vuetify)
 
 let wrapper
 let propsData
