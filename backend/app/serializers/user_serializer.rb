@@ -22,6 +22,8 @@ class UserSerializer < ActiveModel::Serializer
       spot = Spot.find(item.spot_id)
       spots.push(spot)
     end
+    spots
+  end
 
   has_many :wifi_withs do
     spots = []
@@ -63,7 +65,8 @@ class UserSerializer < ActiveModel::Serializer
     spots = []
     object.comments.each do |item|
       spot = Spot.find(item.spot_id)
-  end
+      spots.push(spot)
+    end
     spots
   end
 end
