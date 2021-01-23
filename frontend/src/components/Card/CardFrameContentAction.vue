@@ -8,7 +8,7 @@
 
     <wifi-chart-horizontal-bar :spot="spot" />
 
-    <v-card-actions class="pb-0">
+    <v-card-actions class="py-0">
       <v-spacer />
       <span>充電はできますか？</span>
       <v-spacer />
