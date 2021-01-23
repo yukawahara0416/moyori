@@ -25,6 +25,8 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :wifi_withs do
     spots = []
+    object.wifi_withs.each do |item|
+    end
     spots
   end
 
