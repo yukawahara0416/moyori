@@ -63,6 +63,10 @@ describe('computed', () => {
   it('isOwnPage', () => {
     expect(wrapper.vm.isOwnPage).toBe(true)
   })
+
+  it('isTestUser', () => {
+    expect(wrapper.vm.isTestUser).toBe(true)
+  })
 })
 
 describe('template', () => {
