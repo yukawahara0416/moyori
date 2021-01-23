@@ -14,7 +14,7 @@ https://mo-yo-ri.com/
 - 完全独学  
   
 ## アーキテクチャ
-<img src="https://i.gyazo.com/0112d3fb29f7f8a777a155b39f6c0f0f.png">  
+<img src="https://i.gyazo.com/ea15e5a54b2b0d0a45efd57ede2a156f.png">  
   
 ### 注目ポイント
 　Docker/AWS/Terraform/CircleCIでの開発に挑戦しています。  
@@ -42,7 +42,7 @@ https://mo-yo-ri.com/
 | 開発ツール | Git/GitHub <br> Slack <br> MacBook Pro 2017 <br> VSCode |
   
 ## ER図
-<img src="https://gyazo.com/107547d8a69fa7abdcf8b6fd54953eb8.png">  
+<img src="https://i.gyazo.com/64999b969c909a8a93722010f06824d5.png">  
 
 ## 気をつけたポイント
 既存サービスのなにを不満に感じた以下のポイントに注意して制作しました。  
