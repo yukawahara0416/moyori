@@ -25,6 +25,8 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
   wrapper = mount(Component, {
     localVue,
     store
