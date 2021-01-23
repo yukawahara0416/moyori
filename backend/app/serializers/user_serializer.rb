@@ -61,6 +61,7 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :comments do
     spots = []
+    object.comments.each do |item|
   end
     spots
   end
