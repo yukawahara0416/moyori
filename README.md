@@ -14,7 +14,7 @@ https://mo-yo-ri.com/
 - 完全独学  
   
 ## アーキテクチャ
-<img src="https://i.gyazo.com/0112d3fb29f7f8a777a155b39f6c0f0f.png">  
+<img src="https://i.gyazo.com/ea15e5a54b2b0d0a45efd57ede2a156f.png">  
   
 ### 注目ポイント
 　Docker/AWS/Terraform/CircleCIでの開発に挑戦しています。  
