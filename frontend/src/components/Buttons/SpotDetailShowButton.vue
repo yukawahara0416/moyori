@@ -1,6 +1,7 @@
 <template>
   <span>
     <v-btn
+      :small="$vuetify.breakpoint.smAndDown"
       @click.stop="
         placeDetail(spot)
         openDialog()
