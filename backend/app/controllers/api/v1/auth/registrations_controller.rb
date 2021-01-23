@@ -6,8 +6,7 @@ module Api
 
         def destroy
           if @resource
-            @resource.destroy
-            @resource.avatar.prune if @resource.avatar.attached?
+            @resource.destroy!
             yield @resource if block_given?
             render_destroy_success
           else
