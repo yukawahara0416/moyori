@@ -35,7 +35,7 @@ end
 # 実用データ用ユーザ10人
 10.times do |u|
   user = User.create!(
-    name: Faker::Name.name,
+    name: Gimei.kanji,
     email: "tester-#{u + 1}@example.com",
     password: 'password'
   )
