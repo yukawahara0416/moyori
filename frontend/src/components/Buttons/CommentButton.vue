@@ -39,8 +39,7 @@ export default {
 
   data() {
     return {
-      icon: 'mdi-message-outline',
-      color: null,
+      icon: 'mdi-message',
       dialog: false
     }
   },
