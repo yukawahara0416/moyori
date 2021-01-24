@@ -68,8 +68,7 @@ export default {
     },
 
     mouseleave() {
-      this.icon = 'mdi-message-outline'
-      this.color = null
+      this.icon = 'mdi-message'
     }
   }
 }
