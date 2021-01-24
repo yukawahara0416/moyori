@@ -51,11 +51,14 @@ end
     )
   end
 
+  # Wifiあるよ
+  ids = (1..20).to_a.sample(10)
 
-#       WifiWith.create!(
-#         user_id: user.id,
-#         spot_id: spot.id
-#       )
+  ids.each do |id|
+    wifi_with = user.wifi_withs.create(spot_id: id)
+    wifi_with.update_attribute :created_at, (rand * 10).days.ago
+  end
+
 
 #       PowerWith.create!(
 #         user_id: user.id,
