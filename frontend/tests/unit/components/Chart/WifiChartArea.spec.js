@@ -118,6 +118,10 @@ describe('methods', () => {
   it('sortData', () => {
     expect(wrapper.vm.sortData(xyData, firstDay)).toMatchObject(sortedData)
   })
+
+  it('countData', () => {
+    expect(wrapper.vm.countData(sortedData)).toMatchObject(result)
+  })
 })
 
 describe('template', () => {
