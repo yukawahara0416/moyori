@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
+require './db/csv/comment.rb'
 
 # 管理者
 AdminUser.create!(
