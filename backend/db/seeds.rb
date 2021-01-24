@@ -42,11 +42,15 @@ end
 
   user.avatar.attach(io: File.open(Rails.root.join("app/assets/images/#{u + 1}.png")), filename: "#{u + 1}.png")
 
+  # いいね
+  ids = (1..20).to_a.sample(10)
 
-#       Like.create!(
-#         user_id: user.id,
-#         spot_id: spot.id
-#       )
+  ids.each do |id|
+    user.likes.create!(
+      spot_id: id
+    )
+  end
+
 
 #       WifiWith.create!(
 #         user_id: user.id,
