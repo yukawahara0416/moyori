@@ -45,7 +45,6 @@ end
 
   # いいね
   ids = (1..20).to_a.sample(10)
-
   ids.each do |id|
     user.likes.create!(
       spot_id: id
@@ -54,7 +53,6 @@ end
 
   # Wifiあるよ
   ids = (1..20).to_a.sample(10)
-
   ids.each do |id|
     wifi_with = user.wifi_withs.create(spot_id: id)
     wifi_with.update_attribute :created_at, (rand * 10).days.ago
@@ -73,7 +71,6 @@ end
 
   # 電源あるよ
   ids = (1..20).to_a.sample(10)
-
   ids.each do |id|
     power_with = user.power_withs.create(spot_id: id)
     power_with.update_attribute :created_at, (rand * 10).days.ago
@@ -88,5 +85,13 @@ end
   other_ids.sample(3).each do |id|
     power_without = user.power_withouts.create(spot_id: id)
     power_without.update_attribute :created_at, (rand * 10).days.ago
+  end
+end
+
+# コメント
+20.times do |u|
+  5.times do |i|
+    user = User.find(rand(2..11))
+    user.comments.create!(spot_id: u + 1, content: comment[u][i])
   end
 end
