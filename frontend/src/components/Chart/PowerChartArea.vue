@@ -100,6 +100,7 @@ export default {
         dates.push(date)
       }
 
+      const firstDay = min(dates)
     },
 
       const xyData = this.xyData(target)
