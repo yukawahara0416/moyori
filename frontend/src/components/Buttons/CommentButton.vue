@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       icon: 'mdi-message',
+      color: '#757575',
       dialog: false
     }
   },
