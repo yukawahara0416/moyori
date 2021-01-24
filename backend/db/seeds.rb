@@ -78,5 +78,14 @@ end
     power_with.update_attribute :created_at, (rand * 10).days.ago
   end
 
+  # 電源ないよ
+  other_ids = (1..20).to_a
+  ids.each do |id|
+    other_ids.delete(id)
+  end
 
+  other_ids.sample(3).each do |id|
+    power_without = user.power_withouts.create(spot_id: id)
+    power_without.update_attribute :created_at, (rand * 10).days.ago
+  end
 end
