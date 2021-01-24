@@ -65,6 +65,11 @@ export default {
     chartData() {
       // データ形式を変換して時間で昇順に並べ替えます
       const firstDay = this.firstDay(this.spot)
+      const withsData = this.convertChartData(this.spot.wifi_withs, firstDay)
+      const withoutsData = this.convertChartData(
+        this.spot.wifi_withouts,
+        firstDay
+      )
 
       return {
         datasets: [
@@ -104,6 +109,8 @@ export default {
 
       return firstDay.toISOString()
     },
+
+    convertChartData(target, firstDay) {
       const xyData = this.xyData(target)
       const sortedData = this.sortData(xyData)
       return sortedData
