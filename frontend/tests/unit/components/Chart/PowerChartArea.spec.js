@@ -105,6 +105,10 @@ describe('methods', () => {
     { x: '2020-12-02T00:00:00.000Z', y: 2 }
   ]
 
+  it('firstDay', () => {
+    expect(wrapper.vm.firstDay(propsData.spot)).toEqual(firstDay)
+  })
+
   it('convertChartData', () => {
     expect(wrapper.vm.convertChartData(withs)).toEqual(resultWiths)
   })
