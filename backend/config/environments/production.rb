@@ -88,4 +88,7 @@ Rails.application.configure do
 
   Rails.application.routes.default_url_options[:host] = 'localhost'
   Rails.application.routes.default_url_options[:port] = 3000
+
+  # seedにActiveStorageデータを投入する
+  config.active_job.queue_adapter = :inline
 end
