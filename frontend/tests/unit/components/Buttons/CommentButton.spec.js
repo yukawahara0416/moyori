@@ -160,8 +160,8 @@ describe('methods', () => {
 
   it('mouseleave', () => {
     wrapper.vm.mouseleave()
-    expect(wrapper.vm.icon).toEqual('mdi-message-outline')
-    expect(wrapper.vm.color).toEqual(null)
+    expect(wrapper.vm.icon).toEqual('mdi-message')
+    expect(wrapper.vm.color).toEqual('#757575')
   })
 })
 
@@ -191,7 +191,7 @@ describe('template', () => {
       store
     })
 
-    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-message-outline')
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-message')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 

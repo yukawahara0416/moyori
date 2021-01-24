@@ -119,6 +119,8 @@ GEM
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
+    gimei (0.5.1)
+      romaji
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     guard (2.16.2)
@@ -257,6 +259,8 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.4)
+    romaji (0.2.4)
+      rake (>= 0.8.0)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -337,6 +341,7 @@ DEPENDENCIES
   devise_token_auth
   factory_bot_rails
   faker
+  gimei
   guard
   guard-rspec
   guard-rubocop
