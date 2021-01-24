@@ -244,7 +244,7 @@ describe('template', () => {
       store
     })
 
-    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-heart-outline')
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-heart')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
