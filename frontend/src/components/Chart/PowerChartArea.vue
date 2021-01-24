@@ -117,10 +117,10 @@ export default {
       return countedData
     },
 
-    // データ形式を { x: '時間', y: 投票総数 } に変換します
+    // データ形式を { x: '時間', y: '投票総数' } に変換します
     xyData(target) {
       // グラフの0点に予めデータを配置します
-      const arry = [{ x: 0, y: 0 }]
+      const arry = []
 
       for (let i = 0; i < target.length; i++) {
         const obj = { x: '', y: null }
