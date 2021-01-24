@@ -90,7 +90,9 @@ export default {
   },
 
   methods: {
-    convertChartData(target) {
+    firstDay(spot) {
+    },
+
       const xyData = this.xyData(target)
       const sortedData = this.sortData(xyData)
       return sortedData
