@@ -32,11 +32,14 @@ CSV.foreach(Rails.root.join('db/csv/spot.csv'), headers: true) do |row|
   )
 end
 
-#     5.times do |s|
-#       spot = Spot.create!(
-#         place_id: "place-#{s + 1}@user-#{u + 1}",
-#         user_id: user.id
-#       )
+# 実用データ用ユーザ10人
+10.times do |u|
+  user = User.create!(
+    name: Faker::Name.name,
+    email: "tester-#{u + 1}@example.com",
+    password: 'password'
+  )
+
 
 #       Like.create!(
 #         user_id: user.id,
@@ -53,11 +56,4 @@ end
 #         spot_id: spot.id
 #       )
 
-#       Comment.create!(
-#         content: 'よきよき',
-#         user_id: user.id,
-#         spot_id: spot.id
-#       )
-#     end
-#   end
-# end
+end
