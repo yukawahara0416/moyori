@@ -26,7 +26,11 @@ export const chartOptions = {
           unit: 'day'
         },
         ticks: {
-          source: 'data'
+          source: 'data',
+          minRotation: 0,
+          maxRotation: 0,
+          autoSkip: true,
+          maxTicksLimit: 2
         }
       }
     ],
