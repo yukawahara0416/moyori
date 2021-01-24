@@ -110,7 +110,7 @@ describe('methods', () => {
   })
 
   it('convertChartData', () => {
-    expect(wrapper.vm.convertChartData(withs)).toEqual(resultWiths)
+    expect(wrapper.vm.convertChartData(target, firstDay)).toEqual(result)
   })
 
   it('xyData', () => {
