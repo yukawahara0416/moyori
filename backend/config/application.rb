@@ -55,5 +55,9 @@ module Backend
                        fixtures: true
       g.fixture_reqlacement :factory_bot, dir: 'spec/factories'
     end
+
+    # faker日本語化
+    config.i18n.available_locales = %i[ja en]
+    config.i18n.default_locale = :ja
   end
 end
