@@ -96,6 +96,7 @@ export default {
 
       for (let i = 0; i < arry.length; i++) {
         const date = new Date(arry[i].created_at)
+        dates.push(date)
       }
 
     },
