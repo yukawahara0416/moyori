@@ -69,6 +69,7 @@ export default {
 
     mouseleave() {
       this.icon = 'mdi-message'
+      this.color = '#757575'
     }
   }
 }
