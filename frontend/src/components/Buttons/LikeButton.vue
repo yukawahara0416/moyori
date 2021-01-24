@@ -35,6 +35,7 @@ export default {
   data() {
     return {
       icon: 'mdi-heart',
+      color: '#757575'
     }
   },
 
