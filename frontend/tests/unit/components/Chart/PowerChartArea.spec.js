@@ -85,6 +85,9 @@ describe('methods', () => {
     { id: 2, created_at: '2020-12-02T00:00:00.000Z' },
     { id: 1, created_at: '2020-12-01T00:00:00.000Z' }
   ]
+
+  const firstDay = '2020-11-30T00:00:00.000Z'
+
   ]
 
   const resultWiths = [
