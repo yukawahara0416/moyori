@@ -91,6 +91,7 @@ export default {
 
   methods: {
     firstDay(spot) {
+      const arry = [...spot.wifi_withs, ...spot.wifi_withouts]
     },
       const xyData = this.xyData(target)
       const sortedData = this.sortData(xyData)
