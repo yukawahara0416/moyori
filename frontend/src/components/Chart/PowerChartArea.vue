@@ -149,6 +149,9 @@ export default {
 
     // 投票総数を集計します
     countData(sortedData) {
+      for (let i = 0; i < sortedData.length; i++) {
+        sortedData[i].y = i
+      }
     }
   }
 }
