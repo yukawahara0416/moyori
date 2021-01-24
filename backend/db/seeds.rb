@@ -70,10 +70,13 @@ end
     wifi_without.update_attribute :created_at, (rand * 10).days.ago
   end
 
+  # 電源あるよ
+  ids = (1..20).to_a.sample(10)
 
-#       PowerWith.create!(
-#         user_id: user.id,
-#         spot_id: spot.id
-#       )
+  ids.each do |id|
+    power_with = user.power_withs.create(spot_id: id)
+    power_with.update_attribute :created_at, (rand * 10).days.ago
+  end
+
 
 end
