@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import min from 'lodash/min'
 import ChartArea from '@/components/Chart/ChartArea.vue'
 import { myPlugins, chartOptions } from '@/plugins/chart-area.js'
 
@@ -63,8 +64,12 @@ export default {
 
     chartData() {
       // データ形式を変換して時間で昇順に並べ替えます
-      const withsData = this.convertChartData(this.spot.wifi_withs)
-      const withoutsData = this.convertChartData(this.spot.wifi_withouts)
+      const firstDay = this.firstDay(this.spot)
+      const withsData = this.convertChartData(this.spot.wifi_withs, firstDay)
+      const withoutsData = this.convertChartData(
+        this.spot.wifi_withouts,
+        firstDay
+      )
 
       return {
         datasets: [
@@ -90,21 +95,35 @@ export default {
   },
 
   methods: {
-    convertChartData(target) {
-      const xyData = this.xyData(target)
-      const sortedData = this.sortData(xyData)
-      return sortedData
+    firstDay(spot) {
+      const arry = [...spot.wifi_withs, ...spot.wifi_withouts]
+      const dates = []
+
+      for (let i = 0; i < arry.length; i++) {
+        const date = new Date(arry[i].created_at)
+        dates.push(date)
+      }
+
+      const firstDay = min(dates)
+      firstDay.setDate(firstDay.getDate() - 1)
+
+      return firstDay.toISOString()
     },
 
-    // データ形式を { x: '時間', y: 投票総数 } に変換します
+    convertChartData(target, firstDay) {
+      const xyData = this.xyData(target)
+      const sortedData = this.sortData(xyData, firstDay)
+      const countedData = this.countData(sortedData)
+      return countedData
+    },
+
+    // データ形式を { x: '時間', y: '投票総数' } に変換します
     xyData(target) {
-      // グラフの0点に予めデータを配置します
-      const arry = [{ x: 0, y: 0 }]
+      const arry = []
 
       for (let i = 0; i < target.length; i++) {
         const obj = { x: '', y: null }
         obj.x = target[i].created_at
-        obj.y = i + 1
         arry.push(obj)
       }
 
@@ -112,16 +131,26 @@ export default {
     },
 
     // 時間を昇順で並べ替えます
-    sortData(xyData) {
+    sortData(xyData, firstDay) {
       const arry = [...xyData]
 
       arry.sort(function compare(a, b) {
-        const dateA = new Date(a.created_at)
-        const dateB = new Date(b.created_at)
+        const dateA = new Date(a.x)
+        const dateB = new Date(b.x)
         return dateA - dateB
       })
 
+      arry.unshift({ x: firstDay, y: null })
+
       return arry
+    },
+
+    // 投票総数を集計します
+    countData(sortedData) {
+      for (let i = 0; i < sortedData.length; i++) {
+        sortedData[i].y = i
+      }
+      return sortedData
     }
   }
 }

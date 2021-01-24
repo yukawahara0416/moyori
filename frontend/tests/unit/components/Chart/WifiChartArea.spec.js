@@ -51,7 +51,7 @@ describe('computed', () => {
     const resultWiths = {
       label: 'あり',
       data: [
-        { x: 0, y: 0 },
+        { x: '2020-11-30T00:00:00.000Z', y: 0 },
         { x: '2020-12-01T00:00:00.000Z', y: 1 },
         { x: '2020-12-02T00:00:00.000Z', y: 2 }
       ],
@@ -65,7 +65,7 @@ describe('computed', () => {
     const resultWithouts = {
       label: 'なし',
       data: [
-        { x: 0, y: 0 },
+        { x: '2020-11-30T00:00:00.000Z', y: 0 },
         { x: '2020-12-03T00:00:00.000Z', y: 1 },
         { x: '2020-12-04T00:00:00.000Z', y: 2 }
       ],
@@ -79,27 +79,48 @@ describe('computed', () => {
 })
 
 describe('methods', () => {
-  const withs = [
-    { id: 1, created_at: '2020-12-01T00:00:00.000Z' },
-    { id: 2, created_at: '2020-12-02T00:00:00.000Z' }
+  const target = [
+    { id: 2, created_at: '2020-12-02T00:00:00.000Z' },
+    { id: 1, created_at: '2020-12-01T00:00:00.000Z' }
   ]
 
-  const resultWiths = [
-    { x: 0, y: 0 },
+  const firstDay = '2020-11-30T00:00:00.000Z'
+
+  const xyData = [
+    { x: '2020-12-02T00:00:00.000Z', y: null },
+    { x: '2020-12-01T00:00:00.000Z', y: null }
+  ]
+
+  const sortedData = [
+    { x: firstDay, y: null },
+    { x: '2020-12-01T00:00:00.000Z', y: null },
+    { x: '2020-12-02T00:00:00.000Z', y: null }
+  ]
+
+  const result = [
+    { x: firstDay, y: 0 },
     { x: '2020-12-01T00:00:00.000Z', y: 1 },
     { x: '2020-12-02T00:00:00.000Z', y: 2 }
   ]
 
+  it('firstDay', () => {
+    expect(wrapper.vm.firstDay(propsData.spot)).toEqual(firstDay)
+  })
+
   it('convertChartData', () => {
-    expect(wrapper.vm.convertChartData(withs)).toEqual(resultWiths)
+    expect(wrapper.vm.convertChartData(target, firstDay)).toEqual(result)
   })
 
   it('xyData', () => {
-    expect(wrapper.vm.xyData(withs)).toMatchObject(resultWiths)
+    expect(wrapper.vm.xyData(target)).toMatchObject(xyData)
   })
 
   it('sortData', () => {
-    expect(wrapper.vm.sortData(resultWiths)).toMatchObject(resultWiths)
+    expect(wrapper.vm.sortData(xyData, firstDay)).toMatchObject(sortedData)
+  })
+
+  it('countData', () => {
+    expect(wrapper.vm.countData(sortedData)).toMatchObject(result)
   })
 })
 
