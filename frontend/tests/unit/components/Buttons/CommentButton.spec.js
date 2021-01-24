@@ -161,6 +161,7 @@ describe('methods', () => {
   it('mouseleave', () => {
     wrapper.vm.mouseleave()
     expect(wrapper.vm.icon).toEqual('mdi-message')
+    expect(wrapper.vm.color).toEqual('#757575')
   })
 })
 
