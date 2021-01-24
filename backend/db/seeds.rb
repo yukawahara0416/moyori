@@ -6,17 +6,15 @@ AdminUser.create!(
   password: 'password'
 )
 
+# テストユーザ
 User.create!(
   name: 'テストユーザ',
   email: 'tester@example.com',
   password: 'password'
 )
 
-# if Rails.env == 'development'
-#   AdminUser.create!(
-#     email: 'admin@example.com',
-#     password: 'password',
-#   )
+user = User.find(1)
+user.avatar.attach(io: File.open(Rails.root.join('app/assets/images/1.png')), filename: '1.png')
 
 #   3.times do |u|
 #     user = User.create!(
