@@ -91,8 +91,12 @@ describe('methods', () => {
     { x: '2020-12-01T00:00:00.000Z', y: null }
   ]
 
-  const resultWiths = [
-    { x: 0, y: 0 },
+  const sortedData = [
+    { x: firstDay, y: null },
+    { x: '2020-12-01T00:00:00.000Z', y: null },
+    { x: '2020-12-02T00:00:00.000Z', y: null }
+  ]
+
     { x: '2020-12-01T00:00:00.000Z', y: 1 },
     { x: '2020-12-02T00:00:00.000Z', y: 2 }
   ]
