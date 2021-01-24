@@ -39,8 +39,8 @@ export default {
 
   data() {
     return {
-      icon: 'mdi-message-outline',
-      color: null,
+      icon: 'mdi-message',
+      color: '#757575',
       dialog: false
     }
   },
@@ -68,8 +68,8 @@ export default {
     },
 
     mouseleave() {
-      this.icon = 'mdi-message-outline'
-      this.color = null
+      this.icon = 'mdi-message'
+      this.color = '#757575'
     }
   }
 }

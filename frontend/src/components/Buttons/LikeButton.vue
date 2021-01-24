@@ -34,8 +34,8 @@ export default {
 
   data() {
     return {
-      icon: 'mdi-heart-outline',
-      color: null
+      icon: 'mdi-heart',
+      color: '#757575'
     }
   },
 
@@ -139,8 +139,8 @@ export default {
     },
 
     mouseleave() {
-      this.icon = 'mdi-heart-outline'
-      this.color = null
+      this.icon = 'mdi-heart'
+      this.color = '#757575'
     }
   }
 }
