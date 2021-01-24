@@ -18,12 +18,19 @@ User.create!(
 user = User.find(1)
 user.avatar.attach(io: File.open(Rails.root.join('app/assets/images/1.png')), filename: '1.png')
 
-#   3.times do |u|
-#     user = User.create!(
-#       name: Faker::Name.name,
-#       email: "tester-#{u + 1}@example.com",
-#       password: 'password',
-#     )
+# GoogleMap固有のスポット20件
+CSV.foreach(Rails.root.join('db/csv/spot.csv'), headers: true) do |row|
+  user.spots.create!(
+    place_id: row[1],
+    name: row[2],
+    address: row[3],
+    lat: row[4],
+    lng: row[5],
+    image: row[6],
+    phone: row[7],
+    url: row[8]
+  )
+end
 
 #     5.times do |s|
 #       spot = Spot.create!(
