@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import min from 'lodash/min'
 import ChartArea from '@/components/Chart/ChartArea.vue'
 import { myPlugins, chartOptions } from '@/plugins/chart-area.js'
 
