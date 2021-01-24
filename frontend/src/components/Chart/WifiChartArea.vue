@@ -136,10 +136,12 @@ export default {
       const arry = [...xyData]
 
       arry.sort(function compare(a, b) {
-        const dateA = new Date(a.created_at)
-        const dateB = new Date(b.created_at)
+        const dateA = new Date(a.x)
+        const dateB = new Date(b.x)
         return dateA - dateB
       })
+
+      arry.unshift({ x: firstDay, y: null })
 
       return arry
     }
