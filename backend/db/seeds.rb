@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 # 管理者
 AdminUser.create!(
   email: 'admin@example.com',
