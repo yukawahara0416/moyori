@@ -140,6 +140,7 @@ export default {
 
     mouseleave() {
       this.icon = 'mdi-heart'
+      this.color = '#757575'
     }
   }
 }
