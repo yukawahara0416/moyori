@@ -124,7 +124,6 @@ export default {
       for (let i = 0; i < target.length; i++) {
         const obj = { x: '', y: null }
         obj.x = target[i].created_at
-        obj.y = i + 1
         arry.push(obj)
       }
 
@@ -151,6 +150,7 @@ export default {
       for (let i = 0; i < sortedData.length; i++) {
         sortedData[i].y = i
       }
+      return sortedData
     }
   }
 }
