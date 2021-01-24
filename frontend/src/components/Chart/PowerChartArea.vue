@@ -92,6 +92,7 @@ export default {
   methods: {
     firstDay(spot) {
       const arry = [...spot.power_withs, ...spot.power_withouts]
+      const dates = []
     },
 
       const xyData = this.xyData(target)
