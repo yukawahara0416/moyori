@@ -102,6 +102,8 @@ export default {
 
       const firstDay = min(dates)
       firstDay.setDate(firstDay.getDate() - 1)
+
+      return firstDay.toISOString()
     },
       const xyData = this.xyData(target)
       const sortedData = this.sortData(xyData)
