@@ -40,6 +40,8 @@ end
     password: 'password'
   )
 
+  user.avatar.attach(io: File.open(Rails.root.join("app/assets/images/#{u + 1}.png")), filename: "#{u + 1}.png")
+
 
 #       Like.create!(
 #         user_id: user.id,
