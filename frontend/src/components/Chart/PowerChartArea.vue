@@ -113,6 +113,7 @@ export default {
     convertChartData(target, firstDay) {
       const xyData = this.xyData(target)
       const sortedData = this.sortData(xyData, firstDay)
+      const countedData = this.countData(sortedData)
     },
 
     // データ形式を { x: '時間', y: 投票総数 } に変換します
