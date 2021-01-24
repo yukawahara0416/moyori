@@ -145,6 +145,10 @@ export default {
       arry.unshift({ x: firstDay, y: null })
 
       return arry
+    },
+
+    // 投票総数を集計します
+    countData(sortedData) {
     }
   }
 }
