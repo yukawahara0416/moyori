@@ -59,6 +59,17 @@ end
     wifi_with.update_attribute :created_at, (rand * 10).days.ago
   end
 
+  # Wifiないよ
+  other_ids = (1..20).to_a
+  ids.each do |id|
+    other_ids.delete(id)
+  end
+
+  other_ids.sample(3).each do |id|
+    wifi_without = user.wifi_withouts.create(spot_id: id)
+    wifi_without.update_attribute :created_at, (rand * 10).days.ago
+  end
+
 
 #       PowerWith.create!(
 #         user_id: user.id,
