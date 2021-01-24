@@ -133,7 +133,7 @@ export default {
     },
 
     // 時間を昇順で並べ替えます
-    sortData(xyData) {
+    sortData(xyData, firstDay) {
       const arry = [...xyData]
 
       arry.sort(function compare(a, b) {
