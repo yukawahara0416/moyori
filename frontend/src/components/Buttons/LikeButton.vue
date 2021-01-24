@@ -139,8 +139,7 @@ export default {
     },
 
     mouseleave() {
-      this.icon = 'mdi-heart-outline'
-      this.color = null
+      this.icon = 'mdi-heart'
     }
   }
 }
