@@ -191,7 +191,7 @@ describe('template', () => {
       store
     })
 
-    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-message-outline')
+    expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-message')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
