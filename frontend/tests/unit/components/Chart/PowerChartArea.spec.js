@@ -88,6 +88,9 @@ describe('methods', () => {
 
   const firstDay = '2020-11-30T00:00:00.000Z'
 
+  const xyData = [
+    { x: '2020-12-02T00:00:00.000Z', y: null },
+    { x: '2020-12-01T00:00:00.000Z', y: null }
   ]
 
   const resultWiths = [
