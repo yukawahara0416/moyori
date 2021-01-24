@@ -110,6 +110,7 @@ export default {
       return firstDay.toISOString()
     },
 
+    convertChartData(target, firstDay) {
       const xyData = this.xyData(target)
       const sortedData = this.sortData(xyData)
       return sortedData
