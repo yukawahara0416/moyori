@@ -114,12 +114,13 @@ describe('methods', () => {
   })
 
   it('xyData', () => {
-    expect(wrapper.vm.xyData(withs)).toMatchObject(resultWiths)
+    expect(wrapper.vm.xyData(target)).toMatchObject(xyData)
   })
 
   it('sortData', () => {
-    expect(wrapper.vm.sortData(resultWiths)).toMatchObject(resultWiths)
+    expect(wrapper.vm.sortData(xyData, firstDay)).toMatchObject(sortedData)
   })
+
 })
 
 describe('template', () => {
