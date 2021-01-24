@@ -101,6 +101,7 @@ export default {
       }
 
       const firstDay = min(dates)
+      firstDay.setDate(firstDay.getDate() - 1)
     },
 
       const xyData = this.xyData(target)
