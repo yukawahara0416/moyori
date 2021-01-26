@@ -14,6 +14,8 @@ beforeEach(() => {
     spot: { data: { id: 1 } }
   }
 
+  vuetify = new Vuetify()
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData
