@@ -3,6 +3,7 @@ import Vuetify from 'vuetify'
 import Component from '@/components/Spot/SpotDetail.vue'
 
 const localVue = createLocalVue()
+localVue.use(Vuetify)
 
 let wrapper
 let propsData
