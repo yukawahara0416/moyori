@@ -38,6 +38,9 @@ describe('emit', () => {
 })
 
 describe('computed', () => {
+  it('cols', () => {
+    expect(wrapper.vm.cols).toEqual(6)
+  })
 })
 
 describe('template', () => {
