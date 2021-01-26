@@ -48,6 +48,9 @@ export default {
     SpotDetailCommentPanel
   },
 
+  computed: {
+  },
+
   methods: {
     closeDialog() {
       this.$emit('closeDialog')
