@@ -50,6 +50,7 @@ export default {
 
   computed: {
     cols() {
+      if (this.$vuetify.breakpoint.xsOnly) return 12
       return 6
     }
   },
