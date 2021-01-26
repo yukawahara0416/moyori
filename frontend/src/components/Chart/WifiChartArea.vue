@@ -55,13 +55,6 @@ export default {
       return chartOptions
     },
 
-    // removeTimeFromDaytime() {
-    //   return function(daytime) {
-    //     const indexEnd = daytime.indexOf('T')
-    //     return daytime.substring(0, indexEnd)
-    //   }
-    // },
-
     chartData() {
       // データ形式を変換して時間で昇順に並べ替えます
       const firstDay = this.firstDay(this.spot)
@@ -107,7 +100,7 @@ export default {
         dates.push(date)
       }
 
-      const firstDay = min(dates)
+      firstDay = min(dates)
       firstDay.setDate(firstDay.getDate() - 1)
 
       return firstDay.toISOString()
@@ -136,14 +129,13 @@ export default {
     // 時間を昇順で並べ替えます
     sortData(xyData, firstDay) {
       const arry = [...xyData]
+      arry.unshift({ x: firstDay, y: null })
 
       arry.sort(function compare(a, b) {
         const dateA = new Date(a.x)
         const dateB = new Date(b.x)
         return dateA - dateB
       })
-
-      arry.unshift({ x: firstDay, y: null })
 
       return arry
     },
