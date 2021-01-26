@@ -8,7 +8,7 @@
       <spot-detail-image-slide :spot="spot" />
 
       <v-row>
-        <v-col class="py-0 pr-1" cols="6">
+        <v-col class="py-0 pr-1" :cols="cols">
           <spot-detail-wifi-panel :spot="spot" />
         </v-col>
 
