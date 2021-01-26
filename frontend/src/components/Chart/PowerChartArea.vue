@@ -98,6 +98,7 @@ export default {
     firstDay(spot) {
       const arry = [...spot.power_withs, ...spot.power_withouts]
       const dates = []
+      let firstDay = 0
 
       for (let i = 0; i < arry.length; i++) {
         const date = new Date(arry[i].created_at)
