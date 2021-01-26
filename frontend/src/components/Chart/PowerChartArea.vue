@@ -107,7 +107,7 @@ export default {
         dates.push(date)
       }
 
-      const firstDay = min(dates)
+      firstDay = min(dates)
       firstDay.setDate(firstDay.getDate() - 1)
 
       return firstDay.toISOString()
