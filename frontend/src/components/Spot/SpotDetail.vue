@@ -12,7 +12,7 @@
           <spot-detail-wifi-panel :spot="spot" />
         </v-col>
 
-        <v-col class="py-0 pl-1" cols="6">
+        <v-col class="py-0 pl-1" :cols="cols">
           <spot-detail-power-panel :spot="spot" />
         </v-col>
       </v-row>
