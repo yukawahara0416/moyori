@@ -1,4 +1,5 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
+import Vuetify from 'vuetify'
 import Component from '@/components/Spot/SpotDetail.vue'
 
 const localVue = createLocalVue()
