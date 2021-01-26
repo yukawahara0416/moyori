@@ -7,6 +7,7 @@ localVue.use(Vuetify)
 
 let wrapper
 let propsData
+let vuetify
 
 beforeEach(() => {
   propsData = {
