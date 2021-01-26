@@ -37,6 +37,9 @@ describe('emit', () => {
   })
 })
 
+describe('computed', () => {
+})
+
 describe('template', () => {
   it('spot-detail-title has :spot', () => {
     expect(
