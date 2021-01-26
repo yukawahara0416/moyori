@@ -100,6 +100,8 @@ export default {
       const dates = []
       let firstDay = 0
 
+      if (arry.length == 0) return firstDay
+
       for (let i = 0; i < arry.length; i++) {
         const date = new Date(arry[i].created_at)
         dates.push(date)
