@@ -50,6 +50,7 @@ export default {
 
   computed: {
     cols() {
+      return 6
     }
   },
 
