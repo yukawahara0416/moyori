@@ -49,6 +49,11 @@ export default {
     next()
   },
 
+  data() {
+    return {
+    }
+  },
+
   computed: {
     ...mapGetters({ user: 'user/user' }),
     ...mapGetters(['currentUser', 'isNotFound'])
