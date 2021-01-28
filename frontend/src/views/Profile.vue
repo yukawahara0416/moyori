@@ -66,7 +66,13 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['loadingOn', 'loadingOff', 'setNotFound']),
+    ...mapMutations([
+      'googleMutation',
+      'mapMutation',
+      'loadingOn',
+      'loadingOff',
+      'setNotFound'
+    ]),
     ...mapMutations({
       clearSpotsStore: 'spot/clearSpotsStore',
       clearUserStore: 'user/clearUserStore',
