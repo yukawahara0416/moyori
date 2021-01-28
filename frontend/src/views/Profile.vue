@@ -2,6 +2,7 @@
   <div>
     <not-found v-if="isNotFound" />
     <template v-else>
+      <gmap-map ref="map" :center="center" :zoom="zoom" />
       <v-row align="center" class="row-default my-5" justify="center" no-gutter>
         <v-col class="col-default mb-5" cols="8">
           <v-row align="center" class="row-default" justify="center" no-gutter>
