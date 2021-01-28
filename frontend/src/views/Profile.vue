@@ -42,6 +42,8 @@ export default {
 
   async mounted() {
     this.$gmapApiPromiseLazy().then(async () => {
+      await this.googleMutation(gmapApi)
+      await this.mapMutation(this.$refs.map.$mapObject)
       this.fetchData(this.id)
     })
   },
