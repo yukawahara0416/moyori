@@ -52,6 +52,7 @@ export default {
   data() {
     return {
       center: { lat: 35.680959, lng: 139.767306 },
+      zoom: 12
     }
   },
 
