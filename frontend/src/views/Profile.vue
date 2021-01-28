@@ -41,11 +41,16 @@ export default {
   },
 
   async mounted() {
+    this.$gmapApiPromiseLazy().then(async () => {
+      this.fetchData(this.id)
+    })
   },
 
   beforeRouteUpdate(to, from, next) {
-    this.fetchData(to.params.id)
-    next()
+    this.$gmapApiPromiseLazy().then(async () => {
+      this.fetchData(to.params.id)
+      next()
+    })
   },
 
   data() {
