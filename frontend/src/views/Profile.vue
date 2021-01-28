@@ -50,6 +50,8 @@ export default {
 
   beforeRouteUpdate(to, from, next) {
     this.$gmapApiPromiseLazy().then(async () => {
+      await this.googleMutation(gmapApi)
+      await this.mapMutation(this.$refs.map.$mapObject)
       this.fetchData(to.params.id)
       next()
     })
