@@ -40,8 +40,7 @@ export default {
     NotFound
   },
 
-  created() {
-    this.fetchData(this.id)
+  async mounted() {
   },
 
   beforeRouteUpdate(to, from, next) {
