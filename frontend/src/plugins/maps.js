@@ -135,7 +135,7 @@ function nearbySearchFromGmap(map, request) {
 
 // GoogleMapsAPI形式のデータ構造をSpotインスタンス化します
 function formatGmapSpot(spot) {
-  const image =
+  const photo_url =
     'photos' in spot
       ? spot.photos[0].getUrl({ maxWidth: 320 })
       : require('@/assets/noimage.png')
@@ -149,7 +149,7 @@ function formatGmapSpot(spot) {
         lat: spot.geometry.location.lat() || null,
         lng: spot.geometry.location.lng() || null
       },
-      image: image
+      photo_url: photo_url
     }
   }
 
