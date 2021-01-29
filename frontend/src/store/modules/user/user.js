@@ -1,4 +1,5 @@
 import { axiosBase } from '@/plugins/axios.js'
+import merge from 'lodash/merge'
 
 export default {
   namespaced: true,
