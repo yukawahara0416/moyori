@@ -66,6 +66,7 @@ Spot.default = {
     url: null,
     image: null,
     photos: null,
+    photo_url: null,
     opening_hours: null
   },
   likes: [],
