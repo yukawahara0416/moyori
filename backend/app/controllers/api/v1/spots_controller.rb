@@ -53,7 +53,7 @@ module Api
       private
 
         def spot_params
-          params.fetch(:spot, {}).permit(:place_id, :name, :address, :lat, :lng, :image, :picture, :phone, :url, :distance)
+          params.fetch(:spot, {}).permit(:place_id, :name, :address, :lat, :lng, :photo_reference, :picture, :phone, :url, :distance)
         end
     end
   end
