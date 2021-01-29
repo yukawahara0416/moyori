@@ -58,7 +58,7 @@ export default {
   height: 150px !important;
 }
 .imgHeight_small {
-  height: 100% !important;
+  height: 211px !important;
 }
 .img-container {
   position: relative;
