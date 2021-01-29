@@ -38,6 +38,7 @@ export default {
   computed: {
     photo() {
       if (this.spot.data.photo_url) return this.spot.data.photo_url
+      if (this.spot.data.photo_reference) return this.spot.getPhotoUrl()
       if (this.spot.data.picture) return this.spot.data.picture
       if (this.filterImages.length > 0) return this.filterImages[0].image
       return require('@/assets/noimage.png')
