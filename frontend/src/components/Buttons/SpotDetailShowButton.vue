@@ -42,7 +42,10 @@ export default {
   },
 
   methods: {
-    ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
+    ...mapMutations({
+      updateDataSpotsStore: 'spot/updateDataSpotsStore',
+      updateDataUserStore: 'user/updateDataUserStore'
+    }),
     ...mapActions(['pushSnackbarError']),
 
     openDialog() {
