@@ -27,7 +27,7 @@ CSV.foreach(Rails.root.join('db/csv/spot.csv'), headers: true) do |row|
     address: row[3],
     lat: row[4],
     lng: row[5],
-    image: row[6],
+    photo_reference: row[6],
     phone: row[7],
     url: row[8]
   )

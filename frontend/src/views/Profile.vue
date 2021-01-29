@@ -44,17 +44,17 @@ export default {
     this.$gmapApiPromiseLazy().then(async () => {
       await this.googleMutation(gmapApi)
       await this.mapMutation(this.$refs.map.$mapObject)
-      this.fetchData(this.id)
     })
+    this.fetchData(this.id)
   },
 
   beforeRouteUpdate(to, from, next) {
     this.$gmapApiPromiseLazy().then(async () => {
       await this.googleMutation(gmapApi)
       await this.mapMutation(this.$refs.map.$mapObject)
-      this.fetchData(to.params.id)
-      next()
     })
+    this.fetchData(to.params.id)
+    next()
   },
 
   data() {

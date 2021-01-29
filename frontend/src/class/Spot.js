@@ -47,6 +47,13 @@ export class Spot {
       return item.user_id == user_id
     })
   }
+  getPhotoUrl() {
+    const maxWidth = '320'
+    const photo_reference = this.data.photo_reference
+    const key = process.env.VUE_APP_GMAP_API_KEY
+    const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${maxWidth}&photoreference=${photo_reference}&key=${key}`
+    return url
+  }
 }
 
 Spot.default = {
@@ -64,8 +71,9 @@ Spot.default = {
     zIndex: 10,
     phone: null,
     url: null,
-    image: null,
     photos: null,
+    photo_reference: null,
+    photo_url: null,
     opening_hours: null
   },
   likes: [],

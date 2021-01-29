@@ -13,7 +13,7 @@ describe('props', () => {
   beforeEach(() => {
     propsData = {
       spot: {
-        data: { id: 1, name: 'test', image: 'test' },
+        data: { id: 1, name: 'test', photo_url: 'test' },
         comments: [{ image: 'test' }]
       }
     }
@@ -34,10 +34,10 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('image, spot.data.image is true', () => {
+  it('image, spot.data.photo_url is true', () => {
     propsData = {
       spot: {
-        data: { id: 1, name: 'test', image: 'test' },
+        data: { id: 1, name: 'test', photo_url: 'test' },
         comments: [{ image: 'test' }]
       }
     }
@@ -49,13 +49,13 @@ describe('computed', () => {
       propsData,
       vuetify
     })
-    expect(wrapper.vm.image).toEqual(propsData.spot.data.image)
+    expect(wrapper.vm.photo).toEqual(propsData.spot.data.photo_url)
   })
 
-  it('image/spot.data.image is false', () => {
+  it('image/spot.data.photo_url is false', () => {
     propsData = {
       spot: {
-        data: { id: 1, name: 'test', image: '' },
+        data: { id: 1, name: 'test', photo_url: '' },
         comments: [{ image: 'test' }]
       }
     }
@@ -67,13 +67,13 @@ describe('computed', () => {
       propsData,
       vuetify
     })
-    expect(wrapper.vm.image).toEqual(propsData.spot.comments[0].image)
+    expect(wrapper.vm.photo).toEqual(propsData.spot.comments[0].image)
   })
 
-  it('image/spot.data.image & filterImages.length is false', () => {
+  it('image/spot.data.photo_url & filterImages.length is false', () => {
     propsData = {
       spot: {
-        data: { id: 1, name: 'test', image: '' },
+        data: { id: 1, name: 'test', photo_url: '' },
         comments: []
       }
     }
@@ -85,7 +85,7 @@ describe('computed', () => {
       propsData,
       vuetify
     })
-    expect(wrapper.vm.image).toEqual(require('@/assets/noimage.png'))
+    expect(wrapper.vm.photo).toEqual(require('@/assets/noimage.png'))
   })
 
   it('filterImages', () => {

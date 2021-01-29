@@ -14,7 +14,7 @@ class SpotSerializer < ActiveModel::Serializer
       },
       on: false,
       zIndex: 10,
-      image: object.image,
+      photo_reference: object.photo_reference,
       picture: picture,
       phone: object.phone,
       url: object.url
