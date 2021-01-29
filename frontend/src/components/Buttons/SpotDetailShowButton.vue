@@ -57,10 +57,11 @@ export default {
     },
 
     placeDetail: async function(spot) {
-      // GoogleMapsのスポットでなければ、placeDetailを実行しない
+      // ユーザが作成したスポットの場合、placeDetailを実行しない
       if (!spot.isGmapSpot()) return
 
-      // Profile画面であれば、placeDetailを実行しない
+      const map = this.map
+      const tab = this.profileTab
       const route = this.$route.name
       if (route === 'profile') return
 
