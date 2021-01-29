@@ -6,7 +6,7 @@ export default {
       place_id: '',
       name: '',
       address: '',
-      image: null,
+      photo_reference: null,
       picture: null,
       phone: null,
       lat: '',
