@@ -73,7 +73,7 @@ describe('props data', () => {
   })
 })
 
-describe('call at created hook', () => {
+describe('call at mounted hook', () => {
   it('fetchData', () => {
     expect(fetchData).toHaveBeenCalled()
   })
