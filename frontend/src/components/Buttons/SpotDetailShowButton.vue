@@ -63,11 +63,14 @@ export default {
       const map = this.map
       const tab = this.profileTab
       const route = this.$route.name
-      if (route === 'profile') return
-
-      const map = this.map
       try {
         const data = await placeDetail(map, spot)
+
+        if (route === 'profile') {
+          this.updateDataUserStore({ spot, data, tab })
+          return
+        }
+
         this.updateDataSpotsStore({ spot, data })
       } catch (error) {
         this.pushSnackbarError({ message: error })
