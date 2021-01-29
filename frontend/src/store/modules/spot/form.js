@@ -40,7 +40,7 @@ export default {
           place_id: payload.data.place_id,
           address: payload.data.address,
           name: payload.data.name,
-          image: payload.data.image,
+          photo_reference: payload.data.photo_reference,
           picture: payload.data.picture,
           phone: payload.data.phone,
           lat: payload.data.position.lat,
