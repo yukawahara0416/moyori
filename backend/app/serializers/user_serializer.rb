@@ -14,7 +14,13 @@ class UserSerializer < ActiveModel::Serializer
     object.avatar.attachment.service.send(:object_for, object.avatar.key).public_url if object.avatar.attached?
   end
 
-  has_many :spots, key: :posts
+  has_many :spots, key: :posts do
+    spots = []
+    object.spots.where.not('char_length(place_id) > 10').each do |item|
+      spots.push(item)
+    end
+    spots
+  end
 
   has_many :likes do
     spots = []
