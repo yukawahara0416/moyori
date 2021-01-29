@@ -38,11 +38,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['map'])
+    ...mapGetters(['map', 'profileTab'])
   },
 
   methods: {
-    ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
+    ...mapMutations({
+      updateDataSpotsStore: 'spot/updateDataSpotsStore',
+      updateDataUserStore: 'user/updateDataUserStore'
+    }),
     ...mapActions(['pushSnackbarError']),
 
     openDialog() {
@@ -54,16 +57,20 @@ export default {
     },
 
     placeDetail: async function(spot) {
-      // GoogleMapsのスポットでなければ、placeDetailを実行しない
+      // ユーザが作成したスポットの場合、placeDetailを実行しない
       if (!spot.isGmapSpot()) return
 
-      // Profile画面であれば、placeDetailを実行しない
-      const route = this.$route.name
-      if (route === 'profile') return
-
       const map = this.map
+      const tab = this.profileTab
+      const route = this.$route.name
       try {
         const data = await placeDetail(map, spot)
+
+        if (route === 'profile') {
+          this.updateDataUserStore({ spot, data, tab })
+          return
+        }
+
         this.updateDataSpotsStore({ spot, data })
       } catch (error) {
         this.pushSnackbarError({ message: error })

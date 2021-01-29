@@ -6,7 +6,7 @@
       imgHeight_big: $vuetify.breakpoint.mdAndUp,
       imgHeight_small: $vuetify.breakpoint.smAndDown
     }"
-    :src="image"
+    :src="photo"
   >
     <template v-slot:placeholder>
       <v-row class="fill-height ma-0" align="center" justify="center">
@@ -36,8 +36,9 @@ export default {
   },
 
   computed: {
-    image() {
-      if (this.spot.data.image) return this.spot.data.image
+    photo() {
+      if (this.spot.data.photo_url) return this.spot.data.photo_url
+      if (this.spot.data.photo_reference) return this.spot.getPhotoUrl()
       if (this.spot.data.picture) return this.spot.data.picture
       if (this.filterImages.length > 0) return this.filterImages[0].image
       return require('@/assets/noimage.png')
@@ -57,7 +58,7 @@ export default {
   height: 150px !important;
 }
 .imgHeight_small {
-  height: 100% !important;
+  height: 211px !important;
 }
 .img-container {
   position: relative;

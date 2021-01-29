@@ -1,19 +1,25 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
+import Vuetify from 'vuetify'
 import Component from '@/components/Spot/SpotDetail.vue'
 
 const localVue = createLocalVue()
+localVue.use(Vuetify)
 
 let wrapper
 let propsData
+let vuetify
 
 beforeEach(() => {
   propsData = {
     spot: { data: { id: 1 } }
   }
 
+  vuetify = new Vuetify()
+
   wrapper = shallowMount(Component, {
     localVue,
-    propsData
+    propsData,
+    vuetify
   })
 })
 
@@ -28,6 +34,12 @@ describe('emit', () => {
   it('closeDialog', () => {
     wrapper.vm.closeDialog()
     expect(wrapper.emitted('closeDialog')).toBeTruthy()
+  })
+})
+
+describe('computed', () => {
+  it('cols', () => {
+    expect(wrapper.vm.cols).toEqual(6)
   })
 })
 

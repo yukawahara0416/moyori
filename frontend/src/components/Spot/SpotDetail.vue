@@ -8,11 +8,11 @@
       <spot-detail-image-slide :spot="spot" />
 
       <v-row>
-        <v-col class="py-0 pr-1" cols="6">
+        <v-col class="py-0 pr-1" :cols="cols">
           <spot-detail-wifi-panel :spot="spot" />
         </v-col>
 
-        <v-col class="py-0 pl-1" cols="6">
+        <v-col class="py-0 pl-1" :cols="cols">
           <spot-detail-power-panel :spot="spot" />
         </v-col>
       </v-row>
@@ -46,6 +46,13 @@ export default {
     SpotDetailWifiPanel,
     SpotDetailPowerPanel,
     SpotDetailCommentPanel
+  },
+
+  computed: {
+    cols() {
+      if (this.$vuetify.breakpoint.xsOnly) return 12
+      return 6
+    }
   },
 
   methods: {

@@ -1,4 +1,5 @@
 import { axiosBase } from '@/plugins/axios.js'
+import merge from 'lodash/merge'
 
 export default {
   namespaced: true,
@@ -47,6 +48,15 @@ export default {
       const items = target[0][prop]
       const index = items.findIndex(({ id }) => id === data.id)
       items.splice(index, 1)
+    },
+
+    // ユーザが保有するスポットの情報を更新します
+    updateDataUserStore(state, { spot, data, tab }) {
+      const target = state.user[tab].filter(item => {
+        return item.data.place_id == spot.data.place_id
+      })
+
+      merge(target[0], data)
     },
 
     onSpotlight(state, { spot, tab }) {
