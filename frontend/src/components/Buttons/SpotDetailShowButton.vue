@@ -38,7 +38,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['map'])
+    ...mapGetters(['map', 'profileTab'])
   },
 
   methods: {
