@@ -68,7 +68,7 @@
               name="url"
               prepend-icon="mdi-web"
               type="text"
-              v-model="spot.data.url"
+              v-model="url"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
