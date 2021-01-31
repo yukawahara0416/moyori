@@ -1,4 +1,6 @@
 class Comment < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   has_one_attached :image
   belongs_to :user
   belongs_to :spot
