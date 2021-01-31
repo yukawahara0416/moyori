@@ -279,6 +279,10 @@ export default {
       const route = this.$route.name
 
       let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
       // 「Wifiあり」が選択された場合
       if (this.wifi_radio === 'wifi_with') {
         await this.wifiWithHandler(spot, tab, headers, route, params)
