@@ -39,4 +39,8 @@ class Spot < ApplicationRecord
       .having('distance <= ?', distance)
       .order(:distance)
   end
+
+  def picture_url
+    picture.attached? ? url_for(picture) : nil
+  end
 end
