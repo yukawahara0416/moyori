@@ -22,7 +22,9 @@ class SpotSerializer < ActiveModel::Serializer
   end
 
   def picture
+    if Rails.env.production?
     object.picture.attachment.service.send(:object_for, object.picture.key).public_url if object.picture.attached?
+    end
   end
 
   has_many :likes
