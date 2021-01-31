@@ -46,6 +46,7 @@ export default {
       await this.mapMutation(this.$refs.map.$mapObject)
     })
     this.fetchData(this.id)
+    this.changeProfileTab('posts')
   },
 
   beforeRouteUpdate(to, from, next) {
