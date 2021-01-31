@@ -192,7 +192,11 @@ export default {
       try {
         const response = await this.updateSpot({ spot, params, headers })
         const data = response.data
-        await this.updateDataSpotsStore({ spot, data })
+
+        route === 'profile'
+          ? this.updateDataUserStore({ spot, data, tab, isMyPage })
+          : this.updateDataSpotsStore({ spot, data })
+
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'スポットの情報を更新しました' })
       } catch (error) {
