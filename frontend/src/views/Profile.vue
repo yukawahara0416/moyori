@@ -55,6 +55,7 @@ export default {
       await this.mapMutation(this.$refs.map.$mapObject)
     })
     this.fetchData(to.params.id)
+    this.changeProfileTab('posts')
     next()
   },
 
