@@ -254,7 +254,8 @@ export default {
           params,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
 
         // 投票します
