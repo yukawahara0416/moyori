@@ -143,6 +143,7 @@ export default {
   data() {
     return {
       name: this.spot.data.name,
+      address: this.spot.data.address,
       picture: null,
       uploadImageUrl: null
     }
