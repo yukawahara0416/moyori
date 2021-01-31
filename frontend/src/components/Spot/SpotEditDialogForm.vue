@@ -181,6 +181,7 @@ export default {
       const spot = this.spot
       const params = this.formData
       const headers = this.headers
+      const route = this.$route.name
 
       try {
         const response = await this.updateSpot({ spot, params, headers })
