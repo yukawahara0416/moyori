@@ -23,7 +23,9 @@ class SpotSerializer < ActiveModel::Serializer
 
   def picture
     if Rails.env.production?
-    object.picture.attachment.service.send(:object_for, object.picture.key).public_url if object.picture.attached?
+      object.picture.attachment.service.send(:object_for, object.picture.key).public_url if object.picture.attached?
+    elsif Rails.env.development?
+      object.picture_url if object.picture.attached?
     end
   end
 
