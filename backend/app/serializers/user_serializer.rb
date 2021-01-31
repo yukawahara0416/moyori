@@ -11,6 +11,8 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def avatar
+    if Rails.env.production?
+    end
     object.avatar.attachment.service.send(:object_for, object.avatar.key).public_url if object.avatar.attached?
   end
 
