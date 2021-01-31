@@ -118,7 +118,8 @@ export default {
             target,
             tab,
             headers,
-            route
+            route,
+            isMyPage
           })
         }
 
@@ -131,7 +132,8 @@ export default {
             target,
             tab,
             headers,
-            route
+            route,
+            isMyPage
           })
           this.pushSnackbarSuccess({
             message: '「電源あるよ」を取り消しました'
@@ -146,7 +148,8 @@ export default {
           params,
           tab,
           headers,
-          route
+          route,
+          isMyPage,
         })
         this.pushSnackbarSuccess({ message: '「電源あるよ」を投票しました' })
       } catch (error) {
