@@ -80,6 +80,10 @@ export default {
 
       let currentUserId = null
       let isMyPage = false
+
+      if (this.$route.params.id) {
+      }
+
       try {
         if (!this.isLoggingIn) {
           this.changeSignTab('signin')
