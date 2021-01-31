@@ -16,10 +16,18 @@ class CommentSerializer < ActiveModel::Serializer
 
   def avatar
     user = User.find(object.user_id)
-    user.avatar.attachment.service.send(:object_for, user.avatar.key).public_url if user.avatar.attached?
+    if Rails.env.production?
+      user.avatar.attachment.service.send(:object_for, user.avatar.key).public_url if user.avatar.attached?
+    elsif Rails.env.development?
+      user.avatar_url if user.avatar.attached?
+    end
   end
 
   def image
-    object.image.attachment.service.send(:object_for, object.image.key).public_url if object.image.attached?
+    if Rails.env.production?
+      object.image.attachment.service.send(:object_for, object.image.key).public_url if object.image.attached?
+    elsif Rails.env.development?
+      object.image_url if object.image.attached?
+    end
   end
 end
