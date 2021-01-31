@@ -29,7 +29,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'profileTab'])
+    ...mapGetters(['headers', 'currentUser'])
   },
 
   methods: {
