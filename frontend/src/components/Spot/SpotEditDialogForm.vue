@@ -159,10 +159,10 @@ export default {
       formData.append('spot[address]', this.address)
       formData.append('spot[name]', this.name)
       formData.append('spot[place_id]', this.spot.data.place_id)
-
       formData.append('spot[lat]', this.spot.data.position.lat)
       formData.append('spot[lng]', this.spot.data.position.lng)
       if (this.phone !== null) formData.append('spot[phone]', this.phone)
+      if (this.url !== null) formData.append('spot[url]', this.url)
       if (this.picture !== null) formData.append('spot[picture]', this.picture)
 
       return formData
