@@ -237,6 +237,10 @@ export default {
     },
 
     clearForm() {
+      this.name = this.spot.data.name
+      this.address = this.spot.data.address
+      this.phone = this.spot.data.phone
+      this.url = this.spot.data.url
       this.picture = null
       this.uploadImageUrl = null
     }
