@@ -109,7 +109,7 @@ export default {
           params.append('wifi_with[spot_id]', spot.data.id)
         }
 
-        // 「Wifiないよ」の投票があれば「Wifiないよ」の投票を取り消します
+        // 「Wifiないよ」の投票があれば取り消します
         if (this.isWifiWithouting) {
           target = this.yourWifiWithout[0]
           await this.unVote({
@@ -122,7 +122,7 @@ export default {
           })
         }
 
-        // 「Wifiあるよ」の投票があれば「Wifiあるよ」の投票を取り消します
+        // 「Wifiあるよ」の投票があれば取り消します
         if (this.isWifiWithing) {
           target = this.yourWifiWith[0]
           await this.unVote({
