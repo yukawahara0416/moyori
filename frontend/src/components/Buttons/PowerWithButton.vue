@@ -82,6 +82,10 @@ export default {
       const route = this.$route.name
 
       let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
       try {
         if (!this.isLoggingIn) {
           this.changeSignTab('signin')
