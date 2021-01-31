@@ -142,6 +142,7 @@ export default {
 
   data() {
     return {
+      name: this.spot.data.name,
       picture: null,
       uploadImageUrl: null
     }
