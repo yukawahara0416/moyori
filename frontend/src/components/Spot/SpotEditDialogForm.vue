@@ -170,7 +170,10 @@ export default {
 
   methods: {
     ...mapMutations(['clearSpotFormData']),
-    ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
+    ...mapMutations({
+      updateDataSpotsStore: 'spot/updateDataSpotsStore',
+      updateDataUserStore: 'user/updateDataUserStore'
+    }),
     ...mapActions(['dialogOff', 'pushSnackbarSuccess', 'pushSnackbarError']),
     ...mapActions({ updateSpot: 'spot/updateSpot' }),
 
