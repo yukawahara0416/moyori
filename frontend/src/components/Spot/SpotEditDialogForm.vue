@@ -184,6 +184,7 @@ export default {
       const route = this.$route.name
       const tab = this.profileTab
 
+      let isMyPage = false
       try {
         const response = await this.updateSpot({ spot, params, headers })
         const data = response.data
