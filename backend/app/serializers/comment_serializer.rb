@@ -21,10 +21,13 @@ class CommentSerializer < ActiveModel::Serializer
     elsif Rails.env.development?
       user.avatar_url if user.avatar.attached?
     end
+  end
 
   def image
     if Rails.env.production?
-    object.image.attachment.service.send(:object_for, object.image.key).public_url if object.image.attached?
+      object.image.attachment.service.send(:object_for, object.image.key).public_url if object.image.attached?
+    elsif Rails.env.development?
+      object.image_url if object.image.attached?
     end
   end
 end
