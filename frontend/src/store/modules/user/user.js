@@ -51,12 +51,26 @@ export default {
     },
 
     // ユーザが保有するスポットの情報を更新します
-    updateDataUserStore(state, { spot, data, tab }) {
-      const target = state.user[tab].filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
+    updateDataUserStore(state, { spot, data, tab, isMyPage }) {
+      const arry = isMyPage
+        ? [
+            'posts',
+            'likes',
+            'wifi_withs',
+            'wifi_withouts',
+            'power_withs',
+            'power_withouts',
+            'comments'
+          ]
+        : [tab]
 
-      merge(target[0], data)
+      for (let i = 0; i < arry.length; i++) {
+        const target = state.user[arry[i]].filter(item => {
+          return item.data.place_id == spot.data.place_id
+        })
+
+        merge(target[0], data)
+      }
     },
 
     onSpotlight(state, { spot, tab }) {

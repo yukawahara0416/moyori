@@ -216,6 +216,11 @@ export default {
       const headers = this.headers
       const route = this.$route.name
 
+      let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
       params.append('comment[content]', this.content)
       if (this.image !== null) params.append('comment[image]', this.image)
 
@@ -249,7 +254,8 @@ export default {
           params,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
 
         // 投票します
@@ -272,28 +278,54 @@ export default {
       const headers = this.headers
       const route = this.$route.name
 
+      let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
       // 「Wifiあり」が選択された場合
       if (this.wifi_radio === 'wifi_with') {
-        await this.wifiWithHandler(spot, tab, headers, route, params)
+        await this.wifiWithHandler(spot, tab, headers, route, params, isMyPage)
       }
 
       // 「Wifiなし」が選択された場合
       if (this.wifi_radio === 'wifi_without') {
-        await this.wifiWithoutHandler(spot, tab, headers, route, params)
+        await this.wifiWithoutHandler(
+          spot,
+          tab,
+          headers,
+          route,
+          params,
+          isMyPage
+        )
       }
 
       // 「電源あり」が選択された場合
       if (this.power_radio === 'power_with') {
-        await this.powerWithHandler(spot, tab, headers, route, params)
+        await this.powerWithHandler(spot, tab, headers, route, params, isMyPage)
       }
 
       // 「電源なし」が選択された場合
       if (this.power_radio === 'power_without') {
-        await this.powerWithoutHandler(spot, tab, headers, route, params)
+        await this.powerWithoutHandler(
+          spot,
+          tab,
+          headers,
+          route,
+          params,
+          isMyPage
+        )
       }
     },
 
-    wifiWithHandler: async function(spot, tab, headers, route, params) {
+    wifiWithHandler: async function(
+      spot,
+      tab,
+      headers,
+      route,
+      params,
+      isMyPage
+    ) {
       params.append('wifi_with[spot_id]', spot.data.id)
 
       let target = null
@@ -310,7 +342,8 @@ export default {
           target,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
       }
 
@@ -321,11 +354,19 @@ export default {
         params,
         tab,
         headers,
-        route
+        route,
+        isMyPage
       })
     },
 
-    wifiWithoutHandler: async function(spot, tab, headers, route, params) {
+    wifiWithoutHandler: async function(
+      spot,
+      tab,
+      headers,
+      route,
+      params,
+      isMyPage
+    ) {
       params.append('wifi_without[spot_id]', spot.data.id)
 
       let target = null
@@ -342,7 +383,8 @@ export default {
           target,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
       }
 
@@ -353,11 +395,19 @@ export default {
         params,
         tab,
         headers,
-        route
+        route,
+        isMyPage
       })
     },
 
-    powerWithHandler: async function(spot, tab, headers, route, params) {
+    powerWithHandler: async function(
+      spot,
+      tab,
+      headers,
+      route,
+      params,
+      isMyPage
+    ) {
       params.append('power_with[spot_id]', spot.data.id)
 
       let target = null
@@ -374,7 +424,8 @@ export default {
           target,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
       }
 
@@ -385,11 +436,19 @@ export default {
         params,
         tab,
         headers,
-        route
+        route,
+        isMyPage
       })
     },
 
-    powerWithoutHandler: async function(spot, tab, headers, route, params) {
+    powerWithoutHandler: async function(
+      spot,
+      tab,
+      headers,
+      route,
+      params,
+      isMyPage
+    ) {
       params.append('power_without[spot_id]', spot.data.id)
 
       let target = null
@@ -406,7 +465,8 @@ export default {
           target,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
       }
 
@@ -417,7 +477,8 @@ export default {
         params,
         tab,
         headers,
-        route
+        route,
+        isMyPage
       })
     },
 

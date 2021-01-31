@@ -17,7 +17,7 @@
               name="name"
               prepend-icon="mdi-coffee"
               type="text"
-              v-model="spot.data.name"
+              v-model="name"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -34,7 +34,7 @@
               name="address"
               prepend-icon="mdi-home-circle-outline"
               type="text"
-              v-model="spot.data.address"
+              v-model="address"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -51,7 +51,7 @@
               name="phone"
               prepend-icon="mdi-phone-outline"
               type="phone"
-              v-model="spot.data.phone"
+              v-model="phone"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -68,7 +68,7 @@
               name="url"
               prepend-icon="mdi-web"
               type="text"
-              v-model="spot.data.url"
+              v-model="url"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -142,26 +142,27 @@ export default {
 
   data() {
     return {
+      name: this.spot.data.name,
+      address: this.spot.data.address,
+      phone: this.spot.data.phone,
+      url: this.spot.data.url,
       picture: null,
       uploadImageUrl: null
     }
   },
 
   computed: {
-    ...mapGetters(['headers']),
+    ...mapGetters(['headers', 'profileTab']),
 
     formData() {
       const formData = new FormData()
-      formData.append('spot[address]', this.spot.data.address)
-      formData.append('spot[name]', this.spot.data.name)
+      formData.append('spot[address]', this.address)
+      formData.append('spot[name]', this.name)
       formData.append('spot[place_id]', this.spot.data.place_id)
-
       formData.append('spot[lat]', this.spot.data.position.lat)
       formData.append('spot[lng]', this.spot.data.position.lng)
-      if (this.spot.data.phone !== null)
-        formData.append('spot[phone]', this.spot.data.phone)
-      if (this.spot.data.url !== null)
-        formData.append('spot[url]', this.spot.data.url)
+      if (this.phone !== null) formData.append('spot[phone]', this.phone)
+      if (this.url !== null) formData.append('spot[url]', this.url)
       if (this.picture !== null) formData.append('spot[picture]', this.picture)
 
       return formData
@@ -170,7 +171,10 @@ export default {
 
   methods: {
     ...mapMutations(['clearSpotFormData']),
-    ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
+    ...mapMutations({
+      updateDataSpotsStore: 'spot/updateDataSpotsStore',
+      updateDataUserStore: 'user/updateDataUserStore'
+    }),
     ...mapActions(['dialogOff', 'pushSnackbarSuccess', 'pushSnackbarError']),
     ...mapActions({ updateSpot: 'spot/updateSpot' }),
 
@@ -178,11 +182,22 @@ export default {
       const spot = this.spot
       const params = this.formData
       const headers = this.headers
+      const route = this.$route.name
+      const tab = this.profileTab
+
+      let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
 
       try {
         const response = await this.updateSpot({ spot, params, headers })
         const data = response.data
-        await this.updateDataSpotsStore({ spot, data })
+
+        route === 'profile'
+          ? this.updateDataUserStore({ spot, data, tab, isMyPage })
+          : this.updateDataSpotsStore({ spot, data })
+
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'スポットの情報を更新しました' })
       } catch (error) {
@@ -219,6 +234,10 @@ export default {
     },
 
     clearForm() {
+      this.name = this.spot.data.name
+      this.address = this.spot.data.address
+      this.phone = this.spot.data.phone
+      this.url = this.spot.data.url
       this.picture = null
       this.uploadImageUrl = null
     }

@@ -46,6 +46,7 @@ export default {
       await this.mapMutation(this.$refs.map.$mapObject)
     })
     this.fetchData(this.id)
+    this.changeProfileTab('posts')
   },
 
   beforeRouteUpdate(to, from, next) {
@@ -54,6 +55,7 @@ export default {
       await this.mapMutation(this.$refs.map.$mapObject)
     })
     this.fetchData(to.params.id)
+    this.changeProfileTab('posts')
     next()
   },
 
@@ -73,6 +75,7 @@ export default {
     ...mapMutations([
       'googleMutation',
       'mapMutation',
+      'changeProfileTab',
       'loadingOn',
       'loadingOff',
       'setNotFound'

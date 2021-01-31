@@ -81,6 +81,11 @@ export default {
       const headers = this.headers
       const route = this.$route.name
 
+      let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
       try {
         if (!this.isLoggingIn) {
           this.changeSignTab('signin')
@@ -104,7 +109,7 @@ export default {
           params.append('wifi_with[spot_id]', spot.data.id)
         }
 
-        // 「Wifiないよ」の投票があれば「Wifiないよ」の投票を取り消します
+        // 「Wifiないよ」の投票があれば取り消します
         if (this.isWifiWithouting) {
           target = this.yourWifiWithout[0]
           await this.unVote({
@@ -113,11 +118,12 @@ export default {
             target,
             tab,
             headers,
-            route
+            route,
+            isMyPage
           })
         }
 
-        // 「Wifiあるよ」の投票があれば「Wifiあるよ」の投票を取り消します
+        // 「Wifiあるよ」の投票があれば取り消します
         if (this.isWifiWithing) {
           target = this.yourWifiWith[0]
           await this.unVote({
@@ -126,7 +132,8 @@ export default {
             target,
             tab,
             headers,
-            route
+            route,
+            isMyPage
           })
           this.pushSnackbarSuccess({
             message: '「Wifiあるよ」を取り消しました'
@@ -141,7 +148,8 @@ export default {
           params,
           tab,
           headers,
-          route
+          route,
+          isMyPage,
         })
         this.pushSnackbarSuccess({ message: '「Wifiあるよ」を投票しました' })
       } catch (error) {
