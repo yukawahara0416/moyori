@@ -278,6 +278,7 @@ export default {
       const headers = this.headers
       const route = this.$route.name
 
+      let isMyPage = false
       // 「Wifiあり」が選択された場合
       if (this.wifi_radio === 'wifi_with') {
         await this.wifiWithHandler(spot, tab, headers, route, params)
