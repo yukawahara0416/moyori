@@ -78,10 +78,10 @@ export default {
       const headers = this.headers
       const route = this.$route.name
 
-      let currentUserId = null
       let isMyPage = false
 
-      if (this.$route.params.id) {
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
       }
 
       try {
