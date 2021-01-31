@@ -182,6 +182,7 @@ export default {
       const params = this.formData
       const headers = this.headers
       const route = this.$route.name
+      const tab = this.profileTab
 
       try {
         const response = await this.updateSpot({ spot, params, headers })
