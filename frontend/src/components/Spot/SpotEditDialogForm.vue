@@ -34,7 +34,7 @@
               name="address"
               prepend-icon="mdi-home-circle-outline"
               type="text"
-              v-model="spot.data.address"
+              v-model="address"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
