@@ -18,6 +18,7 @@ beforeEach(() => {
     spot: {
       data: {
         id: 1,
+        place_id: 'testplaceid',
         name: 'testname',
         address: 'testaddress',
         phone: 'testphone',
@@ -109,6 +110,7 @@ describe('methods', () => {
 
     wrapper = shallowMount(Component, {
       localVue,
+      propsData,
       store,
       methods: {
         closeDialog
@@ -126,6 +128,7 @@ describe('methods', () => {
 
     wrapper = shallowMount(Component, {
       localVue,
+      propsData,
       store,
       methods: {
         clearForm

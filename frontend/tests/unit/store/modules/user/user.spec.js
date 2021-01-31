@@ -48,46 +48,6 @@ describe('mutations', () => {
     expect(store.state.user).toMatchObject({})
   })
 
-  it('addDataUserStore', () => {
-    const user = {
-      data: { id: 1 },
-      posts: [
-        {
-          data: { id: 1, place_id: '123' },
-          likes: [{ data: { id: 2 } }]
-        }
-      ]
-    }
-    const spot = user.posts[0]
-    const data = { data: { id: 3 } }
-    const tab = 'posts'
-    const prop = 'likes'
-
-    store.replaceState({ user: user })
-    store.commit('addDataUserStore', { spot, data, tab, prop })
-    expect(store.state.user.posts[0].likes).toHaveLength(2)
-  })
-
-  it('deleteDataUserStore', () => {
-    const user = {
-      data: { id: 1 },
-      posts: [
-        {
-          data: { id: 1, place_id: '123' },
-          likes: [{ data: { id: 2 } }]
-        }
-      ]
-    }
-    const spot = user.posts[0]
-    const data = user.posts[0].likes[0]
-    const tab = 'posts'
-    const prop = 'likes'
-
-    store.replaceState({ user: user })
-    store.commit('deleteDataUserStore', { spot, data, tab, prop })
-    expect(store.state.user.posts[0].likes).toHaveLength(0)
-  })
-
   it('onSpotlight, offSpotlight', () => {
     const user = {
       data: { id: 1 },

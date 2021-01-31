@@ -64,8 +64,13 @@ export default {
           ]
         : [tab]
 
+      for (let i = 0; i < arry.length; i++) {
+        const target = state.user[arry[i]].filter(item => {
+          return item.data.place_id == spot.data.place_id
+        })
 
-      merge(target[0], data)
+        merge(target[0], data)
+      }
     },
 
     onSpotlight(state, { spot, tab }) {
