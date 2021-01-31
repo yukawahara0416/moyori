@@ -2,7 +2,7 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    vote(context, { prop, spot, params, tab, headers, route }) {
+    vote(context, { prop, spot, params, tab, headers, route, isMyPage }) {
       return axiosBase
         .post(`/api/v1/${prop}`, params, { headers })
         .then(response => {
@@ -20,7 +20,7 @@ export default {
         })
     },
 
-    unVote(context, { prop, spot, target, tab, headers, route }) {
+    unVote(context, { prop, spot, target, headers, route, isMyPage }) {
       return axiosBase
         .delete(`/api/v1/${prop}/${target.id}`, { headers })
         .then(response => {
