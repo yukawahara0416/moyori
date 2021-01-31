@@ -52,6 +52,18 @@ export default {
 
     // ユーザが保有するスポットの情報を更新します
     updateDataUserStore(state, { spot, data, tab, isMyPage }) {
+      const arry = isMyPage
+        ? [
+            'posts',
+            'likes',
+            'wifi_withs',
+            'wifi_withouts',
+            'power_withs',
+            'power_withouts',
+            'comments'
+          ]
+        : [tab]
+
 
       merge(target[0], data)
     },
