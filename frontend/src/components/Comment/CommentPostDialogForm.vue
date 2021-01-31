@@ -342,7 +342,8 @@ export default {
           target,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
       }
 
@@ -353,7 +354,8 @@ export default {
         params,
         tab,
         headers,
-        route
+        route,
+        isMyPage
       })
     },
 
@@ -381,7 +383,8 @@ export default {
           target,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
       }
 
@@ -392,7 +395,8 @@ export default {
         params,
         tab,
         headers,
-        route
+        route,
+        isMyPage
       })
     },
 
@@ -420,7 +424,8 @@ export default {
           target,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
       }
 
@@ -431,7 +436,8 @@ export default {
         params,
         tab,
         headers,
-        route
+        route,
+        isMyPage
       })
     },
 
@@ -459,7 +465,8 @@ export default {
           target,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
       }
 
@@ -470,7 +477,8 @@ export default {
         params,
         tab,
         headers,
-        route
+        route,
+        isMyPage
       })
     },
 
