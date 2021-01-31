@@ -156,8 +156,7 @@ export default {
 
     formData() {
       const formData = new FormData()
-      formData.append('spot[address]', this.spot.data.address)
-      formData.append('spot[name]', this.spot.data.name)
+      formData.append('spot[address]', this.address)
       formData.append('spot[place_id]', this.spot.data.place_id)
 
       formData.append('spot[lat]', this.spot.data.position.lat)
