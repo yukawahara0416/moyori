@@ -51,7 +51,7 @@
               name="phone"
               prepend-icon="mdi-phone-outline"
               type="phone"
-              v-model="spot.data.phone"
+              v-model="phone"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
