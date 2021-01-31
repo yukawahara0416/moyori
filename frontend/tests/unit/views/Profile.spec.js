@@ -10,6 +10,7 @@ let propsData
 let store
 let user
 let auth
+let tab
 let notfound
 
 const fetchData = jest.fn()
@@ -41,6 +42,12 @@ beforeEach(() => {
       }
     }
   }
+
+      tab = {
+        mutations: {
+          changeProfileTab: jest.fn()
+        }
+      }
 
   notfound = {
     getters: {
