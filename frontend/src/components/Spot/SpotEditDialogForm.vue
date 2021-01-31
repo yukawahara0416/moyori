@@ -17,7 +17,7 @@
               name="name"
               prepend-icon="mdi-coffee"
               type="text"
-              v-model="spot.data.name"
+              v-model="name"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
