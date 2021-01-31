@@ -54,7 +54,8 @@ export default {
           target,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
         this.pushSnackbarSuccess({ message: 'コメントを削除しました' })
         this.closeDialog()
