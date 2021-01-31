@@ -75,6 +75,7 @@ export default {
     ...mapMutations([
       'googleMutation',
       'mapMutation',
+      'changeProfileTab',
       'loadingOn',
       'loadingOff',
       'setNotFound'
