@@ -43,11 +43,11 @@ beforeEach(() => {
     }
   }
 
-      tab = {
-        mutations: {
-          changeProfileTab: jest.fn()
-        }
-      }
+  tab = {
+    mutations: {
+      changeProfileTab: jest.fn()
+    }
+  }
 
   notfound = {
     getters: {
@@ -59,6 +59,7 @@ beforeEach(() => {
     modules: {
       user,
       auth,
+      tab,
       notfound
     }
   })
