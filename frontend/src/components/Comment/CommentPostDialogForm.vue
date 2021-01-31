@@ -216,6 +216,7 @@ export default {
       const headers = this.headers
       const route = this.$route.name
 
+      let isMyPage = false
       params.append('comment[content]', this.content)
       if (this.image !== null) params.append('comment[image]', this.image)
 
