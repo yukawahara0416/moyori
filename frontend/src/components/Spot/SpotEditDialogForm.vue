@@ -145,6 +145,7 @@ export default {
       name: this.spot.data.name,
       address: this.spot.data.address,
       phone: this.spot.data.phone,
+      url: this.spot.data.url,
       picture: null,
       uploadImageUrl: null
     }
