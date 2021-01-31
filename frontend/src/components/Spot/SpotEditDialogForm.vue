@@ -148,7 +148,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers']),
+    ...mapGetters(['headers', 'profileTab']),
 
     formData() {
       const formData = new FormData()
