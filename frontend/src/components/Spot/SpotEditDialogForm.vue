@@ -185,6 +185,10 @@ export default {
       const tab = this.profileTab
 
       let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
       try {
         const response = await this.updateSpot({ spot, params, headers })
         const data = response.data
