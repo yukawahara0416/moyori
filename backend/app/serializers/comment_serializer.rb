@@ -23,6 +23,8 @@ class CommentSerializer < ActiveModel::Serializer
     end
 
   def image
+    if Rails.env.production?
     object.image.attachment.service.send(:object_for, object.image.key).public_url if object.image.attached?
+    end
   end
 end
