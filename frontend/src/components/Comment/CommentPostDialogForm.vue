@@ -217,6 +217,10 @@ export default {
       const route = this.$route.name
 
       let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
       params.append('comment[content]', this.content)
       if (this.image !== null) params.append('comment[image]', this.image)
 
