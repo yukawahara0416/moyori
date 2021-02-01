@@ -91,6 +91,9 @@ export default {
 
       state.user[prop].push(cloneDeep(target[0]))
     },
+
+    // 投票データを削除します
+    deleteVoteUserStore(state, { spot, data, prop }) {
     },
     },
 
