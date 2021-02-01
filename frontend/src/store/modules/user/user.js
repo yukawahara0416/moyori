@@ -43,7 +43,13 @@ export default {
         'comments'
       ]
 
+      for (let i = 0; i < arry.length; i++) {
+        const target = state.user[arry[i]].filter(item => {
+          return item.data.place_id == spot.data.place_id
+        })
+
       target[0][prop].push(data)
+      }
     },
 
     // ユーザが保有するスポットの情報を削除します
