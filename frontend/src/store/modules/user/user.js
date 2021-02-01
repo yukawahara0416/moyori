@@ -94,6 +94,16 @@ export default {
 
     // 投票データを削除します
     deleteVoteUserStore(state, { spot, data, prop }) {
+      const arry = [
+        'posts',
+        'likes',
+        'wifi_withs',
+        'wifi_withouts',
+        'power_withs',
+        'power_withouts',
+        'comments'
+      ]
+
     },
     },
 
