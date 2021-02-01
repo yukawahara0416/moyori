@@ -1,5 +1,6 @@
 import { axiosBase } from '@/plugins/axios.js'
 import merge from 'lodash/merge'
+import cloneDeep from 'lodash/cloneDeep'
 
 export default {
   namespaced: true,
@@ -31,32 +32,119 @@ export default {
       state.user = {}
     },
 
-    // ユーザが保有するスポットに情報を新規追加します
-    addDataUserStore(state, { spot, data, tab, prop }) {
-      const target = state.user[tab].filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
+    // 投票データを追加します
+    addVoteUserStore(state, { spot, data, prop }) {
+      const arry = [
+        'posts',
+        'likes',
+        'wifi_withs',
+        'wifi_withouts',
+        'power_withs',
+        'power_withouts',
+        'comments'
+      ]
 
-      target[0][prop].push(data)
+      for (let i = 0; i < arry.length; i++) {
+        const target = state.user[arry[i]].filter(item => {
+          return item.data.place_id == spot.data.place_id
+        })
+
+        if (target.length > 0) {
+          target[0][prop].push(data)
+        }
+      }
     },
 
-    // ユーザが保有するスポットの情報を削除します
-    deleteDataUserStore(state, { spot, data, tab, prop }) {
+    // スポットデータを追加します
+    addSpotUserStore(state, { spot, tab, prop, unVoteId }) {
+      if (
+        unVoteId != null &&
+        prop ==
+          ('wifi_withs' || 'wifi_withouts' || 'power_withs' || 'power_withouts')
+      ) {
+        let key
+        switch (prop) {
+          case 'wifi_withs':
+            key = 'wifi_withouts'
+            break
+          case 'wifi_withouts':
+            key = 'wifi_withs'
+            break
+          case 'power_withs':
+            key = 'power_withouts'
+            break
+          case 'power_withouts':
+            key = 'power_withs'
+            break
+        }
+
+        const votes = spot[key]
+        const index = votes.findIndex(({ id }) => id === unVoteId.id)
+        votes.splice(index, 1)
+        state.user[prop].push(cloneDeep(spot))
+        return
+      }
+
       const target = state.user[tab].filter(item => {
         return item.data.place_id == spot.data.place_id
       })
-      const items = target[0][prop]
-      const index = items.findIndex(({ id }) => id === data.id)
-      items.splice(index, 1)
+
+      state.user[prop].push(cloneDeep(target[0]))
+    },
+
+    // 投票データを削除します
+    deleteVoteUserStore(state, { spot, data, prop }) {
+      const arry = [
+        'posts',
+        'likes',
+        'wifi_withs',
+        'wifi_withouts',
+        'power_withs',
+        'power_withouts',
+        'comments'
+      ]
+
+      for (let i = 0; i < arry.length; i++) {
+        const target = state.user[arry[i]].filter(item => {
+          return item.data.place_id == spot.data.place_id
+        })
+
+        if (target.length > 0) {
+          const votes = target[0][prop]
+          const index = votes.findIndex(({ id }) => id === data.id)
+          votes.splice(index, 1)
+        }
+      }
+    },
+
+    // スポットデータを削除します
+    deleteSpotUserStore(state, { data, prop }) {
+      const target = state.user[prop]
+      const index = target.findIndex(({ id }) => id === data.id)
+      target.splice(index, 1)
     },
 
     // ユーザが保有するスポットの情報を更新します
-    updateDataUserStore(state, { spot, data, tab }) {
-      const target = state.user[tab].filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
+    updateDataUserStore(state, { spot, data, tab, isMyPage }) {
+      const arry = isMyPage
+        ? [
+            'posts',
+            'likes',
+            'wifi_withs',
+            'wifi_withouts',
+            'power_withs',
+            'power_withouts',
+            'comments'
+          ]
+        : [tab]
 
-      merge(target[0], data)
+      for (let i = 0; i < arry.length; i++) {
+        const target = state.user[arry[i]].filter(item => {
+          return item.data.place_id == spot.data.place_id
+        })
+
+        merge(target[0], data)
+      }
     },
 
     onSpotlight(state, { spot, tab }) {

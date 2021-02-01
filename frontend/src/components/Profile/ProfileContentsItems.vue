@@ -8,8 +8,16 @@
       <card-container :spots="wifi_withs" />
     </v-tab-item>
 
+    <v-tab-item value="wifi_withouts">
+      <card-container :spots="wifi_withouts" />
+    </v-tab-item>
+
     <v-tab-item value="power_withs">
       <card-container :spots="power_withs" />
+    </v-tab-item>
+
+    <v-tab-item value="power_withouts">
+      <card-container :spots="power_withouts" />
     </v-tab-item>
 
     <v-tab-item value="comments">
@@ -55,8 +63,16 @@ export default {
       return this.user.wifi_withs || []
     },
 
+    wifi_withouts() {
+      return this.user.wifi_withouts || []
+    },
+
     power_withs() {
       return this.user.power_withs || []
+    },
+
+    power_withouts() {
+      return this.user.power_withouts || []
     },
 
     comments() {

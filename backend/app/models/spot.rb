@@ -1,4 +1,6 @@
 class Spot < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   belongs_to :user
 
   has_many :likes, dependent: :destroy
@@ -36,5 +38,9 @@ class Spot < ApplicationRecord
       ) AS distance")
       .having('distance <= ?', distance)
       .order(:distance)
+  end
+
+  def picture_url
+    picture.attached? ? url_for(picture) : nil
   end
 end

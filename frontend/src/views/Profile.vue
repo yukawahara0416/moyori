@@ -27,6 +27,7 @@ import ProfileActions from '@/components/Profile/ProfileActions.vue'
 import ProfileContents from '@/components/Profile/ProfileContents.vue'
 import NotFound from '@/views/NotFound.vue'
 import { gmapApi } from 'vue2-google-maps'
+import uniqBy from 'lodash/uniqBy'
 
 export default {
   props: {
@@ -46,6 +47,7 @@ export default {
       await this.mapMutation(this.$refs.map.$mapObject)
     })
     this.fetchData(this.id)
+    this.changeProfileTab('posts')
   },
 
   beforeRouteUpdate(to, from, next) {
@@ -54,6 +56,7 @@ export default {
       await this.mapMutation(this.$refs.map.$mapObject)
     })
     this.fetchData(to.params.id)
+    this.changeProfileTab('posts')
     next()
   },
 
@@ -73,6 +76,7 @@ export default {
     ...mapMutations([
       'googleMutation',
       'mapMutation',
+      'changeProfileTab',
       'loadingOn',
       'loadingOff',
       'setNotFound'
@@ -109,6 +113,8 @@ export default {
             return new Spot(spot)
           })
         }
+
+        response.data.comments = uniqBy(response.data.comments, 'data.id')
 
         this.setUserStore(response.data)
       } catch (error) {

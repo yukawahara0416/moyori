@@ -1,5 +1,5 @@
 <template>
-  <v-tabs fixed-tabs v-model="childTabs">
+  <v-tabs fixed-tabs show-arrows v-model="childTabs">
     <v-tab
       v-for="(tab, key) in tabList"
       :key="key"
@@ -20,7 +20,9 @@ export default {
       tabList: [
         { name: 'posts', icon: 'mdi-map-marker-outline' },
         { name: 'wifi_withs', icon: 'mdi-wifi' },
+        { name: 'wifi_withouts', icon: 'mdi-wifi-off' },
         { name: 'power_withs', icon: 'mdi-power-plug' },
+        { name: 'power_withouts', icon: 'mdi-power-plug-off' },
         { name: 'comments', icon: 'mdi-message-outline' },
         { name: 'likes', icon: 'mdi-heart-outline' }
       ]

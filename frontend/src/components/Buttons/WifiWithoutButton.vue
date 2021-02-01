@@ -77,9 +77,15 @@ export default {
       let newSpot = null
       const params = new FormData()
       let target = null
+      let unVoteId = null
       const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
+
+      let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
 
       try {
         if (!this.isLoggingIn) {
@@ -107,26 +113,26 @@ export default {
         // 「Wifiあるよ」の投票があれば取り消します
         if (this.isWifiWithing) {
           target = this.yourWifiWith[0]
-          await this.unVote({
+          unVoteId = await this.unVote({
             prop: 'wifi_withs',
             spot,
             target,
-            tab,
             headers,
-            route
+            route,
+            isMyPage
           })
         }
 
         // 「Wifiないよ」の投票があれば取り消します
         if (this.isWifiWithouting) {
           target = this.yourWifiWithout[0]
-          await this.unVote({
+          unVoteId = await this.unVote({
             prop: 'wifi_withouts',
             spot,
             target,
-            tab,
             headers,
-            route
+            route,
+            isMyPage
           })
           this.pushSnackbarSuccess({
             message: '「WiFiないよ」を取り消しました'
@@ -141,7 +147,9 @@ export default {
           params,
           tab,
           headers,
-          route
+          route,
+          isMyPage,
+          unVoteId
         })
         this.pushSnackbarSuccess({ message: '「WiFiないよ」を投票しました' })
       } catch (error) {

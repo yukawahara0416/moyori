@@ -29,7 +29,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'profileTab'])
+    ...mapGetters(['headers', 'currentUser'])
   },
 
   methods: {
@@ -38,18 +38,22 @@ export default {
     deleteCommentHandler: async function() {
       const spot = this.spot
       const target = this.comment
-      const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
+
+      let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
 
       try {
         await this.unVote({
           prop: 'comments',
           spot,
           target,
-          tab,
           headers,
-          route
+          route,
+          isMyPage
         })
         this.pushSnackbarSuccess({ message: 'コメントを削除しました' })
         this.closeDialog()

@@ -9,7 +9,6 @@ let wrapper
 let propsData
 let store
 let auth
-let tab
 
 beforeEach(() => {
   propsData = {
@@ -27,16 +26,9 @@ beforeEach(() => {
     }
   }
 
-  tab = {
-    getters: {
-      profileTab: () => 'posts'
-    }
-  }
-
   store = new Vuex.Store({
     modules: {
-      auth,
-      tab
+      auth
     }
   })
 
@@ -62,10 +54,6 @@ describe('props', () => {
 describe('getters', () => {
   it('headers', () => {
     expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
-  })
-
-  it('profileTab', () => {
-    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
   })
 })
 

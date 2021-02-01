@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:twitter]
   include DeviseTokenAuth::Concerns::User
+  include Rails.application.routes.url_helpers
 
   has_many :spots, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -23,4 +24,8 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 40 }
   validates :email, presence: true, length: { maximum: 100 }
+
+  def avatar_url
+    avatar.attached? ? url_for(avatar) : nil
+  end
 end

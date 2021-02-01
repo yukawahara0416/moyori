@@ -78,6 +78,11 @@ export default {
       const headers = this.headers
       const route = this.$route.name
 
+      let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
       try {
         if (!this.isLoggingIn) {
           this.changeSignTab('signin')
@@ -108,9 +113,9 @@ export default {
             prop: 'likes',
             spot,
             target,
-            tab,
             headers,
-            route
+            route,
+            isMyPage
           })
           this.pushSnackbarSuccess({ message: 'いいねを取り消しました' })
           return
@@ -123,7 +128,8 @@ export default {
           params,
           tab,
           headers,
-          route
+          route,
+          isMyPage
         })
         this.pushSnackbarSuccess({ message: 'いいねしました' })
       } catch (error) {
