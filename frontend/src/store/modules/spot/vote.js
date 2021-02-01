@@ -13,7 +13,14 @@ export default {
 
           if (route == 'profile' && isMyPage) {
             if (prop != 'comments') {
+              context.commit('user/addSpotUserStore', {
+                spot,
+                tab,
+                prop,
+                unVoteId
+              })
             }
+            context.commit('user/addVoteUserStore', { spot, data, prop })
         })
         .catch(() => {
           const arry = keyword(prop)
