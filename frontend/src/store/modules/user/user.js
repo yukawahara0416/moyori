@@ -56,6 +56,13 @@ export default {
 
     // スポットデータを追加します
     addSpotUserStore(state, { spot, tab, prop, unVoteId }) {
+      if (
+        unVoteId != null &&
+        prop ==
+          ('wifi_withs' || 'wifi_withouts' || 'power_withs' || 'power_withouts')
+      ) {
+      }
+
       const target = state.user[tab].filter(item => {
         return item.data.place_id == spot.data.place_id
       })
