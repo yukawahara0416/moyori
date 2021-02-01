@@ -32,6 +32,7 @@ export default {
     },
 
     // 投票データを追加します
+    addVoteUserStore(state, { spot, data, prop }) {
 
       target[0][prop].push(data)
     },
