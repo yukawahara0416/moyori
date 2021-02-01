@@ -44,13 +44,8 @@ export default {
           if (route == 'search')
             context.commit('spot/deleteDataSpotsStore', { spot, data, prop })
 
-          if (route == 'profile')
-            context.commit('user/deleteDataUserStore', {
-              spot,
-              data,
-              tab,
-              prop
-            })
+          if (route == 'profile' && isMyPage) {
+          }
         })
         .catch(() => {
           const arry = keyword(prop)
