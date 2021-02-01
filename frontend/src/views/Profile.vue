@@ -27,6 +27,7 @@ import ProfileActions from '@/components/Profile/ProfileActions.vue'
 import ProfileContents from '@/components/Profile/ProfileContents.vue'
 import NotFound from '@/views/NotFound.vue'
 import { gmapApi } from 'vue2-google-maps'
+import uniqBy from 'lodash/uniqBy'
 
 export default {
   props: {
