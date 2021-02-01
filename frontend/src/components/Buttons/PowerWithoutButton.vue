@@ -77,6 +77,7 @@ export default {
       let newSpot = null
       const params = new FormData()
       let target = null
+      let unVoteId = null
       const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
@@ -112,11 +113,10 @@ export default {
         // 「電源あるよ」の投票があれば「電源あるよ」を取り消します
         if (this.isPowerWithing) {
           target = this.yourPowerWith[0]
-          await this.unVote({
+          unVoteId = await this.unVote({
             prop: 'power_withs',
             spot,
             target,
-            tab,
             headers,
             route,
             isMyPage
@@ -126,11 +126,10 @@ export default {
         // 「電源ないよ」の投票があれば「電源ないよ」を取り消します
         if (this.isPowerWithouting) {
           target = this.yourPowerWithout[0]
-          await this.unVote({
+          unVoteId = await this.unVote({
             prop: 'power_withouts',
             spot,
             target,
-            tab,
             headers,
             route,
             isMyPage
@@ -150,6 +149,7 @@ export default {
           headers,
           route,
           isMyPage,
+          unVoteId
         })
         this.pushSnackbarSuccess({ message: '「電源ないよ」を投票しました' })
       } catch (error) {
