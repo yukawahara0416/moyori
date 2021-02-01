@@ -340,7 +340,6 @@ export default {
           prop: 'wifi_withouts',
           spot,
           target,
-          tab,
           headers,
           route,
           isMyPage
@@ -381,7 +380,6 @@ export default {
           prop: 'wifi_withs',
           spot,
           target,
-          tab,
           headers,
           route,
           isMyPage
@@ -422,7 +420,6 @@ export default {
           prop: 'power_withouts',
           spot,
           target,
-          tab,
           headers,
           route,
           isMyPage
@@ -463,7 +460,6 @@ export default {
           prop: 'power_withs',
           spot,
           target,
-          tab,
           headers,
           route,
           isMyPage

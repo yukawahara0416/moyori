@@ -113,7 +113,6 @@ export default {
             prop: 'likes',
             spot,
             target,
-            tab,
             headers,
             route,
             isMyPage

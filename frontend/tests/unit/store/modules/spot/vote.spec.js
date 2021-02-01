@@ -28,8 +28,10 @@ beforeEach(() => {
   user_mock = {
     namespaced: true,
     mutations: {
-      addDataUserStore: jest.fn(),
-      deleteDataUserStore: jest.fn()
+      addSpotUserStore: jest.fn(),
+      addVoteUserStore: jest.fn(),
+      deleteSpotUserStore: jest.fn(),
+      deleteVoteUserStore: jest.fn()
     }
   }
 
