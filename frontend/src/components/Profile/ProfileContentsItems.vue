@@ -71,6 +71,10 @@ export default {
       return this.user.power_withs || []
     },
 
+    power_withouts() {
+      return this.user.power_withouts || []
+    },
+
     comments() {
       return this.user.comments || []
     },
