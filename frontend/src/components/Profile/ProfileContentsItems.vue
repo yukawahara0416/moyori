@@ -8,6 +8,10 @@
       <card-container :spots="wifi_withs" />
     </v-tab-item>
 
+    <v-tab-item value="wifi_withouts">
+      <card-container :spots="wifi_withouts" />
+    </v-tab-item>
+
     <v-tab-item value="power_withs">
       <card-container :spots="power_withs" />
     </v-tab-item>
