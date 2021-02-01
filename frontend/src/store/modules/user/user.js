@@ -104,6 +104,12 @@ export default {
         'comments'
       ]
 
+      for (let i = 0; i < arry.length; i++) {
+        const target = state.user[arry[i]].filter(item => {
+          return item.data.place_id == spot.data.place_id
+        })
+
+      }
     },
     },
 
