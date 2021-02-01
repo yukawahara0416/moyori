@@ -16,6 +16,10 @@
       <card-container :spots="power_withs" />
     </v-tab-item>
 
+    <v-tab-item value="power_withouts">
+      <card-container :spots="power_withouts" />
+    </v-tab-item>
+
     <v-tab-item value="comments">
       <card-container :spots="comments" />
     </v-tab-item>
