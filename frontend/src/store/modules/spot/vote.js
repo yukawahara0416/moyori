@@ -49,6 +49,10 @@ export default {
               context.commit('user/deleteSpotUserStore', { data, prop })
             context.commit('user/deleteVoteUserStore', { spot, data, prop })
           }
+
+          if (route == 'profile' && !isMyPage)
+            context.commit('user/deleteVoteUserStore', { spot, data, prop })
+
         })
         .catch(() => {
           const arry = keyword(prop)
