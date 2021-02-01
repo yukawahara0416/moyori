@@ -11,8 +11,8 @@ export default {
           if (route == 'search')
             context.commit('spot/addDataSpotsStore', { spot, data, prop })
 
-          if (route == 'profile')
-            context.commit('user/addDataUserStore', { spot, data, tab, prop })
+          if (route == 'profile' && isMyPage) {
+          }
         })
         .catch(() => {
           const arry = keyword(prop)
