@@ -80,6 +80,7 @@ export default {
         const votes = spot[key]
         const index = votes.findIndex(({ id }) => id === unVoteId.id)
         votes.splice(index, 1)
+        state.user[prop].push(cloneDeep(spot))
       }
 
       const target = state.user[tab].filter(item => {
