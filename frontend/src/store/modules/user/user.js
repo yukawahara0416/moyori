@@ -54,14 +54,12 @@ export default {
       }
     },
 
-    // ユーザが保有するスポットの情報を削除します
-    deleteDataUserStore(state, { spot, data, tab, prop }) {
+    // スポットデータを追加します
+    addSpotUserStore(state, { spot, tab, prop, unVoteId }) {
       const target = state.user[tab].filter(item => {
         return item.data.place_id == spot.data.place_id
       })
-      const items = target[0][prop]
-      const index = items.findIndex(({ id }) => id === data.id)
-      items.splice(index, 1)
+    },
     },
 
     // ユーザが保有するスポットの情報を更新します
