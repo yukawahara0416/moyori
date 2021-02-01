@@ -22,6 +22,7 @@ export default {
         { name: 'wifi_withs', icon: 'mdi-wifi' },
         { name: 'wifi_withouts', icon: 'mdi-wifi-off' },
         { name: 'power_withs', icon: 'mdi-power-plug' },
+        { name: 'power_withouts', icon: 'mdi-power-plug-off' },
         { name: 'comments', icon: 'mdi-message-outline' },
         { name: 'likes', icon: 'mdi-heart-outline' }
       ]
