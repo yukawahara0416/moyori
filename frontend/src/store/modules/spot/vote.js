@@ -12,7 +12,8 @@ export default {
             context.commit('spot/addDataSpotsStore', { spot, data, prop })
 
           if (route == 'profile' && isMyPage) {
-          }
+            if (prop != 'comments') {
+            }
         })
         .catch(() => {
           const arry = keyword(prop)
