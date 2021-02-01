@@ -38,7 +38,6 @@ export default {
     deleteCommentHandler: async function() {
       const spot = this.spot
       const target = this.comment
-      const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
 
@@ -52,7 +51,6 @@ export default {
           prop: 'comments',
           spot,
           target,
-          tab,
           headers,
           route,
           isMyPage
