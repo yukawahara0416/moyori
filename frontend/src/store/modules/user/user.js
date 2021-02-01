@@ -116,6 +116,12 @@ export default {
         }
       }
     },
+
+    // スポットデータを削除します
+    deleteSpotUserStore(state, { data, prop }) {
+      const target = state.user[prop]
+      const index = target.findIndex(({ id }) => id === data.id)
+      target.splice(index, 1)
     },
 
     // ユーザが保有するスポットの情報を更新します
