@@ -63,6 +63,10 @@ export default {
       return this.user.wifi_withs || []
     },
 
+    wifi_withouts() {
+      return this.user.wifi_withouts || []
+    },
+
     power_withs() {
       return this.user.power_withs || []
     },
