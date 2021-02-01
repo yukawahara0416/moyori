@@ -31,11 +31,7 @@ export default {
       state.user = {}
     },
 
-    // ユーザが保有するスポットに情報を新規追加します
-    addDataUserStore(state, { spot, data, tab, prop }) {
-      const target = state.user[tab].filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
+    // 投票データを追加します
 
       target[0][prop].push(data)
     },
