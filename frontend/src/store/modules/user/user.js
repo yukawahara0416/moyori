@@ -48,7 +48,9 @@ export default {
           return item.data.place_id == spot.data.place_id
         })
 
-      target[0][prop].push(data)
+        if (target.length > 0) {
+          target[0][prop].push(data)
+        }
       }
     },
 
