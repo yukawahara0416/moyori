@@ -20,6 +20,7 @@ export default {
       tabList: [
         { name: 'posts', icon: 'mdi-map-marker-outline' },
         { name: 'wifi_withs', icon: 'mdi-wifi' },
+        { name: 'wifi_withouts', icon: 'mdi-wifi-off' },
         { name: 'power_withs', icon: 'mdi-power-plug' },
         { name: 'comments', icon: 'mdi-message-outline' },
         { name: 'likes', icon: 'mdi-heart-outline' }
