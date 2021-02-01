@@ -77,6 +77,7 @@ export default {
             break
         }
 
+        const votes = spot[key]
       }
 
       const target = state.user[tab].filter(item => {
