@@ -47,6 +47,7 @@ export default {
           if (route == 'profile' && isMyPage) {
             if (prop != 'comments')
               context.commit('user/deleteSpotUserStore', { data, prop })
+            context.commit('user/deleteVoteUserStore', { spot, data, prop })
           }
         })
         .catch(() => {
