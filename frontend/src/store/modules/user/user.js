@@ -33,6 +33,15 @@ export default {
 
     // 投票データを追加します
     addVoteUserStore(state, { spot, data, prop }) {
+      const arry = [
+        'posts',
+        'likes',
+        'wifi_withs',
+        'wifi_withouts',
+        'power_withs',
+        'power_withouts',
+        'comments'
+      ]
 
       target[0][prop].push(data)
     },
