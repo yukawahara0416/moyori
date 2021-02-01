@@ -2,7 +2,10 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    vote(context, { prop, spot, params, tab, headers, route, isMyPage }) {
+    vote(
+      context,
+      { prop, spot, params, tab, headers, route, isMyPage, unVoteId }
+    ) {
       return axiosBase
         .post(`/api/v1/${prop}`, params, { headers })
         .then(response => {
@@ -20,6 +23,10 @@ export default {
                 unVoteId
               })
             }
+            context.commit('user/addVoteUserStore', { spot, data, prop })
+          }
+
+          if (route == 'profile' && !isMyPage)
             context.commit('user/addVoteUserStore', { spot, data, prop })
         })
         .catch(() => {
