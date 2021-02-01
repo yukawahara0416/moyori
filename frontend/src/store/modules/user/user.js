@@ -81,11 +81,15 @@ export default {
         const index = votes.findIndex(({ id }) => id === unVoteId.id)
         votes.splice(index, 1)
         state.user[prop].push(cloneDeep(spot))
+        return
       }
 
       const target = state.user[tab].filter(item => {
         return item.data.place_id == spot.data.place_id
       })
+
+      state.user[prop].push(cloneDeep(target[0]))
+    },
     },
     },
 
