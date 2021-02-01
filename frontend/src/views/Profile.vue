@@ -114,6 +114,8 @@ export default {
           })
         }
 
+        response.data.comments = uniqBy(response.data.comments, 'data.id')
+
         this.setUserStore(response.data)
       } catch (error) {
         this.pushSnackbarError({ message: error })
