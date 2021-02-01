@@ -1,5 +1,5 @@
 <template>
-  <v-tabs fixed-tabs v-model="childTabs">
+  <v-tabs fixed-tabs show-arrows v-model="childTabs">
     <v-tab
       v-for="(tab, key) in tabList"
       :key="key"
