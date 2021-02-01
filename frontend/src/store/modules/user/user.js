@@ -78,6 +78,7 @@ export default {
         }
 
         const votes = spot[key]
+        const index = votes.findIndex(({ id }) => id === unVoteId.id)
       }
 
       const target = state.user[tab].filter(item => {
