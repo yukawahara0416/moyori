@@ -61,6 +61,22 @@ export default {
         prop ==
           ('wifi_withs' || 'wifi_withouts' || 'power_withs' || 'power_withouts')
       ) {
+        let key
+        switch (prop) {
+          case 'wifi_withs':
+            key = 'wifi_withouts'
+            break
+          case 'wifi_withouts':
+            key = 'wifi_withs'
+            break
+          case 'power_withs':
+            key = 'power_withouts'
+            break
+          case 'power_withouts':
+            key = 'power_withs'
+            break
+        }
+
       }
 
       const target = state.user[tab].filter(item => {
