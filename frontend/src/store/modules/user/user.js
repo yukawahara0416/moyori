@@ -109,6 +109,11 @@ export default {
           return item.data.place_id == spot.data.place_id
         })
 
+        if (target.length > 0) {
+          const votes = target[0][prop]
+          const index = votes.findIndex(({ id }) => id === data.id)
+          votes.splice(index, 1)
+        }
       }
     },
     },
