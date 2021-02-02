@@ -16,6 +16,7 @@ beforeEach(() => {
 
   wrapper = mount(Component, {
     localVue,
+    vuetify,
     methods: { openDialog, closeDialog }
   })
 })
