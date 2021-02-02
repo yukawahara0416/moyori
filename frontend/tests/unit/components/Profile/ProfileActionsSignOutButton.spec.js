@@ -10,6 +10,7 @@ localVue.use(Vuetify)
 let wrapper
 let store
 let auth
+let vuetify
 
 const signOutHandler = jest.fn()
 
