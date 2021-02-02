@@ -1,5 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import Component from '@/components/Profile/ProfileActionsSignOutButton.vue'
 
 const localVue = createLocalVue()
