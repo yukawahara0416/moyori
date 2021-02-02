@@ -7,11 +7,11 @@
       class="profile-action-container"
       v-show="isLoggingIn && isOwnPage"
     >
-      <profile-actions-edit-button :user="user" />
+      <profile-actions-edit-button :id="id" :user="user" />
 
       <profile-actions-sign-out-button />
 
-      <profile-actions-delete-button :user="user" />
+      <profile-actions-delete-button :id="id" :user="user" />
     </v-row>
   </v-col>
 </template>
