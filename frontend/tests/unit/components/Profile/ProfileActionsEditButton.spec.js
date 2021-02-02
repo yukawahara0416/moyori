@@ -6,6 +6,7 @@ const localVue = createLocalVue()
 localVue.use(Vuetify)
 
 let wrapper
+let vuetify
 
 describe('props', () => {
   it('user', () => {
