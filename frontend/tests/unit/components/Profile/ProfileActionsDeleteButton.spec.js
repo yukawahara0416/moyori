@@ -3,6 +3,7 @@ import Component from '@/components/Profile/ProfileActionsDeleteButton.vue'
 import Vuetify from 'vuetify'
 
 const localVue = createLocalVue()
+localVue.use(Vuetify)
 
 let wrapper
 
