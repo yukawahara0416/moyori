@@ -5,6 +5,7 @@
       max-width="250"
       min-width="160"
       :disabled="isTestUser"
+      :small="$vuetify.breakpoint.smAndDown"
       @click.stop="openDialog()"
     >
       <v-icon left>mdi-delete</v-icon>
