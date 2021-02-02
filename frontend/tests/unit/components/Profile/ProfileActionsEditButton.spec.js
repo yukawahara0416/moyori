@@ -11,10 +11,11 @@ let vuetify
 beforeEach(() => {
   vuetify = new Vuetify()
 })
+
 describe('props', () => {
   it('user', () => {
     const propsData = { user: { data: { id: 1 } } }
-    wrapper = shallowMount(Component, { localVue, propsData })
+    wrapper = shallowMount(Component, { localVue, vuetify, propsData })
     expect(wrapper.props().user).toStrictEqual(propsData.user)
     expect(wrapper.props().user instanceof Object).toBe(true)
   })
@@ -27,6 +28,7 @@ describe('v-on', () => {
   beforeEach(() => {
     wrapper = mount(Component, {
       localVue,
+      vuetify,
       methods: { openDialog, closeDialog }
     })
   })
@@ -44,7 +46,7 @@ describe('v-on', () => {
 
 describe('methods', () => {
   beforeEach(() => {
-    wrapper = shallowMount(Component, { localVue })
+    wrapper = shallowMount(Component, { localVue, vuetify })
   })
 
   it('openDialog', () => {
@@ -61,7 +63,7 @@ describe('methods', () => {
 
 describe('template', () => {
   it('snapshot', () => {
-    wrapper = shallowMount(Component, { localVue })
+    wrapper = shallowMount(Component, { localVue, vuetify })
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
