@@ -6,6 +6,7 @@ const localVue = createLocalVue()
 localVue.use(Vuetify)
 
 let wrapper
+let vuetify
 
 const openDialog = jest.fn()
 const closeDialog = jest.fn()
