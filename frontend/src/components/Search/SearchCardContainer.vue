@@ -69,6 +69,6 @@ export default {
   bottom: 0px;
   background-color: white;
   width: 100vw;
-  height: calc(var(--checkbox-height) / 2);
+  height: calc(var(--checkbox-height) / 2 - 58px);
 }
 </style>

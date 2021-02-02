@@ -164,17 +164,21 @@
       <v-card-actions>
         <v-spacer />
 
-        <v-btn class="mb-3 px-10" large @click="cancelPostSpot()">
+        <v-btn
+          class="mb-3 px-3"
+          :small="$vuetify.breakpoint.smAndDown"
+          @click="cancelPostSpot()"
+        >
           キャンセル
         </v-btn>
 
         <v-spacer />
 
         <v-btn
-          class="mb-3 px-10"
+          class="mb-3 px-3"
           color="primary"
-          large
           type="submit"
+          :small="$vuetify.breakpoint.smAndDown"
           @click="postSpotHandler()"
           :disabled="invalid"
         >
