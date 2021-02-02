@@ -1,16 +1,22 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Profile/ProfileActionsDeleteButton.vue'
+import Vuetify from 'vuetify'
 
 const localVue = createLocalVue()
+localVue.use(Vuetify)
 
 let wrapper
+let vuetify
 
 const openDialog = jest.fn()
 const closeDialog = jest.fn()
 
 beforeEach(() => {
+  vuetify = new Vuetify()
+
   wrapper = mount(Component, {
     localVue,
+    vuetify,
     methods: { openDialog, closeDialog }
   })
 })

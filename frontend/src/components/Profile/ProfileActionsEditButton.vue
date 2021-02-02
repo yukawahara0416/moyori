@@ -1,6 +1,13 @@
 <template>
   <span>
-    <v-btn class="my-3" width="250" @click.stop="openDialog()">
+    <v-btn
+      class="my-3"
+      max-width="250"
+      min-width="160"
+      :disabled="isTestUser"
+      :small="$vuetify.breakpoint.smAndDown"
+      @click.stop="openDialog()"
+    >
       <v-icon left>mdi-pencil</v-icon>
       プロフィール編集
     </v-btn>
@@ -16,6 +23,7 @@ import ProfileActionsEditDialog from '@/components/Profile/ProfileActionsEditDia
 
 export default {
   props: {
+    id: Number,
     user: Object
   },
 
@@ -26,6 +34,12 @@ export default {
   data() {
     return {
       dialog: false
+    }
+  },
+
+  computed: {
+    isTestUser() {
+      return this.id == 1 ? true : false
     }
   },
 

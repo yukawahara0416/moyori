@@ -1,13 +1,16 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import Component from '@/components/Profile/ProfileActionsSignOutButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Vuetify)
 
 let wrapper
 let store
 let auth
+let vuetify
 
 const signOutHandler = jest.fn()
 
@@ -30,8 +33,11 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
   wrapper = mount(Component, {
     localVue,
+    vuetify,
     store,
     methods: {
       signOutHandler
