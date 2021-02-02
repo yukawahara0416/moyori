@@ -5,6 +5,7 @@ import Component from '@/components/Profile/ProfileActionsSignOutButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Vuetify)
 
 let wrapper
 let store
