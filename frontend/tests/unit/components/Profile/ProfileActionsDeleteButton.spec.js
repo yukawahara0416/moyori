@@ -12,6 +12,8 @@ const openDialog = jest.fn()
 const closeDialog = jest.fn()
 
 beforeEach(() => {
+  vuetify = new Vuetify()
+
   wrapper = mount(Component, {
     localVue,
     methods: { openDialog, closeDialog }
