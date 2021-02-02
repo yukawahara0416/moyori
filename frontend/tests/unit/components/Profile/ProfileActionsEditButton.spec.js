@@ -1,5 +1,6 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Profile/ProfileActionsEditButton.vue'
+import Vuetify from 'vuetify'
 
 const localVue = createLocalVue()
 
