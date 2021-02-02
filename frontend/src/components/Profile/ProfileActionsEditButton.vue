@@ -1,6 +1,13 @@
 <template>
   <span>
+    <v-btn
+      class="my-3"
+      max-width="250"
+      @click.stop="openDialog()"
+      min-width="160"
       :disabled="isTestUser"
+      @click.stop="openDialog()"
+    >
       <v-icon left>mdi-pencil</v-icon>
       プロフィール編集
     </v-btn>
