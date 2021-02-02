@@ -8,6 +8,9 @@ localVue.use(Vuetify)
 let wrapper
 let vuetify
 
+beforeEach(() => {
+  vuetify = new Vuetify()
+})
 describe('props', () => {
   it('user', () => {
     const propsData = { user: { data: { id: 1 } } }
