@@ -16,7 +16,8 @@
         clickableIcons: false,
         fullscreenControl: false,
         gestureHandling: 'greedy',
-        mapTypeControl: false
+        mapTypeControl: false,
+        streetViewControl: false
       }"
       :zoom="zoom"
       @center_changed="onCenter"
@@ -245,7 +246,7 @@ export default {
 }
 .panto-button {
   position: absolute;
-  bottom: 200px;
+  bottom: 120px;
   right: 10px;
   transform: translate(0px, 0px);
   z-index: 100;
