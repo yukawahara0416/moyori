@@ -37,6 +37,7 @@ beforeEach(() => {
 
   wrapper = mount(Component, {
     localVue,
+    vuetify,
     store,
     methods: {
       signOutHandler
