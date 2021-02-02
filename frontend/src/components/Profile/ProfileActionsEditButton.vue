@@ -30,6 +30,12 @@ export default {
     }
   },
 
+  computed: {
+    isTestUser() {
+      return this.id == 1 ? true : false
+    }
+  },
+
   methods: {
     openDialog() {
       this.dialog = true
