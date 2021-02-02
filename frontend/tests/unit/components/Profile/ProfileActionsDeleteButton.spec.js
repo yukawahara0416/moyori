@@ -1,5 +1,6 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Profile/ProfileActionsDeleteButton.vue'
+import Vuetify from 'vuetify'
 
 const localVue = createLocalVue()
 
