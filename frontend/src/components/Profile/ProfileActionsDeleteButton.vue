@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn class="my-3" width="250" @click.stop="openDialog()">
+      :disabled="isTestUser"
       <v-icon left>mdi-delete</v-icon>
       アカウント削除
     </v-btn>
