@@ -59,8 +59,12 @@ export default {
     addSpotUserStore(state, { spot, tab, prop, unVoteId }) {
       if (
         unVoteId != null &&
-        prop ==
-          ('wifi_withs' || 'wifi_withouts' || 'power_withs' || 'power_withouts')
+        [
+          'wifi_withs',
+          'wifi_withouts',
+          'power_withs',
+          'power_withouts'
+        ].includes(prop)
       ) {
         let key
         switch (prop) {
