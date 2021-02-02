@@ -109,7 +109,9 @@
 
         <v-btn
           color="primary"
+          class="px-3"
           type="submit"
+          :small="$vuetify.breakpoint.smAndDown"
           @click="commentHandler()"
           :disabled="invalid"
         >
