@@ -16,6 +16,7 @@ import ProfileActionsEditDialog from '@/components/Profile/ProfileActionsEditDia
 
 export default {
   props: {
+    id: Number,
     user: Object
   },
 
