@@ -3,6 +3,7 @@ import Component from '@/components/Profile/ProfileActionsEditButton.vue'
 import Vuetify from 'vuetify'
 
 const localVue = createLocalVue()
+localVue.use(Vuetify)
 
 let wrapper
 
