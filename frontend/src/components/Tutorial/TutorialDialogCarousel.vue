@@ -9,12 +9,12 @@
       <v-carousel-item v-for="(slide, i) in slides" :key="i">
         <v-sheet :color="slide.color" height="100%">
           <v-row class="fill-height" align="center" justify="center">
-            <v-col cols="6">
+            <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="6">
               <v-img :src="slide.image" max-height="300" contain />
             </v-col>
-            <v-col cols="6">
-              <div class="headline mr-5 mb-3">{{ slide.title }}</div>
-              <div class="mr-5">{{ slide.content }}</div>
+            <v-col :cols="cols">
+              <div class="headline mx-5 mb-3">{{ slide.title }}</div>
+              <div class="mx-5">{{ slide.content }}</div>
             </v-col>
           </v-row>
         </v-sheet>
@@ -56,6 +56,13 @@ export default {
           color: 'red lighten-1'
         }
       ]
+    }
+  },
+
+  computed: {
+    cols() {
+      if (this.$vuetify.breakpoint.xsOnly) return 12
+      return 6
     }
   },
 

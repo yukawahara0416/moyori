@@ -112,7 +112,7 @@
 
       <v-card-actions>
         <v-row>
-          <v-col class="py-0 pr-1" cols="6">
+          <v-col class="py-0 pr-1" :cols="cols">
             <v-card flat outlined class="mb-2">
               <v-card-actions>
                 <v-spacer />
@@ -135,7 +135,7 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col class="py-0 pl-1" cols="6">
+          <v-col class="py-0 pl-1" :cols="cols">
             <v-card flat outlined class="mb-2">
               <v-card-actions>
                 <v-spacer />
@@ -217,7 +217,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['form', 'headers', 'formData', 'profileTab'])
+    ...mapGetters(['form', 'headers', 'formData', 'profileTab']),
+
+    cols() {
+      if (this.$vuetify.breakpoint.xsOnly) return 12
+      return 6
+    }
   },
 
   methods: {
