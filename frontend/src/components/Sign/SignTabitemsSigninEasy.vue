@@ -7,7 +7,6 @@
       <v-card-actions class="py-4">
         <v-spacer />
         <v-btn type="submit" color="success" @click.stop="signInAsTestUser()">
-          <v-icon left>mdi-ninja</v-icon>
           テストユーザでログイン
         </v-btn>
         <v-spacer />
