@@ -14,7 +14,7 @@ const closeDialog = jest.fn()
 
 beforeEach(() => {
   propsData = {
-    id: 1,
+    id: 2,
     user: { data: { id: 1 } }
   }
   vuetify = new Vuetify()
@@ -41,7 +41,7 @@ describe('v-on', () => {
 
 describe('computed', () => {
   it('isTestUser', () => {
-    expect(wrapper.vm.isTestUser).toBe(true)
+    expect(wrapper.vm.isTestUser).toBe(false)
   })
 })
 
