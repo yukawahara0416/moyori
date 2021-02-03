@@ -21,6 +21,17 @@ describe('props', () => {
   })
 })
 
+describe('computed', () => {
+  it('isTestUser', () => {
+    const propsData = {
+      id: 1,
+      user: { data: { id: 1 } }
+    }
+    wrapper = shallowMount(Component, { localVue, vuetify, propsData })
+    expect(wrapper.vm.isTestUser).toBe(true)
+  })
+})
+
 describe('v-on', () => {
   const openDialog = jest.fn()
   const closeDialog = jest.fn()
