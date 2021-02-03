@@ -6,16 +6,22 @@ const localVue = createLocalVue()
 localVue.use(Vuetify)
 
 let wrapper
+let propsData
 let vuetify
 
 const openDialog = jest.fn()
 const closeDialog = jest.fn()
 
 beforeEach(() => {
+  propsData = {
+    id: 1,
+    user: { data: { id: 1 } }
+  }
   vuetify = new Vuetify()
 
   wrapper = mount(Component, {
     localVue,
+    propsData,
     vuetify,
     methods: { openDialog, closeDialog }
   })
@@ -30,6 +36,12 @@ describe('v-on', () => {
   it('$emit.closeDialog', () => {
     wrapper.vm.$emit('closeDialog')
     expect(wrapper.emitted().closeDialog).toBeTruthy()
+  })
+})
+
+describe('computed', () => {
+  it('isTestUser', () => {
+    expect(wrapper.vm.isTestUser).toBe(true)
   })
 })
 
