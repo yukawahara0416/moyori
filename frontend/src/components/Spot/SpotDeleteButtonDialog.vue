@@ -30,6 +30,9 @@ export default {
     deleteSpot(id, headers) {
       return axiosBase
         .delete(`/api/v1/spots/${id}`, { headers })
+        .then(response => {
+          return response.data.id
+        })
     },
 
     closeDeleteDialog() {
