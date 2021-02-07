@@ -76,9 +76,11 @@ export default {
       state.spots = []
     },
 
-    // deleteSpot(state, payload) {
-    //   state.spots.splice(payload, 1)
-    // },
+    // スポットを削除します
+    deleteSpot(state, spot_id) {
+      const result = state.spots.filter(obj => obj.data.id !== spot_id)
+      state.spots = result
+    },
 
     // スポットに情報を新規追加します
     addDataSpotsStore(state, { spot, data, prop }) {
@@ -88,21 +90,7 @@ export default {
       target[0][prop].push(data)
     },
 
-    // スポットの情報を削除します
-    deleteDataSpotsStore(state, { spot, data, prop }) {
-      const target = state.spots.filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
-      const items = target[0][prop]
-      const index = items.findIndex(({ id }) => id === data.id)
-      items.splice(index, 1)
-    },
-
-    // スポットの情報を更新します
-    updateDataSpotsStore(state, { spot, data }) {
-      const target = state.spots.filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
+    deleteSpot(state, spot_id) {
       merge(target[0], data)
     },
 
