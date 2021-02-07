@@ -21,7 +21,7 @@
 
 <script>
 import { axiosBase } from '@/plugins/axios.js'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   props: {
@@ -31,8 +31,12 @@ export default {
   computed: {
     ...mapGetters(['headers'])
   },
+
   methods: {
+    ...mapMutations({ deleteSpotSpotStore: 'spot/deleteSpot' }),
     ...mapActions(['pushSnackbarSuccess', 'pushSnackbarError']),
+    ...mapActions({ deleteSpotUserStore: 'user/deleteSpot' }),
+
     deleteHandler: async function() {
       try {
         const spot_id = await this.deleteSpot(this.spot.data.id, this.headers)
@@ -61,6 +65,9 @@ export default {
 
 
     storeMutation(spot_id) {
+      this.$route.name === 'profile'
+        ? this.deleteSpotUserStore({ spot_id })
+        : this.deleteSpotSpotStore(spot_id)
     }
   }
 }
