@@ -42,6 +42,7 @@ export default {
         const spot_id = await this.deleteSpot(this.spot.data.id, this.headers)
 
         this.closeDeleteDialog()
+        this.closeDetailDialog()
 
         this.storeMutation(spot_id)
 
