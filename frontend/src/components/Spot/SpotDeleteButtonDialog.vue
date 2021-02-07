@@ -12,7 +12,7 @@
         キャンセル
       </v-btn>
 
-      <v-btn color="error darken-1" text>
+      <v-btn @click="deleteHandler()" color="error darken-1" text>
         削除する
       </v-btn>
     </v-card-actions>
@@ -27,6 +27,9 @@ export default {
   },
 
   methods: {
+    deleteHandler() {
+    },
+
     deleteSpot(id, headers) {
       return axiosBase
         .delete(`/api/v1/spots/${id}`, { headers })
