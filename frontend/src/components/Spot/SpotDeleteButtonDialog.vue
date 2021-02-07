@@ -27,7 +27,9 @@ export default {
   },
 
   methods: {
-    deleteHandler() {
+      try {
+      } catch (error) {
+      }
     },
 
     deleteSpot(id, headers) {
