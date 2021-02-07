@@ -41,6 +41,19 @@ describe('mutations', () => {
     store.commit('deleteSpotOneProperty', { spot_id, prop })
     expect(store.state.user.likes).toHaveLength(0)
   })
+
+  it('deleteSpotAllProperty', () => {
+    const spot_id = 1
+    const spot = { data: { id: spot_id } }
+    const clone = cloneDeep(spot)
+    const user = { likes: [spot], wifi_withs: [clone] }
+
+    store.replaceState({ user })
+    store.commit('deleteSpotAllProperty', spot_id)
+    expect(store.state.user.likes).toHaveLength(0)
+    expect(store.state.user.wifi_withs).toHaveLength(0)
+  })
+
     const name = 'update'
     const email = 'update'
     store.replaceState({ user: user })
