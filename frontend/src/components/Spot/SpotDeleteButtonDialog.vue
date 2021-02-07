@@ -21,15 +21,22 @@
 
 <script>
 import { axiosBase } from '@/plugins/axios.js'
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   props: {
     spot: Object
   },
 
+  computed: {
+    ...mapGetters(['headers'])
+  },
   methods: {
     ...mapActions(['pushSnackbarSuccess', 'pushSnackbarError']),
+    deleteHandler: async function() {
       try {
+        const spot_id = await this.deleteSpot(this.spot.data.id, this.headers)
+
         this.pushSnackbarSuccess({ message: 'スポットを削除しました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })
