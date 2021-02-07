@@ -13,7 +13,11 @@
     </v-btn>
 
     <v-dialog v-model="dialog" width="600">
-      <spot-delete-button-dialog :spot="spot" />
+      <spot-delete-button-dialog
+        :spot="spot"
+        @closeDeleteDialog="closeDeleteDialog()"
+        @closeDetailDialog="closeDetailDialog()"
+      />
     </v-dialog>
   </span>
 </template>
@@ -45,6 +49,9 @@ export default {
       this.dialog = false
     },
 
+    closeDetailDialog() {
+      this.$emit('closeDialog')
+    }
   }
 }
 </script>
