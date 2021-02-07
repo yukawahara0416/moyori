@@ -15,7 +15,7 @@
 
     <v-card-actions class="pt-0" v-if="isOwnPosted">
       <v-spacer />
-      <spot-delete-button :spot="spot"/>
+      <spot-delete-button :spot="spot" @closeDialog="closeDialog()" />
       <v-spacer />
     </v-card-actions>
   </v-card>
@@ -58,6 +58,12 @@ export default {
       if (this.spot.data.place_id.length >= 11) return false
 
       return spotOwner === currentUser
+    }
+  },
+
+  methods: {
+    closeDialog() {
+      this.$emit('closeDialog')
     }
   }
 }
