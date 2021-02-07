@@ -8,7 +8,7 @@
     <v-card-actions>
       <v-spacer />
 
-      <v-btn color="green darken-1" text>
+      <v-btn @click="closeDeleteDialog()" color="green darken-1" text>
         キャンセル
       </v-btn>
 
@@ -25,5 +25,10 @@ export default {
     spot: Object
   },
 
+  methods: {
+    closeDeleteDialog() {
+      this.$emit('closeDeleteDialog')
+    },
+  }
 }
 </script>
