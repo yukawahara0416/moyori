@@ -33,6 +33,9 @@ export default {
         .then(response => {
           return response.data.id
         })
+        .catch(() => {
+          throw new Error('スポットの削除に失敗しました')
+        })
     },
 
     closeDeleteDialog() {
