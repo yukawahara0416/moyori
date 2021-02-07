@@ -12,6 +12,12 @@
       <spot-edit-dialog :spot="spot" />
       <v-spacer />
     </v-card-actions>
+
+    <v-card-actions class="pt-0" v-if="isOwnPosted">
+      <v-spacer />
+      <spot-delete-button :spot="spot"/>
+      <v-spacer />
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -22,6 +28,7 @@ import SpotDetailInfoPanelPhone from '@/components/Spot/SpotDetailInfoPanelPhone
 import SpotDetailInfoPanelWebsite from '@/components/Spot/SpotDetailInfoPanelWebsite.vue'
 import SpotDetailInfoPanelBusiness from '@/components/Spot/SpotDetailInfoPanelBusiness.vue'
 import SpotEditDialog from '@/components/Spot/SpotEditDialog.vue'
+import SpotDeleteButton from '@/components/Spot/SpotDeleteButton.vue'
 
 export default {
   props: {
@@ -33,7 +40,8 @@ export default {
     SpotDetailInfoPanelPhone,
     SpotDetailInfoPanelWebsite,
     SpotDetailInfoPanelBusiness,
-    SpotEditDialog
+    SpotEditDialog,
+    SpotDeleteButton
   },
 
   computed: {
