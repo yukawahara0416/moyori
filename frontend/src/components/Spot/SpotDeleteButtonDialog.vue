@@ -66,6 +66,9 @@ export default {
       this.$emit('closeDeleteDialog')
     },
 
+    closeDetailDialog() {
+      this.$emit('closeDetailDialog')
+    },
 
     storeMutation(spot_id) {
       this.$route.name === 'profile'
