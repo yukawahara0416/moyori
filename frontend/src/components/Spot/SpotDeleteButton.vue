@@ -41,6 +41,10 @@ export default {
       this.dialog = true
     },
 
+    closeDeleteDialog() {
+      this.dialog = false
+    },
+
   }
 }
 </script>
