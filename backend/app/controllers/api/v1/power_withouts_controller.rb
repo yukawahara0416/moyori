@@ -11,7 +11,7 @@ module Api
       def destroy
         power_without = current_api_v1_user.power_withouts.find(params[:id])
         power_without.destroy!
-        render json: power_without.as_json(only: :id)
+        render json: power_without.as_json(only: %i[id spot_id])
       end
 
       private
