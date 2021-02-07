@@ -96,7 +96,17 @@ export default {
       state.user[prop] = result
     },
 
-      state.user[prop].push(cloneDeep(target[0]))
+    // スポットを削除します（全プロパティ）
+    deleteSpotAllProperty(state, spot_id) {
+      const keys = Object.keys(state.user)
+
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] == 'data') continue
+
+        const spots = state.user[keys[i]]
+        const result = spots.filter(obj => obj.data.id !== spot_id)
+        state.user[keys[i]] = result
+      }
     },
 
     // 投票データを削除します
