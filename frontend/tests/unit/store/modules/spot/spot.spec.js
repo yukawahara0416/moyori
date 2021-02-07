@@ -88,16 +88,14 @@ describe('mutations', () => {
     expect(store.state.spots[0].likes[0]).toMatchObject(like)
   })
 
-  it('deleteDataSpotsStore', () => {
-    const hasLikeSpot = spot
-    hasLikeSpot['likes'] = [like]
+  it('deleteSpot', () => {
+    const spot_id = 123
+    const spot = { data: { id: spot_id } }
 
-    store.replaceState({ spots: [hasLikeSpot] })
-    store.commit('deleteDataSpotsStore', {
-      spot: hasLikeSpot,
-      data: like,
-      prop
-    })
+    store.replaceState({ spots: [spot] })
+    store.commit('deleteSpot', spot_id)
+    expect(store.state.spots).toHaveLength(0)
+  })
     expect(store.state.spots[0].likes).toHaveLength(0)
   })
 

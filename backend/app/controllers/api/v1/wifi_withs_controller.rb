@@ -11,7 +11,7 @@ module Api
       def destroy
         wifi_with = current_api_v1_user.wifi_withs.find(params[:id])
         wifi_with.destroy!
-        render json: wifi_with.as_json(only: :id)
+        render json: wifi_with.as_json(only: %i[id spot_id])
       end
 
       private

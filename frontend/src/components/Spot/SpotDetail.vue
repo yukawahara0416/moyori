@@ -19,7 +19,7 @@
 
       <spot-detail-comment-panel :spot="spot" />
 
-      <spot-detail-info-panel :spot="spot" />
+      <spot-detail-info-panel :spot="spot" @closeDialog="closeDialog()" />
     </v-card-text>
   </v-card>
 </template>

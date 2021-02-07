@@ -11,7 +11,7 @@ module Api
       def destroy
         like = current_api_v1_user.likes.find(params[:id])
         like.destroy!
-        render json: like.as_json(only: :id)
+        render json: like.as_json(only: %i[id spot_id])
       end
 
       private

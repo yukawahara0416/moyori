@@ -89,11 +89,24 @@ export default {
         return
       }
 
-      const target = state.user[tab].filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
+    // スポットを削除します（プロパティを指定）
+    deleteSpotOneProperty(state, { spot_id, prop }) {
+      const arr = state.user[prop]
+      const result = arr.filter(obj => obj.data.id !== spot_id)
+      state.user[prop] = result
+    },
 
-      state.user[prop].push(cloneDeep(target[0]))
+    // スポットを削除します（全プロパティ）
+    deleteSpotAllProperty(state, spot_id) {
+      const keys = Object.keys(state.user)
+
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] == 'data') continue
+
+        const spots = state.user[keys[i]]
+        const result = spots.filter(obj => obj.data.id !== spot_id)
+        state.user[keys[i]] = result
+      }
     },
 
     // 投票データを削除します
@@ -166,15 +179,12 @@ export default {
   },
 
   actions: {
-    getUser(context, id) {
-      return axiosBase
-        .get(`/api/v1/users/${id}`)
-        .then(response => {
-          return response
-        })
-        .catch(() => {
-          throw new Error('ユーザ情報の取得に失敗しました')
-        })
+    deleteSpot(context, { spot_id, prop = null }) {
+      if (prop === 'comments') return
+
+      prop !== null
+        ? context.commit('deleteSpotOneProperty', { spot_id, prop })
+        : context.commit('deleteSpotAllProperty', spot_id)
     },
 
     spotlight(context, { spot, tab }) {

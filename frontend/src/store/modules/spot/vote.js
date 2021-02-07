@@ -45,9 +45,7 @@ export default {
             context.commit('spot/deleteDataSpotsStore', { spot, data, prop })
 
           if (route == 'profile' && isMyPage) {
-            if (prop != 'comments')
-              context.commit('user/deleteSpotUserStore', { data, prop })
-            context.commit('user/deleteVoteUserStore', { spot, data, prop })
+            context.dispatch('user/deleteSpot', { spot_id, prop })
           }
 
           if (route == 'profile' && !isMyPage)
