@@ -106,12 +106,10 @@ export default {
       state.filterQuery = payload
     },
 
-    onSpotlight(state, spot) {
-      const target = state.spots.filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
-      target[0].data.on = true
-      target[0].data.zIndex = 100
+    onSpotlight(state, place_id) {
+      const target = state.spots.find(obj => obj.data.place_id === place_id)
+      target.data.on = true
+      target.data.zIndex = 100
     },
 
     offSpotlight(state) {
@@ -135,21 +133,9 @@ export default {
         })
     },
 
-    // ユーザが作成したスポット情報を更新します
-    updateSpot(context, { spot, params, headers }) {
-      return axiosBase
-        .patch(`/api/v1/spots/${spot.data.id}`, params, { headers })
-        .then(response => {
-          return response
-        })
-        .catch(() => {
-          throw new Error('スポットの更新に失敗しました')
-        })
-    },
-
-    spotlight(context, spot) {
+    spotlight(context, place_id) {
       context.commit('offSpotlight')
-      context.commit('onSpotlight', spot)
+      context.commit('onSpotlight', place_id)
     }
 
     // deleteSpot(context, { spot, id }) {
