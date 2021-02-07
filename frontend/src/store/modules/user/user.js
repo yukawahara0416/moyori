@@ -166,15 +166,12 @@ export default {
   },
 
   actions: {
-    getUser(context, id) {
-      return axiosBase
-        .get(`/api/v1/users/${id}`)
-        .then(response => {
-          return response
-        })
-        .catch(() => {
-          throw new Error('ユーザ情報の取得に失敗しました')
-        })
+    deleteSpot(context, { spot_id, prop = null }) {
+      if (prop === 'comments') return
+
+      prop !== null
+        ? context.commit('deleteSpotOneProperty', { spot_id, prop })
+        : context.commit('deleteSpotAllProperty', spot_id)
     },
 
     spotlight(context, { spot, tab }) {
