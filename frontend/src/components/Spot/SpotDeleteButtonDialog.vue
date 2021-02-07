@@ -28,6 +28,8 @@ export default {
 
   methods: {
     deleteSpot() {
+      return axiosBase
+        .delete(`/api/v1/spots/${id}`, { headers })
     },
 
     closeDeleteDialog() {
