@@ -1,6 +1,13 @@
 <template>
   <span>
-    <v-btn small class="mb-3" color="error" type="submit" text>
+    <v-btn
+      small
+      class="mb-3"
+      color="error"
+      type="submit"
+      text
+      @click.stop="openDialog()"
+    >
       <v-icon>mdi-eraser</v-icon>
       スポットを削除する
     </v-btn>
@@ -29,5 +36,11 @@ export default {
     }
   },
 
+  methods: {
+    openDialog() {
+      this.dialog = true
+    },
+
+  }
 }
 </script>
