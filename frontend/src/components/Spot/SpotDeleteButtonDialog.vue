@@ -58,6 +58,10 @@ export default {
     closeDeleteDialog() {
       this.$emit('closeDeleteDialog')
     },
+
+
+    storeMutation(spot_id) {
+    }
   }
 }
 </script>
