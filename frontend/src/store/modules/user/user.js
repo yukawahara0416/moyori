@@ -164,11 +164,9 @@ export default {
       }
     },
 
-    onSpotlight(state, { spot, tab }) {
-      const target = state.user[tab].filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
-      target[0].data.on = true
+    onSpotlight(state, { place_id, tab }) {
+      const target = state.user[tab].find(obj => obj.data.place_id === place_id)
+      target.data.on = true
     },
 
     offSpotlight(state, tab) {
@@ -187,9 +185,9 @@ export default {
         : context.commit('deleteSpotAllProperty', spot_id)
     },
 
-    spotlight(context, { spot, tab }) {
+    spotlight(context, { place_id, tab }) {
       context.commit('offSpotlight', tab)
-      context.commit('onSpotlight', { spot, tab })
+      context.commit('onSpotlight', { place_id, tab })
     }
   }
 }
