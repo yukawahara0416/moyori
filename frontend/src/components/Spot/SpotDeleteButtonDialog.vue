@@ -27,7 +27,7 @@ export default {
   },
 
   methods: {
-    deleteSpot() {
+    deleteSpot(id, headers) {
       return axiosBase
         .delete(`/api/v1/spots/${id}`, { headers })
     },
