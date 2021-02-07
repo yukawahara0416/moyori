@@ -89,9 +89,12 @@ export default {
         return
       }
 
-      const target = state.user[tab].filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
+    // スポットを削除します（プロパティを指定）
+    deleteSpotOneProperty(state, { spot_id, prop }) {
+      const arr = state.user[prop]
+      const result = arr.filter(obj => obj.data.id !== spot_id)
+      state.user[prop] = result
+    },
 
       state.user[prop].push(cloneDeep(target[0]))
     },
