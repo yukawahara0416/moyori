@@ -31,8 +31,16 @@ describe('mutations', () => {
     expect(store.state.user).toMatchObject(user)
   })
 
-  it('updateUserStore', () => {
-    const user = { data: { name: 'test', email: 'test' } }
+
+  it('deleteSpotOneProperty', () => {
+    const spot_id = 1
+    const spot = { data: { id: spot_id } }
+    const prop = 'likes'
+    const user = { likes: [spot] }
+    store.replaceState({ user })
+    store.commit('deleteSpotOneProperty', { spot_id, prop })
+    expect(store.state.user.likes).toHaveLength(0)
+  })
     const name = 'update'
     const email = 'update'
     store.replaceState({ user: user })
