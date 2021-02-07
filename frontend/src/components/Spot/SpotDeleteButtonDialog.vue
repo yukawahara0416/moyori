@@ -37,6 +37,7 @@ export default {
       try {
         const spot_id = await this.deleteSpot(this.spot.data.id, this.headers)
 
+        this.closeDeleteDialog()
         this.pushSnackbarSuccess({ message: 'スポットを削除しました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })
