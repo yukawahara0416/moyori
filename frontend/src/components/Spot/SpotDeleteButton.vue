@@ -22,5 +22,12 @@ export default {
   components: {
     SpotDeleteButtonDialog
   },
+
+  data() {
+    return {
+      dialog: false
+    }
+  },
+
 }
 </script>
