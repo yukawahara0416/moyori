@@ -21,14 +21,18 @@
 
 <script>
 import { axiosBase } from '@/plugins/axios.js'
+import { mapActions } from 'vuex'
 export default {
   props: {
     spot: Object
   },
 
   methods: {
+    ...mapActions(['pushSnackbarSuccess', 'pushSnackbarError']),
       try {
+        this.pushSnackbarSuccess({ message: 'スポットを削除しました' })
       } catch (error) {
+        this.pushSnackbarError({ message: error })
       }
     },
 
