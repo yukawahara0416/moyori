@@ -11,7 +11,7 @@ module Api
       def destroy
         power_with = current_api_v1_user.power_withs.find(params[:id])
         power_with.destroy!
-        render json: power_with.as_json(only: :id)
+        render json: power_with.as_json(only: %i[id spot_id])
       end
 
       private
