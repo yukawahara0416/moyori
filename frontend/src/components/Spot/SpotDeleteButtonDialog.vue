@@ -26,6 +26,9 @@ export default {
   },
 
   methods: {
+    deleteSpot() {
+    },
+
     closeDeleteDialog() {
       this.$emit('closeDeleteDialog')
     },
