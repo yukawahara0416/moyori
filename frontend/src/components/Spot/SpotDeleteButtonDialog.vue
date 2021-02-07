@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { axiosBase } from '@/plugins/axios.js'
 export default {
   props: {
     spot: Object
