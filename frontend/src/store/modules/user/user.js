@@ -177,6 +177,22 @@ export default {
   },
 
   actions: {
+    addSpot(context, { spot, prop, vote_id = null }) {
+      if (prop === 'comments') return
+
+      const wasUnVote = vote_id !== null
+      const isReverseVote = [
+        'wifi_withs',
+        'wifi_withouts',
+        'power_withs',
+        'power_withouts'
+      ].includes(prop)
+
+      wasUnVote && isReverseVote
+        ? context.commit('addSpotReverse', { spot, prop, vote_id })
+        : context.commit('addSpot', { spot, prop })
+    },
+
     deleteSpot(context, { spot_id, prop = null }) {
       if (prop === 'comments') return
 

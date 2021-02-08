@@ -15,15 +15,7 @@ export default {
             context.commit('spot/addDataSpotsStore', { spot, data, prop })
 
           if (route == 'profile' && isMyPage) {
-            if (prop != 'comments') {
-              context.commit('user/addSpotUserStore', {
-                spot,
-                tab,
-                prop,
-                unVoteId
-              })
-            }
-            context.commit('user/addVoteUserStore', { spot, data, prop })
+            context.dispatch('user/addSpot', { spot, prop, vote_id })
           }
 
           if (route == 'profile' && !isMyPage)
