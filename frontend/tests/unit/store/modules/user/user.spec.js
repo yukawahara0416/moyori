@@ -18,8 +18,8 @@ beforeEach(() => {
 
 describe('getters', () => {
   it('user', () => {
-    const user = { test: 'test' }
-    store.replaceState({ user: user })
+    const user = { data: { id: 1 } }
+    store.replaceState({ user })
     expect(store.getters.user).toMatchObject(user)
   })
 })
