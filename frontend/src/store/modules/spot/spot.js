@@ -28,6 +28,7 @@ export default {
       return state.filterQuery
     },
 
+    // スポットを絞り込みます
     filteredSpots(state) {
       let data = state.spots
 
@@ -137,18 +138,5 @@ export default {
       context.commit('offSpotlight')
       context.commit('onSpotlight', place_id)
     }
-
-    // deleteSpot(context, { spot, id }) {
-    //   return new Promise(resolve => {
-    //     axiosBase
-    //       .delete('/api/v1/spots/' + spot.record.id, {
-    //         headers: context.rootState.auth.headers
-    //       })
-    //       .then(function(response) {
-    //         context.commit('deleteSpot', id)
-    //         resolve(response.data)
-    //       })
-    //   })
-    // }
   }
 }
