@@ -7,8 +7,7 @@
     :class="{ selected: isActive }"
     :id="id"
     @click="
-      spotlight(spot)
-      panTo(spot)
+      spotlight(spot.data.place_id)
     "
   >
     <card-frame-content :spot="spot" />
