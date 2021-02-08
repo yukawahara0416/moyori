@@ -20,14 +20,15 @@
 </template>
 
 <script>
+import { axiosBase } from '@/plugins/axios.js'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { Spot } from '@/class/Spot.js'
+import { gmapApi } from 'vue2-google-maps'
+import uniqBy from 'lodash/uniqBy'
 import ProfileItems from '@/components/Profile/ProfileItems.vue'
 import ProfileActions from '@/components/Profile/ProfileActions.vue'
 import ProfileContents from '@/components/Profile/ProfileContents.vue'
 import NotFound from '@/views/NotFound.vue'
-import { gmapApi } from 'vue2-google-maps'
-import uniqBy from 'lodash/uniqBy'
 
 export default {
   props: {
@@ -83,46 +84,55 @@ export default {
     ]),
     ...mapMutations({
       clearSpotsStore: 'spot/clearSpotsStore',
-      clearUserStore: 'user/clearUserStore',
-      setUserStore: 'user/setUserStore'
+      clearUser: 'user/clearUser',
+      setUser: 'user/setUser'
     }),
     ...mapActions(['pushSnackbarError']),
-    ...mapActions({ getUser: 'user/getUser' }),
 
     fetchData: async function(id) {
       this.loadingOn()
       this.clearSpotsStore()
-      this.clearUserStore()
+      this.clearUser()
 
       try {
-        let response = await this.getUser(id)
+        let user = await this.getUser(id)
         this.setNotFound(false)
 
-        const target = [
-          'posts',
-          'likes',
-          'wifi_withs',
-          'wifi_withouts',
-          'power_withs',
-          'power_withouts',
-          'comments'
-        ]
+        user = this.mappingSpot(user)
 
-        for (let i = 0; i < target.length; i++) {
-          response.data[target[i]] = response.data[target[i]].map(spot => {
-            return new Spot(spot)
-          })
-        }
-
-        response.data.comments = uniqBy(response.data.comments, 'data.id')
-
-        this.setUserStore(response.data)
+        this.setUser(user)
       } catch (error) {
         this.pushSnackbarError({ message: error })
         this.setNotFound(true)
       } finally {
         this.loadingOff()
       }
+    },
+
+    getUser(id) {
+      return axiosBase
+        .get(`/api/v1/users/${id}`)
+        .then(response => {
+          return response.data
+        })
+        .catch(() => {
+          throw new Error('ユーザ情報の取得に失敗しました')
+        })
+    },
+
+    mappingSpot(user) {
+      const keys = Object.keys(user)
+
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] === 'data') continue
+        user[keys[i]] = user[keys[i]].map(obj => {
+          return new Spot(obj)
+        })
+      }
+
+      user.comments = uniqBy(user.comments, 'data.id')
+
+      return user
     }
   }
 }

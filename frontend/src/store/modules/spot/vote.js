@@ -2,32 +2,23 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    vote(
-      context,
-      { prop, spot, params, tab, headers, route, isMyPage, unVoteId }
-    ) {
+    vote(context, { prop, spot, params, headers, route, isMyPage, vote_id }) {
       return axiosBase
         .post(`/api/v1/${prop}`, params, { headers })
         .then(response => {
-          const data = response.data
+          const vote = response.data
+          const place_id = spot.data.place_id
 
           if (route == 'search')
-            context.commit('spot/addDataSpotsStore', { spot, data, prop })
+            context.commit('spot/addVote', { vote, prop, place_id })
 
           if (route == 'profile' && isMyPage) {
-            if (prop != 'comments') {
-              context.commit('user/addSpotUserStore', {
-                spot,
-                tab,
-                prop,
-                unVoteId
-              })
-            }
-            context.commit('user/addVoteUserStore', { spot, data, prop })
+            context.dispatch('user/addSpot', { spot, prop, vote_id })
+            context.commit('user/addVote', { vote, prop, place_id })
           }
 
           if (route == 'profile' && !isMyPage)
-            context.commit('user/addVoteUserStore', { spot, data, prop })
+            context.commit('user/addVote', { vote, prop, place_id })
         })
         .catch(() => {
           const arry = keyword(prop)
@@ -39,19 +30,22 @@ export default {
       return axiosBase
         .delete(`/api/v1/${prop}/${target.id}`, { headers })
         .then(response => {
-          const data = response.data
+          const spot_id = response.data.spot_id
+          const vote_id = response.data.id
+          const place_id = spot.data.place_id
 
           if (route == 'search')
-            context.commit('spot/deleteDataSpotsStore', { spot, data, prop })
+            context.commit('spot/deleteVote', { vote_id, place_id, prop })
 
           if (route == 'profile' && isMyPage) {
             context.dispatch('user/deleteSpot', { spot_id, prop })
+            context.commit('user/deleteVote', { vote_id, place_id, prop })
           }
 
           if (route == 'profile' && !isMyPage)
-            context.commit('user/deleteVoteUserStore', { spot, data, prop })
+            context.commit('user/deleteVote', { vote_id, place_id, prop })
 
-          return data
+          return response.data.id
         })
         .catch(() => {
           const arry = keyword(prop)

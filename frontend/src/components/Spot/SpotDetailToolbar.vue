@@ -3,7 +3,7 @@
     スポット詳細
     <v-spacer />
 
-    <v-btn icon @click="closeDialog()">
+    <v-btn icon @click.stop="closeDialog()">
       <v-icon class="white--text">mdi-close</v-icon>
     </v-btn>
   </v-toolbar>

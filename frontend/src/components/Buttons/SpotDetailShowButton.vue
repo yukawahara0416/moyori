@@ -3,7 +3,7 @@
     <v-btn
       :small="$vuetify.breakpoint.smAndDown"
       @click.stop="
-        placeDetail(spot)
+        placeDetail(spot.data.place_id)
         openDialog()
       "
     >
@@ -43,8 +43,8 @@ export default {
 
   methods: {
     ...mapMutations({
-      updateDataSpotsStore: 'spot/updateDataSpotsStore',
-      updateDataUserStore: 'user/updateDataUserStore'
+      updateSpotSearch: 'spot/updateSpot',
+      updateSpotProfile: 'user/updateSpot'
     }),
     ...mapActions(['pushSnackbarError']),
 
@@ -56,20 +56,16 @@ export default {
       this.dialog = false
     },
 
-    placeDetail: async function(spot) {
+    placeDetail: async function(place_id) {
       // ユーザが作成したスポットの場合、placeDetailを実行しない
       if (!spot.isGmapSpot()) return
 
-      const map = this.map
-      const tab = this.profileTab
-      const route = this.$route.name
-
       try {
-        const data = await placeDetail(map, spot)
+        const updated = await placeDetail({ map: this.map, place_id })
 
-        route === 'profile'
-          ? this.updateDataUserStore({ spot, data, tab })
-          : this.updateDataSpotsStore({ spot, data })
+        this.$route.name === 'profile'
+          ? this.updateSpotProfile({ place_id, updated, tab: this.profileTab })
+          : this.updateSpotSearch({ place_id, updated })
       } catch (error) {
         this.pushSnackbarError({ message: error })
       }

@@ -131,7 +131,7 @@ export default {
 
   methods: {
     ...mapMutations({ updateCurrentUser: 'updateCurrentUser' }),
-    ...mapMutations({ updateUserStore: 'user/updateUserStore' }),
+    ...mapMutations({ updateUser: 'user/updateUser' }),
     ...mapActions([
       'updateAccount',
       'pushSnackbarSuccess',
@@ -143,20 +143,9 @@ export default {
       const headers = this.headers
 
       try {
-        const response = await this.updateAccount({ params, headers })
-        const currentUser = response.data.data
+        const updated = await this.updateAccount({ params, headers })
 
-        await this.updateUserStore({
-          name: currentUser.name,
-          email: currentUser.email,
-          avatar: currentUser.avatar
-        })
-
-        await this.updateCurrentUser({
-          name: currentUser.name,
-          email: currentUser.email,
-          avatar: currentUser.avatar
-        })
+        this.storeMutation(updated)
 
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'アカウントを編集しました' })
@@ -178,6 +167,20 @@ export default {
       } else {
         this.uploadImageUrl = null
       }
+    },
+
+    storeMutation(updated) {
+      this.updateUser({
+        name: updated.name,
+        email: updated.email,
+        avatar: updated.avatar
+      })
+
+      this.updateCurrentUser({
+        name: updated.name,
+        email: updated.email,
+        avatar: updated.avatar
+      })
     },
 
     cancelUpdateAccount() {

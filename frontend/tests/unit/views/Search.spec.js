@@ -21,7 +21,7 @@ beforeEach(() => {
   user = {
     namespaced: true,
     mutations: {
-      clearUserStore: jest.fn()
+      clearUser: jest.fn()
     }
   }
 
@@ -43,8 +43,8 @@ describe('call mutations at created hook', () => {
     expect(spot.mutations.clearSpotsStore).toHaveBeenCalled()
   })
 
-  it('user/clearUserStore', () => {
-    expect(user.mutations.clearUserStore).toHaveBeenCalled()
+  it('user/clearUser', () => {
+    expect(user.mutations.clearUser).toHaveBeenCalled()
   })
 })
 

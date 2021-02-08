@@ -1,5 +1,3 @@
-import { axiosBase } from '@/plugins/axios.js'
-import { Spot } from '@/class/Spot.js'
 import merge from 'lodash/merge'
 
 export default {
@@ -28,6 +26,7 @@ export default {
       return state.filterQuery
     },
 
+    // スポットを絞り込みます
     filteredSpots(state) {
       let data = state.spots
 
@@ -61,19 +60,25 @@ export default {
   },
 
   mutations: {
-    // スポット配列に、検索結果を追加します
-    addSpotsStore(state, payload) {
+    // スポットデータを格納します
+    setSpots(state, payload) {
       state.spots = [...state.spots, ...payload]
     },
 
-    // スポット配列の先頭に、スポットを追加します
-    unshiftSpotsStore(state, spot) {
+    // スポットデータを初期化します
+    clearSpotsStore(state) {
+      state.spots = []
+    },
+
+    // スポットを追加します
+    addSpot(state, spot) {
       state.spots.unshift(spot)
     },
 
-    // スポット配列を初期化します
-    clearSpotsStore(state) {
-      state.spots = []
+    // 投票を追加します
+    addVote(state, { vote, prop, place_id }) {
+      const target = state.spots.find(obj => obj.data.place_id === place_id)
+      target[prop].push(vote)
     },
 
     // スポットを削除します
@@ -82,16 +87,18 @@ export default {
       state.spots = result
     },
 
-    // スポットに情報を新規追加します
-    addDataSpotsStore(state, { spot, data, prop }) {
-      const target = state.spots.filter(item => {
-        return item.data.place_id == spot.data.place_id
-      })
-      target[0][prop].push(data)
+    // 投票を削除します
+    deleteVote(state, { vote_id, place_id, prop }) {
+      const target = state.spots.find(obj => obj.data.place_id === place_id)
+      const votes = target[prop]
+      const result = votes.filter(obj => obj.id !== vote_id)
+      target[prop] = result
     },
 
-    deleteSpot(state, spot_id) {
-      merge(target[0], data)
+    // スポットを更新します
+    updateSpot(state, { place_id, updated }) {
+      const target = state.spots.find(obj => obj.data.place_id === place_id)
+      merge(target, updated)
     },
 
     setRadius(state, payload) {
@@ -121,34 +128,9 @@ export default {
   },
 
   actions: {
-    // スポットを登録します
-    postSpot(context, { params, headers }) {
-      return axiosBase
-        .post('/api/v1/spots', params, { headers })
-        .then(response => {
-          return new Spot(response.data)
-        })
-        .catch(() => {
-          throw new Error('スポットの登録に失敗しました')
-        })
-    },
-
     spotlight(context, place_id) {
       context.commit('offSpotlight')
       context.commit('onSpotlight', place_id)
     }
-
-    // deleteSpot(context, { spot, id }) {
-    //   return new Promise(resolve => {
-    //     axiosBase
-    //       .delete('/api/v1/spots/' + spot.record.id, {
-    //         headers: context.rootState.auth.headers
-    //       })
-    //       .then(function(response) {
-    //         context.commit('deleteSpot', id)
-    //         resolve(response.data)
-    //       })
-    //   })
-    // }
   }
 }

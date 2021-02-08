@@ -5,7 +5,7 @@
       small
       elevation="1"
       color="white"
-      @click.stop="likeHandler()"
+      @click.stop="likeHandler(spot)"
       @mouseover="mouseover()"
       @mouseleave="mouseleave()"
     >
@@ -21,7 +21,7 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import Counter from '@/components/Buttons/Counter.vue'
-import { placeDetail } from '@/plugins/maps.js'
+import { placeDetail, postSpot } from '@/plugins/maps.js'
 
 export default {
   props: {
@@ -40,14 +40,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'form',
-      'map',
-      'headers',
-      'currentUser',
-      'isLoggingIn',
-      'profileTab'
-    ]),
+    ...mapGetters(['form', 'map', 'headers', 'currentUser', 'isLoggingIn']),
 
     isLiking() {
       return this.yourLike.length > 0 ? true : false
@@ -60,8 +53,7 @@ export default {
 
   methods: {
     ...mapMutations(['assignSpotFormData', 'dialogOn', 'changeSignTab']),
-    ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
-    ...mapActions({ postSpot: 'spot/postSpot' }),
+    ...mapMutations({ updateSpot: 'spot/updateSpot' }),
     ...mapActions([
       'vote',
       'unVote',
@@ -69,19 +61,9 @@ export default {
       'pushSnackbarError'
     ]),
 
-    likeHandler: async function() {
-      const spot = this.spot
+    likeHandler: async function(spot) {
       let newSpot = null
       const params = new FormData()
-      let target = null
-      const tab = this.profileTab
-      const headers = this.headers
-      const route = this.$route.name
-
-      let isMyPage = false
-      if (this.$route.params.id && this.currentUser.data.id) {
-        isMyPage = this.$route.params.id == this.currentUser.data.id
-      }
 
       try {
         if (!this.isLoggingIn) {
@@ -90,53 +72,69 @@ export default {
           throw new Error('ログインしてください')
         }
 
-        // DBに未登録のスポットであれば登録します
+        // 未登録のスポットは登録します
         if (!spot.isPosted()) {
-          // 登録前にPlaceDetail検索します
-          const map = this.map
-          const data = await placeDetail(map, spot)
-          this.updateDataSpotsStore({ spot, data })
-
-          // formDataを用意してPOSTします
-          this.assignSpotFormData(spot)
-          newSpot = await this.postSpot({ params: this.form, headers })
-          this.updateDataSpotsStore({ spot, data: newSpot })
+          newSpot = await this.getNewSpot(spot.data.place_id)
           params.append('like[spot_id]', newSpot.data.id)
         } else {
           params.append('like[spot_id]', spot.data.id)
         }
 
-        // 「いいね」があれば「いいね」を取り消します
-        if (this.isLiking) {
-          target = this.yourLike[0]
-          await this.unVote({
-            prop: 'likes',
-            spot,
-            target,
-            headers,
-            route,
-            isMyPage
-          })
-          this.pushSnackbarSuccess({ message: 'いいねを取り消しました' })
-          return
-        }
+        this.voteHandler(newSpot || spot, params)
 
-        // 「いいね」します
-        await this.vote({
-          prop: 'likes',
-          spot: newSpot || spot,
-          params,
-          tab,
-          headers,
-          route,
-          isMyPage
-        })
         this.pushSnackbarSuccess({ message: 'いいねしました' })
       } catch (error) {
         this.pushSnackbarError({
           message: error
         })
       }
+    },
+
+    getNewSpot: async function(place_id) {
+      const updated = await placeDetail({ map: this.map, place_id })
+      this.updateSpot({ place_id, updated })
+
+      // formDataを用意してPOSTします
+      this.assignSpotFormData(this.spot)
+      const newSpot = await postSpot(this.form, this.headers)
+      this.updateSpot({ place_id, updated: newSpot })
+
+      return newSpot
+    },
+
+    voteHandler: async function(spot, params) {
+      const headers = this.headers
+      const route = this.$route.name
+
+      let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
+      // 「いいね」があれば「いいね」を取り消します
+      if (this.isLiking) {
+        const target = this.yourLike[0]
+        await this.unVote({
+          prop: 'likes',
+          spot,
+          target,
+          headers,
+          route,
+          isMyPage
+        })
+        this.pushSnackbarSuccess({ message: 'いいねを取り消しました' })
+        return
+      }
+
+      // 「いいね」します
+      await this.vote({
+        prop: 'likes',
+        spot,
+        params,
+        headers,
+        route,
+        isMyPage
+      })
     },
 
     mouseover() {

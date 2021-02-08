@@ -193,6 +193,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { postSpot } from '@/plugins/maps.js'
 
 export default {
   data() {
@@ -217,7 +218,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['form', 'headers', 'formData', 'profileTab']),
+    ...mapGetters(['form', 'headers', 'formData']),
 
     cols() {
       if (this.$vuetify.breakpoint.xsOnly) return 12
@@ -227,20 +228,26 @@ export default {
 
   methods: {
     ...mapMutations(['clearSpotFormData', 'pushSnackbar']),
-    ...mapMutations({ unshiftSpotsStore: 'spot/unshiftSpotsStore' }),
+    ...mapMutations({ addSpot: 'spot/addSpot' }),
     ...mapActions([
       'vote',
       'dialogOff',
       'pushSnackbarSuccess',
       'pushSnackbarError'
     ]),
-    ...mapActions({ postSpot: 'spot/postSpot', spotlight: 'spot/spotlight' }),
+    ...mapActions({ spotlight: 'spot/spotlight' }),
 
     postSpotHandler: async function() {
       const params = this.formData
       const headers = this.headers
 
       try {
+        const spot = await postSpot(params, headers)
+
+        this.addSpot(spot)
+
+        await this.voteHandler(spot)
+
         this.spotlight(spot.data.place_id)
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'スポットを登録しました' })
@@ -251,7 +258,6 @@ export default {
 
     voteHandler: async function(spot) {
       const params = new FormData()
-      const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
 
@@ -261,7 +267,6 @@ export default {
           prop: `${this.wifi_radio}s`,
           spot,
           params,
-          tab,
           headers,
           route
         })
@@ -273,7 +278,6 @@ export default {
           prop: `${this.power_radio}s`,
           spot,
           params,
-          tab,
           headers,
           route
         })

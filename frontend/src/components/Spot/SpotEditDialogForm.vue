@@ -109,7 +109,11 @@
       <v-card-actions>
         <v-spacer />
 
-        <v-btn class="mb-3" large @click.stop="cancelUpdateSpot()">
+        <v-btn
+          class="mb-3"
+          :small="$vuetify.breakpoint.smAndDown"
+          @click.stop="cancelUpdateSpot()"
+        >
           キャンセル
         </v-btn>
 
@@ -118,10 +122,11 @@
         <v-btn
           class="mb-3"
           color="primary"
-          large
           type="submit"
-          @click="updateSpotHandler()"
+          :small="$vuetify.breakpoint.smAndDown"
           :disabled="invalid"
+          @click="updateSpotHandler()"
+          @clearForm="clearForm"
         >
           スポットを編集
         </v-btn>
@@ -133,6 +138,7 @@
 </template>
 
 <script>
+import { axiosBase } from '@/plugins/axios.js'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -172,37 +178,55 @@ export default {
   methods: {
     ...mapMutations(['clearSpotFormData']),
     ...mapMutations({
-      updateDataSpotsStore: 'spot/updateDataSpotsStore',
-      updateDataUserStore: 'user/updateDataUserStore'
+      updateSpotSearch: 'spot/updateSpot',
+      updateSpotProfile: 'user/updateSpot'
     }),
     ...mapActions(['dialogOff', 'pushSnackbarSuccess', 'pushSnackbarError']),
-    ...mapActions({ updateSpot: 'spot/updateSpot' }),
 
     updateSpotHandler: async function() {
-      const spot = this.spot
-      const params = this.formData
-      const headers = this.headers
-      const route = this.$route.name
-      const tab = this.profileTab
-
-      let isMyPage = false
-      if (this.$route.params.id && this.currentUser.data.id) {
-        isMyPage = this.$route.params.id == this.currentUser.data.id
-      }
-
       try {
-        const response = await this.updateSpot({ spot, params, headers })
-        const data = response.data
+        const updated = await this.updateSpot({
+          spot_id: this.spot.data.id,
+          params: this.formData,
+          headers: this.headers
+        })
 
-        route === 'profile'
-          ? this.updateDataUserStore({ spot, data, tab, isMyPage })
-          : this.updateDataSpotsStore({ spot, data })
+        this.stateMutation(updated)
 
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'スポットの情報を更新しました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })
       }
+    },
+
+    updateSpot({ spot_id, params, headers }) {
+      return axiosBase
+        .patch(`/api/v1/spots/${spot_id}`, params, { headers })
+        .then(response => {
+          return response.data
+        })
+        .catch(() => {
+          throw new Error('スポットの更新に失敗しました')
+        })
+    },
+
+    stateMutation(updated) {
+      const place_id = this.spot.data.place_id
+
+      let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
+      this.$route.name === 'profile'
+        ? this.updateSpotProfile({
+            place_id,
+            updated,
+            tab: this.profileTab,
+            isMyPage
+          })
+        : this.updateSpotSearch({ place_id, updated })
     },
 
     onImagePicked(file) {

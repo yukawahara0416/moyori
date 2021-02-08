@@ -1,4 +1,3 @@
-import { axiosBase } from '@/plugins/axios.js'
 import merge from 'lodash/merge'
 import cloneDeep from 'lodash/cloneDeep'
 
@@ -15,79 +14,63 @@ export default {
   },
 
   mutations: {
-    // マイページで使用するユーザデータを格納します
-    setUserStore(state, payload) {
+    // ユーザデータを格納します
+    setUser(state, payload) {
       state.user = payload
     },
 
-    // ユーザデータを更新します
-    updateUserStore(state, { name, email, avatar }) {
-      state.user.data.name = name
-      state.user.data.email = email
-      state.user.data.avatar = avatar
-    },
-
     // ユーザデータを初期化します
-    clearUserStore(state) {
+    clearUser(state) {
       state.user = {}
     },
 
-    // 投票データを追加します
-    addVoteUserStore(state, { spot, data, prop }) {
-      const arry = [
-        'posts',
-        'likes',
-        'wifi_withs',
-        'wifi_withouts',
-        'power_withs',
-        'power_withouts',
-        'comments'
-      ]
-
-      for (let i = 0; i < arry.length; i++) {
-        const target = state.user[arry[i]].filter(item => {
-          return item.data.place_id == spot.data.place_id
-        })
-
-        if (target.length > 0) {
-          target[0][prop].push(data)
-        }
-      }
+    // スポットを追加します（プロパティを指定）
+    addSpot(state, { spot, prop }) {
+      state.user[prop].push(cloneDeep(spot))
     },
 
-    // スポットデータを追加します
-    addSpotUserStore(state, { spot, tab, prop, unVoteId }) {
-      if (
-        unVoteId != null &&
-        [
-          'wifi_withs',
-          'wifi_withouts',
-          'power_withs',
-          'power_withouts'
-        ].includes(prop)
-      ) {
-        let key
-        switch (prop) {
-          case 'wifi_withs':
-            key = 'wifi_withouts'
-            break
-          case 'wifi_withouts':
-            key = 'wifi_withs'
-            break
-          case 'power_withs':
-            key = 'power_withouts'
-            break
-          case 'power_withouts':
-            key = 'power_withs'
-            break
-        }
-
-        const votes = spot[key]
-        const index = votes.findIndex(({ id }) => id === unVoteId.id)
-        votes.splice(index, 1)
-        state.user[prop].push(cloneDeep(spot))
-        return
+    // スポットを追加します（反対のプロパティを指定）
+    addSpotReverse(state, { spot, prop, vote_id }) {
+      let key
+      switch (prop) {
+        case 'wifi_withs':
+          key = 'wifi_withouts'
+          break
+        case 'wifi_withouts':
+          key = 'wifi_withs'
+          break
+        case 'power_withs':
+          key = 'power_withouts'
+          break
+        case 'power_withouts':
+          key = 'power_withs'
+          break
+        default:
+          key = prop
       }
+
+      const votes = spot[key]
+      const result = votes.filter(obj => obj.id !== vote_id)
+      spot[key] = result
+      state.user[prop].push(cloneDeep(spot))
+    },
+
+    // 投票を追加します
+    addVote(state, { vote, prop, place_id }) {
+      const keys = Object.keys(state.user)
+
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] === 'data') continue
+
+        const target = state.user[keys[i]].find(
+          obj => obj.data.place_id === place_id
+        )
+
+        if (target === undefined) continue
+
+        target[prop].push(vote)
+      }
+    },
 
     // スポットを削除します（プロパティを指定）
     deleteSpotOneProperty(state, { spot_id, prop }) {
@@ -110,57 +93,41 @@ export default {
     },
 
     // 投票データを削除します
-    deleteVoteUserStore(state, { spot, data, prop }) {
-      const arry = [
-        'posts',
-        'likes',
-        'wifi_withs',
-        'wifi_withouts',
-        'power_withs',
-        'power_withouts',
-        'comments'
-      ]
+    deleteVote(state, { vote_id, place_id, prop }) {
+      const keys = Object.keys(state.user)
 
-      for (let i = 0; i < arry.length; i++) {
-        const target = state.user[arry[i]].filter(item => {
-          return item.data.place_id == spot.data.place_id
-        })
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] === 'data') continue
 
-        if (target.length > 0) {
-          const votes = target[0][prop]
-          const index = votes.findIndex(({ id }) => id === data.id)
-          votes.splice(index, 1)
-        }
+        const spots = state.user[keys[i]]
+        const target = spots.find(obj => obj.data.place_id === place_id)
+
+        if (target === undefined) continue
+
+        const votes = target[prop]
+        const result = votes.filter(obj => obj.id !== vote_id)
+        target[prop] = result
       }
     },
 
-    // スポットデータを削除します
-    deleteSpotUserStore(state, { data, prop }) {
-      const target = state.user[prop]
-      const index = target.findIndex(({ id }) => id === data.id)
-      target.splice(index, 1)
+    // ユーザデータを更新します
+    updateUser(state, { name, email, avatar }) {
+      state.user.data.name = name
+      state.user.data.email = email
+      state.user.data.avatar = avatar
     },
 
-    // ユーザが保有するスポットの情報を更新します
-    updateDataUserStore(state, { spot, data, tab, isMyPage }) {
-      const arry = isMyPage
-        ? [
-            'posts',
-            'likes',
-            'wifi_withs',
-            'wifi_withouts',
-            'power_withs',
-            'power_withouts',
-            'comments'
-          ]
-        : [tab]
+    // スポットを更新します
+    updateSpot(state, { place_id, updated, tab, isMyPage }) {
+      const keys = isMyPage ? Object.keys(state.user) : [tab]
 
-      for (let i = 0; i < arry.length; i++) {
-        const target = state.user[arry[i]].filter(item => {
-          return item.data.place_id == spot.data.place_id
-        })
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] === 'data') continue
+        const target = state.user[keys[i]].find(
+          obj => obj.data.place_id === place_id
+        )
 
-        merge(target[0], data)
+        merge(target, updated)
       }
     },
 
@@ -177,6 +144,24 @@ export default {
   },
 
   actions: {
+    // プロフィール画面での投票時に対応するタブにスポットを追加します
+    addSpot(context, { spot, prop, vote_id = null }) {
+      if (prop === 'comments') return
+
+      const wasUnVote = vote_id !== null
+      const isReverseVote = [
+        'wifi_withs',
+        'wifi_withouts',
+        'power_withs',
+        'power_withouts'
+      ].includes(prop)
+
+      wasUnVote && isReverseVote
+        ? context.commit('addSpotReverse', { spot, prop, vote_id })
+        : context.commit('addSpot', { spot, prop })
+    },
+
+    // state全体のspotを削除するか、一部のspotを削除するかを判定します
     deleteSpot(context, { spot_id, prop = null }) {
       if (prop === 'comments') return
 

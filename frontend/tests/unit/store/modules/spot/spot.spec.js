@@ -1,11 +1,11 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import spot from '@/store/modules/spot/spot.js'
-import { axiosBase } from '@/plugins/axios.js'
-import MockAdapter from 'axios-mock-adapter'
+// import { axiosBase } from '@/plugins/axios.js'
+// import MockAdapter from 'axios-mock-adapter'
 import cloneDeep from 'lodash/cloneDeep'
 
-const axiosMock = new MockAdapter(axiosBase)
+// const axiosMock = new MockAdapter(axiosBase)
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -61,31 +61,40 @@ describe('mutations', () => {
   const like = { id: 2 }
   const prop = 'likes'
 
-  it('addSpotsStore', () => {
-    store.commit('addSpotsStore', [spot])
+  it('setSpots', () => {
+    const spot = { data: { id: 1 } }
+    store.commit('setSpots', [spot])
     expect(store.state.spots).toHaveLength(1)
     expect(store.state.spots[0]).toMatchObject(spot)
   })
 
-  it('unshiftSpotsStore', () => {
-    const newSpot = { test: 'test2' }
-    store.commit('addSpotsStore', [spot])
-    store.commit('unshiftSpotsStore', newSpot)
-    expect(store.state.spots).toHaveLength(2)
-    expect(store.state.spots[0]).toMatchObject(newSpot)
-  })
-
   it('clearSpotsStore', () => {
+    const spot = { data: { id: 1 } }
     store.replaceState({ spots: [spot] })
     store.commit('clearSpotsStore')
     expect(store.state.spots).toHaveLength(0)
   })
 
-  it('addDataSpotsStore', () => {
+  it('addSpot', () => {
+    const spot = { data: { id: 1 } }
+    const newSpot = { data: { id: 2 } }
     store.replaceState({ spots: [spot] })
-    store.commit('addDataSpotsStore', { spot, data: like, prop })
+    store.commit('addSpot', newSpot)
+    expect(store.state.spots).toHaveLength(2)
+    expect(store.state.spots[0]).toMatchObject(newSpot)
+  })
+
+  it('addVote', () => {
+    const vote = { id: 111 }
+    const prop = 'likes'
+    const place_id = '1234567890test'
+
+    const spot = { data: { place_id }, likes: [] }
+
+    store.replaceState({ spots: [spot] })
+    store.commit('addVote', { vote, prop, place_id })
     expect(store.state.spots[0].likes).toHaveLength(1)
-    expect(store.state.spots[0].likes[0]).toMatchObject(like)
+    expect(store.state.spots[0].likes[0]).toMatchObject(vote)
   })
 
   it('deleteSpot', () => {
@@ -96,14 +105,26 @@ describe('mutations', () => {
     store.commit('deleteSpot', spot_id)
     expect(store.state.spots).toHaveLength(0)
   })
+
+  it('deleteVote', () => {
+    const vote_id = 111
+    const place_id = '1234567890test'
+    const prop = 'likes'
+    const spot = { data: { place_id }, likes: [{ id: vote_id }] }
+
+    store.replaceState({ spots: [spot] })
+    store.commit('deleteVote', { vote_id, place_id, prop })
     expect(store.state.spots[0].likes).toHaveLength(0)
   })
 
-  it('updateDataSpotsStore', () => {
+  it('updateSpot', () => {
+    const place_id = '1234567890test'
+    const spot = { data: { place_id, name: 'before' } }
+    const updated = { data: { place_id, name: 'after', phone: '123' } }
+
     store.replaceState({ spots: [spot] })
-    const updateData = { data: { name: 'test1-update', place_id: '123' } }
-    store.commit('updateDataSpotsStore', { spot, data: updateData })
-    expect(store.state.spots[0].data).toMatchObject(updateData.data)
+    store.commit('updateSpot', { place_id, updated })
+    expect(store.state.spots[0]).toMatchObject(updated)
   })
 
   it('setRadius', () => {
@@ -142,23 +163,13 @@ describe('actions', () => {
   const response = { data: { place_id: '123' } }
   const headers = { test: 'test' }
 
-  it('postSpot', () => {
-    axiosMock.onPost('/api/v1/spots', params).reply(200, response)
+  // it('postSpot', () => {
+  //   axiosMock.onPost('/api/v1/spots', params).reply(200, response)
 
-    return store.dispatch('postSpot', { params, headers }).then(res => {
-      expect(res.data.place_id).toEqual(response.data.place_id)
-    })
-  })
-
-  it('updateSpot', () => {
-    axiosMock
-      .onPatch(`/api/v1/spots/${spot.data.id}`, params)
-      .reply(200, response)
-
-    return store.dispatch('updateSpot', { spot, params, headers }).then(res => {
-      expect(res.data.data.place_id).toEqual(response.data.place_id)
-    })
-  })
+  //   return store.dispatch('postSpot', { params, headers }).then(res => {
+  //     expect(res.data.place_id).toEqual(response.data.place_id)
+  //   })
+  // })
 
   it('spotlight', () => {
     const place_id = '1234567890test'
