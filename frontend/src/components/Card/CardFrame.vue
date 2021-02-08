@@ -7,8 +7,8 @@
     :class="{ selected: isActive }"
     :id="id"
     @click="
-      spotlight(spot)
-      panTo(spot)
+      spotlight(spot.data.place_id)
+      panTo(spot.data.position)
     "
   >
     <card-frame-content :spot="spot" />
@@ -39,24 +39,23 @@ export default {
 
   methods: {
     ...mapActions({
-      spotlight1: 'spot/spotlight',
-      spotlight2: 'user/spotlight'
+      spotlightSearch: 'spot/spotlight',
+      spotlightProfile: 'user/spotlight'
     }),
 
-    spotlight(spot) {
+    spotlight(place_id) {
       const tab = this.profileTab
       const route = this.$route.name
 
-      route == 'search' ? this.spotlight1(spot) : this.spotlight2({ spot, tab })
+      route == 'search'
+        ? this.spotlightSearch(place_id)
+        : this.spotlightProfile({ place_id, tab })
     },
 
     // カードをクリックすると、マーカーが地図の中心になるよう移動します
-    panTo(spot) {
-      const position = new google.maps.LatLng(
-        spot.data.position.lat,
-        spot.data.position.lng
-      )
-      this.map.panTo(position)
+    panTo(position) {
+      const location = new google.maps.LatLng(position.lat, position.lng)
+      this.map.panTo(location)
     }
   }
 }
