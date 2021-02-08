@@ -166,6 +166,7 @@ describe('actions', () => {
 
     store.replaceState({ spots: [spot] })
     store.dispatch('spotlight', place_id)
+    expect(store.state.spots[0].data.on).toBeTruthy()
     expect(store.state.spots[0].data.zIndex).toEqual(100)
   })
 })
