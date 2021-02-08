@@ -28,7 +28,7 @@ export default {
     },
 
     // ユーザデータを初期化します
-    clearUserStore(state) {
+    clearUser(state) {
       state.user = {}
     },
 

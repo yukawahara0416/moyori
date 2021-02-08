@@ -31,6 +31,13 @@ describe('mutations', () => {
     expect(store.state.user).toMatchObject(user)
   })
 
+  it('clearUser', () => {
+    const user = { data: { id: 1 } }
+    const result = {}
+    store.replaceState({ user })
+    store.commit('clearUser')
+    expect(store.state.user).toMatchObject(result)
+  })
 
   it('deleteSpotOneProperty', () => {
     const spot_id = 1

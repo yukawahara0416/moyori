@@ -83,6 +83,7 @@ export default {
     ]),
     ...mapMutations({
       clearSpotsStore: 'spot/clearSpotsStore',
+      clearUser: 'user/clearUser',
       setUser: 'user/setUser'
     }),
     ...mapActions(['pushSnackbarError']),
@@ -91,7 +92,7 @@ export default {
     fetchData: async function(id) {
       this.loadingOn()
       this.clearSpotsStore()
-      this.clearUserStore()
+      this.clearUser()
 
       try {
         let response = await this.getUser(id)
