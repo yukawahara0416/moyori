@@ -99,9 +99,8 @@ describe('actions', () => {
     const spot = { data: { place_id, on: false } }
     const user = { likes: [spot] }
 
-    store.replaceState({ user: user })
-    store.dispatch('spotlight', { spot, tab }).then(() => {
-      expect(store.state.user.posts[0].data.on).toBe(true)
-    })
+    store.replaceState({ user })
+    store.dispatch('spotlight', { place_id, tab })
+    expect(store.state.user.likes[0].data.on).toBeTruthy()
   })
 })
