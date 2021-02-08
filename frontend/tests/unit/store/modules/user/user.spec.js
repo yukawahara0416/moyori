@@ -69,11 +69,34 @@ describe('mutations', () => {
     expect(store.state.user.data.email).toEqual(email)
   })
 
-  it('clearUserStore', () => {
-    const user = { test: 'test' }
-    store.replaceState({ user: user })
-    store.commit('clearUserStore')
-    expect(store.state.user).toMatchObject({})
+  it('updateSpot isMyPage', () => {
+    const place_id = '1234567890test'
+    const spot = { data: { place_id, name: 'before' } }
+    const clone = cloneDeep(spot)
+    const updated = { data: { name: 'updated', phone: '123' } }
+    const user = { likes: [spot], wifi_withs: [clone] }
+    const tab = 'likes'
+    const isMyPage = true
+
+    store.replaceState({ user })
+    store.commit('updateSpot', { place_id, updated, tab, isMyPage })
+    expect(store.state.user.likes[0]).toMatchObject(updated)
+    expect(store.state.user.wifi_withs[0]).toMatchObject(updated)
+  })
+
+  it('updateSpot is not MyPage', () => {
+    const place_id = '1234567890test'
+    const spot = { data: { place_id, name: 'before' } }
+    const clone = cloneDeep(spot)
+    const updated = { data: { name: 'updated', phone: '123' } }
+    const user = { likes: [spot], wifi_withs: [clone] }
+    const tab = 'likes'
+    const isMyPage = false
+
+    store.replaceState({ user })
+    store.commit('updateSpot', { place_id, updated, tab, isMyPage })
+    expect(store.state.user.likes[0]).toMatchObject(updated)
+    expect(store.state.user.wifi_withs[0]).toMatchObject(clone)
   })
 
   it('onSpotlight, offSpotlight', () => {
