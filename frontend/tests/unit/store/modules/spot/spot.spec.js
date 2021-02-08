@@ -61,8 +61,9 @@ describe('mutations', () => {
   const like = { id: 2 }
   const prop = 'likes'
 
-  it('addSpotsStore', () => {
-    store.commit('addSpotsStore', [spot])
+  it('setSpots', () => {
+    const spot = { data: { id: 1 } }
+    store.commit('setSpots', [spot])
     expect(store.state.spots).toHaveLength(1)
     expect(store.state.spots[0]).toMatchObject(spot)
   })
