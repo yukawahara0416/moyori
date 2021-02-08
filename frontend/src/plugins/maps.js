@@ -192,11 +192,11 @@ function collateGmapSpot(spot) {
  **************/
 
 // GoogleMapsが保有するスポットの詳細情報を返します
-export function placeDetail(map, spot) {
+export function placeDetail({ map, place_id }) {
   return new Promise((resolve, reject) => {
     const placeService = new google.maps.places.PlacesService(map)
     const request = {
-      placeId: spot.data.place_id,
+      placeId: place_id,
       fields: [
         'formatted_address',
         'formatted_phone_number',

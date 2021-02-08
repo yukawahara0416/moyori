@@ -104,7 +104,7 @@ export default {
       'dialogOn'
     ]),
     ...mapMutations({
-      addSpotsStore: 'spot/addSpotsStore',
+      setSpots: 'spot/setSpots',
       clearSpotsStore: 'spot/clearSpotsStore',
       setRadius: 'spot/setRadius'
     }),
@@ -153,7 +153,6 @@ export default {
     nearbySearch: async function() {
       this.beforeSearch()
 
-      let nearbySpots = null
       const center = this.center
       const radius = this.radius.value
       const type = this.type.value
@@ -165,16 +164,17 @@ export default {
       }
 
       try {
-        nearbySpots = await nearbySearch(center, radius, map, request)
+        const spots = await nearbySearch(center, radius, map, request)
+
+        this.setSpots(spots)
+
+        this.loadingOff()
+        this.pushSnackbarSuccess({
+          message: `${this.spots.length} 件ヒットしました`
+        })
       } catch (error) {
         this.pushSnackbarError({ message: error })
       }
-
-      this.addSpotsStore(nearbySpots)
-      this.loadingOff()
-      this.pushSnackbarSuccess({
-        message: `${this.spots.length} 件ヒットしました`
-      })
     },
 
     // 現在地へ移動
