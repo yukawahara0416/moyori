@@ -119,7 +119,7 @@ export default {
       return axiosBase
         .patch('/api/v1/auth/', params, { headers })
         .then(response => {
-          return response
+          return response.data.data
         })
         .catch(() => {
           throw new Error('アカウントの編集に失敗しました')

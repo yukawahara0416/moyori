@@ -143,8 +143,7 @@ export default {
       const headers = this.headers
 
       try {
-        const response = await this.updateAccount({ params, headers })
-        const currentUser = response.data.data
+        const updated = await this.updateAccount({ params, headers })
 
         this.storeMutation(updated)
 
