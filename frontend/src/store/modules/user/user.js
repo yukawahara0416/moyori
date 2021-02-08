@@ -37,38 +37,32 @@ export default {
       state.user[prop].push(cloneDeep(spot))
     },
 
-    // スポットデータを追加します
-    addSpotUserStore(state, { spot, tab, prop, unVoteId }) {
-      if (
-        unVoteId != null &&
-        [
-          'wifi_withs',
-          'wifi_withouts',
-          'power_withs',
-          'power_withouts'
-        ].includes(prop)
-      ) {
-        let key
-        switch (prop) {
-          case 'wifi_withs':
-            key = 'wifi_withouts'
-            break
-          case 'wifi_withouts':
-            key = 'wifi_withs'
-            break
-          case 'power_withs':
-            key = 'power_withouts'
-            break
-          case 'power_withouts':
-            key = 'power_withs'
-            break
-        }
+    // スポットを追加します（反対のプロパティを指定）
+    addSpotReverse(state, { spot, prop, vote_id }) {
+      let key
+      switch (prop) {
+        case 'wifi_withs':
+          key = 'wifi_withouts'
+          break
+        case 'wifi_withouts':
+          key = 'wifi_withs'
+          break
+        case 'power_withs':
+          key = 'power_withouts'
+          break
+        case 'power_withouts':
+          key = 'power_withs'
+          break
+        default:
+          key = prop
+      }
 
-        const votes = spot[key]
-        const index = votes.findIndex(({ id }) => id === unVoteId.id)
-        votes.splice(index, 1)
-        state.user[prop].push(cloneDeep(spot))
-        return
+      const votes = spot[key]
+      const result = votes.filter(obj => obj.id !== vote_id)
+      spot[key] = result
+      state.user[prop].push(cloneDeep(spot))
+    },
+
       }
 
     // スポットを削除します（プロパティを指定）
@@ -159,6 +153,7 @@ export default {
   },
 
   actions: {
+    // プロフィール画面での投票時に対応するタブにスポットを追加します
     addSpot(context, { spot, prop, vote_id = null }) {
       if (prop === 'comments') return
 
