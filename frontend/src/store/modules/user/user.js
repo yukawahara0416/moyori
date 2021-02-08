@@ -110,11 +110,11 @@ export default {
       }
     },
 
-    // スポットデータを削除します
-    deleteSpotUserStore(state, { data, prop }) {
-      const target = state.user[prop]
-      const index = target.findIndex(({ id }) => id === data.id)
-      target.splice(index, 1)
+    // ユーザデータを更新します
+    updateUser(state, { name, email, avatar }) {
+      state.user.data.name = name
+      state.user.data.email = email
+      state.user.data.avatar = avatar
     },
 
     // スポットを更新します
