@@ -123,6 +123,8 @@ describe('mutations', () => {
   })
 
   it('onSpotlight, offSpotlight', () => {
+    const place_id = '1234567890test'
+    const spot = { data: { place_id, on: false, zIndex: 10 } }
     store.replaceState({ spots: [spot] })
     store.commit('onSpotlight', spot)
     expect(store.state.spots[0].data.on).toBeTruthy()
