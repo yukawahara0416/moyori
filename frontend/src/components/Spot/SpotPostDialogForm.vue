@@ -241,10 +241,7 @@ export default {
       const headers = this.headers
 
       try {
-        const newSpot = await this.postSpot({ params, headers })
-        await this.unshiftSpotsStore(newSpot)
-        await this.voteHandler(newSpot)
-        this.spotlight(newSpot)
+        this.spotlight(spot.data.place_id)
         this.closeDialog()
         this.pushSnackbarSuccess({ message: 'スポットを登録しました' })
       } catch (error) {
