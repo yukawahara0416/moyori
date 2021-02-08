@@ -9,8 +9,7 @@
       :position="spot.data.position"
       :zIndex="spot.data.zIndex"
       @click="
-        spotlight(spot)
-        panTo(spot)
+        spotlight(spot.data.place_id)
         scroll(id)
       "
     />
