@@ -67,8 +67,7 @@ export default {
       state.spots = [...state.spots, ...payload]
     },
 
-    // スポット配列の先頭に、スポットを追加します
-    unshiftSpotsStore(state, spot) {
+    // スポットを追加します
       state.spots.unshift(spot)
     },
 
