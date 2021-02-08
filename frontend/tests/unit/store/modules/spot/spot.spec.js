@@ -161,6 +161,9 @@ describe('actions', () => {
   })
 
   it('spotlight', () => {
+    const place_id = '1234567890test'
+    const spot = { data: { place_id, on: false, zIndex: 10 } }
+
     store.replaceState({ spots: [spot] })
     store.dispatch('spotlight', spot)
     expect(store.state.spots[0].data.on).toEqual(true)
