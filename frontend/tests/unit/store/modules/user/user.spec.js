@@ -61,10 +61,13 @@ describe('mutations', () => {
     expect(store.state.user.wifi_withs).toHaveLength(0)
   })
 
+  it('updateUser', () => {
+    const user = { data: { name: 'before', email: 'before' } }
     const name = 'update'
     const email = 'update'
-    store.replaceState({ user: user })
-    store.commit('updateUserStore', { name, email })
+
+    store.replaceState({ user })
+    store.commit('updateUser', { name, email })
     expect(store.state.user.data.name).toEqual(name)
     expect(store.state.user.data.email).toEqual(email)
   })
