@@ -2,24 +2,23 @@ import { axiosBase } from '@/plugins/axios.js'
 
 export default {
   actions: {
-    vote(
-      context,
-      { prop, spot, params, tab, headers, route, isMyPage, unVoteId }
-    ) {
+    vote(context, { prop, spot, params, headers, route, isMyPage, vote_id }) {
       return axiosBase
         .post(`/api/v1/${prop}`, params, { headers })
         .then(response => {
-          const data = response.data
+          const vote = response.data
+          const place_id = spot.data.place_id
 
           if (route == 'search')
             context.commit('spot/addDataSpotsStore', { spot, data, prop })
 
           if (route == 'profile' && isMyPage) {
             context.dispatch('user/addSpot', { spot, prop, vote_id })
+            context.commit('user/addVote', { vote, prop, place_id })
           }
 
           if (route == 'profile' && !isMyPage)
-            context.commit('user/addVoteUserStore', { spot, data, prop })
+            context.commit('user/addVote', { vote, prop, place_id })
         })
         .catch(() => {
           const arry = keyword(prop)

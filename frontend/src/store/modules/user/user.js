@@ -56,7 +56,22 @@ export default {
       state.user[prop].push(cloneDeep(spot))
     },
 
+    // 投票を追加します
+    addVote(state, { vote, prop, place_id }) {
+      const keys = Object.keys(state.user)
+
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] === 'data') continue
+
+        const target = state.user[keys[i]].find(
+          obj => obj.data.place_id === place_id
+        )
+
+        if (target === undefined) continue
+
+        target[prop].push(vote)
       }
+    },
 
     // スポットを削除します（プロパティを指定）
     deleteSpotOneProperty(state, { spot_id, prop }) {
