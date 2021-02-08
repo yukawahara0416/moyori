@@ -32,27 +32,9 @@ export default {
       state.user = {}
     },
 
-    // 投票データを追加します
-    addVoteUserStore(state, { spot, data, prop }) {
-      const arry = [
-        'posts',
-        'likes',
-        'wifi_withs',
-        'wifi_withouts',
-        'power_withs',
-        'power_withouts',
-        'comments'
-      ]
-
-      for (let i = 0; i < arry.length; i++) {
-        const target = state.user[arry[i]].filter(item => {
-          return item.data.place_id == spot.data.place_id
-        })
-
-        if (target.length > 0) {
-          target[0][prop].push(data)
-        }
-      }
+    // スポットを追加します（プロパティを指定）
+    addSpot(state, { spot, prop }) {
+      state.user[prop].push(cloneDeep(spot))
     },
 
     // スポットデータを追加します
