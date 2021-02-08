@@ -38,15 +38,17 @@ export default {
 
   methods: {
     ...mapActions({
-      spotlight1: 'spot/spotlight',
-      spotlight2: 'user/spotlight'
+      spotlightSearch: 'spot/spotlight',
+      spotlightProfile: 'user/spotlight'
     }),
 
-    spotlight(spot) {
+    spotlight(place_id) {
       const tab = this.profileTab
       const route = this.$route.name
 
-      route == 'search' ? this.spotlight1(spot) : this.spotlight2({ spot, tab })
+      route == 'search'
+        ? this.spotlightSearch(place_id)
+        : this.spotlightProfile({ place_id, tab })
     },
 
     // カードをクリックすると、マーカーが地図の中心になるよう移動します
