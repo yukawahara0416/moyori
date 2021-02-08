@@ -2,7 +2,7 @@
   <div>
     <v-btn
       icon
-      @click.stop="wifiWithoutHandler()"
+      @click.stop="wifiWithoutHandler(spot)"
       @mouseover="mouseover()"
       @mouseleave="mouseleave()"
     >
@@ -16,7 +16,7 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import Counter from '@/components/Buttons/Counter.vue'
-import { placeDetail } from '@/plugins/maps.js'
+import { placeDetail, postSpot } from '@/plugins/maps.js'
 
 export default {
   props: {
@@ -35,14 +35,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'form',
-      'map',
-      'headers',
-      'currentUser',
-      'isLoggingIn',
-      'profileTab'
-    ]),
+    ...mapGetters(['form', 'map', 'headers', 'currentUser', 'isLoggingIn']),
 
     isWifiWithing() {
       return this.yourWifiWith.length > 0 ? true : false
@@ -63,8 +56,7 @@ export default {
 
   methods: {
     ...mapMutations(['assignSpotFormData', 'dialogOn', 'changeSignTab']),
-    ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
-    ...mapActions({ postSpot: 'spot/postSpot' }),
+    ...mapMutations({ updateSpot: 'spot/updateSpot' }),
     ...mapActions([
       'vote',
       'unVote',
@@ -72,20 +64,9 @@ export default {
       'pushSnackbarError'
     ]),
 
-    wifiWithoutHandler: async function() {
-      const spot = this.spot
+    wifiWithoutHandler: async function(spot) {
       let newSpot = null
       const params = new FormData()
-      let target = null
-      let unVoteId = null
-      const tab = this.profileTab
-      const headers = this.headers
-      const route = this.$route.name
-
-      let isMyPage = false
-      if (this.$route.params.id && this.currentUser.data.id) {
-        isMyPage = this.$route.params.id == this.currentUser.data.id
-      }
 
       try {
         if (!this.isLoggingIn) {
@@ -94,67 +75,85 @@ export default {
           throw new Error('ログインしてください')
         }
 
-        // DBに未登録のスポットであれば登録します
+        // 未登録のスポットは登録します
         if (!spot.isPosted()) {
-          // 登録前にPlaceDetail検索します
-          const map = this.map
-          const data = await placeDetail(map, spot)
-          this.updateDataSpotsStore({ spot, data })
-
-          // formDataを用意してPOSTします
-          this.assignSpotFormData(spot)
-          newSpot = await this.postSpot({ params: this.form, headers })
-          this.updateDataSpotsStore({ spot, data: newSpot })
+          newSpot = await this.getNewSpot(spot.data.place_id)
           params.append('wifi_without[spot_id]', newSpot.data.id)
         } else {
           params.append('wifi_without[spot_id]', spot.data.id)
         }
 
-        // 「Wifiあるよ」の投票があれば取り消します
-        if (this.isWifiWithing) {
-          target = this.yourWifiWith[0]
-          unVoteId = await this.unVote({
-            prop: 'wifi_withs',
-            spot,
-            target,
-            headers,
-            route,
-            isMyPage
-          })
-        }
+        this.voteHandler(newSpot || spot, params)
 
-        // 「Wifiないよ」の投票があれば取り消します
-        if (this.isWifiWithouting) {
-          target = this.yourWifiWithout[0]
-          unVoteId = await this.unVote({
-            prop: 'wifi_withouts',
-            spot,
-            target,
-            headers,
-            route,
-            isMyPage
-          })
-          this.pushSnackbarSuccess({
-            message: '「WiFiないよ」を取り消しました'
-          })
-          return
-        }
-
-        // 「Wifiないよ」を投票します
-        await this.vote({
-          prop: 'wifi_withouts',
-          spot: newSpot || spot,
-          params,
-          tab,
-          headers,
-          route,
-          isMyPage,
-          unVoteId
-        })
         this.pushSnackbarSuccess({ message: '「WiFiないよ」を投票しました' })
       } catch (error) {
         this.pushSnackbarError({ message: error })
       }
+    },
+
+    getNewSpot: async function(place_id) {
+      const updated = await placeDetail({ map: this.map, place_id })
+      this.updateSpot({ place_id, updated })
+
+      // formDataを用意してPOSTします
+      this.assignSpotFormData(this.spot)
+      const newSpot = await postSpot(this.form, this.headers)
+      this.updateSpot({ place_id, updated: newSpot })
+
+      return newSpot
+    },
+
+    voteHandler: async function(spot, params) {
+      let target = null
+      let vote_id = null
+      const headers = this.headers
+      const route = this.$route.name
+
+      let isMyPage = false
+      if (this.$route.params.id && this.currentUser.data.id) {
+        isMyPage = this.$route.params.id == this.currentUser.data.id
+      }
+
+      // 「Wifiあるよ」の投票があれば取り消します
+      if (this.isWifiWithing) {
+        target = this.yourWifiWith[0]
+        vote_id = await this.unVote({
+          prop: 'wifi_withs',
+          spot,
+          target,
+          headers,
+          route,
+          isMyPage
+        })
+      }
+
+      // 「Wifiないよ」の投票があれば取り消します
+      if (this.isWifiWithouting) {
+        target = this.yourWifiWithout[0]
+        vote_id = await this.unVote({
+          prop: 'wifi_withouts',
+          spot,
+          target,
+          headers,
+          route,
+          isMyPage
+        })
+        this.pushSnackbarSuccess({
+          message: '「WiFiないよ」を取り消しました'
+        })
+        return
+      }
+
+      // 「Wifiないよ」を投票します
+      await this.vote({
+        prop: 'wifi_withouts',
+        spot,
+        params,
+        headers,
+        route,
+        isMyPage,
+        vote_id
+      })
     },
 
     mouseover() {

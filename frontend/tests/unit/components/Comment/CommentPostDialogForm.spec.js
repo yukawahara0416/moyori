@@ -15,7 +15,6 @@ let store
 let auth
 let form
 let map
-let tab
 
 beforeEach(() => {
   options = {
@@ -80,18 +79,11 @@ beforeEach(() => {
     }
   }
 
-  tab = {
-    getters: {
-      profileTab: () => 'posts'
-    }
-  }
-
   store = new Vuex.Store({
     modules: {
       auth,
       form,
-      map,
-      tab
+      map
     }
   })
 
@@ -122,10 +114,6 @@ describe('getters', () => {
 
   it('map', () => {
     expect(wrapper.vm.map).toMatchObject(store.getters.map)
-  })
-
-  it('profileTab', () => {
-    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
   })
 })
 

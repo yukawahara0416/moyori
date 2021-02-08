@@ -112,7 +112,7 @@
           class="px-3"
           type="submit"
           :small="$vuetify.breakpoint.smAndDown"
-          @click="commentHandler()"
+          @click="commentHandler(spot)"
           :disabled="invalid"
         >
           コメント
@@ -126,7 +126,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { placeDetail } from '@/plugins/maps.js'
+import { placeDetail, postSpot } from '@/plugins/maps.js'
 
 export default {
   props: {
@@ -162,8 +162,8 @@ export default {
       'map',
       'currentUser',
       'headers',
-      'isLoggingIn',
-      'profileTab'
+      'isLoggingIn'
+      // 'profileTab'
     ]),
 
     isWifiWithing() {
@@ -201,8 +201,7 @@ export default {
 
   methods: {
     ...mapMutations(['assignSpotFormData', 'dialogOn', 'changeSignTab']),
-    ...mapMutations({ updateDataSpotsStore: 'spot/updateDataSpotsStore' }),
-    ...mapActions({ postSpot: 'spot/postSpot' }),
+    ...mapMutations({ updateSpot: 'spot/updateSpot' }),
     ...mapActions([
       'vote',
       'unVote',
@@ -210,11 +209,9 @@ export default {
       'pushSnackbarError'
     ]),
 
-    commentHandler: async function() {
-      const spot = this.spot
+    commentHandler: async function(spot) {
       let newSpot = null
       const params = new FormData()
-      const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
 
@@ -233,17 +230,9 @@ export default {
           throw new Error('ログインしてください')
         }
 
-        // DBに未登録のスポットであれば登録します
+        // 未登録のスポットは登録します
         if (!spot.isPosted()) {
-          // 登録前にPlaceDetail検索します
-          const map = this.map
-          const data = await placeDetail(map, spot)
-          this.updateDataSpotsStore({ spot, data })
-
-          // formDataを用意してPOSTします
-          this.assignSpotFormData(spot)
-          newSpot = await this.postSpot({ params: this.form, headers })
-          this.updateDataSpotsStore({ spot, data: newSpot })
+          newSpot = await this.getNewSpot(spot.data.place_id)
           params.append('comment[spot_id]', newSpot.data.id)
         } else {
           params.append('comment[spot_id]', spot.data.id)
@@ -254,7 +243,6 @@ export default {
           prop: 'comments',
           spot: newSpot || spot,
           params,
-          tab,
           headers,
           route,
           isMyPage
@@ -270,13 +258,24 @@ export default {
       }
     },
 
+    getNewSpot: async function(place_id) {
+      const updated = await placeDetail({ map: this.map, place_id })
+      this.updateSpot({ place_id, updated })
+
+      // formDataを用意してPOSTします
+      this.assignSpotFormData(this.spot)
+      const newSpot = await postSpot(this.form, this.headers)
+      this.updateSpot({ place_id, updated: newSpot })
+
+      return newSpot
+    },
+
     voteHandler: async function(spot) {
       // wifi・電源どちらも「わからない」の場合は、処理を終了します
       if (this.wifi_radio === 'unknown' && this.power_radio === 'unknown')
         return
 
       const params = new FormData()
-      const tab = this.profileTab
       const headers = this.headers
       const route = this.$route.name
 
@@ -287,31 +286,23 @@ export default {
 
       // 「Wifiあり」が選択された場合
       if (this.wifi_radio === 'wifi_with') {
-        await this.wifiWithHandler(spot, tab, headers, route, params, isMyPage)
+        await this.wifiWithHandler(spot, headers, route, params, isMyPage)
       }
 
       // 「Wifiなし」が選択された場合
       if (this.wifi_radio === 'wifi_without') {
-        await this.wifiWithoutHandler(
-          spot,
-          tab,
-          headers,
-          route,
-          params,
-          isMyPage
-        )
+        await this.wifiWithoutHandler(spot, headers, route, params, isMyPage)
       }
 
       // 「電源あり」が選択された場合
       if (this.power_radio === 'power_with') {
-        await this.powerWithHandler(spot, tab, headers, route, params, isMyPage)
+        await this.powerWithHandler(spot, headers, route, params, isMyPage)
       }
 
       // 「電源なし」が選択された場合
       if (this.power_radio === 'power_without') {
         await this.powerWithoutHandler(
-          spot,
-          tab,
+          // tab,
           headers,
           route,
           params,
@@ -320,14 +311,7 @@ export default {
       }
     },
 
-    wifiWithHandler: async function(
-      spot,
-      tab,
-      headers,
-      route,
-      params,
-      isMyPage
-    ) {
+    wifiWithHandler: async function(spot, headers, route, params, isMyPage) {
       params.append('wifi_with[spot_id]', spot.data.id)
 
       let target = null
@@ -353,21 +337,13 @@ export default {
         prop: 'wifi_withs',
         spot,
         params,
-        tab,
         headers,
         route,
         isMyPage
       })
     },
 
-    wifiWithoutHandler: async function(
-      spot,
-      tab,
-      headers,
-      route,
-      params,
-      isMyPage
-    ) {
+    wifiWithoutHandler: async function(spot, headers, route, params, isMyPage) {
       params.append('wifi_without[spot_id]', spot.data.id)
 
       let target = null
@@ -393,21 +369,13 @@ export default {
         prop: 'wifi_withouts',
         spot,
         params,
-        tab,
         headers,
         route,
         isMyPage
       })
     },
 
-    powerWithHandler: async function(
-      spot,
-      tab,
-      headers,
-      route,
-      params,
-      isMyPage
-    ) {
+    powerWithHandler: async function(spot, headers, route, params, isMyPage) {
       params.append('power_with[spot_id]', spot.data.id)
 
       let target = null
@@ -433,7 +401,6 @@ export default {
         prop: 'power_withs',
         spot,
         params,
-        tab,
         headers,
         route,
         isMyPage
@@ -442,7 +409,6 @@ export default {
 
     powerWithoutHandler: async function(
       spot,
-      tab,
       headers,
       route,
       params,
@@ -473,7 +439,6 @@ export default {
         prop: 'power_withouts',
         spot,
         params,
-        tab,
         headers,
         route,
         isMyPage

@@ -10,7 +10,6 @@ let store
 let auth
 let form
 let dialog
-let tab
 let snackbar
 
 beforeEach(() => {
@@ -44,12 +43,6 @@ beforeEach(() => {
     }
   }
 
-  tab = {
-    getters: {
-      profileTab: () => 'posts'
-    }
-  }
-
   snackbar = {
     actions: {
       pushSnackbarSuccess: jest.fn()
@@ -61,7 +54,6 @@ beforeEach(() => {
       auth,
       form,
       dialog,
-      tab,
       snackbar
     }
   })
@@ -84,10 +76,6 @@ describe('getters', () => {
 
   it('formData', () => {
     expect(wrapper.vm.formData).toEqual(store.getters.formData)
-  })
-
-  it('profileTab', () => {
-    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
   })
 })
 

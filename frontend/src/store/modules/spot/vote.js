@@ -10,7 +10,7 @@ export default {
           const place_id = spot.data.place_id
 
           if (route == 'search')
-            context.commit('spot/addDataSpotsStore', { spot, data, prop })
+            context.commit('spot/addVote', { vote, prop, place_id })
 
           if (route == 'profile' && isMyPage) {
             context.dispatch('user/addSpot', { spot, prop, vote_id })
@@ -30,19 +30,22 @@ export default {
       return axiosBase
         .delete(`/api/v1/${prop}/${target.id}`, { headers })
         .then(response => {
-          const data = response.data
+          const spot_id = response.data.spot_id
+          const vote_id = response.data.id
+          const place_id = spot.data.place_id
 
           if (route == 'search')
-            context.commit('spot/deleteDataSpotsStore', { spot, data, prop })
+            context.commit('spot/deleteVote', { vote_id, place_id, prop })
 
           if (route == 'profile' && isMyPage) {
             context.dispatch('user/deleteSpot', { spot_id, prop })
+            context.commit('user/deleteVote', { vote_id, place_id, prop })
           }
 
           if (route == 'profile' && !isMyPage)
-            context.commit('user/deleteVoteUserStore', { spot, data, prop })
+            context.commit('user/deleteVote', { vote_id, place_id, prop })
 
-          return data
+          return response.data.id
         })
         .catch(() => {
           const arry = keyword(prop)

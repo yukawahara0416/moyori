@@ -83,6 +83,18 @@ export function placeIdGenerate(userId) {
   return placeIdData
 }
 
+// スポットを登録します
+export function postSpot(params, headers) {
+  return axiosBase
+    .post('/api/v1/spots', params, { headers })
+    .then(response => {
+      return new Spot(response.data)
+    })
+    .catch(() => {
+      throw new Error('スポットの登録に失敗しました')
+    })
+}
+
 /**************
  * GoogleMapsAPI 周辺検索機能
  **************/
