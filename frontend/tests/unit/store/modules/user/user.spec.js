@@ -75,11 +75,11 @@ describe('mutations', () => {
     const spot = { data: { place_id, on: false } }
     const user = { likes: [spot] }
 
-    store.replaceState({ user: user })
-    store.commit('onSpotlight', { spot, tab })
-    expect(store.state.user.posts[0].data.on).toBe(true)
+    store.replaceState({ user })
+    store.commit('onSpotlight', { place_id, tab })
+    expect(store.state.user.likes[0].data.on).toBeTruthy()
     store.commit('offSpotlight', tab)
-    expect(store.state.user.posts[0].data.on).toBe(false)
+    expect(store.state.user.likes[0].data.on).toBeFalsy()
   })
 })
 
