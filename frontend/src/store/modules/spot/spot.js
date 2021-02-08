@@ -63,6 +63,7 @@ export default {
 
   mutations: {
     // スポットデータを格納します
+    setSpots(state, payload) {
       state.spots = [...state.spots, ...payload]
     },
 
