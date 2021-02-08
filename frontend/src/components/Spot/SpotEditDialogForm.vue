@@ -172,8 +172,7 @@ export default {
   methods: {
     ...mapMutations(['clearSpotFormData']),
     ...mapMutations({
-      updateDataSpotsStore: 'spot/updateDataSpotsStore',
-      updateDataUserStore: 'user/updateDataUserStore'
+      updateSpotProfile: 'user/updateSpot'
     }),
     ...mapActions(['dialogOff', 'pushSnackbarSuccess', 'pushSnackbarError']),
     ...mapActions({ updateSpot: 'spot/updateSpot' }),
@@ -205,6 +204,12 @@ export default {
       }
     },
 
+        ? this.updateSpotProfile({
+            place_id,
+            updated,
+            tab: this.profileTab,
+            isMyPage
+          })
     onImagePicked(file) {
       if (file !== undefined && file !== null) {
         if (file.name.lastIndexOf('.') <= 0) {

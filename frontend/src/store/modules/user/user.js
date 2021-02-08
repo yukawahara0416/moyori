@@ -117,26 +117,17 @@ export default {
       target.splice(index, 1)
     },
 
-    // ユーザが保有するスポットの情報を更新します
-    updateDataUserStore(state, { spot, data, tab, isMyPage }) {
-      const arry = isMyPage
-        ? [
-            'posts',
-            'likes',
-            'wifi_withs',
-            'wifi_withouts',
-            'power_withs',
-            'power_withouts',
-            'comments'
-          ]
-        : [tab]
+    // スポットを更新します
+    updateSpot(state, { place_id, updated, tab, isMyPage }) {
+      const keys = isMyPage ? Object.keys(state.user) : [tab]
 
-      for (let i = 0; i < arry.length; i++) {
-        const target = state.user[arry[i]].filter(item => {
-          return item.data.place_id == spot.data.place_id
-        })
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] === 'data') continue
+        const target = state.user[keys[i]].find(
+          obj => obj.data.place_id === place_id
+        )
 
-        merge(target[0], data)
+        merge(target, updated)
       }
     },
 

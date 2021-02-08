@@ -43,8 +43,7 @@ export default {
 
   methods: {
     ...mapMutations({
-      updateDataSpotsStore: 'spot/updateDataSpotsStore',
-      updateDataUserStore: 'user/updateDataUserStore'
+      updateSpotProfile: 'user/updateSpot'
     }),
     ...mapActions(['pushSnackbarError']),
 
@@ -67,9 +66,7 @@ export default {
       try {
         const data = await placeDetail(map, spot)
 
-        route === 'profile'
-          ? this.updateDataUserStore({ spot, data, tab })
-          : this.updateDataSpotsStore({ spot, data })
+          ? this.updateSpotProfile({ place_id, updated, tab: this.profileTab })
       } catch (error) {
         this.pushSnackbarError({ message: error })
       }
