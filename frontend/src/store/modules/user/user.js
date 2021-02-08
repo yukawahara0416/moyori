@@ -1,4 +1,3 @@
-import { axiosBase } from '@/plugins/axios.js'
 import merge from 'lodash/merge'
 import cloneDeep from 'lodash/cloneDeep'
 
@@ -94,27 +93,20 @@ export default {
     },
 
     // 投票データを削除します
-    deleteVoteUserStore(state, { spot, data, prop }) {
-      const arry = [
-        'posts',
-        'likes',
-        'wifi_withs',
-        'wifi_withouts',
-        'power_withs',
-        'power_withouts',
-        'comments'
-      ]
+    deleteVote(state, { vote_id, place_id, prop }) {
+      const keys = Object.keys(state.user)
 
-      for (let i = 0; i < arry.length; i++) {
-        const target = state.user[arry[i]].filter(item => {
-          return item.data.place_id == spot.data.place_id
-        })
+      for (let i = 0; i < keys.length; i++) {
+        if (keys[i] === 'data') continue
 
-        if (target.length > 0) {
-          const votes = target[0][prop]
-          const index = votes.findIndex(({ id }) => id === data.id)
-          votes.splice(index, 1)
-        }
+        const spots = state.user[keys[i]]
+        const target = spots.find(obj => obj.data.place_id === place_id)
+
+        if (target === undefined) continue
+
+        const votes = target[prop]
+        const result = votes.filter(obj => obj.id !== vote_id)
+        target[prop] = result
       }
     },
 
@@ -169,6 +161,7 @@ export default {
         : context.commit('addSpot', { spot, prop })
     },
 
+    // state全体のspotを削除するか、一部のspotを削除するかを判定します
     deleteSpot(context, { spot_id, prop = null }) {
       if (prop === 'comments') return
 
