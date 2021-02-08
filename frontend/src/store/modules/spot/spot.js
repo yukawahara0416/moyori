@@ -62,8 +62,7 @@ export default {
   },
 
   mutations: {
-    // スポット配列に、検索結果を追加します
-    addSpotsStore(state, payload) {
+    // スポットデータを格納します
       state.spots = [...state.spots, ...payload]
     },
 
