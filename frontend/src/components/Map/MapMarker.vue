@@ -10,6 +10,7 @@
       :zIndex="spot.data.zIndex"
       @click="
         spotlight(spot.data.place_id)
+        panTo(spot.data.position)
         scroll(id)
       "
     />
@@ -75,12 +76,9 @@ export default {
     ...mapActions({ spotlight: 'spot/spotlight' }),
 
     // マーカーをクリックすると、マーカーが地図の中心になるよう移動します
-    panTo(spot) {
-      const position = new google.maps.LatLng(
-        spot.data.position.lat,
-        spot.data.position.lng
-      )
-      this.map.panTo(position)
+    panTo(position) {
+      const location = new google.maps.LatLng(position.lat, position.lng)
+      this.map.panTo(location)
     },
 
     // マーカーをクリックすると、対応するカードまで画面がスクロールします
