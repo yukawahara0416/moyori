@@ -70,12 +70,10 @@ describe('mutations', () => {
   })
 
   it('onSpotlight, offSpotlight', () => {
-    const user = {
-      data: { id: 1 },
-      posts: [{ data: { id: 1, place_id: '123', on: false } }]
-    }
-    const spot = user.posts[0]
-    const tab = 'posts'
+    const place_id = '1234567890test'
+    const tab = 'likes'
+    const spot = { data: { place_id, on: false } }
+    const user = { likes: [spot] }
 
     store.replaceState({ user: user })
     store.commit('onSpotlight', { spot, tab })
