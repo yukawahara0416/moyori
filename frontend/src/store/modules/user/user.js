@@ -15,8 +15,8 @@ export default {
   },
 
   mutations: {
-    // マイページで使用するユーザデータを格納します
-    setUserStore(state, payload) {
+    // ユーザデータを格納します
+    setUser(state, payload) {
       state.user = payload
     },
 

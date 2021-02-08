@@ -25,9 +25,9 @@ describe('getters', () => {
 })
 
 describe('mutations', () => {
-  it('setUserStore', () => {
-    const user = { test: 'test' }
-    store.commit('setUserStore', user)
+  it('setUser', () => {
+    const user = { data: { id: 1 } }
+    store.commit('setUser', user)
     expect(store.state.user).toMatchObject(user)
   })
 

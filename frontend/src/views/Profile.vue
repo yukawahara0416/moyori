@@ -83,8 +83,7 @@ export default {
     ]),
     ...mapMutations({
       clearSpotsStore: 'spot/clearSpotsStore',
-      clearUserStore: 'user/clearUserStore',
-      setUserStore: 'user/setUserStore'
+      setUser: 'user/setUser'
     }),
     ...mapActions(['pushSnackbarError']),
     ...mapActions({ getUser: 'user/getUser' }),
@@ -108,15 +107,7 @@ export default {
           'comments'
         ]
 
-        for (let i = 0; i < target.length; i++) {
-          response.data[target[i]] = response.data[target[i]].map(spot => {
-            return new Spot(spot)
-          })
-        }
-
-        response.data.comments = uniqBy(response.data.comments, 'data.id')
-
-        this.setUserStore(response.data)
+        this.setUser(user)
       } catch (error) {
         this.pushSnackbarError({ message: error })
         this.setNotFound(true)
