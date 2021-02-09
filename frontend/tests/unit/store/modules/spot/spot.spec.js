@@ -1,11 +1,7 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import spot from '@/store/modules/spot/spot.js'
-// import { axiosBase } from '@/plugins/axios.js'
-// import MockAdapter from 'axios-mock-adapter'
 import cloneDeep from 'lodash/cloneDeep'
-
-// const axiosMock = new MockAdapter(axiosBase)
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -162,14 +158,6 @@ describe('actions', () => {
   const params = { place_id: '123' }
   const response = { data: { place_id: '123' } }
   const headers = { test: 'test' }
-
-  // it('postSpot', () => {
-  //   axiosMock.onPost('/api/v1/spots', params).reply(200, response)
-
-  //   return store.dispatch('postSpot', { params, headers }).then(res => {
-  //     expect(res.data.place_id).toEqual(response.data.place_id)
-  //   })
-  // })
 
   it('spotlight', () => {
     const place_id = '1234567890test'
