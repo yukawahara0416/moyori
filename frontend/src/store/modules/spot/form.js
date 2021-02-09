@@ -16,7 +16,7 @@ export default {
   },
 
   getters: {
-    form(state) {
+    spotForm(state) {
       return state.spotForm
     },
 
