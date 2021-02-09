@@ -113,17 +113,6 @@ export default {
         .catch(() => {
           throw new Error('ログアウトに失敗しました')
         })
-    },
-
-    deleteAccount(context, headers) {
-      return axiosBase
-        .delete('/api/v1/auth/', { headers })
-        .then(response => {
-          return response
-        })
-        .catch(() => {
-          throw new Error('アカウントの削除に失敗しました')
-        })
     }
   }
 }
