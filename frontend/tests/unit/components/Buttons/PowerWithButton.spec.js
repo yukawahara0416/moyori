@@ -87,7 +87,7 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
-  it('form', () => {
+  it('spotForm', () => {
     expect(wrapper.vm.form).toBe(store.getters.form)
   })
 

@@ -108,7 +108,7 @@ describe('getters', () => {
     expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
   })
 
-  it('form', () => {
+  it('spotForm', () => {
     expect(wrapper.vm.form).toMatchObject(store.getters.form)
   })
 

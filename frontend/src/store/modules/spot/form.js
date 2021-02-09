@@ -2,7 +2,7 @@ import { Spot } from '@/class/Spot.js'
 
 export default {
   state: {
-    form: {
+    spotForm: {
       place_id: '',
       name: '',
       address: '',
@@ -17,16 +17,16 @@ export default {
 
   getters: {
     form(state) {
-      return state.form
+      return state.spotForm
     },
 
     formData(state) {
       const formData = new FormData()
-      const keys = Object.keys(state.form)
+      const keys = Object.keys(state.spotForm)
 
       for (let i = 0; i < keys.length; i++) {
-        if (state.form[keys[i]] !== null)
-          formData.append(`spot[${keys[i]}]`, state.form[keys[i]])
+        if (state.spotForm[keys[i]] !== null)
+          formData.append(`spot[${keys[i]}]`, state.spotForm[keys[i]])
       }
 
       return formData
@@ -47,15 +47,15 @@ export default {
           lng: payload.data.position.lng,
           url: payload.data.url
         }
-        Object.assign(state.form, obj)
+        Object.assign(state.spotForm, obj)
         return
       }
 
-      Object.assign(state.form, payload)
+      Object.assign(state.spotForm, payload)
     },
 
     clearForm(state) {
-      state.form = {
+      state.spotForm = {
         place_id: '',
         address: '',
         name: '',

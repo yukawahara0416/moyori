@@ -158,7 +158,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'form',
+      'spotForm',
       'map',
       'currentUser',
       'headers',
@@ -264,7 +264,7 @@ export default {
 
       // formDataを用意してPOSTします
       this.setForm(this.spot)
-      const newSpot = await postSpot(this.form, this.headers)
+      const newSpot = await postSpot(this.spotForm, this.headers)
       this.updateSpot({ place_id, updated: newSpot })
 
       return newSpot

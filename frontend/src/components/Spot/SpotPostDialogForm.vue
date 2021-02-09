@@ -218,7 +218,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['form', 'headers', 'formData']),
+    ...mapGetters(['spotForm', 'headers', 'formData']),
 
     cols() {
       if (this.$vuetify.breakpoint.xsOnly) return 12

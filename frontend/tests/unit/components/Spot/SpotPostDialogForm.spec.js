@@ -66,7 +66,7 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
-  it('form', () => {
+  it('spotForm', () => {
     expect(wrapper.vm.form).toMatchObject(store.getters.form)
   })
 

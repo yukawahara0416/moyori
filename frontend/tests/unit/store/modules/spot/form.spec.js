@@ -37,9 +37,9 @@ const init = {
 }
 
 describe('getters', () => {
-  it('form', () => {
+  it('spotForm', () => {
     store.replaceState({ form: data })
-    expect(store.getters['form']).toEqual(data)
+    expect(store.getters['spotForm']).toEqual(data)
   })
 
   it('formData', () => {

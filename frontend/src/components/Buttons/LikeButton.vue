@@ -40,7 +40,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['form', 'map', 'headers', 'currentUser', 'isLoggingIn']),
+    ...mapGetters(['spotForm', 'map', 'headers', 'currentUser', 'isLoggingIn']),
 
     isLiking() {
       return this.yourLike.length > 0 ? true : false
@@ -96,7 +96,7 @@ export default {
 
       // formDataを用意してPOSTします
       this.setForm(this.spot)
-      const newSpot = await postSpot(this.form, this.headers)
+      const newSpot = await postSpot(this.spotForm, this.headers)
       this.updateSpot({ place_id, updated: newSpot })
 
       return newSpot
