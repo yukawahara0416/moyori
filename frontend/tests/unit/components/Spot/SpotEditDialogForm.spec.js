@@ -138,8 +138,8 @@ describe('methods', () => {
 
     wrapper.vm.closeDialog()
     expect(dialog.actions.dialogOff).toHaveBeenCalled()
-    expect(form.mutations.clearForm).toHaveBeenCalled()
     expect(clearForm).toHaveBeenCalled()
+    expect(form.mutations.clearForm).toHaveBeenCalled()
   })
 
   it('clearForm', () => {
