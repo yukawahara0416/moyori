@@ -104,11 +104,6 @@ describe('without mock methods', () => {
   })
 
   describe('methods', () => {
-    it('deleteAccountHandler', () => {
-      wrapper.vm.deleteAccountHandler()
-      expect(auth.actions.deleteAccount).toHaveBeenCalled()
-    })
-
     it('cancelDeleteAccount', () => {
       wrapper.vm.cancelDeleteAccount()
       expect(closeDialog).toHaveBeenCalled()
