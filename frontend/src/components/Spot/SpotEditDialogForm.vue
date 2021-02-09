@@ -176,7 +176,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['clearSpotFormData']),
+    ...mapMutations(['clearForm']),
     ...mapMutations({
       updateSpotSearch: 'spot/updateSpot',
       updateSpotProfile: 'user/updateSpot'
@@ -253,7 +253,7 @@ export default {
 
     closeDialog() {
       this.dialogOff('dialogSpotEdit')
-      this.clearSpotFormData()
+      this.clearForm()
       this.clearForm()
     },
 

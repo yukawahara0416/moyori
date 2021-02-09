@@ -62,9 +62,9 @@ describe('mutations', () => {
     expect(store.state.form).toEqual(data)
   })
 
-  it('clearSpotFormData', () => {
+  it('clearForm', () => {
     store.replaceState({ form: data })
-    store.commit('clearSpotFormData')
+    store.commit('clearForm')
     expect(store.state.form).toMatchObject(init)
   })
 })

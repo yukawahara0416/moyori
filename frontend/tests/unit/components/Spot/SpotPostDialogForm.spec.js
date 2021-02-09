@@ -33,7 +33,7 @@ beforeEach(() => {
       formData: () => 'formData'
     },
     mutations: {
-      clearSpotFormData: jest.fn()
+      clearForm: jest.fn()
     }
   }
 
@@ -111,7 +111,7 @@ describe('methods', () => {
 
     wrapper.vm.closeDialog()
     expect(dialog.actions.dialogOff).toHaveBeenCalled()
-    expect(form.mutations.clearSpotFormData).toHaveBeenCalled()
+    expect(form.mutations.clearForm).toHaveBeenCalled()
     expect(clearForm).toHaveBeenCalled()
   })
 

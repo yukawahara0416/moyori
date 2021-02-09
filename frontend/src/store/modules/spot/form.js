@@ -54,7 +54,7 @@ export default {
       Object.assign(state.form, payload)
     },
 
-    clearSpotFormData(state) {
+    clearForm(state) {
       state.form = {
         place_id: '',
         address: '',
