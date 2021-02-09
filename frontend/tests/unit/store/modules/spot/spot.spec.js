@@ -79,6 +79,7 @@ describe('mutations', () => {
     store.commit('addSpot', newSpot)
     expect(store.state.spots).toHaveLength(2)
     expect(store.state.spots[0]).toMatchObject(newSpot)
+    expect(store.state.spots[1]).toMatchObject(spot)
   })
 
   it('addVote', () => {
