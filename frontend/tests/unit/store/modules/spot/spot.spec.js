@@ -141,6 +141,7 @@ describe('mutations', () => {
   it('setFilterQuery', () => {
     const filterQuery = ['likes']
     store.commit('setFilterQuery', filterQuery)
+    expect(store.state.filterQuery).toHaveLength(1)
     expect(store.state.filterQuery).toStrictEqual(filterQuery)
   })
 
