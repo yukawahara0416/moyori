@@ -126,7 +126,7 @@
           :small="$vuetify.breakpoint.smAndDown"
           :disabled="invalid"
           @click="updateSpotHandler()"
-          @clearForm="clearForm"
+          @clearForm="clearForm()"
         >
           スポットを編集
         </v-btn>
@@ -176,7 +176,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['clearForm']),
+    ...mapMutations(['clearSpotForm']),
     ...mapMutations({
       updateSpotSearch: 'spot/updateSpot',
       updateSpotProfile: 'user/updateSpot'
@@ -253,7 +253,7 @@ export default {
 
     closeDialog() {
       this.dialogOff('dialogSpotEdit')
-      this.clearForm()
+      this.clearSpotForm()
       this.clearForm()
     },
 

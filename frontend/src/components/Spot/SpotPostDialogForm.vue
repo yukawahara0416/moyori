@@ -227,7 +227,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['clearForm', 'pushSnackbar']),
+    ...mapMutations(['clearSpotForm', 'pushSnackbar']),
     ...mapMutations({ addSpot: 'spot/addSpot' }),
     ...mapActions([
       'vote',
@@ -308,7 +308,7 @@ export default {
 
     closeDialog() {
       this.dialogOff('dialogSpotCreate')
-      this.clearForm()
+      this.clearSpotForm()
       this.clearForm()
     },
 

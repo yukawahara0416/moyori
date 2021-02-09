@@ -34,7 +34,7 @@ export default {
   },
 
   mutations: {
-    setForm(state, payload) {
+    setSpotForm(state, payload) {
       if (payload instanceof Spot) {
         const obj = {
           place_id: payload.data.place_id,
@@ -54,7 +54,7 @@ export default {
       Object.assign(state.spotForm, payload)
     },
 
-    clearForm(state) {
+    clearSpotForm(state) {
       state.spotForm = {
         place_id: '',
         address: '',

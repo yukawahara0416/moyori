@@ -57,14 +57,14 @@ describe('getters', () => {
 })
 
 describe('mutations', () => {
-  it('setForm', () => {
-    store.commit('setForm', data)
+  it('setSpotForm', () => {
+    store.commit('setSpotForm', data)
     expect(store.state.spotForm).toEqual(data)
   })
 
-  it('clearForm', () => {
+  it('clearSpotForm', () => {
     store.replaceState({ form: data })
-    store.commit('clearForm')
+    store.commit('clearSpotForm')
     expect(store.state.spotForm).toMatchObject(init)
   })
 })

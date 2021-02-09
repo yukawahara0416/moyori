@@ -43,7 +43,7 @@ beforeEach(() => {
 
   form = {
     mutations: {
-      clearForm: jest.fn()
+      clearSpotForm: jest.fn()
     }
   }
 
@@ -138,8 +138,8 @@ describe('methods', () => {
 
     wrapper.vm.closeDialog()
     expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    expect(form.mutations.clearSpotForm).toHaveBeenCalled()
     expect(clearForm).toHaveBeenCalled()
-    expect(form.mutations.clearForm).toHaveBeenCalled()
   })
 
   it('clearForm', () => {
