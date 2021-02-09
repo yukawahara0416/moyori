@@ -136,11 +136,8 @@ export default {
     ...mapActions(['pushSnackbarSuccess', 'pushSnackbarError']),
 
     updateAccountHandler: async function() {
-      const params = this.formData
-      const headers = this.headers
-
       try {
-        const updated = await this.updateAccount({ params, headers })
+        const updated = await this.updateAccount(this.formData)
 
         this.storeMutation(updated)
 
