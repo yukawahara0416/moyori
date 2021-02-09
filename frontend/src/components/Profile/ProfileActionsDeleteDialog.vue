@@ -31,11 +31,7 @@ export default {
 
   methods: {
     ...mapMutations(['clearHeaders']),
-    ...mapActions([
-      'deleteAccount',
-      'pushSnackbarSuccess',
-      'pushSnackbarError'
-    ]),
+    ...mapActions(['pushSnackbarSuccess', 'pushSnackbarError']),
 
     deleteAccountHandler: async function() {
       try {
