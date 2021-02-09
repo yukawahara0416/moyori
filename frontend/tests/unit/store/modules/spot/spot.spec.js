@@ -12,40 +12,32 @@ beforeEach(() => {
   store = new Vuex.Store(cloneDeep(spot))
 })
 
-const radius = { name: 'test', value: 1000 }
-const type = { name: 'test', value: 'test' }
-const filterQuery = 'likes'
-
 describe('getters', () => {
-  const spot = { data: {}, likes: [{ id: 1 }] }
-
   it('spots', () => {
+    const spot = { data: { id: 1 } }
     store.replaceState({ spots: [spot] })
     expect(store.getters.spots[0]).toMatchObject(spot)
   })
 
   it('radius', () => {
+    const radius = { name: '1km', value: 1000 }
     store.replaceState({ radius })
     expect(store.getters.radius).toMatchObject(radius)
   })
 
   it('type', () => {
+    const type = { name: 'レストラン', value: 'restaurant' }
     store.replaceState({ type })
     expect(store.getters.type).toMatchObject(type)
   })
 
   it('filterQuery', () => {
-    store.replaceState({ filterQuery: [filterQuery] })
-    expect(store.getters.filterQuery[0]).toEqual(filterQuery)
+    const filterQuery = ['likes']
   })
 
   it('filteredSpots', () => {
-    const like = { id: 2 }
-    const hasLikeSpot = spot
-    hasLikeSpot['likes'] = [like]
-
-    store.replaceState({ spots: [hasLikeSpot], filterQuery: [filterQuery] })
-    expect(store.getters.filteredSpots).toEqual([hasLikeSpot])
+    const spot = { data: {}, likes: [{ id: 1 }] }
+    const filterQuery = ['likes']
   })
 })
 
@@ -124,6 +116,7 @@ describe('mutations', () => {
   })
 
   it('setRadius', () => {
+    const radius = { name: '1km', value: 1000 }
     store.commit('setRadius', radius)
     expect(store.state.radius).toMatchObject(radius)
   })
@@ -134,9 +127,7 @@ describe('mutations', () => {
   })
 
   it('setFilterQuery', () => {
-    const filter = 'likes'
-    store.commit('setFilterQuery', filter)
-    expect(store.state.filterQuery).toStrictEqual(filter)
+    const filterQuery = ['likes']
   })
 
   it('onSpotlight, offSpotlight', () => {
