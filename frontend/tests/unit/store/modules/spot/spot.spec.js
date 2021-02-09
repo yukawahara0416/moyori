@@ -25,12 +25,12 @@ describe('getters', () => {
   })
 
   it('radius', () => {
-    store.replaceState({ radius: radius })
+    store.replaceState({ radius })
     expect(store.getters.radius).toMatchObject(radius)
   })
 
   it('type', () => {
-    store.replaceState({ type: type })
+    store.replaceState({ type })
     expect(store.getters.type).toMatchObject(type)
   })
 
