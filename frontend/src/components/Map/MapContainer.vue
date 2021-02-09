@@ -97,7 +97,7 @@ export default {
     ...mapMutations([
       'googleMutation',
       'mapMutation',
-      'assignSpotFormData',
+      'setForm',
       'clearForm',
       'loadingOn',
       'loadingOff',
@@ -218,8 +218,8 @@ export default {
       this.clearForm()
       const geocodeData = await geocodeGenerate(event)
       const placeIdData = placeIdGenerate(this.currentUser.data.id)
-      this.assignSpotFormData(geocodeData)
-      this.assignSpotFormData(placeIdData)
+      this.setForm(geocodeData)
+      this.setForm(placeIdData)
       this.dialogOn('dialogSpotCreate')
     },
 

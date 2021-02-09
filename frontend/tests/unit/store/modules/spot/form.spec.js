@@ -57,8 +57,8 @@ describe('getters', () => {
 })
 
 describe('mutations', () => {
-  it('assignSpotFormData', () => {
-    store.commit('assignSpotFormData', data)
+  it('setForm', () => {
+    store.commit('setForm', data)
     expect(store.state.form).toEqual(data)
   })
 
