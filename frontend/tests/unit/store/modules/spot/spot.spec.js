@@ -35,6 +35,7 @@ describe('getters', () => {
   it('filterQuery', () => {
     const filterQuery = ['likes']
     store.replaceState({ filterQuery })
+    expect(store.getters.filterQuery).toHaveLength(1)
     expect(store.getters.filterQuery).toEqual(filterQuery)
   })
 
