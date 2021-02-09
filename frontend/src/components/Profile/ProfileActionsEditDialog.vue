@@ -99,6 +99,7 @@
 </template>
 
 <script>
+import { axiosBase } from '@/plugins/axios.js'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -132,11 +133,7 @@ export default {
   methods: {
     ...mapMutations({ updateCurrentUser: 'updateCurrentUser' }),
     ...mapMutations({ updateUser: 'user/updateUser' }),
-    ...mapActions([
-      'updateAccount',
-      'pushSnackbarSuccess',
-      'pushSnackbarError'
-    ]),
+    ...mapActions(['pushSnackbarSuccess', 'pushSnackbarError']),
 
     updateAccountHandler: async function() {
       const params = this.formData
@@ -154,19 +151,15 @@ export default {
       }
     },
 
-    onImagePicked(file) {
-      if (file !== undefined && file !== null) {
-        if (file.name.lastIndexOf('.') <= 0) {
-          return
-        }
-        const fr = new FileReader()
-        fr.readAsDataURL(file)
-        fr.addEventListener('load', () => {
-          this.uploadImageUrl = fr.result
+    updateAccount(params) {
+      return axiosBase
+        .patch('/api/v1/auth/', params, { headers: this.headers })
+        .then(response => {
+          return response.data.data
         })
-      } else {
-        this.uploadImageUrl = null
-      }
+        .catch(() => {
+          throw new Error('アカウントの編集に失敗しました')
+        })
     },
 
     storeMutation(updated) {
@@ -181,6 +174,21 @@ export default {
         email: updated.email,
         avatar: updated.avatar
       })
+    },
+
+    onImagePicked(file) {
+      if (file !== undefined && file !== null) {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader()
+        fr.readAsDataURL(file)
+        fr.addEventListener('load', () => {
+          this.uploadImageUrl = fr.result
+        })
+      } else {
+        this.uploadImageUrl = null
+      }
     },
 
     cancelUpdateAccount() {
