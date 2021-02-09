@@ -43,7 +43,10 @@ describe('getters', () => {
     const spot = { data: {}, likes: [{ id: 1 }] }
     const filterQuery = ['likes']
     store.replaceState({ spots: [spot], filterQuery })
-    expect(store.getters.filteredSpots[0]).toEqual(spot)
+    expect(store.getters.filterQuery).toHaveLength(1)
+    expect(store.getters.filterQuery).toMatchObject(filterQuery)
+    expect(store.getters.filteredSpots).toHaveLength(1)
+    expect(store.getters.filteredSpots[0]).toMatchObject(spot)
   })
 })
 
