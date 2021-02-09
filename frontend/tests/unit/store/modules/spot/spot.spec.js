@@ -33,11 +33,15 @@ describe('getters', () => {
 
   it('filterQuery', () => {
     const filterQuery = ['likes']
+    store.replaceState({ filterQuery })
+    expect(store.getters.filterQuery).toEqual(filterQuery)
   })
 
   it('filteredSpots', () => {
     const spot = { data: {}, likes: [{ id: 1 }] }
     const filterQuery = ['likes']
+    store.replaceState({ spots: [spot], filterQuery })
+    expect(store.getters.filteredSpots[0]).toEqual(spot)
   })
 })
 
@@ -122,6 +126,7 @@ describe('mutations', () => {
   })
 
   it('setType', () => {
+    const type = { name: 'レストラン', value: 'restaurant' }
     store.commit('setType', type)
     expect(store.state.type).toMatchObject(type)
   })
