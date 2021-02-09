@@ -105,7 +105,7 @@ export default {
     ]),
     ...mapMutations({
       setSpots: 'spot/setSpots',
-      clearSpotsStore: 'spot/clearSpotsStore',
+      clearSpots: 'spot/clearSpots',
       setRadius: 'spot/setRadius'
     }),
     ...mapActions(['dialogOff', 'pushSnackbarSuccess', 'pushSnackbarError']),
@@ -116,7 +116,7 @@ export default {
       this.dialogOff('dialogSpotCreate')
       this.dialogOff('dialogSpotEdit')
       this.loadingOn()
-      this.clearSpotsStore()
+      this.clearSpots()
     },
 
     // 位置情報を取得してから周辺検索
