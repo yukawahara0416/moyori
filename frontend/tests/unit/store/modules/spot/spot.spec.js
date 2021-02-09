@@ -16,6 +16,7 @@ describe('getters', () => {
   it('spots', () => {
     const spot = { data: { id: 1 } }
     store.replaceState({ spots: [spot] })
+    expect(store.state.spots).toHaveLength(1)
     expect(store.getters.spots[0]).toMatchObject(spot)
   })
 
