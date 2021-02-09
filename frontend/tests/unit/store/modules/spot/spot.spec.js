@@ -83,7 +83,7 @@ describe('mutations', () => {
   })
 
   it('addVote', () => {
-    const vote = { id: 111 }
+    const vote = { id: 123 }
     const prop = 'likes'
     const place_id = '1234567890test'
 
@@ -105,7 +105,7 @@ describe('mutations', () => {
   })
 
   it('deleteVote', () => {
-    const vote_id = 111
+    const vote_id = 123
     const place_id = '1234567890test'
     const prop = 'likes'
     const spot = { data: { place_id }, likes: [{ id: vote_id }] }
@@ -122,6 +122,7 @@ describe('mutations', () => {
 
     store.replaceState({ spots: [spot] })
     store.commit('updateSpot', { place_id, updated })
+    expect(store.state.spots).toHaveLength(1)
     expect(store.state.spots[0]).toMatchObject(updated)
   })
 
