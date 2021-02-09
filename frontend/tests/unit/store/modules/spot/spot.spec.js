@@ -17,7 +17,7 @@ const type = { name: 'test', value: 'test' }
 const filterQuery = 'likes'
 
 describe('getters', () => {
-  const spot = { data: {}, likes: [{ test: 'test' }] }
+  const spot = { data: {}, likes: [{ id: 1 }] }
 
   it('spots', () => {
     store.replaceState({ spots: [spot] })
