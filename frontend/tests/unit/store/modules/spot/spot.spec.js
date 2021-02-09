@@ -160,11 +160,6 @@ describe('mutations', () => {
 })
 
 describe('actions', () => {
-  const spot = { data: { id: 1, place_id: '123', on: false, zIndex: 10 } }
-  const params = { place_id: '123' }
-  const response = { data: { place_id: '123' } }
-  const headers = { test: 'test' }
-
   it('spotlight', () => {
     const place_id = '1234567890test'
     const spot = { data: { place_id, on: false, zIndex: 10 } }
