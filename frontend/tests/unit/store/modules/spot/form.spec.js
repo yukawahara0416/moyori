@@ -37,19 +37,19 @@ const init = {
 }
 
 describe('getters', () => {
-  it('form', () => {
-    store.replaceState({ form: data })
-    expect(store.getters['form']).toEqual(data)
+  it('spotForm', () => {
+    store.replaceState({ spotForm: data })
+    expect(store.getters['spotForm']).toEqual(data)
   })
 
   it('formData', () => {
-    store.replaceState({ form: data })
+    store.replaceState({ spotForm: data })
 
     const formData = new FormData()
-    const keys = Object.keys(store.state.form)
+    const keys = Object.keys(store.state.spotForm)
     for (let i = 0; i < keys.length; i++) {
-      if (store.state.form[keys[i]] !== null)
-        formData.append(`spot[${keys[i]}]`, store.state.form[keys[i]])
+      if (store.state.spotForm[keys[i]] !== null)
+        formData.append(`spot[${keys[i]}]`, store.state.spotForm[keys[i]])
     }
 
     expect(store.getters['formData']).toMatchObject(formData)
@@ -57,14 +57,14 @@ describe('getters', () => {
 })
 
 describe('mutations', () => {
-  it('assignSpotFormData', () => {
-    store.commit('assignSpotFormData', data)
-    expect(store.state.form).toEqual(data)
+  it('setSpotForm', () => {
+    store.commit('setSpotForm', data)
+    expect(store.state.spotForm).toEqual(data)
   })
 
-  it('clearSpotFormData', () => {
+  it('clearSpotForm', () => {
     store.replaceState({ form: data })
-    store.commit('clearSpotFormData')
-    expect(store.state.form).toMatchObject(init)
+    store.commit('clearSpotForm')
+    expect(store.state.spotForm).toMatchObject(init)
   })
 })

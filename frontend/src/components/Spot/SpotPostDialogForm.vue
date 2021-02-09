@@ -19,7 +19,7 @@
               name="name"
               prepend-icon="mdi-coffee"
               type="text"
-              v-model="form.name"
+              v-model="spotForm.name"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -37,7 +37,7 @@
               name="address"
               prepend-icon="mdi-home-circle-outline"
               type="text"
-              v-model="form.address"
+              v-model="spotForm.address"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -55,7 +55,7 @@
               name="phone"
               prepend-icon="mdi-phone-outline"
               type="phone"
-              v-model="form.phone"
+              v-model="spotForm.phone"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -73,7 +73,7 @@
               name="url"
               prepend-icon="mdi-web"
               type="text"
-              v-model="form.url"
+              v-model="spotForm.url"
               :clearable="true"
               :error-messages="errors"
               :success="valid"
@@ -93,7 +93,7 @@
                   name="picture"
                   prepend-icon="mdi-camera"
                   show-size
-                  v-model="form.picture"
+                  v-model="spotForm.picture"
                   :clearable="true"
                   :error-messages="errors"
                   :success="valid"
@@ -218,7 +218,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['form', 'headers', 'formData']),
+    ...mapGetters(['spotForm', 'headers', 'formData']),
 
     cols() {
       if (this.$vuetify.breakpoint.xsOnly) return 12
@@ -227,7 +227,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['clearSpotFormData', 'pushSnackbar']),
+    ...mapMutations(['clearSpotForm', 'pushSnackbar']),
     ...mapMutations({ addSpot: 'spot/addSpot' }),
     ...mapActions([
       'vote',
@@ -308,7 +308,7 @@ export default {
 
     closeDialog() {
       this.dialogOff('dialogSpotCreate')
-      this.clearSpotFormData()
+      this.clearSpotForm()
       this.clearForm()
     },
 

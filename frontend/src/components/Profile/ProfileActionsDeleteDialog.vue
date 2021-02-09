@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { axiosBase } from '@/plugins/axios.js'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import router from '@/router'
 
@@ -30,16 +31,11 @@ export default {
 
   methods: {
     ...mapMutations(['clearHeaders']),
-    ...mapActions([
-      'deleteAccount',
-      'pushSnackbarSuccess',
-      'pushSnackbarError'
-    ]),
+    ...mapActions(['pushSnackbarSuccess', 'pushSnackbarError']),
 
     deleteAccountHandler: async function() {
-      const headers = this.headers
       try {
-        await this.deleteAccount(headers)
+        await this.deleteAccount(this.headers)
         await this.clearHeaders()
         router.push('/')
         this.closeDialog()
@@ -47,6 +43,17 @@ export default {
       } catch (error) {
         this.pushSnackbarError({ message: error })
       }
+    },
+
+    deleteAccount(headers) {
+      return axiosBase
+        .delete('/api/v1/auth/', { headers })
+        .then(response => {
+          return response
+        })
+        .catch(() => {
+          throw new Error('アカウントの削除に失敗しました')
+        })
     },
 
     cancelDeleteAccount() {

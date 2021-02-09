@@ -99,6 +99,7 @@
 </template>
 
 <script>
+import { axiosBase } from '@/plugins/axios.js'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -132,18 +133,11 @@ export default {
   methods: {
     ...mapMutations({ updateCurrentUser: 'updateCurrentUser' }),
     ...mapMutations({ updateUser: 'user/updateUser' }),
-    ...mapActions([
-      'updateAccount',
-      'pushSnackbarSuccess',
-      'pushSnackbarError'
-    ]),
+    ...mapActions(['pushSnackbarSuccess', 'pushSnackbarError']),
 
     updateAccountHandler: async function() {
-      const params = this.formData
-      const headers = this.headers
-
       try {
-        const updated = await this.updateAccount({ params, headers })
+        const updated = await this.updateAccount(this.formData)
 
         this.storeMutation(updated)
 
@@ -152,6 +146,31 @@ export default {
       } catch (error) {
         this.pushSnackbarError({ message: error })
       }
+    },
+
+    updateAccount(params) {
+      return axiosBase
+        .patch('/api/v1/auth/', params, { headers: this.headers })
+        .then(response => {
+          return response.data.data
+        })
+        .catch(() => {
+          throw new Error('アカウントの編集に失敗しました')
+        })
+    },
+
+    storeMutation(updated) {
+      this.updateUser({
+        name: updated.name,
+        email: updated.email,
+        avatar: updated.avatar
+      })
+
+      this.updateCurrentUser({
+        name: updated.name,
+        email: updated.email,
+        avatar: updated.avatar
+      })
     },
 
     onImagePicked(file) {
@@ -167,20 +186,6 @@ export default {
       } else {
         this.uploadImageUrl = null
       }
-    },
-
-    storeMutation(updated) {
-      this.updateUser({
-        name: updated.name,
-        email: updated.email,
-        avatar: updated.avatar
-      })
-
-      this.updateCurrentUser({
-        name: updated.name,
-        email: updated.email,
-        avatar: updated.avatar
-      })
     },
 
     cancelUpdateAccount() {

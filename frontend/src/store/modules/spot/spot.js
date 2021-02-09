@@ -66,7 +66,7 @@ export default {
     },
 
     // スポットデータを初期化します
-    clearSpotsStore(state) {
+    clearSpots(state) {
       state.spots = []
     },
 

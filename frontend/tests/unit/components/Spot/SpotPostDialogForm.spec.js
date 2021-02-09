@@ -25,7 +25,7 @@ beforeEach(() => {
 
   form = {
     getters: {
-      form: () => {
+      spotForm: () => {
         return {
           place_id: ''
         }
@@ -33,7 +33,7 @@ beforeEach(() => {
       formData: () => 'formData'
     },
     mutations: {
-      clearSpotFormData: jest.fn()
+      clearSpotForm: jest.fn()
     }
   }
 
@@ -66,8 +66,8 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
-  it('form', () => {
-    expect(wrapper.vm.form).toMatchObject(store.getters.form)
+  it('spotForm', () => {
+    expect(wrapper.vm.spotForm).toMatchObject(store.getters.spotForm)
   })
 
   it('headers', () => {
@@ -111,7 +111,7 @@ describe('methods', () => {
 
     wrapper.vm.closeDialog()
     expect(dialog.actions.dialogOff).toHaveBeenCalled()
-    expect(form.mutations.clearSpotFormData).toHaveBeenCalled()
+    expect(form.mutations.clearSpotForm).toHaveBeenCalled()
     expect(clearForm).toHaveBeenCalled()
   })
 

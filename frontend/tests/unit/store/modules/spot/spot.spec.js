@@ -68,10 +68,10 @@ describe('mutations', () => {
     expect(store.state.spots[0]).toMatchObject(spot)
   })
 
-  it('clearSpotsStore', () => {
+  it('clearSpots', () => {
     const spot = { data: { id: 1 } }
     store.replaceState({ spots: [spot] })
-    store.commit('clearSpotsStore')
+    store.commit('clearSpots')
     expect(store.state.spots).toHaveLength(0)
   })
 

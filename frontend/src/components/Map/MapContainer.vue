@@ -97,15 +97,15 @@ export default {
     ...mapMutations([
       'googleMutation',
       'mapMutation',
-      'assignSpotFormData',
-      'clearSpotFormData',
+      'setSpotForm',
+      'clearSpotForm',
       'loadingOn',
       'loadingOff',
       'dialogOn'
     ]),
     ...mapMutations({
       setSpots: 'spot/setSpots',
-      clearSpotsStore: 'spot/clearSpotsStore',
+      clearSpots: 'spot/clearSpots',
       setRadius: 'spot/setRadius'
     }),
     ...mapActions(['dialogOff', 'pushSnackbarSuccess', 'pushSnackbarError']),
@@ -116,7 +116,7 @@ export default {
       this.dialogOff('dialogSpotCreate')
       this.dialogOff('dialogSpotEdit')
       this.loadingOn()
-      this.clearSpotsStore()
+      this.clearSpots()
     },
 
     // 位置情報を取得してから周辺検索
@@ -215,11 +215,11 @@ export default {
         return
       }
 
-      this.clearSpotFormData()
+      this.clearSpotForm()
       const geocodeData = await geocodeGenerate(event)
       const placeIdData = placeIdGenerate(this.currentUser.data.id)
-      this.assignSpotFormData(geocodeData)
-      this.assignSpotFormData(placeIdData)
+      this.setSpotForm(geocodeData)
+      this.setSpotForm(placeIdData)
       this.dialogOn('dialogSpotCreate')
     },
 

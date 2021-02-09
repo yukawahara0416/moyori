@@ -3,7 +3,7 @@
     <v-btn
       :small="$vuetify.breakpoint.smAndDown"
       @click.stop="
-        placeDetail(spot.data.place_id)
+        placeDetail(spot)
         openDialog()
       "
     >
@@ -56,9 +56,11 @@ export default {
       this.dialog = false
     },
 
-    placeDetail: async function(place_id) {
+    placeDetail: async function(spot) {
       // ユーザが作成したスポットの場合、placeDetailを実行しない
       if (!spot.isGmapSpot()) return
+
+      const place_id = spot.data.place_id
 
       try {
         const updated = await placeDetail({ map: this.map, place_id })

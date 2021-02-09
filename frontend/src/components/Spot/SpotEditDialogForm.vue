@@ -126,7 +126,7 @@
           :small="$vuetify.breakpoint.smAndDown"
           :disabled="invalid"
           @click="updateSpotHandler()"
-          @clearForm="clearForm"
+          @clearForm="clearForm()"
         >
           スポットを編集
         </v-btn>
@@ -176,7 +176,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['clearSpotFormData']),
+    ...mapMutations(['clearSpotForm']),
     ...mapMutations({
       updateSpotSearch: 'spot/updateSpot',
       updateSpotProfile: 'user/updateSpot'
@@ -185,11 +185,11 @@ export default {
 
     updateSpotHandler: async function() {
       try {
-        const updated = await this.updateSpot({
-          spot_id: this.spot.data.id,
-          params: this.formData,
-          headers: this.headers
-        })
+        const updated = await this.updateSpot(
+          this.spot.data.id,
+          this.formData,
+          this.headers
+        )
 
         this.stateMutation(updated)
 
@@ -200,7 +200,7 @@ export default {
       }
     },
 
-    updateSpot({ spot_id, params, headers }) {
+    updateSpot(spot_id, params, headers) {
       return axiosBase
         .patch(`/api/v1/spots/${spot_id}`, params, { headers })
         .then(response => {
@@ -253,7 +253,7 @@ export default {
 
     closeDialog() {
       this.dialogOff('dialogSpotEdit')
-      this.clearSpotFormData()
+      this.clearSpotForm()
       this.clearForm()
     },
 

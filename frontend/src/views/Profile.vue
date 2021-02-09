@@ -83,7 +83,7 @@ export default {
       'setNotFound'
     ]),
     ...mapMutations({
-      clearSpotsStore: 'spot/clearSpotsStore',
+      clearSpots: 'spot/clearSpots',
       clearUser: 'user/clearUser',
       setUser: 'user/setUser'
     }),
@@ -91,7 +91,7 @@ export default {
 
     fetchData: async function(id) {
       this.loadingOn()
-      this.clearSpotsStore()
+      this.clearSpots()
       this.clearUser()
 
       try {

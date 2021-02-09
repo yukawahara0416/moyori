@@ -158,7 +158,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'form',
+      'spotForm',
       'map',
       'currentUser',
       'headers',
@@ -200,7 +200,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['assignSpotFormData', 'dialogOn', 'changeSignTab']),
+    ...mapMutations(['setSpotForm', 'dialogOn', 'changeSignTab']),
     ...mapMutations({ updateSpot: 'spot/updateSpot' }),
     ...mapActions([
       'vote',
@@ -263,8 +263,8 @@ export default {
       this.updateSpot({ place_id, updated })
 
       // formDataを用意してPOSTします
-      this.assignSpotFormData(this.spot)
-      const newSpot = await postSpot(this.form, this.headers)
+      this.setSpotForm(this.spot)
+      const newSpot = await postSpot(this.spotForm, this.headers)
       this.updateSpot({ place_id, updated: newSpot })
 
       return newSpot

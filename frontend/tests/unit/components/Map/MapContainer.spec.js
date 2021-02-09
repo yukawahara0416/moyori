@@ -30,7 +30,7 @@ beforeEach(() => {
       filteredSpots: () => [{ data: { id: 2 } }]
     },
     mutations: {
-      clearSpotsStore: jest.fn()
+      clearSpots: jest.fn()
     }
   }
 
@@ -197,7 +197,7 @@ describe('methods', () => {
     wrapper.vm.beforeSearch()
     expect(dialog.actions.dialogOff).toHaveBeenCalledTimes(3)
     expect(loading.mutations.loadingOn).toHaveBeenCalled()
-    expect(spot.mutations.clearSpotsStore).toHaveBeenCalled()
+    expect(spot.mutations.clearSpots).toHaveBeenCalled()
   })
 })
 

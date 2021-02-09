@@ -145,25 +145,4 @@ describe('actions', () => {
       expect(res.data.data).toMatchObject(response.data)
     })
   })
-
-  it('updateAccount', () => {
-    const params = { test: 'test' }
-    const headers = { test: 'test' }
-    const response = { data: { data: { id: 1 } } }
-
-    axiosMock.onPatch('/api/v1/auth/', params).reply(200, response)
-    store.dispatch('updateAccount', { params, headers }).then(res => {
-      expect(res.data.data).toMatchObject(response.data)
-    })
-  })
-
-  it('deleteAccount', () => {
-    const headers = { test: 'test' }
-    const response = { data: { data: { id: 1 } } }
-
-    axiosMock.onDelete('/api/v1/auth/').reply(200, response)
-    store.dispatch('deleteAccount', headers).then(res => {
-      expect(res.data.data).toMatchObject(response.data)
-    })
-  })
 })

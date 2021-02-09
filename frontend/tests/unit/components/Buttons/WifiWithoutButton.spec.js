@@ -53,7 +53,7 @@ beforeEach(() => {
 
   form = {
     getters: {
-      form: () => {
+      spotForm: () => {
         return {
           place_id: ''
         }
@@ -87,8 +87,8 @@ beforeEach(() => {
 })
 
 describe('getters', () => {
-  it('form', () => {
-    expect(wrapper.vm.form).toBe(store.getters.form)
+  it('spotForm', () => {
+    expect(wrapper.vm.spotForm).toBe(store.getters.spotForm)
   })
 
   it('map', () => {
