@@ -192,6 +192,18 @@ describe('actions', () => {
     expect(store.state.user.wifi_withouts).toHaveLength(1)
   })
 
+  it('addSpot wasUnVote && isReverseVote false => mutations/addSpot', () => {
+    const vote_id = 1
+    const spot = { data: { id: 1 } }
+    const user = { data: { id: 1 }, likes: [] }
+    const prop = 'likes'
+
+    store.replaceState({ user })
+    store.dispatch('addSpot', { spot, prop, vote_id })
+    expect(store.state.user.likes).toHaveLength(1)
+    expect(store.state.user.likes[0]).toMatchObject(spot)
+  })
+
   it('spotlight', () => {
     const place_id = '1234567890test'
     const tab = 'likes'
