@@ -224,6 +224,18 @@ describe('actions', () => {
     expect(store.state.user.likes).toHaveLength(0)
   })
 
+  it('deleteSpot prop !== null false => deleteSpotAllProperty', () => {
+    const spot_id = 1
+    const spot = { data: { id: spot_id } }
+    const clone = cloneDeep(spot)
+    const user = { likes: [spot], wifi_withs: [clone] }
+
+    store.replaceState({ user })
+    store.dispatch('deleteSpot', { spot_id })
+    expect(store.state.user.likes).toHaveLength(0)
+    expect(store.state.user.wifi_withs).toHaveLength(0)
+  })
+
   it('spotlight', () => {
     const place_id = '1234567890test'
     const tab = 'likes'
