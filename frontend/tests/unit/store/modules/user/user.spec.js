@@ -178,6 +178,20 @@ describe('actions', () => {
       expect(res).toBeUndefined()
     })
   })
+
+  it('addSpot wasUnVote && isReverseVote true => mutations/addSpotReverse', () => {
+    const vote_id = 1
+    const vote = { id: vote_id }
+    const spot = { wifi_withs: [vote], wifi_withouts: [] }
+    const user = { wifi_withs: [spot], wifi_withouts: [] }
+    const prop = 'wifi_withouts'
+
+    store.replaceState({ user })
+    store.dispatch('addSpot', { spot, prop, vote_id })
+    expect(store.state.user.wifi_withs[0].wifi_withs).toHaveLength(0)
+    expect(store.state.user.wifi_withouts).toHaveLength(1)
+  })
+
   it('spotlight', () => {
     const place_id = '1234567890test'
     const tab = 'likes'
