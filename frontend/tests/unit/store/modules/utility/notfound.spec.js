@@ -5,3 +5,6 @@ import cloneDeep from 'lodash/cloneDeep'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+let store
+
