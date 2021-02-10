@@ -116,11 +116,11 @@ describe('actions', () => {
       email: 'test',
       password: 'test'
     }
-    const response = { data: { data: { id: 1 } } }
-
+    const response = { id: 1 }
     axiosMock.onPost('/api/v1/auth/', signUpForm).reply(200, response)
+
     store.dispatch('signUp', signUpForm).then(res => {
-      expect(res.data.data).toMatchObject(response.data)
+      expect(res.data).toMatchObject(response)
     })
   })
 
@@ -129,21 +129,21 @@ describe('actions', () => {
       email: 'test',
       password: 'test'
     }
-    const response = { data: { data: { id: 1 } } }
-
+    const response = { id: 1 }
     axiosMock.onPost('/api/v1/auth/sign_in', signInForm).reply(200, response)
+
     store.dispatch('signIn', signInForm).then(res => {
-      expect(res.data.data).toMatchObject(response.data)
+      expect(res.data).toMatchObject(response)
     })
   })
 
   it('signOut', () => {
     const headers = { test: 'test' }
-    const response = { data: { success: true } }
-
+    const response = { id: 1 }
     axiosMock.onDelete('api/v1/auth/sign_out', { headers }).reply(200, response)
+
     store.dispatch('signOut').then(res => {
-      expect(res.data.data).toMatchObject(response.data)
+      expect(res.data).toMatchObject(response)
     })
   })
 })
