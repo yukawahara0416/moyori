@@ -15,19 +15,19 @@ beforeEach(() => {
 describe('getters', () => {
   it('loading', () => {
     store.replaceState({ loading: true })
-    expect(store.getters['loading']).toBe(true)
+    expect(store.getters['loading']).toBeTruthy()
   })
 })
 
 describe('mutations', () => {
   it('loadingOn', () => {
     store.commit('loadingOn')
-    expect(store.state.loading).toBe(true)
+    expect(store.state.loading).toBeTruthy()
   })
 
   it('loadingOff', () => {
     store.replaceState({ loading: true })
     store.commit('loadingOff')
-    expect(store.state.loading).toBe(false)
+    expect(store.state.loading).toBeFalsy()
   })
 })
