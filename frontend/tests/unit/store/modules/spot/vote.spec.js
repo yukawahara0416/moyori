@@ -124,6 +124,25 @@ describe('actions', () => {
       })
   })
 
+  it('vote 404 error', () => {
+    route = 'search'
+    axiosMock.onPost(`/api/v1/${prop}`, params).reply(404)
+
+    store
+      .dispatch('vote', {
+        prop,
+        spot,
+        params,
+        headers,
+        route,
+        isMyPage,
+        vote_id
+      })
+      .catch(err => {
+        expect(err).toStrictEqual(new Error('「いいね」に失敗しました'))
+      })
+  })
+
   it('unVote route search', () => {
     route = 'search'
     axiosMock.onDelete(`/api/v1/${prop}/${target.id}`).reply(200, response)
