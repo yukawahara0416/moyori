@@ -62,6 +62,12 @@ describe('mutations', () => {
     expect(store.state.currentUser.data).toMatchObject(currentUser)
   })
 
+  it('setHeaders', () => {
+    const headers = { 'access-token': 'test' }
+    store.commit('setHeaders', headers)
+    expect(store.state.headers).toMatchObject(headers)
+  })
+
   it('updateCurrentUser', () => {
     const name = 'update'
     const email = 'update'
@@ -91,17 +97,6 @@ describe('mutations', () => {
       email: '',
       password: ''
     })
-  })
-
-  it('setHeaders', () => {
-    const headers = {
-      'access-token': 'test',
-      'client': 'test', // eslint-disable-line
-      'content-type': 'test',
-      'uid': 'test' // eslint-disable-line
-    }
-    store.commit('setHeaders', headers)
-    expect(store.state.headers).toMatchObject(headers)
   })
 
   it('clearHeaders', () => {
