@@ -12,3 +12,10 @@ beforeEach(() => {
   store = new Vuex.Store(cloneDeep(notfound))
 })
 
+describe('getters', () => {
+  it('isNotFound', () => {
+    store.replaceState({ notFound: true })
+    expect(store.getters['isNotFound']).toBeTruthy()
+  })
+})
+
