@@ -74,8 +74,9 @@ describe('actions', () => {
         isMyPage,
         vote_id
       })
-      .then(() => {
+      .then(res => {
         expect(spot_mock.mutations.addVote).toHaveBeenCalled()
+        expect(res.data).toMatchObject(response)
       })
   })
 
@@ -94,9 +95,10 @@ describe('actions', () => {
         isMyPage,
         vote_id
       })
-      .then(() => {
+      .then(res => {
         expect(user_mock.actions.addSpot).toHaveBeenCalled()
         expect(user_mock.mutations.addVote).toHaveBeenCalled()
+        expect(res.data).toMatchObject(response)
       })
   })
 
@@ -115,9 +117,10 @@ describe('actions', () => {
         isMyPage,
         vote_id
       })
-      .then(() => {
+      .then(res => {
         expect(user_mock.actions.addSpot).not.toHaveBeenCalled()
         expect(user_mock.mutations.addVote).toHaveBeenCalled()
+        expect(res.data).toMatchObject(response)
       })
   })
 
@@ -127,8 +130,9 @@ describe('actions', () => {
 
     store
       .dispatch('unVote', { prop, spot, target, headers, route, isMyPage })
-      .then(() => {
+      .then(id => {
         expect(spot_mock.mutations.deleteVote).toHaveBeenCalled()
+        expect(id).toEqual(response.id)
       })
   })
 
@@ -139,9 +143,10 @@ describe('actions', () => {
 
     store
       .dispatch('unVote', { prop, spot, target, headers, route, isMyPage })
-      .then(() => {
+      .then(id => {
         expect(user_mock.actions.deleteSpot).toHaveBeenCalled()
         expect(user_mock.mutations.deleteVote).toHaveBeenCalled()
+        expect(id).toEqual(response.id)
       })
   })
 
@@ -152,9 +157,10 @@ describe('actions', () => {
 
     store
       .dispatch('unVote', { prop, spot, target, headers, route, isMyPage })
-      .then(() => {
+      .then(id => {
         expect(user_mock.actions.deleteSpot).not.toHaveBeenCalled()
         expect(user_mock.mutations.deleteVote).toHaveBeenCalled()
+        expect(id).toEqual(response.id)
       })
   })
 })
