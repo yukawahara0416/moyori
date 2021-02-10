@@ -58,10 +58,7 @@ describe('actions', () => {
   let isMyPage = true
   let vote_id = null
 
-  const response = {
-    state: '200 success',
-    data: { id: 236, user_id: 1, spot_id: 1 }
-  }
+  const response = { id: 123, user_id: 1, spot_id: 1 }
 
   it('vote route search', () => {
     route = 'search'
