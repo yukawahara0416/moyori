@@ -213,6 +213,17 @@ describe('actions', () => {
     })
   })
 
+  it('deleteSpot prop !== null true => deleteSpotOneProperty', () => {
+    const spot_id = 1
+    const spot = { data: { id: spot_id } }
+    const prop = 'likes'
+    const user = { likes: [spot] }
+
+    store.replaceState({ user })
+    store.dispatch('deleteSpot', { spot_id, prop })
+    expect(store.state.user.likes).toHaveLength(0)
+  })
+
   it('spotlight', () => {
     const place_id = '1234567890test'
     const tab = 'likes'
