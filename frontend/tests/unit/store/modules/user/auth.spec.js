@@ -20,31 +20,31 @@ beforeEach(() => {
 describe('getters', () => {
   it('currentUser', () => {
     const currentUser = { data: { id: 1 } }
-    store.replaceState({ currentUser: currentUser })
+    store.replaceState({ currentUser })
     expect(store.getters.currentUser).toMatchObject(currentUser)
   })
 
   it('headers', () => {
-    const headers = { test: 'test' }
-    store.replaceState({ headers: headers })
+    const headers = { 'access-token': 'test' }
+    store.replaceState({ headers })
     expect(store.getters.headers).toMatchObject(headers)
   })
 
   it('isLoggingIn', () => {
-    const headers = { test: 'test' }
-    store.replaceState({ headers: headers })
+    const headers = { 'access-token': 'test' }
+    store.replaceState({ headers })
     expect(store.getters.isLoggingIn).toBeTruthy()
   })
 
   it('signInForm', () => {
     const signInForm = { email: 'test', password: 'test' }
-    store.replaceState({ signInForm: signInForm })
+    store.replaceState({ signInForm })
     expect(store.getters.signInForm).toMatchObject(signInForm)
   })
 
   it('signUpForm', () => {
     const signUpForm = { name: 'test', email: 'test', password: 'test' }
-    store.replaceState({ signUpForm: signUpForm })
+    store.replaceState({ signUpForm })
     expect(store.getters.signUpForm).toMatchObject(signUpForm)
   })
 })
@@ -68,7 +68,7 @@ describe('mutations', () => {
 
   it('clearSignUpForm', () => {
     const signUpForm = { name: 'test', email: 'test', password: 'test' }
-    store.replaceState({ signUpForm: signUpForm })
+    store.replaceState({ signUpForm })
     store.commit('clearSignUpForm')
     expect(store.state.signUpForm).toMatchObject({
       name: '',
@@ -79,7 +79,7 @@ describe('mutations', () => {
 
   it('clearSignInForm', () => {
     const signInForm = { email: 'test', password: 'test' }
-    store.replaceState({ signInForm: signInForm })
+    store.replaceState({ signInForm })
     store.commit('clearSignInForm')
     expect(store.state.signInForm).toMatchObject({
       email: '',
@@ -99,9 +99,9 @@ describe('mutations', () => {
   })
 
   it('clearHeaders', () => {
-    const headers = { test: 'test' }
-    const currentUser = { data: { test: 'test' } }
-    store.replaceState({ headers: headers, currentUser: currentUser })
+    const headers = { 'access-token': 'test' }
+    const currentUser = { data: { id: 1 } }
+    store.replaceState({ headers, currentUser })
     store.commit('clearHeaders')
     expect(store.state.headers).toBeNull()
     expect(store.state.currentUser).toMatchObject({ data: {} })
