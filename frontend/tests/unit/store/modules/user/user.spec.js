@@ -204,6 +204,15 @@ describe('actions', () => {
     expect(store.state.user.likes[0]).toMatchObject(spot)
   })
 
+  it('deleteSpot prop comments', () => {
+    const spot = { data: { id: 1 } }
+    const prop = 'comments'
+
+    store.dispatch('deleteSpot', { spot, prop }).then(res => {
+      expect(res).toBeUndefined()
+    })
+  })
+
   it('spotlight', () => {
     const place_id = '1234567890test'
     const tab = 'likes'
