@@ -8,3 +8,7 @@ localVue.use(Vuex)
 
 let store
 
+beforeEach(() => {
+  store = new Vuex.Store(cloneDeep(notfound))
+})
+
