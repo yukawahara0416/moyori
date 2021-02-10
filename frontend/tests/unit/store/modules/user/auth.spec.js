@@ -151,6 +151,19 @@ describe('actions', () => {
     })
   })
 
+  it('signIn 404 error', () => {
+    const signInForm = {
+      email: 'test',
+      password: 'test'
+    }
+    const response = { id: 1 }
+    axiosMock.onPost('/api/v1/auth/sign_in', signInForm).reply(404)
+
+    store.dispatch('signIn', signInForm).catch(err => {
+      expect(err).toStrictEqual(new Error('ログインに失敗しました'))
+    })
+  })
+
   it('signOut', () => {
     const headers = { test: 'test' }
     const response = { id: 1 }
