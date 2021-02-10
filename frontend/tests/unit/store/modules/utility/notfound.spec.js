@@ -19,3 +19,10 @@ describe('getters', () => {
   })
 })
 
+describe('mutations', () => {
+  it('setNotFound', () => {
+    const val = true
+    store.commit('setNotFound', val)
+    expect(store.state.notFound).toBeTruthy()
+  })
+})
