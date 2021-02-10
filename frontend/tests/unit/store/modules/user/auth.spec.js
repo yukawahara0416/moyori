@@ -124,6 +124,20 @@ describe('actions', () => {
     })
   })
 
+  it('signUp 404 error', () => {
+    const signUpForm = {
+      name: 'test',
+      email: 'test',
+      password: 'test'
+    }
+    const response = { id: 1 }
+    axiosMock.onPost('/api/v1/auth/', signUpForm).reply(404)
+
+    store.dispatch('signUp', signUpForm).catch(err => {
+      expect(err).toStrictEqual(new Error('アカウント作成に失敗しました'))
+    })
+  })
+
   it('signIn', () => {
     const signInForm = {
       email: 'test',
