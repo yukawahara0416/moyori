@@ -182,4 +182,17 @@ describe('actions', () => {
         expect(id).toEqual(response.id)
       })
   })
+
+  it('unVote 404 error', () => {
+    route = 'search'
+    axiosMock.onDelete(`/api/v1/${prop}/${target.id}`).reply(404)
+
+    store
+      .dispatch('unVote', { prop, spot, target, headers, route, isMyPage })
+      .catch(err => {
+        expect(err).toStrictEqual(
+          new Error('「いいね」の取り消しに失敗しました')
+        )
+      })
+  })
 })
