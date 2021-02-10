@@ -173,4 +173,14 @@ describe('actions', () => {
       expect(res.data).toMatchObject(response)
     })
   })
+
+  it('signOut 404 error', () => {
+    const headers = { test: 'test' }
+    const response = { id: 1 }
+    axiosMock.onDelete('api/v1/auth/sign_out', { headers }).reply(404)
+
+    store.dispatch('signOut').catch(err => {
+      expect(err).toStrictEqual(new Error('ログアウトに失敗しました'))
+    })
+  })
 })

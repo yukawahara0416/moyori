@@ -23,6 +23,7 @@ describe('getters', () => {
 describe('mutations', () => {
   it('setUser', () => {
     const user = { data: { id: 1 } }
+
     store.commit('setUser', user)
     expect(store.state.user).toMatchObject(user)
   })
@@ -30,6 +31,7 @@ describe('mutations', () => {
   it('clearUser', () => {
     const user = { data: { id: 1 } }
     const result = {}
+
     store.replaceState({ user })
     store.commit('clearUser')
     expect(store.state.user).toMatchObject(result)
@@ -39,6 +41,7 @@ describe('mutations', () => {
     const user = { data: { id: 1 }, likes: [] }
     const spot = { data: { id: 1 } }
     const prop = 'likes'
+
     store.replaceState({ user })
     store.commit('addSpot', { spot, prop })
     expect(store.state.user.likes).toHaveLength(1)
@@ -51,6 +54,7 @@ describe('mutations', () => {
     const spot = { wifi_withs: [vote], wifi_withouts: [] }
     const user = { wifi_withs: [spot], wifi_withouts: [] }
     const prop = 'wifi_withouts'
+
     store.replaceState({ user })
     store.commit('addSpotReverse', { spot, prop, vote_id })
     expect(store.state.user.wifi_withs[0].wifi_withs).toHaveLength(0)
@@ -61,7 +65,6 @@ describe('mutations', () => {
     const vote = { id: 1 }
     const prop = 'likes'
     const place_id = '1234567890test'
-
     const spot = { data: { place_id }, likes: [] }
     const clone = cloneDeep(spot)
     const user = { wifi_withs: [spot], power_withs: [clone] }
@@ -77,6 +80,7 @@ describe('mutations', () => {
     const spot = { data: { id: spot_id } }
     const prop = 'likes'
     const user = { likes: [spot] }
+
     store.replaceState({ user })
     store.commit('deleteSpotOneProperty', { spot_id, prop })
     expect(store.state.user.likes).toHaveLength(0)
