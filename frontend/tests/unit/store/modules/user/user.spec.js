@@ -169,6 +169,15 @@ describe('mutations', () => {
 })
 
 describe('actions', () => {
+  it('addSpot prop comments', () => {
+    const spot = { data: { id: 1 } }
+    const prop = 'comments'
+    const vote_id = null
+
+    store.dispatch('addSpot', { spot, prop, vote_id }).then(res => {
+      expect(res).toBeUndefined()
+    })
+  })
   it('spotlight', () => {
     const place_id = '1234567890test'
     const tab = 'likes'
