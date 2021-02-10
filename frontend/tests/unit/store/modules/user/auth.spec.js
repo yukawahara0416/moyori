@@ -30,10 +30,16 @@ describe('getters', () => {
     expect(store.getters.headers).toMatchObject(headers)
   })
 
-  it('isLoggingIn', () => {
+  it('isLoggingIn is true', () => {
     const headers = { 'access-token': 'test' }
     store.replaceState({ headers })
     expect(store.getters.isLoggingIn).toBeTruthy()
+  })
+
+  it('isLoggingIn is false', () => {
+    const headers = null
+    store.replaceState({ headers })
+    expect(store.getters.isLoggingIn).toBeFalsy()
   })
 
   it('signInForm', () => {
