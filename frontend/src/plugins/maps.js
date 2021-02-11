@@ -120,7 +120,7 @@ export async function nearbySearch(center, radius, map, request) {
     })
   )
 
-  return [...resultFromDatabase, ...resultFromGmap]
+  return [...resultFromGmap, ...resultFromDatabase]
 }
 
 // MoYoRiのデータベースで周辺検索します
