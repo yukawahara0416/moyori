@@ -22,10 +22,8 @@ beforeEach(() => {
     ]
   }
 
-  data = new Spot(options)
-
   propsData = {
-    spot: data
+    spot: new Spot(options)
   }
 
   auth = {
@@ -76,10 +74,8 @@ describe('computed', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     wrapper = shallowMount(Component, {
@@ -179,10 +175,8 @@ describe('template', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     wrapper = shallowMount(Component, {
