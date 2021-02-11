@@ -131,25 +131,7 @@ describe('computed', () => {
       ]
     }
 
-    propsData = {
-      spot: new Spot(options)
-    }
-
-    store = new Vuex.Store({
-      modules: {
-        auth,
-        form,
-        map,
-        tab
-      }
-    })
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
+    wrapper.setProps({ spot: new Spot(options) })
     expect(wrapper.vm.isLiking).toBeFalsy()
   })
 
@@ -236,16 +218,7 @@ describe('template', () => {
       ]
     }
 
-    propsData = {
-      spot: new Spot(options)
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
+    wrapper.setProps({ spot: new Spot(options) })
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-heart')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
