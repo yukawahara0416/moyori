@@ -26,16 +26,16 @@ beforeEach(() => {
 describe('props', () => {
   it('currentUser', async () => {
     expect(wrapper.props().currentUser).toStrictEqual(propsData.currentUser)
-    expect(wrapper.props().currentUser instanceof Object).toBe(true)
+    expect(wrapper.props().currentUser instanceof Object).toBeTruthy()
   })
 })
 
 describe('template', () => {
   it('v-if="currentUser.data.avatar"', () => {
-    expect(wrapper.html().includes('v-img-stub')).toBe(true)
+    expect(wrapper.html().includes('v-img-stub')).toBeTruthy()
   })
   it('v-else', () => {
-    expect(wrapper.html().includes('span')).toBe(false)
+    expect(wrapper.html().includes('span')).toBeFalsy()
   })
 
   it('snapshot', () => {

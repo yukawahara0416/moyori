@@ -119,7 +119,7 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('isWifiWithing is true', () => {
-    expect(wrapper.vm.isWifiWithing).toBe(true)
+    expect(wrapper.vm.isWifiWithing).toBeTruthy()
   })
 
   it('isWifiWithing is false', () => {
@@ -148,11 +148,11 @@ describe('computed', () => {
       stubs: ['ValidationObserver']
     })
 
-    expect(wrapper.vm.isWifiWithing).toBe(false)
+    expect(wrapper.vm.isWifiWithing).toBeFalsy()
   })
 
   it('isWifiWithouting is true', () => {
-    expect(wrapper.vm.isWifiWithouting).toBe(true)
+    expect(wrapper.vm.isWifiWithouting).toBeTruthy()
   })
 
   it('isWifiWithouting is false', () => {
@@ -181,7 +181,7 @@ describe('computed', () => {
       stubs: ['ValidationObserver']
     })
 
-    expect(wrapper.vm.isWifiWithouting).toBe(false)
+    expect(wrapper.vm.isWifiWithouting).toBeFalsy()
   })
 
   it('yourWifiWith', () => {
@@ -193,7 +193,7 @@ describe('computed', () => {
   })
 
   it('isPowerWithing is true', () => {
-    expect(wrapper.vm.isPowerWithing).toBe(true)
+    expect(wrapper.vm.isPowerWithing).toBeTruthy()
   })
 
   it('isPowerWithing is false', () => {
@@ -222,11 +222,11 @@ describe('computed', () => {
       stubs: ['ValidationObserver']
     })
 
-    expect(wrapper.vm.isPowerWithing).toBe(false)
+    expect(wrapper.vm.isPowerWithing).toBeFalsy()
   })
 
   it('isPowerWithouting is true', () => {
-    expect(wrapper.vm.isPowerWithouting).toBe(true)
+    expect(wrapper.vm.isPowerWithouting).toBeTruthy()
   })
 
   it('isPowerWithouting is false', () => {
@@ -255,7 +255,7 @@ describe('computed', () => {
       stubs: ['ValidationObserver']
     })
 
-    expect(wrapper.vm.isPowerWithouting).toBe(false)
+    expect(wrapper.vm.isPowerWithouting).toBeFalsy()
   })
 
   it('yourPowerWith', () => {

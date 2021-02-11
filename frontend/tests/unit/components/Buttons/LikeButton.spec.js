@@ -47,7 +47,7 @@ beforeEach(() => {
 
   form = {
     getters: {
-      form: () => {
+      spotForm: () => {
         return {
           place_id: ''
         }
@@ -90,11 +90,19 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBe(true)
+    expect(wrapper.props().spot instanceof Object).toBeTruthy()
   })
 })
 
 describe('getters', () => {
+  it('spotForm', () => {
+    expect(wrapper.vm.spotForm).toEqual(store.getters.spotForm)
+  })
+
+  it('map', () => {
+    expect(wrapper.vm.map).toEqual(store.getters.map)
+  })
+
   it('headers', () => {
     expect(wrapper.vm.headers).toEqual(store.getters.headers)
   })
@@ -110,7 +118,7 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('isLiking is true', () => {
-    expect(wrapper.vm.isLiking).toBe(true)
+    expect(wrapper.vm.isLiking).toBeTruthy()
   })
 
   it('isLiking is false', () => {
@@ -141,7 +149,7 @@ describe('computed', () => {
       store
     })
 
-    expect(wrapper.vm.isLiking).toBe(false)
+    expect(wrapper.vm.isLiking).toBeFalsy()
   })
 
   it('yourLike', () => {

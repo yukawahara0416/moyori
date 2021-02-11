@@ -17,7 +17,7 @@ describe('props', () => {
     const propsData = { user: { data: { id: 1 } } }
     wrapper = shallowMount(Component, { localVue, vuetify, propsData })
     expect(wrapper.props().user).toStrictEqual(propsData.user)
-    expect(wrapper.props().user instanceof Object).toBe(true)
+    expect(wrapper.props().user instanceof Object).toBeTruthy()
   })
 })
 
@@ -28,7 +28,7 @@ describe('computed', () => {
       user: { data: { id: 1 } }
     }
     wrapper = shallowMount(Component, { localVue, vuetify, propsData })
-    expect(wrapper.vm.isTestUser).toBe(true)
+    expect(wrapper.vm.isTestUser).toBeTruthy()
   })
 })
 
@@ -62,13 +62,13 @@ describe('methods', () => {
 
   it('openDialog', () => {
     wrapper.vm.openDialog()
-    expect(wrapper.vm.dialog).toBe(true)
+    expect(wrapper.vm.dialog).toBeTruthy()
   })
 
   it('closeDialog', () => {
     wrapper.vm.dialog = true
     wrapper.vm.closeDialog()
-    expect(wrapper.vm.dialog).toBe(false)
+    expect(wrapper.vm.dialog).toBeFalsy()
   })
 })
 

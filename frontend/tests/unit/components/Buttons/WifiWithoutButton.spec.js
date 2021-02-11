@@ -114,7 +114,7 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('isWifiWithing is true', () => {
-    expect(wrapper.vm.isWifiWithing).toBe(true)
+    expect(wrapper.vm.isWifiWithing).toBeTruthy()
   })
 
   it('isWifiWithing is false', () => {
@@ -141,11 +141,11 @@ describe('computed', () => {
       propsData,
       store
     })
-    expect(wrapper.vm.isWifiWithing).toBe(false)
+    expect(wrapper.vm.isWifiWithing).toBeFalsy()
   })
 
   it('isWifiWithouting is true', () => {
-    expect(wrapper.vm.isWifiWithouting).toBe(true)
+    expect(wrapper.vm.isWifiWithouting).toBeTruthy()
   })
 
   it('isWifiWithouting is false', () => {
@@ -172,7 +172,7 @@ describe('computed', () => {
       propsData,
       store
     })
-    expect(wrapper.vm.isWifiWithouting).toBe(false)
+    expect(wrapper.vm.isWifiWithouting).toBeFalsy()
   })
 
   it('yourWifiWith', () => {

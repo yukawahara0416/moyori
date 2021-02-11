@@ -57,7 +57,7 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBe(true)
+    expect(wrapper.props().spot instanceof Object).toBeTruthy()
   })
 })
 
@@ -102,13 +102,13 @@ describe('v-on', () => {
 describe('methods', () => {
   it('openDialog', () => {
     wrapper.vm.openDialog()
-    expect(wrapper.vm.dialog).toBe(true)
+    expect(wrapper.vm.dialog).toBeTruthy()
   })
 
   it('closeDialog', () => {
     wrapper.vm.dialog = true
     wrapper.vm.closeDialog()
-    expect(wrapper.vm.dialog).toBe(false)
+    expect(wrapper.vm.dialog).toBeFalsy()
   })
 })
 

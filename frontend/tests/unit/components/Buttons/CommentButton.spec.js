@@ -62,7 +62,7 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('isCommenting is true', () => {
-    expect(wrapper.vm.isCommenting).toBe(true)
+    expect(wrapper.vm.isCommenting).toBeTruthy()
   })
 
   it('isCommenting is false', () => {
@@ -84,7 +84,7 @@ describe('computed', () => {
       store
     })
 
-    expect(wrapper.vm.isCommenting).toBe(false)
+    expect(wrapper.vm.isCommenting).toBeFalsy()
   })
 
   it('yourComments', () => {

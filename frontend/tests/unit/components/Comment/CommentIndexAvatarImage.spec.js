@@ -23,7 +23,7 @@ beforeEach(() => {
 describe('props', () => {
   it('comment', () => {
     expect(wrapper.props().comment).toStrictEqual(propsData.comment)
-    expect(wrapper.props().comment instanceof Object).toBe(true)
+    expect(wrapper.props().comment instanceof Object).toBeTruthy()
   })
 })
 
@@ -49,7 +49,7 @@ describe('router-link', () => {
 
 describe('template', () => {
   it('v-if="comment.avatar"', () => {
-    expect(wrapper.find('v-img-stub').exists()).toBe(true)
+    expect(wrapper.find('v-img-stub').exists()).toBeTruthy()
   })
 
   it('v-else {{ comment.user_name.slice(0, 1) }}', () => {
@@ -64,7 +64,7 @@ describe('template', () => {
         RouterLink: RouterLinkStub
       }
     })
-    expect(wrapper.find('v-img-stub').exists()).toBe(false)
+    expect(wrapper.find('v-img-stub').exists()).toBeFalsy()
     expect(wrapper.find('span').text()).toEqual(
       propsData.comment.user_name.slice(0, 1)
     )

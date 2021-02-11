@@ -20,7 +20,7 @@ beforeEach(() => {
 describe('props', () => {
   it('user', () => {
     expect(wrapper.props().user).toEqual(propsData.user)
-    expect(wrapper.props().user instanceof Object).toBe(true)
+    expect(wrapper.props().user instanceof Object).toBeTruthy()
   })
 })
 

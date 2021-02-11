@@ -53,14 +53,14 @@ describe('with shallowMount wrapper', () => {
 
   describe('computed', () => {
     it('isSearchRoute', () => {
-      expect(wrapper.vm.isSearchRoute).toBe(true)
+      expect(wrapper.vm.isSearchRoute).toBeTruthy()
     })
   })
 
   describe('methods', () => {
     it('openDrawer', () => {
       wrapper.vm.openDrawer()
-      expect(wrapper.vm.drawerState).toBe(true)
+      expect(wrapper.vm.drawerState).toBeTruthy()
     })
   })
 

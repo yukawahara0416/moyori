@@ -52,7 +52,7 @@ describe('v-on', () => {
 describe('methods', () => {
   it('openDialog', () => {
     wrapper.vm.openDialog()
-    expect(wrapper.vm.dialog).toBe(true)
+    expect(wrapper.vm.dialog).toBeTruthy()
   })
 })
 

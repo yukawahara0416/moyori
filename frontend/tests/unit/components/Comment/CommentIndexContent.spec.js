@@ -20,13 +20,13 @@ beforeEach(() => {
 describe('props', () => {
   it('comment', () => {
     expect(wrapper.props().comment).toStrictEqual(propsData.comment)
-    expect(wrapper.props().comment instanceof Object).toBe(true)
+    expect(wrapper.props().comment instanceof Object).toBeTruthy()
   })
 })
 
 describe('computed', () => {
   it('isImageExist is true', () => {
-    expect(wrapper.vm.isImageExist(propsData.comment)).toBe(true)
+    expect(wrapper.vm.isImageExist(propsData.comment)).toBeTruthy()
   })
 
   it('isImageExist is false', () => {
@@ -39,7 +39,7 @@ describe('computed', () => {
       propsData
     })
 
-    expect(wrapper.vm.isImageExist(propsData.comment)).toBe(false)
+    expect(wrapper.vm.isImageExist(propsData.comment)).toBeFalsy()
   })
 
   it('isAboveLimit is true', () => {
@@ -56,11 +56,11 @@ describe('computed', () => {
       propsData
     })
 
-    expect(wrapper.vm.isAboveLimit).toBe(true)
+    expect(wrapper.vm.isAboveLimit).toBeTruthy()
   })
 
   it('isAboveLimit is false', () => {
-    expect(wrapper.vm.isAboveLimit).toBe(false)
+    expect(wrapper.vm.isAboveLimit).toBeFalsy()
   })
 
   it('readMore is true', () => {
@@ -77,11 +77,11 @@ describe('computed', () => {
       propsData
     })
 
-    expect(wrapper.vm.readMore).toBe(true)
+    expect(wrapper.vm.readMore).toBeTruthy()
   })
 
   it('readMore is false', () => {
-    expect(wrapper.vm.readMore).toBe(false)
+    expect(wrapper.vm.readMore).toBeFalsy()
   })
 })
 
@@ -113,7 +113,7 @@ describe('v-on', () => {
 describe('methods', () => {
   it('activateReadMore', () => {
     wrapper.vm.activateReadMore()
-    expect(wrapper.vm.readMoreToggle).toBe(true)
+    expect(wrapper.vm.readMoreToggle).toBeTruthy()
   })
 })
 
@@ -157,7 +157,7 @@ describe('template', () => {
   })
 
   it('v-if isImageExist is true', () => {
-    expect(wrapper.find('comment-index-image-stub').exists()).toBe(true)
+    expect(wrapper.find('comment-index-image-stub').exists()).toBeTruthy()
   })
 
   it('v-if isImageExist is false', () => {
@@ -170,7 +170,7 @@ describe('template', () => {
       propsData
     })
 
-    expect(wrapper.find('comment-index-image-stub').exists()).toBe(false)
+    expect(wrapper.find('comment-index-image-stub').exists()).toBeFalsy()
   })
 
   it('snapshot', () => {

@@ -20,7 +20,7 @@ beforeEach(() => {
 describe('props', () => {
   it('comment', () => {
     expect(wrapper.props().comment).toStrictEqual(propsData.comment)
-    expect(wrapper.props().comment instanceof Object).toBe(true)
+    expect(wrapper.props().comment instanceof Object).toBeTruthy()
   })
 })
 
@@ -45,7 +45,7 @@ describe('v-on', () => {
 describe('methods', () => {
   it('openDialog', () => {
     wrapper.vm.openDialog()
-    expect(wrapper.vm.dialog).toBe(true)
+    expect(wrapper.vm.dialog).toBeTruthy()
   })
 })
 

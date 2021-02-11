@@ -25,7 +25,7 @@ beforeEach(() => {
 describe('props', () => {
   it('currentUser', () => {
     expect(wrapper.props().currentUser).toStrictEqual(propsData.currentUser)
-    expect(wrapper.props().currentUser instanceof Object).toBe(true)
+    expect(wrapper.props().currentUser instanceof Object).toBeTruthy()
   })
 })
 

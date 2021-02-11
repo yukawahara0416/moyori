@@ -21,12 +21,12 @@ beforeEach(() => {
 describe('props', () => {
   it('spots', () => {
     expect(wrapper.props().spots).toStrictEqual(propsData.spots)
-    expect(wrapper.props().spots instanceof Array).toBe(true)
+    expect(wrapper.props().spots instanceof Array).toBeTruthy()
   })
 
   it('filteredSpots', () => {
     expect(wrapper.props().filteredSpots).toStrictEqual(propsData.filteredSpots)
-    expect(wrapper.props().filteredSpots instanceof Array).toBe(true)
+    expect(wrapper.props().filteredSpots instanceof Array).toBeTruthy()
   })
 })
 

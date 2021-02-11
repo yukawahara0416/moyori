@@ -110,7 +110,7 @@ describe('getters', () => {
 
 describe('comnputed', () => {
   it('isPowerWithing is true', () => {
-    expect(wrapper.vm.isPowerWithing).toBe(true)
+    expect(wrapper.vm.isPowerWithing).toBeTruthy()
   })
 
   it('isPowerWithing is false', () => {
@@ -137,11 +137,11 @@ describe('comnputed', () => {
       propsData,
       store
     })
-    expect(wrapper.vm.isPowerWithing).toBe(false)
+    expect(wrapper.vm.isPowerWithing).toBeFalsy()
   })
 
   it('isPowerWithouting is true', () => {
-    expect(wrapper.vm.isPowerWithouting).toBe(true)
+    expect(wrapper.vm.isPowerWithouting).toBeTruthy()
   })
 
   it('isPowerWithouting is false', () => {
@@ -168,7 +168,7 @@ describe('comnputed', () => {
       propsData,
       store
     })
-    expect(wrapper.vm.isPowerWithouting).toBe(false)
+    expect(wrapper.vm.isPowerWithouting).toBeFalsy()
   })
 
   it('yourPowerWith', () => {
