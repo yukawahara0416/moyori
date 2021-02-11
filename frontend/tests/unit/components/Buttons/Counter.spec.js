@@ -24,7 +24,7 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBe(true)
+    expect(wrapper.props().spot instanceof Object).toBeTruthy()
   })
 
   it('target', () => {
@@ -35,7 +35,7 @@ describe('props', () => {
 
 describe('computed', () => {
   it('count', () => {
-    expect(wrapper.vm.count).toEqual(2)
+    expect(wrapper.vm.count).toEqual(propsData.spot.comments.length)
   })
 })
 
