@@ -20,31 +20,37 @@ beforeEach(() => {
 describe('getters', () => {
   it('currentUser', () => {
     const currentUser = { data: { id: 1 } }
-    store.replaceState({ currentUser: currentUser })
+    store.replaceState({ currentUser })
     expect(store.getters.currentUser).toMatchObject(currentUser)
   })
 
   it('headers', () => {
-    const headers = { test: 'test' }
-    store.replaceState({ headers: headers })
+    const headers = { 'access-token': 'test' }
+    store.replaceState({ headers })
     expect(store.getters.headers).toMatchObject(headers)
   })
 
-  it('isLoggingIn', () => {
-    const headers = { test: 'test' }
-    store.replaceState({ headers: headers })
+  it('isLoggingIn is true', () => {
+    const headers = { 'access-token': 'test' }
+    store.replaceState({ headers })
     expect(store.getters.isLoggingIn).toBeTruthy()
+  })
+
+  it('isLoggingIn is false', () => {
+    const headers = null
+    store.replaceState({ headers })
+    expect(store.getters.isLoggingIn).toBeFalsy()
   })
 
   it('signInForm', () => {
     const signInForm = { email: 'test', password: 'test' }
-    store.replaceState({ signInForm: signInForm })
+    store.replaceState({ signInForm })
     expect(store.getters.signInForm).toMatchObject(signInForm)
   })
 
   it('signUpForm', () => {
     const signUpForm = { name: 'test', email: 'test', password: 'test' }
-    store.replaceState({ signUpForm: signUpForm })
+    store.replaceState({ signUpForm })
     expect(store.getters.signUpForm).toMatchObject(signUpForm)
   })
 })
@@ -54,6 +60,12 @@ describe('mutations', () => {
     const currentUser = { data: { id: 1 } }
     store.commit('setCurrentUser', currentUser)
     expect(store.state.currentUser.data).toMatchObject(currentUser)
+  })
+
+  it('setHeaders', () => {
+    const headers = { 'access-token': 'test' }
+    store.commit('setHeaders', headers)
+    expect(store.state.headers).toMatchObject(headers)
   })
 
   it('updateCurrentUser', () => {
@@ -68,7 +80,7 @@ describe('mutations', () => {
 
   it('clearSignUpForm', () => {
     const signUpForm = { name: 'test', email: 'test', password: 'test' }
-    store.replaceState({ signUpForm: signUpForm })
+    store.replaceState({ signUpForm })
     store.commit('clearSignUpForm')
     expect(store.state.signUpForm).toMatchObject({
       name: '',
@@ -79,7 +91,7 @@ describe('mutations', () => {
 
   it('clearSignInForm', () => {
     const signInForm = { email: 'test', password: 'test' }
-    store.replaceState({ signInForm: signInForm })
+    store.replaceState({ signInForm })
     store.commit('clearSignInForm')
     expect(store.state.signInForm).toMatchObject({
       email: '',
@@ -87,21 +99,10 @@ describe('mutations', () => {
     })
   })
 
-  it('setHeaders', () => {
-    const headers = {
-      'access-token': 'test',
-      'client': 'test', // eslint-disable-line
-      'content-type': 'test',
-      'uid': 'test' // eslint-disable-line
-    }
-    store.commit('setHeaders', headers)
-    expect(store.state.headers).toMatchObject(headers)
-  })
-
   it('clearHeaders', () => {
-    const headers = { test: 'test' }
-    const currentUser = { data: { test: 'test' } }
-    store.replaceState({ headers: headers, currentUser: currentUser })
+    const headers = { 'access-token': 'test' }
+    const currentUser = { data: { id: 1 } }
+    store.replaceState({ headers, currentUser })
     store.commit('clearHeaders')
     expect(store.state.headers).toBeNull()
     expect(store.state.currentUser).toMatchObject({ data: {} })
@@ -115,11 +116,25 @@ describe('actions', () => {
       email: 'test',
       password: 'test'
     }
-    const response = { data: { data: { id: 1 } } }
-
+    const response = { id: 1 }
     axiosMock.onPost('/api/v1/auth/', signUpForm).reply(200, response)
+
     store.dispatch('signUp', signUpForm).then(res => {
-      expect(res.data.data).toMatchObject(response.data)
+      expect(res.data).toMatchObject(response)
+    })
+  })
+
+  it('signUp 404 error', () => {
+    const signUpForm = {
+      name: 'test',
+      email: 'test',
+      password: 'test'
+    }
+    const response = { id: 1 }
+    axiosMock.onPost('/api/v1/auth/', signUpForm).reply(404)
+
+    store.dispatch('signUp', signUpForm).catch(err => {
+      expect(err).toStrictEqual(new Error('アカウント作成に失敗しました'))
     })
   })
 
@@ -128,21 +143,44 @@ describe('actions', () => {
       email: 'test',
       password: 'test'
     }
-    const response = { data: { data: { id: 1 } } }
-
+    const response = { id: 1 }
     axiosMock.onPost('/api/v1/auth/sign_in', signInForm).reply(200, response)
+
     store.dispatch('signIn', signInForm).then(res => {
-      expect(res.data.data).toMatchObject(response.data)
+      expect(res.data).toMatchObject(response)
+    })
+  })
+
+  it('signIn 404 error', () => {
+    const signInForm = {
+      email: 'test',
+      password: 'test'
+    }
+    const response = { id: 1 }
+    axiosMock.onPost('/api/v1/auth/sign_in', signInForm).reply(404)
+
+    store.dispatch('signIn', signInForm).catch(err => {
+      expect(err).toStrictEqual(new Error('ログインに失敗しました'))
     })
   })
 
   it('signOut', () => {
     const headers = { test: 'test' }
-    const response = { data: { success: true } }
-
+    const response = { id: 1 }
     axiosMock.onDelete('api/v1/auth/sign_out', { headers }).reply(200, response)
+
     store.dispatch('signOut').then(res => {
-      expect(res.data.data).toMatchObject(response.data)
+      expect(res.data).toMatchObject(response)
+    })
+  })
+
+  it('signOut 404 error', () => {
+    const headers = { test: 'test' }
+    const response = { id: 1 }
+    axiosMock.onDelete('api/v1/auth/sign_out', { headers }).reply(404)
+
+    store.dispatch('signOut').catch(err => {
+      expect(err).toStrictEqual(new Error('ログアウトに失敗しました'))
     })
   })
 })

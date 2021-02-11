@@ -19,6 +19,8 @@ export default {
 
           if (route == 'profile' && !isMyPage)
             context.commit('user/addVote', { vote, prop, place_id })
+
+          return response
         })
         .catch(() => {
           const arry = keyword(prop)

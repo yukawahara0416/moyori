@@ -1,11 +1,7 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import spot from '@/store/modules/spot/spot.js'
-// import { axiosBase } from '@/plugins/axios.js'
-// import MockAdapter from 'axios-mock-adapter'
 import cloneDeep from 'lodash/cloneDeep'
-
-// const axiosMock = new MockAdapter(axiosBase)
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -16,40 +12,41 @@ beforeEach(() => {
   store = new Vuex.Store(cloneDeep(spot))
 })
 
-const radius = { name: 'test', value: 1000 }
-const type = { name: 'test', value: 'test' }
-const filterQuery = 'likes'
-
 describe('getters', () => {
-  const spot = { data: {}, likes: [{ test: 'test' }] }
-
   it('spots', () => {
+    const spot = { data: { id: 1 } }
     store.replaceState({ spots: [spot] })
+    expect(store.state.spots).toHaveLength(1)
     expect(store.getters.spots[0]).toMatchObject(spot)
   })
 
   it('radius', () => {
-    store.replaceState({ radius: radius })
+    const radius = { name: '1km', value: 1000 }
+    store.replaceState({ radius })
     expect(store.getters.radius).toMatchObject(radius)
   })
 
   it('type', () => {
-    store.replaceState({ type: type })
+    const type = { name: 'レストラン', value: 'restaurant' }
+    store.replaceState({ type })
     expect(store.getters.type).toMatchObject(type)
   })
 
   it('filterQuery', () => {
-    store.replaceState({ filterQuery: [filterQuery] })
-    expect(store.getters.filterQuery[0]).toEqual(filterQuery)
+    const filterQuery = ['likes']
+    store.replaceState({ filterQuery })
+    expect(store.getters.filterQuery).toHaveLength(1)
+    expect(store.getters.filterQuery).toEqual(filterQuery)
   })
 
   it('filteredSpots', () => {
-    const like = { id: 2 }
-    const hasLikeSpot = spot
-    hasLikeSpot['likes'] = [like]
-
-    store.replaceState({ spots: [hasLikeSpot], filterQuery: [filterQuery] })
-    expect(store.getters.filteredSpots).toEqual([hasLikeSpot])
+    const spot = { data: {}, likes: [{ id: 1 }] }
+    const filterQuery = ['likes']
+    store.replaceState({ spots: [spot], filterQuery })
+    expect(store.getters.filterQuery).toHaveLength(1)
+    expect(store.getters.filterQuery).toMatchObject(filterQuery)
+    expect(store.getters.filteredSpots).toHaveLength(1)
+    expect(store.getters.filteredSpots[0]).toMatchObject(spot)
   })
 })
 
@@ -82,10 +79,11 @@ describe('mutations', () => {
     store.commit('addSpot', newSpot)
     expect(store.state.spots).toHaveLength(2)
     expect(store.state.spots[0]).toMatchObject(newSpot)
+    expect(store.state.spots[1]).toMatchObject(spot)
   })
 
   it('addVote', () => {
-    const vote = { id: 111 }
+    const vote = { id: 123 }
     const prop = 'likes'
     const place_id = '1234567890test'
 
@@ -107,7 +105,7 @@ describe('mutations', () => {
   })
 
   it('deleteVote', () => {
-    const vote_id = 111
+    const vote_id = 123
     const place_id = '1234567890test'
     const prop = 'likes'
     const spot = { data: { place_id }, likes: [{ id: vote_id }] }
@@ -124,23 +122,27 @@ describe('mutations', () => {
 
     store.replaceState({ spots: [spot] })
     store.commit('updateSpot', { place_id, updated })
+    expect(store.state.spots).toHaveLength(1)
     expect(store.state.spots[0]).toMatchObject(updated)
   })
 
   it('setRadius', () => {
+    const radius = { name: '1km', value: 1000 }
     store.commit('setRadius', radius)
     expect(store.state.radius).toMatchObject(radius)
   })
 
   it('setType', () => {
+    const type = { name: 'レストラン', value: 'restaurant' }
     store.commit('setType', type)
     expect(store.state.type).toMatchObject(type)
   })
 
   it('setFilterQuery', () => {
-    const filter = 'likes'
-    store.commit('setFilterQuery', filter)
-    expect(store.state.filterQuery).toStrictEqual(filter)
+    const filterQuery = ['likes']
+    store.commit('setFilterQuery', filterQuery)
+    expect(store.state.filterQuery).toHaveLength(1)
+    expect(store.state.filterQuery).toStrictEqual(filterQuery)
   })
 
   it('onSpotlight, offSpotlight', () => {
@@ -158,19 +160,6 @@ describe('mutations', () => {
 })
 
 describe('actions', () => {
-  const spot = { data: { id: 1, place_id: '123', on: false, zIndex: 10 } }
-  const params = { place_id: '123' }
-  const response = { data: { place_id: '123' } }
-  const headers = { test: 'test' }
-
-  // it('postSpot', () => {
-  //   axiosMock.onPost('/api/v1/spots', params).reply(200, response)
-
-  //   return store.dispatch('postSpot', { params, headers }).then(res => {
-  //     expect(res.data.place_id).toEqual(response.data.place_id)
-  //   })
-  // })
-
   it('spotlight', () => {
     const place_id = '1234567890test'
     const spot = { data: { place_id, on: false, zIndex: 10 } }

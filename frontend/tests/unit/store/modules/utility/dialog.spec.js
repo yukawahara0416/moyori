@@ -15,35 +15,35 @@ beforeEach(() => {
 describe('getters', () => {
   it('dialogSign', () => {
     store.replaceState({ dialogSign: true })
-    expect(store.getters['dialogSign']).toBe(true)
+    expect(store.getters['dialogSign']).toBeTruthy()
   })
 
   it('dialogSpotCreate', () => {
     store.replaceState({ dialogSpotCreate: true })
-    expect(store.getters['dialogSpotCreate']).toBe(true)
+    expect(store.getters['dialogSpotCreate']).toBeTruthy()
   })
 
   it('dialogSpotEdit', () => {
     store.replaceState({ dialogSpotEdit: true })
-    expect(store.getters['dialogSpotEdit']).toBe(true)
+    expect(store.getters['dialogSpotEdit']).toBeTruthy()
   })
 
   it('dialogTutorial', () => {
     store.replaceState({ dialogTutorial: true })
-    expect(store.getters['dialogTutorial']).toBe(true)
+    expect(store.getters['dialogTutorial']).toBeTruthy()
   })
 })
 
 describe('mutations', () => {
   it('dialogOn', () => {
     store.commit('dialogOn', 'dialogSign')
-    expect(store.state.dialogSign).toBe(true)
+    expect(store.state.dialogSign).toBeTruthy()
   })
 
   it('dialogOff', () => {
     store.replaceState({ dialogSign: true })
     store.commit('dialogOff', 'dialogSign')
-    expect(store.state.dialogSign).toBe(false)
+    expect(store.state.dialogSign).toBeFalsy()
   })
 
   it('dialogOffAll', () => {
@@ -54,25 +54,25 @@ describe('mutations', () => {
       dialogTutorial: true
     })
     store.commit('dialogOffAll')
-    expect(store.state.dialogSign).toBe(false)
-    expect(store.state.dialogSpotCreate).toBe(false)
-    expect(store.state.dialogSpotEdit).toBe(false)
-    expect(store.state.dialogTutorial).toBe(false)
+    expect(store.state.dialogSign).toBeFalsy()
+    expect(store.state.dialogSpotCreate).toBeFalsy()
+    expect(store.state.dialogSpotEdit).toBeFalsy()
+    expect(store.state.dialogTutorial).toBeFalsy()
   })
 })
 
 describe('actions', () => {
-  it('dialogOff', () => {
+  it('dialogOff target true => mutations/dialogOff', () => {
     store.replaceState({ dialogSign: true })
     store.dispatch('dialogOff', 'dialogSpotCreate').then(() => {
-      expect(store.state.dialogSign).toBe(true)
+      expect(store.state.dialogSign).toBeTruthy()
     })
   })
 
-  it('dialogOffAll', () => {
+  it('dialogOff target false => mutations/dialogOffAll', () => {
     store.replaceState({ dialogSign: true })
     store.dispatch('dialogOff').then(() => {
-      expect(store.state.dialogSign).toBe(false)
+      expect(store.state.dialogSign).toBeFalsy()
     })
   })
 })

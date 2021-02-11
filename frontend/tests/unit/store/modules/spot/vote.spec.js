@@ -58,10 +58,7 @@ describe('actions', () => {
   let isMyPage = true
   let vote_id = null
 
-  const response = {
-    state: '200 success',
-    data: { id: 236, user_id: 1, spot_id: 1 }
-  }
+  const response = { id: 123, user_id: 1, spot_id: 1 }
 
   it('vote route search', () => {
     route = 'search'
@@ -77,8 +74,9 @@ describe('actions', () => {
         isMyPage,
         vote_id
       })
-      .then(() => {
+      .then(res => {
         expect(spot_mock.mutations.addVote).toHaveBeenCalled()
+        expect(res.data).toMatchObject(response)
       })
   })
 
@@ -97,9 +95,10 @@ describe('actions', () => {
         isMyPage,
         vote_id
       })
-      .then(() => {
+      .then(res => {
         expect(user_mock.actions.addSpot).toHaveBeenCalled()
         expect(user_mock.mutations.addVote).toHaveBeenCalled()
+        expect(res.data).toMatchObject(response)
       })
   })
 
@@ -118,9 +117,29 @@ describe('actions', () => {
         isMyPage,
         vote_id
       })
-      .then(() => {
+      .then(res => {
         expect(user_mock.actions.addSpot).not.toHaveBeenCalled()
         expect(user_mock.mutations.addVote).toHaveBeenCalled()
+        expect(res.data).toMatchObject(response)
+      })
+  })
+
+  it('vote 404 error', () => {
+    route = 'search'
+    axiosMock.onPost(`/api/v1/${prop}`, params).reply(404)
+
+    store
+      .dispatch('vote', {
+        prop,
+        spot,
+        params,
+        headers,
+        route,
+        isMyPage,
+        vote_id
+      })
+      .catch(err => {
+        expect(err).toStrictEqual(new Error('「いいね」に失敗しました'))
       })
   })
 
@@ -130,8 +149,9 @@ describe('actions', () => {
 
     store
       .dispatch('unVote', { prop, spot, target, headers, route, isMyPage })
-      .then(() => {
+      .then(id => {
         expect(spot_mock.mutations.deleteVote).toHaveBeenCalled()
+        expect(id).toEqual(response.id)
       })
   })
 
@@ -142,9 +162,10 @@ describe('actions', () => {
 
     store
       .dispatch('unVote', { prop, spot, target, headers, route, isMyPage })
-      .then(() => {
+      .then(id => {
         expect(user_mock.actions.deleteSpot).toHaveBeenCalled()
         expect(user_mock.mutations.deleteVote).toHaveBeenCalled()
+        expect(id).toEqual(response.id)
       })
   })
 
@@ -155,9 +176,23 @@ describe('actions', () => {
 
     store
       .dispatch('unVote', { prop, spot, target, headers, route, isMyPage })
-      .then(() => {
+      .then(id => {
         expect(user_mock.actions.deleteSpot).not.toHaveBeenCalled()
         expect(user_mock.mutations.deleteVote).toHaveBeenCalled()
+        expect(id).toEqual(response.id)
+      })
+  })
+
+  it('unVote 404 error', () => {
+    route = 'search'
+    axiosMock.onDelete(`/api/v1/${prop}/${target.id}`).reply(404)
+
+    store
+      .dispatch('unVote', { prop, spot, target, headers, route, isMyPage })
+      .catch(err => {
+        expect(err).toStrictEqual(
+          new Error('「いいね」の取り消しに失敗しました')
+        )
       })
   })
 })

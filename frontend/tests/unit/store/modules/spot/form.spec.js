@@ -12,19 +12,7 @@ beforeEach(() => {
   store = new Vuex.Store(cloneDeep(form))
 })
 
-const data = {
-  place_id: 'test',
-  name: 'test',
-  address: 'test',
-  photo_reference: 'test',
-  picture: 'test',
-  phone: 'test',
-  lat: 'test',
-  lng: 'test',
-  url: 'test'
-}
-
-const init = {
+const initData = {
   place_id: '',
   name: '',
   address: '',
@@ -36,14 +24,26 @@ const init = {
   url: null
 }
 
+const inputData = {
+  place_id: 'test',
+  name: 'test',
+  address: 'test',
+  photo_reference: 'test',
+  picture: 'test',
+  phone: 'test',
+  lat: 'test',
+  lng: 'test',
+  url: 'test'
+}
+
 describe('getters', () => {
   it('spotForm', () => {
-    store.replaceState({ spotForm: data })
-    expect(store.getters['spotForm']).toEqual(data)
+    store.replaceState({ spotForm: inputData })
+    expect(store.getters['spotForm']).toEqual(inputData)
   })
 
   it('formData', () => {
-    store.replaceState({ spotForm: data })
+    store.replaceState({ spotForm: inputData })
 
     const formData = new FormData()
     const keys = Object.keys(store.state.spotForm)
@@ -58,13 +58,13 @@ describe('getters', () => {
 
 describe('mutations', () => {
   it('setSpotForm', () => {
-    store.commit('setSpotForm', data)
-    expect(store.state.spotForm).toEqual(data)
+    store.commit('setSpotForm', inputData)
+    expect(store.state.spotForm).toMatchObject(inputData)
   })
 
   it('clearSpotForm', () => {
-    store.replaceState({ form: data })
+    store.replaceState({ spotForm: inputData })
     store.commit('clearSpotForm')
-    expect(store.state.spotForm).toMatchObject(init)
+    expect(store.state.spotForm).toMatchObject(initData)
   })
 })
