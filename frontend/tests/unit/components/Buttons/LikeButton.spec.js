@@ -9,7 +9,6 @@ localVue.use(Vuex)
 let wrapper
 let propsData
 let options
-let data
 
 let store
 let auth
@@ -26,10 +25,8 @@ beforeEach(() => {
     ]
   }
 
-  data = new Spot(options)
-
   propsData = {
-    spot: data
+    spot: new Spot(options)
   }
 
   auth = {
@@ -125,10 +122,8 @@ describe('computed', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     store = new Vuex.Store({
@@ -232,10 +227,8 @@ describe('template', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     wrapper = shallowMount(Component, {
