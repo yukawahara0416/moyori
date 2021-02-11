@@ -21,11 +21,18 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import Counter from '@/components/Buttons/Counter.vue'
+import { Spot } from '@/class/Spot.js'
 import { placeDetail, postSpot } from '@/plugins/maps.js'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Spot,
+      default: function() {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {
