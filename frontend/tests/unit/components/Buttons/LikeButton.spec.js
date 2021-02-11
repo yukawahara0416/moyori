@@ -141,40 +141,38 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
-  it('likeHandler', () => {
-    const likeHandler = jest.fn()
+  const likeHandler = jest.fn()
+  const mouseover = jest.fn()
+  const mouseleave = jest.fn()
 
+  beforeEach(() => {
     wrapper = mount(Component, {
       localVue,
       propsData,
       store,
       methods: {
-        likeHandler
+        likeHandler,
+        mouseover,
+        mouseleave
       }
     })
+  })
 
+  it('likeHandler', () => {
     wrapper.find('.v-btn').trigger('click')
     expect(likeHandler).toHaveBeenCalled()
   })
 
-  it('mouseover mouseover', () => {
-    const mouseover = jest.fn()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      methods: {
-        mouseover
-      }
-    })
-
+  it('mouseover', () => {
     wrapper.find('.v-btn').trigger('mouseover')
     expect(mouseover).toHaveBeenCalled()
   })
 
-  it('mouseleave mouseleave', () => {
-    const mouseleave = jest.fn()
+  it('mouseleave', () => {
+    wrapper.find('.v-btn').trigger('mouseleave')
+    expect(mouseleave).toHaveBeenCalled()
+  })
+})
 
     wrapper = mount(Component, {
       localVue,
