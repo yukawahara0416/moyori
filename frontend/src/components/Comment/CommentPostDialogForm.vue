@@ -157,14 +157,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'spotForm',
-      'map',
-      'currentUser',
-      'headers',
-      'isLoggingIn'
-      // 'profileTab'
-    ]),
+    ...mapGetters(['spotForm', 'map', 'currentUser', 'headers', 'isLoggingIn']),
 
     isWifiWithing() {
       return this.yourWifiWith.length > 0 ? true : false
@@ -301,13 +294,7 @@ export default {
 
       // 「電源なし」が選択された場合
       if (this.power_radio === 'power_without') {
-        await this.powerWithoutHandler(
-          // tab,
-          headers,
-          route,
-          params,
-          isMyPage
-        )
+        await this.powerWithoutHandler(spot, headers, route, params, isMyPage)
       }
     },
 
