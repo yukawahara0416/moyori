@@ -10,7 +10,6 @@ let wrapper
 let propsData
 let store
 let options
-let data
 let auth
 
 beforeEach(() => {
