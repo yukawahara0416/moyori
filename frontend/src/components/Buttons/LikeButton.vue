@@ -27,7 +27,7 @@ import { placeDetail, postSpot } from '@/plugins/maps.js'
 export default {
   props: {
     spot: {
-      type: Spot,
+      type: Object,
       default: function() {
         return new Spot()
       },
