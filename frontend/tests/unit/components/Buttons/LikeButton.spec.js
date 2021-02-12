@@ -95,6 +95,9 @@ beforeEach(() => {
   tab = {
     getters: {
       profileTab: () => 'posts'
+    },
+    mutations: {
+      changeSignTab: jest.fn()
     }
   }
 
