@@ -21,6 +21,7 @@ let form
 let map
 let tab
 let dialog
+let snackbar
 
 beforeEach(() => {
   // currentUserがログインしています
@@ -98,6 +99,13 @@ beforeEach(() => {
     }
   }
 
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       auth,
@@ -107,6 +115,7 @@ beforeEach(() => {
       map,
       tab,
       dialog,
+      snackbar
     }
   })
 
