@@ -296,6 +296,23 @@ describe('methods', () => {
       })
     })
 
+    it('isLiking is false', () => {
+      options = {
+        data: { id: 1 },
+        likes: [
+          { id: 1, user_id: 2 },
+          { id: 2, user_id: 2 }
+        ]
+      }
+
+      wrapper.setProps({ spot: new Spot(options) })
+
+      expect.assertions(2)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isLiking).toBeFalsy()
+        expect(vote.actions.vote).toHaveBeenCalled()
+      })
+    })
   })
 
   it('mouseover', () => {
