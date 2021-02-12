@@ -287,6 +287,15 @@ describe('methods', () => {
   })
 
   describe('voteHandler', () => {
+    it('isLiking is true', () => {
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isLiking).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+      })
+    })
+
   })
 
   it('mouseover', () => {
