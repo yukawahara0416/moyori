@@ -16,6 +16,7 @@ let options
 let store
 let auth
 let spot
+let vote
 let form
 let map
 let tab
@@ -57,6 +58,13 @@ beforeEach(() => {
     }
   }
 
+  vote = {
+    actions: {
+      vote: jest.fn(),
+      unVote: jest.fn()
+    }
+  }
+
   form = {
     getters: {
       spotForm: () => {
@@ -87,6 +95,7 @@ beforeEach(() => {
     modules: {
       auth,
       spot,
+      vote,
       form,
       map,
       tab
