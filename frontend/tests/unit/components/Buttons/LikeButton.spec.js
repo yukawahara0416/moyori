@@ -20,6 +20,7 @@ let vote
 let form
 let map
 let tab
+let dialog
 
 beforeEach(() => {
   // currentUserがログインしています
@@ -91,6 +92,12 @@ beforeEach(() => {
     }
   }
 
+  dialog = {
+    mutations: {
+      dialogOn: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       auth,
@@ -98,7 +105,8 @@ beforeEach(() => {
       vote,
       form,
       map,
-      tab
+      tab,
+      dialog,
     }
   })
 
