@@ -23,6 +23,8 @@ let tab
 let dialog
 let snackbar
 
+let router
+
 beforeEach(() => {
   // currentUserがログインしています
   // propsのspotはcurrentUserによって「いいね」されています
@@ -119,10 +121,13 @@ beforeEach(() => {
     }
   })
 
+  router = new VueRouter()
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    router
   })
 })
 
