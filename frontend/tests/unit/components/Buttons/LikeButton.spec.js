@@ -225,6 +225,9 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
+  describe('likeHandler', () => {
+  })
+
   it('mouseover', () => {
     wrapper.vm.mouseover()
     expect(wrapper.vm.icon).toEqual('mdi-heart')
