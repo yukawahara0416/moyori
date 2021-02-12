@@ -2,6 +2,10 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import { Spot } from '@/class/Spot.js'
+// import {
+//   placeDetail as hogedetail,
+//   postSpot as hogepost
+// } from '@/plugins/maps.js'
 import Component from '@/components/Buttons/LikeButton.vue'
 import Counter from '@/components/Buttons/Counter.vue'
 
@@ -284,6 +288,21 @@ describe('methods', () => {
         expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
       })
     })
+  })
+
+  it('getNewSpot', () => {
+    throw new Error('テスト未作成')
+    // jest.mock('../../../../src/plugins/maps.js', () => ({
+    //   ...jest.requireActual('../../../../src/plugins/maps.js'),
+    //   placeDetail: jest.fn(),
+    //   postSpot: jest.fn()
+    // }))
+
+    // expect.assertions(2)
+    // return wrapper.vm.getNewSpot(propsData.spot.data.place_id).then(() => {
+    //   expect(hogedetail).toHaveBeenCalled()
+    //   expect(hogepost).toHaveBeenCalled()
+    // })
   })
 
   describe('voteHandler', () => {
