@@ -254,6 +254,38 @@ describe('methods', () => {
       })
     })
 
+    it('isPosted is false', () => {
+      const getNewSpot = jest.fn().mockResolvedValue({ data: { id: 1 } })
+      const voteHandler = jest.fn()
+
+      options = {
+        data: { id: null, place_id: '1234567890test' }
+      }
+
+      propsData = {
+        spot: new Spot(options)
+      }
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store,
+        methods: {
+          getNewSpot,
+          voteHandler
+        }
+      })
+
+      expect.assertions(4)
+      return wrapper.vm.likeHandler(propsData.spot).then(() => {
+        expect(!propsData.spot.isPosted()).toBeTruthy()
+        expect(getNewSpot).toHaveBeenCalled()
+        expect(voteHandler).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+      })
+    })
+  })
+
   })
 
   it('mouseover', () => {
