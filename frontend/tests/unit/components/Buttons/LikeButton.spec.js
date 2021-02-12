@@ -286,6 +286,7 @@ describe('methods', () => {
     })
   })
 
+  describe('voteHandler', () => {
   })
 
   it('mouseover', () => {
