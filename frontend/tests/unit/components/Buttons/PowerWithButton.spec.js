@@ -9,7 +9,6 @@ localVue.use(Vuex)
 let wrapper
 let propsData
 let options
-let data
 
 let store
 let auth
@@ -17,22 +16,22 @@ let form
 let map
 
 beforeEach(() => {
+  // currentUserがログインしています
+  // propsのspotはcurrentUserによって「電源あるよ」に投票されています
   options = {
-    data: { id: 1 },
+    data: { id: 1, place_id: '1234567890test' },
     power_withs: [
       { id: 1, user_id: 1 },
       { id: 2, user_id: 2 }
     ],
     power_withouts: [
-      { id: 3, user_id: 1 },
-      { id: 4, user_id: 2 }
+      { id: 1, user_id: 3 },
+      { id: 2, user_id: 4 }
     ]
   }
 
-  data = new Spot(options)
-
   propsData = {
-    spot: data
+    spot: new Spot(options)
   }
 
   auth = {
@@ -134,10 +133,8 @@ describe('comnputed', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     wrapper = shallowMount(Component, {
@@ -165,10 +162,8 @@ describe('comnputed', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     wrapper = shallowMount(Component, {
@@ -270,10 +265,8 @@ describe('template', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     wrapper = shallowMount(Component, {
