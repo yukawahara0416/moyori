@@ -7,6 +7,7 @@ import Counter from '@/components/Buttons/Counter.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VueRouter)
 
 let wrapper
 let propsData
