@@ -76,6 +76,9 @@ beforeEach(() => {
           place_id: ''
         }
       }
+    },
+    mutations: {
+      setSpotForm: jest.fn()
     }
   }
 
