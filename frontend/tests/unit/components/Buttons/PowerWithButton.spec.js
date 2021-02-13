@@ -236,6 +236,18 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
+  it('powerWithHandler', () => {
+    throw new Error('テスト未作成')
+  })
+
+  it('getNewSpot', () => {
+    throw new Error('テスト未作成')
+  })
+
+  it('voteHandler', () => {
+    throw new Error('テスト未作成')
+  })
+
   it('mouseover', () => {
     wrapper.vm.mouseover()
     expect(wrapper.vm.color).toEqual('success')
