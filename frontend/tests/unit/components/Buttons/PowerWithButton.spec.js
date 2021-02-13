@@ -278,7 +278,30 @@ describe('methods', () => {
     })
 
     it('isPosted is false', () => {
-      throw new Error('テスト未作成')
+      const getNewSpot = jest.fn().mockResolvedValue({ data: { id: 1 } })
+      const voteHandler = jest.fn()
+
+      propsData = {
+        spot: new Spot(beforePost)
+      }
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store,
+        methods: {
+          getNewSpot,
+          voteHandler
+        }
+      })
+
+      expect.assertions(4)
+      return wrapper.vm.powerWithHandler(propsData.spot).then(() => {
+        expect(!propsData.spot.isPosted()).toBeTruthy()
+        expect(getNewSpot).toHaveBeenCalled()
+        expect(voteHandler).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+      })
     })
   })
 
