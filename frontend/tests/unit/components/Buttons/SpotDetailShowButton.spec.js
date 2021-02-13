@@ -4,6 +4,8 @@ import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Buttons/SpotDetailShowButton.vue'
 
+// specの洗い出しから！！！
+
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(Vuetify)
@@ -56,8 +58,9 @@ beforeEach(() => {
 
 describe('props', () => {
   it('spot', () => {
-    expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBe(true)
   })
 })
 
