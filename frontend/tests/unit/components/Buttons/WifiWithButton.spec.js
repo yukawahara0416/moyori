@@ -269,6 +269,36 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
+  describe('wifiWithHandler', () => {
+    it('isLogging is false', () => {
+      auth.getters.isLoggingIn = () => false
+
+      store = new Vuex.Store({
+        modules: {
+          auth,
+          tab,
+          dialog,
+          snackbar
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store
+      })
+
+      expect.assertions(5)
+      return wrapper.vm.wifiWithHandler(propsData.spot).then(() => {
+        expect(store.getters['isLoggingIn']).toBeFalsy()
+        expect(tab.mutations.changeSignTab).toHaveBeenCalled()
+        expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).not.toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalled()
+      })
+    })
+
+  })
   it('mouseover', () => {
     wrapper.vm.mouseover()
     expect(wrapper.vm.color).toEqual('success')
