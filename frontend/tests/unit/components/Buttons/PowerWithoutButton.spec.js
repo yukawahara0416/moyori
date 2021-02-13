@@ -117,7 +117,10 @@ beforeEach(() => {
     modules: {
       auth,
       form,
-      map
+      map,
+      tab,
+      dialog,
+      snackbar
     }
   })
 
