@@ -297,7 +297,32 @@ describe('methods', () => {
       })
     })
 
-    it('isPosted is false', () => {})
+    it('isPosted is false', () => {
+      const getNewSpot = jest.fn().mockResolvedValue({ data: { id: 1 } })
+      const voteHandler = jest.fn()
+
+      propsData = {
+        spot: new Spot(beforePost)
+      }
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store,
+        methods: {
+          getNewSpot,
+          voteHandler
+        }
+      })
+
+      expect.assertions(4)
+      return wrapper.vm.powerWithoutHandler(propsData.spot).then(() => {
+        expect(!propsData.spot.isPosted()).toBeTruthy()
+        expect(getNewSpot).toHaveBeenCalled()
+        expect(voteHandler).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+      })
+    })
   })
 
   it('getNewSpot', () => {
@@ -305,7 +330,16 @@ describe('methods', () => {
   })
 
   describe('voteHandler', () => {
-    it('isPowerWithing is true', () => {})
+    it('isPowerWithing is true', () => {
+      wrapper.setProps({ spot: new Spot(hasWith) })
+
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isPowerWithing).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalled()
+        expect(vote.actions.vote).toHaveBeenCalled()
+      })
+    })
 
     it('isPowerWithing is false', () => {})
 
