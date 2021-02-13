@@ -14,6 +14,8 @@ let propsData
 
 let store
 let auth
+let spot
+let vote
 let form
 let map
 let tab
@@ -54,6 +56,10 @@ const notHasWithout = {
   ]
 }
 
+const beforePost = {
+  data: { id: null, place_id: '1234567890test' }
+}
+
 beforeEach(() => {
   propsData = {
     spot: new Spot(hasWith)
@@ -72,6 +78,19 @@ beforeEach(() => {
         }
       },
       isLoggingIn: () => true
+    }
+  }
+
+  spot = {
+    mutations: {
+      updateSpot: jest.fn()
+    }
+  }
+
+  vote = {
+    actions: {
+      vote: jest.fn(),
+      unVote: jest.fn()
     }
   }
 
@@ -117,6 +136,8 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       auth,
+      spot,
+      vote,
       form,
       map,
       tab,
@@ -310,6 +331,17 @@ describe('methods', () => {
   })
 
   describe('voteHandler', () => {
+    it('isPowerWithouting is true', () => {
+      wrapper.setProps({ spot: new Spot(hasWithout) })
+
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isPowerWithouting).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalled()
+        expect(vote.actions.vote).toHaveBeenCalled()
+      })
+    })
+
   })
 
   it('mouseover', () => {
