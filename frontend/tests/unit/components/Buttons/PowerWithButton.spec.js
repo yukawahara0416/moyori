@@ -309,8 +309,7 @@ describe('methods', () => {
     throw new Error('テスト未作成')
   })
 
-  it('voteHandler', () => {
-    throw new Error('テスト未作成')
+  describe('voteHandler', () => {
   })
 
   it('mouseover', () => {
