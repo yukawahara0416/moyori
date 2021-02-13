@@ -1,10 +1,12 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Buttons/PowerWithoutButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VueRouter)
 
 let wrapper
 let propsData
@@ -16,6 +18,8 @@ let map
 let tab
 let dialog
 let snackbar
+
+let router
 
 const hasWith = {
   data: { id: 1, place_id: '1234567890test' },
@@ -113,6 +117,8 @@ beforeEach(() => {
     }
   }
 
+  router = new VueRouter()
+
   store = new Vuex.Store({
     modules: {
       auth,
@@ -127,7 +133,8 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    router
   })
 })
 
