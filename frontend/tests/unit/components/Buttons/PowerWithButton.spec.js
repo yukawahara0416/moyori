@@ -15,23 +15,41 @@ let auth
 let form
 let map
 
-beforeEach(() => {
-  // currentUserがログインしています
-  // propsのspotはcurrentUserによって「電源あるよ」に投票されています
-  options = {
-    data: { id: 1, place_id: '1234567890test' },
-    power_withs: [
-      { id: 1, user_id: 1 },
-      { id: 2, user_id: 2 }
-    ],
-    power_withouts: [
-      { id: 1, user_id: 3 },
-      { id: 2, user_id: 4 }
-    ]
-  }
+const hasWith = {
+  data: { id: 1, place_id: '1234567890test' },
+  power_withs: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
 
+const notHasWith = {
+  data: { id: 1, place_id: '1234567890test' },
+  power_withs: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const hasWithout = {
+  data: { id: 1, place_id: '1234567890test' },
+  power_withouts: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const notHasWithout = {
+  data: { id: 1, place_id: '1234567890test' },
+  power_withouts: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+beforeEach(() => {
   propsData = {
-    spot: new Spot(options)
+    spot: new Spot(hasWith)
   }
 
   auth = {
@@ -121,66 +139,28 @@ describe('comnputed', () => {
   })
 
   it('isPowerWithing is false', () => {
-    options = {
-      data: { id: 1 },
-      power_withs: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ],
-      power_withouts: [
-        { id: 3, user_id: 1 },
-        { id: 4, user_id: 2 }
-      ]
-    }
-
-    propsData = {
-      spot: new Spot(options)
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
+    wrapper.setProps({ spot: new Spot(notHasWith) })
     expect(wrapper.vm.isPowerWithing).toBeFalsy()
   })
 
   it('isPowerWithouting is true', () => {
+    wrapper.setProps({ spot: new Spot(hasWithout) })
     expect(wrapper.vm.isPowerWithouting).toBeTruthy()
   })
 
   it('isPowerWithouting is false', () => {
-    options = {
-      data: { id: 1 },
-      power_withs: [
-        { id: 1, user_id: 1 },
-        { id: 2, user_id: 2 }
-      ],
-      power_withouts: [
-        { id: 3, user_id: 2 },
-        { id: 4, user_id: 2 }
-      ]
-    }
-
-    propsData = {
-      spot: new Spot(options)
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
+    wrapper.setProps({ spot: new Spot(notHasWithout) })
     expect(wrapper.vm.isPowerWithouting).toBeFalsy()
   })
 
   it('yourPowerWith', () => {
-    expect(wrapper.vm.yourPowerWith).toMatchObject([options.power_withs[0]])
+    expect(wrapper.vm.yourPowerWith).toMatchObject([hasWith.power_withs[0]])
   })
 
   it('yourPowerWithout', () => {
+    wrapper.setProps({ spot: new Spot(hasWithout) })
     expect(wrapper.vm.yourPowerWithout).toMatchObject([
-      options.power_withouts[0]
+      hasWithout.power_withouts[0]
     ])
   })
 })
@@ -202,7 +182,7 @@ describe('v-on', () => {
     expect(powerWithHandler).toHaveBeenCalled()
   })
 
-  it('mouseover mouseover', () => {
+  it('mouseover', () => {
     const mouseover = jest.fn()
 
     wrapper = mount(Component, {
@@ -218,7 +198,7 @@ describe('v-on', () => {
     expect(mouseover).toHaveBeenCalled()
   })
 
-  it('mouseleave mouseleave', () => {
+  it('mouseleave', () => {
     const mouseleave = jest.fn()
 
     wrapper = mount(Component, {
@@ -265,28 +245,7 @@ describe('template', () => {
   })
 
   it('v-else', () => {
-    options = {
-      data: { id: 1 },
-      power_withs: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ],
-      power_withouts: [
-        { id: 3, user_id: 1 },
-        { id: 4, user_id: 2 }
-      ]
-    }
-
-    propsData = {
-      spot: new Spot(options)
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
+    wrapper.setProps({ spot: new Spot(notHasWith) })
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-power-plug')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
