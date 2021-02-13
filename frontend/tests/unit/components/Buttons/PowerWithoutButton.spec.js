@@ -94,6 +94,12 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    mutations: {
+      changeSignTab: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       auth,
