@@ -114,6 +114,16 @@ describe('methods', () => {
     wrapper.vm.closeDialog()
     expect(wrapper.vm.dialog).toBeFalsy()
   })
+
+  describe('placeDetail', () => {
+    it('isGmapSpot is false', () => {
+      throw new Error('テスト未作成')
+    })
+
+    it('placeDetail is true', () => {
+      throw new Error('テスト未作成')
+    })
+  })
 })
 
 describe('emit', () => {
