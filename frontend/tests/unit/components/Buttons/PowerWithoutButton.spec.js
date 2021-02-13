@@ -220,6 +220,24 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
+  describe('powerWithoutHanlder', () => {
+    it('isLogging is false', () => {})
+
+    it('isPosted is false', () => {})
+  })
+
+  it('getNewSpot', () => {
+    throw new Error('テスト未作成')
+  })
+
+  describe('voteHandler', () => {
+    it('isPowerWithing is true', () => {})
+
+    it('isPowerWithing is false', () => {})
+
+    it('isPowerWithouting is true', () => {})
+  })
+
   it('mouseover', () => {
     wrapper.vm.mouseover()
     expect(wrapper.vm.color).toEqual('error')
