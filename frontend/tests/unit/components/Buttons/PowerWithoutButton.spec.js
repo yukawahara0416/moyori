@@ -8,7 +8,6 @@ localVue.use(Vuex)
 
 let wrapper
 let propsData
-let options
 
 let store
 let auth
@@ -255,28 +254,7 @@ describe('template', () => {
   })
 
   it('v-else', () => {
-    options = {
-      data: { id: 1 },
-      power_withs: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ],
-      power_withouts: [
-        { id: 3, user_id: 1 },
-        { id: 4, user_id: 2 }
-      ]
-    }
-
-    propsData = {
-      spot: new Spot(options)
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
+    wrapper.setProps({ spot: new Spot(notHasWithout) })
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-power-plug-off')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
