@@ -15,21 +15,45 @@ let auth
 let form
 let map
 
-beforeEach(() => {
-  options = {
-    data: { id: 1 },
-    power_withs: [
-      { id: 1, user_id: 1 },
-      { id: 2, user_id: 2 }
-    ],
-    power_withouts: [
-      { id: 3, user_id: 1 },
-      { id: 4, user_id: 2 }
-    ]
-  }
+const hasWith = {
+  data: { id: 1, place_id: '1234567890test' },
+  power_withs: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
 
+const notHasWith = {
+  data: { id: 1, place_id: '1234567890test' },
+  power_withs: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const hasWithout = {
+  data: { id: 1, place_id: '1234567890test' },
+  power_withouts: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const notHasWithout = {
+  data: { id: 1, place_id: '1234567890test' },
+  power_withouts: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const beforePost = {
+  data: { id: null, place_id: '1234567890test' }
+}
+
+beforeEach(() => {
   propsData = {
-    spot: new Spot(options)
+    spot: new Spot(hasWith)
   }
 
   auth = {
@@ -119,27 +143,7 @@ describe('comnputed', () => {
   })
 
   it('isPowerWithing is false', () => {
-    options = {
-      data: { id: 1 },
-      power_withs: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ],
-      power_withouts: [
-        { id: 3, user_id: 1 },
-        { id: 4, user_id: 2 }
-      ]
-    }
-
-    propsData = {
-      spot: new Spot(options)
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
+    wrapper.setProps({ spot: new Spot(notHasWith) })
     expect(wrapper.vm.isPowerWithing).toBeFalsy()
   })
 
