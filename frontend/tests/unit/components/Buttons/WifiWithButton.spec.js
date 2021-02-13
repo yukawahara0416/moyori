@@ -353,7 +353,16 @@ describe('methods', () => {
       })
     })
 
-  })
+    it('isWifiWithing is true', () => {
+      wrapper.setProps({ spot: new Spot(hasWith) })
+
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isWifiWithing).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+      })
+    })
   })
 
   it('mouseover', () => {
