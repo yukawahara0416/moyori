@@ -341,7 +341,17 @@ describe('methods', () => {
       })
     })
 
-    it('isPowerWithing is false', () => {})
+    it('isPowerWithing is false', () => {
+      wrapper.setProps({ spot: new Spot(notHasWith) })
+
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isPowerWithouting).toBeFalsy()
+        expect(wrapper.vm.isPowerWithing).toBeFalsy()
+        expect(vote.actions.vote).toHaveBeenCalled()
+      })
+    })
+
 
     it('isPowerWithouting is true', () => {})
   })
