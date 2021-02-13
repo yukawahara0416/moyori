@@ -216,8 +216,14 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  it('powerWithHandler', () => {
-    throw new Error('テスト未作成')
+  describe('powerWithHandler', () => {
+    it('isLogging is false', () => {
+      throw new Error('テスト未作成')
+    })
+
+    it('isPosted is false', () => {
+      throw new Error('テスト未作成')
+    })
   })
 
   it('getNewSpot', () => {
