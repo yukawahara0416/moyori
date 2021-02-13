@@ -16,6 +16,9 @@ let store
 let auth
 let form
 let map
+let tab
+let dialog
+let snackbar
 
 let router
 
@@ -92,11 +95,33 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    mutations: {
+      changeSignTab: jest.fn()
+    }
+  }
+
+  dialog = {
+    mutations: {
+      dialogOn: jest.fn()
+    }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       auth,
       form,
-      map
+      map,
+      tab,
+      dialog,
+      snackbar
     }
   })
 
@@ -225,7 +250,31 @@ describe('v-on', () => {
 describe('methods', () => {
   describe('powerWithHandler', () => {
     it('isLogging is false', () => {
-      throw new Error('テスト未作成')
+      auth.getters.isLoggingIn = () => false
+
+      store = new Vuex.Store({
+        modules: {
+          auth,
+          tab,
+          dialog,
+          snackbar
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store
+      })
+
+      expect.assertions(5)
+      return wrapper.vm.powerWithHandler(propsData.spot).then(() => {
+        expect(store.getters['isLoggingIn']).toBeFalsy()
+        expect(tab.mutations.changeSignTab).toHaveBeenCalled()
+        expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).not.toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalled()
+      })
     })
 
     it('isPosted is false', () => {
