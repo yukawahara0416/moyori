@@ -17,6 +17,8 @@ let data
 
 let store
 let map
+let tab
+
 let vuetify
 
 beforeEach(() => {
@@ -40,9 +42,18 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    getters: {
+      profileTab: () => {
+        return 'posts'
+      }
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
-      map
+      map,
+      tab
     }
   })
 
@@ -67,6 +78,10 @@ describe('props', () => {
 describe('getters', () => {
   it('map', () => {
     expect(wrapper.vm.map).toMatchObject(store.getters.map)
+  })
+
+  it('profileTab', () => {
+    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
   })
 })
 
