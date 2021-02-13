@@ -146,6 +146,8 @@ beforeEach(() => {
     }
   })
 
+  router = new VueRouter()
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
