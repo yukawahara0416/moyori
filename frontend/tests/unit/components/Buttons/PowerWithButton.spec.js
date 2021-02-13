@@ -353,6 +353,16 @@ describe('methods', () => {
       })
     })
 
+    it('isPowerWithing is true', () => {
+      wrapper.setProps({ spot: new Spot(hasWith) })
+
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isPowerWithing).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+      })
+    })
   })
 
   it('mouseover', () => {
