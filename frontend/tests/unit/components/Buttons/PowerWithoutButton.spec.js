@@ -13,6 +13,9 @@ let store
 let auth
 let form
 let map
+let tab
+let dialog
+let snackbar
 
 const hasWith = {
   data: { id: 1, place_id: '1234567890test' },
