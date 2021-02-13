@@ -11,20 +11,19 @@ localVue.use(VueRouter)
 
 let wrapper
 let propsData
-let options
-let data
 
 let store
 let auth
+let spot
+let vote
 let form
 let map
+let tab
+let dialog
+let snackbar
 
-beforeEach(() => {
-  options = {
-    data: { id: 1 },
-    wifi_withs: [
-      { id: 1, user_id: 1 },
-      { id: 2, user_id: 2 }
+let router
+
     ],
     wifi_withouts: [
       { id: 3, user_id: 1 },
