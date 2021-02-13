@@ -4,8 +4,6 @@ import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Buttons/SpotDetailShowButton.vue'
 
-// specの洗い出しから！！！
-
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(Vuetify)
@@ -13,7 +11,6 @@ localVue.use(Vuetify)
 let wrapper
 let propsData
 let options
-let data
 
 let store
 let map
@@ -26,10 +23,8 @@ beforeEach(() => {
     data: { id: 1, place_id: 'aaaaaaaaaaa' }
   }
 
-  data = new Spot(options)
-
   propsData = {
-    spot: data
+    spot: new Spot(options)
   }
 
   map = {
@@ -89,16 +84,6 @@ describe('v-on', () => {
   it('placeDetail, openDialog', () => {
     const placeDetail = jest.fn()
     const openDialog = jest.fn()
-
-    options = {
-      data: { id: 1, place_id: 'aaaaaaaaaaa' }
-    }
-
-    data = new Spot(options)
-
-    propsData = {
-      spot: data
-    }
 
     wrapper = mount(Component, {
       localVue,
