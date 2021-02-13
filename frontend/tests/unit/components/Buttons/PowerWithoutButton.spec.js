@@ -352,8 +352,16 @@ describe('methods', () => {
       })
     })
 
+    it('isPowerWithouting is true', () => {
+      wrapper.setProps({ spot: new Spot(hasWithout) })
 
-    it('isPowerWithouting is true', () => {})
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isPowerWithouting).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+      })
+    })
   })
 
   it('mouseover', () => {
