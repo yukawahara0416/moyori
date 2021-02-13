@@ -383,6 +383,7 @@ describe('template', () => {
 
   it('v-else', () => {
     wrapper.setProps({ spot: new Spot(notHasWith) })
+
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-power-plug')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
