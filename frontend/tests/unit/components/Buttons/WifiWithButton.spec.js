@@ -330,7 +330,21 @@ describe('methods', () => {
     throw new Error('テスト未作成')
   })
 
+  describe('voteHandler', () => {
+    it('isWifiWithouting is true', () => {
+      wrapper.setProps({ spot: new Spot(hasWithout) })
+
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isWifiWithouting).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalled()
+        expect(vote.actions.vote).toHaveBeenCalled()
+      })
+    })
+
   })
+  })
+
   it('mouseover', () => {
     wrapper.vm.mouseover()
     expect(wrapper.vm.color).toEqual('success')
