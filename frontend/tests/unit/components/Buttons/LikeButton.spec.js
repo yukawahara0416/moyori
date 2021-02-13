@@ -29,19 +29,29 @@ let snackbar
 
 let router
 
-beforeEach(() => {
-  // currentUserがログインしています
-  // propsのspotはcurrentUserによって「いいね」されています
-  options = {
-    data: { id: 1, place_id: '1234567890test' },
-    likes: [
-      { id: 1, user_id: 1 },
-      { id: 2, user_id: 2 }
-    ]
-  }
+const hasLike = {
+  data: { id: 1, place_id: '1234567890test' },
+  likes: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
 
+const notHasLike = {
+  data: { id: 1, place_id: '1234567890test' },
+  likes: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const beforePost = {
+  data: { id: null, place_id: '1234567890test' }
+}
+
+beforeEach(() => {
   propsData = {
-    spot: new Spot(options)
+    spot: new Spot(hasLike)
   }
 
   auth = {
@@ -177,20 +187,12 @@ describe('computed', () => {
   })
 
   it('isLiking is false', () => {
-    options = {
-      data: { id: 1 },
-      likes: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ]
-    }
-
-    wrapper.setProps({ spot: new Spot(options) })
+    wrapper.setProps({ spot: new Spot(notHasLike) })
     expect(wrapper.vm.isLiking).toBeFalsy()
   })
 
   it('yourLike', () => {
-    expect(wrapper.vm.yourLike).toMatchObject([options.likes[0]])
+    expect(wrapper.vm.yourLike).toMatchObject([hasLike.likes[0]])
   })
 })
 
@@ -262,12 +264,8 @@ describe('methods', () => {
       const getNewSpot = jest.fn().mockResolvedValue({ data: { id: 1 } })
       const voteHandler = jest.fn()
 
-      options = {
-        data: { id: null, place_id: '1234567890test' }
-      }
-
       propsData = {
-        spot: new Spot(options)
+        spot: new Spot(beforePost)
       }
 
       wrapper = shallowMount(Component, {
@@ -316,15 +314,7 @@ describe('methods', () => {
     })
 
     it('isLiking is false', () => {
-      options = {
-        data: { id: 1 },
-        likes: [
-          { id: 1, user_id: 2 },
-          { id: 2, user_id: 2 }
-        ]
-      }
-
-      wrapper.setProps({ spot: new Spot(options) })
+      wrapper.setProps({ spot: new Spot(notHasLike) })
 
       expect.assertions(2)
       return wrapper.vm.voteHandler().then(() => {
@@ -353,15 +343,7 @@ describe('template', () => {
   })
 
   it('v-else', () => {
-    options = {
-      data: { id: 1 },
-      likes: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ]
-    }
-
-    wrapper.setProps({ spot: new Spot(options) })
+    wrapper.setProps({ spot: new Spot(notHasLike) })
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-heart')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
