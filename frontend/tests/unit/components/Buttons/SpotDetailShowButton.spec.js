@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Buttons/SpotDetailShowButton.vue'
+import SpotDetail from '@/components/Spot/SpotDetail.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -20,7 +21,7 @@ let vuetify
 
 beforeEach(() => {
   options = {
-    data: { id: 1, place_id: 'aaaaaaaaaaa' }
+    data: { id: 1, place_id: '1234567890test' }
   }
 
   propsData = {
@@ -124,9 +125,7 @@ describe('emit', () => {
 
 describe('template', () => {
   it('spot-detail has :spot', () => {
-    expect(wrapper.find('spot-detail-stub').attributes().spot).toEqual(
-      '[object Object]'
-    )
+    expect(wrapper.find(SpotDetail).props().spot).toMatchObject(propsData.spot)
   })
 
   it('snapshot', () => {
