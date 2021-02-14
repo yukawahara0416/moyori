@@ -98,7 +98,7 @@ describe('v-on', () => {
     })
 
     wrapper.find('.v-btn').trigger('click')
-    expect(placeDetail).toHaveBeenCalled()
+    expect(placeDetail).toHaveBeenCalledWith(propsData.spot)
     expect(openDialog).toHaveBeenCalled()
   })
 })
@@ -120,7 +120,7 @@ describe('methods', () => {
       throw new Error('テスト未作成')
     })
 
-    it('placeDetail is true', () => {
+    it('isGmapSpot is true', () => {
       throw new Error('テスト未作成')
     })
   })
