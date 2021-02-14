@@ -333,6 +333,21 @@ describe('methods', () => {
   it('getNewSpot', () => {
     throw new Error('テスト未作成')
   })
+
+  describe('voteHandler', () => {
+    it('isWifiWithing is true', () => {
+      wrapper.setProps({ spot: new Spot(hasWith) })
+
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isWifiWithing).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalled()
+        expect(vote.actions.vote).toHaveBeenCalled()
+      })
+    })
+
+  })
+
   it('mouseover', () => {
     wrapper.vm.mouseover()
     expect(wrapper.vm.color).toEqual('error')
