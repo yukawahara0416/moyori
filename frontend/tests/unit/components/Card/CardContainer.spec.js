@@ -14,7 +14,7 @@ beforeEach(() => {
   }
 
   $route = {
-    name: 'search'
+    name: null
   }
 
   wrapper = shallowMount(Component, {
