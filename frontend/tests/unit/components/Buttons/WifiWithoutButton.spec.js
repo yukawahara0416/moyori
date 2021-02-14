@@ -330,6 +330,9 @@ describe('methods', () => {
     })
   })
 
+  it('getNewSpot', () => {
+    throw new Error('テスト未作成')
+  })
   it('mouseover', () => {
     wrapper.vm.mouseover()
     expect(wrapper.vm.color).toEqual('error')
