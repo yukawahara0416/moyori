@@ -90,7 +90,7 @@ beforeEach(() => {
   vote = {
     actions: {
       vote: jest.fn(),
-      unVote: jest.fn()
+      unVote: jest.fn().mockResolvedValue(propsData.spot.data.id)
     }
   }
 
