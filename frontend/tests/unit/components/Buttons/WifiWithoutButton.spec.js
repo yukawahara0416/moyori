@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Buttons/WifiWithoutButton.vue'
+import Counter from '@/components/Buttons/Counter.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
