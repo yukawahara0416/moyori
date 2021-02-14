@@ -24,17 +24,45 @@ let snackbar
 
 let router
 
-    ],
-    wifi_withouts: [
-      { id: 3, user_id: 1 },
-      { id: 4, user_id: 2 }
-    ]
-  }
+const hasWith = {
+  data: { id: 1, place_id: '1234567890test' },
+  wifi_withs: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
 
-  data = new Spot(options)
+const notHasWith = {
+  data: { id: 1, place_id: '1234567890test' },
+  wifi_withs: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
 
+const hasWithout = {
+  data: { id: 1, place_id: '1234567890test' },
+  wifi_withouts: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const notHasWithout = {
+  data: { id: 1, place_id: '1234567890test' },
+  wifi_withouts: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const beforePost = {
+  data: { id: null, place_id: '1234567890test' }
+}
+
+beforeEach(() => {
   propsData = {
-    spot: data
+    spot: new Spot(hasWith)
   }
 
   auth = {
@@ -120,69 +148,29 @@ describe('computed', () => {
   })
 
   it('isWifiWithing is false', () => {
-    options = {
-      data: { id: 1 },
-      wifi_withs: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ],
-      wifi_withouts: [
-        { id: 3, user_id: 1 },
-        { id: 4, user_id: 2 }
-      ]
-    }
-
-    data = new Spot(options)
-
-    propsData = {
-      spot: data
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
+    wrapper.setProps({ spot: new Spot(notHasWith) })
     expect(wrapper.vm.isWifiWithing).toBeFalsy()
   })
 
   it('isWifiWithouting is true', () => {
+    wrapper.setProps({ spot: new Spot(hasWithout) })
     expect(wrapper.vm.isWifiWithouting).toBeTruthy()
   })
 
   it('isWifiWithouting is false', () => {
-    options = {
-      data: { id: 1 },
-      wifi_withs: [
-        { id: 1, user_id: 1 },
-        { id: 2, user_id: 2 }
-      ],
-      wifi_withouts: [
-        { id: 3, user_id: 2 },
-        { id: 4, user_id: 2 }
-      ]
-    }
-
-    data = new Spot(options)
-
-    propsData = {
-      spot: data
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
+    wrapper.setProps({ spot: new Spot(notHasWithout) })
     expect(wrapper.vm.isWifiWithouting).toBeFalsy()
   })
 
   it('yourWifiWith', () => {
-    expect(wrapper.vm.yourWifiWith).toMatchObject([options.wifi_withs[0]])
+    expect(wrapper.vm.yourWifiWith).toMatchObject([hasWith.wifi_withs[0]])
   })
 
   it('yourWifiWithout', () => {
-    expect(wrapper.vm.yourWifiWithout).toMatchObject([options.wifi_withouts[0]])
+    wrapper.setProps({ spot: new Spot(hasWithout) })
+    expect(wrapper.vm.yourWifiWithout).toMatchObject([
+      hasWithout.wifi_withouts[0]
+    ])
   })
 })
 
@@ -203,7 +191,7 @@ describe('v-on', () => {
     expect(wifiWithoutHandler).toHaveBeenCalled()
   })
 
-  it('mouseover mouseover', () => {
+  it('mouseover', () => {
     const mouseover = jest.fn()
 
     wrapper = mount(Component, {
@@ -219,7 +207,7 @@ describe('v-on', () => {
     expect(mouseover).toHaveBeenCalled()
   })
 
-  it('mouseleave mouseleave', () => {
+  it('mouseleave', () => {
     const mouseleave = jest.fn()
 
     wrapper = mount(Component, {
@@ -254,29 +242,7 @@ describe('template', () => {
   })
 
   it('v-else', () => {
-    options = {
-      data: { id: 1 },
-      wifi_withs: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ],
-      wifi_withouts: [
-        { id: 3, user_id: 1 },
-        { id: 4, user_id: 2 }
-      ]
-    }
-
-    data = new Spot(options)
-
-    propsData = {
-      spot: data
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
+    wrapper.setProps({ spot: new Spot(notHasWithout) })
 
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-wifi-off')
     expect(wrapper.vm.$el).toMatchSnapshot()
