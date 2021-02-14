@@ -173,6 +173,27 @@ describe('methods', () => {
       })
     })
 
+    // GoogleMaps固有のスポットであれば、PlaceDetailする
+    it('isGmapSpot is true && route.name is profile', () => {
+      const place_id = propsData.spot.data.place_id
+      wrapper.vm.$route.name = 'profile'
+
+      expect.assertions(2)
+
+      return wrapper.vm.placeDetail(propsData.spot).then(() => {
+        expect(placeDetail).toHaveBeenCalledWith({
+          map: map.getters.map(),
+          place_id
+        })
+        expect(user.mutations.updateSpot).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            place_id,
+            updated: { data: { id: null } },
+            tab: tab.getters.profileTab()
+          }
+        )
+      })
     })
 
     it('isGmapSpot is true', () => {
