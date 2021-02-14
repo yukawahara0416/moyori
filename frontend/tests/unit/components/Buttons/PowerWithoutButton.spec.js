@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Buttons/PowerWithoutButton.vue'
+import Counter from '@/components/Buttons/Counter.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -386,10 +387,8 @@ describe('template', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
-  it('counter has :spot', () => {
-    expect(wrapper.find('counter-stub').attributes().spot).toEqual(
-      '[object Object]'
-    )
+  it('Counter has :spot', () => {
+    expect(wrapper.find(Counter).props().spot).toMatchObject(propsData.spot)
   })
 
   it('snapshot', () => {

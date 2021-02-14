@@ -388,7 +388,7 @@ describe('template', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
-  it('counter has :spot', () => {
+  it('Counter has :spot', () => {
     expect(wrapper.find(Counter).props().spot).toMatchObject(propsData.spot)
   })
 
