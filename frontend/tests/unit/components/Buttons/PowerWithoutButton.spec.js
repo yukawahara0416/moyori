@@ -254,6 +254,7 @@ describe('v-on', () => {
 
 describe('methods', () => {
   describe('powerWithoutHanlder', () => {
+    // ログインしていない場合は投票せず、ログインを促す
     it('isLogging is false', () => {
       auth.getters.isLoggingIn = () => false
 
@@ -273,22 +274,39 @@ describe('methods', () => {
       })
 
       expect.assertions(5)
+
       return wrapper.vm.powerWithoutHandler(propsData.spot).then(() => {
-        expect(store.getters['isLoggingIn']).toBeFalsy()
-        expect(tab.mutations.changeSignTab).toHaveBeenCalled()
-        expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+        expect(store.getters.isLoggingIn).toBeFalsy()
+        expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
+          expect.any(Object),
+          'signin'
+        )
+        expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+          expect.any(Object),
+          'dialogSign'
+        )
         expect(snackbar.actions.pushSnackbarSuccess).not.toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: new Error('ログインしてください')
+          }
+        )
       })
     })
 
+    // 未登録のスポットの場合、スポットを登録してから「電源ないよ」します
     it('isPosted is false', () => {
-      const getNewSpot = jest.fn().mockResolvedValue({ data: { id: 1 } })
-      const voteHandler = jest.fn()
+      const spot = new Spot(beforePost)
+      propsData = { spot }
 
-      propsData = {
-        spot: new Spot(beforePost)
-      }
+      const newSpot = { data: { id: 1 } }
+
+      const params = new FormData()
+      params.append('power_without[spot_id]', newSpot.data.id)
+
+      const getNewSpot = jest.fn().mockResolvedValue(newSpot)
+      const voteHandler = jest.fn()
 
       wrapper = shallowMount(Component, {
         localVue,
@@ -301,11 +319,17 @@ describe('methods', () => {
       })
 
       expect.assertions(4)
-      return wrapper.vm.powerWithoutHandler(propsData.spot).then(() => {
-        expect(!propsData.spot.isPosted()).toBeTruthy()
-        expect(getNewSpot).toHaveBeenCalled()
-        expect(voteHandler).toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+
+      return wrapper.vm.powerWithoutHandler(spot).then(() => {
+        expect(!spot.isPosted()).toBeTruthy()
+        expect(getNewSpot).toHaveBeenCalledWith(spot.data.place_id)
+        expect(voteHandler).toHaveBeenCalledWith(newSpot, params)
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: '「電源ないよ」を投票しました'
+          }
+        )
       })
     })
   })
