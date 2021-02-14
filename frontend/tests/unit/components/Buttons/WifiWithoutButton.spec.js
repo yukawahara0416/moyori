@@ -346,7 +346,16 @@ describe('methods', () => {
       })
     })
 
-  })
+    it('isWifiWithing is false', () => {
+      wrapper.setProps({ spot: new Spot(notHasWith) })
+
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isWifiWithouting).toBeFalsy()
+        expect(wrapper.vm.isWifiWithing).toBeFalsy()
+        expect(vote.actions.vote).toHaveBeenCalled()
+      })
+    })
 
   it('mouseover', () => {
     wrapper.vm.mouseover()
