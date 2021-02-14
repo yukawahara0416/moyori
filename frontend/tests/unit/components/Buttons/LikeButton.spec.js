@@ -10,6 +10,12 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(VueRouter)
 
+jest.mock('@/plugins/maps.js', () => ({
+  ...jest.requireActual('@/plugins/maps.js'),
+  placeDetail: jest.fn().mockResolvedValue({ data: { id: null } }),
+  postSpot: jest.fn().mockResolvedValue({ data: { id: 1 } })
+}))
+
 let wrapper
 let propsData
 
