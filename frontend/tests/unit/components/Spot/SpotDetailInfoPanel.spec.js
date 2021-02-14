@@ -42,7 +42,7 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBe(true)
+    expect(wrapper.props().spot instanceof Object).toBeTruthy()
   })
 })
 
@@ -79,7 +79,7 @@ describe('computed', () => {
       store
     })
 
-    expect(wrapper.vm.isOwnPosted).toBe(false)
+    expect(wrapper.vm.isOwnPosted).toBeFalsy()
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
@@ -96,8 +96,8 @@ describe('computed', () => {
       store
     })
 
-    expect(wrapper.props().spot.data.place_id.length >= 11).toBe(true)
-    expect(wrapper.vm.isOwnPosted).toBe(false)
+    expect(wrapper.props().spot.data.place_id.length >= 11).toBeTruthy()
+    expect(wrapper.vm.isOwnPosted).toBeFalsy()
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
@@ -114,12 +114,12 @@ describe('computed', () => {
       store
     })
 
-    expect(wrapper.vm.isOwnPosted).toBe(false)
+    expect(wrapper.vm.isOwnPosted).toBeFalsy()
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
   it('isOwnPosted is true with return spotOwner === currentUser', () => {
-    expect(wrapper.vm.isOwnPosted).toBe(true)
+    expect(wrapper.vm.isOwnPosted).toBeTruthy()
   })
 })
 
@@ -155,7 +155,7 @@ describe('template', () => {
   })
 
   it('v-if="isOwnPosted" is true', () => {
-    expect(wrapper.find('v-card-actions-stub').exists()).toBe(true)
+    expect(wrapper.find('v-card-actions-stub').exists()).toBeTruthy()
   })
 
   it('v-if="isOwnPosted" is false', () => {
@@ -171,7 +171,7 @@ describe('template', () => {
       store
     })
 
-    expect(wrapper.find('v-card-actions-stub').exists()).toBe(false)
+    expect(wrapper.find('v-card-actions-stub').exists()).toBeFalsy()
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 

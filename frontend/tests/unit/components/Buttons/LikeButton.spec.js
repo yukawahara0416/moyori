@@ -1,35 +1,57 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { Spot } from '@/class/Spot.js'
+import { placeDetail, postSpot } from '@/plugins/maps.js'
 import Component from '@/components/Buttons/LikeButton.vue'
+import Counter from '@/components/Buttons/Counter.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
+jest.mock('@/plugins/maps.js', () => ({
+  ...jest.requireActual('@/plugins/maps.js'),
+  placeDetail: jest.fn().mockResolvedValue({ data: { id: null } }),
+  postSpot: jest.fn().mockResolvedValue({ data: { id: 1 } })
+}))
+
 let wrapper
 let propsData
-let options
-let data
 
 let store
 let auth
+let spot
+let vote
 let form
 let map
 let tab
+let dialog
+let snackbar
+
+let $route
+
+const hasLike = {
+  data: { id: 1, place_id: '1234567890test' },
+  likes: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const notHasLike = {
+  data: { id: 1, place_id: '1234567890test' },
+  likes: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const beforePost = {
+  data: { id: null, place_id: '1234567890test' }
+}
 
 beforeEach(() => {
-  options = {
-    data: { id: 1 },
-    likes: [
-      { id: 1, user_id: 1 },
-      { id: 2, user_id: 2 }
-    ]
-  }
-
-  data = new Spot(options)
-
   propsData = {
-    spot: data
+    spot: new Spot(hasLike)
   }
 
   auth = {
@@ -48,13 +70,30 @@ beforeEach(() => {
     }
   }
 
+  spot = {
+    namespaced: true,
+    mutations: {
+      updateSpot: jest.fn()
+    }
+  }
+
+  vote = {
+    actions: {
+      vote: jest.fn(),
+      unVote: jest.fn().mockResolvedValue(propsData.spot.data.id)
+    }
+  }
+
   form = {
     getters: {
-      form: () => {
+      spotForm: () => {
         return {
           place_id: ''
         }
       }
+    },
+    mutations: {
+      setSpotForm: jest.fn()
     }
   }
 
@@ -71,33 +110,70 @@ beforeEach(() => {
   tab = {
     getters: {
       profileTab: () => 'posts'
+    },
+    mutations: {
+      changeSignTab: jest.fn()
+    }
+  }
+
+  dialog = {
+    mutations: {
+      dialogOn: jest.fn()
+    }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
   store = new Vuex.Store({
     modules: {
       auth,
+      spot,
+      vote,
       form,
       map,
-      tab
+      tab,
+      dialog,
+      snackbar
     }
   })
+
+  $route = {
+    name: null,
+    params: null
+  }
 
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    mocks: {
+      $route
+    }
   })
 })
 
 describe('props', () => {
   it('spot', () => {
-    expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBe(true)
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
 describe('getters', () => {
+  it('spotForm', () => {
+    expect(wrapper.vm.spotForm).toEqual(store.getters.spotForm)
+  })
+
+  it('map', () => {
+    expect(wrapper.vm.map).toEqual(store.getters.map)
+  })
+
   it('headers', () => {
     expect(wrapper.vm.headers).toEqual(store.getters.headers)
   })
@@ -113,98 +189,227 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('isLiking is true', () => {
-    expect(wrapper.vm.isLiking).toBe(true)
+    expect(wrapper.vm.isLiking).toBeTruthy()
   })
 
   it('isLiking is false', () => {
-    options = {
-      data: { id: 1 },
-      likes: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ]
-    }
-
-    data = new Spot(options)
-
-    propsData = {
-      spot: data
-    }
-
-    store = new Vuex.Store({
-      modules: {
-        auth,
-        form,
-        map,
-        tab
-      }
-    })
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
-    expect(wrapper.vm.isLiking).toBe(false)
+    wrapper.setProps({ spot: new Spot(notHasLike) })
+    expect(wrapper.vm.isLiking).toBeFalsy()
   })
 
   it('yourLike', () => {
-    expect(wrapper.vm.yourLike).toMatchObject([options.likes[0]])
+    expect(wrapper.vm.yourLike).toMatchObject([hasLike.likes[0]])
   })
 })
 
 describe('v-on', () => {
-  it('likeHandler', () => {
-    const likeHandler = jest.fn()
+  const likeHandler = jest.fn()
+  const mouseover = jest.fn()
+  const mouseleave = jest.fn()
 
+  beforeEach(() => {
     wrapper = mount(Component, {
       localVue,
       propsData,
       store,
       methods: {
-        likeHandler
+        likeHandler,
+        mouseover,
+        mouseleave
       }
     })
-
-    wrapper.find('.v-btn').trigger('click')
-    expect(likeHandler).toHaveBeenCalled()
   })
 
-  it('mouseover mouseover', () => {
-    const mouseover = jest.fn()
+  it('likeHandler', () => {
+    wrapper.find('.v-btn').trigger('click')
+    expect(likeHandler).toHaveBeenCalledWith(propsData.spot)
+  })
 
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      methods: {
-        mouseover
-      }
-    })
-
+  it('mouseover', () => {
     wrapper.find('.v-btn').trigger('mouseover')
     expect(mouseover).toHaveBeenCalled()
   })
 
-  it('mouseleave mouseleave', () => {
-    const mouseleave = jest.fn()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      methods: {
-        mouseleave
-      }
-    })
-
+  it('mouseleave', () => {
     wrapper.find('.v-btn').trigger('mouseleave')
     expect(mouseleave).toHaveBeenCalled()
   })
 })
 
 describe('methods', () => {
+  describe('likeHandler', () => {
+    // ログインしていない場合は「いいね」せず、ログインを促す
+    it('isLoggingIn is false', () => {
+      auth.getters.isLoggingIn = () => false
+
+      store = new Vuex.Store({
+        modules: {
+          auth,
+          tab,
+          dialog,
+          snackbar
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store
+      })
+
+      expect.assertions(5)
+
+      return wrapper.vm.likeHandler(propsData.spot).then(() => {
+        expect(store.getters.isLoggingIn).toBeFalsy()
+        expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
+          expect.any(Object),
+          'signin'
+        )
+        expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+          expect.any(Object),
+          'dialogSign'
+        )
+        expect(snackbar.actions.pushSnackbarSuccess).not.toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: new Error('ログインしてください')
+          }
+        )
+      })
+    })
+
+    // 未登録のスポットの場合、スポットを登録してから「いいね」します
+    it('isPosted is false', () => {
+      const spot = new Spot(beforePost)
+      propsData = { spot }
+
+      const newSpot = { data: { id: 1 } }
+
+      const params = new FormData()
+      params.append('like[spot_id]', newSpot.data.id)
+
+      const getNewSpot = jest.fn().mockResolvedValue(newSpot)
+      const voteHandler = jest.fn()
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store,
+        methods: {
+          getNewSpot,
+          voteHandler
+        }
+      })
+
+      expect.assertions(4)
+
+      return wrapper.vm.likeHandler(spot).then(() => {
+        expect(!spot.isPosted()).toBeTruthy()
+        expect(getNewSpot).toHaveBeenCalledWith(spot.data.place_id)
+        expect(voteHandler).toHaveBeenCalledWith(newSpot, params)
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: 'いいねしました'
+          }
+        )
+      })
+    })
+  })
+
+  it('getNewSpot', () => {
+    const place_id = propsData.spot.data.place_id
+
+    expect.assertions(4)
+
+    return wrapper.vm.getNewSpot(place_id).then(() => {
+      expect(placeDetail).toHaveBeenCalledWith({
+        map: map.getters.map(),
+        place_id
+      })
+      expect(spot.mutations.updateSpot).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          place_id,
+          updated: { data: { id: null } }
+        }
+      )
+      expect(postSpot).toHaveBeenCalledWith(
+        form.getters.spotForm(),
+        auth.getters.headers()
+      )
+      expect(spot.mutations.updateSpot).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          place_id,
+          updated: { data: { id: 1 } }
+        }
+      )
+    })
+  })
+
+  describe('voteHandler', () => {
+    let headers
+    const route = 'search'
+    const isMyPage = true
+
+    beforeEach(() => {
+      headers = auth.getters.headers()
+      wrapper.vm.$route.name = route
+      wrapper.vm.$route.params = auth.getters.currentUser().data
+    })
+
+    // 「いいね」があれば「いいね」を取り消します
+    it('isLiking is true', () => {
+      const spot = new Spot(hasLike)
+      wrapper.setProps({ spot })
+
+      expect.assertions(3)
+
+      return wrapper.vm.voteHandler(spot).then(() => {
+        expect(wrapper.vm.isLiking).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'likes',
+          spot,
+          target: wrapper.vm.yourLike[0],
+          headers,
+          route,
+          isMyPage
+        })
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: 'いいねを取り消しました'
+          }
+        )
+      })
+    })
+
+    // 「いいね」されていなければ「いいね」します
+    it('isLiking is false', () => {
+      const spot = new Spot(notHasLike)
+      wrapper.setProps({ spot })
+
+      const params = new FormData()
+      params.append('like[spot_id]', spot.data.id)
+
+      expect.assertions(2)
+
+      return wrapper.vm.voteHandler(spot, params).then(() => {
+        expect(wrapper.vm.isLiking).toBeFalsy()
+        expect(vote.actions.vote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'likes',
+          spot,
+          params,
+          headers,
+          route,
+          isMyPage
+        })
+      })
+    })
+  })
+
   it('mouseover', () => {
     wrapper.vm.mouseover()
     expect(wrapper.vm.icon).toEqual('mdi-heart')
@@ -224,34 +429,13 @@ describe('template', () => {
   })
 
   it('v-else', () => {
-    options = {
-      data: { id: 1 },
-      likes: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ]
-    }
-
-    data = new Spot(options)
-
-    propsData = {
-      spot: data
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
+    wrapper.setProps({ spot: new Spot(notHasLike) })
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-heart')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
-  it('counter has :spot', () => {
-    expect(wrapper.find('counter-stub').attributes().spot).toEqual(
-      '[object Object]'
-    )
+  it('Counter has :spot', () => {
+    expect(wrapper.find(Counter).props().spot).toMatchObject(propsData.spot)
   })
 
   it('snapshot', () => {

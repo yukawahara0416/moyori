@@ -20,11 +20,18 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import SpotDetail from '@/components/Spot/SpotDetail.vue'
+import { Spot } from '@/class/Spot.js'
 import { placeDetail } from '@/plugins/maps.js'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

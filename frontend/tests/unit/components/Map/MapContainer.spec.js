@@ -136,7 +136,7 @@ describe('getters', () => {
   })
 
   it('isLoggingIn', () => {
-    expect(wrapper.vm.isLoggingIn).toBe(true)
+    expect(wrapper.vm.isLoggingIn).toBeTruthy()
   })
 })
 

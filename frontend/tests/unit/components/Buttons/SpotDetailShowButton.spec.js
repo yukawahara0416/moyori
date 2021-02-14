@@ -2,30 +2,58 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
+import { placeDetail } from '@/plugins/maps.js'
 import Component from '@/components/Buttons/SpotDetailShowButton.vue'
+import SpotDetail from '@/components/Spot/SpotDetail.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(Vuetify)
 
+jest.mock('@/plugins/maps.js', () => ({
+  ...jest.requireActual('@/plugins/maps.js'),
+  placeDetail: jest.fn().mockResolvedValue({ data: { id: null } })
+}))
+
 let wrapper
 let propsData
-let options
-let data
 
 let store
+let spot
+let user
 let map
+let tab
+let snackbar
+
+let $route
+
 let vuetify
 
+const databaseSpot = {
+  data: { id: 1, place_id: '123456789' }
+}
+
+const gmapSpot = {
+  data: { id: 1, place_id: '1234567890test' }
+}
+
 beforeEach(() => {
-  options = {
-    data: { id: 1, place_id: 'aaaaaaaaaaa' }
+  propsData = {
+    spot: new Spot(gmapSpot)
   }
 
-  data = new Spot(options)
+  spot = {
+    namespaced: true,
+    mutations: {
+      updateSpot: jest.fn()
+    }
+  }
 
-  propsData = {
-    spot: data
+  user = {
+    namespaced: true,
+    mutations: {
+      updateSpot: jest.fn()
+    }
   }
 
   map = {
@@ -38,11 +66,33 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    getters: {
+      profileTab: () => {
+        return 'posts'
+      }
+    }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarError: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
-      map
+      spot,
+      user,
+      map,
+      tab,
+      snackbar
     }
   })
+
+  $route = {
+    name: null
+  }
 
   vuetify = new Vuetify()
 
@@ -50,14 +100,18 @@ beforeEach(() => {
     localVue,
     propsData,
     store,
-    vuetify
+    vuetify,
+    mocks: {
+      $route
+    }
   })
 })
 
 describe('props', () => {
   it('spot', () => {
-    expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBe(true)
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBe(true)
   })
 })
 
@@ -65,22 +119,16 @@ describe('getters', () => {
   it('map', () => {
     expect(wrapper.vm.map).toMatchObject(store.getters.map)
   })
+
+  it('profileTab', () => {
+    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
+  })
 })
 
 describe('v-on', () => {
   it('placeDetail, openDialog', () => {
     const placeDetail = jest.fn()
     const openDialog = jest.fn()
-
-    options = {
-      data: { id: 1, place_id: 'aaaaaaaaaaa' }
-    }
-
-    data = new Spot(options)
-
-    propsData = {
-      spot: data
-    }
 
     wrapper = mount(Component, {
       localVue,
@@ -94,7 +142,7 @@ describe('v-on', () => {
     })
 
     wrapper.find('.v-btn').trigger('click')
-    expect(placeDetail).toHaveBeenCalled()
+    expect(placeDetail).toHaveBeenCalledWith(propsData.spot)
     expect(openDialog).toHaveBeenCalled()
   })
 })
@@ -102,13 +150,72 @@ describe('v-on', () => {
 describe('methods', () => {
   it('openDialog', () => {
     wrapper.vm.openDialog()
-    expect(wrapper.vm.dialog).toBe(true)
+    expect(wrapper.vm.dialog).toBeTruthy()
   })
 
   it('closeDialog', () => {
     wrapper.vm.dialog = true
     wrapper.vm.closeDialog()
-    expect(wrapper.vm.dialog).toBe(false)
+    expect(wrapper.vm.dialog).toBeFalsy()
+  })
+
+  describe('placeDetail', () => {
+    // GoogleMaps固有のスポットでなければ、PlaceDetailしない
+    it('isGmapSpot is false', () => {
+      const spot = new Spot(databaseSpot)
+      wrapper.setProps({ spot })
+
+      expect.assertions(1)
+
+      return wrapper.vm.placeDetail(spot).then(() => {
+        expect(placeDetail).not.toHaveBeenCalled()
+      })
+    })
+
+    // GoogleMaps固有のスポットであれば、PlaceDetailする
+    it('isGmapSpot is true && route.name is profile', () => {
+      const place_id = propsData.spot.data.place_id
+      wrapper.vm.$route.name = 'profile'
+
+      expect.assertions(2)
+
+      return wrapper.vm.placeDetail(propsData.spot).then(() => {
+        expect(placeDetail).toHaveBeenCalledWith({
+          map: map.getters.map(),
+          place_id
+        })
+        expect(user.mutations.updateSpot).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            place_id,
+            updated: { data: { id: null } },
+            tab: tab.getters.profileTab()
+          }
+        )
+      })
+    })
+
+    // GoogleMaps固有のスポットであれば、PlaceDetailする
+    it('isGmapSpot is true && route.name is search', () => {
+      const place_id = propsData.spot.data.place_id
+      wrapper.vm.$route.name = 'search'
+
+      expect.assertions(2)
+
+      return wrapper.vm.placeDetail(propsData.spot).then(() => {
+        expect(placeDetail).toHaveBeenCalledWith({
+          map: map.getters.map(),
+          place_id
+        })
+        expect(spot.mutations.updateSpot).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            place_id,
+            updated: { data: { id: null } }
+          }
+        )
+      })
+    })
   })
 })
 
@@ -121,9 +228,7 @@ describe('emit', () => {
 
 describe('template', () => {
   it('spot-detail has :spot', () => {
-    expect(wrapper.find('spot-detail-stub').attributes().spot).toEqual(
-      '[object Object]'
-    )
+    expect(wrapper.find(SpotDetail).props().spot).toMatchObject(propsData.spot)
   })
 
   it('snapshot', () => {

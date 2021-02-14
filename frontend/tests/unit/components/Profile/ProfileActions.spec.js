@@ -44,12 +44,12 @@ describe('props', () => {
 
   it('user', () => {
     expect(wrapper.props().user).toStrictEqual(propsData.user)
-    expect(wrapper.props().user instanceof Object).toBe(true)
+    expect(wrapper.props().user instanceof Object).toBeTruthy()
   })
 
   it('currentUser', () => {
     expect(wrapper.props().currentUser).toStrictEqual(propsData.currentUser)
-    expect(wrapper.props().currentUser instanceof Object).toBe(true)
+    expect(wrapper.props().currentUser instanceof Object).toBeTruthy()
   })
 })
 
@@ -61,7 +61,7 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('isOwnPage', () => {
-    expect(wrapper.vm.isOwnPage).toBe(true)
+    expect(wrapper.vm.isOwnPage).toBeTruthy()
   })
 })
 

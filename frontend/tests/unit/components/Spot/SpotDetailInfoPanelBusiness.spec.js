@@ -35,7 +35,7 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBe(true)
+    expect(wrapper.props().spot instanceof Object).toBeTruthy()
   })
 })
 
@@ -48,7 +48,7 @@ describe('computed', () => {
   })
 
   it('isAboveLimit is true', () => {
-    expect(wrapper.vm.isAboveLimit).toBe(true)
+    expect(wrapper.vm.isAboveLimit).toBeTruthy()
   })
 
   it('isAboveLimit is false', () => {
@@ -68,11 +68,11 @@ describe('computed', () => {
       propsData
     })
 
-    expect(wrapper.vm.isAboveLimit).toBe(false)
+    expect(wrapper.vm.isAboveLimit).toBeFalsy()
   })
 
   it('readMore is true', () => {
-    expect(wrapper.vm.readMore).toBe(true)
+    expect(wrapper.vm.readMore).toBeTruthy()
   })
 
   it('readMore is false', () => {
@@ -92,7 +92,7 @@ describe('computed', () => {
       propsData
     })
 
-    expect(wrapper.vm.readMore).toBe(false)
+    expect(wrapper.vm.readMore).toBeFalsy()
   })
 })
 
@@ -116,7 +116,7 @@ describe('v-on', () => {
 describe('methods', () => {
   it('activateReadMore', () => {
     wrapper.vm.activateReadMore()
-    expect(wrapper.vm.readMoreToggle).toBe(true)
+    expect(wrapper.vm.readMoreToggle).toBeTruthy()
   })
 })
 
@@ -132,7 +132,7 @@ describe('template', () => {
     })
 
     const target = wrapper.find('.mx-3')
-    expect(target.exists()).toBe(false)
+    expect(target.exists()).toBeFalsy()
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 

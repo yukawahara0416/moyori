@@ -41,7 +41,7 @@ beforeEach(() => {
 describe('props', () => {
   it('center', () => {
     expect(wrapper.props().center).toStrictEqual(propsData.center)
-    expect(wrapper.props().center instanceof Object).toBe(true)
+    expect(wrapper.props().center instanceof Object).toBeTruthy()
   })
 })
 

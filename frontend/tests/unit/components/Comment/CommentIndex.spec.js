@@ -47,7 +47,7 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBe(true)
+    expect(wrapper.props().spot instanceof Object).toBeTruthy()
   })
 })
 
@@ -60,7 +60,7 @@ describe('getters', () => {
 describe('computed', () => {
   it('isCommentingByCurrentUser', () => {
     const comment = propsData.spot.comments[0]
-    expect(wrapper.vm.isCommentingByCurrentUser(comment)).toBe(true)
+    expect(wrapper.vm.isCommentingByCurrentUser(comment)).toBeTruthy()
   })
 })
 
@@ -115,7 +115,7 @@ describe('template', () => {
       store
     })
 
-    expect(wrapper.find('comment-index-delete-button').exists()).toBe(false)
+    expect(wrapper.find('comment-index-delete-button').exists()).toBeFalsy()
   })
 
   it('snapshot', () => {

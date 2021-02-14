@@ -41,7 +41,7 @@ describe('v-on', () => {
 
 describe('computed', () => {
   it('isTestUser', () => {
-    expect(wrapper.vm.isTestUser).toBe(false)
+    expect(wrapper.vm.isTestUser).toBeFalsy()
   })
 })
 

@@ -42,12 +42,12 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBe(true)
+    expect(wrapper.props().spot instanceof Object).toBeTruthy()
   })
 
   it('comment', () => {
     expect(wrapper.props().comment).toStrictEqual(propsData.comment)
-    expect(wrapper.props().comment instanceof Object).toBe(true)
+    expect(wrapper.props().comment instanceof Object).toBeTruthy()
   })
 })
 

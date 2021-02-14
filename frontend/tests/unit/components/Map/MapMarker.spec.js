@@ -70,7 +70,7 @@ beforeEach(() => {
 describe('props', () => {
   it('spots', () => {
     expect(wrapper.props().spots).toStrictEqual(propsData.spots)
-    expect(wrapper.props().spots instanceof Array).toBe(true)
+    expect(wrapper.props().spots instanceof Array).toBeTruthy()
   })
 })
 
