@@ -67,6 +67,7 @@ beforeEach(() => {
   }
 
   spot = {
+    namespaced: true,
     mutations: {
       updateSpot: jest.fn()
     }
@@ -75,7 +76,7 @@ beforeEach(() => {
   vote = {
     actions: {
       vote: jest.fn(),
-      unVote: jest.fn()
+      unVote: jest.fn().mockResolvedValue(propsData.spot.data.id)
     }
   }
 
@@ -228,6 +229,7 @@ describe('v-on', () => {
 
 describe('methods', () => {
   describe('likeHandler', () => {
+    // ログインしていない場合は「いいね」せず、ログインを促す
     it('isLoggingIn is false', () => {
       auth.getters.isLoggingIn = () => false
 
@@ -247,8 +249,9 @@ describe('methods', () => {
       })
 
       expect.assertions(5)
+
       return wrapper.vm.likeHandler(propsData.spot).then(() => {
-        expect(store.getters['isLoggingIn']).toBeFalsy()
+        expect(store.getters.isLoggingIn).toBeFalsy()
         expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
           expect.any(Object),
           'signin'
@@ -267,16 +270,18 @@ describe('methods', () => {
       })
     })
 
+    // 未登録のスポットの場合、スポットを登録してから「いいね」します
     it('isPosted is false', () => {
+      const spot = new Spot(beforePost)
+      propsData = { spot }
+
       const newSpot = { data: { id: 1 } }
+
       const params = new FormData()
       params.append('like[spot_id]', newSpot.data.id)
+
       const getNewSpot = jest.fn().mockResolvedValue(newSpot)
       const voteHandler = jest.fn()
-
-      propsData = {
-        spot: new Spot(beforePost)
-      }
 
       wrapper = shallowMount(Component, {
         localVue,
@@ -289,9 +294,10 @@ describe('methods', () => {
       })
 
       expect.assertions(4)
-      return wrapper.vm.likeHandler(propsData.spot).then(() => {
-        expect(!propsData.spot.isPosted()).toBeTruthy()
-        expect(getNewSpot).toHaveBeenCalledWith(propsData.spot.data.place_id)
+
+      return wrapper.vm.likeHandler(spot).then(() => {
+        expect(!spot.isPosted()).toBeTruthy()
+        expect(getNewSpot).toHaveBeenCalledWith(spot.data.place_id)
         expect(voteHandler).toHaveBeenCalledWith(newSpot, params)
         expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
           expect.any(Object),
@@ -319,8 +325,10 @@ describe('methods', () => {
   })
 
   describe('voteHandler', () => {
+    // 「いいね」があれば「いいね」を取り消します
     it('isLiking is true', () => {
       expect.assertions(3)
+
       return wrapper.vm.voteHandler(propsData.spot).then(() => {
         expect(wrapper.vm.isLiking).toBeTruthy()
         expect(vote.actions.unVote).toHaveBeenCalledWith(expect.any(Object), {
@@ -340,17 +348,21 @@ describe('methods', () => {
       })
     })
 
+    // 「いいね」されていなければ「いいね」します
     it('isLiking is false', () => {
-      wrapper.setProps({ spot: new Spot(notHasLike) })
+      const spot = new Spot(notHasLike)
+      wrapper.setProps({ spot })
+
       const params = new FormData()
-      params.append('like[spot_id]', propsData.spot.data.id)
+      params.append('like[spot_id]', spot.data.id)
 
       expect.assertions(2)
-      return wrapper.vm.voteHandler(propsData.spot, params).then(() => {
+
+      return wrapper.vm.voteHandler(spot, params).then(() => {
         expect(wrapper.vm.isLiking).toBeFalsy()
         expect(vote.actions.vote).toHaveBeenCalledWith(expect.any(Object), {
           prop: 'likes',
-          spot: propsData.spot,
+          spot,
           params,
           headers: auth.getters.headers(),
           route: null,
