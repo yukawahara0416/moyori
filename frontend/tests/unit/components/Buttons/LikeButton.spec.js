@@ -352,11 +352,12 @@ describe('methods', () => {
   describe('voteHandler', () => {
     let headers
     const route = 'search'
+    const isMyPage = true
 
     beforeEach(() => {
       headers = auth.getters.headers()
       wrapper.vm.$route.name = route
-      wrapper.vm.$route['params'] = auth.getters.currentUser().data
+      wrapper.vm.$route.params = auth.getters.currentUser().data
     })
 
     // 「いいね」があれば「いいね」を取り消します
@@ -374,7 +375,7 @@ describe('methods', () => {
           target: wrapper.vm.yourLike[0],
           headers,
           route,
-          isMyPage: true
+          isMyPage
         })
         expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
           expect.any(Object),
@@ -403,7 +404,7 @@ describe('methods', () => {
           params,
           headers,
           route,
-          isMyPage: true
+          isMyPage
         })
       })
     })

@@ -1,6 +1,5 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
 import { Spot } from '@/class/Spot.js'
 import { placeDetail, postSpot } from '@/plugins/maps.js'
 import Component from '@/components/Buttons/PowerWithButton.vue'
@@ -8,7 +7,6 @@ import Counter from '@/components/Buttons/Counter.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
-localVue.use(VueRouter)
 
 jest.mock('@/plugins/maps.js', () => ({
   ...jest.requireActual('@/plugins/maps.js'),
@@ -28,8 +26,6 @@ let map
 let tab
 let dialog
 let snackbar
-
-let router
 
 const hasWith = {
   data: { id: 1, place_id: '1234567890test' },
@@ -157,13 +153,10 @@ beforeEach(() => {
     }
   })
 
-  router = new VueRouter()
-
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store,
-    router
+    store
   })
 })
 
