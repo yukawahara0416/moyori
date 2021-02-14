@@ -133,6 +133,8 @@ beforeEach(() => {
     }
   }
 
+  router = new VueRouter()
+
   store = new Vuex.Store({
     modules: {
       auth,
@@ -149,7 +151,8 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    router
   })
 })
 
