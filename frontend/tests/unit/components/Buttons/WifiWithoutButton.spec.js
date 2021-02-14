@@ -87,6 +87,13 @@ beforeEach(() => {
     }
   }
 
+  vote = {
+    actions: {
+      vote: jest.fn(),
+      unVote: jest.fn()
+    }
+  }
+
   form = {
     getters: {
       spotForm: () => {
@@ -111,6 +118,7 @@ beforeEach(() => {
     modules: {
       auth,
       spot,
+      vote,
       form,
       map
     }
