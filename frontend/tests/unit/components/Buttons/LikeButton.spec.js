@@ -352,13 +352,16 @@ describe('methods', () => {
   describe('voteHandler', () => {
     // 「いいね」があれば「いいね」を取り消します
     it('isLiking is true', () => {
+      const spot = new Spot(hasLike)
+      wrapper.setProps({ spot })
+
       expect.assertions(3)
 
-      return wrapper.vm.voteHandler(propsData.spot).then(() => {
+      return wrapper.vm.voteHandler(spot).then(() => {
         expect(wrapper.vm.isLiking).toBeTruthy()
         expect(vote.actions.unVote).toHaveBeenCalledWith(expect.any(Object), {
           prop: 'likes',
-          spot: propsData.spot,
+          spot,
           target: wrapper.vm.yourLike[0],
           route,
         })
