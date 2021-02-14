@@ -350,8 +350,11 @@ describe('methods', () => {
   })
 
   describe('voteHandler', () => {
+    let headers
     const route = 'search'
+
     beforeEach(() => {
+      headers = auth.getters.headers()
       wrapper.vm.$route.name = route
       wrapper.vm.$route['params'] = auth.getters.currentUser().data
     })
@@ -369,6 +372,7 @@ describe('methods', () => {
           prop: 'likes',
           spot,
           target: wrapper.vm.yourLike[0],
+          headers,
           route,
           isMyPage: true
         })
@@ -397,6 +401,7 @@ describe('methods', () => {
           prop: 'likes',
           spot,
           params,
+          headers,
           route,
           isMyPage: true
         })
