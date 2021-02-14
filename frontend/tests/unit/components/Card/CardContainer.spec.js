@@ -10,14 +10,7 @@ let $route
 
 beforeEach(() => {
   propsData = {
-    spots: [
-      {
-        data: { id: 1 }
-      },
-      {
-        data: { id: 2 }
-      }
-    ]
+    spots: [{ data: { id: 1 } }, { data: { id: 2 } }]
   }
 
   $route = {
