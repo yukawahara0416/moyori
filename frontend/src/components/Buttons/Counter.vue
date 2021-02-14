@@ -3,10 +3,22 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
+
 export default {
   props: {
-    spot: Object,
-    target: String
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    },
+    target: {
+      type: String,
+      default: '',
+      required: true
+    }
   },
 
   computed: {
