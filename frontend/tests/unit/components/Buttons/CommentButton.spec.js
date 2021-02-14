@@ -2,6 +2,7 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Buttons/CommentButton.vue'
+import SpotDetailCommentPanel from '@/components/Spot/SpotDetailCommentPanel.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -195,9 +196,9 @@ describe('template', () => {
   })
 
   it('spot-detail-comment-panel has :spot', () => {
-    expect(
-      wrapper.find('spot-detail-comment-panel-stub').attributes().spot
-    ).toEqual('[object Object]')
+    expect(wrapper.find(SpotDetailCommentPanel).props().spot).toMatchObject(
+      propsData.spot
+    )
   })
 
   it('snapshot', () => {
