@@ -2,12 +2,18 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
+import { placeDetail } from '@/plugins/maps.js'
 import Component from '@/components/Buttons/SpotDetailShowButton.vue'
 import SpotDetail from '@/components/Spot/SpotDetail.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(Vuetify)
+
+jest.mock('@/plugins/maps.js', () => ({
+  ...jest.requireActual('@/plugins/maps.js'),
+  placeDetail: jest.fn().mockResolvedValue({ data: { id: null } })
+}))
 
 let wrapper
 let propsData
