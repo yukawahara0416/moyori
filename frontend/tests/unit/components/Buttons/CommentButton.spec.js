@@ -9,21 +9,29 @@ localVue.use(Vuex)
 
 let wrapper
 let propsData
+
 let store
-let options
 let auth
 
-beforeEach(() => {
-  options = {
-    data: { id: 1 },
-    comments: [
-      { id: 1, user_id: 1 },
-      { id: 2, user_id: 2 }
-    ]
-  }
+const hasComment = {
+  data: { id: 1, place_id: '1234567890test' },
+  comments: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
 
+const notHasComment = {
+  data: { id: 1, place_id: '1234567890test' },
+  comments: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+beforeEach(() => {
   propsData = {
-    spot: new Spot(options)
+    spot: new Spot(hasComment)
   }
 
   auth = {
@@ -66,29 +74,12 @@ describe('computed', () => {
   })
 
   it('isCommenting is false', () => {
-    options = {
-      data: { id: 1 },
-      comments: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ]
-    }
-
-    propsData = {
-      spot: new Spot(options)
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
+    wrapper.setProps({ spot: new Spot(notHasComment) })
     expect(wrapper.vm.isCommenting).toBeFalsy()
   })
 
   it('yourComments', () => {
-    expect(wrapper.vm.yourComments).toMatchObject([options.comments[0]])
+    expect(wrapper.vm.yourComments).toMatchObject([hasComment.comments[0]])
   })
 })
 
@@ -167,24 +158,7 @@ describe('template', () => {
   })
 
   it('v-else', () => {
-    options = {
-      data: { id: 1 },
-      comments: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ]
-    }
-
-    propsData = {
-      spot: new Spot(options)
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
+    wrapper.setProps({ spot: new Spot(notHasComment) })
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-message')
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
