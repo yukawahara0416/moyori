@@ -316,18 +316,34 @@ describe('methods', () => {
   })
 
   it('getNewSpot', () => {
-    throw new Error('テスト未作成')
-    // jest.mock('../../../../src/plugins/maps.js', () => ({
-    //   ...jest.requireActual('../../../../src/plugins/maps.js'),
-    //   placeDetail: jest.fn(),
-    //   postSpot: jest.fn()
-    // }))
+    const place_id = propsData.spot.data.place_id
 
-    // expect.assertions(2)
-    // return wrapper.vm.getNewSpot(propsData.spot.data.place_id).then(() => {
-    //   expect(hogedetail).toHaveBeenCalled()
-    //   expect(hogepost).toHaveBeenCalled()
-    // })
+    expect.assertions(4)
+
+    return wrapper.vm.getNewSpot(place_id).then(() => {
+      expect(placeDetail).toHaveBeenCalledWith({
+        map: map.getters.map(),
+        place_id
+      })
+      expect(spot.mutations.updateSpot).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          place_id,
+          updated: { data: { id: null } }
+        }
+      )
+      expect(postSpot).toHaveBeenCalledWith(
+        form.getters.spotForm(),
+        auth.getters.headers()
+      )
+      expect(spot.mutations.updateSpot).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          place_id,
+          updated: { data: { id: 1 } }
+        }
+      )
+    })
   })
 
   describe('voteHandler', () => {
