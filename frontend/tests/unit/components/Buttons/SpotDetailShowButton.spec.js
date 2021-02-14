@@ -25,13 +25,17 @@ let tab
 
 let vuetify
 
-beforeEach(() => {
-  options = {
-    data: { id: 1, place_id: '1234567890test' }
-  }
+const databaseSpot = {
+  data: { id: 1, place_id: '123456789' }
+}
 
+const gmapSpot = {
+  data: { id: 1, place_id: '1234567890test' }
+}
+
+beforeEach(() => {
   propsData = {
-    spot: new Spot(options)
+    spot: new Spot(gmapSpot)
   }
 
   map = {
