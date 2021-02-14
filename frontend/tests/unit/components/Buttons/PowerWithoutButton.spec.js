@@ -219,50 +219,34 @@ describe('comnputed', () => {
 })
 
 describe('v-on', () => {
-  it('click powerWithoutHandler', () => {
-    const powerWithoutHandler = jest.fn()
+  const powerWithoutHandler = jest.fn()
+  const mouseover = jest.fn()
+  const mouseleave = jest.fn()
 
+  beforeEach(() => {
     wrapper = mount(Component, {
       localVue,
       propsData,
       store,
       methods: {
-        powerWithoutHandler
+        powerWithoutHandler,
+        mouseover,
+        mouseleave
       }
     })
+  })
 
+  it('click powerWithoutHandler', () => {
     wrapper.find('.v-btn').trigger('click')
-    expect(powerWithoutHandler).toHaveBeenCalled()
+    expect(powerWithoutHandler).toHaveBeenCalledWith(propsData.spot)
   })
 
   it('mouseover', () => {
-    const mouseover = jest.fn()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      methods: {
-        mouseover
-      }
-    })
-
     wrapper.find('.v-btn').trigger('mouseover')
     expect(mouseover).toHaveBeenCalled()
   })
 
   it('mouseleave', () => {
-    const mouseleave = jest.fn()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      methods: {
-        mouseleave
-      }
-    })
-
     wrapper.find('.v-btn').trigger('mouseleave')
     expect(mouseleave).toHaveBeenCalled()
   })
