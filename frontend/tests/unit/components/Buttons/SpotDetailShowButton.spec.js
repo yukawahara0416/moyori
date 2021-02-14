@@ -161,8 +161,18 @@ describe('methods', () => {
   })
 
   describe('placeDetail', () => {
+    // GoogleMaps固有のスポットでなければ、PlaceDetailしない
     it('isGmapSpot is false', () => {
-      throw new Error('テスト未作成')
+      const spot = new Spot(databaseSpot)
+      wrapper.setProps({ spot })
+
+      expect.assertions(1)
+
+      return wrapper.vm.placeDetail(spot).then(() => {
+        expect(placeDetail).not.toHaveBeenCalled()
+      })
+    })
+
     })
 
     it('isGmapSpot is true', () => {
