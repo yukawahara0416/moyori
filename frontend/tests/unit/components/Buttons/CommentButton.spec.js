@@ -58,6 +58,14 @@ beforeEach(() => {
   })
 })
 
+describe('props', () => {
+  it('spot', () => {
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
+  })
+})
+
 describe('getters', () => {
   it('currentUser', () => {
     expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
