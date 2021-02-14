@@ -1,11 +1,8 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
-import Vuex, { createNamespacedHelpers } from 'vuex'
+import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import { Spot } from '@/class/Spot.js'
-// import {
-//   placeDetail as hogedetail,
-//   postSpot as hogepost
-// } from '@/plugins/maps.js'
+import { placeDetail, postSpot } from '@/plugins/maps.js'
 import Component from '@/components/Buttons/LikeButton.vue'
 import Counter from '@/components/Buttons/Counter.vue'
 
