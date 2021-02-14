@@ -92,50 +92,34 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
-  it('click openDialog', () => {
-    const openDialog = jest.fn()
+  const openDialog = jest.fn()
+  const mouseover = jest.fn()
+  const mouseleave = jest.fn()
 
+  beforeEach(() => {
     wrapper = mount(Component, {
       localVue,
       propsData,
       store,
       methods: {
-        openDialog
+        openDialog,
+        mouseover,
+        mouseleave
       }
     })
+  })
 
+  it('click openDialog', () => {
     wrapper.find('.v-btn').trigger('click')
     expect(openDialog).toHaveBeenCalled()
   })
 
-  it('mouseover mouseover', () => {
-    const mouseover = jest.fn()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      methods: {
-        mouseover
-      }
-    })
-
+  it('mouseover', () => {
     wrapper.find('.v-btn').trigger('mouseover')
     expect(mouseover).toHaveBeenCalled()
   })
 
-  it('mouseleave mouseleave', () => {
-    const mouseleave = jest.fn()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      methods: {
-        mouseleave
-      }
-    })
-
+  it('mouseleave', () => {
     wrapper.find('.v-btn').trigger('mouseleave')
     expect(mouseleave).toHaveBeenCalled()
   })
