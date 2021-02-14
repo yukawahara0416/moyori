@@ -20,6 +20,7 @@ let propsData
 let options
 
 let store
+let spot
 let map
 let tab
 
@@ -38,6 +39,12 @@ beforeEach(() => {
     spot: new Spot(gmapSpot)
   }
 
+  spot = {
+    namespaced: true,
+    mutations: {
+      updateSpot: jest.fn()
+    }
+  }
   map = {
     getters: {
       map: () => {
@@ -58,6 +65,7 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
+      spot,
       map,
       tab
     }
