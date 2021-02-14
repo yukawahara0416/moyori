@@ -21,6 +21,7 @@ let options
 
 let store
 let spot
+let user
 let map
 let tab
 
@@ -45,6 +46,14 @@ beforeEach(() => {
       updateSpot: jest.fn()
     }
   }
+
+  user = {
+    namespaced: true,
+    mutations: {
+      updateSpot: jest.fn()
+    }
+  }
+
   map = {
     getters: {
       map: () => {
@@ -66,6 +75,7 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       spot,
+      user,
       map,
       tab
     }
