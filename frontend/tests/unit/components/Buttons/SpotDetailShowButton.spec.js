@@ -17,7 +17,6 @@ jest.mock('@/plugins/maps.js', () => ({
 
 let wrapper
 let propsData
-let options
 
 let store
 let spot
@@ -196,8 +195,26 @@ describe('methods', () => {
       })
     })
 
-    it('isGmapSpot is true', () => {
-      throw new Error('テスト未作成')
+    // GoogleMaps固有のスポットであれば、PlaceDetailする
+    it('isGmapSpot is true && route.name is search', () => {
+      const place_id = propsData.spot.data.place_id
+      wrapper.vm.$route.name = 'search'
+
+      expect.assertions(2)
+
+      return wrapper.vm.placeDetail(propsData.spot).then(() => {
+        expect(placeDetail).toHaveBeenCalledWith({
+          map: map.getters.map(),
+          place_id
+        })
+        expect(spot.mutations.updateSpot).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            place_id,
+            updated: { data: { id: null } }
+          }
+        )
+      })
     })
   })
 })
