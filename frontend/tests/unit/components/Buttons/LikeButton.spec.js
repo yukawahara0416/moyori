@@ -350,6 +350,12 @@ describe('methods', () => {
   })
 
   describe('voteHandler', () => {
+    const route = 'search'
+    beforeEach(() => {
+      wrapper.vm.$route.name = route
+      wrapper.vm.$route['params'] = auth.getters.currentUser().data
+    })
+
     // 「いいね」があれば「いいね」を取り消します
     it('isLiking is true', () => {
       const spot = new Spot(hasLike)
@@ -364,6 +370,7 @@ describe('methods', () => {
           spot,
           target: wrapper.vm.yourLike[0],
           route,
+          isMyPage: true
         })
         expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
           expect.any(Object),
@@ -391,6 +398,7 @@ describe('methods', () => {
           spot,
           params,
           route,
+          isMyPage: true
         })
       })
     })
