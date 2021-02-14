@@ -26,10 +26,17 @@
 import { mapGetters } from 'vuex'
 import SpotDetailCommentPanel from '@/components/Spot/SpotDetailCommentPanel.vue'
 import Counter from '@/components/Buttons/Counter.vue'
+import { Spot } from '@/class/Spot.js'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

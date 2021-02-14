@@ -1,5 +1,5 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import Vuex, { createNamespacedHelpers } from 'vuex'
 import VueRouter from 'vue-router'
 import { Spot } from '@/class/Spot.js'
 // import {
@@ -15,7 +15,6 @@ localVue.use(VueRouter)
 
 let wrapper
 let propsData
-let options
 
 let store
 let auth
@@ -216,7 +215,7 @@ describe('v-on', () => {
 
   it('likeHandler', () => {
     wrapper.find('.v-btn').trigger('click')
-    expect(likeHandler).toHaveBeenCalled()
+    expect(likeHandler).toHaveBeenCalledWith(propsData.spot)
   })
 
   it('mouseover', () => {
@@ -253,15 +252,29 @@ describe('methods', () => {
       expect.assertions(5)
       return wrapper.vm.likeHandler(propsData.spot).then(() => {
         expect(store.getters['isLoggingIn']).toBeFalsy()
-        expect(tab.mutations.changeSignTab).toHaveBeenCalled()
-        expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+        expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
+          expect.any(Object),
+          'signin'
+        )
+        expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+          expect.any(Object),
+          'dialogSign'
+        )
         expect(snackbar.actions.pushSnackbarSuccess).not.toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: new Error('ログインしてください')
+          }
+        )
       })
     })
 
     it('isPosted is false', () => {
-      const getNewSpot = jest.fn().mockResolvedValue({ data: { id: 1 } })
+      const newSpot = { data: { id: 1 } }
+      const params = new FormData()
+      params.append('like[spot_id]', newSpot.data.id)
+      const getNewSpot = jest.fn().mockResolvedValue(newSpot)
       const voteHandler = jest.fn()
 
       propsData = {
@@ -281,9 +294,14 @@ describe('methods', () => {
       expect.assertions(4)
       return wrapper.vm.likeHandler(propsData.spot).then(() => {
         expect(!propsData.spot.isPosted()).toBeTruthy()
-        expect(getNewSpot).toHaveBeenCalled()
-        expect(voteHandler).toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+        expect(getNewSpot).toHaveBeenCalledWith(propsData.spot.data.place_id)
+        expect(voteHandler).toHaveBeenCalledWith(newSpot, params)
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: 'いいねしました'
+          }
+        )
       })
     })
   })
@@ -306,20 +324,41 @@ describe('methods', () => {
   describe('voteHandler', () => {
     it('isLiking is true', () => {
       expect.assertions(3)
-      return wrapper.vm.voteHandler().then(() => {
+      return wrapper.vm.voteHandler(propsData.spot).then(() => {
         expect(wrapper.vm.isLiking).toBeTruthy()
-        expect(vote.actions.unVote).toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+        expect(vote.actions.unVote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'likes',
+          spot: propsData.spot,
+          target: wrapper.vm.yourLike[0],
+          headers: auth.getters.headers(),
+          route: null,
+          isMyPage: false
+        })
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: 'いいねを取り消しました'
+          }
+        )
       })
     })
 
     it('isLiking is false', () => {
       wrapper.setProps({ spot: new Spot(notHasLike) })
+      const params = new FormData()
+      params.append('like[spot_id]', propsData.spot.data.id)
 
       expect.assertions(2)
-      return wrapper.vm.voteHandler().then(() => {
+      return wrapper.vm.voteHandler(propsData.spot, params).then(() => {
         expect(wrapper.vm.isLiking).toBeFalsy()
-        expect(vote.actions.vote).toHaveBeenCalled()
+        expect(vote.actions.vote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'likes',
+          spot: propsData.spot,
+          params,
+          headers: auth.getters.headers(),
+          route: null,
+          isMyPage: false
+        })
       })
     })
   })

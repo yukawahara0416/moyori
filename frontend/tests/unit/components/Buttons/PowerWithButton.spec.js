@@ -232,7 +232,7 @@ describe('v-on', () => {
     })
 
     wrapper.find('.v-btn').trigger('click')
-    expect(powerWithHandler).toHaveBeenCalled()
+    expect(powerWithHandler).toHaveBeenCalledWith(propsData.spot)
   })
 
   it('mouseover', () => {
@@ -291,15 +291,30 @@ describe('methods', () => {
       expect.assertions(5)
       return wrapper.vm.powerWithHandler(propsData.spot).then(() => {
         expect(store.getters['isLoggingIn']).toBeFalsy()
-        expect(tab.mutations.changeSignTab).toHaveBeenCalled()
-        expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+
+        expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
+          expect.any(Object),
+          'signin'
+        )
+        expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+          expect.any(Object),
+          'dialogSign'
+        )
         expect(snackbar.actions.pushSnackbarSuccess).not.toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: new Error('ログインしてください')
+          }
+        )
       })
     })
 
     it('isPosted is false', () => {
-      const getNewSpot = jest.fn().mockResolvedValue({ data: { id: 1 } })
+      const newSpot = { data: { id: 1 } }
+      const params = new FormData()
+      params.append('power_with[spot_id]', newSpot.data.id)
+      const getNewSpot = jest.fn().mockResolvedValue(newSpot)
       const voteHandler = jest.fn()
 
       propsData = {
@@ -319,9 +334,14 @@ describe('methods', () => {
       expect.assertions(4)
       return wrapper.vm.powerWithHandler(propsData.spot).then(() => {
         expect(!propsData.spot.isPosted()).toBeTruthy()
-        expect(getNewSpot).toHaveBeenCalled()
-        expect(voteHandler).toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+        expect(getNewSpot).toHaveBeenCalledWith(propsData.spot.data.place_id)
+        expect(voteHandler).toHaveBeenCalledWith(newSpot, params)
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: '「電源あるよ」を投票しました'
+          }
+        )
       })
     })
   })
@@ -333,34 +353,74 @@ describe('methods', () => {
   describe('voteHandler', () => {
     it('isPowerWithouting is true', () => {
       wrapper.setProps({ spot: new Spot(hasWithout) })
+      const params = new FormData()
+      params.append('power_with[spot_id]', propsData.spot.data.id)
 
       expect.assertions(3)
-      return wrapper.vm.voteHandler().then(() => {
+      return wrapper.vm.voteHandler(propsData.spot, params).then(() => {
         expect(wrapper.vm.isPowerWithouting).toBeTruthy()
-        expect(vote.actions.unVote).toHaveBeenCalled()
-        expect(vote.actions.vote).toHaveBeenCalled()
+        expect(vote.actions.unVote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'power_withouts',
+          spot: propsData.spot,
+          target: wrapper.vm.yourPowerWithout[0],
+          headers: auth.getters.headers(),
+          route: null,
+          isMyPage: false
+        })
+        expect(vote.actions.vote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'power_withs',
+          spot: propsData.spot,
+          params,
+          headers: auth.getters.headers(),
+          route: null,
+          isMyPage: false
+        })
       })
     })
 
     it('isPowerWithouting is false', () => {
       wrapper.setProps({ spot: new Spot(notHasWith) })
+      const params = new FormData()
+      params.append('power_with[spot_id]', propsData.spot.data.id)
 
       expect.assertions(3)
-      return wrapper.vm.voteHandler().then(() => {
+      return wrapper.vm.voteHandler(propsData.spot, params).then(() => {
         expect(wrapper.vm.isPowerWithouting).toBeFalsy()
         expect(wrapper.vm.isPowerWithing).toBeFalsy()
-        expect(vote.actions.vote).toHaveBeenCalled()
+        expect(vote.actions.vote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'power_withs',
+          spot: propsData.spot,
+          params,
+          headers: auth.getters.headers(),
+          route: null,
+          isMyPage: false,
+          vote_id: null
+        })
       })
     })
 
     it('isPowerWithing is true', () => {
       wrapper.setProps({ spot: new Spot(hasWith) })
+      const params = new FormData()
+      params.append('power_with[spot_id]', propsData.spot.data.id)
 
       expect.assertions(3)
-      return wrapper.vm.voteHandler().then(() => {
+      return wrapper.vm.voteHandler(propsData.spot, params).then(() => {
         expect(wrapper.vm.isPowerWithing).toBeTruthy()
-        expect(vote.actions.unVote).toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+        expect(vote.actions.unVote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'power_withs',
+          spot: propsData.spot,
+          target: wrapper.vm.yourPowerWith[0],
+          headers: auth.getters.headers(),
+          route: null,
+          isMyPage: false
+        })
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: '「電源あるよ」を取り消しました'
+          }
+        )
       })
     })
   })
