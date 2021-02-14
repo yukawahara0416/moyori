@@ -346,7 +346,34 @@ describe('methods', () => {
   })
 
   it('getNewSpot', () => {
-    throw new Error('テスト未作成')
+    const place_id = propsData.spot.data.place_id
+
+    expect.assertions(4)
+
+    return wrapper.vm.getNewSpot(place_id).then(() => {
+      expect(placeDetail).toHaveBeenCalledWith({
+        map: map.getters.map(),
+        place_id
+      })
+      expect(spot.mutations.updateSpot).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          place_id,
+          updated: { data: { id: null } }
+        }
+      )
+      expect(postSpot).toHaveBeenCalledWith(
+        form.getters.spotForm(),
+        auth.getters.headers()
+      )
+      expect(spot.mutations.updateSpot).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          place_id,
+          updated: { data: { id: 1 } }
+        }
+      )
+    })
   })
 
   describe('voteHandler', () => {
