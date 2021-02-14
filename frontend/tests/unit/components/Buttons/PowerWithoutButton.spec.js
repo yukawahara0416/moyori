@@ -90,7 +90,7 @@ beforeEach(() => {
   vote = {
     actions: {
       vote: jest.fn(),
-      unVote: jest.fn()
+      unVote: jest.fn().mockResolvedValue(propsData.spot.data.id)
     }
   }
 
@@ -339,36 +339,97 @@ describe('methods', () => {
   })
 
   describe('voteHandler', () => {
+    let headers
+    const route = null
+    const isMyPage = false
+
+    beforeEach(() => {
+      headers = auth.getters.headers()
+    })
+
+    // 「電源あるよ」を取り消してから、「電源ないよ」します
     it('isPowerWithing is true', () => {
-      wrapper.setProps({ spot: new Spot(hasWith) })
+      const spot = new Spot(hasWith)
+      wrapper.setProps({ spot })
+
+      const params = new FormData()
+      params.append('power_without[spot_id]', spot.data.id)
 
       expect.assertions(3)
-      return wrapper.vm.voteHandler().then(() => {
+
+      return wrapper.vm.voteHandler(spot, params).then(() => {
         expect(wrapper.vm.isPowerWithing).toBeTruthy()
-        expect(vote.actions.unVote).toHaveBeenCalled()
-        expect(vote.actions.vote).toHaveBeenCalled()
+        expect(vote.actions.unVote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'power_withs',
+          spot,
+          target: wrapper.vm.yourPowerWith[0],
+          headers,
+          route,
+          isMyPage
+        })
+        expect(vote.actions.vote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'power_withouts',
+          spot,
+          params,
+          headers,
+          route,
+          isMyPage,
+          vote_id: spot.data.id
+        })
       })
     })
 
-    it('isPowerWithing is false', () => {
-      wrapper.setProps({ spot: new Spot(notHasWith) })
+    // 「電源ないよ」を取り消します
+    it('isPowerWithouting is true', () => {
+      const spot = new Spot(hasWithout)
+      wrapper.setProps({ spot })
+
+      const params = new FormData()
+      params.append('power_without[spot_id]', spot.data.id)
 
       expect.assertions(3)
-      return wrapper.vm.voteHandler().then(() => {
+
+      return wrapper.vm.voteHandler(spot, params).then(() => {
+        expect(wrapper.vm.isPowerWithouting).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'power_withouts',
+          spot,
+          target: wrapper.vm.yourPowerWithout[0],
+          headers,
+          route,
+          isMyPage
+        })
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: '「電源ないよ」を取り消しました'
+          }
+        )
+      })
+    })
+
+    // 「電源ないよ」します
+    it('isPowerWithing is false', () => {
+      const spot = new Spot(notHasWith)
+      wrapper.setProps({ spot })
+
+      const params = new FormData()
+      params.append('power_without[spot_id]', spot.data.id)
+
+      expect.assertions(3)
+
+      return wrapper.vm.voteHandler(spot, params).then(() => {
         expect(wrapper.vm.isPowerWithouting).toBeFalsy()
         expect(wrapper.vm.isPowerWithing).toBeFalsy()
-        expect(vote.actions.vote).toHaveBeenCalled()
-      })
-    })
-
-    it('isPowerWithouting is true', () => {
-      wrapper.setProps({ spot: new Spot(hasWithout) })
-
-      expect.assertions(3)
-      return wrapper.vm.voteHandler().then(() => {
-        expect(wrapper.vm.isPowerWithouting).toBeTruthy()
-        expect(vote.actions.unVote).toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+        expect(vote.actions.vote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'power_withouts',
+          spot,
+          params,
+          headers,
+          route,
+          isMyPage,
+          vote_id: null
+        })
       })
     })
   })
