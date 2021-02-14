@@ -254,6 +254,7 @@ describe('v-on', () => {
 
 describe('methods', () => {
   describe('powerWithHandler', () => {
+    // ログインしていない場合は投票せず、ログインを促す
     it('isLogging is false', () => {
       auth.getters.isLoggingIn = () => false
 
@@ -273,9 +274,9 @@ describe('methods', () => {
       })
 
       expect.assertions(5)
-      return wrapper.vm.powerWithHandler(propsData.spot).then(() => {
-        expect(store.getters['isLoggingIn']).toBeFalsy()
 
+      return wrapper.vm.powerWithHandler(propsData.spot).then(() => {
+        expect(store.getters.isLoggingIn).toBeFalsy()
         expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
           expect.any(Object),
           'signin'
@@ -294,16 +295,18 @@ describe('methods', () => {
       })
     })
 
+    // 未登録のスポットの場合、スポットを登録してから「電源あるよ」します
     it('isPosted is false', () => {
+      const spot = new Spot(beforePost)
+      propsData = { spot }
+
       const newSpot = { data: { id: 1 } }
+
       const params = new FormData()
       params.append('power_with[spot_id]', newSpot.data.id)
+
       const getNewSpot = jest.fn().mockResolvedValue(newSpot)
       const voteHandler = jest.fn()
-
-      propsData = {
-        spot: new Spot(beforePost)
-      }
 
       wrapper = shallowMount(Component, {
         localVue,
@@ -316,9 +319,10 @@ describe('methods', () => {
       })
 
       expect.assertions(4)
-      return wrapper.vm.powerWithHandler(propsData.spot).then(() => {
-        expect(!propsData.spot.isPosted()).toBeTruthy()
-        expect(getNewSpot).toHaveBeenCalledWith(propsData.spot.data.place_id)
+
+      return wrapper.vm.powerWithHandler(spot).then(() => {
+        expect(!spot.isPosted()).toBeTruthy()
+        expect(getNewSpot).toHaveBeenCalledWith(spot.data.place_id)
         expect(voteHandler).toHaveBeenCalledWith(newSpot, params)
         expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
           expect.any(Object),
