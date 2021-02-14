@@ -26,6 +26,8 @@ let map
 let tab
 let snackbar
 
+let $route
+
 let vuetify
 
 const databaseSpot = {
@@ -89,13 +91,20 @@ beforeEach(() => {
     }
   })
 
+  $route = {
+    name: null
+  }
+
   vuetify = new Vuetify()
 
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
     store,
-    vuetify
+    vuetify,
+    mocks: {
+      $route
+    }
   })
 })
 
