@@ -27,6 +27,8 @@ let tab
 let dialog
 let snackbar
 
+let $route
+
 const hasWith = {
   data: { id: 1, place_id: '1234567890test' },
   wifi_withs: [
@@ -153,10 +155,18 @@ beforeEach(() => {
     }
   })
 
+  $route = {
+    name: null,
+    params: null
+  }
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    mocks: {
+      $route
+    }
   })
 })
 
@@ -375,11 +385,13 @@ describe('methods', () => {
 
   describe('voteHandler', () => {
     let headers
-    const route = null
-    const isMyPage = false
+    const route = 'search'
+    const isMyPage = true
 
     beforeEach(() => {
       headers = auth.getters.headers()
+      wrapper.vm.$route.name = route
+      wrapper.vm.$route.params = auth.getters.currentUser().data
     })
 
     // 「WiFiあるよ」を取り消してから、「WiFiないよ」します
