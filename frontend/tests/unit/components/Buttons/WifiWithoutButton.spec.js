@@ -119,6 +119,13 @@ beforeEach(() => {
       changeSignTab: jest.fn()
     }
   }
+
+  dialog = {
+    mutations: {
+      dialogOn: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       auth,
@@ -127,6 +134,7 @@ beforeEach(() => {
       form,
       map,
       tab,
+      dialog,
     }
   })
 
