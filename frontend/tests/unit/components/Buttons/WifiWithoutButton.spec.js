@@ -357,6 +357,18 @@ describe('methods', () => {
       })
     })
 
+    it('isWifiWithouting is true', () => {
+      wrapper.setProps({ spot: new Spot(hasWithout) })
+
+      expect.assertions(3)
+      return wrapper.vm.voteHandler().then(() => {
+        expect(wrapper.vm.isWifiWithouting).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+      })
+    })
+  })
+
   it('mouseover', () => {
     wrapper.vm.mouseover()
     expect(wrapper.vm.color).toEqual('error')
