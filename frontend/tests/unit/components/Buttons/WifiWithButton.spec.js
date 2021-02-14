@@ -2,12 +2,19 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import { Spot } from '@/class/Spot.js'
+import { placeDetail, postSpot } from '@/plugins/maps.js'
 import Component from '@/components/Buttons/WifiWithButton.vue'
 import Counter from '@/components/Buttons/Counter.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(VueRouter)
+
+jest.mock('@/plugins/maps.js', () => ({
+  ...jest.requireActual('@/plugins/maps.js'),
+  placeDetail: jest.fn().mockResolvedValue({ data: { id: null } }),
+  postSpot: jest.fn().mockResolvedValue({ data: { id: 1 } })
+}))
 
 let wrapper
 let propsData
