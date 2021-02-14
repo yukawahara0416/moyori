@@ -38,18 +38,18 @@ beforeEach(() => {
 
 describe('props', () => {
   it('id', () => {
-    expect(wrapper.props().id).toStrictEqual(propsData.id)
+    expect(wrapper.vm.$props.id).toStrictEqual(propsData.id)
     expect(typeof wrapper.vm.$props.id).toBe('number')
   })
 
   it('user', () => {
-    expect(wrapper.props().user).toStrictEqual(propsData.user)
-    expect(wrapper.props().user instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.user).toStrictEqual(propsData.user)
+    expect(wrapper.vm.$props.user instanceof Object).toBeTruthy()
   })
 
   it('currentUser', () => {
-    expect(wrapper.props().currentUser).toStrictEqual(propsData.currentUser)
-    expect(wrapper.props().currentUser instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.currentUser).toStrictEqual(propsData.currentUser)
+    expect(wrapper.vm.$props.currentUser instanceof Object).toBeTruthy()
   })
 })
 

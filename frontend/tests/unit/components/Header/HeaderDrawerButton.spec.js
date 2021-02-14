@@ -19,7 +19,7 @@ beforeEach(() => {
 
 describe('props', () => {
   it('value', () => {
-    expect(wrapper.props().value).toStrictEqual(propsData.value)
+    expect(wrapper.vm.$props.value).toStrictEqual(propsData.value)
     expect(typeof wrapper.vm.$props.value).toBe('boolean')
   })
 })

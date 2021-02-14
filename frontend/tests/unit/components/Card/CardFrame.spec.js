@@ -1,21 +1,24 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Card/CardFrame.vue'
+import CardFrameContent from '@/components/Card/CardFrameContent.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper
 let propsData
+
 let store
 let spot
 let user
 let tab
+
 let $route
 
 beforeEach(() => {
   propsData = {
-    spot: { marker: { name: 'test' }, data: { id: 1 } },
+    spot: { data: { id: 1 } },
     id: 1
   }
 
@@ -46,33 +49,46 @@ beforeEach(() => {
       tab
     }
   })
+
+  // shallowMountを使う！！！
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData,
+    store,
+    mocks: {
+      $route
+    },
+    stubs: ['card-frame-content']
+  })
 })
 
 describe('props', () => {
-  beforeEach(() => {
-    $route = {
-      name: 'search'
-    }
+  // beforeEach(() => {
+  //   $route = {
+  //     name: 'search'
+  //   }
 
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      mocks: {
-        $route
-      },
-      stubs: ['card-frame-content']
-    })
-  })
+  //   wrapper = mount(Component, {
+  //     localVue,
+  //     propsData,
+  //     store,
+  //     mocks: {
+  //       $route
+  //     },
+  //     stubs: ['card-frame-content']
+  //   })
+  // })
 
   it('spot', () => {
-    expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 
   it('id', () => {
-    expect(wrapper.props().id).toStrictEqual(propsData.id)
+    expect(wrapper.vm.$props.id).toStrictEqual(propsData.id)
     expect(typeof wrapper.vm.$props.id).toBe('number')
+    expect(wrapper.vm.$options.props.id.required).toBeTruthy()
   })
 })
 
@@ -148,6 +164,12 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('CardFrameContent has :spot', () => {
+    expect(wrapper.find(CardFrameContent).props().spot).toMatchObject(
+      propsData.spot
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })

@@ -76,7 +76,7 @@ beforeEach(() => {
 
 describe('props data', () => {
   it('id', () => {
-    expect(wrapper.props().id).toEqual(propsData.id)
+    expect(wrapper.vm.$props.id).toEqual(propsData.id)
     expect(typeof wrapper.props().id).toBe('number')
   })
 })

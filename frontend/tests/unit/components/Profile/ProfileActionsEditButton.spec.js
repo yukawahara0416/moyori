@@ -16,8 +16,8 @@ describe('props', () => {
   it('user', () => {
     const propsData = { user: { data: { id: 1 } } }
     wrapper = shallowMount(Component, { localVue, vuetify, propsData })
-    expect(wrapper.props().user).toStrictEqual(propsData.user)
-    expect(wrapper.props().user instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.user).toStrictEqual(propsData.user)
+    expect(wrapper.vm.$props.user instanceof Object).toBeTruthy()
   })
 })
 

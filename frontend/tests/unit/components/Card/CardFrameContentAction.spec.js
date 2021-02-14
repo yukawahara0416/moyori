@@ -23,8 +23,8 @@ afterEach(() => {
 
 describe('props', () => {
   it('spot', () => {
-    expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
   })
 })
 
