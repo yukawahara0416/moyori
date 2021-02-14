@@ -24,6 +24,7 @@ let spot
 let user
 let map
 let tab
+let snackbar
 
 let vuetify
 
@@ -72,12 +73,19 @@ beforeEach(() => {
     }
   }
 
+  snackbar = {
+    actions: {
+      pushSnackbarError: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       spot,
       user,
       map,
-      tab
+      tab,
+      snackbar
     }
   })
 
