@@ -39,11 +39,23 @@ describe('computed', () => {
     expect(wrapper.vm.empties.length).toEqual(propsData.spots.length)
   })
 
-  it('lg', () => {
+  it('lg return 3', () => {
+    wrapper.vm.$route.name = 'profile'
+    expect(wrapper.vm.lg).toEqual(3)
+  })
+
+  it('lg return 4', () => {
+    wrapper.vm.$route.name = 'search'
     expect(wrapper.vm.lg).toEqual(4)
   })
 
-  it('md', () => {
+  it('md return 4', () => {
+    wrapper.vm.$route.name = 'profile'
+    expect(wrapper.vm.md).toEqual(4)
+  })
+
+  it('md return 6', () => {
+    wrapper.vm.$route.name = 'search'
     expect(wrapper.vm.md).toEqual(6)
   })
 })
