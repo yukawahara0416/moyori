@@ -114,13 +114,19 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    mutations: {
+      changeSignTab: jest.fn()
+    }
+  }
   store = new Vuex.Store({
     modules: {
       auth,
       spot,
       vote,
       form,
-      map
+      map,
+      tab,
     }
   })
 
