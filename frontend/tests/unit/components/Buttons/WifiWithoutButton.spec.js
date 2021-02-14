@@ -381,7 +381,7 @@ describe('methods', () => {
 })
 
 describe('template', () => {
-  it('v-if="isWifiWithing"', () => {
+  it('v-if="isWifiWithouting"', () => {
     expect(wrapper.find('v-icon-stub').text()).toEqual('mdi-wifi-off')
   })
 
