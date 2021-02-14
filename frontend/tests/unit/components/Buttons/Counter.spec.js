@@ -1,17 +1,25 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Buttons/Counter.vue'
 
 const localVue = createLocalVue()
 
 let wrapper
+
+let options
 let propsData
 
 beforeEach(() => {
+  options = {
+    data: { id: 1 },
+    comments: [
+      { id: 1, user_id: 1 },
+      { id: 2, user_id: 2 }
+    ]
+  }
+
   propsData = {
-    spot: {
-      data: { id: 1 },
-      comments: [{ id: 1 }, { id: 2 }]
-    },
+    spot: new Spot(options),
     target: 'comments'
   }
 
