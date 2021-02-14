@@ -89,6 +89,7 @@ beforeEach(() => {
   }
 
   spot = {
+    namespaced: true,
     mutations: {
       updateSpot: jest.fn()
     }
