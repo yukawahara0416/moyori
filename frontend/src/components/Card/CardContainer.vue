@@ -33,7 +33,13 @@ import CardContainerFill from '@/components/Card/CardContainerFill.vue'
 
 export default {
   props: {
-    spots: Array
+    spots: {
+      type: Array,
+      default: () => {
+        return []
+      },
+      required: true
+    }
   },
 
   components: {
