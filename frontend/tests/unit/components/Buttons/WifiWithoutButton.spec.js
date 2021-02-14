@@ -90,7 +90,7 @@ beforeEach(() => {
   vote = {
     actions: {
       vote: jest.fn(),
-      unVote: jest.fn()
+      unVote: jest.fn().mockResolvedValue(propsData.spot.data.id)
     }
   }
 
@@ -223,50 +223,34 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
-  it('click wifiWithoutHandler', () => {
-    const wifiWithoutHandler = jest.fn()
+  const wifiWithoutHandler = jest.fn()
+  const mouseover = jest.fn()
+  const mouseleave = jest.fn()
 
+  beforeEach(() => {
     wrapper = mount(Component, {
       localVue,
       propsData,
       store,
       methods: {
-        wifiWithoutHandler
+        wifiWithoutHandler,
+        mouseover,
+        mouseleave
       }
     })
+  })
 
+  it('click wifiWithoutHandler', () => {
     wrapper.find('.v-btn').trigger('click')
-    expect(wifiWithoutHandler).toHaveBeenCalled()
+    expect(wifiWithoutHandler).toHaveBeenCalledWith(propsData.spot)
   })
 
   it('mouseover', () => {
-    const mouseover = jest.fn()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      methods: {
-        mouseover
-      }
-    })
-
     wrapper.find('.v-btn').trigger('mouseover')
     expect(mouseover).toHaveBeenCalled()
   })
 
   it('mouseleave', () => {
-    const mouseleave = jest.fn()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      methods: {
-        mouseleave
-      }
-    })
-
     wrapper.find('.v-btn').trigger('mouseleave')
     expect(mouseleave).toHaveBeenCalled()
   })
@@ -274,6 +258,7 @@ describe('v-on', () => {
 
 describe('methods', () => {
   describe('wifiWithoutHanlder', () => {
+    // ログインしていない場合は投票せず、ログインを促す
     it('isLogging is false', () => {
       auth.getters.isLoggingIn = () => false
 
@@ -293,22 +278,39 @@ describe('methods', () => {
       })
 
       expect.assertions(5)
+
       return wrapper.vm.wifiWithoutHandler(propsData.spot).then(() => {
-        expect(store.getters['isLoggingIn']).toBeFalsy()
-        expect(tab.mutations.changeSignTab).toHaveBeenCalled()
-        expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+        expect(store.getters.isLoggingIn).toBeFalsy()
+        expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
+          expect.any(Object),
+          'signin'
+        )
+        expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+          expect.any(Object),
+          'dialogSign'
+        )
         expect(snackbar.actions.pushSnackbarSuccess).not.toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: new Error('ログインしてください')
+          }
+        )
       })
     })
 
+    // 未登録のスポットの場合、スポットを登録してから「WiFiないよ」します
     it('isPosted is false', () => {
-      const getNewSpot = jest.fn().mockResolvedValue({ data: { id: 1 } })
-      const voteHandler = jest.fn()
+      const spot = new Spot(beforePost)
+      propsData = { spot }
 
-      propsData = {
-        spot: new Spot(beforePost)
-      }
+      const newSpot = { data: { id: 1 } }
+
+      const params = new FormData()
+      params.append('wifi_without[spot_id]', newSpot.data.id)
+
+      const getNewSpot = jest.fn().mockResolvedValue(newSpot)
+      const voteHandler = jest.fn()
 
       wrapper = shallowMount(Component, {
         localVue,
@@ -321,11 +323,17 @@ describe('methods', () => {
       })
 
       expect.assertions(4)
-      return wrapper.vm.wifiWithoutHandler(propsData.spot).then(() => {
-        expect(!propsData.spot.isPosted()).toBeTruthy()
-        expect(getNewSpot).toHaveBeenCalled()
-        expect(voteHandler).toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+
+      return wrapper.vm.wifiWithoutHandler(spot).then(() => {
+        expect(!spot.isPosted()).toBeTruthy()
+        expect(getNewSpot).toHaveBeenCalledWith(spot.data.place_id)
+        expect(voteHandler).toHaveBeenCalledWith(newSpot, params)
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: '「WiFiないよ」を投票しました'
+          }
+        )
       })
     })
   })
@@ -335,36 +343,97 @@ describe('methods', () => {
   })
 
   describe('voteHandler', () => {
+    let headers
+    const route = null
+    const isMyPage = false
+
+    beforeEach(() => {
+      headers = auth.getters.headers()
+    })
+
+    // 「WiFiあるよ」を取り消してから、「WiFiないよ」します
     it('isWifiWithing is true', () => {
-      wrapper.setProps({ spot: new Spot(hasWith) })
+      const spot = new Spot(hasWith)
+      wrapper.setProps({ spot })
+
+      const params = new FormData()
+      params.append('wifi_without[spot_id]', spot.data.id)
 
       expect.assertions(3)
-      return wrapper.vm.voteHandler().then(() => {
+
+      return wrapper.vm.voteHandler(spot, params).then(() => {
         expect(wrapper.vm.isWifiWithing).toBeTruthy()
-        expect(vote.actions.unVote).toHaveBeenCalled()
-        expect(vote.actions.vote).toHaveBeenCalled()
+        expect(vote.actions.unVote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'wifi_withs',
+          spot,
+          target: wrapper.vm.yourWifiWith[0],
+          headers,
+          route,
+          isMyPage
+        })
+        expect(vote.actions.vote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'wifi_withouts',
+          spot,
+          params,
+          headers,
+          route,
+          isMyPage,
+          vote_id: spot.data.id
+        })
       })
     })
 
-    it('isWifiWithing is false', () => {
-      wrapper.setProps({ spot: new Spot(notHasWith) })
+    // 「WiFiないよ」を取り消します
+    it('isWifiWithouting is true', () => {
+      const spot = new Spot(hasWithout)
+      wrapper.setProps({ spot })
+
+      const params = new FormData()
+      params.append('wifi_without[spot_id]', spot.data.id)
 
       expect.assertions(3)
-      return wrapper.vm.voteHandler().then(() => {
+
+      return wrapper.vm.voteHandler(spot, params).then(() => {
+        expect(wrapper.vm.isWifiWithouting).toBeTruthy()
+        expect(vote.actions.unVote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'wifi_withouts',
+          spot,
+          target: wrapper.vm.yourWifiWithout[0],
+          headers,
+          route,
+          isMyPage
+        })
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: '「WiFiないよ」を取り消しました'
+          }
+        )
+      })
+    })
+
+    // 「Wifiないよ」します
+    it('isWifiWithing is false', () => {
+      const spot = new Spot(notHasWith)
+      wrapper.setProps({ spot })
+
+      const params = new FormData()
+      params.append('wifi_without[spot_id]', spot.data.id)
+
+      expect.assertions(3)
+
+      return wrapper.vm.voteHandler(spot, params).then(() => {
         expect(wrapper.vm.isWifiWithouting).toBeFalsy()
         expect(wrapper.vm.isWifiWithing).toBeFalsy()
-        expect(vote.actions.vote).toHaveBeenCalled()
-      })
-    })
-
-    it('isWifiWithouting is true', () => {
-      wrapper.setProps({ spot: new Spot(hasWithout) })
-
-      expect.assertions(3)
-      return wrapper.vm.voteHandler().then(() => {
-        expect(wrapper.vm.isWifiWithouting).toBeTruthy()
-        expect(vote.actions.unVote).toHaveBeenCalled()
-        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+        expect(vote.actions.vote).toHaveBeenCalledWith(expect.any(Object), {
+          prop: 'wifi_withouts',
+          spot,
+          params,
+          headers,
+          route,
+          isMyPage,
+          vote_id: null
+        })
       })
     })
   })
