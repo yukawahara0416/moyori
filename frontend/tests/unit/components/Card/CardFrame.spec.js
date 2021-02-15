@@ -1,5 +1,6 @@
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Card/CardFrame.vue'
 import CardFrameContent from '@/components/Card/CardFrameContent.vue'
 
@@ -18,7 +19,7 @@ let $route
 
 beforeEach(() => {
   propsData = {
-    spot: { data: { id: 1 } },
+    spot: new Spot({ data: { id: 1 } }),
     id: 1
   }
 
@@ -64,7 +65,7 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
     expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 
