@@ -134,6 +134,11 @@ describe('methods', () => {
       tab: tab.getters.profileTab()
     })
   })
+
+  it('panTo', () => {
+    // wrapper.vm.panTo()
+    throw new Error('テスト未作成')
+  })
 })
 
 describe('template', () => {
