@@ -1,6 +1,9 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Card/CardFrameContentAction.vue'
+import WifiChartHorizontalBar from '@/components/Chart/WifiChartHorizontalBar.vue'
+import PowerChartHorizontalBar from '@/components/Chart/PowerChartHorizontalBar.vue'
+import SpotDetailShowButton from '@/components/Buttons/SpotDetailShowButton.vue'
 
 const localVue = createLocalVue()
 
@@ -27,6 +30,21 @@ describe('props', () => {
 })
 
 describe('template', () => {
+  it('WifiChartHorizontalBar has :spot', () => {
+    expect(wrapper.find(WifiChartHorizontalBar).props().spot).toMatchObject(
+      propsData.spot
+    )
+  })
+  it('PowerChartHorizontalBar has :spot', () => {
+    expect(wrapper.find(PowerChartHorizontalBar).props().spot).toMatchObject(
+      propsData.spot
+    )
+  })
+  it('SpotDetailShowButton has :spot', () => {
+    expect(wrapper.find(SpotDetailShowButton).props().spot).toMatchObject(
+      propsData.spot
+    )
+  })
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
