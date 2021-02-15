@@ -98,8 +98,8 @@ describe('v-on', () => {
 
   it('spotlight, panTo', () => {
     wrapper.find('.v-card').trigger('click')
-    expect(spotlight).toHaveBeenCalledTimes(1)
-    expect(panTo).toHaveBeenCalledTimes(1)
+    expect(spotlight).toHaveBeenCalledWith(propsData.spot.data.place_id)
+    expect(panTo).toHaveBeenCalledWith(propsData.spot.data.position)
   })
 })
 
@@ -111,7 +111,10 @@ describe('methods', () => {
 
 
     wrapper.vm.spotlight()
-    expect(spot.actions.spotlight).toHaveBeenCalled()
+    expect(spot.actions.spotlight).toHaveBeenCalledWith(
+      expect.any(Object),
+      propsData.spot.data.place_id
+    )
   })
 
   it('user/spotlight', () => {
@@ -121,7 +124,10 @@ describe('methods', () => {
 
 
     wrapper.vm.spotlight()
-    expect(user.actions.spotlight).toHaveBeenCalled()
+    expect(user.actions.spotlight).toHaveBeenCalledWith(expect.any(Object), {
+      place_id: propsData.spot.data.place_id,
+      tab: tab.getters.profileTab()
+    })
   })
 })
 
