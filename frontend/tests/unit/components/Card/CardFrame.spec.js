@@ -104,11 +104,9 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  it('spot/spotlight', () => {
-    $route = {
-      name: 'search'
-    }
+  it('spot/spotlight route is search', () => {
 
+    expect.assertions(1)
 
     wrapper.vm.spotlight()
     expect(spot.actions.spotlight).toHaveBeenCalledWith(
@@ -117,11 +115,9 @@ describe('methods', () => {
     )
   })
 
-  it('user/spotlight', () => {
-    $route = {
-      name: 'profile'
-    }
+  it('user/spotlight route is profile', () => {
 
+    expect.assertions(1)
 
     wrapper.vm.spotlight()
     expect(user.actions.spotlight).toHaveBeenCalledWith(expect.any(Object), {
