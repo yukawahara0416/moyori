@@ -50,7 +50,6 @@ beforeEach(() => {
     }
   })
 
-  // shallowMountを使う！！！
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
@@ -63,22 +62,6 @@ beforeEach(() => {
 })
 
 describe('props', () => {
-  // beforeEach(() => {
-  //   $route = {
-  //     name: 'search'
-  //   }
-
-  //   wrapper = mount(Component, {
-  //     localVue,
-  //     propsData,
-  //     store,
-  //     mocks: {
-  //       $route
-  //     },
-  //     stubs: ['card-frame-content']
-  //   })
-  // })
-
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
     expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
@@ -105,9 +88,6 @@ describe('v-on', () => {
       localVue,
       propsData,
       store,
-      mocks: {
-        $route
-      },
       methods: {
         spotlight,
         panTo
@@ -129,15 +109,6 @@ describe('methods', () => {
       name: 'search'
     }
 
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      mocks: {
-        $route
-      },
-      stubs: ['card-frame-content']
-    })
 
     wrapper.vm.spotlight()
     expect(spot.actions.spotlight).toHaveBeenCalled()
@@ -148,15 +119,6 @@ describe('methods', () => {
       name: 'profile'
     }
 
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      mocks: {
-        $route
-      },
-      stubs: ['card-frame-content']
-    })
 
     wrapper.vm.spotlight()
     expect(user.actions.spotlight).toHaveBeenCalled()
