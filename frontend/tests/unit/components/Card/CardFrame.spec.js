@@ -105,6 +105,7 @@ describe('v-on', () => {
 
 describe('methods', () => {
   it('spot/spotlight route is search', () => {
+    wrapper.vm.$route.name = 'search'
 
     expect.assertions(1)
 
@@ -116,6 +117,7 @@ describe('methods', () => {
   })
 
   it('user/spotlight route is profile', () => {
+    wrapper.vm.$route.name = 'profile'
 
     expect.assertions(1)
 
