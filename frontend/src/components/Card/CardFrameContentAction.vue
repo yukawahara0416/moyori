@@ -25,13 +25,20 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
 import WifiChartHorizontalBar from '@/components/Chart/WifiChartHorizontalBar.vue'
 import PowerChartHorizontalBar from '@/components/Chart/PowerChartHorizontalBar.vue'
 import SpotDetailShowButton from '@/components/Buttons/SpotDetailShowButton.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {
