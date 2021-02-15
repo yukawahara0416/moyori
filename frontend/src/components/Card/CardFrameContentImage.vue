@@ -22,12 +22,19 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
 import LikeButton from '@/components/Buttons/LikeButton.vue'
 import CommentButton from '@/components/Buttons/CommentButton.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {
