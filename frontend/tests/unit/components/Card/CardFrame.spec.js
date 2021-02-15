@@ -105,15 +105,21 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
+  let place_id
+
+  beforeEach(() => {
+    place_id = propsData.spot.data.place_id
+  })
+
   it('spot/spotlight route is search', () => {
     wrapper.vm.$route.name = 'search'
 
     expect.assertions(1)
 
-    wrapper.vm.spotlight()
+    wrapper.vm.spotlight(place_id)
     expect(spot.actions.spotlight).toHaveBeenCalledWith(
       expect.any(Object),
-      propsData.spot.data.place_id
+      place_id
     )
   })
 
@@ -122,9 +128,9 @@ describe('methods', () => {
 
     expect.assertions(1)
 
-    wrapper.vm.spotlight()
+    wrapper.vm.spotlight(place_id)
     expect(user.actions.spotlight).toHaveBeenCalledWith(expect.any(Object), {
-      place_id: propsData.spot.data.place_id,
+      place_id,
       tab: tab.getters.profileTab()
     })
   })
