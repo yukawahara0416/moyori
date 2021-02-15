@@ -2,6 +2,8 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Card/CardFrameContentImage.vue'
+import LikeButton from '@/components/Buttons/LikeButton.vue'
+import CommentButton from '@/components/Buttons/CommentButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuetify)
@@ -111,6 +113,14 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('LikeButton has :spot', () => {
+    expect(wrapper.find(LikeButton).props().spot).toMatchObject(propsData.spot)
+  })
+  it('CommentButton has :spot', () => {
+    expect(wrapper.find(CommentButton).props().spot).toMatchObject(
+      propsData.spot
+    )
+  })
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
