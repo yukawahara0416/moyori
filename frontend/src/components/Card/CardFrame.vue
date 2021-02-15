@@ -21,8 +21,20 @@ import CardFrameContent from '@/components/Card/CardFrameContent.vue'
 
 export default {
   props: {
-    spot: Object,
-    id: Number
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    },
+    id: {
+      type: Number,
+      default: () => {
+        return null
+      },
+      required: true
+    }
   },
 
   components: {

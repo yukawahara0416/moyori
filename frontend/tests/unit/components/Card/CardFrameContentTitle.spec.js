@@ -1,4 +1,5 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Card/CardFrameContentTitle.vue'
 
 const localVue = createLocalVue()
@@ -8,7 +9,7 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    spot: { data: { name: 'test' } }
+    spot: new Spot({ data: { name: 'test' } })
   }
 
   wrapper = shallowMount(Component, {
@@ -19,8 +20,9 @@ beforeEach(() => {
 
 describe('props', () => {
   it('spot', () => {
-    expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 

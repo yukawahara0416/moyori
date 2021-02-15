@@ -19,7 +19,7 @@ beforeEach(() => {
 
 describe('props', () => {
   it('photo', () => {
-    expect(wrapper.props().photo).toStrictEqual(propsData.photo)
+    expect(wrapper.vm.$props.photo).toStrictEqual(propsData.photo)
     expect(typeof wrapper.vm.$props.photo).toBe('string')
   })
 })

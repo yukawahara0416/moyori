@@ -29,13 +29,20 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
 import CardFrameContentImage from '@/components/Card/CardFrameContentImage.vue'
 import CardFrameContentTitle from '@/components/Card/CardFrameContentTitle.vue'
 import CardFrameContentAction from '@/components/Card/CardFrameContentAction.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

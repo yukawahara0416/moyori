@@ -37,7 +37,7 @@ describe('props', () => {
   })
 
   it('target', () => {
-    expect(wrapper.props().target).toStrictEqual(propsData.target)
+    expect(wrapper.vm.$props.target).toStrictEqual(propsData.target)
     expect(typeof wrapper.vm.$props.target).toBe('string')
     expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })

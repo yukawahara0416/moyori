@@ -19,8 +19,8 @@ beforeEach(() => {
 
 describe('props', () => {
   it('comment', () => {
-    expect(wrapper.props().comment).toStrictEqual(propsData.comment)
-    expect(wrapper.props().comment instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.comment).toStrictEqual(propsData.comment)
+    expect(wrapper.vm.$props.comment instanceof Object).toBeTruthy()
   })
 })
 

@@ -1,113 +1,144 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuetify from 'vuetify'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Card/CardFrameContentImage.vue'
+import LikeButton from '@/components/Buttons/LikeButton.vue'
+import CommentButton from '@/components/Buttons/CommentButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuetify)
 
 let wrapper
 let propsData
+
 let vuetify
 
-describe('props', () => {
-  beforeEach(() => {
-    propsData = {
-      spot: {
-        data: { id: 1, name: 'test', photo_url: 'test' },
-        comments: [{ image: 'test' }]
-      }
-    }
+const hasPhotoUrl = {
+  data: { id: 1, photo_url: 'photo_url' },
+  comments: []
+}
 
-    vuetify = new Vuetify()
+const hasPhotoReference = {
+  data: { id: 1, photo_url: null, photo_reference: 'photo_reference' },
+  comments: []
+}
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      vuetify
-    })
+const hasPicture = {
+  data: {
+    id: 1,
+    photo_url: null,
+    photo_reference: null,
+    picture: 'picture'
+  },
+  comments: []
+}
+
+const hasComments = {
+  data: {
+    id: 1,
+    photo_url: null,
+    photo_reference: null,
+    picture: null
+  },
+  comments: [{ image: 'image1' }, { image: 'image2' }]
+}
+
+const notHasPhoto = {
+  data: {
+    id: 1,
+    photo_url: null,
+    photo_reference: null,
+    picture: null
+  },
+  comments: []
+}
+
+beforeEach(() => {
+  propsData = {
+    spot: new Spot(hasPhotoUrl)
+  }
+
+  vuetify = new Vuetify()
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData,
+    vuetify
   })
+})
 
+describe('props', () => {
   it('spot', () => {
-    expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
 describe('computed', () => {
-  it('image, spot.data.photo_url is true', () => {
-    propsData = {
-      spot: {
-        data: { id: 1, name: 'test', photo_url: 'test' },
-        comments: [{ image: 'test' }]
-      }
-    }
+  it('photo: spot has photo_url', () => {
+    const spot = new Spot(hasPhotoUrl)
 
-    vuetify = new Vuetify()
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      vuetify
-    })
-    expect(wrapper.vm.photo).toEqual(propsData.spot.data.photo_url)
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.photo).toEqual(spot.data.photo_url)
   })
 
-  it('image/spot.data.photo_url is false', () => {
-    propsData = {
-      spot: {
-        data: { id: 1, name: 'test', photo_url: '' },
-        comments: [{ image: 'test' }]
-      }
-    }
+  it('photo: spot has photo_reference', () => {
+    const spot = new Spot(hasPhotoReference)
 
-    vuetify = new Vuetify()
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      vuetify
-    })
-    expect(wrapper.vm.photo).toEqual(propsData.spot.comments[0].image)
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.photo).toMatch(
+      'https://maps.googleapis.com/maps/api/place/photo?maxwidth=320&photoreference=photo_reference&key=undefined'
+    )
   })
 
-  it('image/spot.data.photo_url & filterImages.length is false', () => {
-    propsData = {
-      spot: {
-        data: { id: 1, name: 'test', photo_url: '' },
-        comments: []
-      }
-    }
+  it('photo: spot has picture', () => {
+    const spot = new Spot(hasPicture)
 
-    vuetify = new Vuetify()
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.photo).toEqual(spot.data.picture)
+  })
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      vuetify
-    })
+  it('photo: spot has comments', () => {
+    const spot = new Spot(hasComments)
+
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.photo).toEqual(spot.comments[0].image)
+  })
+
+  it('photo: spot has not photo', () => {
+    const spot = new Spot(notHasPhoto)
+
+    wrapper.setProps({ spot })
     expect(wrapper.vm.photo).toEqual(require('@/assets/noimage.png'))
   })
 
   it('filterImages', () => {
-    propsData = {
-      spot: {
-        data: { id: 1, name: 'test', image: 'test' },
-        comments: [{ image: 'test' }]
-      }
-    }
+    const spot = new Spot(hasComments)
 
-    vuetify = new Vuetify()
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      vuetify
-    })
-    expect(wrapper.vm.filterImages.length).toEqual(1)
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.filterImages).toMatchObject(spot.comments)
+    expect(wrapper.vm.filterImages.length).toEqual(2)
   })
 })
 
 describe('template', () => {
+  it('v-img has :src="photo"', () => {
+    expect(wrapper.find('v-img-stub').attributes().src).toEqual(
+      wrapper.vm.photo
+    )
+  })
+
+  it('LikeButton has :spot', () => {
+    expect(wrapper.find(LikeButton).props().spot).toMatchObject(propsData.spot)
+  })
+
+  it('CommentButton has :spot', () => {
+    expect(wrapper.find(CommentButton).props().spot).toMatchObject(
+      propsData.spot
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })

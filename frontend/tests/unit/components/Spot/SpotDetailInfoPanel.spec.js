@@ -41,8 +41,8 @@ beforeEach(() => {
 
 describe('props', () => {
   it('spot', () => {
-    expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
   })
 })
 
@@ -96,7 +96,7 @@ describe('computed', () => {
       store
     })
 
-    expect(wrapper.props().spot.data.place_id.length >= 11).toBeTruthy()
+    expect(wrapper.vm.$props.spot.data.place_id.length >= 11).toBeTruthy()
     expect(wrapper.vm.isOwnPosted).toBeFalsy()
     expect(wrapper.vm.$el).toMatchSnapshot()
   })

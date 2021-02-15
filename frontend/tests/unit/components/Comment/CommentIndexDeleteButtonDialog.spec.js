@@ -41,13 +41,13 @@ beforeEach(() => {
 
 describe('props', () => {
   it('spot', () => {
-    expect(wrapper.props().spot).toStrictEqual(propsData.spot)
-    expect(wrapper.props().spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
   })
 
   it('comment', () => {
-    expect(wrapper.props().comment).toStrictEqual(propsData.comment)
-    expect(wrapper.props().comment instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.comment).toStrictEqual(propsData.comment)
+    expect(wrapper.vm.$props.comment instanceof Object).toBeTruthy()
   })
 })
 

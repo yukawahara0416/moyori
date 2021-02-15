@@ -25,8 +25,8 @@ beforeEach(() => {
 
 describe('props', () => {
   it('currentUser', async () => {
-    expect(wrapper.props().currentUser).toStrictEqual(propsData.currentUser)
-    expect(wrapper.props().currentUser instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.currentUser).toStrictEqual(propsData.currentUser)
+    expect(wrapper.vm.$props.currentUser instanceof Object).toBeTruthy()
   })
 })
 
