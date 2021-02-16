@@ -1,5 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
+import { myPlugins, chartOptions } from '@/plugins/chart-area.js'
 import Component from '@/components/Chart/PowerChartArea.vue'
 import ChartArea from '@/components/Chart/ChartArea.vue'
 
@@ -151,10 +152,11 @@ describe('computed', () => {
 })
 
 describe('methods', () => {
-  const target = [
-    { id: 2, created_at: '2020-12-02T00:00:00.000Z' },
-    { id: 1, created_at: '2020-12-01T00:00:00.000Z' }
-  ]
+  const spot = new Spot(hasBoth)
+
+  beforeEach(() => {
+    wrapper.setProps({ spot })
+  })
 
   const firstDay = '2020-11-30T00:00:00.000Z'
 
@@ -169,22 +171,24 @@ describe('methods', () => {
     { x: '2020-12-02T00:00:00.000Z', y: null }
   ]
 
-  const result = [
+  const countedData = [
     { x: firstDay, y: 0 },
     { x: '2020-12-01T00:00:00.000Z', y: 1 },
     { x: '2020-12-02T00:00:00.000Z', y: 2 }
   ]
 
   it('firstDay', () => {
-    expect(wrapper.vm.firstDay(propsData.spot)).toEqual(firstDay)
+    expect(wrapper.vm.firstDay(spot)).toEqual(firstDay)
   })
 
-  it('convertChartData', () => {
-    expect(wrapper.vm.convertChartData(target, firstDay)).toEqual(result)
+  it('convertChartData return countedData', () => {
+    expect(wrapper.vm.convertChartData(spot.power_withs, firstDay)).toEqual(
+      countedData
+    )
   })
 
   it('xyData', () => {
-    expect(wrapper.vm.xyData(target)).toMatchObject(xyData)
+    expect(wrapper.vm.xyData(spot.power_withs)).toMatchObject(xyData)
   })
 
   it('sortData', () => {
@@ -192,7 +196,7 @@ describe('methods', () => {
   })
 
   it('countData', () => {
-    expect(wrapper.vm.countData(sortedData)).toMatchObject(result)
+    expect(wrapper.vm.countData(sortedData)).toMatchObject(countedData)
   })
 })
 
