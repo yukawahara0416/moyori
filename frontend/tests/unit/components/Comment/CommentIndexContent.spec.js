@@ -80,6 +80,8 @@ describe('v-on', () => {
 
 describe('methods', () => {
   it('activateReadMore', () => {
+    wrapper.setData({ readMoreToggle: false })
+
     wrapper.vm.activateReadMore()
     expect(wrapper.vm.readMoreToggle).toBeTruthy()
   })
