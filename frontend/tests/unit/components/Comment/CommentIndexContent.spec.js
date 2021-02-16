@@ -32,16 +32,10 @@ describe('computed', () => {
   })
 
   it('isImageExist is false', () => {
-    propsData = {
-      comment: { id: 1, content: 'test', image: null }
-    }
+    const comment = { id: 1, content: 'content', image: null }
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
-    })
-
-    expect(wrapper.vm.isImageExist(propsData.comment)).toBeFalsy()
+    wrapper.setProps({ comment })
+    expect(wrapper.vm.isImageExist(wrapper.vm.$props.comment)).toBeFalsy()
   })
 
   it('isAboveLimit is true', () => {
