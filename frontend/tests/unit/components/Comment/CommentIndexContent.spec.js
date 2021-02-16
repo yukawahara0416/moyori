@@ -119,7 +119,7 @@ describe('template', () => {
   })
 
   it('v-if isImageExist is true', () => {
-    expect(wrapper.find('comment-index-image-stub').exists()).toBeTruthy()
+    expect(wrapper.find(CommentIndexImage).exists()).toBeTruthy()
   })
 
   it('v-if isImageExist is false', () => {
