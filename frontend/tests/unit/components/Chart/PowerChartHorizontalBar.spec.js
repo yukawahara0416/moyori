@@ -1,6 +1,9 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Chart/PowerChartHorizontalBar.vue'
+import PowerWithButton from '@/components/Buttons/PowerWithButton.vue'
+import PowerWithoutButton from '@/components/Buttons/PowerWithoutButton.vue'
+import ChartBar from '@/components/Chart/ChartBar.vue'
 
 const localVue = createLocalVue()
 
@@ -78,15 +81,39 @@ describe('computed', () => {
 })
 
 describe('template', () => {
-  it('power-with-button has :spot', () => {
-    expect(wrapper.find('power-with-button-stub').attributes().spot).toEqual(
-      '[object Object]'
+  it('PowerWithButton has :spot', () => {
+    expect(wrapper.find(PowerWithButton).props().spot).toMatchObject(
+      propsData.spot
     )
   })
 
-  it('power-without-button has :spot', () => {
-    expect(wrapper.find('power-without-button-stub').attributes().spot).toEqual(
-      '[object Object]'
+  it('PowerWithoutButton has :spot', () => {
+    expect(wrapper.find(PowerWithoutButton).props().spot).toMatchObject(
+      propsData.spot
+    )
+  })
+
+  it('ChartBar has :plugins', () => {
+    expect(wrapper.find(ChartBar).props().plugins).toMatchObject(
+      wrapper.vm.plugins
+    )
+  })
+
+  it('ChartBar has :styles', () => {
+    expect(wrapper.find(ChartBar).props().styles).toMatchObject(
+      wrapper.vm.styles
+    )
+  })
+
+  it('ChartBar has :chartData', () => {
+    expect(wrapper.find(ChartBar).props().chartData).toMatchObject(
+      wrapper.vm.chartData
+    )
+  })
+
+  it('ChartBar has :options', () => {
+    expect(wrapper.find(ChartBar).props().options).toMatchObject(
+      wrapper.vm.options
     )
   })
 
