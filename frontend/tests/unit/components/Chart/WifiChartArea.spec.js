@@ -75,6 +75,9 @@ describe('computed', () => {
   })
 
   it('hasData', () => {
+    const spot = new Spot(hasBoth)
+
+    wrapper.setProps({ spot })
     expect(wrapper.vm.hasData).toBeTruthy()
   })
 
@@ -86,33 +89,64 @@ describe('computed', () => {
     expect(wrapper.vm.options).toMatchObject(chartOptions)
   })
 
+  it('chartData return datasets', () => {
+    const spot = new Spot(hasBoth)
+    wrapper.setProps({ spot })
+
+    // 期待されるwifi_withs関連の返り値
     const resultWiths = {
       label: 'あり',
       data: [
-        { x: '2020-11-30T00:00:00.000Z', y: 0 },
-        { x: '2020-12-01T00:00:00.000Z', y: 1 },
+        { x: '2020-11-30T00:00:00.000Z', y: 0 }, // firstDay追加, xyData化, countData
+        { x: '2020-12-01T00:00:00.000Z', y: 1 }, // sortData（日付が昇順に並べ替えられる）
         { x: '2020-12-02T00:00:00.000Z', y: 2 }
       ],
-      pointRadius: 2,
+      pointRadius: 2, // その他設定
       borderWidth: 2,
       borderColor: '#4CAF4F',
       fill: false
     }
-    expect(wrapper.vm.chartData.datasets[0]).toMatchObject(resultWiths)
 
+    // 期待されるwifi_withouts関連の返り値
     const resultWithouts = {
       label: 'なし',
       data: [
-        { x: '2020-11-30T00:00:00.000Z', y: 0 },
-        { x: '2020-12-03T00:00:00.000Z', y: 1 },
+        { x: '2020-11-30T00:00:00.000Z', y: 0 }, // firstDay追加, xyData化, countData
+        { x: '2020-12-03T00:00:00.000Z', y: 1 }, // sortData（日付が昇順に並べ替えられる）
         { x: '2020-12-04T00:00:00.000Z', y: 2 }
       ],
-      pointRadius: 2,
+      pointRadius: 2, // その他設定
       borderWidth: 2,
       borderColor: '#FF5252',
       fill: false
     }
+
+    expect(wrapper.vm.chartData.datasets[0]).toMatchObject(resultWiths)
     expect(wrapper.vm.chartData.datasets[1]).toMatchObject(resultWithouts)
+  })
+
+  it('chartData methods called', () => {
+    const f_day = '2020-11-30T00:00:00.000Z'
+    const firstDay = jest.fn().mockReturnValue(f_day)
+    const convertChartData = jest.fn()
+
+    const spot = new Spot(hasBoth)
+    propsData = { spot }
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      methods: {
+        firstDay,
+        convertChartData
+      }
+    })
+
+    expect.assertions(3)
+
+    expect(firstDay).toHaveBeenCalledWith(spot)
+    expect(convertChartData).toHaveBeenCalledWith(spot.wifi_withs, f_day)
+    expect(convertChartData).toHaveBeenCalledWith(spot.wifi_withouts, f_day)
   })
 })
 
