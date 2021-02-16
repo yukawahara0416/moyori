@@ -95,12 +95,13 @@ export default {
   },
 
   methods: {
+    // 最もむかしの投票日の１日前を返します（Chartの０点に設定するためです）
     firstDay(spot) {
       const arry = [...spot.power_withs, ...spot.power_withouts]
       const dates = []
       let firstDay = 0
 
-      if (arry.length == 0) return firstDay
+      if (arry.length === 0) return firstDay
 
       for (let i = 0; i < arry.length; i++) {
         const date = new Date(arry[i].created_at)
@@ -113,6 +114,7 @@ export default {
       return firstDay.toISOString()
     },
 
+    // 投票データをChart.js用に変換します
     convertChartData(target, firstDay) {
       const xyData = this.xyData(target)
       const sortedData = this.sortData(xyData, firstDay)
