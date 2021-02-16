@@ -29,9 +29,9 @@
 import { mapGetters } from 'vuex'
 import { Spot } from '@/class/Spot.js'
 import CommentIndexAvatar from '@/components/Comment/CommentIndexAvatar.vue'
-import CommentIndexDeleteButton from '@/components/Comment/CommentIndexDeleteButton.vue'
 import CommentIndexUsername from '@/components/Comment/CommentIndexUsername.vue'
 import CommentIndexDay from '@/components/Comment/CommentIndexDay.vue'
+import CommentIndexDeleteButton from '@/components/Comment/CommentIndexDeleteButton.vue'
 import CommentIndexContent from '@/components/Comment/CommentIndexContent.vue'
 
 export default {

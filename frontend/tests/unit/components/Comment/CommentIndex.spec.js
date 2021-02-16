@@ -16,15 +16,25 @@ let propsData
 let store
 let auth
 
+const hasComment = {
+  data: { id: 1 },
+  comments: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const notHasComment = {
+  data: { id: 1 },
+  comments: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
 beforeEach(() => {
   propsData = {
-    spot: new Spot({
-      data: { id: 1 },
-      comments: [
-        { id: 1, user_id: 1 },
-        { id: 2, user_id: 2 }
-      ]
-    })
+    spot: new Spot(hasComment)
   }
 
   auth = {
