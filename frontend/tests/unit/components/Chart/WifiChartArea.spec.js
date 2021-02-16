@@ -151,10 +151,11 @@ describe('computed', () => {
 })
 
 describe('methods', () => {
-  const target = [
-    { id: 2, created_at: '2020-12-02T00:00:00.000Z' },
-    { id: 1, created_at: '2020-12-01T00:00:00.000Z' }
-  ]
+  const spot = new Spot(hasBoth)
+
+  beforeEach(() => {
+    wrapper.setProps({ spot })
+  })
 
   const firstDay = '2020-11-30T00:00:00.000Z'
 
@@ -169,7 +170,7 @@ describe('methods', () => {
     { x: '2020-12-02T00:00:00.000Z', y: null }
   ]
 
-  const result = [
+  const countedData = [
     { x: firstDay, y: 0 },
     { x: '2020-12-01T00:00:00.000Z', y: 1 },
     { x: '2020-12-02T00:00:00.000Z', y: 2 }
@@ -180,11 +181,13 @@ describe('methods', () => {
   })
 
   it('convertChartData', () => {
-    expect(wrapper.vm.convertChartData(target, firstDay)).toEqual(result)
+    expect(wrapper.vm.convertChartData(spot.wifi_withs, firstDay)).toEqual(
+      countedData
+    )
   })
 
   it('xyData', () => {
-    expect(wrapper.vm.xyData(target)).toMatchObject(xyData)
+    expect(wrapper.vm.xyData(spot.wifi_withs)).toMatchObject(xyData)
   })
 
   it('sortData', () => {
@@ -192,7 +195,7 @@ describe('methods', () => {
   })
 
   it('countData', () => {
-    expect(wrapper.vm.countData(sortedData)).toMatchObject(result)
+    expect(wrapper.vm.countData(sortedData)).toMatchObject(countedData)
   })
 })
 
