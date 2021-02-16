@@ -45,8 +45,18 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('withCount', () => {
-    expect(wrapper.vm.withCount).toEqual(propsData.spot.wifi_withs.length)
+  it('withCount return withs.length', () => {
+    const spot = new Spot(hasBoth)
+
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.withCount).toEqual(spot.wifi_withs.length)
+  })
+
+  it('withCount return 0', () => {
+    const spot = new Spot(notHasBoth)
+
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.withCount).toEqual(0)
   })
 
   it('withoutCount', () => {
