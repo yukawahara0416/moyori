@@ -1,5 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
+import { myPlugins, chartOptions } from '@/plugins/chart-area.js'
 import Component from '@/components/Chart/WifiChartArea.vue'
 
 const localVue = createLocalVue()
@@ -67,7 +68,14 @@ describe('computed', () => {
     expect(wrapper.vm.hasData).toBeTruthy()
   })
 
-  it('chartData', () => {
+  it('plugins', () => {
+    expect(wrapper.vm.plugins).toMatchObject(myPlugins)
+  })
+
+  it('options', () => {
+    expect(wrapper.vm.options).toMatchObject(chartOptions)
+  })
+
     const resultWiths = {
       label: 'あり',
       data: [
