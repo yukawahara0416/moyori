@@ -63,6 +63,11 @@ describe('computed', () => {
     expect(wrapper.vm.options).toMatchObject(chartOptions)
   })
 
+  it('chartData return datasets data is exist', () => {
+    const spot = new Spot(hasBoth)
+    wrapper.setProps({ spot })
+
+    // 期待されるpower_withs関連の返り値
     const resultWiths = {
       label: 'あり',
       data: [wrapper.vm.withCount],
@@ -72,8 +77,8 @@ describe('computed', () => {
       },
       backgroundColor: '#4CAF4F'
     }
-    expect(wrapper.vm.chartData.datasets[0]).toMatchObject(resultWiths)
 
+    // 期待されるpower_withouts関連の返り値
     const resultWithouts = {
       label: 'なし',
       data: [wrapper.vm.withoutCount],
@@ -84,6 +89,39 @@ describe('computed', () => {
       backgroundColor: '#FF5252',
       barThickness: 20
     }
+
+    expect(wrapper.vm.chartData.datasets[0]).toMatchObject(resultWiths)
+    expect(wrapper.vm.chartData.datasets[1]).toMatchObject(resultWithouts)
+  })
+
+  it('chartData return datasets data is 0', () => {
+    const spot = new Spot(notHasBoth)
+    wrapper.setProps({ spot })
+
+    // 期待されるpower_withs関連の返り値
+    const resultWiths = {
+      label: 'あり',
+      data: [1],
+      datalabels: {
+        color: 'white',
+        display: false
+      },
+      backgroundColor: '#CBCBCB'
+    }
+
+    // 期待されるpower_withouts関連の返り値
+    const resultWithouts = {
+      label: 'なし',
+      data: [1],
+      datalabels: {
+        color: 'white',
+        display: false
+      },
+      backgroundColor: '#CBCBCB',
+      barThickness: 20
+    }
+
+    expect(wrapper.vm.chartData.datasets[0]).toMatchObject(resultWiths)
     expect(wrapper.vm.chartData.datasets[1]).toMatchObject(resultWithouts)
   })
 })
