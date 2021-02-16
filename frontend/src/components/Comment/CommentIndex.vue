@@ -27,6 +27,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import CommentIndexAvatar from '@/components/Comment/CommentIndexAvatar.vue'
 import CommentIndexDeleteButton from '@/components/Comment/CommentIndexDeleteButton.vue'
 import CommentIndexUsername from '@/components/Comment/CommentIndexUsername.vue'
@@ -35,7 +36,13 @@ import CommentIndexContent from '@/components/Comment/CommentIndexContent.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

@@ -1,5 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Comment/CommentIndex.vue'
 
 const localVue = createLocalVue()
@@ -12,13 +13,13 @@ let auth
 
 beforeEach(() => {
   propsData = {
-    spot: {
+    spot: new Spot({
       data: { id: 1 },
       comments: [
         { id: 1, user_id: 1 },
         { id: 2, user_id: 2 }
       ]
-    }
+    })
   }
 
   auth = {
@@ -47,7 +48,8 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
