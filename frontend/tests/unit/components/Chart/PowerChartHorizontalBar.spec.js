@@ -1,5 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
+import { myPlugins, chartOptions } from '@/plugins/chart-bar.js'
 import Component from '@/components/Chart/PowerChartHorizontalBar.vue'
 import PowerWithButton from '@/components/Buttons/PowerWithButton.vue'
 import PowerWithoutButton from '@/components/Buttons/PowerWithoutButton.vue'
@@ -54,7 +55,14 @@ describe('computed', () => {
     expect(wrapper.vm.hasData).toBeTruthy()
   })
 
-  it('chartData', () => {
+  it('plugins', () => {
+    expect(wrapper.vm.plugins).toMatchObject(myPlugins)
+  })
+
+  it('options', () => {
+    expect(wrapper.vm.options).toMatchObject(chartOptions)
+  })
+
     const resultWiths = {
       label: 'あり',
       data: [wrapper.vm.withCount],
