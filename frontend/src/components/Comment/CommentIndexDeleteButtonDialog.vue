@@ -21,11 +21,24 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { Spot } from '@/class/Spot.js'
 
 export default {
   props: {
-    spot: Object,
-    comment: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    },
+    comment: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   computed: {
