@@ -9,7 +9,7 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    comment: { id: 1, content: 'test', image: 'test' }
+    comment: { id: 1, content: 'content', image: 'image' }
   }
 
   wrapper = shallowMount(Component, {
@@ -28,7 +28,7 @@ describe('props', () => {
 
 describe('computed', () => {
   it('isImageExist is true', () => {
-    expect(wrapper.vm.isImageExist(propsData.comment)).toBeTruthy()
+    expect(wrapper.vm.isImageExist(wrapper.vm.$props.comment)).toBeTruthy()
   })
 
   it('isImageExist is false', () => {
