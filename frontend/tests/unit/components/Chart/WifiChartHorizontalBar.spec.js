@@ -2,6 +2,9 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
 import { myPlugins, chartOptions } from '@/plugins/chart-bar.js'
 import Component from '@/components/Chart/WifiChartHorizontalBar.vue'
+import WifiWithButton from '@/components/Buttons/WifiWithButton.vue'
+import WifiWithoutButton from '@/components/Buttons/WifiWithoutButton.vue'
+import ChartBar from '@/components/Chart/ChartBar.vue'
 
 const localVue = createLocalVue()
 
@@ -153,15 +156,15 @@ describe('computed', () => {
 })
 
 describe('template', () => {
-  it('wifi-with-button has :spot', () => {
-    expect(wrapper.find('wifi-with-button-stub').attributes().spot).toEqual(
-      '[object Object]'
+  it('WifiWithButton has :spot', () => {
+    expect(wrapper.find(WifiWithButton).props().spot).toMatchObject(
+      propsData.spot
     )
   })
 
-  it('wifi-without-button has :spot', () => {
-    expect(wrapper.find('wifi-without-button-stub').attributes().spot).toEqual(
-      '[object Object]'
+  it('WifiWithoutButton has :spot', () => {
+    expect(wrapper.find(WifiWithoutButton).props().spot).toMatchObject(
+      propsData.spot
     )
   })
 
