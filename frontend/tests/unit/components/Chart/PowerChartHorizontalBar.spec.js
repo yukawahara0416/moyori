@@ -11,19 +11,27 @@ const localVue = createLocalVue()
 let wrapper
 let propsData
 
+const hasBoth = {
+  data: { id: 1 },
+  power_withs: [
+    { id: 1, created_at: '2020-12-02T00:00:00.000Z' }, // 日付が降順
+    { id: 2, created_at: '2020-12-01T00:00:00.000Z' }
+  ],
+  power_withouts: [
+    { id: 3, created_at: '2020-12-04T00:00:00.000Z' }, // 日付が降順
+    { id: 4, created_at: '2020-12-03T00:00:00.000Z' }
+  ]
+}
+
+const notHasBoth = {
+  data: { id: 1 },
+  power_withs: [],
+  power_withouts: []
+}
+
 beforeEach(() => {
   propsData = {
-    spot: new Spot({
-      data: { id: 1 },
-      power_withs: [
-        { id: 1, created_at: '2020-12-01T00:00:00.000Z' },
-        { id: 2, created_at: '2020-12-02T00:00:00.000Z' }
-      ],
-      power_withouts: [
-        { id: 3, created_at: '2020-12-03T00:00:00.000Z' },
-        { id: 4, created_at: '2020-12-04T00:00:00.000Z' }
-      ]
-    })
+    spot: new Spot(hasBoth)
   }
 
   wrapper = shallowMount(Component, {
@@ -41,17 +49,38 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('withCount', () => {
-    expect(wrapper.vm.withCount).toEqual(propsData.spot.power_withs.length)
+  it('withCount return withs.length', () => {
+    const spot = new Spot(hasBoth)
+
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.withCount).toEqual(spot.power_withs.length)
   })
 
-  it('withoutCount', () => {
-    expect(wrapper.vm.withoutCount).toEqual(
-      propsData.spot.power_withouts.length
-    )
+  it('withCount return 0', () => {
+    const spot = new Spot(notHasBoth)
+
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.withCount).toEqual(0)
+  })
+
+  it('withoutCount return withouts.length', () => {
+    const spot = new Spot(hasBoth)
+
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.withoutCount).toEqual(spot.power_withouts.length)
+  })
+
+  it('withoutCount return 0', () => {
+    const spot = new Spot(notHasBoth)
+
+    wrapper.setProps({ spot })
+    expect(wrapper.vm.withoutCount).toEqual(0)
   })
 
   it('hasData', () => {
+    const spot = new Spot(hasBoth)
+
+    wrapper.setProps({ spot })
     expect(wrapper.vm.hasData).toBeTruthy()
   })
 
