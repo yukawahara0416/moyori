@@ -14,14 +14,21 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
+import { myPlugins, chartOptions } from '@/plugins/chart-bar.js'
 import PowerWithButton from '@/components/Buttons/PowerWithButton.vue'
 import PowerWithoutButton from '@/components/Buttons/PowerWithoutButton.vue'
 import ChartBar from '@/components/Chart/ChartBar.vue'
-import { myPlugins, chartOptions } from '@/plugins/chart-bar.js'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

@@ -11,12 +11,19 @@
 
 <script>
 import min from 'lodash/min'
-import ChartArea from '@/components/Chart/ChartArea.vue'
+import { Spot } from '@/class/Spot.js'
 import { myPlugins, chartOptions } from '@/plugins/chart-area.js'
+import ChartArea from '@/components/Chart/ChartArea.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {
