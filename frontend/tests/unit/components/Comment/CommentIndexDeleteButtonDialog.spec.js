@@ -58,18 +58,22 @@ describe('getters', () => {
 })
 
 describe('v-on', () => {
-  it('click closeDialog', () => {
-    const closeDialog = jest.fn()
+  const closeDialog = jest.fn()
+  const deleteCommentHandler = jest.fn()
 
+  beforeEach(() => {
     wrapper = mount(Component, {
       localVue,
       propsData,
       store,
       methods: {
-        closeDialog
+        closeDialog,
+        deleteCommentHandler
       }
     })
+  })
 
+  it('click closeDialog', () => {
     wrapper
       .findAll('.v-btn')
       .at(0)
@@ -79,17 +83,6 @@ describe('v-on', () => {
   })
 
   it('click deleteCommentHandler', () => {
-    const deleteCommentHandler = jest.fn()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      store,
-      methods: {
-        deleteCommentHandler
-      }
-    })
-
     wrapper
       .findAll('.v-btn')
       .at(1)
