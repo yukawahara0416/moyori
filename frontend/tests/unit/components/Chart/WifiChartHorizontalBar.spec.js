@@ -168,6 +168,30 @@ describe('template', () => {
     )
   })
 
+  it('ChartBar has :plugins', () => {
+    expect(wrapper.find(ChartBar).props().plugins).toMatchObject(
+      wrapper.vm.plugins
+    )
+  })
+
+  it('ChartBar has :styles', () => {
+    expect(wrapper.find(ChartBar).props().styles).toMatchObject(
+      wrapper.vm.styles
+    )
+  })
+
+  it('ChartBar has :chartData', () => {
+    expect(wrapper.find(ChartBar).props().chartData).toMatchObject(
+      wrapper.vm.chartData
+    )
+  })
+
+  it('ChartBar has :options', () => {
+    expect(wrapper.find(ChartBar).props().options).toMatchObject(
+      wrapper.vm.options
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
