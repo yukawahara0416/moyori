@@ -14,14 +14,21 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
+import { myPlugins, chartOptions } from '@/plugins/chart-bar.js'
 import WifiWithButton from '@/components/Buttons/WifiWithButton.vue'
 import WifiWithoutButton from '@/components/Buttons/WifiWithoutButton.vue'
 import ChartBar from '@/components/Chart/ChartBar.vue'
-import { myPlugins, chartOptions } from '@/plugins/chart-bar.js'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {
