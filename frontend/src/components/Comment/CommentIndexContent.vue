@@ -26,7 +26,13 @@ import CommentIndexImage from '@/components/Comment/CommentIndexImage.vue'
 
 export default {
   props: {
-    comment: Object
+    comment: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   components: {
