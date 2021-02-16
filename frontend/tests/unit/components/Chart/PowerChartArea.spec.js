@@ -47,7 +47,7 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('withCount return with.length', () => {
+  it('withCount return withs.length', () => {
     const spot = new Spot(hasBoth)
 
     wrapper.setProps({ spot })
@@ -61,7 +61,7 @@ describe('computed', () => {
     expect(wrapper.vm.withCount).toEqual(0)
   })
 
-  it('withoutCount return with.length', () => {
+  it('withoutCount return without.length', () => {
     const spot = new Spot(hasBoth)
 
     wrapper.setProps({ spot })
