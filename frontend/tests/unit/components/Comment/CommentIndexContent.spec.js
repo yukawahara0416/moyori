@@ -1,5 +1,6 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Comment/CommentIndexContent.vue'
+import CommentIndexImage from '@/components/Comment/CommentIndexImage.vue'
 
 const localVue = createLocalVue()
 
@@ -171,7 +172,10 @@ describe('template', () => {
       propsData
     })
 
-    expect(wrapper.find('comment-index-image-stub').exists()).toBeFalsy()
+  it('CommentIndexImage has :comment', () => {
+    expect(wrapper.find(CommentIndexImage).props().comment).toMatchObject(
+      wrapper.vm.$props.comment
+    )
   })
 
   it('snapshot', () => {
