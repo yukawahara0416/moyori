@@ -74,6 +74,9 @@ describe('computed', () => {
   })
 
   it('hasData', () => {
+    const spot = new Spot(hasBoth)
+
+    wrapper.setProps({ spot })
     expect(wrapper.vm.hasData).toBeTruthy()
   })
 
