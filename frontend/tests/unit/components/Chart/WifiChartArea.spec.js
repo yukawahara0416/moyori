@@ -9,11 +9,11 @@ let propsData
 
 const hasBoth = {
   data: { id: 1 },
-  power_withs: [
+  wifi_withs: [
     { id: 1, created_at: '2020-12-02T00:00:00.000Z' }, // 日付が降順
     { id: 2, created_at: '2020-12-01T00:00:00.000Z' }
   ],
-  power_withouts: [
+  wifi_withouts: [
     { id: 3, created_at: '2020-12-04T00:00:00.000Z' }, // 日付が降順
     { id: 4, created_at: '2020-12-03T00:00:00.000Z' }
   ]
@@ -39,7 +39,8 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
