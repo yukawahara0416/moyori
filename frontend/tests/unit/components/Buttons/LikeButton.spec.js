@@ -198,7 +198,8 @@ describe('computed', () => {
   })
 
   it('yourLike', () => {
-    expect(wrapper.vm.yourLike).toMatchObject([hasLike.likes[0]])
+    // expect(wrapper.vm.yourLike).toMatchObject([hasLike.likes[0]])
+    expect(wrapper.vm.yourLike).toMatchObject([wrapper.vm.$props.spot.likes[0]])
   })
 })
 
@@ -222,7 +223,7 @@ describe('v-on', () => {
 
   it('likeHandler', () => {
     wrapper.find('.v-btn').trigger('click')
-    expect(likeHandler).toHaveBeenCalledWith(propsData.spot)
+    expect(likeHandler).toHaveBeenCalledWith(wrapper.vm.$props.spot)
   })
 
   it('mouseover', () => {
@@ -259,7 +260,7 @@ describe('methods', () => {
 
       expect.assertions(5)
 
-      return wrapper.vm.likeHandler(propsData.spot).then(() => {
+      return wrapper.vm.likeHandler(wrapper.vm.$props.spot).then(() => {
         expect(store.getters.isLoggingIn).toBeFalsy()
         expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
           expect.any(Object),
@@ -281,9 +282,6 @@ describe('methods', () => {
 
     // 未登録のスポットの場合、スポットを登録してから「いいね」します
     it('isPosted is false', () => {
-      const spot = new Spot(beforePost)
-      propsData = { spot }
-
       const newSpot = { data: { id: 1 } }
 
       const params = new FormData()
@@ -294,13 +292,17 @@ describe('methods', () => {
 
       wrapper = shallowMount(Component, {
         localVue,
-        propsData,
+        propsData: {
+          spot: new Spot(beforePost)
+        },
         store,
         methods: {
           getNewSpot,
           voteHandler
         }
       })
+
+      const spot = wrapper.vm.$props.spot
 
       expect.assertions(4)
 
@@ -435,7 +437,9 @@ describe('template', () => {
   })
 
   it('Counter has :spot', () => {
-    expect(wrapper.find(Counter).props().spot).toMatchObject(propsData.spot)
+    expect(wrapper.find(Counter).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
   it('snapshot', () => {

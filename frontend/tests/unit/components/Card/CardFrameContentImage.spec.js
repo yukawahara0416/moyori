@@ -130,12 +130,14 @@ describe('template', () => {
   })
 
   it('LikeButton has :spot', () => {
-    expect(wrapper.find(LikeButton).props().spot).toMatchObject(propsData.spot)
+    expect(wrapper.find(LikeButton).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
   it('CommentButton has :spot', () => {
     expect(wrapper.find(CommentButton).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
 

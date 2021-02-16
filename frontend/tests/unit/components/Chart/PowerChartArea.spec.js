@@ -131,17 +131,18 @@ describe('computed', () => {
     const firstDay = jest.fn().mockReturnValue(f_day)
     const convertChartData = jest.fn()
 
-    const spot = new Spot(hasBoth)
-    propsData = { spot }
-
     wrapper = shallowMount(Component, {
       localVue,
-      propsData,
+      propsData: {
+        spot: new Spot(hasBoth)
+      },
       methods: {
         firstDay,
         convertChartData
       }
     })
+
+    const spot = wrapper.vm.$props.spot
 
     expect.assertions(3)
 

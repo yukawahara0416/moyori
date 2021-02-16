@@ -99,8 +99,8 @@ describe('v-on', () => {
 
   it('spotlight, panTo', () => {
     wrapper.find('.v-card').trigger('click')
-    expect(spotlight).toHaveBeenCalledWith(propsData.spot.data.place_id)
-    expect(panTo).toHaveBeenCalledWith(propsData.spot.data.position)
+    expect(spotlight).toHaveBeenCalledWith(wrapper.vm.$props.spot.data.place_id)
+    expect(panTo).toHaveBeenCalledWith(wrapper.vm.$props.spot.data.position)
   })
 })
 
@@ -139,7 +139,7 @@ describe('methods', () => {
 describe('template', () => {
   it('CardFrameContent has :spot', () => {
     expect(wrapper.find(CardFrameContent).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
 

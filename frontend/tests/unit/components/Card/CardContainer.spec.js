@@ -36,7 +36,7 @@ describe('props', () => {
 
 describe('computed', () => {
   it('empties', () => {
-    expect(wrapper.vm.empties.length).toEqual(propsData.spots.length)
+    expect(wrapper.vm.empties.length).toEqual(wrapper.vm.$props.spots.length)
   })
 
   it('lg return 3', () => {
@@ -67,13 +67,13 @@ describe('template', () => {
         .findAll(CardFrame)
         .at(0)
         .props().spot
-    ).toMatchObject(propsData.spots[0])
+    ).toMatchObject(wrapper.vm.$props.spots[0])
     expect(
       wrapper
         .findAll(CardFrame)
         .at(1)
         .props().spot
-    ).toMatchObject(propsData.spots[1])
+    ).toMatchObject(wrapper.vm.$props.spots[1])
   })
 
   it('CardFrame has :id', () => {
