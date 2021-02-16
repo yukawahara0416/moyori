@@ -115,7 +115,7 @@ describe('template', () => {
   })
 
   it('v-else readMore', () => {
-    expect(wrapper.find('p').text()).toEqual(propsData.comment.content)
+    expect(wrapper.find('p').text()).toEqual(wrapper.vm.$props.comment.content)
   })
 
   it('v-if isImageExist is true', () => {
