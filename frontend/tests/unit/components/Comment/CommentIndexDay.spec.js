@@ -21,13 +21,14 @@ describe('props', () => {
   it('comment', () => {
     expect(wrapper.vm.$props.comment).toStrictEqual(propsData.comment)
     expect(wrapper.vm.$props.comment instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.comment.required).toBeTruthy()
   })
 })
 
 describe('computed', () => {
   it('removeTimeFromDaytime', () => {
     expect(
-      wrapper.vm.removeTimeFromDaytime(propsData.comment.created_at)
+      wrapper.vm.removeTimeFromDaytime(wrapper.vm.$props.comment.created_at)
     ).toEqual('2020-12-02')
   })
 })
@@ -35,7 +36,7 @@ describe('computed', () => {
 describe('template', () => {
   it('removeTimeFromDaytime(comment.created_at)', () => {
     expect(wrapper.find('span').text()).toEqual(
-      wrapper.vm.removeTimeFromDaytime(propsData.comment.created_at)
+      wrapper.vm.removeTimeFromDaytime(wrapper.vm.$props.comment.created_at)
     )
   })
 

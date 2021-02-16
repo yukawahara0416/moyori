@@ -7,9 +7,14 @@
 <script>
 export default {
   props: {
-    comment: Object
+    comment: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
-
   computed: {
     removeTimeFromDaytime() {
       return function(daytime) {
