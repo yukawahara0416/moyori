@@ -2,6 +2,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
 import { myPlugins, chartOptions } from '@/plugins/chart-area.js'
 import Component from '@/components/Chart/WifiChartArea.vue'
+import ChartArea from '@/components/Chart/ChartArea.vue'
 
 const localVue = createLocalVue()
 
@@ -200,6 +201,30 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('ChartArea has :plugins', () => {
+    expect(wrapper.find(ChartArea).props().plugins).toMatchObject(
+      wrapper.vm.plugins
+    )
+  })
+
+  it('ChartArea has :styles', () => {
+    expect(wrapper.find(ChartArea).props().styles).toMatchObject(
+      wrapper.vm.styles
+    )
+  })
+
+  it('ChartArea has :chartData', () => {
+    expect(wrapper.find(ChartArea).props().chartData).toMatchObject(
+      wrapper.vm.chartData
+    )
+  })
+
+  it('ChartArea has :options', () => {
+    expect(wrapper.find(ChartArea).props().options).toMatchObject(
+      wrapper.vm.options
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
