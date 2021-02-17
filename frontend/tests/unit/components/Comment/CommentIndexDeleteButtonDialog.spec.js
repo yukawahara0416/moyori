@@ -8,8 +8,15 @@ localVue.use(Vuex)
 
 let wrapper
 let propsData
+
 let store
 let auth
+let vote
+let tab
+let dialog
+let snackbar
+
+let $route
 
 beforeEach(() => {
   propsData = {
@@ -23,20 +30,63 @@ beforeEach(() => {
         return {
           data: { id: 1 }
         }
-      }
+      },
+      currentUser: () => {
+        return {
+          data: { id: 1 }
+        }
+      },
+      isLoggingIn: () => true
+    }
+  }
+
+  vote = {
+    actions: {
+      unVote: jest.fn()
+    }
+  }
+
+  tab = {
+    mutations: {
+      changeSignTab: jest.fn()
+    }
+  }
+
+  dialog = {
+    mutations: {
+      dialogOn: jest.fn()
+    }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
   store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      vote,
+      tab,
+      dialog,
+      snackbar
     }
   })
+
+  $route = {
+    name: null,
+    params: null
+  }
 
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    mocks: {
+      $route
+    }
   })
 })
 
