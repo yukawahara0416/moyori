@@ -153,6 +153,108 @@ describe('v-on', () => {
   })
 })
 
+describe('methods', () => {
+  describe('deleteCommentHandler', () => {
+    // ログインしていない場合はunVoteせず、ログインを促す
+    it('isLoggingIn is false', () => {
+      auth.getters.isLoggingIn = () => false
+
+      store = new Vuex.Store({
+        modules: {
+          auth,
+          tab,
+          dialog,
+          snackbar
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store,
+        mocks: {
+          $route
+        }
+      })
+
+      const route = 'search'
+      wrapper.vm.$route.name = route
+      wrapper.vm.$route.params = auth.getters.currentUser().data
+
+      expect.assertions(5)
+
+      return wrapper.vm
+        .deleteCommentHandler(wrapper.vm.$props.spot)
+        .then(() => {
+          expect(store.getters.isLoggingIn).toBeFalsy()
+          expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
+            expect.any(Object),
+            'signin'
+          )
+          expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+            expect.any(Object),
+            'dialogSign'
+          )
+          expect(snackbar.actions.pushSnackbarSuccess).not.toHaveBeenCalled()
+          expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+            expect.any(Object),
+            {
+              message: new Error('ログインしてください')
+            }
+          )
+        })
+    })
+
+    // ログインしている場合はunVoteします
+    it('isLoggingIn is true', () => {
+      auth.getters.isLoggingIn = () => true
+      const closeDialog = jest.fn()
+
+      store = new Vuex.Store({
+        modules: {
+          auth,
+          vote,
+          tab,
+          dialog,
+          snackbar
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store,
+        mocks: {
+          $route
+        },
+        methods: {
+          closeDialog
+        }
+      })
+
+      const route = 'search'
+      wrapper.vm.$route.name = route
+      wrapper.vm.$route.params = auth.getters.currentUser().data
+
+      expect.assertions(4)
+
+      return wrapper.vm
+        .deleteCommentHandler(wrapper.vm.$props.spot)
+        .then(() => {
+          expect(store.getters.isLoggingIn).toBeTruthy()
+          expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+            expect.any(Object),
+            {
+              message: 'コメントを削除しました'
+            }
+          )
+          expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+          expect(closeDialog).toHaveBeenCalled()
+        })
+    })
+  })
+})
+
 describe('emit', () => {
   it('closeDialog', () => {
     wrapper.vm.$emit('closeDialog')
