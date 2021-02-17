@@ -46,6 +46,8 @@ describe('v-on', () => {
 
 describe('methods', () => {
   it('openDialog', () => {
+    wrapper.setData({ dialog: false })
+
     wrapper.vm.openDialog()
     expect(wrapper.vm.dialog).toBeTruthy()
   })
@@ -54,7 +56,7 @@ describe('methods', () => {
 describe('template', () => {
   it('v-img has :src', () => {
     expect(wrapper.find('v-img-stub').attributes().src).toEqual(
-      propsData.comment.image
+      wrapper.vm.$props.comment.image
     )
   })
 
