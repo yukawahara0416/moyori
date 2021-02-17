@@ -2,6 +2,7 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Comment/CommentPostDialog.vue'
+import CommentPostDialogForm from '@/components/Comment/CommentPostDialogForm.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -83,10 +84,16 @@ describe('methods', () => {
 })
 
 describe('template', () => {
-  it('comment-post-dialog-form has :spot', () => {
-    expect(
-      wrapper.find('comment-post-dialog-form-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('CommentPostDialogForm has :spot', () => {
+    expect(wrapper.find(CommentPostDialogForm).props().spot).toEqual(
+      wrapper.vm.$props.spot
+    )
+  })
+
+  it('CommentPostDialogForm has :dialog', () => {
+    expect(wrapper.find(CommentPostDialogForm).props().dialog).toEqual(
+      wrapper.vm.$props.dialog
+    )
   })
 
   it('snapshot', () => {
