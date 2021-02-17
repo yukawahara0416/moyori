@@ -12,7 +12,7 @@
         キャンセル
       </v-btn>
 
-      <v-btn @click="deleteCommentHandler()" color="green darken-1" text>
+      <v-btn @click="deleteCommentHandler(spot)" color="green darken-1" text>
         OK
       </v-btn>
     </v-card-actions>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { Spot } from '@/class/Spot.js'
 
 export default {
@@ -42,14 +42,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['headers', 'currentUser'])
+    ...mapGetters(['headers', 'currentUser', 'isLoggingIn'])
   },
 
   methods: {
+    ...mapMutations(['dialogOn', 'changeSignTab']),
     ...mapActions(['unVote', 'pushSnackbarSuccess', 'pushSnackbarError']),
 
-    deleteCommentHandler: async function() {
-      const spot = this.spot
+    deleteCommentHandler: async function(spot) {
       const target = this.comment
       const headers = this.headers
       const route = this.$route.name
@@ -60,6 +60,12 @@ export default {
       }
 
       try {
+        if (!this.isLoggingIn) {
+          this.changeSignTab('signin')
+          this.dialogOn('dialogSign')
+          throw new Error('ログインしてください')
+        }
+
         await this.unVote({
           prop: 'comments',
           spot,
