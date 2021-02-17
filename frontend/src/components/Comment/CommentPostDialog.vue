@@ -17,11 +17,18 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import CommentPostDialogForm from '@/components/Comment/CommentPostDialogForm.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

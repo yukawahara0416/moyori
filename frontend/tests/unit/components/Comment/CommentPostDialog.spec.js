@@ -1,5 +1,6 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Comment/CommentPostDialog.vue'
 
 const localVue = createLocalVue()
@@ -12,7 +13,7 @@ let auth
 
 beforeEach(() => {
   propsData = {
-    spot: { data: { id: 1 } }
+    spot: new Spot({ data: { id: 1 } })
   }
 
   auth = {
@@ -31,6 +32,14 @@ beforeEach(() => {
     localVue,
     propsData,
     store
+  })
+})
+
+describe('props', () => {
+  it('spot', () => {
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
