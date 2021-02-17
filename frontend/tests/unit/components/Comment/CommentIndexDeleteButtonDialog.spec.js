@@ -108,6 +108,14 @@ describe('getters', () => {
   it('headers', () => {
     expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
   })
+
+  it('currentUser', () => {
+    expect(wrapper.vm.currentUser).toMatchObject(store.getters.currentUser)
+  })
+
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toBe(store.getters.isLoggingIn)
+  })
 })
 
 describe('v-on', () => {
