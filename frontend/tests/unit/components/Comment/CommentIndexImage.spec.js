@@ -1,5 +1,6 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Comment/CommentIndexImage.vue'
+import CommentIndexImageDialog from '@/components/Comment/CommentIndexImageDialog.vue'
 
 const localVue = createLocalVue()
 
@@ -57,10 +58,10 @@ describe('template', () => {
     )
   })
 
-  it('comment-index-image-dialog has :comment', () => {
-    expect(
-      wrapper.find('comment-index-image-dialog-stub').attributes().comment
-    ).toEqual('[object Object]')
+  it('CommentIndexImageDialog:comment', () => {
+    expect(wrapper.find(CommentIndexImageDialog).props().comment).toEqual(
+      wrapper.vm.$props.comment
+    )
   })
 
   it('snapshot', () => {
