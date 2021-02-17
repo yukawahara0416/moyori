@@ -7,7 +7,13 @@
 <script>
 export default {
   props: {
-    comment: Object
+    comment: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   }
 }
 </script>
