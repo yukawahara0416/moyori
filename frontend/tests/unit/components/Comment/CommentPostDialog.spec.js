@@ -9,8 +9,12 @@ localVue.use(Vuex)
 
 let wrapper
 let propsData
+
 let store
 let auth
+let tab
+let dialog
+let snackbar
 
 beforeEach(() => {
   propsData = {
@@ -23,9 +27,30 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    mutations: {
+      changeSignTab: jest.fn()
+    }
+  }
+
+  dialog = {
+    mutations: {
+      dialogOn: jest.fn()
+    }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarError: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      tab,
+      dialog,
+      snackbar
     }
   })
 
@@ -77,7 +102,8 @@ describe('emit', () => {
 
 describe('methods', () => {
   it('closeDialog', () => {
-    wrapper.vm.dialog = true
+    wrapper.setData({ dialog: true })
+
     wrapper.vm.closeDialog()
     expect(wrapper.vm.dialog).toBeFalsy()
   })
