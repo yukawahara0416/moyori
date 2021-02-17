@@ -76,25 +76,31 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('isCommentingByCurrentUser', () => {
-    const comment = propsData.spot.comments[0]
+    const comment = wrapper.vm.$props.spot.comments[0]
     expect(wrapper.vm.isCommentingByCurrentUser(comment)).toBeTruthy()
   })
 })
 
 describe('template', () => {
+  let spot
+
+  beforeEach(() => {
+    spot = wrapper.vm.$props.spot
+  })
+
   it('CommentIndexAvatar has :comment', () => {
     expect(
       wrapper
         .findAll(CommentIndexAvatar)
         .at(0)
         .props().comment
-    ).toMatchObject(propsData.spot.comments[0])
+    ).toMatchObject(spot.comments[0])
     expect(
       wrapper
         .findAll(CommentIndexAvatar)
         .at(1)
         .props().comment
-    ).toMatchObject(propsData.spot.comments[1])
+    ).toMatchObject(spot.comments[1])
   })
 
   it('CommentIndexUsername has :comment', () => {
@@ -103,13 +109,13 @@ describe('template', () => {
         .findAll(CommentIndexUsername)
         .at(0)
         .props().comment
-    ).toMatchObject(propsData.spot.comments[0])
+    ).toMatchObject(spot.comments[0])
     expect(
       wrapper
         .findAll(CommentIndexUsername)
         .at(1)
         .props().comment
-    ).toMatchObject(propsData.spot.comments[1])
+    ).toMatchObject(spot.comments[1])
   })
 
   it('CommentIndexDay has :comment', () => {
@@ -118,13 +124,13 @@ describe('template', () => {
         .findAll(CommentIndexDay)
         .at(0)
         .props().comment
-    ).toMatchObject(propsData.spot.comments[0])
+    ).toMatchObject(spot.comments[0])
     expect(
       wrapper
         .findAll(CommentIndexDay)
         .at(1)
         .props().comment
-    ).toMatchObject(propsData.spot.comments[1])
+    ).toMatchObject(spot.comments[1])
   })
 
   it('CommentIndexDeleteButton has :comment', () => {
@@ -133,7 +139,7 @@ describe('template', () => {
         .findAll(CommentIndexDeleteButton)
         .at(0)
         .props().comment
-    ).toMatchObject(propsData.spot.comments[0])
+    ).toMatchObject(spot.comments[0])
     expect(wrapper.findAll(CommentIndexDeleteButton).length).toEqual(1)
   })
 
@@ -143,13 +149,13 @@ describe('template', () => {
         .findAll(CommentIndexContent)
         .at(0)
         .props().comment
-    ).toMatchObject(propsData.spot.comments[0])
+    ).toMatchObject(spot.comments[0])
     expect(
       wrapper
         .findAll(CommentIndexContent)
         .at(1)
         .props().comment
-    ).toMatchObject(propsData.spot.comments[1])
+    ).toMatchObject(spot.comments[1])
   })
 
   it('v-if="isCommentingByCurrentUser(comment)"', () => {

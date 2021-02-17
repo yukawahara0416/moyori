@@ -29,7 +29,7 @@ describe('props', () => {
 describe('template', () => {
   it('CommentIndexAvatarImage has :comment', () => {
     expect(wrapper.find(CommentIndexAvatarImage).props().comment).toMatchObject(
-      propsData.comment
+      wrapper.vm.$props.comment
     )
   })
 

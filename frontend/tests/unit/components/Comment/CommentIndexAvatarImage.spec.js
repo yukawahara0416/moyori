@@ -47,7 +47,7 @@ describe('router-link', () => {
         .findAll(RouterLinkStub)
         .at(0)
         .props().to.params.id
-    ).toEqual(propsData.comment.user_id)
+    ).toEqual(wrapper.vm.$props.comment.user_id)
   })
 })
 
