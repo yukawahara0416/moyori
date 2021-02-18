@@ -99,6 +99,12 @@ beforeEach(() => {
   })
 })
 
+describe('props', () => {
+  it('spot', () => {
+    throw new Error('テスト未作成')
+  })
+})
+
 describe('getters', () => {
   it('headers', () => {
     expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
@@ -182,12 +188,20 @@ describe('computed', () => {
     expect(wrapper.vm.isWifiWithouting).toBeFalsy()
   })
 
-  it('yourWifiWith', () => {
+  it('yourWifiWith return vote', () => {
     expect(wrapper.vm.yourWifiWith).toMatchObject([options.wifi_withs[0]])
+  })
+
+  it('return []', () => {
+    throw new Error('テスト未作成')
   })
 
   it('yourWifiWithout', () => {
     expect(wrapper.vm.yourWifiWithout).toMatchObject([options.wifi_withouts[0]])
+  })
+
+  it('return []', () => {
+    throw new Error('テスト未作成')
   })
 
   it('isPowerWithing is true', () => {
@@ -254,14 +268,54 @@ describe('computed', () => {
     expect(wrapper.vm.yourPowerWith).toMatchObject([options.power_withs[0]])
   })
 
+  it('return []', () => {
+    throw new Error('テスト未作成')
+  })
+
   it('yourPowerWithout', () => {
     expect(wrapper.vm.yourPowerWithout).toMatchObject([
       options.power_withouts[0]
     ])
   })
+
+  it('return []', () => {
+    throw new Error('テスト未作成')
+  })
 })
 
 describe('methods', () => {
+  it('commentHandler', () => {
+    throw new Error('テスト未作成')
+  })
+
+  it('getNewSpot', () => {
+    throw new Error('テスト未作成')
+  })
+
+  it('voteHandler', () => {
+    throw new Error('テスト未作成')
+  })
+
+  it('wifiWithHandler', () => {
+    throw new Error('テスト未作成')
+  })
+
+  it('wifiWithoutHandler', () => {
+    throw new Error('テスト未作成')
+  })
+
+  it('powerWithHandler', () => {
+    throw new Error('テスト未作成')
+  })
+
+  it('powerWithoutHandler', () => {
+    throw new Error('テスト未作成')
+  })
+
+  it('onImagePicked', () => {
+    throw new Error('テスト未作成')
+  })
+
   it('closeDialog', () => {
     const clearForm = jest.fn()
 
