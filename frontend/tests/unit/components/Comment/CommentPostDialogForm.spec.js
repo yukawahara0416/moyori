@@ -17,7 +17,6 @@ extend('required', required)
 let wrapper
 let propsData
 let options
-let data
 
 let store
 let auth
@@ -45,10 +44,8 @@ beforeEach(() => {
     ]
   }
 
-  data = new Spot(options)
-
   propsData = {
-    spot: data
+    spot: new Spot(options)
   }
 
   auth = {
@@ -81,7 +78,7 @@ beforeEach(() => {
     getters: {
       map: () => {
         return {
-          data: 'test'
+          data: 'map'
         }
       }
     }
@@ -98,8 +95,7 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store,
-    stubs: ['ValidationObserver']
+    store
   })
 })
 
@@ -143,17 +139,14 @@ describe('computed', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     wrapper = shallowMount(Component, {
       localVue,
       propsData,
-      store,
-      stubs: ['ValidationObserver']
+      store
     })
 
     expect(wrapper.vm.isWifiWithing).toBeFalsy()
@@ -176,10 +169,8 @@ describe('computed', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     wrapper = shallowMount(Component, {
@@ -216,10 +207,8 @@ describe('computed', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     wrapper = shallowMount(Component, {
@@ -248,10 +237,8 @@ describe('computed', () => {
       ]
     }
 
-    data = new Spot(options)
-
     propsData = {
-      spot: data
+      spot: new Spot(options)
     }
 
     wrapper = shallowMount(Component, {
