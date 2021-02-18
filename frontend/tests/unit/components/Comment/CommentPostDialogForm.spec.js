@@ -101,7 +101,9 @@ beforeEach(() => {
 
 describe('props', () => {
   it('spot', () => {
-    throw new Error('テスト未作成')
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
