@@ -1,10 +1,18 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Comment/CommentPostDialogForm.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Vuetify)
+localVue.component('ValidationObserver', ValidationObserver)
+localVue.component('ValidationProvider', ValidationProvider)
+
+const { required } = require('vee-validate/dist/rules.umd')
+extend('required', required)
 
 let wrapper
 let propsData
@@ -177,8 +185,7 @@ describe('computed', () => {
     wrapper = shallowMount(Component, {
       localVue,
       propsData,
-      store,
-      stubs: ['ValidationObserver']
+      store
     })
 
     expect(wrapper.vm.isWifiWithouting).toBeFalsy()
@@ -218,8 +225,7 @@ describe('computed', () => {
     wrapper = shallowMount(Component, {
       localVue,
       propsData,
-      store,
-      stubs: ['ValidationObserver']
+      store
     })
 
     expect(wrapper.vm.isPowerWithing).toBeFalsy()
@@ -251,8 +257,7 @@ describe('computed', () => {
     wrapper = shallowMount(Component, {
       localVue,
       propsData,
-      store,
-      stubs: ['ValidationObserver']
+      store
     })
 
     expect(wrapper.vm.isPowerWithouting).toBeFalsy()
@@ -279,8 +284,7 @@ describe('methods', () => {
       store,
       methods: {
         clearForm
-      },
-      stubs: ['ValidationObserver']
+      }
     })
 
     wrapper.vm.closeDialog()
@@ -307,6 +311,16 @@ describe('methods', () => {
 
 describe('template', () => {
   it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
+  it('snapshot mount', () => {
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      vuetify: new Vuetify()
+    })
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
