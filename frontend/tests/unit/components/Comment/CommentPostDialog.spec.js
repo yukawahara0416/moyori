@@ -141,6 +141,34 @@ describe('methods', () => {
       )
     })
 
+    // ログインしている場合はunVoteします
+    it('isLoggingIn is true', () => {
+      auth.getters.isLoggingIn = () => true
+
+      store = new Vuex.Store({
+        modules: {
+          auth,
+          tab,
+          dialog,
+          snackbar
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store
+      })
+
+      wrapper.setData({ dialog: false })
+
+      expect.assertions(3)
+
+      wrapper.vm.commentHandler()
+      expect(store.getters.isLoggingIn).toBeTruthy()
+      expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+      expect(wrapper.vm.dialog).toBeTruthy()
+    })
   })
 
   it('closeDialog', () => {
