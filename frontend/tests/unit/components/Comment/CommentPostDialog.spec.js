@@ -101,6 +101,48 @@ describe('emit', () => {
 })
 
 describe('methods', () => {
+  describe('commentHandler', () => {
+    // ログインしていない場合はunVoteせず、ログインを促す
+    it('isLoggingIn is false', () => {
+      auth.getters.isLoggingIn = () => false
+
+      store = new Vuex.Store({
+        modules: {
+          auth,
+          tab,
+          dialog,
+          snackbar
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store
+      })
+
+      expect.assertions(4)
+
+      wrapper.vm.commentHandler()
+      expect(store.getters.isLoggingIn).toBeFalsy()
+      expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
+        expect.any(Object),
+        'signin'
+      )
+      expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+        expect.any(Object),
+        'dialogSign'
+      )
+      expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'ログインしてください'
+        }
+      )
+    })
+
+  })
+
   it('closeDialog', () => {
     wrapper.setData({ dialog: true })
 
