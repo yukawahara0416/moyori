@@ -21,6 +21,7 @@ let options
 let store
 let auth
 let spot
+let vote
 let form
 let map
 
@@ -81,6 +82,13 @@ beforeEach(() => {
     }
   }
 
+  vote = {
+    actions: {
+      vote: jest.fn(),
+      unVote: jest.fn().mockResolvedValue(propsData.spot.data.id)
+    }
+  }
+
   form = {
     getters: {
       spotForm: () => {
@@ -105,6 +113,7 @@ beforeEach(() => {
     modules: {
       auth,
       spot,
+      vote,
       form,
       map
     }
