@@ -28,6 +28,7 @@ let tab
 let dialog
 let snackbar
 
+let $route
 
 const beforePost = {
   data: { id: null, place_id: '1234567890test' }
@@ -150,10 +151,18 @@ beforeEach(() => {
     }
   })
 
+  $route = {
+    name: null,
+    params: null
+  }
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    mocks: {
+      $route
+    }
   })
 })
 
