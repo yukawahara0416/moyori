@@ -2,6 +2,9 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Component from '@/components/Header/Header.vue'
+import HeaderAvatarButton from '@/components/Header/HeaderAvatarButton.vue'
+import HeaderSignButton from '@/components/Header/HeaderSignButton.vue'
+import HeaderDrawerButton from '@/components/Header/HeaderDrawerButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
