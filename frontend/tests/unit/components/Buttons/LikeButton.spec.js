@@ -101,7 +101,7 @@ beforeEach(() => {
     getters: {
       map: () => {
         return {
-          data: 'test'
+          data: 'map'
         }
       }
     }
@@ -321,9 +321,9 @@ describe('methods', () => {
   })
 
   it('getNewSpot', () => {
-    const place_id = propsData.spot.data.place_id
+    const place_id = wrapper.vm.$props.spot.data.place_id
 
-    expect.assertions(4)
+    expect.assertions(5)
 
     return wrapper.vm.getNewSpot(place_id).then(() => {
       expect(placeDetail).toHaveBeenCalledWith({
@@ -336,6 +336,10 @@ describe('methods', () => {
           place_id,
           updated: { data: { id: null } }
         }
+      )
+      expect(form.mutations.setSpotForm).toHaveBeenCalledWith(
+        expect.any(Object),
+        wrapper.vm.$props.spot
       )
       expect(postSpot).toHaveBeenCalledWith(
         form.getters.spotForm(),
