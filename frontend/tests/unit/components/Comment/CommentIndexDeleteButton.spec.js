@@ -1,4 +1,5 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Comment/CommentIndexDeleteButton.vue'
 import CommentIndexDeleteButtonDialog from '@/components/Comment/CommentIndexDeleteButtonDialog.vue'
 
