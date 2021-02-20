@@ -208,9 +208,10 @@ describe('computed', () => {
       expect(wrapper.vm.isWifiWithing).toBeFalsy()
     })
 
-  it('isWifiWithouting is true', () => {
-    expect(wrapper.vm.isWifiWithouting).toBeTruthy()
-  })
+    it('isWifiWithouting is true', () => {
+      wrapper.setProps({ spot: new Spot(hasWithout) })
+      expect(wrapper.vm.isWifiWithouting).toBeTruthy()
+    })
 
   it('isWifiWithouting is false', () => {
     options = {
