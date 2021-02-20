@@ -23,29 +23,38 @@ let auth
 let form
 let map
 
-beforeEach(() => {
-  options = {
-    data: { id: 1 },
-    wifi_withs: [
-      { id: 1, user_id: 1 },
-      { id: 2, user_id: 2 }
-    ],
-    wifi_withouts: [
-      { id: 3, user_id: 1 },
-      { id: 4, user_id: 2 }
-    ],
-    power_withs: [
-      { id: 1, user_id: 1 },
-      { id: 2, user_id: 2 }
-    ],
-    power_withouts: [
-      { id: 3, user_id: 1 },
-      { id: 4, user_id: 2 }
-    ]
-  }
 
+const beforePost = {
+  data: { id: null, place_id: '1234567890test' }
+}
+
+const hasWith = {
+  data: { id: 1 },
+  wifi_withs: [{ id: 1, user_id: 1 }],
+  wifi_withouts: [],
+  power_withs: [{ id: 1, user_id: 1 }],
+  power_withouts: []
+}
+
+const hasWithout = {
+  data: { id: 1 },
+  wifi_withs: [],
+  wifi_withouts: [{ id: 1, user_id: 1 }],
+  power_withs: [],
+  power_withouts: [{ id: 1, user_id: 1 }]
+}
+
+const notHasBoth = {
+  data: { id: 1 },
+  wifi_withs: [],
+  wifi_withouts: [],
+  power_withs: [],
+  power_withouts: []
+}
+
+beforeEach(() => {
   propsData = {
-    spot: new Spot(options)
+    spot: new Spot(notHasBoth)
   }
 
   auth = {
