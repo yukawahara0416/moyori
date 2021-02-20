@@ -197,9 +197,11 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('isWifiWithing is true', () => {
-    expect(wrapper.vm.isWifiWithing).toBeTruthy()
-  })
+  describe('WifiWith/WifiWithout', () => {
+    it('isWifiWithing is true', () => {
+      wrapper.setProps({ spot: new Spot(hasWith) })
+      expect(wrapper.vm.isWifiWithing).toBeTruthy()
+    })
 
   it('isWifiWithing is false', () => {
     options = {
@@ -259,6 +261,7 @@ describe('computed', () => {
 
   it('yourWifiWith return vote', () => {
     expect(wrapper.vm.yourWifiWith).toMatchObject([options.wifi_withs[0]])
+  })
   })
 
   it('return []', () => {
