@@ -52,13 +52,18 @@ describe('with shallowMount wrapper', () => {
   })
 
   describe('computed', () => {
-    it('isSearchRoute', () => {
+    it('isSearchRoute is true', () => {
       expect(wrapper.vm.isSearchRoute).toBeTruthy()
+    })
+
+    it('isSearchRoute is false', () => {
+      throw new Error('テスト未作成')
     })
   })
 
   describe('methods', () => {
     it('openDrawer', () => {
+      // setData
       wrapper.vm.openDrawer()
       expect(wrapper.vm.drawerState).toBeTruthy()
     })
@@ -102,6 +107,12 @@ describe('with mount wrapper', () => {
   })
 
   describe('template', () => {
+    // v-if
+
+    // v-else
+
+    // v-model="drawerState"
+
     it('snapshot', () => {
       expect(wrapper.vm.$el).toMatchSnapshot()
     })
