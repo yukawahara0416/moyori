@@ -20,6 +20,7 @@ let options
 
 let store
 let auth
+let spot
 let form
 let map
 
@@ -73,6 +74,13 @@ beforeEach(() => {
     }
   }
 
+  spot = {
+    namespaced: true,
+    mutations: {
+      updateSpot: jest.fn()
+    }
+  }
+
   form = {
     getters: {
       spotForm: () => {
@@ -96,6 +104,7 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       auth,
+      spot,
       form,
       map
     }
