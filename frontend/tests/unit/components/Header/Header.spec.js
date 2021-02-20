@@ -110,7 +110,23 @@ describe('with mount wrapper', () => {
   })
 
   describe('template', () => {
-    // v-if
+    it('v-if="isLoggingIn"', () => {
+      auth.getters.isLoggingIn = () => true
+
+      store = new Vuex.Store({
+        modules: {
+          auth
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        store
+      })
+
+      expect(wrapper.findAll(HeaderAvatarButton).length).toEqual(1)
+      expect(wrapper.findAll(HeaderSignButton).length).toEqual(0)
+    })
 
     // v-else
 
