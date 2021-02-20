@@ -1,5 +1,6 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Comment/CommentIndexImage.vue'
+import CommentIndexImageDialog from '@/components/Comment/CommentIndexImageDialog.vue'
 
 const localVue = createLocalVue()
 
@@ -8,7 +9,7 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    comment: { id: 1, image: 'test' }
+    comment: { id: 1, image: 'image' }
   }
 
   wrapper = shallowMount(Component, {
@@ -21,6 +22,7 @@ describe('props', () => {
   it('comment', () => {
     expect(wrapper.vm.$props.comment).toStrictEqual(propsData.comment)
     expect(wrapper.vm.$props.comment instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.comment.required).toBeTruthy()
   })
 })
 
@@ -44,6 +46,8 @@ describe('v-on', () => {
 
 describe('methods', () => {
   it('openDialog', () => {
+    wrapper.setData({ dialog: false })
+
     wrapper.vm.openDialog()
     expect(wrapper.vm.dialog).toBeTruthy()
   })
@@ -52,14 +56,14 @@ describe('methods', () => {
 describe('template', () => {
   it('v-img has :src', () => {
     expect(wrapper.find('v-img-stub').attributes().src).toEqual(
-      propsData.comment.image
+      wrapper.vm.$props.comment.image
     )
   })
 
-  it('comment-index-image-dialog has :comment', () => {
-    expect(
-      wrapper.find('comment-index-image-dialog-stub').attributes().comment
-    ).toEqual('[object Object]')
+  it('CommentIndexImageDialog:comment', () => {
+    expect(wrapper.find(CommentIndexImageDialog).props().comment).toEqual(
+      wrapper.vm.$props.comment
+    )
   })
 
   it('snapshot', () => {

@@ -142,7 +142,7 @@ describe('v-on', () => {
     })
 
     wrapper.find('.v-btn').trigger('click')
-    expect(placeDetail).toHaveBeenCalledWith(propsData.spot)
+    expect(placeDetail).toHaveBeenCalledWith(wrapper.vm.$props.spot)
     expect(openDialog).toHaveBeenCalled()
   })
 })
@@ -179,7 +179,7 @@ describe('methods', () => {
 
       expect.assertions(2)
 
-      return wrapper.vm.placeDetail(propsData.spot).then(() => {
+      return wrapper.vm.placeDetail(wrapper.vm.$props.spot).then(() => {
         expect(placeDetail).toHaveBeenCalledWith({
           map: map.getters.map(),
           place_id
@@ -202,7 +202,7 @@ describe('methods', () => {
 
       expect.assertions(2)
 
-      return wrapper.vm.placeDetail(propsData.spot).then(() => {
+      return wrapper.vm.placeDetail(wrapper.vm.$props.spot).then(() => {
         expect(placeDetail).toHaveBeenCalledWith({
           map: map.getters.map(),
           place_id
@@ -228,7 +228,9 @@ describe('emit', () => {
 
 describe('template', () => {
   it('spot-detail has :spot', () => {
-    expect(wrapper.find(SpotDetail).props().spot).toMatchObject(propsData.spot)
+    expect(wrapper.find(SpotDetail).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
   it('snapshot', () => {

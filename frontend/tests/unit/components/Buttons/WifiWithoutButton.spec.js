@@ -256,7 +256,7 @@ describe('v-on', () => {
 
   it('click wifiWithoutHandler', () => {
     wrapper.find('.v-btn').trigger('click')
-    expect(wifiWithoutHandler).toHaveBeenCalledWith(propsData.spot)
+    expect(wifiWithoutHandler).toHaveBeenCalledWith(wrapper.vm.$props.spot)
   })
 
   it('mouseover', () => {
@@ -293,7 +293,7 @@ describe('methods', () => {
 
       expect.assertions(5)
 
-      return wrapper.vm.wifiWithoutHandler(propsData.spot).then(() => {
+      return wrapper.vm.wifiWithoutHandler(wrapper.vm.$props.spot).then(() => {
         expect(store.getters.isLoggingIn).toBeFalsy()
         expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
           expect.any(Object),
@@ -315,9 +315,6 @@ describe('methods', () => {
 
     // 未登録のスポットの場合、スポットを登録してから「WiFiないよ」します
     it('isPosted is false', () => {
-      const spot = new Spot(beforePost)
-      propsData = { spot }
-
       const newSpot = { data: { id: 1 } }
 
       const params = new FormData()
@@ -328,13 +325,17 @@ describe('methods', () => {
 
       wrapper = shallowMount(Component, {
         localVue,
-        propsData,
+        propsData: {
+          spot: new Spot(beforePost)
+        },
         store,
         methods: {
           getNewSpot,
           voteHandler
         }
       })
+
+      const spot = wrapper.vm.$props.spot
 
       expect.assertions(4)
 
@@ -355,7 +356,7 @@ describe('methods', () => {
   it('getNewSpot', () => {
     const place_id = propsData.spot.data.place_id
 
-    expect.assertions(4)
+    expect.assertions(5)
 
     return wrapper.vm.getNewSpot(place_id).then(() => {
       expect(placeDetail).toHaveBeenCalledWith({
@@ -368,6 +369,10 @@ describe('methods', () => {
           place_id,
           updated: { data: { id: null } }
         }
+      )
+      expect(form.mutations.setSpotForm).toHaveBeenCalledWith(
+        expect.any(Object),
+        wrapper.vm.$props.spot
       )
       expect(postSpot).toHaveBeenCalledWith(
         form.getters.spotForm(),
@@ -505,7 +510,9 @@ describe('template', () => {
   })
 
   it('Counter has :spot', () => {
-    expect(wrapper.find(Counter).props().spot).toMatchObject(propsData.spot)
+    expect(wrapper.find(Counter).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
   it('snapshot', () => {

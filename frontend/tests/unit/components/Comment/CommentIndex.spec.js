@@ -1,6 +1,12 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Comment/CommentIndex.vue'
+import CommentIndexAvatar from '@/components/Comment/CommentIndexAvatar.vue'
+import CommentIndexUsername from '@/components/Comment/CommentIndexUsername.vue'
+import CommentIndexDay from '@/components/Comment/CommentIndexDay.vue'
+import CommentIndexDeleteButton from '@/components/Comment/CommentIndexDeleteButton.vue'
+import CommentIndexContent from '@/components/Comment/CommentIndexContent.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -10,15 +16,25 @@ let propsData
 let store
 let auth
 
+const hasComment = {
+  data: { id: 1 },
+  comments: [
+    { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
+const notHasComment = {
+  data: { id: 1 },
+  comments: [
+    // { id: 1, user_id: 1 },
+    { id: 2, user_id: 2 }
+  ]
+}
+
 beforeEach(() => {
   propsData = {
-    spot: {
-      data: { id: 1 },
-      comments: [
-        { id: 1, user_id: 1 },
-        { id: 2, user_id: 2 }
-      ]
-    }
+    spot: new Spot(hasComment)
   }
 
   auth = {
@@ -47,7 +63,8 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
@@ -59,63 +76,93 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('isCommentingByCurrentUser', () => {
-    const comment = propsData.spot.comments[0]
+    const comment = wrapper.vm.$props.spot.comments[0]
     expect(wrapper.vm.isCommentingByCurrentUser(comment)).toBeTruthy()
   })
 })
 
 describe('template', () => {
-  it('comment-index-avatar has :comment', () => {
-    expect(
-      wrapper.find('comment-index-avatar-stub').attributes().comment
-    ).toEqual('[object Object]')
+  let spot
+
+  beforeEach(() => {
+    spot = wrapper.vm.$props.spot
   })
 
-  it('comment-index-username has :comment', () => {
+  it('CommentIndexAvatar has :comment', () => {
     expect(
-      wrapper.find('comment-index-username-stub').attributes().comment
-    ).toEqual('[object Object]')
+      wrapper
+        .findAll(CommentIndexAvatar)
+        .at(0)
+        .props().comment
+    ).toMatchObject(spot.comments[0])
+    expect(
+      wrapper
+        .findAll(CommentIndexAvatar)
+        .at(1)
+        .props().comment
+    ).toMatchObject(spot.comments[1])
   })
 
-  it('comment-index-day has :comment', () => {
-    expect(wrapper.find('comment-index-day-stub').attributes().comment).toEqual(
-      '[object Object]'
-    )
+  it('CommentIndexUsername has :comment', () => {
+    expect(
+      wrapper
+        .findAll(CommentIndexUsername)
+        .at(0)
+        .props().comment
+    ).toMatchObject(spot.comments[0])
+    expect(
+      wrapper
+        .findAll(CommentIndexUsername)
+        .at(1)
+        .props().comment
+    ).toMatchObject(spot.comments[1])
   })
 
-  it('comment-index-delete-button has :comment and :spot', () => {
+  it('CommentIndexDay has :comment', () => {
     expect(
-      wrapper.find('comment-index-delete-button-stub').attributes().comment
-    ).toEqual('[object Object]')
+      wrapper
+        .findAll(CommentIndexDay)
+        .at(0)
+        .props().comment
+    ).toMatchObject(spot.comments[0])
     expect(
-      wrapper.find('comment-index-delete-button-stub').attributes().spot
-    ).toEqual('[object Object]')
+      wrapper
+        .findAll(CommentIndexDay)
+        .at(1)
+        .props().comment
+    ).toMatchObject(spot.comments[1])
   })
 
-  it('comment-index-content has :comment', () => {
+  it('CommentIndexDeleteButton has :comment', () => {
     expect(
-      wrapper.find('comment-index-content-stub').attributes().comment
-    ).toEqual('[object Object]')
+      wrapper
+        .findAll(CommentIndexDeleteButton)
+        .at(0)
+        .props().comment
+    ).toMatchObject(spot.comments[0])
+    expect(wrapper.findAll(CommentIndexDeleteButton).length).toEqual(1)
+  })
+
+  it('CommentIndexContent has :comment', () => {
+    expect(
+      wrapper
+        .findAll(CommentIndexContent)
+        .at(0)
+        .props().comment
+    ).toMatchObject(spot.comments[0])
+    expect(
+      wrapper
+        .findAll(CommentIndexContent)
+        .at(1)
+        .props().comment
+    ).toMatchObject(spot.comments[1])
   })
 
   it('v-if="isCommentingByCurrentUser(comment)"', () => {
-    propsData = {
-      spot: {
-        data: { id: 1 },
-        comments: [
-          { id: 1, user_id: 2 },
-          { id: 2, user_id: 2 }
-        ]
-      }
-    }
+    const spot = new Spot(notHasComment)
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
-    expect(wrapper.find('comment-index-delete-button').exists()).toBeFalsy()
+    wrapper.setProps({ spot })
+    expect(wrapper.findAll(CommentIndexDeleteButton).length).toEqual(1)
   })
 
   it('snapshot', () => {

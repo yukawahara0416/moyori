@@ -1,14 +1,19 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Comment/CommentIndexContent.vue'
+import CommentIndexImage from '@/components/Comment/CommentIndexImage.vue'
 
 const localVue = createLocalVue()
 
 let wrapper
 let propsData
 
+const hasFull = { id: 1, content: 'content', image: 'image' }
+const notHasImage = { id: 1, content: 'content', image: null }
+const hasTooLongContent = { id: 1, content: 'a'.repeat(101), image: 'image' }
+
 beforeEach(() => {
   propsData = {
-    comment: { id: 1, content: 'test', image: 'test' }
+    comment: hasFull
   }
 
   wrapper = shallowMount(Component, {
@@ -21,41 +26,22 @@ describe('props', () => {
   it('comment', () => {
     expect(wrapper.vm.$props.comment).toStrictEqual(propsData.comment)
     expect(wrapper.vm.$props.comment instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.comment.required).toBeTruthy()
   })
 })
 
 describe('computed', () => {
   it('isImageExist is true', () => {
-    expect(wrapper.vm.isImageExist(propsData.comment)).toBeTruthy()
+    expect(wrapper.vm.isImageExist(wrapper.vm.$props.comment)).toBeTruthy()
   })
 
   it('isImageExist is false', () => {
-    propsData = {
-      comment: { id: 1, content: 'test', image: null }
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
-    })
-
-    expect(wrapper.vm.isImageExist(propsData.comment)).toBeFalsy()
+    wrapper.setProps({ comment: notHasImage })
+    expect(wrapper.vm.isImageExist(wrapper.vm.$props.comment)).toBeFalsy()
   })
 
   it('isAboveLimit is true', () => {
-    propsData = {
-      comment: {
-        id: 1,
-        content: 'a'.repeat(101),
-        image: 'test'
-      }
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
-    })
-
+    wrapper.setProps({ comment: hasTooLongContent })
     expect(wrapper.vm.isAboveLimit).toBeTruthy()
   })
 
@@ -64,19 +50,7 @@ describe('computed', () => {
   })
 
   it('readMore is true', () => {
-    propsData = {
-      comment: {
-        id: 1,
-        content: 'a'.repeat(101),
-        image: 'test'
-      }
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
-    })
-
+    wrapper.setProps({ comment: hasTooLongContent })
     expect(wrapper.vm.readMore).toBeTruthy()
   })
 
@@ -89,17 +63,11 @@ describe('v-on', () => {
   it('click activateReadMore', () => {
     const activateReadMore = jest.fn()
 
-    propsData = {
-      comment: {
-        id: 1,
-        content: 'a'.repeat(101),
-        image: 'test'
-      }
-    }
-
     wrapper = mount(Component, {
       localVue,
-      propsData,
+      propsData: {
+        comment: hasTooLongContent
+      },
       methods: {
         activateReadMore
       }
@@ -112,6 +80,8 @@ describe('v-on', () => {
 
 describe('methods', () => {
   it('activateReadMore', () => {
+    wrapper.setData({ readMoreToggle: false })
+
     wrapper.vm.activateReadMore()
     expect(wrapper.vm.readMoreToggle).toBeTruthy()
   })
@@ -123,54 +93,50 @@ describe('template', () => {
   })
 
   it(':cols="isImageExist(comment) is 12"', () => {
-    propsData = {
-      comment: { id: 1, content: 'test', image: null }
-    }
-
     wrapper = shallowMount(Component, {
       localVue,
-      propsData
+      propsData: {
+        comment: notHasImage
+      }
     })
 
     expect(wrapper.find('v-col-stub').attributes().cols).toEqual('12')
   })
 
   it('v-if readMore', () => {
-    propsData = {
-      comment: {
-        id: 1,
-        content: 'a'.repeat(101),
-        image: 'test'
-      }
-    }
-
-    wrapper = mount(Component, {
+    wrapper = shallowMount(Component, {
       localVue,
-      propsData
+      propsData: {
+        comment: hasTooLongContent
+      }
     })
 
     expect(wrapper.find('a').text()).toContain('...続きをよむ')
   })
 
   it('v-else readMore', () => {
-    expect(wrapper.find('p').text()).toEqual(propsData.comment.content)
+    expect(wrapper.find('p').text()).toEqual(wrapper.vm.$props.comment.content)
   })
 
   it('v-if isImageExist is true', () => {
-    expect(wrapper.find('comment-index-image-stub').exists()).toBeTruthy()
+    expect(wrapper.find(CommentIndexImage).exists()).toBeTruthy()
   })
 
   it('v-if isImageExist is false', () => {
-    propsData = {
-      comment: { id: 1, content: 'test', image: null }
-    }
-
     wrapper = shallowMount(Component, {
       localVue,
-      propsData
+      propsData: {
+        comment: notHasImage
+      }
     })
 
-    expect(wrapper.find('comment-index-image-stub').exists()).toBeFalsy()
+    expect(wrapper.find(CommentIndexImage).exists()).toBeFalsy()
+  })
+
+  it('CommentIndexImage has :comment', () => {
+    expect(wrapper.find(CommentIndexImage).props().comment).toMatchObject(
+      wrapper.vm.$props.comment
+    )
   })
 
   it('snapshot', () => {

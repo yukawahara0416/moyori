@@ -158,13 +158,13 @@ describe('computed', () => {
 describe('template', () => {
   it('WifiWithButton has :spot', () => {
     expect(wrapper.find(WifiWithButton).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
 
   it('WifiWithoutButton has :spot', () => {
     expect(wrapper.find(WifiWithoutButton).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
 

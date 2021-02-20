@@ -1,5 +1,7 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Comment/CommentIndexDeleteButton.vue'
+import CommentIndexDeleteButtonDialog from '@/components/Comment/CommentIndexDeleteButtonDialog.vue'
 
 const localVue = createLocalVue()
 
@@ -8,7 +10,7 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    spot: { data: { id: 1 } },
+    spot: new Spot({ data: { id: 1 } }),
     comment: { id: 1 }
   }
 
@@ -21,12 +23,14 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 
   it('comment', () => {
     expect(wrapper.vm.$props.comment).toStrictEqual(propsData.comment)
     expect(wrapper.vm.$props.comment instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.comment.required).toBeTruthy()
   })
 })
 
@@ -56,27 +60,31 @@ describe('emit', () => {
 
 describe('methods', () => {
   it('openDialog', () => {
+    wrapper.setData({ dialog: false })
+
     wrapper.vm.openDialog()
     expect(wrapper.vm.dialog).toBeTruthy()
   })
 
   it('closeDialog', () => {
-    wrapper.vm.dialog = true
+    wrapper.setData({ dialog: true })
+
     wrapper.vm.closeDialog()
     expect(wrapper.vm.dialog).toBeFalsy()
   })
 })
 
 describe('template', () => {
-  it('comment-index-delete-button-dialog has :spot :comment', () => {
+  it('CommentIndexDeleteButtonDialog has :spot', () => {
     expect(
-      wrapper.find('comment-index-delete-button-dialog-stub').attributes().spot
-    ).toEqual('[object Object]')
+      wrapper.find(CommentIndexDeleteButtonDialog).props().spot
+    ).toMatchObject(wrapper.vm.$props.spot)
+  })
 
+  it('CommentIndexDeleteButtonDialog has :comment', () => {
     expect(
-      wrapper.find('comment-index-delete-button-dialog-stub').attributes()
-        .comment
-    ).toEqual('[object Object]')
+      wrapper.find(CommentIndexDeleteButtonDialog).props().comment
+    ).toMatchObject(wrapper.vm.$props.comment)
   })
 
   it('snapshot', () => {

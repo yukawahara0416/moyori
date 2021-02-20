@@ -45,7 +45,7 @@ describe('props', () => {
 
 describe('computed', () => {
   it('count', () => {
-    expect(wrapper.vm.count).toEqual(propsData.spot.comments.length)
+    expect(wrapper.vm.count).toEqual(wrapper.vm.$props.spot.comments.length)
   })
 })
 

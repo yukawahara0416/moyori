@@ -28,7 +28,7 @@ describe('props', () => {
 
 describe('template', () => {
   it('spot.data.name', () => {
-    expect(wrapper.find('p').text()).toEqual(propsData.spot.data.name)
+    expect(wrapper.find('p').text()).toEqual(wrapper.vm.$props.spot.data.name)
   })
 
   it('snapshot', () => {

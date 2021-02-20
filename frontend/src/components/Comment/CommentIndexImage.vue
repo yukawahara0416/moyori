@@ -24,7 +24,13 @@ import CommentIndexImageDialog from '@/components/Comment/CommentIndexImageDialo
 
 export default {
   props: {
-    comment: Object
+    comment: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   components: {

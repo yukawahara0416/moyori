@@ -9,7 +9,13 @@ import CommentIndexAvatarImage from '@/components/Comment/CommentIndexAvatarImag
 
 export default {
   props: {
-    comment: Object
+    comment: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   components: {

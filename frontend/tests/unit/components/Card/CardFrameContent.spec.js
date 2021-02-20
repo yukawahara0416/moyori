@@ -38,19 +38,19 @@ describe('props', () => {
 describe('template', () => {
   it('CardFrameContentImage has :spot', () => {
     expect(wrapper.find(CardFrameContentImage).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
 
   it('CardFrameContentTitle has :spot', () => {
     expect(wrapper.find(CardFrameContentTitle).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
 
   it('CardFrameContentAction has :spot', () => {
     expect(wrapper.find(CardFrameContentAction).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
 

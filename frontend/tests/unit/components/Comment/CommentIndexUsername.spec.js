@@ -8,7 +8,7 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    comment: { id: 1, user_name: 'test' }
+    comment: { id: 1, user_name: 'user_name' }
   }
 
   wrapper = shallowMount(Component, {
@@ -21,13 +21,14 @@ describe('props', () => {
   it('comment', () => {
     expect(wrapper.vm.$props.comment).toStrictEqual(propsData.comment)
     expect(wrapper.vm.$props.comment instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.comment.required).toBeTruthy()
   })
 })
 
 describe('template', () => {
   it('comment.user_name', () => {
     expect(wrapper.find('span').text()).toEqual(
-      `${propsData.comment.user_name} さん`
+      `${wrapper.vm.$props.comment.user_name} さん`
     )
   })
 

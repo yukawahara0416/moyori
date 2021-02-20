@@ -32,17 +32,17 @@ describe('props', () => {
 describe('template', () => {
   it('WifiChartHorizontalBar has :spot', () => {
     expect(wrapper.find(WifiChartHorizontalBar).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
   it('PowerChartHorizontalBar has :spot', () => {
     expect(wrapper.find(PowerChartHorizontalBar).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
   it('SpotDetailShowButton has :spot', () => {
     expect(wrapper.find(SpotDetailShowButton).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
   it('snapshot', () => {

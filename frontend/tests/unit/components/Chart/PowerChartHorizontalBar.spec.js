@@ -158,13 +158,13 @@ describe('computed', () => {
 describe('template', () => {
   it('PowerWithButton has :spot', () => {
     expect(wrapper.find(PowerWithButton).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
 
   it('PowerWithoutButton has :spot', () => {
     expect(wrapper.find(PowerWithoutButton).props().spot).toMatchObject(
-      propsData.spot
+      wrapper.vm.$props.spot
     )
   })
 

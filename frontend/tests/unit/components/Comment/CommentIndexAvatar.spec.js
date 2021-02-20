@@ -1,5 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Comment/CommentIndexAvatar.vue'
+import CommentIndexAvatarImage from '@/components/Comment/CommentIndexAvatarImage.vue'
 
 const localVue = createLocalVue()
 
@@ -21,14 +22,15 @@ describe('props', () => {
   it('comment', () => {
     expect(wrapper.vm.$props.comment).toStrictEqual(propsData.comment)
     expect(wrapper.vm.$props.comment instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.comment.required).toBeTruthy()
   })
 })
 
 describe('template', () => {
-  it('comment-index-avatar-image-stub has :comment', () => {
-    expect(
-      wrapper.find('comment-index-avatar-image-stub').attributes().comment
-    ).toEqual('[object Object]')
+  it('CommentIndexAvatarImage has :comment', () => {
+    expect(wrapper.find(CommentIndexAvatarImage).props().comment).toMatchObject(
+      wrapper.vm.$props.comment
+    )
   })
 
   it('snapshot', () => {

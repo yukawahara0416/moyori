@@ -15,12 +15,25 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
 import CommentIndexDeleteButtonDialog from '@/components/Comment/CommentIndexDeleteButtonDialog.vue'
 
 export default {
   props: {
-    spot: Object,
-    comment: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    },
+    comment: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   components: {
