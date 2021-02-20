@@ -203,31 +203,10 @@ describe('computed', () => {
       expect(wrapper.vm.isWifiWithing).toBeTruthy()
     })
 
-  it('isWifiWithing is false', () => {
-    options = {
-      data: { id: 1 },
-      wifi_withs: [
-        { id: 1, user_id: 2 },
-        { id: 2, user_id: 2 }
-      ],
-      wifi_withouts: [
-        { id: 3, user_id: 1 },
-        { id: 4, user_id: 2 }
-      ]
-    }
-
-    propsData = {
-      spot: new Spot(options)
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
+    it('isWifiWithing is false', () => {
+      wrapper.setProps({ spot: new Spot(notHasBoth) })
+      expect(wrapper.vm.isWifiWithing).toBeFalsy()
     })
-
-    expect(wrapper.vm.isWifiWithing).toBeFalsy()
-  })
 
   it('isWifiWithouting is true', () => {
     expect(wrapper.vm.isWifiWithouting).toBeTruthy()
