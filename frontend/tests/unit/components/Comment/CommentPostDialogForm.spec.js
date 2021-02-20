@@ -25,6 +25,7 @@ let vote
 let form
 let map
 let tab
+let dialog
 
 
 const beforePost = {
