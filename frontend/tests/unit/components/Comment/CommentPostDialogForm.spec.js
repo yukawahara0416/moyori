@@ -24,6 +24,7 @@ let spot
 let vote
 let form
 let map
+let tab
 
 
 const beforePost = {
@@ -112,13 +113,30 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    getters: {
+      profileTab: () => 'posts'
+    },
+    mutations: {
+      changeSignTab: jest.fn()
+    }
+  }
+
+  dialog = {
+    mutations: {
+      dialogOn: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       auth,
       spot,
       vote,
       form,
-      map
+      map,
+      tab,
+      dialog,
     }
   })
 
