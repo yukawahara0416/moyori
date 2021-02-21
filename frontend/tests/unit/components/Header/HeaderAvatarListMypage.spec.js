@@ -22,7 +22,6 @@ beforeEach(() => {
 
 describe('props', () => {
   it('currentUser', () => {
-    console.log(wrapper.html())
     expect(wrapper.vm.$props.currentUser).toStrictEqual(propsData.currentUser)
     expect(wrapper.vm.$props.currentUser instanceof Object).toBeTruthy()
     expect(wrapper.vm.$options.props.currentUser.required).toBeTruthy()
@@ -32,6 +31,12 @@ describe('props', () => {
 describe('template', () => {
   it('v-list-item has to.name', () => {
     expect(wrapper.find(RouterLinkStub).props().to.name).toEqual('profile')
+  })
+
+  it('v-list-item has to.params', () => {
+    expect(wrapper.find(RouterLinkStub).props().to.params).toMatchObject(
+      wrapper.vm.$props.currentUser.data
+    )
   })
 
   it('snapshot', () => {
