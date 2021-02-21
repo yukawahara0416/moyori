@@ -12,7 +12,7 @@ let spot
 
 beforeEach(() => {
   propsData = {
-    center: { lat: 36.204824, lng: 138.252923 }
+    center: { lat: 1, lng: 2 }
   }
 
   spot = {
@@ -42,17 +42,31 @@ describe('props', () => {
   it('center', () => {
     expect(wrapper.vm.$props.center).toStrictEqual(propsData.center)
     expect(wrapper.vm.$props.center instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.center.required).toBeTruthy()
   })
 })
 
 describe('getters', () => {
   it('spot/radius', () => {
-    expect(wrapper.vm.radius).toMatchObject(store.getters['spot/radius'])
+    expect(wrapper.vm.radius).toMatchObject(spot.getters.radius())
   })
 })
 
 describe('template', () => {
-  it(':radius', () => {
+  it('gmap-circle has :center', () => {
+    console.log(wrapper.html())
+    expect(wrapper.find('gmap-circle-stub').attributes().center).toEqual(
+      '[object Object]'
+    )
+  })
+
+  it('gmap-circle has :options', () => {
+    expect(wrapper.find('gmap-circle-stub').attributes().options).toEqual(
+      '[object Object]'
+    )
+  })
+
+  it('gmap-circle has :radius', () => {
     expect(wrapper.find('gmap-circle-stub').attributes().radius).toEqual('500')
   })
 
