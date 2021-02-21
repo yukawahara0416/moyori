@@ -19,8 +19,10 @@ beforeEach(() => {
 
 describe('props', () => {
   it('currentUser', () => {
+    console.log(wrapper.html())
     expect(wrapper.vm.$props.currentUser).toStrictEqual(propsData.currentUser)
     expect(wrapper.vm.$props.currentUser instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.currentUser.required).toBeTruthy()
   })
 })
 
