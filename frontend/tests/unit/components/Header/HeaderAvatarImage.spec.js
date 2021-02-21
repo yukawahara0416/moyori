@@ -11,8 +11,8 @@ beforeEach(() => {
     currentUser: {
       data: {
         id: 1,
-        name: 'test',
-        avatar: 'test'
+        name: 'name',
+        avatar: 'avatar'
       }
     }
   }
@@ -27,6 +27,7 @@ describe('props', () => {
   it('currentUser', async () => {
     expect(wrapper.vm.$props.currentUser).toStrictEqual(propsData.currentUser)
     expect(wrapper.vm.$props.currentUser instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.currentUser.required).toBeTruthy()
   })
 })
 
@@ -34,9 +35,14 @@ describe('template', () => {
   it('v-if="currentUser.data.avatar"', () => {
     expect(wrapper.html().includes('v-img-stub')).toBeTruthy()
   })
+
+  // attribute
+
   it('v-else', () => {
     expect(wrapper.html().includes('span')).toBeFalsy()
   })
+
+  // text
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()

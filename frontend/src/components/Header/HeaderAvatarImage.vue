@@ -14,7 +14,13 @@
 <script>
 export default {
   props: {
-    currentUser: Object
+    currentUser: {
+      type: Object,
+      default: () => {
+        return { data: { id: null, name: '', avatar: null } }
+      },
+      required: true
+    }
   }
 }
 </script>
