@@ -86,8 +86,9 @@ describe('with mount wrapper', () => {
       localVue,
       store,
       // vuetify,
-      mocks: {
-        $route
+      // mocks: {
+      //   $route
+      // },
       },
       stubs: [
         'v-app-bar',
