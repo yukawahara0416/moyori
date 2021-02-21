@@ -1,6 +1,8 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Header/HeaderAvatarButton.vue'
+import HeaderAvatarImage from '@/components/Header/HeaderAvatarImage.vue'
+import HeaderAvatarList from '@/components/Header/HeaderAvatarList.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
