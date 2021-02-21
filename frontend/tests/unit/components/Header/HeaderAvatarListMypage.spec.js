@@ -30,6 +30,10 @@ describe('props', () => {
 })
 
 describe('template', () => {
+  it('v-list-item has to.name', () => {
+    expect(wrapper.find(RouterLinkStub).props().to.name).toEqual('profile')
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
