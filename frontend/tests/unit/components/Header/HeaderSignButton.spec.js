@@ -54,61 +54,60 @@ beforeEach(() => {
   })
 })
 
-  describe('getters', () => {
-    it('headers', () => {
-      expect(wrapper.vm.headers).toEqual(store.getters.headers)
-    })
+describe('getters', () => {
+  it('headers', () => {
+    expect(wrapper.vm.headers).toEqual(store.getters.headers)
+  })
 
-    it('dialogSign', () => {
-      expect(wrapper.vm.dialogSign).toEqual(store.getters.dialogSign)
+  it('dialogSign', () => {
+    expect(wrapper.vm.dialogSign).toEqual(store.getters.dialogSign)
+  })
+})
+
+describe('computed', () => {
+  it('dialog/get', () => {
+    expect(wrapper.vm.dialog).toEqual(store.getters.dialogSign)
+  })
+
+  it('dialog/set', () => {
+    wrapper.vm.dialog = false
+    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+  })
+})
+
+describe('v-on', () => {
+  let openDialog
+
+  beforeEach(() => {
+    openDialog = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify,
+      methods: {
+        openDialog
+      },
+      stubs: ['sign-container', 'v-dialog']
     })
   })
 
-  describe('computed', () => {
-    it('dialog/get', () => {
-      expect(wrapper.vm.dialog).toEqual(store.getters.dialogSign)
-    })
-
-    it('dialog/set', () => {
-      wrapper.vm.dialog = false
-      expect(dialog.actions.dialogOff).toHaveBeenCalled()
-    })
+  it('openDialog signin', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+    expect(openDialog).toHaveBeenCalledWith('signin')
+    expect(openDialog).not.toHaveBeenCalledWith('signup')
   })
 
-  describe('v-on', () => {
-    let openDialog
-
-    beforeEach(() => {
-      openDialog = jest.fn()
-
-      wrapper = mount(Component, {
-        localVue,
-        store,
-        vuetify,
-        methods: {
-          openDialog
-        },
-        stubs: ['sign-container', 'v-dialog']
-      })
-    })
-
-    it('openDialog signin', () => {
-      wrapper
-        .findAll('.v-btn')
-        .at(0)
-        .trigger('click')
-      expect(openDialog).toHaveBeenCalledWith('signin')
-      expect(openDialog).not.toHaveBeenCalledWith('signup')
-    })
-
-    it('openDialog signup', () => {
-      wrapper
-        .findAll('.v-btn')
-        .at(1)
-        .trigger('click')
-      expect(openDialog).toHaveBeenCalledWith('signup')
-      expect(openDialog).not.toHaveBeenCalledWith('signin')
-    })
+  it('openDialog signup', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+    expect(openDialog).toHaveBeenCalledWith('signup')
+    expect(openDialog).not.toHaveBeenCalledWith('signin')
   })
 })
 
@@ -129,6 +128,12 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-dialog has value', () => {
+    expect(wrapper.find('v-dialog-stub').attributes().value).toEqual(
+      wrapper.vm.dialogSign.toString()
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
