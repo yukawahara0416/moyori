@@ -27,6 +27,15 @@ describe('template', () => {
     expect(target.at(0).text()).toEqual('mdi-book-open-page-variant')
     expect(target.at(1).text()).toEqual('mdi-security')
   })
+
+  it('v-list-item-title has title', () => {
+    const target = wrapper.findAll('v-list-item-title-stub')
+
+    expect(target.length).toEqual(2)
+    expect(target.at(0).text()).toEqual('利用規約')
+    expect(target.at(1).text()).toEqual('プライバシーポリシー')
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
