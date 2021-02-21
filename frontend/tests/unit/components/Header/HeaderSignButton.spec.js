@@ -111,6 +111,20 @@ beforeEach(() => {
     })
   })
 })
+
+describe('methods', () => {
+  it('openDialog', () => {
+    const tab = 'signup'
+
+    wrapper.vm.openDialog(tab)
+    expect(dialog.mutations.changeSignTab).toHaveBeenCalledWith(
+      expect.any(Object),
+      tab
+    )
+    expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSign'
+    )
   })
 })
 
