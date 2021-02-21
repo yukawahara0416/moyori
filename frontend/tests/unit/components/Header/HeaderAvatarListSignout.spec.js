@@ -71,7 +71,18 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  it('signOutHandler', () => {})
+  it('signOutHandler', () => {
+    return wrapper.vm.signOutHandler().then(() => {
+      expect(auth.actions.signOut).toHaveBeenCalled()
+      expect(auth.mutations.clearHeaders).toHaveBeenCalled()
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'ログアウトしました'
+        }
+      )
+    })
+  })
 })
 
 describe('template', () => {
