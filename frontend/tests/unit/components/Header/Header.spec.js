@@ -146,7 +146,11 @@ describe('with mount wrapper', () => {
       expect(wrapper.findAll(HeaderSignButton).length).toEqual(1)
     })
 
-    // v-model="drawerState"
+    it('HeaderDrawerButton has :drawerState', () => {
+      expect(wrapper.find(HeaderDrawerButton).props().value).toEqual(
+        wrapper.vm.drawerState
+      )
+    })
 
     it('snapshot', () => {
       expect(wrapper.vm.$el).toMatchSnapshot()
