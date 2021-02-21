@@ -14,9 +14,7 @@ beforeEach(() => {
     getters: {
       currentUser: () => {
         return {
-          data: {
-            id: 1
-          }
+          data: { id: 1 }
         }
       }
     }
@@ -41,6 +39,9 @@ describe('getters', () => {
 })
 
 describe('template', () => {
+  // has currentUser
+
+  //
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
