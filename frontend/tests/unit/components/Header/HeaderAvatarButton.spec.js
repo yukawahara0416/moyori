@@ -52,7 +52,12 @@ describe('template', () => {
     )
   })
 
-  //
+  it('HeaderAvatarList has :currentUser', () => {
+    expect(wrapper.find(HeaderAvatarList).props().currentUser).toEqual(
+      wrapper.vm.currentUser
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
