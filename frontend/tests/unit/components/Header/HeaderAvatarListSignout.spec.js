@@ -18,6 +18,12 @@ beforeEach(() => {
           data: { id: 1 }
         }
       }
+    },
+    mutations: {
+      clearHeaders: jest.fn()
+    },
+    actions: {
+      signOut: jest.fn()
     }
   }
 
