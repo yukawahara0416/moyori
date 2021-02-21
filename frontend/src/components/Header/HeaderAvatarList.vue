@@ -12,7 +12,13 @@ import HeaderAvatarListSignout from '@/components/Header/HeaderAvatarListSignout
 
 export default {
   props: {
-    currentUser: Object
+    currentUser: {
+      type: Object,
+      default: () => {
+        return { data: { id: null, name: '' } }
+      },
+      required: true
+    }
   },
 
   components: {

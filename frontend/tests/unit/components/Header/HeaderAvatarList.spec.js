@@ -9,10 +9,7 @@ let propsData
 beforeEach(() => {
   propsData = {
     currentUser: {
-      data: {
-        id: 1,
-        name: 'test'
-      }
+      data: { id: 1, name: 'name', avatar: 'avatar' }
     }
   }
 
@@ -30,11 +27,13 @@ describe('props', () => {
 })
 
 describe('template', () => {
-  it('currentUser.data.namaさん', () => {
+  it('v-list-item has text', () => {
     expect(wrapper.find('v-list-item-stub').text()).toEqual(
       `${propsData.currentUser.data.name} さん`
     )
   })
+
+  // has currentUser
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
