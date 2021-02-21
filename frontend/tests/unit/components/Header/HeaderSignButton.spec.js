@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Component from '@/components/Header/HeaderSignButton.vue'
@@ -18,9 +18,7 @@ beforeEach(() => {
     getters: {
       headers: () => {
         return {
-          data: {
-            id: 1
-          }
+          data: { id: 1 }
         }
       }
     }
@@ -47,22 +45,14 @@ beforeEach(() => {
       dialog
     }
   })
-})
 
-describe('with mocked methods', () => {
-  const openDialog = jest.fn()
-
-  beforeEach(() => {
-    wrapper = mount(Component, {
-      localVue,
-      store,
-      vuetify,
-      methods: {
-        openDialog
-      },
-      stubs: ['sign-container', 'v-dialog']
-    })
+  wrapper = shallowMount(Component, {
+    localVue,
+    store,
+    vuetify,
+    stubs: ['sign-container', 'v-dialog']
   })
+})
 
   describe('getters', () => {
     it('headers', () => {
@@ -86,27 +76,41 @@ describe('with mocked methods', () => {
   })
 
   describe('v-on', () => {
-    it('dialogOn', () => {
-      wrapper.find('.v-btn').trigger('click')
-      expect(openDialog).toHaveBeenCalledTimes(1)
+    let openDialog
+
+    beforeEach(() => {
+      openDialog = jest.fn()
+
+      wrapper = mount(Component, {
+        localVue,
+        store,
+        vuetify,
+        methods: {
+          openDialog
+        },
+        stubs: ['sign-container', 'v-dialog']
+      })
+    })
+
+    it('openDialog signin', () => {
+      wrapper
+        .findAll('.v-btn')
+        .at(0)
+        .trigger('click')
+      expect(openDialog).toHaveBeenCalledWith('signin')
+      expect(openDialog).not.toHaveBeenCalledWith('signup')
+    })
+
+    it('openDialog signup', () => {
+      wrapper
+        .findAll('.v-btn')
+        .at(1)
+        .trigger('click')
+      expect(openDialog).toHaveBeenCalledWith('signup')
+      expect(openDialog).not.toHaveBeenCalledWith('signin')
     })
   })
 })
-
-describe('without mocked methods', () => {
-  beforeEach(() => {
-    wrapper = mount(Component, {
-      localVue,
-      store,
-      vuetify,
-      stubs: ['sign-container', 'v-dialog']
-    })
-  })
-
-  it('test', () => {
-    wrapper.vm.openDialog()
-    expect(dialog.mutations.changeSignTab).toHaveBeenCalled()
-    expect(dialog.mutations.dialogOn).toHaveBeenCalled()
   })
 })
 
