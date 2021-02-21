@@ -1,6 +1,6 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import Vuetify from 'vuetify'
+// import Vuetify from 'vuetify'
 import Component from '@/components/Header/Header.vue'
 import HeaderAvatarButton from '@/components/Header/HeaderAvatarButton.vue'
 import HeaderSignButton from '@/components/Header/HeaderSignButton.vue'
@@ -8,13 +8,13 @@ import HeaderDrawerButton from '@/components/Header/HeaderDrawerButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
-localVue.use(Vuetify)
+// localVue.use(Vuetify)
 
 let wrapper
 let store
 let auth
 let $route
-let vuetify
+// let vuetify
 
 beforeEach(() => {
   auth = {
@@ -33,7 +33,7 @@ beforeEach(() => {
     name: 'search'
   }
 
-  vuetify = new Vuetify()
+  // vuetify = new Vuetify()
 })
 
 describe('with shallowMount wrapper', () => {
@@ -41,7 +41,7 @@ describe('with shallowMount wrapper', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
-      vuetify,
+      // vuetify,
       mocks: {
         $route
       }
@@ -66,7 +66,8 @@ describe('with shallowMount wrapper', () => {
 
   describe('methods', () => {
     it('openDrawer', () => {
-      // setData
+      wrapper.setData({ drawerState: false })
+
       wrapper.vm.openDrawer()
       expect(wrapper.vm.drawerState).toBeTruthy()
     })
@@ -84,7 +85,7 @@ describe('with mount wrapper', () => {
     wrapper = mount(Component, {
       localVue,
       store,
-      vuetify,
+      // vuetify,
       mocks: {
         $route
       },
