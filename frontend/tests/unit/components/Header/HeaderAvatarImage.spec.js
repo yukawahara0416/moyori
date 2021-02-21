@@ -36,13 +36,29 @@ describe('template', () => {
     expect(wrapper.findAll('v-img-stub').length).toEqual(1)
   })
 
-  // attribute
-
-  it('v-else', () => {
-    expect(wrapper.html().includes('span')).toBeFalsy()
+  it('v-img has :src', () => {
+    expect(wrapper.find('v-img-stub').attributes().src).toEqual(
+      wrapper.vm.$props.currentUser.data.avatar
+    )
   })
 
-  // text
+  it('v-else', async () => {
+    await wrapper.setProps({
+      currentUser: { data: { id: 1, name: 'name', avatar: null } }
+    })
+
+    expect(wrapper.findAll('span').length).toEqual(1)
+  })
+
+  it('span has text', async () => {
+    await wrapper.setProps({
+      currentUser: { data: { id: 1, name: 'name', avatar: null } }
+    })
+
+    expect(wrapper.find('span').text()).toEqual(
+      wrapper.vm.$props.currentUser.data.name.slice(0, 1)
+    )
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
