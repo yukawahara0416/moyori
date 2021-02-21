@@ -80,103 +80,76 @@ describe('with shallowMount wrapper', () => {
   })
 })
 
-describe('with mount wrapper', () => {
-  // const openDrawer = jest.fn()
+describe('v-on', () => {
+  it('openDrawer', () => {
+    const openDrawer = jest.fn()
 
-  // beforeEach(() => {
-  //   wrapper = mount(Component, {
-  //     localVue,
-  //     store,
-  //     // vuetify,
-  //     // mocks: {
-  //     //   $route
-  //     // },
-  //     methods: {
-  //       openDrawer
-  //     },
-  //     stubs: [
-  //       'v-app-bar',
-  //       'v-toolbar',
-  //       'header-title',
-  //       'header-tutorial-button',
-  //       'header-avatar-button',
-  //       'header-sign-button',
-  //       'header-drawer-button'
-  //     ]
-  //   })
-  // })
-
-  describe('v-on', () => {
-    it('openDrawer', () => {
-      const openDrawer = jest.fn()
-
-      wrapper = mount(Component, {
-        localVue,
-        store,
-        methods: {
-          openDrawer
-        },
-        stubs: [
-          'v-app-bar',
-          'v-toolbar',
-          'header-title',
-          'header-tutorial-button',
-          'header-avatar-button',
-          'header-sign-button',
-          'header-drawer-button'
-        ]
-      })
-
-      wrapper.find('.v-app-bar__nav-icon').trigger('click')
-      expect(openDrawer).toHaveBeenCalled()
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      methods: {
+        openDrawer
+      },
+      stubs: [
+        'v-app-bar',
+        'v-toolbar',
+        'header-title',
+        'header-tutorial-button',
+        'header-avatar-button',
+        'header-sign-button',
+        'header-drawer-button'
+      ]
     })
+
+    wrapper.find('.v-app-bar__nav-icon').trigger('click')
+    expect(openDrawer).toHaveBeenCalled()
+  })
+})
+
+describe('template', () => {
+  it('v-if="isLoggingIn"', () => {
+    auth.getters.isLoggingIn = () => true
+
+    store = new Vuex.Store({
+      modules: {
+        auth
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store
+    })
+
+    expect(wrapper.findAll(HeaderAvatarButton).length).toEqual(1)
+    expect(wrapper.findAll(HeaderSignButton).length).toEqual(0)
   })
 
-  describe('template', () => {
-    it('v-if="isLoggingIn"', () => {
-      auth.getters.isLoggingIn = () => true
+  it('v-else', () => {
+    auth.getters.isLoggingIn = () => false
 
-      store = new Vuex.Store({
-        modules: {
-          auth
-        }
-      })
-
-      wrapper = shallowMount(Component, {
-        localVue,
-        store
-      })
-
-      expect(wrapper.findAll(HeaderAvatarButton).length).toEqual(1)
-      expect(wrapper.findAll(HeaderSignButton).length).toEqual(0)
+    store = new Vuex.Store({
+      modules: {
+        auth
+      }
     })
 
-    it('v-else', () => {
-      auth.getters.isLoggingIn = () => false
-
-      store = new Vuex.Store({
-        modules: {
-          auth
-        }
-      })
-
-      wrapper = shallowMount(Component, {
-        localVue,
-        store
-      })
-
-      expect(wrapper.findAll(HeaderAvatarButton).length).toEqual(0)
-      expect(wrapper.findAll(HeaderSignButton).length).toEqual(1)
+    wrapper = shallowMount(Component, {
+      localVue,
+      store
     })
 
-    it('HeaderDrawerButton has :drawerState', () => {
-      expect(wrapper.find(HeaderDrawerButton).props().value).toEqual(
-        wrapper.vm.drawerState
-      )
-    })
+    expect(wrapper.findAll(HeaderAvatarButton).length).toEqual(0)
+    expect(wrapper.findAll(HeaderSignButton).length).toEqual(1)
+  })
 
-    it('snapshot', () => {
-      expect(wrapper.vm.$el).toMatchSnapshot()
-    })
+  it('HeaderDrawerButton has :drawerState', () => {
+    expect(wrapper.find(HeaderDrawerButton).props().value).toEqual(
+      wrapper.vm.drawerState
+    )
+  })
+
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
