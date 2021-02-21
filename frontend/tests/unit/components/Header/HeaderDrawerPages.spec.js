@@ -20,6 +20,13 @@ describe('template', () => {
     expect(target.at(1).attributes().to).toEqual('/privacy')
   })
 
+  it('v-icon has icon', () => {
+    const target = wrapper.findAll('v-icon-stub')
+
+    expect(target.length).toEqual(2)
+    expect(target.at(0).text()).toEqual('mdi-book-open-page-variant')
+    expect(target.at(1).text()).toEqual('mdi-security')
+  })
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
