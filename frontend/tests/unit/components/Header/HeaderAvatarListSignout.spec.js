@@ -9,16 +9,12 @@ let wrapper
 let store
 let auth
 
-const signOutHandler = jest.fn()
-
 beforeEach(() => {
   auth = {
     getters: {
       headers: () => {
         return {
-          data: {
-            id: 1
-          }
+          data: { id: 1 }
         }
       }
     }
@@ -30,12 +26,9 @@ beforeEach(() => {
     }
   })
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
-    store,
-    methods: {
-      signOutHandler
-    }
+    store
   })
 })
 
@@ -47,6 +40,16 @@ describe('getters', () => {
 
 describe('v-on', () => {
   it('signOutHandler', () => {
+    const signOutHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      methods: {
+        signOutHandler
+      }
+    })
+
     wrapper.find('.v-list-item').trigger('click')
     expect(signOutHandler).toHaveBeenCalledTimes(1)
   })
