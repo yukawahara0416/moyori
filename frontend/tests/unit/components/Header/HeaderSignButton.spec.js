@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Component from '@/components/Header/HeaderSignButton.vue'
@@ -18,9 +18,7 @@ beforeEach(() => {
     getters: {
       headers: () => {
         return {
-          data: {
-            id: 1
-          }
+          data: { id: 1 }
         }
       }
     }
@@ -47,12 +45,42 @@ beforeEach(() => {
       dialog
     }
   })
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    store,
+    vuetify,
+    stubs: ['sign-container', 'v-dialog']
+  })
 })
 
-describe('with mocked methods', () => {
-  const openDialog = jest.fn()
+describe('getters', () => {
+  it('headers', () => {
+    expect(wrapper.vm.headers).toEqual(store.getters.headers)
+  })
+
+  it('dialogSign', () => {
+    expect(wrapper.vm.dialogSign).toEqual(store.getters.dialogSign)
+  })
+})
+
+describe('computed', () => {
+  it('dialog/get', () => {
+    expect(wrapper.vm.dialog).toEqual(store.getters.dialogSign)
+  })
+
+  it('dialog/set', () => {
+    wrapper.vm.dialog = false
+    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+  })
+})
+
+describe('v-on', () => {
+  let openDialog
 
   beforeEach(() => {
+    openDialog = jest.fn()
+
     wrapper = mount(Component, {
       localVue,
       store,
@@ -64,53 +92,48 @@ describe('with mocked methods', () => {
     })
   })
 
-  describe('getters', () => {
-    it('headers', () => {
-      expect(wrapper.vm.headers).toEqual(store.getters.headers)
-    })
-
-    it('dialogSign', () => {
-      expect(wrapper.vm.dialogSign).toEqual(store.getters.dialogSign)
-    })
+  it('openDialog signin', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+    expect(openDialog).toHaveBeenCalledWith('signin')
+    expect(openDialog).not.toHaveBeenCalledWith('signup')
   })
 
-  describe('computed', () => {
-    it('dialog/get', () => {
-      expect(wrapper.vm.dialog).toEqual(store.getters.dialogSign)
-    })
-
-    it('dialog/set', () => {
-      wrapper.vm.dialog = false
-      expect(dialog.actions.dialogOff).toHaveBeenCalled()
-    })
-  })
-
-  describe('v-on', () => {
-    it('dialogOn', () => {
-      wrapper.find('.v-btn').trigger('click')
-      expect(openDialog).toHaveBeenCalledTimes(1)
-    })
+  it('openDialog signup', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+    expect(openDialog).toHaveBeenCalledWith('signup')
+    expect(openDialog).not.toHaveBeenCalledWith('signin')
   })
 })
 
-describe('without mocked methods', () => {
-  beforeEach(() => {
-    wrapper = mount(Component, {
-      localVue,
-      store,
-      vuetify,
-      stubs: ['sign-container', 'v-dialog']
-    })
-  })
+describe('methods', () => {
+  it('openDialog', () => {
+    const tab = 'signup'
 
-  it('test', () => {
-    wrapper.vm.openDialog()
-    expect(dialog.mutations.changeSignTab).toHaveBeenCalled()
-    expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+    wrapper.vm.openDialog(tab)
+    expect(dialog.mutations.changeSignTab).toHaveBeenCalledWith(
+      expect.any(Object),
+      tab
+    )
+    expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSign'
+    )
   })
 })
 
 describe('template', () => {
+  it('v-dialog has value', () => {
+    expect(wrapper.find('v-dialog-stub').attributes().value).toEqual(
+      wrapper.vm.dialogSign.toString()
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })

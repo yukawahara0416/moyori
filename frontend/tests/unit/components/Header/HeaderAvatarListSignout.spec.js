@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Header/HeaderAvatarListSignout.vue'
 
@@ -8,34 +8,42 @@ localVue.use(Vuex)
 let wrapper
 let store
 let auth
-
-const signOutHandler = jest.fn()
+let snackbar
 
 beforeEach(() => {
   auth = {
     getters: {
       headers: () => {
         return {
-          data: {
-            id: 1
-          }
+          data: { id: 1 }
         }
       }
+    },
+    mutations: {
+      clearHeaders: jest.fn()
+    },
+    actions: {
+      signOut: jest.fn()
+    }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
   store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      snackbar
     }
   })
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
-    store,
-    methods: {
-      signOutHandler
-    }
+    store
   })
 })
 
@@ -47,8 +55,33 @@ describe('getters', () => {
 
 describe('v-on', () => {
   it('signOutHandler', () => {
+    const signOutHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      methods: {
+        signOutHandler
+      }
+    })
+
     wrapper.find('.v-list-item').trigger('click')
     expect(signOutHandler).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('methods', () => {
+  it('signOutHandler', () => {
+    return wrapper.vm.signOutHandler().then(() => {
+      expect(auth.actions.signOut).toHaveBeenCalled()
+      expect(auth.mutations.clearHeaders).toHaveBeenCalled()
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'ログアウトしました'
+        }
+      )
+    })
   })
 })
 

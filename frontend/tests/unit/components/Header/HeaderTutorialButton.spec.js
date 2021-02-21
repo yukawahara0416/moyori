@@ -37,6 +37,9 @@ beforeEach(() => {
 describe('v-on', () => {
   it('click', () => {
     wrapper.find('.v-btn').trigger('click')
-    expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+    expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogTutorial'
+    )
   })
 })

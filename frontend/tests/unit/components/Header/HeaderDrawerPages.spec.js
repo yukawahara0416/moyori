@@ -14,8 +14,26 @@ beforeEach(() => {
 describe('template', () => {
   it('v-list-item has :to', () => {
     const target = wrapper.findAll('v-list-item-stub')
+
+    expect(target.length).toEqual(2)
     expect(target.at(0).attributes().to).toEqual('/rules')
     expect(target.at(1).attributes().to).toEqual('/privacy')
+  })
+
+  it('v-icon has icon', () => {
+    const target = wrapper.findAll('v-icon-stub')
+
+    expect(target.length).toEqual(2)
+    expect(target.at(0).text()).toEqual('mdi-book-open-page-variant')
+    expect(target.at(1).text()).toEqual('mdi-security')
+  })
+
+  it('v-list-item-title has title', () => {
+    const target = wrapper.findAll('v-list-item-title-stub')
+
+    expect(target.length).toEqual(2)
+    expect(target.at(0).text()).toEqual('利用規約')
+    expect(target.at(1).text()).toEqual('プライバシーポリシー')
   })
 
   it('snapshot', () => {
