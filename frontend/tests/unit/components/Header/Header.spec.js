@@ -27,7 +27,7 @@ beforeEach(() => {
   })
 
   $route = {
-    name: 'search'
+    name: null
   }
 
   wrapper = shallowMount(Component, {
@@ -47,11 +47,13 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('isSearchRoute is true', () => {
+    wrapper.vm.$route.name = 'search'
     expect(wrapper.vm.isSearchRoute).toBeTruthy()
   })
 
   it('isSearchRoute is false', () => {
-    throw new Error('テスト未作成')
+    wrapper.vm.$route.name = 'profile'
+    expect(wrapper.vm.isSearchRoute).toBeFalsy()
   })
 })
 
