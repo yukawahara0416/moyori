@@ -19,7 +19,13 @@ import { mapGetters } from 'vuex'
 
 export default {
   props: {
-    center: Object
+    center: {
+      type: Object,
+      default: () => {
+        return { lat: null, lng: null }
+      },
+      required: true
+    }
   },
 
   computed: {

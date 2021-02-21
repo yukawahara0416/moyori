@@ -54,7 +54,6 @@ describe('getters', () => {
 
 describe('template', () => {
   it('gmap-circle has :center', () => {
-    console.log(wrapper.html())
     expect(wrapper.find('gmap-circle-stub').attributes().center).toEqual(
       '[object Object]'
     )
