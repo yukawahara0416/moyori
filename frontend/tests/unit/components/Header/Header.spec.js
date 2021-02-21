@@ -128,7 +128,23 @@ describe('with mount wrapper', () => {
       expect(wrapper.findAll(HeaderSignButton).length).toEqual(0)
     })
 
-    // v-else
+    it('v-else', () => {
+      auth.getters.isLoggingIn = () => false
+
+      store = new Vuex.Store({
+        modules: {
+          auth
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        store
+      })
+
+      expect(wrapper.findAll(HeaderAvatarButton).length).toEqual(0)
+      expect(wrapper.findAll(HeaderSignButton).length).toEqual(1)
+    })
 
     // v-model="drawerState"
 
