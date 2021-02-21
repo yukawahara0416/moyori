@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Header/HeaderAvatarButton.vue'
 import HeaderAvatarImage from '@/components/Header/HeaderAvatarImage.vue'
@@ -16,7 +16,7 @@ beforeEach(() => {
     getters: {
       currentUser: () => {
         return {
-          data: { id: 1 }
+          data: { id: 1, name: 'name' }
         }
       }
     }
@@ -41,7 +41,16 @@ describe('getters', () => {
 })
 
 describe('template', () => {
-  // has currentUser
+  it('HeaderAvatarImage has :currentUser', () => {
+    wrapper = mount(Component, {
+      localVue,
+      store
+    })
+
+    expect(wrapper.find(HeaderAvatarImage).props().currentUser).toEqual(
+      wrapper.vm.currentUser
+    )
+  })
 
   //
   it('snapshot', () => {
