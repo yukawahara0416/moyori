@@ -8,6 +8,7 @@ localVue.use(Vuex)
 let wrapper
 let store
 let auth
+let snackbar
 
 beforeEach(() => {
   auth = {
@@ -20,9 +21,17 @@ beforeEach(() => {
     }
   }
 
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      snackbar
     }
   })
 
