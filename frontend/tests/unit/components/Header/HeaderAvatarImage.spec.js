@@ -33,7 +33,7 @@ describe('props', () => {
 
 describe('template', () => {
   it('v-if="currentUser.data.avatar"', () => {
-    expect(wrapper.html().includes('v-img-stub')).toBeTruthy()
+    expect(wrapper.findAll('v-img-stub').length).toEqual(1)
   })
 
   // attribute
