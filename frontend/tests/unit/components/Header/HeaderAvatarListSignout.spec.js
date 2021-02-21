@@ -52,6 +52,10 @@ describe('v-on', () => {
   })
 })
 
+describe('methods', () => {
+  it('signOutHandler', () => {})
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
