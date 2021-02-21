@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue, RouterLinkStub } from '@vue/test-utils'
 import Component from '@/components/Header/HeaderAvatarListMypage.vue'
 
 const localVue = createLocalVue()
@@ -11,9 +11,12 @@ beforeEach(() => {
     currentUser: { data: { id: 1 } }
   }
 
-  wrapper = shallowMount(Component, {
+  wrapper = mount(Component, {
     localVue,
-    propsData
+    propsData,
+    stubs: {
+      RouterLink: RouterLinkStub
+    }
   })
 })
 
