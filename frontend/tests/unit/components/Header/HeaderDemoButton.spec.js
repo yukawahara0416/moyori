@@ -27,10 +27,10 @@ describe('v-on', () => {
   })
 })
 
-describe('v-on', () => {
+describe('emit', () => {
   it('demoSearch', () => {
-    wrapper.find('.v-btn').trigger('click')
-    expect(demoSearch).toHaveBeenCalled()
+    wrapper.vm.$emit('demoSearch')
+    expect(wrapper.emitted().demoSearch).toBeTruthy()
   })
 })
 
