@@ -104,7 +104,9 @@ describe('with mount wrapper', () => {
   describe('v-on', () => {
     it('openDrawer', () => {
       const openDrawer = jest.fn()
-      wrapper.setMethods({ openDrawer })
+
+      // wrapper.setMethods({ openDrawer })
+
       wrapper.find('.v-app-bar__nav-icon').trigger('click')
       expect(openDrawer).toHaveBeenCalled()
     })
