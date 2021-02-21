@@ -1,6 +1,5 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-// import Vuetify from 'vuetify'
 import Component from '@/components/Header/Header.vue'
 import HeaderAvatarButton from '@/components/Header/HeaderAvatarButton.vue'
 import HeaderSignButton from '@/components/Header/HeaderSignButton.vue'
@@ -8,13 +7,11 @@ import HeaderDrawerButton from '@/components/Header/HeaderDrawerButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
-// localVue.use(Vuetify)
 
 let wrapper
 let store
 let auth
 let $route
-// let vuetify
 
 beforeEach(() => {
   auth = {
@@ -33,50 +30,28 @@ beforeEach(() => {
     name: 'search'
   }
 
-  // vuetify = new Vuetify()
+  wrapper = shallowMount(Component, {
+    localVue,
+    store,
+    mocks: {
+      $route
+    }
+  })
 })
 
-describe('with shallowMount wrapper', () => {
-  beforeEach(() => {
-    wrapper = shallowMount(Component, {
-      localVue,
-      store,
-      // vuetify,
-      mocks: {
-        $route
-      }
-    })
+describe('getters', () => {
+  it('isLoggingIn', () => {
+    expect(wrapper.vm.isLoggingIn).toEqual(store.getters.isLoggingIn)
+  })
+})
+
+describe('computed', () => {
+  it('isSearchRoute is true', () => {
+    expect(wrapper.vm.isSearchRoute).toBeTruthy()
   })
 
-  describe('getters', () => {
-    it('isLoggingIn', () => {
-      expect(wrapper.vm.isLoggingIn).toEqual(store.getters.isLoggingIn)
-    })
-  })
-
-  describe('computed', () => {
-    it('isSearchRoute is true', () => {
-      expect(wrapper.vm.isSearchRoute).toBeTruthy()
-    })
-
-    it('isSearchRoute is false', () => {
-      throw new Error('テスト未作成')
-    })
-  })
-
-  describe('methods', () => {
-    it('openDrawer', () => {
-      wrapper.setData({ drawerState: false })
-
-      wrapper.vm.openDrawer()
-      expect(wrapper.vm.drawerState).toBeTruthy()
-    })
-  })
-
-  describe('template', () => {
-    it('snapshot', () => {
-      expect(wrapper.vm.$el).toMatchSnapshot()
-    })
+  it('isSearchRoute is false', () => {
+    throw new Error('テスト未作成')
   })
 })
 
@@ -103,6 +78,15 @@ describe('v-on', () => {
 
     wrapper.find('.v-app-bar__nav-icon').trigger('click')
     expect(openDrawer).toHaveBeenCalled()
+  })
+})
+
+describe('methods', () => {
+  it('openDrawer', () => {
+    wrapper.setData({ drawerState: false })
+
+    wrapper.vm.openDrawer()
+    expect(wrapper.vm.drawerState).toBeTruthy()
   })
 })
 
