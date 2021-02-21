@@ -23,7 +23,13 @@ import HeaderDrawerFooter from '@/components/Header/HeaderDrawerFooter.vue'
 
 export default {
   props: {
-    value: Boolean
+    value: {
+      type: Boolean,
+      default: () => {
+        return false
+      },
+      required: true
+    }
   },
 
   components: {
