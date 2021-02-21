@@ -81,6 +81,8 @@ describe('with shallowMount wrapper', () => {
 })
 
 describe('with mount wrapper', () => {
+  const openDrawer = jest.fn()
+
   beforeEach(() => {
     wrapper = mount(Component, {
       localVue,
@@ -89,6 +91,8 @@ describe('with mount wrapper', () => {
       // mocks: {
       //   $route
       // },
+      methods: {
+        openDrawer
       },
       stubs: [
         'v-app-bar',
@@ -104,8 +108,6 @@ describe('with mount wrapper', () => {
 
   describe('v-on', () => {
     it('openDrawer', () => {
-      const openDrawer = jest.fn()
-
       // wrapper.setMethods({ openDrawer })
 
       wrapper.find('.v-app-bar__nav-icon').trigger('click')
