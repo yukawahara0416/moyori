@@ -81,34 +81,51 @@ describe('with shallowMount wrapper', () => {
 })
 
 describe('with mount wrapper', () => {
-  const openDrawer = jest.fn()
+  // const openDrawer = jest.fn()
 
-  beforeEach(() => {
-    wrapper = mount(Component, {
-      localVue,
-      store,
-      // vuetify,
-      // mocks: {
-      //   $route
-      // },
-      methods: {
-        openDrawer
-      },
-      stubs: [
-        'v-app-bar',
-        'v-toolbar',
-        'header-title',
-        'header-tutorial-button',
-        'header-avatar-button',
-        'header-sign-button',
-        'header-drawer-button'
-      ]
-    })
-  })
+  // beforeEach(() => {
+  //   wrapper = mount(Component, {
+  //     localVue,
+  //     store,
+  //     // vuetify,
+  //     // mocks: {
+  //     //   $route
+  //     // },
+  //     methods: {
+  //       openDrawer
+  //     },
+  //     stubs: [
+  //       'v-app-bar',
+  //       'v-toolbar',
+  //       'header-title',
+  //       'header-tutorial-button',
+  //       'header-avatar-button',
+  //       'header-sign-button',
+  //       'header-drawer-button'
+  //     ]
+  //   })
+  // })
 
   describe('v-on', () => {
     it('openDrawer', () => {
-      // wrapper.setMethods({ openDrawer })
+      const openDrawer = jest.fn()
+
+      wrapper = mount(Component, {
+        localVue,
+        store,
+        methods: {
+          openDrawer
+        },
+        stubs: [
+          'v-app-bar',
+          'v-toolbar',
+          'header-title',
+          'header-tutorial-button',
+          'header-avatar-button',
+          'header-sign-button',
+          'header-drawer-button'
+        ]
+      })
 
       wrapper.find('.v-app-bar__nav-icon').trigger('click')
       expect(openDrawer).toHaveBeenCalled()
