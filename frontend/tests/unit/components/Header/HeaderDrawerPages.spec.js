@@ -14,6 +14,8 @@ beforeEach(() => {
 describe('template', () => {
   it('v-list-item has :to', () => {
     const target = wrapper.findAll('v-list-item-stub')
+
+    expect(target.length).toEqual(2)
     expect(target.at(0).attributes().to).toEqual('/rules')
     expect(target.at(1).attributes().to).toEqual('/privacy')
   })
