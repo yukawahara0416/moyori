@@ -343,6 +343,12 @@ describe('template', () => {
     )
   })
 
+  it('gmap-map has :options', () => {
+    expect(wrapper.find('gmap-map-stub').attributes().options).toEqual(
+      '[object Object]'
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
