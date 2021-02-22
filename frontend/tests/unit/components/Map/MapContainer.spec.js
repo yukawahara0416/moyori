@@ -11,6 +11,7 @@ let wrapper
 let store
 let auth
 let spot
+let form
 let map
 let dialog
 let loading
@@ -32,6 +33,13 @@ beforeEach(() => {
     },
     mutations: {
       clearSpots: jest.fn()
+    }
+  }
+
+  form = {
+    mutations: {
+      setSpotForm: jest.fn(),
+      clearSpotForm: jest.fn()
     }
   }
 
@@ -71,9 +79,10 @@ beforeEach(() => {
 
   store = new Vuex.Store({
     modules: {
-      spot,
-      map,
       auth,
+      spot,
+      form,
+      map,
       dialog,
       loading
     }
