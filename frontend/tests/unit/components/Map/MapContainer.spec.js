@@ -337,6 +337,12 @@ describe('emit', () => {
 })
 
 describe('template', () => {
+  it('gmap-map has :center', () => {
+    expect(wrapper.find('gmap-map-stub').attributes().center).toEqual(
+      '[object Object]'
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
