@@ -229,7 +229,31 @@ describe('methods', () => {
     expect(loading.mutations.loadingOn).toHaveBeenCalled()
     expect(spot.mutations.clearSpots).toHaveBeenCalled()
   })
-})
+
+  it('panToLocation', () => {
+    const position = { lat: 123, lng: 456 }
+
+    const setLocationMarker = jest.fn()
+    const panTo = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      vuetify,
+      methods: {
+        setLocationMarker,
+        panTo
+      },
+      stubs: ['gmap-map', 'map-circle', 'map-marker']
+    })
+
+    return wrapper.vm.panToLocation().then(() => {
+      expect(loading.mutations.loadingOn).toHaveBeenCalled()
+      expect(geolocate).toHaveBeenCalled()
+      expect(setLocationMarker).toHaveBeenCalledWith(position)
+      expect(panTo).toHaveBeenCalledWith(position)
+    })
+  })
 
 describe('emit', () => {
   it('$emit.nearby-search', () => {
