@@ -130,7 +130,6 @@ describe('actions', () => {
       email: 'test',
       password: 'test'
     }
-    const response = { id: 1 }
     axiosMock.onPost('/api/v1/auth/', signUpForm).reply(404)
 
     store.dispatch('signUp', signUpForm).catch(err => {
@@ -156,7 +155,6 @@ describe('actions', () => {
       email: 'test',
       password: 'test'
     }
-    const response = { id: 1 }
     axiosMock.onPost('/api/v1/auth/sign_in', signInForm).reply(404)
 
     store.dispatch('signIn', signInForm).catch(err => {
@@ -176,7 +174,6 @@ describe('actions', () => {
 
   it('signOut 404 error', () => {
     const headers = { test: 'test' }
-    const response = { id: 1 }
     axiosMock.onDelete('api/v1/auth/sign_out', { headers }).reply(404)
 
     store.dispatch('signOut').catch(err => {
