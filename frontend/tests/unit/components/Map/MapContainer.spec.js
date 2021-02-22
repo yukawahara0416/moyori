@@ -9,11 +9,12 @@ localVue.use(Vuetify)
 
 let wrapper
 let store
+let auth
 let spot
 let map
-let auth
 let dialog
 let loading
+
 let vuetify
 
 beforeEach(() => {
