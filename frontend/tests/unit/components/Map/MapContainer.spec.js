@@ -1,11 +1,21 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
+import { geolocate, geocodeGenerate, placeIdGenerate } from '@/plugins/maps.js'
 import Component from '@/components/Map/MapContainer.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(Vuetify)
+
+jest.mock('@/plugins/maps.js', () => ({
+  ...jest.requireActual('@/plugins/maps.js'),
+  geolocate: jest.fn().mockResolvedValue({ lat: 123, lng: 456 }),
+  geocodeGenerate: jest
+    .fn()
+    .mockResolvedValue({ address: 'address', lat: 123, lng: 456 }),
+  placeIdGenerate: jest.fn().mockReturnValue({ place_id: '1_abcdefgh' })
+}))
 
 let wrapper
 let store
@@ -33,6 +43,7 @@ beforeEach(() => {
       filteredSpots: () => [{ data: { id: 2 } }]
     },
     mutations: {
+      setSpot: jest.fn(),
       clearSpots: jest.fn()
     }
   }
@@ -61,6 +72,9 @@ beforeEach(() => {
   }
 
   dialog = {
+    getters: {
+      dialogSpotCreate: () => true
+    },
     mutations: {
       dialogOn: jest.fn()
     },
