@@ -255,6 +255,48 @@ describe('methods', () => {
     })
   })
 
+  describe('openDialogPostSpot', () => {
+    const event = 'event'
+
+    it('isLoggingIn is false', () => {
+      auth.getters.isLoggingIn = () => false
+
+      store = new Vuex.Store({
+        modules: {
+          spot,
+          auth,
+          dialog,
+          snackbar
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        store,
+        vuetify,
+        stubs: ['gmap-map', 'map-circle', 'map-marker']
+      })
+
+      expect.assertions(3)
+
+      return wrapper.vm.openDialogPostSpot(event).then(() => {
+        expect(wrapper.vm.isLoggingIn).toBeFalsy()
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: 'スポットを登録するには、ログインが必要です'
+          }
+        )
+        expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+          expect.any(Object),
+          'dialogSign'
+        )
+      })
+    })
+
+  })
+})
+
 describe('emit', () => {
   it('$emit.nearby-search', () => {
     wrapper.vm.$emit('nearby-search')
