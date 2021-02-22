@@ -14,6 +14,7 @@ let spot
 let form
 let map
 let dialog
+let snackbar
 let loading
 
 let vuetify
@@ -68,6 +69,13 @@ beforeEach(() => {
     }
   }
 
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
+    }
+  }
+
   loading = {
     mutations: {
       loadingOn: jest.fn(),
@@ -84,6 +92,7 @@ beforeEach(() => {
       form,
       map,
       dialog,
+      snackbar,
       loading
     }
   })
