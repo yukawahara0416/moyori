@@ -349,6 +349,12 @@ describe('template', () => {
     )
   })
 
+  it('gmap-map has :zoom', () => {
+    expect(wrapper.find('gmap-map-stub').attributes().zoom).toEqual(
+      wrapper.vm.zoom.toString()
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
