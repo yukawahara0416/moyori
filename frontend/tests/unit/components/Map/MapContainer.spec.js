@@ -294,6 +294,33 @@ describe('methods', () => {
       })
     })
 
+    it('isLoggingIn is true', () => {
+      expect.assertions(8)
+
+      return wrapper.vm.openDialogPostSpot(event).then(() => {
+        expect(wrapper.vm.isLoggingIn).toBeTruthy()
+        expect(form.mutations.clearSpotForm).toHaveBeenCalled()
+        expect(geocodeGenerate).toHaveBeenCalledWith(event)
+        expect(placeIdGenerate).toHaveBeenCalledWith(
+          wrapper.vm.currentUser.data.id
+        )
+        expect(form.mutations.setSpotForm).toHaveBeenCalledTimes(2)
+        expect(form.mutations.setSpotForm).toHaveBeenNthCalledWith(
+          1,
+          expect.any(Object),
+          { address: 'address', lat: 123, lng: 456 }
+        )
+        expect(form.mutations.setSpotForm).toHaveBeenNthCalledWith(
+          2,
+          expect.any(Object),
+          { place_id: '1_abcdefgh' }
+        )
+        expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+          expect.any(Object),
+          'dialogSpotCreate'
+        )
+      })
+    })
   })
 })
 
