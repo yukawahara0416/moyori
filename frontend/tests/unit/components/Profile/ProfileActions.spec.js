@@ -2,6 +2,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Profile/ProfileActions.vue'
 import ProfileActionsEditButton from '@/components/Profile/ProfileActionsEditButton.vue'
+import ProfileActionsSignOutButton from '@/components/Profile/ProfileActionsSignOutButton.vue'
 import ProfileActionsDeleteButton from '@/components/Profile/ProfileActionsDeleteButton.vue'
 
 const localVue = createLocalVue()
@@ -75,11 +76,29 @@ describe('template', () => {
 
   // has :id
 
-  // has :user
 
-  // has :id
+  it('ProfileActionsEditButton has :id', () => {
+    expect(wrapper.find(ProfileActionsEditButton).props().id).toEqual(
+      wrapper.vm.$props.id
+    )
+  })
 
-  // has :user
+  it('ProfileActionsEditButton has :user', () => {
+    expect(wrapper.find(ProfileActionsEditButton).props().user).toEqual(
+      wrapper.vm.$props.user
+    )
+  })
+
+  it('ProfileActionsDeleteButton has :id', () => {
+    expect(wrapper.find(ProfileActionsDeleteButton).props().id).toEqual(
+      wrapper.vm.$props.id
+    )
+  })
+  it('ProfileActionsDeleteButton has :user', () => {
+    expect(wrapper.find(ProfileActionsDeleteButton).props().user).toEqual(
+      wrapper.vm.$props.user
+    )
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
