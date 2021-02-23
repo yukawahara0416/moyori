@@ -62,6 +62,11 @@ describe('emit', () => {
 })
 
 describe('template', () => {
+  it('v-btn click disabled', () => {
+    console.log(wrapper.html())
+    expect(wrapper.find('.v-btn').attributes().disabled).toBeTruthy()
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
