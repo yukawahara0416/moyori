@@ -52,7 +52,9 @@ describe('v-on', () => {
     wrapper.find('.v-btn').trigger('click')
     expect(openDialog).toHaveBeenCalledTimes(1)
   })
+})
 
+describe('emit', () => {
   it('$emit.closeDialog', () => {
     wrapper.vm.$emit('closeDialog')
     expect(wrapper.emitted().closeDialog).toBeTruthy()
