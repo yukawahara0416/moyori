@@ -63,8 +63,24 @@ describe('emit', () => {
 
 describe('template', () => {
   it('v-btn click disabled', () => {
-    console.log(wrapper.html())
     expect(wrapper.find('.v-btn').attributes().disabled).toBeTruthy()
+  })
+
+  it('v-btn click abled', () => {
+    propsData = {
+      id: 2,
+      user: { data: { id: 1 } }
+    }
+    vuetify = new Vuetify()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      vuetify,
+      methods: { openDialog, closeDialog }
+    })
+
+    expect(wrapper.find('.v-btn').attributes().disabled).toBeFalsy()
   })
 
   it('snapshot', () => {
