@@ -5,7 +5,7 @@
       justify="center"
       no-gutter
       class="profile-action-container"
-      v-show="isLoggingIn && isOwnPage"
+      v-if="isLoggingIn && isOwnPage"
     >
       <profile-actions-edit-button :id="id" :user="user" />
 
