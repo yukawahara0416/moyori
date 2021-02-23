@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Profile/ProfileActionsDeleteButton.vue'
 import Vuetify from 'vuetify'
 
@@ -9,9 +9,6 @@ let wrapper
 let propsData
 let vuetify
 
-const openDialog = jest.fn()
-const closeDialog = jest.fn()
-
 beforeEach(() => {
   propsData = {
     id: 1,
@@ -19,11 +16,10 @@ beforeEach(() => {
   }
   vuetify = new Vuetify()
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    vuetify,
-    methods: { openDialog, closeDialog }
+    vuetify
   })
 })
 
@@ -55,9 +51,21 @@ describe('computed', () => {
 
 describe('v-on', () => {
   it('click openDialog', async () => {
+    const openDialog = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      vuetify,
+      methods: {
+        openDialog
+      }
+    })
+
     await wrapper.setProps({ id: 2 })
+
     wrapper.find('.v-btn').trigger('click')
-    expect(openDialog).toHaveBeenCalledTimes(1)
+    expect(openDialog).toHaveBeenCalled()
   })
 })
 
@@ -117,25 +125,14 @@ describe('emit', () => {
 })
 
 describe('template', () => {
-  it('v-btn click disabled', () => {
-    expect(wrapper.find('.v-btn').attributes().disabled).toBeTruthy()
+  it('v-btn click disabled', async () => {
+    await wrapper.setProps({ id: 1 })
+    expect(wrapper.find('v-btn-stub').attributes().disabled).toBeTruthy()
   })
 
-  it('v-btn click abled', () => {
-    propsData = {
-      id: 2,
-      user: { data: { id: 1 } }
-    }
-    vuetify = new Vuetify()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      vuetify,
-      methods: { openDialog, closeDialog }
-    })
-
-    expect(wrapper.find('.v-btn').attributes().disabled).toBeFalsy()
+  it('v-btn click abled', async () => {
+    await wrapper.setProps({ id: 2 })
+    expect(wrapper.find('v-btn-stub').attributes().disabled).toBeFalsy()
   })
 
   it('snapshot', () => {
