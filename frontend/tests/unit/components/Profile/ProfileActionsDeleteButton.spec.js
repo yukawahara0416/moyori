@@ -48,7 +48,7 @@ describe('computed', () => {
   })
 
   it('isTestUser return false', () => {
-    //
+    wrapper.setProps({ id: 2 })
     expect(wrapper.vm.isTestUser).toBeFalsy()
   })
 })
