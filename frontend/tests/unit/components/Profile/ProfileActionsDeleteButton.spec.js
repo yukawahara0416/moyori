@@ -42,7 +42,12 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('isTestUser', () => {
+  it('isTestUser return true', () => {
+    //
+    expect(wrapper.vm.isTestUser).toBeFalsy()
+  })
+
+  it('isTestUser return false', () => {
     //
     expect(wrapper.vm.isTestUser).toBeFalsy()
   })
