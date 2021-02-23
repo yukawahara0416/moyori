@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Map/MapPantoButton.vue'
 
 const localVue = createLocalVue()
@@ -6,7 +6,7 @@ const localVue = createLocalVue()
 let wrapper
 
 beforeEach(() => {
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue
   })
 })
@@ -22,8 +22,8 @@ describe('v-on', () => {
       }
     })
 
-    wrapper.find('button').trigger('click')
-    expect(panToLocation).toHaveBeenCalledTimes(1)
+    wrapper.find('.v-btn').trigger('click')
+    expect(panToLocation).toHaveBeenCalled()
   })
 })
 
