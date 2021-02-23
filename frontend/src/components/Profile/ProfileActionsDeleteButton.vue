@@ -23,8 +23,20 @@ import ProfileActionsDeleteDialog from '@/components/Profile/ProfileActionsDelet
 
 export default {
   props: {
-    id: Number,
-    user: Object
+    id: {
+      type: Number,
+      default: () => {
+        return null
+      },
+      required: true
+    },
+    user: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   components: {
