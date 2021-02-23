@@ -72,7 +72,12 @@ describe('computed', () => {
 })
 
 describe('template', () => {
-  // v-show
+  it('v-if buttons', () => {
+    expect(wrapper.find('v-row-stub').exists()).toBeTruthy()
+    expect(wrapper.find(ProfileActionsEditButton).exists()).toBeTruthy()
+    expect(wrapper.find(ProfileActionsSignOutButton).exists()).toBeTruthy()
+    expect(wrapper.find(ProfileActionsDeleteButton).exists()).toBeTruthy()
+  })
 
   // has :id
 
