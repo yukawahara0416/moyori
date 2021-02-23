@@ -43,6 +43,7 @@ describe('props', () => {
 
 describe('computed', () => {
   it('isTestUser', () => {
+    //
     expect(wrapper.vm.isTestUser).toBeFalsy()
   })
 })
@@ -52,6 +53,11 @@ describe('v-on', () => {
     wrapper.find('.v-btn').trigger('click')
     expect(openDialog).toHaveBeenCalledTimes(1)
   })
+})
+
+describe('methods', () => {
+  it('openDialog', () => {})
+  it('closeDialog', () => {})
 })
 
 describe('emit', () => {
