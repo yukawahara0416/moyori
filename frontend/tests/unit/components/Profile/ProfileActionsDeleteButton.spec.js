@@ -48,7 +48,7 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
-  it('dialogOn', () => {
+  it('click openDialog', () => {
     wrapper.find('.v-btn').trigger('click')
     expect(openDialog).toHaveBeenCalledTimes(1)
   })
