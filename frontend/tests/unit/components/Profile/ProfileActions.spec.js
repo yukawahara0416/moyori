@@ -79,8 +79,14 @@ describe('template', () => {
     expect(wrapper.find(ProfileActionsDeleteButton).exists()).toBeTruthy()
   })
 
-  // has :id
+  it('v-else buttons', async () => {
+    await wrapper.setProps({ currentUser: { data: { id: 2 } } })
 
+    expect(wrapper.find('v-row-stub').exists()).toBeFalsy()
+    expect(wrapper.find(ProfileActionsEditButton).exists()).toBeFalsy()
+    expect(wrapper.find(ProfileActionsSignOutButton).exists()).toBeFalsy()
+    expect(wrapper.find(ProfileActionsDeleteButton).exists()).toBeFalsy()
+  })
 
   it('ProfileActionsEditButton has :id', () => {
     expect(wrapper.find(ProfileActionsEditButton).props().id).toEqual(
