@@ -24,9 +24,27 @@ import ProfileActionsDeleteButton from '@/components/Profile/ProfileActionsDelet
 
 export default {
   props: {
-    id: Number,
-    user: Object,
-    currentUser: Object
+    id: {
+      type: Number,
+      default: () => {
+        return null
+      },
+      required: true
+    },
+    user: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    },
+    currentUser: {
+      type: Object,
+      default: () => {
+        return { data: {} }
+      },
+      required: true
+    }
   },
 
   components: {

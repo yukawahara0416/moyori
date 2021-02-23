@@ -1,6 +1,8 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Profile/ProfileActions.vue'
+import ProfileActionsEditButton from '@/components/Profile/ProfileActionsEditButton.vue'
+import ProfileActionsDeleteButton from '@/components/Profile/ProfileActionsDeleteButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -40,16 +42,19 @@ describe('props', () => {
   it('id', () => {
     expect(wrapper.vm.$props.id).toStrictEqual(propsData.id)
     expect(typeof wrapper.vm.$props.id).toBe('number')
+    expect(wrapper.vm.$options.props.id.required).toBeTruthy()
   })
 
   it('user', () => {
     expect(wrapper.vm.$props.user).toStrictEqual(propsData.user)
     expect(wrapper.vm.$props.user instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.user.required).toBeTruthy()
   })
 
   it('currentUser', () => {
     expect(wrapper.vm.$props.currentUser).toStrictEqual(propsData.currentUser)
     expect(wrapper.vm.$props.currentUser instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.currentUser.required).toBeTruthy()
   })
 })
 
@@ -66,6 +71,16 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  // v-show
+
+  // has :id
+
+  // has :user
+
+  // has :id
+
+  // has :user
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
