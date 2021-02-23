@@ -71,46 +71,12 @@ describe('v-on', () => {
 
 describe('methods', () => {
   it('openDialog', () => {
-    const app = document.createElement('div')
-    app.setAttribute('data-app', true)
-    document.body.append(app)
-
-    propsData = {
-      id: 2,
-      user: { data: { id: 1 } }
-    }
-    // vuetify = new Vuetify()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      vuetify
-      // methods: { openDialog, closeDialog }
-    })
-
     wrapper.setData({ dialog: false })
     wrapper.vm.openDialog()
     expect(wrapper.vm.dialog).toBeTruthy()
   })
 
   it('closeDialog', () => {
-    const app = document.createElement('div')
-    app.setAttribute('data-app', true)
-    document.body.append(app)
-
-    propsData = {
-      id: 2,
-      user: { data: { id: 1 } }
-    }
-    // vuetify = new Vuetify()
-
-    wrapper = mount(Component, {
-      localVue,
-      propsData,
-      vuetify
-      // methods: { openDialog, closeDialog }
-    })
-
     wrapper.setData({ dialog: true })
     wrapper.vm.closeDialog()
     expect(wrapper.vm.dialog).toBeFalsy()
