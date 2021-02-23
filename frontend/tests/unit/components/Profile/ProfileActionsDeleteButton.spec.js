@@ -14,7 +14,7 @@ const closeDialog = jest.fn()
 
 beforeEach(() => {
   propsData = {
-    id: 2,
+    id: 1,
     user: { data: { id: 1 } }
   }
   vuetify = new Vuetify()
@@ -24,6 +24,20 @@ beforeEach(() => {
     propsData,
     vuetify,
     methods: { openDialog, closeDialog }
+  })
+})
+
+describe('props', () => {
+  it('id', () => {
+    expect(wrapper.vm.$props.id).toStrictEqual(propsData.id)
+    expect(typeof wrapper.vm.$props.id).toBe('number')
+    expect(wrapper.vm.$options.props.id.required).toBeTruthy()
+  })
+
+  it('user', () => {
+    expect(wrapper.vm.$props.user).toStrictEqual(propsData.user)
+    expect(wrapper.vm.$props.user instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.user.required).toBeTruthy()
   })
 })
 
