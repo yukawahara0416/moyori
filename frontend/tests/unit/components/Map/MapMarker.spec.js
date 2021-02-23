@@ -77,15 +77,19 @@ describe('props', () => {
 
 describe('computed', () => {
   it('iconFileName = spotlight', () => {
-    expect(wrapper.vm.iconFileName(propsData.spots[0])).toEqual('spotlight')
+    expect(wrapper.vm.iconFileName(wrapper.vm.$props.spots[0])).toEqual(
+      'spotlight'
+    )
   })
 
   it('iconFileName = cafe', () => {
-    expect(wrapper.vm.iconFileName(propsData.spots[1])).toEqual('cafe')
+    expect(wrapper.vm.iconFileName(wrapper.vm.$props.spots[1])).toEqual('cafe')
   })
 
   it('iconFileName = starbucks', () => {
-    expect(wrapper.vm.iconFileName(propsData.spots[2])).toEqual('starbucks')
+    expect(wrapper.vm.iconFileName(wrapper.vm.$props.spots[2])).toEqual(
+      'starbucks'
+    )
   })
 })
 
