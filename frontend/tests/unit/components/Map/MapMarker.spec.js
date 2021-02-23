@@ -93,24 +93,39 @@ describe('computed', () => {
   })
 })
 
-describe('actions', () => {
-  it('spot/spotlight', () => {
-    wrapper.vm.spotlight()
-    expect(spot.actions.spotlight).toHaveBeenCalled()
-  })
-})
-
 describe('template', () => {
-  it(':title', () => {
+  it('gmap-marker count 3', () => {
+    expect(wrapper.findAll('gmap-marker-stub').length).toEqual(3)
+  })
+
+  it('gmap-marker has :icon', () => {
+    expect(
+      wrapper
+        .findAll('gmap-marker-stub')
+        .at(0)
+        .attributes().icon
+    ).toEqual(wrapper.vm.icon(wrapper.vm.$props.spots[0]))
+  })
+
+  it('gmap-marker has :title', () => {
     expect(
       wrapper
         .findAll('gmap-marker-stub')
         .at(0)
         .attributes().title
-    ).toEqual('test1')
+    ).toEqual(wrapper.vm.$props.spots[0].data.name)
   })
 
-  it(':zIndex', () => {
+  it('gmap-marker has :position', () => {
+    expect(
+      wrapper
+        .findAll('gmap-marker-stub')
+        .at(0)
+        .attributes().position
+    ).toEqual(wrapper.vm.$props.spots[0].data.position.toString())
+  })
+
+  it('gmap-marker has :zIndex', () => {
     expect(
       wrapper
         .findAll('gmap-marker-stub')
