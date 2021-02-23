@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Map/MapNearbyButton.vue'
 
 const localVue = createLocalVue()
@@ -6,7 +6,7 @@ const localVue = createLocalVue()
 let wrapper
 
 beforeEach(() => {
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue
   })
 })
@@ -23,7 +23,7 @@ describe('v-on', () => {
     })
 
     wrapper.find('.v-btn').trigger('click')
-    expect(nearbySearch).toHaveBeenCalledTimes(1)
+    expect(nearbySearch).toHaveBeenCalled()
   })
 })
 

@@ -71,41 +71,61 @@ describe('props', () => {
   it('spots', () => {
     expect(wrapper.vm.$props.spots).toStrictEqual(propsData.spots)
     expect(wrapper.vm.$props.spots instanceof Array).toBeTruthy()
+    expect(wrapper.vm.$options.props.spots.required).toBeTruthy()
   })
 })
 
 describe('computed', () => {
   it('iconFileName = spotlight', () => {
-    expect(wrapper.vm.iconFileName(propsData.spots[0])).toEqual('spotlight')
+    expect(wrapper.vm.iconFileName(wrapper.vm.$props.spots[0])).toEqual(
+      'spotlight'
+    )
   })
 
   it('iconFileName = cafe', () => {
-    expect(wrapper.vm.iconFileName(propsData.spots[1])).toEqual('cafe')
+    expect(wrapper.vm.iconFileName(wrapper.vm.$props.spots[1])).toEqual('cafe')
   })
 
   it('iconFileName = starbucks', () => {
-    expect(wrapper.vm.iconFileName(propsData.spots[2])).toEqual('starbucks')
-  })
-})
-
-describe('actions', () => {
-  it('spot/spotlight', () => {
-    wrapper.vm.spotlight()
-    expect(spot.actions.spotlight).toHaveBeenCalled()
+    expect(wrapper.vm.iconFileName(wrapper.vm.$props.spots[2])).toEqual(
+      'starbucks'
+    )
   })
 })
 
 describe('template', () => {
-  it(':title', () => {
+  it('gmap-marker count 3', () => {
+    expect(wrapper.findAll('gmap-marker-stub').length).toEqual(3)
+  })
+
+  it('gmap-marker has :icon', () => {
+    expect(
+      wrapper
+        .findAll('gmap-marker-stub')
+        .at(0)
+        .attributes().icon
+    ).toEqual(wrapper.vm.icon(wrapper.vm.$props.spots[0]))
+  })
+
+  it('gmap-marker has :title', () => {
     expect(
       wrapper
         .findAll('gmap-marker-stub')
         .at(0)
         .attributes().title
-    ).toEqual('test1')
+    ).toEqual(wrapper.vm.$props.spots[0].data.name)
   })
 
-  it(':zIndex', () => {
+  it('gmap-marker has :position', () => {
+    expect(
+      wrapper
+        .findAll('gmap-marker-stub')
+        .at(0)
+        .attributes().position
+    ).toEqual(wrapper.vm.$props.spots[0].data.position.toString())
+  })
+
+  it('gmap-marker has :zIndex', () => {
     expect(
       wrapper
         .findAll('gmap-marker-stub')

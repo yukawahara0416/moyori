@@ -51,13 +51,6 @@ describe('getters', () => {
 })
 
 describe('mutations', () => {
-  const spot = {
-    data: { place_id: '123', name: 'test', on: false, zIndex: 10 },
-    likes: []
-  }
-  const like = { id: 2 }
-  const prop = 'likes'
-
   it('setSpots', () => {
     const spot = { data: { id: 1 } }
     store.commit('setSpots', [spot])
