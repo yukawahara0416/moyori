@@ -61,24 +61,32 @@ describe('with mock methods', () => {
   })
 
   describe('v-on', () => {
-    it('cancelDeleteAccount', () => {
+    it('click cancelDeleteAccount', () => {
       wrapper
         .findAll('.v-btn')
         .at(0)
         .trigger('click')
-      expect(cancelDeleteAccount).toHaveBeenCalledTimes(1)
+      expect(cancelDeleteAccount).toHaveBeenCalled()
     })
 
-    it('deleteAccountHandler', () => {
+    it('click deleteAccountHandler', () => {
       wrapper
         .findAll('.v-btn')
         .at(1)
         .trigger('click')
-      expect(deleteAccountHandler).toHaveBeenCalledTimes(1)
+      expect(deleteAccountHandler).toHaveBeenCalled()
     })
   })
 
   describe('methods', () => {
+    it('deleteAccountHandler', () => {})
+
+    it('deleteAccount', () => {})
+
+    it('cancelDeleteAccount', () => {})
+  })
+
+  describe('emit', () => {
     it('$emit.closeDialog', () => {
       wrapper.vm.$emit('closeDialog')
       expect(wrapper.emitted().closeDialog).toBeTruthy()
