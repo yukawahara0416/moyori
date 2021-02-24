@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Profile/ProfileActionsDeleteDialog.vue'
 
@@ -40,9 +40,20 @@ beforeEach(() => {
       snackbar
     }
   })
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    store
+  })
 })
 
-describe('with mock methods', () => {
+describe('getters', () => {
+  it('headers', () => {
+    expect(wrapper.vm.headers).toEqual(store.getters.headers)
+  })
+})
+
+describe('v-on', () => {
   const cancelDeleteAccount = jest.fn()
   const deleteAccountHandler = jest.fn()
 
@@ -54,68 +65,52 @@ describe('with mock methods', () => {
     })
   })
 
-  describe('getters', () => {
-    it('headers', () => {
-      expect(wrapper.vm.headers).toEqual(store.getters.headers)
-    })
+  it('click cancelDeleteAccount', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+    expect(cancelDeleteAccount).toHaveBeenCalled()
   })
 
-  describe('v-on', () => {
-    it('click cancelDeleteAccount', () => {
-      wrapper
-        .findAll('.v-btn')
-        .at(0)
-        .trigger('click')
-      expect(cancelDeleteAccount).toHaveBeenCalled()
-    })
-
-    it('click deleteAccountHandler', () => {
-      wrapper
-        .findAll('.v-btn')
-        .at(1)
-        .trigger('click')
-      expect(deleteAccountHandler).toHaveBeenCalled()
-    })
-  })
-
-  describe('methods', () => {
-    it('deleteAccountHandler', () => {})
-
-    it('deleteAccount', () => {})
-
-    it('cancelDeleteAccount', () => {})
-  })
-
-  describe('emit', () => {
-    it('$emit.closeDialog', () => {
-      wrapper.vm.$emit('closeDialog')
-      expect(wrapper.emitted().closeDialog).toBeTruthy()
-    })
-  })
-
-  describe('template', () => {
-    it('snapshot', () => {
-      expect(wrapper.vm.$el).toMatchSnapshot()
-    })
+  it('click deleteAccountHandler', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+    expect(deleteAccountHandler).toHaveBeenCalled()
   })
 })
 
-describe('without mock methods', () => {
-  const closeDialog = jest.fn()
+describe('methods', () => {
+  it('deleteAccountHandler', () => {})
 
-  beforeEach(() => {
-    wrapper = mount(Component, {
+  it('deleteAccount', () => {})
+
+  it('cancelDeleteAccount', () => {
+    const closeDialog = jest.fn()
+
+    wrapper = shallowMount(Component, {
       localVue,
       store,
       methods: { closeDialog }
     })
-  })
 
-  describe('methods', () => {
-    it('cancelDeleteAccount', () => {
-      wrapper.vm.cancelDeleteAccount()
-      expect(closeDialog).toHaveBeenCalled()
-      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
-    })
+    wrapper.vm.cancelDeleteAccount()
+    expect(closeDialog).toHaveBeenCalled()
+    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+  })
+})
+
+describe('emit', () => {
+  it('$emit.closeDialog', () => {
+    wrapper.vm.$emit('closeDialog')
+    expect(wrapper.emitted().closeDialog).toBeTruthy()
+  })
+})
+
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
