@@ -39,8 +39,14 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('isTestUser', () => {
+  it('isTestUser is true', async () => {
+    await wrapper.setProps({ id: 1 })
     expect(wrapper.vm.isTestUser).toBeTruthy()
+  })
+
+  it('isTestUser is false', async () => {
+    await wrapper.setProps({ id: 2 })
+    expect(wrapper.vm.isTestUser).toBeFalsy()
   })
 })
 
