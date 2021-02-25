@@ -50,6 +50,10 @@ beforeEach(() => {
   })
 })
 
+describe('props', () => {
+  it('user', () => {})
+})
+
 describe('getters', () => {
   it('headers', () => {
     wrapper = shallowMount(Component, {
@@ -62,7 +66,23 @@ describe('getters', () => {
   })
 })
 
+describe('computed', () => {
+  it('formData', () => {})
+})
+
+describe('v-on', () => {
+  it('cancelUpdataAccount', () => {})
+
+  it('updateAccountHandler', () => {})
+})
+
 describe('methods', () => {
+  it('updateAccountHandler', () => {})
+
+  it('updateAccount', () => {})
+
+  it('stpreMutation', () => {})
+
   it('cancelUpdateAccount', () => {
     const closeDialog = jest.fn()
     wrapper = shallowMount(Component, {
