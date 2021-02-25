@@ -72,12 +72,12 @@ describe('props', () => {
 
 describe('getters', () => {
   it('headers', () => {
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store,
-      stubs: ['ValidationObserver']
-    })
+    // wrapper = shallowMount(Component, {
+    //   localVue,
+    //   propsData,
+    //   store
+    //   // stubs: ['ValidationObserver']
+    // })
     expect(wrapper.vm.headers).toEqual(store.getters.headers)
   })
 })
@@ -127,15 +127,15 @@ describe('methods', () => {
   })
 
   it('clearForm', () => {
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store,
-      stubs: ['ValidationObserver']
-    })
-    wrapper.vm.name = 'update'
+    // wrapper = shallowMount(Component, {
+    //   localVue,
+    //   propsData,
+    //   store,
+    //   stubs: ['ValidationObserver']
+    // })
+    wrapper.setData({ name: 'update' })
     wrapper.vm.clearForm()
-    expect(wrapper.vm.name).toEqual(propsData.user.data.name)
+    expect(wrapper.vm.name).toEqual(wrapper.vm.$props.user.data.name)
   })
 })
 
