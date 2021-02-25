@@ -34,6 +34,7 @@ describe('props', () => {
   it('user', () => {
     expect(wrapper.vm.$props.user).toStrictEqual(propsData.user)
     expect(wrapper.vm.$props.user instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.user.required).toBeTruthy()
   })
 })
 
