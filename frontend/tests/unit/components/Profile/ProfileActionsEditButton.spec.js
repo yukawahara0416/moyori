@@ -13,6 +13,8 @@ beforeEach(() => {
 })
 
 describe('props', () => {
+  it('id', () => {})
+
   it('user', () => {
     const propsData = { user: { data: { id: 1 } } }
     wrapper = shallowMount(Component, { localVue, vuetify, propsData })
@@ -72,7 +74,13 @@ describe('methods', () => {
   })
 })
 
+describe('emit', () => {})
+
 describe('template', () => {
+  it('v-btn click disabled', () => {})
+
+  it('ProfileActionsEditDialog has :user', () => {})
+
   it('snapshot', () => {
     wrapper = shallowMount(Component, { localVue, vuetify })
     expect(wrapper.vm.$el).toMatchSnapshot()
