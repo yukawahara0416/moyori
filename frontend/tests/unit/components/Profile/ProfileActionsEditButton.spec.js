@@ -97,6 +97,10 @@ describe('template', () => {
     expect(wrapper.find('v-btn-stub').attributes().disabled).toBeTruthy()
   })
 
+  it('v-btn click abled', async () => {
+    await wrapper.setProps({ id: 2 })
+    expect(wrapper.find('v-btn-stub').attributes().disabled).toBeFalsy()
+  })
 
   it('ProfileActionsEditDialog has :user', () => {
     expect(wrapper.find(ProfileActionsEditDialog).props().user).toMatchObject(
