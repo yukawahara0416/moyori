@@ -87,6 +87,30 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
+  it('deleteAccountHandler', () => {
+    const deleteAccount = jest.fn()
+    const closeDialog = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      methods: { deleteAccount, closeDialog }
+    })
+
+    expect.assertions(4)
+
+    return wrapper.vm.deleteAccountHandler().then(() => {
+      expect(deleteAccount).toHaveBeenCalledWith(auth.getters.headers())
+      expect(auth.mutations.clearHeaders).toHaveBeenCalled()
+      expect(closeDialog).toHaveBeenCalled()
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'アカウントを削除しました'
+        }
+      )
+    })
+  })
 
   it('deleteAccount', () => {
     const response = { id: 1 }
