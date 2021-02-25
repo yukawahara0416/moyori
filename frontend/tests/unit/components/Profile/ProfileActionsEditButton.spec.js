@@ -25,7 +25,11 @@ beforeEach(() => {
 })
 
 describe('props', () => {
-  it('id', () => {})
+  it('id', () => {
+    expect(wrapper.vm.$props.id).toStrictEqual(propsData.id)
+    expect(typeof wrapper.vm.$props.id).toBe('number')
+    expect(wrapper.vm.$options.props.id.required).toBeTruthy()
+  })
 
   it('user', () => {
     expect(wrapper.vm.$props.user).toStrictEqual(propsData.user)
