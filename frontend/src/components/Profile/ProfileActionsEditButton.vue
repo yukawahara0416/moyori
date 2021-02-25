@@ -23,8 +23,20 @@ import ProfileActionsEditDialog from '@/components/Profile/ProfileActionsEditDia
 
 export default {
   props: {
-    id: Number,
-    user: Object
+    id: {
+      type: Number,
+      default: () => {
+        return null
+      },
+      required: true
+    },
+    user: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   components: {
