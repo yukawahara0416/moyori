@@ -51,10 +51,10 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
-  const openDialog = jest.fn()
-  const closeDialog = jest.fn()
+  it('dialogOn', () => {
+    const openDialog = jest.fn()
+    const closeDialog = jest.fn()
 
-  beforeEach(() => {
     propsData.id = 2
 
     wrapper = mount(Component, {
@@ -63,16 +63,9 @@ describe('v-on', () => {
       vuetify,
       methods: { openDialog, closeDialog }
     })
-  })
 
-  it('dialogOn', () => {
     wrapper.find('.v-btn').trigger('click')
     expect(openDialog).toHaveBeenCalledTimes(1)
-  })
-
-  it('$emit.closeDialog', () => {
-    wrapper.vm.$emit('closeDialog')
-    expect(wrapper.emitted().closeDialog).toBeTruthy()
   })
 })
 
@@ -90,7 +83,12 @@ describe('methods', () => {
   })
 })
 
-describe('emit', () => {})
+describe('emit', () => {
+  it('$emit.closeDialog', () => {
+    wrapper.vm.$emit('closeDialog')
+    expect(wrapper.emitted().closeDialog).toBeTruthy()
+  })
+})
 
 describe('template', () => {
   it('v-btn click disabled', () => {})
