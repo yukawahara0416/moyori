@@ -1,5 +1,6 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Profile/ProfileActionsEditButton.vue'
+import ProfileActionsEditDialog from '@/components/Profile/ProfileActionsEditDialog.vue'
 import Vuetify from 'vuetify'
 
 const localVue = createLocalVue()
@@ -93,7 +94,11 @@ describe('emit', () => {
 describe('template', () => {
   it('v-btn click disabled', () => {})
 
-  it('ProfileActionsEditDialog has :user', () => {})
+  it('ProfileActionsEditDialog has :user', () => {
+    expect(wrapper.find(ProfileActionsEditDialog).props().user).toMatchObject(
+      wrapper.vm.$props.user
+    )
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
