@@ -77,13 +77,14 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  it('openDialog', () => {
+  it('openDialog', async () => {
+    await wrapper.setData({ dialog: false })
     wrapper.vm.openDialog()
     expect(wrapper.vm.dialog).toBeTruthy()
   })
 
-  it('closeDialog', () => {
-    wrapper.vm.dialog = true
+  it('closeDialog', async () => {
+    await wrapper.setData({ dialog: true })
     wrapper.vm.closeDialog()
     expect(wrapper.vm.dialog).toBeFalsy()
   })
