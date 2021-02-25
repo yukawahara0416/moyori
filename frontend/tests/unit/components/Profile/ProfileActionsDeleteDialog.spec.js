@@ -1,9 +1,13 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { axiosBase } from '@/plugins/axios.js'
+import MockAdapter from 'axios-mock-adapter'
 import Component from '@/components/Profile/ProfileActionsDeleteDialog.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+const axiosMock = new MockAdapter(axiosBase)
 
 let wrapper
 let store
@@ -83,9 +87,27 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  it('deleteAccountHandler', () => {})
 
-  it('deleteAccount', () => {})
+  it('deleteAccount', () => {
+    const response = { id: 1 }
+    const headers = auth.getters.headers()
+
+    axiosMock.onDelete('/api/v1/auth/').reply(200, response)
+
+    return wrapper.vm.deleteAccount(headers).then(res => {
+      expect(res.data).toMatchObject(response)
+    })
+  })
+
+  it('deleteAccount 404 error', () => {
+    const headers = auth.getters.headers()
+
+    axiosMock.onDelete('/api/v1/auth/').reply(404)
+
+    return wrapper.vm.deleteAccount(headers).catch(err => {
+      expect(err).toStrictEqual(new Error('アカウントの削除に失敗しました'))
+    })
+  })
 
   it('cancelDeleteAccount', () => {
     const closeDialog = jest.fn()
