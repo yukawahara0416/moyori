@@ -16,9 +16,9 @@ beforeEach(() => {
     user: {
       data: {
         id: 1,
-        name: 'test',
-        email: 'test',
-        avatar: 'test'
+        name: 'name',
+        email: 'email',
+        avatar: 'avatar'
       }
     }
   }
@@ -48,10 +48,20 @@ beforeEach(() => {
       snackbar
     }
   })
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData,
+    store
+  })
 })
 
 describe('props', () => {
-  it('user', () => {})
+  it('user', () => {
+    expect(wrapper.vm.$props.user).toStrictEqual(propsData.user)
+    expect(wrapper.vm.$props.user instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.user.required).toBeTruthy()
+  })
 })
 
 describe('getters', () => {
