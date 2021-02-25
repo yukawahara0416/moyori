@@ -98,7 +98,12 @@ describe('methods', () => {
 
     wrapper.vm.cancelDeleteAccount()
     expect(closeDialog).toHaveBeenCalled()
-    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+      expect.any(Object),
+      {
+        message: 'アカウントの削除をキャンセルしました'
+      }
+    )
   })
 })
 
