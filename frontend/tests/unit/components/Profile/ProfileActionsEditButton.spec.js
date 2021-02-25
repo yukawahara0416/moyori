@@ -6,18 +6,28 @@ const localVue = createLocalVue()
 localVue.use(Vuetify)
 
 let wrapper
+let propsData
 let vuetify
 
 beforeEach(() => {
+  propsData = {
+    id: 1,
+    user: { data: { id: 1 } }
+  }
+
   vuetify = new Vuetify()
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData,
+    vuetify
+  })
 })
 
 describe('props', () => {
   it('id', () => {})
 
   it('user', () => {
-    const propsData = { user: { data: { id: 1 } } }
-    wrapper = shallowMount(Component, { localVue, vuetify, propsData })
     expect(wrapper.vm.$props.user).toStrictEqual(propsData.user)
     expect(wrapper.vm.$props.user instanceof Object).toBeTruthy()
   })
@@ -25,11 +35,6 @@ describe('props', () => {
 
 describe('computed', () => {
   it('isTestUser', () => {
-    const propsData = {
-      id: 1,
-      user: { data: { id: 1 } }
-    }
-    wrapper = shallowMount(Component, { localVue, vuetify, propsData })
     expect(wrapper.vm.isTestUser).toBeTruthy()
   })
 })
@@ -39,8 +44,11 @@ describe('v-on', () => {
   const closeDialog = jest.fn()
 
   beforeEach(() => {
+    propsData.id = 2
+
     wrapper = mount(Component, {
       localVue,
+      propsData,
       vuetify,
       methods: { openDialog, closeDialog }
     })
@@ -58,10 +66,6 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  beforeEach(() => {
-    wrapper = shallowMount(Component, { localVue, vuetify })
-  })
-
   it('openDialog', () => {
     wrapper.vm.openDialog()
     expect(wrapper.vm.dialog).toBeTruthy()
@@ -82,7 +86,6 @@ describe('template', () => {
   it('ProfileActionsEditDialog has :user', () => {})
 
   it('snapshot', () => {
-    wrapper = shallowMount(Component, { localVue, vuetify })
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 })
