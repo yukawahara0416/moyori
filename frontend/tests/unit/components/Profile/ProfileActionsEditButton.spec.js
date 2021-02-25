@@ -92,7 +92,11 @@ describe('emit', () => {
 })
 
 describe('template', () => {
-  it('v-btn click disabled', () => {})
+  it('v-btn click disabled', async () => {
+    await wrapper.setProps({ id: 1 })
+    expect(wrapper.find('v-btn-stub').attributes().disabled).toBeTruthy()
+  })
+
 
   it('ProfileActionsEditDialog has :user', () => {
     expect(wrapper.find(ProfileActionsEditDialog).props().user).toMatchObject(
