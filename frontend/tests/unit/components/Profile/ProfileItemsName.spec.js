@@ -26,8 +26,13 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('userName', () => {
+  it('userName return filledData', () => {
     expect(wrapper.vm.userName).toEqual(propsData.user.data.name)
+  })
+
+  it('userName return "" ', async () => {
+    await wrapper.setProps({ user: { data: { id: 1, name: null } } })
+    expect(wrapper.vm.userName).toEqual('')
   })
 })
 
