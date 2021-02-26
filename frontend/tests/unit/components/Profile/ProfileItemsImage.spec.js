@@ -8,7 +8,7 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    user: { data: { id: 1, avatar: 'test' } }
+    user: { data: { id: 1, avatar: 'avatar' } }
   }
 
   wrapper = shallowMount(Component, {
@@ -26,8 +26,13 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('avatar', () => {
-    expect(wrapper.vm.avatar).toEqual(propsData.user.data.avatar)
+  it('avatar return filledData', () => {
+    expect(wrapper.vm.avatar).toEqual(wrapper.vm.$props.user.data.avatar)
+  })
+
+  it('avatar return noimage', async () => {
+    await wrapper.setProps({ user: { data: { id: 1, avatar: null } } })
+    expect(wrapper.vm.avatar).toEqual('')
   })
 })
 
