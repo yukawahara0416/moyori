@@ -87,13 +87,21 @@ describe('computed', () => {
 describe('methods', () => {
   it('updateAccountHandler', () => {})
 
-  it('updateAccount', () => {
+  it('updateAccount 200', () => {
     const response = { data: { id: 1 } }
 
     axiosMock.onPatch('/api/v1/auth/').reply(200, response)
 
     return wrapper.vm.updateAccount().then(res => {
       expect(res).toMatchObject(response.data)
+    })
+  })
+
+  it('updateAccount 404', () => {
+    axiosMock.onPatch('/api/v1/auth/').reply(404)
+
+    return wrapper.vm.updateAccount().catch(err => {
+      expect(err).toStrictEqual(new Error('アカウントの編集に失敗しました'))
     })
   })
 
