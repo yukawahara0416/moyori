@@ -74,24 +74,53 @@ describe('computed', () => {
     )
   })
 
-  it('posts', () => {
-    expect(wrapper.vm.posts).toMatchObject(propsData.user.posts)
+  it('posts return filledData', () => {
+    expect(wrapper.vm.posts).toMatchObject(wrapper.vm.$props.user.posts)
   })
 
-  it('wifi_withs', () => {
-    expect(wrapper.vm.wifi_withs).toMatchObject(propsData.user.wifi_withs)
+  it('posts return []', () => {
+    wrapper.setProps({ user: { posts: [] } })
+    expect(wrapper.vm.posts).toMatchObject([])
   })
 
-  it('power_withs', () => {
-    expect(wrapper.vm.power_withs).toMatchObject(propsData.user.power_withs)
+  it('wifi_withs return filledData', () => {
+    expect(wrapper.vm.wifi_withs).toMatchObject(
+      wrapper.vm.$props.user.wifi_withs
+    )
   })
 
-  it('comments', () => {
-    expect(wrapper.vm.comments).toMatchObject(propsData.user.comments)
+  it('wifi_withs return []', () => {
+    wrapper.setProps({ user: { wifi_withs: [] } })
+    expect(wrapper.vm.wifi_withs).toMatchObject([])
   })
 
-  it('likes', () => {
-    expect(wrapper.vm.likes).toMatchObject(propsData.user.likes)
+  it('power_withs return filledData', () => {
+    expect(wrapper.vm.power_withs).toMatchObject(
+      wrapper.vm.$props.user.power_withs
+    )
+  })
+
+  it('power_withs return []', () => {
+    wrapper.setProps({ user: { power_withs: [] } })
+    expect(wrapper.vm.power_withs).toMatchObject([])
+  })
+
+  it('comments return filledData', () => {
+    expect(wrapper.vm.comments).toMatchObject(wrapper.vm.$props.user.comments)
+  })
+
+  it('comments return []', () => {
+    wrapper.setProps({ user: { comments: [] } })
+    expect(wrapper.vm.comments).toMatchObject([])
+  })
+
+  it('likes return filledData', () => {
+    expect(wrapper.vm.likes).toMatchObject(wrapper.vm.$props.user.likes)
+  })
+
+  it('likes return []', () => {
+    wrapper.setProps({ user: { likes: [] } })
+    expect(wrapper.vm.likes).toMatchObject([])
   })
 })
 
