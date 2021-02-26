@@ -30,7 +30,13 @@ import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
-    spots: Array
+    spots: {
+      type: Array,
+      default: () => {
+        return []
+      },
+      required: true
+    }
   },
 
   data() {
