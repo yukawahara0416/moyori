@@ -2,6 +2,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Component from '@/components/Search/SearchCardContainer.vue'
+import CardContainer from '@/components/Card/CardContainer.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -60,8 +61,8 @@ describe('methods', () => {
 
 describe('template', () => {
   it('card-container has :spots', () => {
-    expect(wrapper.find('card-container-stub').attributes().spots).toEqual(
-      '[object Object],[object Object]'
+    expect(wrapper.find(CardContainer).props().spots).toMatchObject(
+      wrapper.vm.filteredSpots
     )
   })
 
