@@ -1,5 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { axiosBase } from '@/plugins/axios.js'
+import MockAdapter from 'axios-mock-adapter'
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import Component from '@/components/Profile/ProfileActionsEditDialog.vue'
 
@@ -10,6 +12,8 @@ localVue.component('ValidationProvider', ValidationProvider)
 
 const { required } = require('vee-validate/dist/rules.umd')
 extend('required', required)
+
+const axiosMock = new MockAdapter(axiosBase)
 
 let wrapper
 let propsData
@@ -72,12 +76,6 @@ describe('props', () => {
 
 describe('getters', () => {
   it('headers', () => {
-    // wrapper = shallowMount(Component, {
-    //   localVue,
-    //   propsData,
-    //   store
-    //   // stubs: ['ValidationObserver']
-    // })
     expect(wrapper.vm.headers).toEqual(store.getters.headers)
   })
 })
@@ -86,16 +84,18 @@ describe('computed', () => {
   it('formData', () => {})
 })
 
-describe('v-on', () => {
-  it('cancelUpdataAccount', () => {})
-
-  it('updateAccountHandler', () => {})
-})
-
 describe('methods', () => {
   it('updateAccountHandler', () => {})
 
-  it('updateAccount', () => {})
+  it('updateAccount', () => {
+    const response = { data: { id: 1 } }
+
+    axiosMock.onPatch('/api/v1/auth/').reply(200, response)
+
+    return wrapper.vm.updateAccount().then(res => {
+      expect(res).toMatchObject(response.data)
+    })
+  })
 
   it('stpreMutation', () => {})
 
@@ -127,12 +127,6 @@ describe('methods', () => {
   })
 
   it('clearForm', () => {
-    // wrapper = shallowMount(Component, {
-    //   localVue,
-    //   propsData,
-    //   store,
-    //   stubs: ['ValidationObserver']
-    // })
     wrapper.setData({ name: 'update' })
     wrapper.vm.clearForm()
     expect(wrapper.vm.name).toEqual(wrapper.vm.$props.user.data.name)
