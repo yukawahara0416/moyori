@@ -37,6 +37,10 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('h3 has userName', () => {
+    expect(wrapper.find('h3').text()).toEqual(wrapper.vm.userName)
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
