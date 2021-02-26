@@ -41,6 +41,14 @@ describe('getters', () => {
   })
 })
 
+describe('computed', () => {
+  it('styleVariables', async () => {
+    await wrapper.setData({ height: window.innerHeight })
+    expect(wrapper.vm.styleVariables).toMatchObject({
+      '--checkbox-height': `${wrapper.vm.height}px`
+    })
+  })
+})
 
 describe('methods', () => {
   it('handleResize', async () => {
