@@ -175,10 +175,21 @@ describe('methods', () => {
     expect(clearForm).toHaveBeenCalled()
   })
 
-  it('clearForm', () => {
-    wrapper.setData({ name: 'update' })
+  it('clearForm', async () => {
+    await wrapper.setData({
+      name: 'up_name',
+      email: 'up_email',
+      avatar: 'up_avatar',
+      image: 'up_image',
+      uploadImageUrl: 'up_url'
+    })
+
     wrapper.vm.clearForm()
     expect(wrapper.vm.name).toEqual(wrapper.vm.$props.user.data.name)
+    expect(wrapper.vm.email).toEqual(wrapper.vm.$props.user.data.email)
+    expect(wrapper.vm.avatar).toEqual(wrapper.vm.$props.user.data.avatar)
+    expect(wrapper.vm.image).toBeNull()
+    expect(wrapper.vm.uploadImageUrl).toBeNull()
   })
 })
 
