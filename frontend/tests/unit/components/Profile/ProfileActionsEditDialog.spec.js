@@ -19,6 +19,7 @@ let wrapper
 let propsData
 let store
 let auth
+let user
 let snackbar
 
 beforeEach(() => {
@@ -42,6 +43,16 @@ beforeEach(() => {
           }
         }
       }
+    },
+    mutations: {
+      updateCurrentUser: jest.fn()
+    }
+  }
+
+  user = {
+    namespaced: true,
+    mutations: {
+      updateUser: jest.fn()
     }
   }
 
@@ -55,6 +66,7 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       auth,
+      user,
       snackbar
     }
   })
@@ -105,7 +117,28 @@ describe('methods', () => {
     })
   })
 
-  it('stpreMutation', () => {})
+  it('storeMutation', () => {
+    const update = {
+      name: 'up_name',
+      email: 'up_email',
+      avatar: 'up_avatar'
+    }
+    wrapper.vm.storeMutation(update)
+
+    expect(auth.mutations.updateCurrentUser).toHaveBeenCalledWith(
+      expect.any(Object),
+      {
+        name: update.name,
+        email: update.email,
+        avatar: update.avatar
+      }
+    )
+    expect(user.mutations.updateUser).toHaveBeenCalledWith(expect.any(Object), {
+      name: update.name,
+      email: update.email,
+      avatar: update.avatar
+    })
+  })
 
   it('cancelUpdateAccount', () => {
     const closeDialog = jest.fn()
