@@ -37,6 +37,12 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('v-img has :src', () => {
+    expect(wrapper.find('v-img-stub').attributes().src).toEqual(
+      wrapper.vm.$props.user.data.avatar
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
