@@ -1,6 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Profile/ProfileContentsItems.vue'
+import CardContainer from '@/components/Card/CardContainer.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -95,6 +96,32 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  it('should ', () => {
+    const target = wrapper.findAll(CardContainer)
+
+    expect(target.at(0).props().spots).toMatchObject(
+      wrapper.vm.$props.user.posts
+    )
+    expect(target.at(1).props().spots).toMatchObject(
+      wrapper.vm.$props.user.wifi_withs
+    )
+    expect(target.at(2).props().spots).toMatchObject(
+      wrapper.vm.$props.user.wifi_withouts
+    )
+    expect(target.at(3).props().spots).toMatchObject(
+      wrapper.vm.$props.user.power_withs
+    )
+    expect(target.at(4).props().spots).toMatchObject(
+      wrapper.vm.$props.user.power_withouts
+    )
+    expect(target.at(5).props().spots).toMatchObject(
+      wrapper.vm.$props.user.comments
+    )
+    expect(target.at(6).props().spots).toMatchObject(
+      wrapper.vm.$props.user.likes
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
