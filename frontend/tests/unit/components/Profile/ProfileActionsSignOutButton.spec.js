@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Component from '@/components/Profile/ProfileActionsSignOutButton.vue'
@@ -11,8 +11,6 @@ let wrapper
 let store
 let auth
 let vuetify
-
-const signOutHandler = jest.fn()
 
 beforeEach(() => {
   auth = {
@@ -35,13 +33,10 @@ beforeEach(() => {
 
   vuetify = new Vuetify()
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
     vuetify,
-    store,
-    methods: {
-      signOutHandler
-    }
+    store
   })
 })
 
@@ -53,6 +48,17 @@ describe('getters', () => {
 
 describe('v-on', () => {
   it('signOutHandler', () => {
+    const signOutHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      vuetify,
+      store,
+      methods: {
+        signOutHandler
+      }
+    })
+
     wrapper.find('.v-btn').trigger('click')
     expect(signOutHandler).toHaveBeenCalledTimes(1)
   })
