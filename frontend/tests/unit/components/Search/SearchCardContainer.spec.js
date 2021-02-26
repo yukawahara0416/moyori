@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Component from '@/components/Search/SearchCardContainer.vue'
@@ -60,6 +60,20 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-container has :style', async () => {
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify,
+      stubs: ['card-container']
+    })
+
+    await wrapper.setData({ height: window.innerHeight })
+    expect(wrapper.find('.container').attributes().style).toEqual(
+      `--checkbox-height: ${window.innerHeight}px;`
+    )
+  })
+
   it('card-container has :spots', () => {
     expect(wrapper.find(CardContainer).props().spots).toMatchObject(
       wrapper.vm.filteredSpots
