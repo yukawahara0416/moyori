@@ -12,7 +12,7 @@ let tab
 beforeEach(() => {
   tab = {
     getters: {
-      profileTab: () => 'test'
+      profileTab: () => 'posts'
     },
     mutations: {
       changeProfileTab: jest.fn()
