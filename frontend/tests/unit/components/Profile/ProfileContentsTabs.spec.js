@@ -52,6 +52,37 @@ describe('computed', () => {
 })
 
 describe('template', () => {
+  const tabList = [
+    { name: 'posts', icon: 'mdi-map-marker-outline' },
+    { name: 'wifi_withs', icon: 'mdi-wifi' },
+    { name: 'wifi_withouts', icon: 'mdi-wifi-off' },
+    { name: 'power_withs', icon: 'mdi-power-plug' },
+    { name: 'power_withouts', icon: 'mdi-power-plug-off' },
+    { name: 'comments', icon: 'mdi-message-outline' },
+    { name: 'likes', icon: 'mdi-heart-outline' }
+  ]
+  it(':href', () => {
+    for (let i = 0; i < tabList.length; i++) {
+      expect(
+        wrapper
+          .findAll('v-tab-stub')
+          .at(i)
+          .attributes().href
+      ).toEqual(`#${tabList[i].name}`)
+    }
+  })
+
+  it('tab.icon', () => {
+    for (let i = 0; i < tabList.length; i++) {
+      expect(
+        wrapper
+          .findAll('v-icon-stub')
+          .at(i)
+          .text()
+      ).toEqual(tabList[i].icon)
+    }
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
