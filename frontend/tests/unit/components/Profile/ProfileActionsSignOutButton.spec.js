@@ -60,7 +60,7 @@ describe('v-on', () => {
     })
 
     wrapper.find('.v-btn').trigger('click')
-    expect(signOutHandler).toHaveBeenCalledTimes(1)
+    expect(signOutHandler).toHaveBeenCalled()
   })
 })
 
