@@ -36,7 +36,13 @@ import CardContainer from '@/components/Card/CardContainer.vue'
 
 export default {
   props: {
-    user: Object
+    user: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   components: {

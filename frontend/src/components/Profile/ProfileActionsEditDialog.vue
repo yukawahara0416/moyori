@@ -104,7 +104,13 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   props: {
-    user: Object
+    user: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   data() {

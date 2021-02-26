@@ -297,7 +297,6 @@ describe('computed', () => {
   })
 })
 
-// ここから！！！！！！！
 describe('methods', () => {
   describe('commentHandler', () => {
     // ログインしていない場合は「いいね」せず、ログインを促す

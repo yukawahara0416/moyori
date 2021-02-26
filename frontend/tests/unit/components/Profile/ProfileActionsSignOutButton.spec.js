@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Component from '@/components/Profile/ProfileActionsSignOutButton.vue'
@@ -10,38 +10,46 @@ localVue.use(Vuetify)
 let wrapper
 let store
 let auth
+let snackbar
 let vuetify
-
-const signOutHandler = jest.fn()
 
 beforeEach(() => {
   auth = {
     getters: {
       headers: () => {
         return {
-          data: {
-            id: 1
-          }
+          data: { id: 1 }
         }
       }
+    },
+    mutations: {
+      clearHeaders: jest.fn()
+    },
+    actions: {
+      signOut: jest.fn()
+    }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
   store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      snackbar
     }
   })
 
   vuetify = new Vuetify()
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
     vuetify,
-    store,
-    methods: {
-      signOutHandler
-    }
+    store
   })
 })
 
@@ -53,8 +61,37 @@ describe('getters', () => {
 
 describe('v-on', () => {
   it('signOutHandler', () => {
+    const signOutHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      vuetify,
+      store,
+      methods: {
+        signOutHandler
+      }
+    })
+
     wrapper.find('.v-btn').trigger('click')
-    expect(signOutHandler).toHaveBeenCalledTimes(1)
+    expect(signOutHandler).toHaveBeenCalled()
+  })
+})
+
+describe('methods', () => {
+  it('signOutHandler', () => {
+    return wrapper.vm.signOutHandler().then(() => {
+      expect(auth.actions.signOut).toHaveBeenCalledWith(
+        expect.any(Object),
+        auth.getters.headers()
+      )
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'ログアウトしました'
+        }
+      )
+      expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+    })
   })
 })
 

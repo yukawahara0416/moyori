@@ -7,7 +7,13 @@
 <script>
 export default {
   props: {
-    user: Object
+    user: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   computed: {

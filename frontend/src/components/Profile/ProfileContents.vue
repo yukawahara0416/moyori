@@ -12,7 +12,13 @@ import ProfileContentsItems from '@/components/Profile/ProfileContentsItems.vue'
 
 export default {
   props: {
-    user: Object
+    user: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+      required: true
+    }
   },
 
   components: {
