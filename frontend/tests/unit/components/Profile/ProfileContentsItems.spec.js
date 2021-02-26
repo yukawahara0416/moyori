@@ -14,17 +14,19 @@ beforeEach(() => {
   propsData = {
     user: {
       data: { id: 1 },
-      posts: [{ data: 'posts' }],
-      wifi_withs: [{ data: 'wifi_withs' }],
-      power_withs: [{ data: 'power_withs' }],
-      comments: [{ data: 'comments' }],
-      likes: [{ data: 'likes' }]
+      posts: [{ data: { id: 1 } }],
+      wifi_withs: [{ data: { id: 1 } }],
+      wifi_withouts: [{ data: { id: 1 } }],
+      power_withs: [{ data: { id: 1 } }],
+      power_withouts: [{ data: { id: 1 } }],
+      comments: [{ data: { id: 1 } }],
+      likes: [{ data: { id: 1 } }]
     }
   }
 
   tab = {
     getters: {
-      profileTab: () => 'test'
+      profileTab: () => 'posts'
     },
     mutations: {
       changeProfileTab: jest.fn()
