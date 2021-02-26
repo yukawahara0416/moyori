@@ -8,7 +8,7 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    user: { data: { id: 1, name: 'test' } }
+    user: { data: { id: 1, name: 'name' } }
   }
 
   wrapper = shallowMount(Component, {
@@ -21,6 +21,7 @@ describe('props', () => {
   it('user', () => {
     expect(wrapper.vm.$props.user).toEqual(propsData.user)
     expect(wrapper.vm.$props.user instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.user.required).toBeTruthy()
   })
 })
 
