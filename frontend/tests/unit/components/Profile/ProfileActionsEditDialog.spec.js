@@ -152,24 +152,27 @@ describe('methods', () => {
 
     wrapper.vm.cancelUpdateAccount()
     expect(closeDialog).toHaveBeenCalled()
-    expect(
-      snackbar.actions.pushSnackbarSuccess
-    ).toHaveBeenCalledWith(expect.any(Object), {
-      message: 'スポットの編集をキャンセルしました'
-    })
+    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+      expect.any(Object),
+      {
+        message: 'スポットの編集をキャンセルしました'
+      }
+    )
   })
 
-  it('$emit/closeDialog', () => {
+  it('closeDialog', () => {
     const clearForm = jest.fn()
+
     wrapper = shallowMount(Component, {
       localVue,
       propsData,
       store,
-      methods: { clearForm },
-      stubs: ['ValidationObserver']
+      methods: { clearForm }
     })
-    wrapper.vm.$emit('closeDialog')
+
+    wrapper.vm.closeDialog()
     expect(wrapper.emitted().closeDialog).toBeTruthy()
+    expect(clearForm).toHaveBeenCalled()
   })
 
   it('clearForm', () => {
