@@ -1,5 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Profile/ProfileItems.vue'
+import ProfileItemsImage from '@/components/Profile/ProfileItemsImage.vue'
+import ProfileItemsName from '@/components/Profile/ProfileItemsName.vue'
 
 const localVue = createLocalVue()
 
@@ -26,6 +28,18 @@ describe('props', () => {
 })
 
 describe('template', () => {
+  it('ProfileItemsImage has :user', () => {
+    expect(wrapper.find(ProfileItemsImage).props().user).toMatchObject(
+      wrapper.vm.$props.user
+    )
+  })
+
+  it('ProfileItemsName has :user', () => {
+    expect(wrapper.find(ProfileItemsName).props().user).toMatchObject(
+      wrapper.vm.$props.user
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
