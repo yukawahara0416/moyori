@@ -41,6 +41,15 @@ describe('getters', () => {
   })
 })
 
+
+describe('methods', () => {
+  it('handleResize', async () => {
+    await wrapper.setData({ height: 100 })
+    wrapper.vm.handleResize()
+    expect(wrapper.vm.height).toEqual(window.innerHeight)
+  })
+})
+
 describe('template', () => {
   it('card-container has :spots', () => {
     expect(wrapper.find('card-container-stub').attributes().spots).toEqual(
