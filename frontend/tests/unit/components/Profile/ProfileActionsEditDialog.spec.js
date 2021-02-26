@@ -142,16 +142,21 @@ describe('methods', () => {
 
   it('cancelUpdateAccount', () => {
     const closeDialog = jest.fn()
+
     wrapper = shallowMount(Component, {
       localVue,
       propsData,
       store,
-      methods: { closeDialog },
-      stubs: ['ValidationObserver']
+      methods: { closeDialog }
     })
+
     wrapper.vm.cancelUpdateAccount()
     expect(closeDialog).toHaveBeenCalled()
-    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+    expect(
+      snackbar.actions.pushSnackbarSuccess
+    ).toHaveBeenCalledWith(expect.any(Object), {
+      message: 'スポットの編集をキャンセルしました'
+    })
   })
 
   it('$emit/closeDialog', () => {
