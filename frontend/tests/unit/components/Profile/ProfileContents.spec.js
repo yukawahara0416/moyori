@@ -21,10 +21,13 @@ describe('props', () => {
   it('user', () => {
     expect(wrapper.vm.$props.user).toEqual(propsData.user)
     expect(wrapper.vm.$props.user instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.user.required).toBeTruthy()
   })
 })
 
 describe('template', () => {
+  it('ProfileContentsItems has :user', () => {})
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
