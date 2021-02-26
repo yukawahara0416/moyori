@@ -10,6 +10,7 @@ localVue.use(Vuetify)
 let wrapper
 let store
 let auth
+let snackbar
 let vuetify
 
 beforeEach(() => {
@@ -17,17 +18,29 @@ beforeEach(() => {
     getters: {
       headers: () => {
         return {
-          data: {
-            id: 1
-          }
+          data: { id: 1 }
         }
       }
+    },
+    mutations: {
+      clearHeaders: jest.fn()
+    },
+    actions: {
+      signOut: jest.fn()
+    }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
   store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      snackbar
     }
   })
 
@@ -65,7 +78,21 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  it('signOutHandler', () => {})
+  it('signOutHandler', () => {
+    return wrapper.vm.signOutHandler().then(() => {
+      expect(auth.actions.signOut).toHaveBeenCalledWith(
+        expect.any(Object),
+        auth.getters.headers()
+      )
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'ログアウトしました'
+        }
+      )
+      expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+    })
+  })
 })
 
 describe('template', () => {
