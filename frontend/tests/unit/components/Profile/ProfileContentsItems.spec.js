@@ -67,7 +67,10 @@ describe('computed', () => {
 
   it('childTabs/set', () => {
     wrapper.vm.childTabs = 'update'
-    expect(tab.mutations.changeProfileTab).toHaveBeenCalled()
+    expect(tab.mutations.changeProfileTab).toHaveBeenCalledWith(
+      expect.any(Object),
+      'update'
+    )
   })
 
   it('posts', () => {
