@@ -26,12 +26,8 @@ describe('props', () => {
 })
 
 describe('v-on', () => {
-  it('openDialog', () => {
+  it('click openDialog', () => {
     const openDialog = jest.fn()
-
-    propsData = {
-      photo: 'test'
-    }
 
     wrapper = mount(Component, {
       localVue,
