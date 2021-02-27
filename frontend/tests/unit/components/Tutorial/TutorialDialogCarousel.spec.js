@@ -51,6 +51,30 @@ describe('v-on', () => {
 })
 
 describe('template', () => {
+  const slides = [
+    {
+      title: '集中できるスポットをシェアしよう！',
+      content:
+        '外出中に「近くにWi-Fiがあって充電もできるカフェがないかな？」と困ったことはありませんか？MoYoRiならすぐに見つけられます。',
+      image: require('@/assets/cafe_nomad_man.png'),
+      color: 'indigo'
+    },
+    {
+      title: 'スポットに投票しよう！',
+      content:
+        '「Wifiサービスのあり／なし」「電源サービスのあり／なし」をワンクリックで投票することが出来ます。（＊ユーザ登録が必要です）',
+      image: require('@/assets/card_sample.png'),
+      color: 'pink darken-2'
+    },
+    {
+      title: 'スポットを投稿しよう！',
+      content:
+        'マップをクリックするだけで、新しいスポットを投稿することができます。（＊ユーザ登録が必要です）',
+      image: require('@/assets/click_sample.png'),
+      color: 'red lighten-1'
+    }
+  ]
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
