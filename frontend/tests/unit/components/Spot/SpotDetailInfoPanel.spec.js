@@ -137,6 +137,13 @@ describe('computed', () => {
   })
 })
 
+describe('emit', () => {
+  it('closeDialog', () => {
+    wrapper.vm.$emit('closeDialog')
+    expect(wrapper.emitted().closeDialog).toBeTruthy()
+  })
+})
+
 describe('template', () => {
   it('SpotDetailInfoPanelAddress has :spot', () => {
     expect(wrapper.find(SpotDetailInfoPanelAddress).props().spot).toMatchObject(
