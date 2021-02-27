@@ -8,7 +8,7 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    photo: 'test'
+    photo: 'photo'
   }
 
   wrapper = shallowMount(Component, {
@@ -21,6 +21,7 @@ describe('props', () => {
   it('photo', () => {
     expect(wrapper.vm.$props.photo).toStrictEqual(propsData.photo)
     expect(typeof wrapper.vm.$props.photo).toBe('string')
+    expect(wrapper.vm.$options.props.photo.required).toBeTruthy()
   })
 })
 
