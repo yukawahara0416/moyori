@@ -17,8 +17,7 @@ let wrapper
 let store
 let auth
 let dialog
-
-const signInHandler = jest.fn()
+let snackbar
 
 beforeEach(() => {
   auth = {
@@ -36,10 +35,18 @@ beforeEach(() => {
     }
   }
 
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       auth,
       dialog,
+      snackbar
     }
   })
 
