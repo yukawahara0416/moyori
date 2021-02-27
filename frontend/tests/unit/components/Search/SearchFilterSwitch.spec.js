@@ -78,6 +78,8 @@ describe('computed', () => {
     )
   })
 
+  it('countSpot', async () => {
+    expect(wrapper.vm.countSpot(wrapper.vm.filterQuery[0].value)).toEqual(2)
   })
 })
 
