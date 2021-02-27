@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuetify from 'vuetify'
 import Component from '@/components/Search/SearchMapContainer.vue'
 
@@ -35,6 +35,19 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-col has :style', async () => {
+    wrapper = mount(Component, {
+      localVue,
+      vuetify,
+      stubs: ['map-container']
+    })
+
+    await wrapper.setData({ height: window.innerHeight })
+    expect(wrapper.find('.col').attributes().style).toEqual(
+      `--checkbox-height: ${window.innerHeight}px;`
+    )
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
