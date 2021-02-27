@@ -79,6 +79,34 @@ describe('v-on', () => {
   })
 })
 
+describe('methods', () => {
+  describe('signInAsTestUser', () => {
+    const testUser = {
+      email: 'tester@example.com',
+      password: 'password'
+    }
+
+    const currentUser = { id: 1 }
+    const headers = { id: 1 }
+
+    it('isLoggingIn is true', async () => {
+      await wrapper.setData({ testUser })
+
+      expect.assertions(1)
+
+      return wrapper.vm.signInAsTestUser().then(() => {
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: new Error('すでにログイン中です')
+          }
+        )
+      })
+    })
+
+  })
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
