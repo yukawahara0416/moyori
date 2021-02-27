@@ -80,6 +80,31 @@ describe('getters', () => {
   })
 })
 
+describe('v-on', () => {
+  const signUpHandler = jest.fn()
+  const changeSignTab = jest.fn()
+
+  beforeEach(() => {
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      methods: {
+        signUpHandler,
+        changeSignTab
+      }
+    })
+  })
+
+  it('keyup.enter signUp', () => {
+    wrapper
+      .findAll('input')
+      .at(2)
+      .trigger('keyup.enter')
+    expect(auth.actions.signUp).toHaveBeenCalled()
+  })
+
+
+})
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
