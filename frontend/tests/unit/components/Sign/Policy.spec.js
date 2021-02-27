@@ -52,9 +52,26 @@ describe('router-link', () => {
 })
 
 describe('v-on', () => {
-  it('click closeDialog', () => {
-    wrapper.findAll('a').trigger('click')
-    expect(dialog.mutations.dialogOff).toHaveBeenCalledTimes(2)
+  it('/rules click closeDialog', () => {
+    wrapper
+      .findAll('a')
+      .at(0)
+      .trigger('click')
+    expect(dialog.mutations.dialogOff).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSign'
+    )
+  })
+
+  it('/privacy click closeDialog', () => {
+    wrapper
+      .findAll('a')
+      .at(1)
+      .trigger('click')
+    expect(dialog.mutations.dialogOff).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSign'
+    )
   })
 })
 
