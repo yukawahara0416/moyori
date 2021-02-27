@@ -15,6 +15,17 @@ beforeEach(() => {
   auth = {
     getters: {
       isLoggingIn: () => true
+    },
+    mutations: {
+      setCurrentUser: jest.fn(),
+      setHeaders: jest.fn(),
+      clearSignInForm: jest.fn(),
+      clearSignUpForm: jest.fn()
+    },
+    actions: {
+      signIn: jest
+        .fn()
+        .mockResolvedValue({ data: { data: { id: 1 } }, headers: { id: 1 } })
     }
   }
 
