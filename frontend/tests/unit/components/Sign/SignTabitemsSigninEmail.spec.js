@@ -108,6 +108,13 @@ describe('v-on', () => {
     expect(signInHandler).toHaveBeenCalled()
   })
 
+  it('click changeSignTab', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+    expect(changeSignTab).toHaveBeenCalledWith('signup')
+  })
 })
 
 describe('template', () => {
