@@ -104,6 +104,54 @@ describe('methods', () => {
       })
     })
 
+    it('isLoggingIn is false', async () => {
+      auth.getters.isLoggingIn = () => false
+
+      store = new Vuex.Store({
+        modules: {
+          auth,
+          dialog,
+          snackbar
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        store
+      })
+
+      await wrapper.setData({ testUser })
+
+      expect.assertions(8)
+
+      return wrapper.vm.signInAsTestUser().then(() => {
+        expect(auth.actions.signIn).toHaveBeenCalledWith(
+          expect.any(Object),
+          testUser
+        )
+        expect(auth.mutations.setCurrentUser).toHaveBeenCalledWith(
+          expect.any(Object),
+          currentUser
+        )
+        expect(auth.mutations.setCurrentUser).toHaveBeenCalledWith(
+          expect.any(Object),
+          headers
+        )
+        expect(dialog.actions.dialogOff).toHaveBeenCalledWith(
+          expect.any(Object),
+          'dialogSign'
+        )
+        expect(auth.mutations.clearSignInForm).toHaveBeenCalled()
+        expect(auth.mutations.clearSignUpForm).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: 'ログインしました'
+          }
+        )
+        expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+      })
+    })
   })
 })
 
