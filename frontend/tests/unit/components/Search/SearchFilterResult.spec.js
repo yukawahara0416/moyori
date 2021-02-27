@@ -22,6 +22,7 @@ describe('props', () => {
   it('spots', () => {
     expect(wrapper.vm.$props.spots).toStrictEqual(propsData.spots)
     expect(wrapper.vm.$props.spots instanceof Array).toBeTruthy()
+    expect(wrapper.vm.$options.props.spots.required).toBeTruthy()
   })
 
   it('filteredSpots', () => {
@@ -29,13 +30,14 @@ describe('props', () => {
       propsData.filteredSpots
     )
     expect(wrapper.vm.$props.filteredSpots instanceof Array).toBeTruthy()
+    expect(wrapper.vm.$options.props.filteredSpots.required).toBeTruthy()
   })
 })
 
 describe('template', () => {
   it('v-card-subtitle text', () => {
     expect(wrapper.find('v-card-subtitle-stub').text()).toEqual(
-      '2 件中 1 件を表示'
+      `${wrapper.vm.$props.spots.length} 件中 ${wrapper.vm.$props.filteredSpots.length} 件を表示`
     )
   })
 

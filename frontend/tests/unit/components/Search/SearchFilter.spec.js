@@ -2,6 +2,8 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Component from '@/components/Search/SearchFilter.vue'
+import SearchFilterResult from '@/components/Search/SearchFilterResult.vue'
+import SearchFilterSwitch from '@/components/Search/SearchFilterSwitch.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -49,25 +51,25 @@ describe('getters', () => {
 })
 
 describe('template', () => {
-  describe('search-filter-result', () => {
+  describe('SearchFilterResult', () => {
     it('has :spots', () => {
-      expect(
-        wrapper.find('search-filter-result-stub').attributes().spots
-      ).toEqual('[object Object],[object Object]')
+      expect(wrapper.find(SearchFilterResult).props().spots).toMatchObject(
+        wrapper.vm.spots
+      )
     })
 
     it('has :filteredSpots', () => {
       expect(
-        wrapper.find('search-filter-result-stub').attributes().filteredspots
-      ).toEqual('[object Object]')
+        wrapper.find(SearchFilterResult).props().filteredSpots
+      ).toMatchObject(wrapper.vm.filteredSpots)
     })
   })
 
-  describe('search-filter-switch', () => {
+  describe('SearchFilterSwitch', () => {
     it('has :spots', () => {
-      expect(
-        wrapper.find('search-filter-switch-stub').attributes().spots
-      ).toEqual('[object Object],[object Object]')
+      expect(wrapper.find(SearchFilterSwitch).props().spots).toEqual(
+        wrapper.vm.spots
+      )
     })
   })
 

@@ -7,8 +7,20 @@
 <script>
 export default {
   props: {
-    spots: Array,
-    filteredSpots: Array
+    spots: {
+      type: Array,
+      default: () => {
+        return []
+      },
+      required: true
+    },
+    filteredSpots: {
+      type: Array,
+      default: () => {
+        return []
+      },
+      required: true
+    }
   }
 }
 </script>

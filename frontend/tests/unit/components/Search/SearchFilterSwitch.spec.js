@@ -12,7 +12,11 @@ let spot
 
 beforeEach(() => {
   propsData = {
-    spots: [{ data: { id: 1 } }, { data: { id: 2 } }]
+    spots: [
+      { data: { id: 1 }, wifi_withs: [{ data: { id: 1 } }] },
+      { data: { id: 2 }, wifi_withs: [{ data: { id: 2 } }] },
+      { data: { id: 3 }, wifi_withs: [] }
+    ]
   }
 
   spot = {
@@ -49,6 +53,7 @@ describe('props', () => {
   it('spots', () => {
     expect(wrapper.vm.$props.spots).toStrictEqual(propsData.spots)
     expect(wrapper.vm.$props.spots instanceof Array).toBeTruthy()
+    expect(wrapper.vm.$options.props.spots.required).toBeTruthy()
   })
 })
 
@@ -67,7 +72,14 @@ describe('computed', () => {
 
   it('select/set', () => {
     wrapper.vm.select = 'update'
-    expect(spot.mutations.setFilterQuery).toHaveBeenCalled()
+    expect(spot.mutations.setFilterQuery).toHaveBeenCalledWith(
+      expect.any(Object),
+      'update'
+    )
+  })
+
+  it('countSpot', async () => {
+    expect(wrapper.vm.countSpot(wrapper.vm.filterQuery[0].value)).toEqual(2)
   })
 })
 
