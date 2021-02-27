@@ -103,6 +103,13 @@ describe('v-on', () => {
     expect(auth.actions.signUp).toHaveBeenCalled()
   })
 
+  it('click signUpHandler', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+    expect(signUpHandler).toHaveBeenCalled()
+  })
 
 })
 describe('template', () => {
