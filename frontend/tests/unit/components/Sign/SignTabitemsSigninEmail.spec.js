@@ -77,7 +77,30 @@ describe('getters', () => {
   })
 })
 
-describe('v-on', () => {})
+describe('v-on', () => {
+  const signInHandler = jest.fn()
+  const changeSignTab = jest.fn()
+
+  beforeEach(() => {
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      methods: {
+        signInHandler,
+        changeSignTab
+      }
+    })
+  })
+
+  it('keyup.enter signInHandler', () => {
+    wrapper
+      .findAll('input')
+      .at(1)
+      .trigger('keyup.enter')
+    expect(signInHandler).toHaveBeenCalled()
+  })
+
+})
 
 describe('template', () => {
   it('snapshot', () => {
