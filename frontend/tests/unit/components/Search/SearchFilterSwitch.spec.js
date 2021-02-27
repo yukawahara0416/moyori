@@ -12,7 +12,11 @@ let spot
 
 beforeEach(() => {
   propsData = {
-    spots: [{ data: { id: 1 } }, { data: { id: 2 } }]
+    spots: [
+      { data: { id: 1 }, wifi_withs: [{ data: { id: 1 } }] },
+      { data: { id: 2 }, wifi_withs: [{ data: { id: 2 } }] },
+      { data: { id: 3 }, wifi_withs: [] }
+    ]
   }
 
   spot = {
