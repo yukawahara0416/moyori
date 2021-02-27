@@ -76,22 +76,24 @@ describe('getters', () => {
 
 describe('computed', () => {
   describe('isOwnPosted', () => {
+    it('isLoggingIn is false', () => {
+      auth.getters.isLoggingIn = () => false
 
-    store = new Vuex.Store({
-      modules: {
-        auth
-      }
+      store = new Vuex.Store({
+        modules: {
+          auth
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData,
+        store
+      })
+
+      expect(!wrapper.vm.isLoggingIn).toBeTruthy()
+      expect(wrapper.vm.isOwnPosted).toBeFalsy()
     })
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
-    expect(wrapper.vm.isOwnPosted).toBeFalsy()
-    expect(wrapper.vm.$el).toMatchSnapshot()
-  })
 
   it('isOwnPosted is false with spot.data.place_id.length > 11', () => {
     propsData = {
