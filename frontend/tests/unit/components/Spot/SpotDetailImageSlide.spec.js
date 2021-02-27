@@ -1,21 +1,32 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotDetailImageSlide.vue'
+import SpotDetailImageSlideDialog from '@/components/Spot/SpotDetailImageSlideDialog.vue'
 
 const localVue = createLocalVue()
 
 let wrapper
 let propsData
 
+const hasFull = {
+  data: { id: 1, image: 'image1', picture: 'picture' },
+  comments: [
+    { id: 1, image: 'image2' },
+    { id: 2, image: 'image3' }
+  ]
+}
+
+const notHas = {
+  data: { id: 1, image: null, picture: null },
+  comments: [
+    { id: 1, image: null },
+    { id: 2, image: null }
+  ]
+}
+
 beforeEach(() => {
   propsData = {
-    spot: new Spot({
-      data: { id: 1, image: 'image1' },
-      comments: [
-        { id: 1, image: 'image2' },
-        { id: 2, image: 'image3' }
-      ]
-    })
+    spot: new Spot(hasFull)
   }
 
   wrapper = shallowMount(Component, {
