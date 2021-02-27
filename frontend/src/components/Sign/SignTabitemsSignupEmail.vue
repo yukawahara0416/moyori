@@ -68,7 +68,7 @@
             class="mb-3 px-10"
             color="primary"
             type="submit"
-            @click.stop="signUpHanlder()"
+            @click.stop="signUpHandler()"
             :disabled="invalid"
           >
             登録
@@ -116,7 +116,7 @@ export default {
       'pushSnackbarError'
     ]),
 
-    signUpHanlder: async function() {
+    signUpHandler: async function() {
       try {
         const response = await this.signUp(this.signUpForm)
         const currentUser = response.data.data

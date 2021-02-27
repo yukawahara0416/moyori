@@ -1,15 +1,23 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import Component from '@/components/Sign/SignTabitemsSigninEmail.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.component('ValidationObserver', ValidationObserver)
+localVue.component('ValidationProvider', ValidationProvider)
+
+const { required, email, max } = require('vee-validate/dist/rules.umd')
+extend('required', required)
+extend('email', email)
+extend('max', max)
 
 let wrapper
 let store
 let auth
-
-const signInHandler = jest.fn()
+let dialog
+let snackbar
 
 beforeEach(() => {
   auth = {
@@ -18,22 +26,44 @@ beforeEach(() => {
       signInForm: () => {
         return { email: 'test@expample.com', password: 'password' }
       }
+    },
+    mutations: {
+      setCurrentUser: jest.fn(),
+      setHeaders: jest.fn(),
+      clearSignInForm: jest.fn(),
+      clearSignUpForm: jest.fn()
+    },
+    actions: {
+      signIn: jest
+        .fn()
+        .mockResolvedValue({ data: { data: { id: 1 } }, headers: { id: 1 } })
+    }
+  }
+
+  dialog = {
+    actions: {
+      dialogOff: jest.fn()
+    }
+  }
+
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
   store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      dialog,
+      snackbar
     }
   })
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
-    store,
-    methods: {
-      signInHandler
-    },
-    stubs: ['ValidationObserver']
+    store
   })
 })
 
@@ -47,7 +77,113 @@ describe('getters', () => {
   })
 })
 
-describe('v-on', () => {})
+describe('v-on', () => {
+  const signInHandler = jest.fn()
+  const changeSignTab = jest.fn()
+
+  beforeEach(() => {
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      methods: {
+        signInHandler,
+        changeSignTab
+      }
+    })
+  })
+
+  it('keyup.enter signInHandler', () => {
+    wrapper
+      .findAll('input')
+      .at(1)
+      .trigger('keyup.enter')
+    expect(signInHandler).toHaveBeenCalled()
+  })
+
+  it('click signInHandler', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+    expect(signInHandler).toHaveBeenCalled()
+  })
+
+  it('click changeSignTab', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+    expect(changeSignTab).toHaveBeenCalledWith('signup')
+  })
+})
+
+describe('methods', () => {
+  describe('signInHandler', () => {
+    it('isLoggingIn is true', () => {
+      expect.assertions(1)
+
+      return wrapper.vm.signInHandler().then(() => {
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: new Error('すでにログイン中です')
+          }
+        )
+      })
+    })
+
+    it('isLoggingIn is false', async () => {
+      const signInForm = { email: 'test@expample.com', password: 'password' }
+      const currentUser = { id: 1 }
+      const headers = { id: 1 }
+
+      auth.getters.isLoggingIn = () => false
+
+      store = new Vuex.Store({
+        modules: {
+          auth,
+          dialog,
+          snackbar
+        }
+      })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        store
+      })
+
+      expect.assertions(8)
+
+      return wrapper.vm.signInHandler().then(() => {
+        expect(auth.actions.signIn).toHaveBeenCalledWith(
+          expect.any(Object),
+          signInForm
+        )
+        expect(auth.mutations.setCurrentUser).toHaveBeenCalledWith(
+          expect.any(Object),
+          currentUser
+        )
+        expect(auth.mutations.setHeaders).toHaveBeenCalledWith(
+          expect.any(Object),
+          headers
+        )
+        expect(dialog.actions.dialogOff).toHaveBeenCalledWith(
+          expect.any(Object),
+          'dialogSign'
+        )
+        expect(auth.mutations.clearSignInForm).toHaveBeenCalled()
+        expect(auth.mutations.clearSignUpForm).toHaveBeenCalled()
+        expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: 'ログインしました'
+          }
+        )
+        expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+      })
+    })
+  })
+})
 
 describe('template', () => {
   it('snapshot', () => {

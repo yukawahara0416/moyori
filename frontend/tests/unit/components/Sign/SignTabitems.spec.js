@@ -44,7 +44,10 @@ describe('computed', () => {
 
   it('childTabs/set', () => {
     wrapper.vm.childTab = 'update'
-    expect(tab.mutations.changeSignTab).toHaveBeenCalled()
+    expect(tab.mutations.changeSignTab).toHaveBeenCalledWith(
+      expect.any(Object),
+      'update'
+    )
   })
 })
 
