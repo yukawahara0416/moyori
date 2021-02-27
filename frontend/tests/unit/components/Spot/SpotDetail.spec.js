@@ -78,8 +78,20 @@ describe('template', () => {
 
   it('spot-detail-info-panel has :spot', () => {
     expect(
-      wrapper.find('spot-detail-info-panel-stub').attributes().spot
-    ).toEqual('[object Object]')
+
+  it('v-col has :cols', () => {
+    expect(
+      wrapper
+        .findAll('v-col-stub')
+        .at(0)
+        .attributes().cols
+    ).toEqual(wrapper.vm.cols.toString())
+    expect(
+      wrapper
+        .findAll('v-col-stub')
+        .at(1)
+        .attributes().cols
+    ).toEqual(wrapper.vm.cols.toString())
   })
 
   it('snapshot', () => {
