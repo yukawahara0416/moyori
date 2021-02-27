@@ -1,5 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuetify from 'vuetify'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotDetail.vue'
 
 const localVue = createLocalVue()
@@ -11,7 +12,7 @@ let vuetify
 
 beforeEach(() => {
   propsData = {
-    spot: { data: { id: 1 } }
+    spot: new Spot({ data: { id: 1 } })
   }
 
   vuetify = new Vuetify()
@@ -26,7 +27,14 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
+  })
+})
+
+describe('computed', () => {
+  it('cols', () => {
+    expect(wrapper.vm.cols).toEqual(6)
   })
 })
 
@@ -34,12 +42,6 @@ describe('emit', () => {
   it('closeDialog', () => {
     wrapper.vm.closeDialog()
     expect(wrapper.emitted('closeDialog')).toBeTruthy()
-  })
-})
-
-describe('computed', () => {
-  it('cols', () => {
-    expect(wrapper.vm.cols).toEqual(6)
   })
 })
 

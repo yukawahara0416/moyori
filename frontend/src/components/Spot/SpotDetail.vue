@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
 import SpotDetailToolbar from '@/components/Spot/SpotDetailToolbar.vue'
 import SpotDetailTitle from '@/components/Spot/SpotDetailTitle.vue'
 import SpotDetailImageSlide from '@/components/Spot/SpotDetailImageSlide.vue'
@@ -35,7 +36,13 @@ import SpotDetailCommentPanel from '@/components/Spot/SpotDetailCommentPanel.vue
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {
