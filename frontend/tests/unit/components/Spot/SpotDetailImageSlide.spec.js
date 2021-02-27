@@ -9,10 +9,10 @@ let propsData
 beforeEach(() => {
   propsData = {
     spot: {
-      data: { id: 1, image: 'test1' },
+      data: { id: 1, image: 'image' },
       comments: [
-        { id: 1, image: 'test2' },
-        { id: 2, image: 'test3' }
+        { id: 1, image: 'image' },
+        { id: 2, image: 'image' }
       ]
     }
   }
