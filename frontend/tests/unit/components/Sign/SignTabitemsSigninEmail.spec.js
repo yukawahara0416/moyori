@@ -117,6 +117,23 @@ describe('v-on', () => {
   })
 })
 
+describe('methods', () => {
+  describe('signInHandler', () => {
+    it('isLoggingIn is true', () => {
+      expect.assertions(1)
+
+      return wrapper.vm.signInHandler().then(() => {
+        expect(snackbar.actions.pushSnackbarError).toHaveBeenCalledWith(
+          expect.any(Object),
+          {
+            message: new Error('すでにログイン中です')
+          }
+        )
+      })
+    })
+  })
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
