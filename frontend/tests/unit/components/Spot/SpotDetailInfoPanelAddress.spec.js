@@ -30,7 +30,7 @@ describe('props', () => {
 
 describe('computed', () => {
   it('address', () => {
-    expect(wrapper.vm.address).toEqual(propsData.spot.data.address)
+    expect(wrapper.vm.address).toEqual(wrapper.vm.$props.spot.data.address)
   })
 
   it('url', () => {
