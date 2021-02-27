@@ -1,9 +1,17 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import Component from '@/components/Sign/SignTabitemsSigninEmail.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.component('ValidationObserver', ValidationObserver)
+localVue.component('ValidationProvider', ValidationProvider)
+
+const { required, email, max } = require('vee-validate/dist/rules.umd')
+extend('required', required)
+extend('email', email)
+extend('max', max)
 
 let wrapper
 let store
@@ -27,13 +35,12 @@ beforeEach(() => {
     }
   })
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
     store,
     methods: {
       signInHandler
-    },
-    stubs: ['ValidationObserver']
+    }
   })
 })
 
