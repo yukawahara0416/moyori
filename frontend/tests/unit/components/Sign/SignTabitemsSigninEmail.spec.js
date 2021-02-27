@@ -100,6 +100,14 @@ describe('v-on', () => {
     expect(signInHandler).toHaveBeenCalled()
   })
 
+  it('click signInHandler', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+    expect(signInHandler).toHaveBeenCalled()
+  })
+
 })
 
 describe('template', () => {
