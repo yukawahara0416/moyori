@@ -99,6 +99,18 @@ describe('template', () => {
     }
   })
 
+  it('div has :content', () => {
+    for (let i = 0; i < slides.length; i++) {
+      const element = slides[i]
+      expect(
+        wrapper
+          .findAll('.headline + div')
+          .at(i)
+          .text()
+      ).toEqual(slides[i].content)
+    }
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
