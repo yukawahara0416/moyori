@@ -95,23 +95,12 @@ describe('computed', () => {
       expect(wrapper.vm.isOwnPosted).toBeFalsy()
     })
 
-  it('isOwnPosted is false with spot.data.place_id.length > 11', () => {
-    propsData = {
-      spot: {
-        data: { id: 1, place_id: 'aaaaaaaaaaxx', user_id: 1 }
-      }
-    }
+    it('spot.data.place_id.length > 11', async () => {
+      await wrapper.setProps({ spot: new Spot(gmapSpot) })
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
+      expect(wrapper.vm.$props.spot.data.place_id.length >= 11).toBeTruthy()
+      expect(wrapper.vm.isOwnPosted).toBeFalsy()
     })
-
-    expect(wrapper.vm.$props.spot.data.place_id.length >= 11).toBeTruthy()
-    expect(wrapper.vm.isOwnPosted).toBeFalsy()
-    expect(wrapper.vm.$el).toMatchSnapshot()
-  })
 
     it('return true spotOwner === currentUser', () => {
       expect(wrapper.vm.isOwnPosted).toBeTruthy()
