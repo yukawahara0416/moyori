@@ -130,33 +130,38 @@ describe('computed', () => {
 })
 
 describe('template', () => {
-  it('spot-detail-info-panel-address has :spot', () => {
-    expect(
-      wrapper.find('spot-detail-info-panel-address-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('SpotDetailInfoPanelAddress has :spot', () => {
+    expect(wrapper.find(SpotDetailInfoPanelAddress).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
-  it('spot-detail-info-panel-phone has :spot', () => {
-    expect(
-      wrapper.find('spot-detail-info-panel-phone-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('SpotDetailInfoPanelPhone has :spot', () => {
+    expect(wrapper.find(SpotDetailInfoPanelPhone).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
-  it('spot-detail-info-panel-website has :spot', () => {
-    expect(
-      wrapper.find('spot-detail-info-panel-website-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('SpotDetailInfoPanelWebsite has :spot', () => {
+    expect(wrapper.find(SpotDetailInfoPanelWebsite).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
-  it('spot-detail-info-panel-business has :spot', () => {
+  it('SpotDetailInfoPanelBusiness has :spot', () => {
     expect(
-      wrapper.find('spot-detail-info-panel-business-stub').attributes().spot
-    ).toEqual('[object Object]')
+      wrapper.find(SpotDetailInfoPanelBusiness).props().spot
+    ).toMatchObject(wrapper.vm.$props.spot)
   })
 
-  it('spot-edit-dialog has :spot', () => {
-    expect(wrapper.find('spot-edit-dialog-stub').attributes().spot).toEqual(
-      '[object Object]'
+  it('SpotEditDialog has :spot', () => {
+    expect(wrapper.find(SpotEditDialog).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
+  })
+  it('SpotDeleteButton has :spot', () => {
+    expect(wrapper.find(SpotDeleteButton).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
     )
   })
 
