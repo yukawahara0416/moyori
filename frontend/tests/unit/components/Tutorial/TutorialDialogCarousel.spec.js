@@ -75,6 +75,18 @@ describe('template', () => {
     }
   ]
 
+  it('v-sheet-stub has :color', () => {
+    for (let i = 0; i < slides.length; i++) {
+      const element = slides[i]
+      expect(
+        wrapper
+          .findAll('v-sheet-stub')
+          .at(i)
+          .attributes().color
+      ).toEqual(slides[i].color)
+    }
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
