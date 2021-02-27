@@ -1,4 +1,5 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotDetailImageSlide.vue'
 
 const localVue = createLocalVue()
@@ -8,13 +9,13 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    spot: {
-      data: { id: 1, image: 'image' },
+    spot: new Spot({
+      data: { id: 1, image: 'image1' },
       comments: [
-        { id: 1, image: 'image' },
-        { id: 2, image: 'image' }
+        { id: 1, image: 'image2' },
+        { id: 2, image: 'image3' }
       ]
-    }
+    })
   }
 
   wrapper = shallowMount(Component, {
@@ -26,7 +27,8 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
