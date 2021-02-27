@@ -33,14 +33,9 @@ describe('template', () => {
     expect(wrapper.find('comment-index-stub').exists()).toBeTruthy()
   })
 
-  it('v-else', () => {
-    propsData = {
-      spot: { data: { id: 1 }, comments: [] }
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
+  it('v-else', async () => {
+    await wrapper.setProps({
+      spot: new Spot({ data: { id: 1 }, comments: [] })
     })
 
     expect(wrapper.find('p').text()).toBe('コメントはまだありません')
