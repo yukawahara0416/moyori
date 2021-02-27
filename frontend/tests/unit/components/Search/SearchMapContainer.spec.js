@@ -17,6 +17,15 @@ beforeEach(() => {
   })
 })
 
+describe('computed', () => {
+  it('styleVariables', async () => {
+    await wrapper.setData({ height: window.innerHeight })
+    expect(wrapper.vm.styleVariables).toMatchObject({
+      '--checkbox-height': `${wrapper.vm.height}px`
+    })
+  })
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
