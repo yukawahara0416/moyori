@@ -47,7 +47,10 @@ describe('computed', () => {
 
   it('select/set', () => {
     wrapper.vm.select = 'update'
-    expect(spot.mutations.setType).toHaveBeenCalled()
+    expect(spot.mutations.setType).toHaveBeenCalledWith(
+      expect.any(Object),
+      'update'
+    )
   })
 })
 
