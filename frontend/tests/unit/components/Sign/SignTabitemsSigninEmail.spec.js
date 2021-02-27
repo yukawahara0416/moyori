@@ -163,7 +163,7 @@ describe('methods', () => {
           expect.any(Object),
           currentUser
         )
-        expect(auth.mutations.setCurrentUser).toHaveBeenCalledWith(
+        expect(auth.mutations.setHeaders).toHaveBeenCalledWith(
           expect.any(Object),
           headers
         )
