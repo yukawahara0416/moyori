@@ -1,6 +1,12 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Spot/SpotDetailInfoPanel.vue'
+import SpotDetailInfoPanelAddress from '@/components/Spot/SpotDetailInfoPanelAddress.vue'
+import SpotDetailInfoPanelPhone from '@/components/Spot/SpotDetailInfoPanelPhone.vue'
+import SpotDetailInfoPanelWebsite from '@/components/Spot/SpotDetailInfoPanelWebsite.vue'
+import SpotDetailInfoPanelBusiness from '@/components/Spot/SpotDetailInfoPanelBusiness.vue'
+import SpotEditDialog from '@/components/Spot/SpotEditDialog.vue'
+import SpotDeleteButton from '@/components/Spot/SpotDeleteButton.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
