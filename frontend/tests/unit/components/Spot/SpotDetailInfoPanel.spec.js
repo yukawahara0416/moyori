@@ -1,5 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotDetailInfoPanel.vue'
 import SpotDetailInfoPanelAddress from '@/components/Spot/SpotDetailInfoPanelAddress.vue'
 import SpotDetailInfoPanelPhone from '@/components/Spot/SpotDetailInfoPanelPhone.vue'
@@ -16,11 +17,17 @@ let propsData
 let store
 let auth
 
+const dbSpot = {
+  data: { id: 1, place_id: 'aaaaaaaaaa', user_id: 1 }
+}
+
+const gmapSpot = {
+  data: { id: 1, place_id: 'aaaaaaaaaaxx', user_id: 1 }
+}
+
 beforeEach(() => {
   propsData = {
-    spot: {
-      data: { id: 1, place_id: 'aaaaaaaaaa', user_id: 1 }
-    }
+    spot: new Spot(dbSpot)
   }
 
   auth = {
@@ -48,7 +55,8 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
