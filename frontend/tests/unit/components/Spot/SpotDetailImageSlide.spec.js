@@ -45,48 +45,46 @@ describe('props', () => {
 
 describe('computed', () => {
   it('images', () => {
-    expect(wrapper.vm.images).toMatchObject(['test2', 'test3', 'test1'])
+    expect(wrapper.vm.images).toMatchObject([
+      'picture',
+      'image2',
+      'image3',
+      'image1'
+    ])
+  })
+
+  it('postImage', () => {
+    expect(wrapper.vm.postImage).toMatchObject(['picture'])
   })
 
   it('commentImages', () => {
-    expect(wrapper.vm.commentImages).toMatchObject(['test2', 'test3'])
+    expect(wrapper.vm.commentImages).toMatchObject(['image2', 'image3'])
   })
 
   it('gmapImages', () => {
-    expect(wrapper.vm.gmapImages).toMatchObject(['test1'])
+    expect(wrapper.vm.gmapImages).toMatchObject(['image1'])
   })
 })
 
 describe('template', () => {
-  it('v-else v-slide-item count 3', () => {
-    expect(wrapper.findAll('v-slide-item-stub').length).toBe(3)
-  })
-
-  it('v-else spot-detail-image-slide-dialog has :photo', () => {
-    const target = wrapper.findAll('spot-detail-image-slide-dialog-stub')
-    expect(target.at(0).attributes().photo).toEqual('test2')
-    expect(target.at(1).attributes().photo).toEqual('test3')
-    expect(target.at(2).attributes().photo).toEqual('test1')
-  })
-
-  it('v-if="images.length < 1"', () => {
-    propsData = {
-      spot: {
-        data: { id: 1, image: null },
-        comments: [
-          { id: 1, image: null },
-          { id: 2, image: null }
-        ]
-      }
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
-    })
+  it('v-if="images.length < 1"', async () => {
+    await wrapper.setProps({ spot: new Spot(notHas) })
 
     expect(wrapper.find('v-img-stub').exists()).toBeTruthy()
+    expect(wrapper.find(SpotDetailImageSlideDialog).exists()).toBeFalsy()
     expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+
+  it('v-else', () => {
+    expect(wrapper.findAll('v-slide-item-stub').length).toBe(4)
+  })
+
+  it('SpotDetailImageSlideDialog has :photo', () => {
+    const target = wrapper.findAll(SpotDetailImageSlideDialog)
+    expect(target.at(0).attributes().photo).toEqual('picture')
+    expect(target.at(1).attributes().photo).toEqual('image2')
+    expect(target.at(2).attributes().photo).toEqual('image3')
+    expect(target.at(3).attributes().photo).toEqual('image1')
   })
 
   it('snapshot', () => {
