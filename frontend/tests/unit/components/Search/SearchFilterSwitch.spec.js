@@ -53,6 +53,7 @@ describe('props', () => {
   it('spots', () => {
     expect(wrapper.vm.$props.spots).toStrictEqual(propsData.spots)
     expect(wrapper.vm.$props.spots instanceof Array).toBeTruthy()
+    expect(wrapper.vm.$options.props.spots.required).toBeTruthy()
   })
 })
 
