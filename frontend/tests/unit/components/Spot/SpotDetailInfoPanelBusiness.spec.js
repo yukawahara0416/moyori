@@ -53,21 +53,11 @@ describe('computed', () => {
     expect(wrapper.vm.isAboveLimit).toBeTruthy()
   })
 
-  it('isAboveLimit is false', () => {
-    propsData = {
-      spot: {
-        data: {
-          id: 1,
-          opening_hours: {
-            weekday_text: ['test']
-          }
-        }
-      }
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
+  it('isAboveLimit is false', async () => {
+    await wrapper.setProps({
+      spot: new Spot({
+        data: { id: 1, opening_hours: { weekday_text: ['test'] } }
+      })
     })
 
     expect(wrapper.vm.isAboveLimit).toBeFalsy()
@@ -77,21 +67,11 @@ describe('computed', () => {
     expect(wrapper.vm.readMore).toBeTruthy()
   })
 
-  it('readMore is false', () => {
-    propsData = {
-      spot: {
-        data: {
-          id: 1,
-          opening_hours: {
-            weekday_text: ['test']
-          }
-        }
-      }
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
+  it('readMore is false', async () => {
+    await wrapper.setProps({
+      spot: new Spot({
+        data: { id: 1, opening_hours: { weekday_text: ['test'] } }
+      })
     })
 
     expect(wrapper.vm.readMore).toBeFalsy()
@@ -123,50 +103,37 @@ describe('methods', () => {
 })
 
 describe('template', () => {
-  it('v-if="spot.data.opening_hours" is false', () => {
-    propsData = {
-      spot: { data: { id: 1 } }
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
-    })
-
-    const target = wrapper.find('.mx-3')
-    expect(target.exists()).toBeFalsy()
+  it('v-if="spot.data.opening_hours is true', () => {
+    expect(wrapper.find('.mx-3').exists()).toBeTruthy()
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
-  it('v-if="readMore is true {{ businessDays.slice(0, maxChar) }}', () => {
-    expect(wrapper.find('.mx-3').text()).toContain(
-      '月/ 10:00～19:30、火/ 10:00～19:30、'
-    )
+  it('v-if="spot.data.opening_hours is false', async () => {
+    await wrapper.setProps({ spot: new Spot({ data: { id: 1 } }) })
+
+    expect(wrapper.find('.mx-3').exists()).toBeFalsy()
+    expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
-  it('v-if="readMore is true ...続きをよむ', () => {
-    expect(wrapper.find('.mx-3').text()).toContain('...続きをよむ')
+  it('v-if="readMore" is true', () => {
+    expect(wrapper.html()).toContain('月/ 10:00～19:30、火/ 10:00～19:30、')
+    expect(wrapper.html()).toContain('...続きをよむ')
   })
 
-  it('v-if="readMore is false {{ businessDays }}', () => {
-    propsData = {
-      spot: {
+  it('v-else {{ businessDays }}', async () => {
+    await wrapper.setProps({
+      spot: new Spot({
         data: {
           id: 1,
           opening_hours: {
             weekday_text: ['月曜日: 10時00分～19時30分']
           }
         }
-      }
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
+      })
     })
 
-    expect(wrapper.find('.mx-3').text()).toContain('月/ 10:00～19:30')
-    expect(wrapper.find('.mx-3').text()).not.toContain('...続きをよむ')
+    expect(wrapper.html()).toContain('月/ 10:00～19:30')
+    expect(wrapper.html()).not.toContain('...続きをよむ')
   })
 
   it('snapshot', () => {
