@@ -1,4 +1,5 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotDetailPowerPanel.vue'
 
 const localVue = createLocalVue()
@@ -8,11 +9,11 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    spot: {
+    spot: new Spot({
       data: { id: 1 },
       power_withs: [{ id: 2 }, { id: 3 }],
       power_withouts: [{ id: 4 }, { id: 5 }]
-    }
+    })
   }
 
   wrapper = shallowMount(Component, {
@@ -25,6 +26,7 @@ describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
     expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
