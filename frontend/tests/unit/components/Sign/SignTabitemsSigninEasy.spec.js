@@ -8,6 +8,7 @@ localVue.use(Vuex)
 let wrapper
 let store
 let auth
+let dialog
 
 beforeEach(() => {
   auth = {
@@ -16,9 +17,15 @@ beforeEach(() => {
     }
   }
 
+  dialog = {
+    actions: {
+      dialogOff: jest.fn()
+    }
+  }
   store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      dialog,
     }
   })
 
