@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import Component from '@/components/Sign/SignTabitemsSignupEmail.vue'
@@ -119,6 +119,49 @@ describe('v-on', () => {
     expect(changeSignTab).toHaveBeenCalledWith('signin')
   })
 })
+
+describe('methods', () => {
+  it('signUpHandler', () => {
+    const signUpForm = {
+      name: 'name',
+      email: 'test@example.com',
+      password: 'password'
+    }
+    const currentUser = { id: 1 }
+    const headers = { id: 1 }
+
+    expect.assertions(8)
+
+    return wrapper.vm.signUpHandler().then(() => {
+      expect(auth.actions.signUp).toHaveBeenCalledWith(
+        expect.any(Object),
+        signUpForm
+      )
+      expect(auth.mutations.setCurrentUser).toHaveBeenCalledWith(
+        expect.any(Object),
+        currentUser
+      )
+      expect(auth.mutations.setHeaders).toHaveBeenCalledWith(
+        expect.any(Object),
+        headers
+      )
+      expect(dialog.actions.dialogOff).toHaveBeenCalledWith(
+        expect.any(Object),
+        'dialogSign'
+      )
+      expect(auth.mutations.clearSignInForm).toHaveBeenCalled()
+      expect(auth.mutations.clearSignUpForm).toHaveBeenCalled()
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'アカウントを登録しました。MoYoRiへようこそ！'
+        }
+      )
+      expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+    })
+  })
+})
+
 describe('template', () => {
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
