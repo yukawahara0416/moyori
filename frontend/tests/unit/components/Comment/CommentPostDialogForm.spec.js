@@ -23,7 +23,6 @@ extend('required', required)
 
 let wrapper
 let propsData
-let options
 
 let store
 let auth
