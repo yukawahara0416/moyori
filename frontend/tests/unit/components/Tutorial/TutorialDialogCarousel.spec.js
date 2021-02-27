@@ -87,6 +87,18 @@ describe('template', () => {
     }
   })
 
+  it('div has :title', () => {
+    for (let i = 0; i < slides.length; i++) {
+      const element = slides[i]
+      expect(
+        wrapper
+          .findAll('.headline')
+          .at(i)
+          .text()
+      ).toEqual(slides[i].title)
+    }
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
