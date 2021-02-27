@@ -31,8 +31,19 @@ beforeEach(() => {
   auth = {
     getters: {
       signUpForm: () => {
-        return { name: 'test', email: 'test@example.com', password: 'passowrd' }
+        return { name: 'name', email: 'test@example.com', password: 'password' }
       }
+    },
+    mutations: {
+      setCurrentUser: jest.fn(),
+      setHeaders: jest.fn(),
+      clearSignInForm: jest.fn(),
+      clearSignUpForm: jest.fn()
+    },
+    actions: {
+      signUp: jest
+        .fn()
+        .mockResolvedValue({ data: { data: { id: 1 } }, headers: { id: 1 } })
     }
   }
 
