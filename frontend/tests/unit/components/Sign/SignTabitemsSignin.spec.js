@@ -7,8 +7,7 @@ let wrapper
 
 beforeEach(() => {
   wrapper = shallowMount(Component, {
-    localVue,
-    stubs: ['policy']
+    localVue
   })
 })
 
