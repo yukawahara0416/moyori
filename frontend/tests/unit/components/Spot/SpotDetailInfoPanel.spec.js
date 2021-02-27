@@ -21,6 +21,10 @@ const dbSpot = {
   data: { id: 1, place_id: 'aaaaaaaaaa', user_id: 1 }
 }
 
+const dbSpotOthers = {
+  data: { id: 1, place_id: 'aaaaaaaaaa', user_id: 2 }
+}
+
 const gmapSpot = {
   data: { id: 1, place_id: 'aaaaaaaaaaxx', user_id: 1 }
 }
@@ -71,15 +75,7 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('isOwnPosted is false with isLoggingIn is false', () => {
-    auth = {
-      getters: {
-        currentUser: () => {
-          return { data: { id: 1 } }
-        },
-        isLoggingIn: () => false
-      }
-    }
+  describe('isOwnPosted', () => {
 
     store = new Vuex.Store({
       modules: {
@@ -115,25 +111,16 @@ describe('computed', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
-  it('isOwnPosted is false with return spotOwner === currentUser', () => {
-    propsData = {
-      spot: {
-        data: { id: 1, place_id: 'aaaaaaaaaa', user_id: 2 }
-      }
-    }
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
+    it('return true spotOwner === currentUser', () => {
+      expect(wrapper.vm.isOwnPosted).toBeTruthy()
     })
 
-    expect(wrapper.vm.isOwnPosted).toBeFalsy()
-    expect(wrapper.vm.$el).toMatchSnapshot()
-  })
+    it('return false spotOwner === currentUser', async () => {
+      await wrapper.setProps({ spot: new Spot(dbSpotOthers) })
 
-  it('isOwnPosted is true with return spotOwner === currentUser', () => {
-    expect(wrapper.vm.isOwnPosted).toBeTruthy()
+      expect(wrapper.vm.isOwnPosted).toBeFalsy()
+      expect(wrapper.vm.$el).toMatchSnapshot()
+    })
   })
 })
 
