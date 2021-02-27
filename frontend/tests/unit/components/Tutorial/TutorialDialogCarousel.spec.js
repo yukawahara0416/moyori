@@ -43,7 +43,10 @@ describe('v-on', () => {
     })
 
     wrapper.find('.v-btn').trigger('click')
-    expect(dialog.mutations.dialogOff).toHaveBeenCalled()
+    expect(dialog.mutations.dialogOff).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogTutorial'
+    )
   })
 })
 
