@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Component from '@/components/Sign/SignTabitemsSigninEasy.vue'
 
@@ -8,8 +8,6 @@ localVue.use(Vuex)
 let wrapper
 let store
 let auth
-
-const signInAsTestUser = jest.fn()
 
 beforeEach(() => {
   auth = {
@@ -24,12 +22,9 @@ beforeEach(() => {
     }
   })
 
-  wrapper = mount(Component, {
+  wrapper = shallowMount(Component, {
     localVue,
-    store,
-    methods: {
-      signInAsTestUser
-    }
+    store
   })
 })
 
@@ -41,6 +36,16 @@ describe('getters', () => {
 
 describe('v-on', () => {
   it('signInAsTestUser', () => {
+    const signInAsTestUser = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      methods: {
+        signInAsTestUser
+      }
+    })
+
     wrapper.find('.v-btn').trigger('click')
     expect(signInAsTestUser).toHaveBeenCalled()
   })
