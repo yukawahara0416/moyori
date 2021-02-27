@@ -16,6 +16,7 @@ extend('max', max)
 let wrapper
 let store
 let auth
+let dialog
 
 const signInHandler = jest.fn()
 
@@ -29,18 +30,22 @@ beforeEach(() => {
     }
   }
 
+  dialog = {
+    actions: {
+      dialogOff: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
-      auth
+      auth,
+      dialog,
     }
   })
 
   wrapper = shallowMount(Component, {
     localVue,
-    store,
-    methods: {
-      signInHandler
-    }
+    store
   })
 })
 
