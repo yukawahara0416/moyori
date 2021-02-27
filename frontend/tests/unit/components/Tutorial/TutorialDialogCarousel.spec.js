@@ -43,11 +43,74 @@ describe('v-on', () => {
     })
 
     wrapper.find('.v-btn').trigger('click')
-    expect(dialog.mutations.dialogOff).toHaveBeenCalled()
+    expect(dialog.mutations.dialogOff).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogTutorial'
+    )
   })
 })
 
 describe('template', () => {
+  const slides = [
+    {
+      title: '集中できるスポットをシェアしよう！',
+      content:
+        '外出中に「近くにWi-Fiがあって充電もできるカフェがないかな？」と困ったことはありませんか？MoYoRiならすぐに見つけられます。',
+      image: require('@/assets/cafe_nomad_man.png'),
+      color: 'indigo'
+    },
+    {
+      title: 'スポットに投票しよう！',
+      content:
+        '「Wifiサービスのあり／なし」「電源サービスのあり／なし」をワンクリックで投票することが出来ます。（＊ユーザ登録が必要です）',
+      image: require('@/assets/card_sample.png'),
+      color: 'pink darken-2'
+    },
+    {
+      title: 'スポットを投稿しよう！',
+      content:
+        'マップをクリックするだけで、新しいスポットを投稿することができます。（＊ユーザ登録が必要です）',
+      image: require('@/assets/click_sample.png'),
+      color: 'red lighten-1'
+    }
+  ]
+
+  it('v-sheet-stub has :color', () => {
+    for (let i = 0; i < slides.length; i++) {
+      const element = slides[i]
+      expect(
+        wrapper
+          .findAll('v-sheet-stub')
+          .at(i)
+          .attributes().color
+      ).toEqual(slides[i].color)
+    }
+  })
+
+  it('div has :title', () => {
+    for (let i = 0; i < slides.length; i++) {
+      const element = slides[i]
+      expect(
+        wrapper
+          .findAll('.headline')
+          .at(i)
+          .text()
+      ).toEqual(slides[i].title)
+    }
+  })
+
+  it('div has :content', () => {
+    for (let i = 0; i < slides.length; i++) {
+      const element = slides[i]
+      expect(
+        wrapper
+          .findAll('.headline + div')
+          .at(i)
+          .text()
+      ).toEqual(slides[i].content)
+    }
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })

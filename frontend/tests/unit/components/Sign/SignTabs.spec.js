@@ -57,6 +57,7 @@ describe('template', () => {
       store.getters.signTab
     )
   })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
