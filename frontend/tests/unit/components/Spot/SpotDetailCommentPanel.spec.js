@@ -30,7 +30,8 @@ describe('props', () => {
 
 describe('template', () => {
   it('v-if="spot.comments[0]', () => {
-    expect(wrapper.find('comment-index-stub').exists()).toBeTruthy()
+    expect(wrapper.find(CommentIndex).exists()).toBeTruthy()
+    expect(wrapper.html()).not.toContain('コメントはまだありません')
   })
 
   it('v-else', async () => {
