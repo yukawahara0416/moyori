@@ -174,23 +174,15 @@ describe('template', () => {
   })
 
   it('v-if="isOwnPosted" is true', () => {
-    expect(wrapper.find('v-card-actions-stub').exists()).toBeTruthy()
+    expect(wrapper.find(SpotEditDialog).exists()).toBeTruthy()
+    expect(wrapper.find(SpotDeleteButton).exists()).toBeTruthy()
   })
 
-  it('v-if="isOwnPosted" is false', () => {
-    propsData = {
-      spot: {
-        data: { id: 1, place_id: 'aaaaaaaaaaxx', user_id: 1 }
-      }
-    }
+  it('v-if="isOwnPosted" is false', async () => {
+    await wrapper.setProps({ spot: new Spot(gmapSpot) })
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData,
-      store
-    })
-
-    expect(wrapper.find('v-card-actions-stub').exists()).toBeFalsy()
+    expect(wrapper.find(SpotEditDialog).exists()).toBeFalsy()
+    expect(wrapper.find(SpotDeleteButton).exists()).toBeFalsy()
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
