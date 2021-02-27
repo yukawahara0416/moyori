@@ -1,5 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Component from '@/components/Spot/SpotDetailCommentPanel.vue'
+import CommentIndex from '@/components/Comment/CommentIndex.vue'
+import CommentPostDialog from '@/components/Comment/CommentPostDialog.vue'
 
 const localVue = createLocalVue()
 
@@ -43,15 +45,15 @@ describe('template', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
 
-  it('comment-post-dialog has :spot', () => {
-    expect(wrapper.find('comment-post-dialog-stub').attributes().spot).toEqual(
-      '[object Object]'
+  it('CommentPostDialog has :spot', () => {
+    expect(wrapper.find(CommentPostDialog).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
     )
   })
 
-  it('comment-index has :spot', () => {
-    expect(wrapper.find('comment-index-stub').attributes().spot).toEqual(
-      '[object Object]'
+  it('CommentIndex has :spot', () => {
+    expect(wrapper.find(CommentIndex).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
     )
   })
 
