@@ -183,29 +183,15 @@ describe('computed', () => {
         'なくなってる可能性大です^^;'
       )
     })
-  })
-})
 
-describe('methods', () => {
-  it('pickupDate', () => {
-    propsData = {
-      spot: {
-        data: { id: 1 },
-        wifi_withs: [{ id: 2, created_at: '2020-12-01T00:00:00.000Z' }],
-        wifi_withouts: [
-          { id: 3, created_at: '2020-12-31T00:00:00.000Z' },
-          { id: 4, created_at: '2020-12-31T00:00:00.000Z' }
-        ]
-      }
-    }
+    describe('methods', () => {
+      it('pickupDate', async () => {
+        await wrapper.setProps({ spot: new Spot(poor) })
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
+        const result = wrapper.vm.pickupDate(wrapper.vm.$props.spot.wifi_withs)
+        expect(result).toMatchObject([1606780800000])
+      })
     })
-
-    const result = wrapper.vm.pickupDate(propsData.spot.wifi_withs)
-    expect(result).toMatchObject([1606780800000])
   })
 })
 
