@@ -69,20 +69,8 @@ describe('computed', () => {
       expect(wrapper.vm.countVote).toEqual('withsMany')
     })
 
-    it('countVote return withoutsMany', () => {
-      propsData = {
-        spot: {
-          data: { id: 1 },
-          wifi_withs: [{ id: 2 }],
-          wifi_withouts: [{ id: 3 }, { id: 4 }]
-        }
-      }
-
-      wrapper = shallowMount(Component, {
-        localVue,
-        propsData
-      })
-
+    it('countVote return withoutsMany', async () => {
+      await wrapper.setProps({ spot: new Spot(withoutsMany) })
       expect(wrapper.vm.countVote).toEqual('withoutsMany')
     })
   })
