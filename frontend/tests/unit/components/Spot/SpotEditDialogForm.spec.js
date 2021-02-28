@@ -250,7 +250,10 @@ describe('methods', () => {
     })
 
     wrapper.vm.closeDialog()
-    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    expect(dialog.actions.dialogOff).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSpotEdit'
+    )
     expect(form.mutations.clearSpotForm).toHaveBeenCalled()
     expect(clearForm).toHaveBeenCalled()
   })
