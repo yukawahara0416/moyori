@@ -96,9 +96,39 @@ describe('computed', () => {
 })
 
 describe('v-on', () => {
-  it('click cancelPostSpot', () => {})
+  let cancelPostSpot
+  let postSpotHandler
 
-  it('click postSpotHandler', () => {})
+  beforeEach(() => {
+    cancelPostSpot = jest.fn()
+    postSpotHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify,
+      methods: {
+        cancelPostSpot,
+        postSpotHandler
+      }
+    })
+  })
+
+  it('click cancelPostSpot', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+    expect(cancelPostSpot).toHaveBeenCalled()
+  })
+
+  it('click postSpotHandler', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+    expect(postSpotHandler).toHaveBeenCalled()
+  })
 })
 
 describe('methods', () => {
