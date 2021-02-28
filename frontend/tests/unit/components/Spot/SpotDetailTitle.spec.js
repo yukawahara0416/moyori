@@ -1,6 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotDetailTitle.vue'
+import LikeButton from '@/components/Buttons/LikeButton.vue'
 
 const localVue = createLocalVue()
 
@@ -33,9 +34,9 @@ describe('template', () => {
     expect(wrapper.find('.ml-2').text()).toEqual(propsData.spot.data.name)
   })
 
-  it('like-button has :spot', () => {
-    expect(wrapper.find('like-button-stub').attributes().spot).toEqual(
-      '[object Object]'
+  it('LikeButton has :spot', () => {
+    expect(wrapper.find(LikeButton).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
     )
   })
 
