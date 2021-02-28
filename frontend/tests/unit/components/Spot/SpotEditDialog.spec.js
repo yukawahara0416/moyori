@@ -2,6 +2,7 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotEditDialog.vue'
+import SpotEditDialogForm from '@/components/Spot/SpotEditDialogForm.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -108,10 +109,10 @@ describe('methods', () => {
 })
 
 describe('template', () => {
-  it('spot-edit-dialog-form has :spot', () => {
-    expect(
-      wrapper.find('spot-edit-dialog-form-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('SpotEditDialogForm has :spot', () => {
+    expect(wrapper.find(SpotEditDialogForm).props().spot).toEqual(
+      wrapper.vm.$props.spot
+    )
   })
 
   it('snapshot', () => {
