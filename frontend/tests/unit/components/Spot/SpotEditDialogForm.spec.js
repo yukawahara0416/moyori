@@ -112,20 +112,28 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('formData', () => {
+    const target = wrapper.vm.$props.spot.data
+
     const formData = new FormData()
-    formData.append('spot[address]', propsData.spot.data.address)
-    formData.append('spot[name]', propsData.spot.data.name)
-    formData.append('spot[place_id]', propsData.spot.data.place_id)
-    formData.append('spot[lat]', propsData.spot.data.position.lat)
-    formData.append('spot[lng]', propsData.spot.data.position.lng)
-    formData.append('spot[phone]', propsData.spot.data.phone)
-    formData.append('spot[url]', propsData.spot.data.url)
+    formData.append('spot[address]', target.address)
+    formData.append('spot[name]', target.name)
+    formData.append('spot[place_id]', target.place_id)
+    formData.append('spot[lat]', target.position.lat)
+    formData.append('spot[lng]', target.position.lng)
+    formData.append('spot[phone]', target.phone)
+    formData.append('spot[url]', target.url)
 
     expect(wrapper.vm.formData).toEqual(formData)
   })
 })
 
 describe('methods', () => {
+  it('updateSpotHandler', () => {})
+
+  it('updateSpot', () => {})
+
+  it('stateMutation', () => {})
+
   it('cancelUpdateSpot', () => {
     const closeDialog = jest.fn()
 
