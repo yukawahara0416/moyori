@@ -229,7 +229,12 @@ describe('methods', () => {
 
     wrapper.vm.cancelUpdateSpot()
     expect(closeDialog).toHaveBeenCalled()
-    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+      expect.any(Object),
+      {
+        message: 'スポットの編集をキャンセルしました'
+      }
+    )
   })
 
   it('closeDialog', () => {
