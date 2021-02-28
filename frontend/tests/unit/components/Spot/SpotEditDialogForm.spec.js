@@ -1,13 +1,17 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import { Spot } from '@/class/Spot.js'
+import { axiosBase } from '@/plugins/axios.js'
+import MockAdapter from 'axios-mock-adapter'
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import Component from '@/components/Spot/SpotEditDialogForm.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.component('ValidationObserver', ValidationObserver)
 localVue.component('ValidationProvider', ValidationProvider)
+
+const axiosMock = new MockAdapter(axiosBase)
 
 const { required } = require('vee-validate/dist/rules.umd')
 extend('required', required)
@@ -130,7 +134,30 @@ describe('computed', () => {
 describe('methods', () => {
   it('updateSpotHandler', () => {})
 
-  it('updateSpot', () => {})
+  it('updateSpot', () => {
+    const spot_id = wrapper.vm.$props.spot.data.id
+    const params = new FormData()
+    const headers = auth.getters.headers()
+    const response = { data: { id: 1 } }
+
+    axiosMock.onPatch(`/api/v1/spots/${spot_id}`, params).reply(200, response)
+
+    return wrapper.vm.updateSpot(spot_id, params, headers).then(res => {
+      expect(res.data).toMatchObject(response.data)
+    })
+  })
+
+  it('updateSpot 404 error', () => {
+    const spot_id = wrapper.vm.$props.spot.data.id
+    const params = new FormData()
+    const headers = auth.getters.headers()
+
+    axiosMock.onPatch(`/api/v1/spots/${spot_id}`, params).reply(404)
+
+    return wrapper.vm.updateSpot(headers).catch(err => {
+      expect(err).toStrictEqual(new Error('スポットの更新に失敗しました'))
+    })
+  })
 
   it('stateMutation', () => {})
 
