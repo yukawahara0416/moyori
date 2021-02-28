@@ -64,7 +64,10 @@ describe('computed', () => {
 
   it('dialog/set', () => {
     wrapper.vm.dialog = true
-    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    expect(dialog.actions.dialogOff).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSpotEdit'
+    )
   })
 })
 
