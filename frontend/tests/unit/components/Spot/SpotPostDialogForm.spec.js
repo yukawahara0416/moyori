@@ -1,5 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import Component from '@/components/Spot/SpotPostDialogForm.vue'
 
@@ -17,6 +18,7 @@ let auth
 let form
 let dialog
 let snackbar
+let vuetify
 
 beforeEach(() => {
   auth = {
@@ -64,9 +66,12 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
   wrapper = shallowMount(Component, {
     localVue,
-    store
+    store,
+    vuetify
   })
 })
 
@@ -84,6 +89,18 @@ describe('getters', () => {
   })
 })
 
+describe('computed', () => {
+  it('cols', () => {
+    expect(wrapper.vm.cols).toEqual(6)
+  })
+})
+
+describe('v-on', () => {
+  it('click cancelPostSpot', () => {})
+
+  it('click postSpotHandler', () => {})
+})
+
 describe('methods', () => {
   it('cancelPostSpot', () => {
     const closeDialog = jest.fn()
@@ -91,6 +108,7 @@ describe('methods', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
+      vuetify,
       methods: {
         closeDialog
       }
@@ -107,6 +125,7 @@ describe('methods', () => {
     wrapper = shallowMount(Component, {
       localVue,
       store,
+      vuetify,
       methods: {
         clearForm
       }
