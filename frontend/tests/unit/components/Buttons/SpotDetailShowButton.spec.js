@@ -233,6 +233,21 @@ describe('template', () => {
     )
   })
 
+  it('v-btn :small', async () => {
+    Object.assign(window, { innerWidth: 959 })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      vuetify,
+      propsData,
+      stubs: ['v-dialog', 'spot-detail']
+    })
+
+    expect(wrapper.find('v-btn-stub').attributes().small).toBeTruthy()
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
