@@ -75,11 +75,7 @@ describe('v-on', () => {
   it('openDialog', () => {
     const openDialog = jest.fn()
 
-    dialog = {
-      getters: {
-        dialogSpotEdit: () => false
-      }
-    }
+    dialog.getters.dialogSpotEdit = () => false
 
     store = new Vuex.Store({
       modules: {
@@ -104,7 +100,10 @@ describe('v-on', () => {
 describe('methods', () => {
   it('openDialog', () => {
     wrapper.vm.openDialog()
-    expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+    expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSpotEdit'
+    )
   })
 })
 
