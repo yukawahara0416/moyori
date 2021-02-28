@@ -1,6 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotEditDialogForm.vue'
 
 const localVue = createLocalVue()
@@ -21,20 +22,20 @@ let snackbar
 
 beforeEach(() => {
   propsData = {
-    spot: {
+    spot: new Spot({
       data: {
         id: 1,
-        place_id: 'testplaceid',
-        name: 'testname',
-        address: 'testaddress',
-        phone: 'testphone',
-        url: 'testurl',
+        place_id: 'place_id',
+        name: 'name',
+        address: 'address',
+        phone: 'phone',
+        url: 'url',
         position: {
-          lat: 'testlat',
-          lng: 'testlng'
+          lat: 'lat',
+          lng: 'lng'
         }
       }
-    }
+    })
   }
 
   auth = {
@@ -84,7 +85,8 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
