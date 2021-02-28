@@ -88,37 +88,13 @@ describe('computed', () => {
       wifi_withouts: [{ id: 3, created_at: '2020-12-31T00:00:00.000Z' }]
     }
 
-    it('latestVote return withsNewer', () => {
-      propsData = {
-        spot: {
-          data: { id: 1 },
-          wifi_withs: [{ id: 2, created_at: '2020-12-31T00:00:00.000Z' }],
-          wifi_withouts: [{ id: 3, created_at: '2020-12-01T00:00:00.000Z' }]
-        }
-      }
-
-      wrapper = shallowMount(Component, {
-        localVue,
-        propsData
-      })
-
+    it('latestVote return withsNewer', async () => {
+      await wrapper.setProps({ spot: new Spot(withsNewer) })
       expect(wrapper.vm.latestVote).toEqual('withsNewer')
     })
 
-    it('latestVote return withoutsNewer', () => {
-      propsData = {
-        spot: {
-          data: { id: 1 },
-          wifi_withs: [{ id: 2, created_at: '2020-12-01T00:00:00.000Z' }],
-          wifi_withouts: [{ id: 3, created_at: '2020-12-31T00:00:00.000Z' }]
-        }
-      }
-
-      wrapper = shallowMount(Component, {
-        localVue,
-        propsData
-      })
-
+    it('latestVote return withoutsNewer', async () => {
+      await wrapper.setProps({ spot: new Spot(withoutsNewer) })
       expect(wrapper.vm.latestVote).toEqual('withoutsNewer')
     })
   })
