@@ -150,7 +150,12 @@ describe('methods', () => {
 
     wrapper.vm.cancelPostSpot()
     expect(closeDialog).toHaveBeenCalled()
-    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+      expect.any(Object),
+      {
+        message: 'スポットの登録をキャンセルしました'
+      }
+    )
   })
 
   it('closeDialog', () => {
@@ -166,7 +171,10 @@ describe('methods', () => {
     })
 
     wrapper.vm.closeDialog()
-    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    expect(dialog.actions.dialogOff).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSpotCreate'
+    )
     expect(form.mutations.clearSpotForm).toHaveBeenCalled()
     expect(clearForm).toHaveBeenCalled()
   })
