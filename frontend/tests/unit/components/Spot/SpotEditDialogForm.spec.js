@@ -21,6 +21,7 @@ let propsData
 let store
 let auth
 let user
+let spot
 let form
 let tab
 let dialog
@@ -62,6 +63,14 @@ beforeEach(() => {
       updateSpot: jest.fn()
     }
   }
+
+  spot = {
+    namespaced: true,
+    mutations: {
+      updateSpot: jest.fn()
+    }
+  }
+
   form = {
     mutations: {
       clearSpotForm: jest.fn()
@@ -92,6 +101,7 @@ beforeEach(() => {
     modules: {
       auth,
       user,
+      spot,
       form,
       tab,
       dialog,
@@ -193,6 +203,17 @@ describe('methods', () => {
     })
   })
 
+  it('stateMutation called spotStore', () => {
+    const updated = { data: { id: 1 } }
+
+    wrapper.vm.$route.name = 'search'
+
+    wrapper.vm.stateMutation(updated)
+    expect(spot.mutations.updateSpot).toHaveBeenCalledWith(expect.any(Object), {
+      place_id: wrapper.vm.$props.spot.data.place_id,
+      updated
+    })
+  })
 
   it('cancelUpdateSpot', () => {
     const closeDialog = jest.fn()
