@@ -9,13 +9,21 @@ const localVue = createLocalVue()
 let wrapper
 let propsData
 
+const noVote = {
+  data: { id: 1 },
+  wifi_withs: [],
+  wifi_withouts: []
+}
+
+const sameNumber = {
+  data: { id: 1 },
+  wifi_withs: [{ id: 2 }],
+  wifi_withouts: [{ id: 3 }]
+}
+
 beforeEach(() => {
   propsData = {
-    spot: new Spot({
-      data: { id: 1 },
-      wifi_withs: [{ id: 2 }, { id: 3 }],
-      wifi_withouts: [{ id: 4 }, { id: 5 }]
-    })
+    spot: new Spot(sameNumber)
   }
 
   wrapper = shallowMount(Component, {
@@ -33,72 +41,62 @@ describe('props', () => {
 })
 
 describe('computed', () => {
-  it('countVote return noVote', () => {
-    propsData = {
-      spot: {
-        data: { id: 1 },
-        wifi_withs: [],
-        wifi_withouts: []
-      }
+  describe('countVote', () => {
+    const withsMany = {
+      data: { id: 1 },
+      wifi_withs: [{ id: 2 }],
+      wifi_withouts: []
     }
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
-    })
-
-    expect(wrapper.vm.countVote).toEqual('noVote')
-  })
-
-  it('countVote return sameNumber', () => {
-    propsData = {
-      spot: {
-        data: { id: 1 },
-        wifi_withs: [{ id: 2 }],
-        wifi_withouts: [{ id: 3 }]
-      }
+    const withoutsMany = {
+      data: { id: 1 },
+      wifi_withs: [],
+      wifi_withouts: [{ id: 2 }]
     }
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
+    it('countVote return noVote', async () => {
+      await wrapper.setProps({ spot: new Spot(noVote) })
+      expect(wrapper.vm.countVote).toEqual('noVote')
     })
 
-    expect(wrapper.vm.countVote).toEqual('sameNumber')
-  })
+    it('countVote return sameNumber', async () => {
+      await wrapper.setProps({ spot: new Spot(sameNumber) })
+      expect(wrapper.vm.countVote).toEqual('sameNumber')
+    })
 
-  it('countVote return withsMany', () => {
-    propsData = {
-      spot: {
-        data: { id: 1 },
-        wifi_withs: [{ id: 2 }, { id: 3 }],
-        wifi_withouts: [{ id: 4 }]
+    it('countVote return withsMany', () => {
+      propsData = {
+        spot: {
+          data: { id: 1 },
+          wifi_withs: [{ id: 2 }, { id: 3 }],
+          wifi_withouts: [{ id: 4 }]
+        }
       }
-    }
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData
+      })
+
+      expect(wrapper.vm.countVote).toEqual('withsMany')
     })
 
-    expect(wrapper.vm.countVote).toEqual('withsMany')
-  })
-
-  it('countVote return withoutsMany', () => {
-    propsData = {
-      spot: {
-        data: { id: 1 },
-        wifi_withs: [{ id: 2 }],
-        wifi_withouts: [{ id: 3 }, { id: 4 }]
+    it('countVote return withoutsMany', () => {
+      propsData = {
+        spot: {
+          data: { id: 1 },
+          wifi_withs: [{ id: 2 }],
+          wifi_withouts: [{ id: 3 }, { id: 4 }]
+        }
       }
-    }
 
-    wrapper = shallowMount(Component, {
-      localVue,
-      propsData
+      wrapper = shallowMount(Component, {
+        localVue,
+        propsData
+      })
+
+      expect(wrapper.vm.countVote).toEqual('withoutsMany')
     })
-
-    expect(wrapper.vm.countVote).toEqual('withoutsMany')
   })
 
   it('latestVote return withsNewer', () => {
