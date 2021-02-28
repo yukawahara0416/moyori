@@ -1,5 +1,6 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotEditDialog.vue'
 
 const localVue = createLocalVue()
@@ -12,9 +13,9 @@ let dialog
 
 beforeEach(() => {
   propsData = {
-    spot: {
+    spot: new Spot({
       data: { id: 1 }
-    }
+    })
   }
 
   dialog = {
@@ -45,7 +46,8 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
@@ -84,6 +86,7 @@ describe('v-on', () => {
 
     wrapper = mount(Component, {
       localVue,
+      propsData,
       store,
       methods: {
         openDialog
