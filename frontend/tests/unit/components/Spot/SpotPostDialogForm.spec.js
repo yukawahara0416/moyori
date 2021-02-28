@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
@@ -102,6 +102,10 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
+  it('postSpotHandler', () => {})
+
+  it('voteHandler', () => {})
+
   it('cancelPostSpot', () => {
     const closeDialog = jest.fn()
 
@@ -153,6 +157,19 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-col has :cols', () => {
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
+    const target = wrapper.findAll('.col')
+
+    expect(target.at(1).classes()).toContain('col-6')
+    expect(target.at(2).classes()).toContain('col-6')
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
