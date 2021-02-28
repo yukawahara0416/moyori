@@ -17,6 +17,7 @@ let propsData
 let store
 let auth
 let form
+let tab
 let dialog
 let snackbar
 
@@ -54,6 +55,14 @@ beforeEach(() => {
     }
   }
 
+  tab = {
+    getters: {
+      profileTab: () => {
+        return 'posts'
+      }
+    }
+  }
+
   dialog = {
     actions: {
       dialogOff: jest.fn()
@@ -70,6 +79,7 @@ beforeEach(() => {
     modules: {
       auth,
       form,
+      tab,
       dialog,
       snackbar
     }
@@ -93,6 +103,10 @@ describe('props', () => {
 describe('getters', () => {
   it('headers', () => {
     expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
+  })
+
+  it('profileTab', () => {
+    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
   })
 })
 
