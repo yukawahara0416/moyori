@@ -21,7 +21,13 @@
 <script>
 export default {
   props: {
-    photo: String
+    photo: {
+      type: String,
+      default: () => {
+        return ''
+      },
+      required: true
+    }
   },
 
   data() {

@@ -7,11 +7,18 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
 import LikeButton from '@/components/Buttons/LikeButton.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

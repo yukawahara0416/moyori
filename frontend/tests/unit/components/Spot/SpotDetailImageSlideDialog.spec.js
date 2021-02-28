@@ -8,7 +8,7 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    photo: 'test'
+    photo: 'photo'
   }
 
   wrapper = shallowMount(Component, {
@@ -21,16 +21,13 @@ describe('props', () => {
   it('photo', () => {
     expect(wrapper.vm.$props.photo).toStrictEqual(propsData.photo)
     expect(typeof wrapper.vm.$props.photo).toBe('string')
+    expect(wrapper.vm.$options.props.photo.required).toBeTruthy()
   })
 })
 
 describe('v-on', () => {
-  it('openDialog', () => {
+  it('click openDialog', () => {
     const openDialog = jest.fn()
-
-    propsData = {
-      photo: 'test'
-    }
 
     wrapper = mount(Component, {
       localVue,
@@ -58,9 +55,10 @@ describe('methods', () => {
 
 describe('template', () => {
   it('v-img has :src', () => {
+    console.log(wrapper.html())
     const target = wrapper.findAll('v-img-stub')
-    expect(target.at(0).attributes().src).toEqual('test')
-    expect(target.at(1).attributes().src).toEqual('test')
+    expect(target.at(0).attributes().src).toEqual('photo')
+    expect(target.at(1).attributes().src).toEqual('photo')
   })
 
   it('snapshot', () => {

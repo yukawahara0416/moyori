@@ -1,6 +1,8 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotEditDialog.vue'
+import SpotEditDialogForm from '@/components/Spot/SpotEditDialogForm.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -12,9 +14,9 @@ let dialog
 
 beforeEach(() => {
   propsData = {
-    spot: {
+    spot: new Spot({
       data: { id: 1 }
-    }
+    })
   }
 
   dialog = {
@@ -45,7 +47,8 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
@@ -62,7 +65,10 @@ describe('computed', () => {
 
   it('dialog/set', () => {
     wrapper.vm.dialog = true
-    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    expect(dialog.actions.dialogOff).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSpotEdit'
+    )
   })
 })
 
@@ -70,11 +76,7 @@ describe('v-on', () => {
   it('openDialog', () => {
     const openDialog = jest.fn()
 
-    dialog = {
-      getters: {
-        dialogSpotEdit: () => false
-      }
-    }
+    dialog.getters.dialogSpotEdit = () => false
 
     store = new Vuex.Store({
       modules: {
@@ -84,6 +86,7 @@ describe('v-on', () => {
 
     wrapper = mount(Component, {
       localVue,
+      propsData,
       store,
       methods: {
         openDialog
@@ -98,15 +101,18 @@ describe('v-on', () => {
 describe('methods', () => {
   it('openDialog', () => {
     wrapper.vm.openDialog()
-    expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+    expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSpotEdit'
+    )
   })
 })
 
 describe('template', () => {
-  it('spot-edit-dialog-form has :spot', () => {
-    expect(
-      wrapper.find('spot-edit-dialog-form-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('SpotEditDialogForm has :spot', () => {
+    expect(wrapper.find(SpotEditDialogForm).props().spot).toEqual(
+      wrapper.vm.$props.spot
+    )
   })
 
   it('snapshot', () => {

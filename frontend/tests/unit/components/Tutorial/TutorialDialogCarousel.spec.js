@@ -77,7 +77,6 @@ describe('template', () => {
 
   it('v-sheet-stub has :color', () => {
     for (let i = 0; i < slides.length; i++) {
-      const element = slides[i]
       expect(
         wrapper
           .findAll('v-sheet-stub')
@@ -89,7 +88,6 @@ describe('template', () => {
 
   it('div has :title', () => {
     for (let i = 0; i < slides.length; i++) {
-      const element = slides[i]
       expect(
         wrapper
           .findAll('.headline')
@@ -101,7 +99,6 @@ describe('template', () => {
 
   it('div has :content', () => {
     for (let i = 0; i < slides.length; i++) {
-      const element = slides[i]
       expect(
         wrapper
           .findAll('.headline + div')

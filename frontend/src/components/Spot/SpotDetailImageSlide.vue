@@ -19,11 +19,18 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
 import SpotDetailImageSlideDialog from '@/components/Spot/SpotDetailImageSlideDialog.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

@@ -1,4 +1,5 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotDetailInfoPanelPhone.vue'
 
 const localVue = createLocalVue()
@@ -8,9 +9,9 @@ let propsData
 
 beforeEach(() => {
   propsData = {
-    spot: {
+    spot: new Spot({
       data: { id: 1, phone: '123456789' }
-    }
+    })
   }
 
   wrapper = shallowMount(Component, {
@@ -22,7 +23,8 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
@@ -34,7 +36,7 @@ describe('computed', () => {
 
 describe('template', () => {
   it('a has :href', () => {
-    expect(wrapper.find('a').attributes().href).toEqual('tel:123456789')
+    expect(wrapper.find('a').attributes().href).toEqual(`tel:${wrapper.vm.tel}`)
   })
 
   it('a.text is {{ tel }}', () => {
