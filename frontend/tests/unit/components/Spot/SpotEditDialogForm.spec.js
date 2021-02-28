@@ -1,9 +1,15 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import Component from '@/components/Spot/SpotEditDialogForm.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.component('ValidationObserver', ValidationObserver)
+localVue.component('ValidationProvider', ValidationProvider)
+
+const { required } = require('vee-validate/dist/rules.umd')
+extend('required', required)
 
 let wrapper
 let propsData
@@ -71,8 +77,7 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store,
-    stubs: ['ValidationObserver']
+    store
   })
 })
 
@@ -114,8 +119,7 @@ describe('methods', () => {
       store,
       methods: {
         closeDialog
-      },
-      stubs: ['ValidationObserver']
+      }
     })
 
     wrapper.vm.cancelUpdateSpot()
@@ -132,8 +136,7 @@ describe('methods', () => {
       store,
       methods: {
         clearForm
-      },
-      stubs: ['ValidationObserver']
+      }
     })
 
     wrapper.vm.closeDialog()
