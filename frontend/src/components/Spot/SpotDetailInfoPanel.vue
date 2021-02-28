@@ -23,6 +23,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { Spot } from '@/class/Spot.js'
 import SpotDetailInfoPanelAddress from '@/components/Spot/SpotDetailInfoPanelAddress.vue'
 import SpotDetailInfoPanelPhone from '@/components/Spot/SpotDetailInfoPanelPhone.vue'
 import SpotDetailInfoPanelWebsite from '@/components/Spot/SpotDetailInfoPanelWebsite.vue'
@@ -32,7 +33,13 @@ import SpotDeleteButton from '@/components/Spot/SpotDeleteButton.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

@@ -18,12 +18,19 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
 import CommentIndex from '@/components/Comment/CommentIndex.vue'
 import CommentPostDialog from '@/components/Comment/CommentPostDialog.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

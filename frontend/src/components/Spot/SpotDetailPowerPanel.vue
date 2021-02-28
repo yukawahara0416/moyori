@@ -29,12 +29,19 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
 import PowerChartHorizontalBar from '@/components/Chart/PowerChartHorizontalBar.vue'
 import PowerChartArea from '@/components/Chart/PowerChartArea.vue'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   components: {

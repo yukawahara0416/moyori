@@ -30,7 +30,7 @@ describe('v-on', () => {
 describe('emit', () => {
   it('closeDialog', () => {
     wrapper.vm.$emit('closeDialog')
-    expect(wrapper.emitted()['closeDialog']).toBeTruthy()
+    expect(wrapper.emitted().closeDialog).toBeTruthy()
   })
 })
 

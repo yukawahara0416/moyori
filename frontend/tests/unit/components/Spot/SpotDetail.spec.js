@@ -1,6 +1,13 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuetify from 'vuetify'
+import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotDetail.vue'
+import SpotDetailTitle from '@/components/Spot/SpotDetailTitle.vue'
+import SpotDetailImageSlide from '@/components/Spot/SpotDetailImageSlide.vue'
+import SpotDetailInfoPanel from '@/components/Spot/SpotDetailInfoPanel.vue'
+import SpotDetailWifiPanel from '@/components/Spot/SpotDetailWifiPanel.vue'
+import SpotDetailPowerPanel from '@/components/Spot/SpotDetailPowerPanel.vue'
+import SpotDetailCommentPanel from '@/components/Spot/SpotDetailCommentPanel.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuetify)
@@ -11,7 +18,7 @@ let vuetify
 
 beforeEach(() => {
   propsData = {
-    spot: { data: { id: 1 } }
+    spot: new Spot({ data: { id: 1 } })
   }
 
   vuetify = new Vuetify()
@@ -26,7 +33,14 @@ beforeEach(() => {
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
+  })
+})
+
+describe('computed', () => {
+  it('cols', () => {
+    expect(wrapper.vm.cols).toEqual(6)
   })
 })
 
@@ -37,47 +51,56 @@ describe('emit', () => {
   })
 })
 
-describe('computed', () => {
-  it('cols', () => {
-    expect(wrapper.vm.cols).toEqual(6)
-  })
-})
-
 describe('template', () => {
-  it('spot-detail-title has :spot', () => {
-    expect(
-      wrapper.find('spot-detail-image-slide-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('SpotDetailTitle has :spot', () => {
+    expect(wrapper.find(SpotDetailTitle).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
-  it('spot-detail-image-slide has :spot', () => {
-    expect(
-      wrapper.find('spot-detail-image-slide-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('SpotDetailImageSlide has :spot', () => {
+    expect(wrapper.find(SpotDetailImageSlide).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
-  it('spot-detail-wifi-panel has :spot', () => {
-    expect(
-      wrapper.find('spot-detail-wifi-panel-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('SpotDetailWifiPanel has :spot', () => {
+    expect(wrapper.find(SpotDetailWifiPanel).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
-  it('spot-detail-power-panel has :spot', () => {
-    expect(
-      wrapper.find('spot-detail-power-panel-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('SpotDetailPowerPanel has :spot', () => {
+    expect(wrapper.find(SpotDetailPowerPanel).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
-  it('spot-detail-comment-panel has :spot', () => {
-    expect(
-      wrapper.find('spot-detail-comment-panel-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('SpotDetailCommentPanel has :spot', () => {
+    expect(wrapper.find(SpotDetailCommentPanel).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
   })
 
-  it('spot-detail-info-panel has :spot', () => {
+  it('SpotDetailInfoPanel has :spot', () => {
+    expect(wrapper.find(SpotDetailInfoPanel).props().spot).toMatchObject(
+      wrapper.vm.$props.spot
+    )
+  })
+
+  it('v-col has :cols', () => {
     expect(
-      wrapper.find('spot-detail-info-panel-stub').attributes().spot
-    ).toEqual('[object Object]')
+      wrapper
+        .findAll('v-col-stub')
+        .at(0)
+        .attributes().cols
+    ).toEqual(wrapper.vm.cols.toString())
+    expect(
+      wrapper
+        .findAll('v-col-stub')
+        .at(1)
+        .attributes().cols
+    ).toEqual(wrapper.vm.cols.toString())
   })
 
   it('snapshot', () => {

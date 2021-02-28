@@ -1,34 +1,50 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { Spot } from '@/class/Spot.js'
+import { axiosBase } from '@/plugins/axios.js'
+import MockAdapter from 'axios-mock-adapter'
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import Component from '@/components/Spot/SpotEditDialogForm.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.component('ValidationObserver', ValidationObserver)
+localVue.component('ValidationProvider', ValidationProvider)
+
+const axiosMock = new MockAdapter(axiosBase)
+
+const { required } = require('vee-validate/dist/rules.umd')
+extend('required', required)
 
 let wrapper
 let propsData
 let store
 let auth
+let user
+let spot
 let form
+let tab
 let dialog
 let snackbar
 
+let $route
+
 beforeEach(() => {
   propsData = {
-    spot: {
+    spot: new Spot({
       data: {
         id: 1,
-        place_id: 'testplaceid',
-        name: 'testname',
-        address: 'testaddress',
-        phone: 'testphone',
-        url: 'testurl',
+        place_id: 'place_id',
+        name: 'name',
+        address: 'address',
+        phone: 'phone',
+        url: 'url',
         position: {
-          lat: 'testlat',
-          lng: 'testlng'
+          lat: 'lat',
+          lng: 'lng'
         }
       }
-    }
+    })
   }
 
   auth = {
@@ -41,9 +57,31 @@ beforeEach(() => {
     }
   }
 
+  user = {
+    namespaced: true,
+    mutations: {
+      updateSpot: jest.fn()
+    }
+  }
+
+  spot = {
+    namespaced: true,
+    mutations: {
+      updateSpot: jest.fn()
+    }
+  }
+
   form = {
     mutations: {
       clearSpotForm: jest.fn()
+    }
+  }
+
+  tab = {
+    getters: {
+      profileTab: () => {
+        return 'posts'
+      }
     }
   }
 
@@ -62,24 +100,37 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       auth,
+      user,
+      spot,
       form,
+      tab,
       dialog,
       snackbar
     }
   })
 
+  $route = {
+    name: null,
+    params: {
+      id: null
+    }
+  }
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
     store,
-    stubs: ['ValidationObserver']
+    mocks: {
+      $route
+    }
   })
 })
 
 describe('props', () => {
   it('spot', () => {
     expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
-    expect(wrapper.vm.$props.spot instanceof Object).toBeTruthy()
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
   })
 })
 
@@ -87,24 +138,83 @@ describe('getters', () => {
   it('headers', () => {
     expect(wrapper.vm.headers).toMatchObject(store.getters.headers)
   })
+
+  it('profileTab', () => {
+    expect(wrapper.vm.profileTab).toEqual(store.getters.profileTab)
+  })
 })
 
 describe('computed', () => {
   it('formData', () => {
+    const target = wrapper.vm.$props.spot.data
+
     const formData = new FormData()
-    formData.append('spot[address]', propsData.spot.data.address)
-    formData.append('spot[name]', propsData.spot.data.name)
-    formData.append('spot[place_id]', propsData.spot.data.place_id)
-    formData.append('spot[lat]', propsData.spot.data.position.lat)
-    formData.append('spot[lng]', propsData.spot.data.position.lng)
-    formData.append('spot[phone]', propsData.spot.data.phone)
-    formData.append('spot[url]', propsData.spot.data.url)
+    formData.append('spot[address]', target.address)
+    formData.append('spot[name]', target.name)
+    formData.append('spot[place_id]', target.place_id)
+    formData.append('spot[lat]', target.position.lat)
+    formData.append('spot[lng]', target.position.lng)
+    formData.append('spot[phone]', target.phone)
+    formData.append('spot[url]', target.url)
 
     expect(wrapper.vm.formData).toEqual(formData)
   })
 })
 
 describe('methods', () => {
+  it('updateSpotHandler', () => {})
+
+  it('updateSpot', () => {
+    const spot_id = wrapper.vm.$props.spot.data.id
+    const params = new FormData()
+    const headers = auth.getters.headers()
+    const response = { data: { id: 1 } }
+
+    axiosMock.onPatch(`/api/v1/spots/${spot_id}`, params).reply(200, response)
+
+    return wrapper.vm.updateSpot(spot_id, params, headers).then(res => {
+      expect(res.data).toMatchObject(response.data)
+    })
+  })
+
+  it('updateSpot 404 error', () => {
+    const spot_id = wrapper.vm.$props.spot.data.id
+    const params = new FormData()
+    const headers = auth.getters.headers()
+
+    axiosMock.onPatch(`/api/v1/spots/${spot_id}`, params).reply(404)
+
+    return wrapper.vm.updateSpot(headers).catch(err => {
+      expect(err).toStrictEqual(new Error('スポットの更新に失敗しました'))
+    })
+  })
+
+  it('stateMutation called userStore', () => {
+    const updated = { data: { id: 1 } }
+
+    wrapper.vm.$route.name = 'profile'
+
+    wrapper.vm.stateMutation(updated)
+    expect(user.mutations.updateSpot).toHaveBeenCalledWith(expect.any(Object), {
+      place_id: wrapper.vm.$props.spot.data.place_id,
+      updated,
+      tab: tab.getters.profileTab(),
+      isMyPage: false
+    })
+  })
+
+  it('stateMutation called spotStore', () => {
+    const updated = { data: { id: 1 } }
+
+    wrapper.vm.$route.name = 'search'
+
+    wrapper.vm.stateMutation(updated)
+    expect(spot.mutations.updateSpot).toHaveBeenCalledWith(expect.any(Object), {
+      place_id: wrapper.vm.$props.spot.data.place_id,
+      updated
+    })
+  })
+
   it('cancelUpdateSpot', () => {
     const closeDialog = jest.fn()
 
@@ -114,13 +224,17 @@ describe('methods', () => {
       store,
       methods: {
         closeDialog
-      },
-      stubs: ['ValidationObserver']
+      }
     })
 
     wrapper.vm.cancelUpdateSpot()
     expect(closeDialog).toHaveBeenCalled()
-    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalled()
+    expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+      expect.any(Object),
+      {
+        message: 'スポットの編集をキャンセルしました'
+      }
+    )
   })
 
   it('closeDialog', () => {
@@ -132,22 +246,38 @@ describe('methods', () => {
       store,
       methods: {
         clearForm
-      },
-      stubs: ['ValidationObserver']
+      }
     })
 
     wrapper.vm.closeDialog()
-    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    expect(dialog.actions.dialogOff).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSpotEdit'
+    )
     expect(form.mutations.clearSpotForm).toHaveBeenCalled()
     expect(clearForm).toHaveBeenCalled()
   })
 
-  it('clearForm', () => {
-    wrapper.vm.picture = 'updata'
-    wrapper.vm.uploadImageUrl = 'updata'
+  it('clearForm', async () => {
+    await wrapper.setData({
+      name: 'update',
+      address: 'update',
+      phone: 'update',
+      url: 'update',
+      picture: 'update',
+      uploadImageUrl: 'update'
+    })
+
     wrapper.vm.clearForm()
-    expect(wrapper.vm.picture).toEqual(null)
-    expect(wrapper.vm.uploadImageUrl).toEqual(null)
+
+    const target = wrapper.vm.$props.spot.data
+
+    expect(wrapper.vm.name).toEqual(target.name)
+    expect(wrapper.vm.address).toEqual(target.address)
+    expect(wrapper.vm.phone).toEqual(target.phone)
+    expect(wrapper.vm.url).toEqual(target.url)
+    expect(wrapper.vm.picture).toBeNull()
+    expect(wrapper.vm.uploadImageUrl).toBeNull()
   })
 })
 
