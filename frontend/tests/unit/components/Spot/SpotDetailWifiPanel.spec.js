@@ -100,6 +100,46 @@ describe('computed', () => {
   })
 
   describe('analyzeVote', () => {
+    // withsの投票が多く、最新の投票がwithsなら「最も良い評価」
+    const excellent = {
+      data: { id: 1 },
+      wifi_withs: [
+        { id: 2, created_at: '2020-12-01T00:00:00.000Z' },
+        { id: 3, created_at: '2020-12-31T00:00:00.000Z' }
+      ],
+      wifi_withouts: [{ id: 4, created_at: '2020-12-01T00:00:00.000Z' }]
+    }
+
+    // withsの投票が多く、最新の投票がwithoutsなら「まあまあの評価」
+    const good = {
+      data: { id: 1 },
+      wifi_withs: [
+        { id: 2, created_at: '2020-12-01T00:00:00.000Z' },
+        { id: 3, created_at: '2020-12-01T00:00:00.000Z' }
+      ],
+      wifi_withouts: [{ id: 4, created_at: '2020-12-31T00:00:00.000Z' }]
+    }
+
+    // withoutsの投票が多く、最新の投票がwithsなら「悪い評価」
+    const fair = {
+      data: { id: 1 },
+      wifi_withs: [{ id: 2, created_at: '2020-12-31T00:00:00.000Z' }],
+      wifi_withouts: [
+        { id: 3, created_at: '2020-12-01T00:00:00.000Z' },
+        { id: 4, created_at: '2020-12-01T00:00:00.000Z' }
+      ]
+    }
+
+    // withoutsの投票が多く、最新の投票がwithoutsなら「最も悪い評価」
+    const poor = {
+      data: { id: 1 },
+      wifi_withs: [{ id: 2, created_at: '2020-12-01T00:00:00.000Z' }],
+      wifi_withouts: [
+        { id: 3, created_at: '2020-12-31T00:00:00.000Z' },
+        { id: 4, created_at: '2020-12-31T00:00:00.000Z' }
+      ]
+    }
+
     it('analyzeVote return noVote', () => {
       propsData = {
         spot: {
