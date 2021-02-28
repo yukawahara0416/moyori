@@ -46,8 +46,11 @@ describe('computed', () => {
   })
 
   it('dialog/set', () => {
-    wrapper.vm.dialog = 'updata'
-    expect(dialog.actions.dialogOff).toHaveBeenCalled()
+    wrapper.vm.dialog = 'update'
+    expect(dialog.actions.dialogOff).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSpotCreate'
+    )
   })
 })
 
@@ -71,7 +74,10 @@ describe('v-on', () => {
 describe('methods', () => {
   it('openDialog', () => {
     wrapper.vm.openDialog()
-    expect(dialog.mutations.dialogOn).toHaveBeenCalled()
+    expect(dialog.mutations.dialogOn).toHaveBeenCalledWith(
+      expect.any(Object),
+      'dialogSpotCreate'
+    )
   })
 })
 
