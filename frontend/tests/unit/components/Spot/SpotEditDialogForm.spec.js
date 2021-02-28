@@ -20,10 +20,13 @@ let wrapper
 let propsData
 let store
 let auth
+let user
 let form
 let tab
 let dialog
 let snackbar
+
+let $route
 
 beforeEach(() => {
   propsData = {
@@ -53,6 +56,12 @@ beforeEach(() => {
     }
   }
 
+  user = {
+    namespaced: true,
+    mutations: {
+      updateSpot: jest.fn()
+    }
+  }
   form = {
     mutations: {
       clearSpotForm: jest.fn()
@@ -82,6 +91,7 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       auth,
+      user,
       form,
       tab,
       dialog,
@@ -89,10 +99,20 @@ beforeEach(() => {
     }
   })
 
+  $route = {
+    name: null,
+    params: {
+      id: null
+    }
+  }
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    mocks: {
+      $route
+    }
   })
 })
 
@@ -159,7 +179,20 @@ describe('methods', () => {
     })
   })
 
-  it('stateMutation', () => {})
+  it('stateMutation called userStore', () => {
+    const updated = { data: { id: 1 } }
+
+    wrapper.vm.$route.name = 'profile'
+
+    wrapper.vm.stateMutation(updated)
+    expect(user.mutations.updateSpot).toHaveBeenCalledWith(expect.any(Object), {
+      place_id: wrapper.vm.$props.spot.data.place_id,
+      updated,
+      tab: tab.getters.profileTab(),
+      isMyPage: false
+    })
+  })
+
 
   it('cancelUpdateSpot', () => {
     const closeDialog = jest.fn()
