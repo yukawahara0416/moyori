@@ -1,6 +1,8 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Spot/SpotDetailWifiPanel.vue'
+import WifiChartHorizontalBar from '@/components/Chart/WifiChartHorizontalBar.vue'
+import WifiChartArea from '@/components/Chart/WifiChartArea.vue'
 
 const localVue = createLocalVue()
 
@@ -272,15 +274,15 @@ describe('methods', () => {
 })
 
 describe('template', () => {
-  it('wifi-chart-horizontal-bar has :spot', () => {
-    expect(
-      wrapper.find('wifi-chart-horizontal-bar-stub').attributes().spot
-    ).toEqual('[object Object]')
+  it('WifiChartHorizontalBar has :spot', () => {
+    expect(wrapper.find(WifiChartHorizontalBar).props().spot).toEqual(
+      wrapper.vm.$props.spot
+    )
   })
 
-  it('wifi-chart-area has :spot', () => {
-    expect(wrapper.find('wifi-chart-area-stub').attributes().spot).toEqual(
-      '[object Object]'
+  it('WifiChartArea has :spot', () => {
+    expect(wrapper.find(WifiChartArea).props().spot).toEqual(
+      wrapper.vm.$props.spot
     )
   })
 
