@@ -179,16 +179,18 @@ describe('methods', () => {
     expect(clearForm).toHaveBeenCalled()
   })
 
-  it('clearForm', () => {
-    wrapper.vm.image = 'update'
-    wrapper.vm.uploadImageUrl = 'update'
-    wrapper.vm.wifi_radio = 'update'
-    wrapper.vm.power_radio = 'update'
+  it('clearForm', async () => {
+    await wrapper.setData({
+      image: 'update',
+      uploadImageUrl: 'update',
+      wifi_radio: 'update',
+      power_radio: 'update'
+    })
 
     wrapper.vm.clearForm()
 
-    expect(wrapper.vm.image).toEqual(null)
-    expect(wrapper.vm.uploadImageUrl).toEqual(null)
+    expect(wrapper.vm.image).toBeNull()
+    expect(wrapper.vm.uploadImageUrl).toBeNull()
     expect(wrapper.vm.wifi_radio).toEqual('unknown')
     expect(wrapper.vm.power_radio).toEqual('unknown')
   })
