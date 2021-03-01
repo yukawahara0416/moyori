@@ -45,8 +45,9 @@ describe('v-on', () => {
 })
 
 describe('template', () => {
-  it('vuetify.breakpoint.smAndDown', () => {
-    Object.assign(window, { innerWidth: 599 })
+  it('v-btn has small', () => {
+    const xsAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.xs - 1
+    Object.assign(window, { innerWidth: xsAndDown })
 
     wrapper = mount(Component, {
       localVue,
@@ -59,8 +60,9 @@ describe('template', () => {
     Object.assign(window, { innerWidth: 1024 })
   })
 
-  it('vuetify.breakpoint.smAndUp', () => {
-    Object.assign(window, { innerWidth: 961 })
+  it('v-btn not has small', () => {
+    const smAndUp = wrapper.vm.$vuetify.breakpoint.thresholds.sm + 1
+    Object.assign(window, { innerWidth: smAndUp })
 
     wrapper = mount(Component, {
       localVue,
