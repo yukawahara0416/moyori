@@ -141,7 +141,7 @@ describe('template', () => {
     )
   })
 
-  it('v-img class imgHeight_big', () => {
+  it('v-img has imgHeight_big', () => {
     wrapper = mount(Component, {
       localVue,
       propsData,
@@ -149,11 +149,14 @@ describe('template', () => {
       stubs: ['like-button', 'comment-button']
     })
 
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndUp).toBeTruthy()
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeFalsy()
     expect(wrapper.find('.v-image').classes()).toContain('imgHeight_big')
   })
 
-  it('v-img class imgHeight_small', () => {
-    Object.assign(window, { innerWidth: 959 })
+  it('v-img has imgHeight_small', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
 
     wrapper = mount(Component, {
       localVue,
@@ -162,6 +165,8 @@ describe('template', () => {
       stubs: ['like-button', 'comment-button']
     })
 
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndUp).toBeFalsy()
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeTruthy()
     expect(wrapper.find('.v-image').classes()).toContain('imgHeight_small')
 
     Object.assign(window, { innerWidth: 1024 })
