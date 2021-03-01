@@ -71,6 +71,7 @@ describe('template', () => {
       stubs: ['card-container']
     })
 
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndUp).toBeTruthy()
     expect(wrapper.find('.container').classes()).toContain('indexHeight_big')
 
     Object.assign(window, { innerWidth: 1024 })
@@ -87,6 +88,7 @@ describe('template', () => {
       stubs: ['card-container']
     })
 
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndDown).toBeTruthy()
     expect(wrapper.find('.container').classes()).toContain('indexHeight_small')
 
     Object.assign(window, { innerWidth: 1024 })
