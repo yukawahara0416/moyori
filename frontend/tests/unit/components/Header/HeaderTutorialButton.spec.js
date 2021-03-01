@@ -43,3 +43,40 @@ describe('v-on', () => {
     )
   })
 })
+
+describe('template', () => {
+  it('vuetify.breakpoint.smAndDown', () => {
+    Object.assign(window, { innerWidth: 599 })
+
+    wrapper = mount(Component, {
+      localVue,
+      vuetify
+    })
+
+    console.log(wrapper.html())
+    console.log(wrapper.vm.$vuetify.breakpoint.thresholds.xs)
+
+    expect(wrapper.find('.v-btn').classes()).toContain('v-size--small')
+    expect(wrapper.html()).not.toContain('使い方')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('vuetify.breakpoint.smAndUp', () => {
+    Object.assign(window, { innerWidth: 961 })
+
+    wrapper = mount(Component, {
+      localVue,
+      vuetify
+    })
+
+    expect(wrapper.find('.v-btn').classes()).toContain('v-size--default')
+    expect(wrapper.html()).toContain('使い方')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+})
