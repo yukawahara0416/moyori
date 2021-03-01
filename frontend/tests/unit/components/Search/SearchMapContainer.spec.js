@@ -51,6 +51,24 @@ describe('template', () => {
     Object.assign(window, { innerWidth: 1024 })
   })
 
+  it('v-col has mapHeight_small', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = mount(Component, {
+      localVue,
+      vuetify,
+      stubs: ['map-container']
+    })
+
+    console.log(wrapper.html())
+
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndDown).toBeTruthy()
+    expect(wrapper.find('.col').classes()).toContain('mapHeight_small')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('v-col has :style', async () => {
     wrapper = mount(Component, {
       localVue,
