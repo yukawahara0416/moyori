@@ -174,43 +174,37 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('zoom 16 at radius.value is 500', () => {
-    expect(wrapper.vm.zoom).toEqual(16)
-  })
-
-  it('zoom 15 at radius.value is 1000', () => {
-    spot.getters.radius = () => {
-      return { name: '1km', value: 1000 }
-    }
-
-    store = new Vuex.Store({
-      modules: {
-        spot,
-        map,
-        auth
-      }
-    })
-
-    wrapper = shallowMount(Component, {
-      localVue,
-      store,
-      vuetify,
-      stubs: ['gmap-map', 'map-circle', 'map-marker']
-    })
-
-    expect(wrapper.vm.zoom).toEqual(15)
-  })
-
-  it('zoom 13 at radius.value is 3000', () => {
+  it('zoom 13', () => {
     spot.getters.radius = () => {
       return { name: '3km', value: 3000 }
     }
 
     store = new Vuex.Store({
       modules: {
-        spot,
-        map,
-        auth
+        spot
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      stubs: ['gmap-map', 'map-circle', 'map-marker']
+    })
+
+    expect(wrapper.vm.radius.value === 3000).toBeTruthy()
+    expect(wrapper.vm.zoom).toEqual(13)
+  })
+
+  it('zoom 14', () => {
+    Object.assign(window, { innerWidth: 599 })
+
+    spot.getters.radius = () => {
+      return { name: '1km', value: 1000 }
+    }
+
+    store = new Vuex.Store({
+      modules: {
+        spot
       }
     })
 
@@ -221,7 +215,42 @@ describe('computed', () => {
       stubs: ['gmap-map', 'map-circle', 'map-marker']
     })
 
-    expect(wrapper.vm.zoom).toEqual(13)
+    expect(wrapper.vm.radius.value === 1000).toBeTruthy()
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeTruthy()
+    expect(wrapper.vm.zoom).toEqual(14)
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('zoom 15', () => {
+    Object.assign(window, { innerWidth: 1281 })
+
+    spot.getters.radius = () => {
+      return { name: '1km', value: 1000 }
+    }
+
+    store = new Vuex.Store({
+      modules: {
+        spot
+      }
+    })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      vuetify,
+      stubs: ['gmap-map', 'map-circle', 'map-marker']
+    })
+
+    expect(wrapper.vm.radius.value === 1000).toBeTruthy()
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndUp).toBeTruthy()
+    expect(wrapper.vm.zoom).toEqual(15)
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('zoom 16', () => {
+    expect(wrapper.vm.zoom).toEqual(16)
   })
 })
 
