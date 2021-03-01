@@ -134,6 +134,33 @@ describe('template', () => {
     )
   })
 
+  it('v-btn hasClass small', () => {
+    Object.assign(window, { innerWidth: 959 })
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify,
+      stubs: ['sign-container', 'v-dialog']
+    })
+
+    expect(
+      wrapper
+        .findAll('.v-btn')
+        .at(0)
+        .classes()
+    ).toContain('v-size--small')
+
+    expect(
+      wrapper
+        .findAll('.v-btn')
+        .at(1)
+        .classes()
+    ).toContain('v-size--small')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
