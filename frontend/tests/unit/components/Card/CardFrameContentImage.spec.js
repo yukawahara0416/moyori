@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Card/CardFrameContentImage.vue'
@@ -139,6 +139,32 @@ describe('template', () => {
     expect(wrapper.find(CommentButton).props().spot).toMatchObject(
       wrapper.vm.$props.spot
     )
+  })
+
+  it('v-img class imgHeight_big', () => {
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      vuetify,
+      stubs: ['like-button', 'comment-button']
+    })
+
+    expect(wrapper.find('.v-image').classes()).toContain('imgHeight_big')
+  })
+
+  it('v-img class imgHeight_small', () => {
+    Object.assign(window, { innerWidth: 959 })
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      vuetify,
+      stubs: ['like-button', 'comment-button']
+    })
+
+    expect(wrapper.find('.v-image').classes()).toContain('imgHeight_small')
+
+    Object.assign(window, { innerWidth: 1024 })
   })
 
   it('snapshot', () => {
