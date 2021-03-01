@@ -196,7 +196,8 @@ describe('computed', () => {
   })
 
   it('zoom 14', () => {
-    Object.assign(window, { innerWidth: 599 })
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
 
     spot.getters.radius = () => {
       return { name: '1km', value: 1000 }
@@ -223,7 +224,8 @@ describe('computed', () => {
   })
 
   it('zoom 15', () => {
-    Object.assign(window, { innerWidth: 1281 })
+    const mdAndUp = wrapper.vm.$vuetify.breakpoint.thresholds.md + 1
+    Object.assign(window, { innerWidth: mdAndUp })
 
     spot.getters.radius = () => {
       return { name: '1km', value: 1000 }
