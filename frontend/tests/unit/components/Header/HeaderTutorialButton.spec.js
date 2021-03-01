@@ -53,9 +53,6 @@ describe('template', () => {
       vuetify
     })
 
-    console.log(wrapper.html())
-    console.log(wrapper.vm.$vuetify.breakpoint.thresholds.xs)
-
     expect(wrapper.find('.v-btn').classes()).toContain('v-size--small')
     expect(wrapper.html()).not.toContain('使い方')
 
