@@ -61,8 +61,6 @@ describe('template', () => {
       stubs: ['map-container']
     })
 
-    console.log(wrapper.html())
-
     expect(wrapper.vm.$vuetify.breakpoint.mdAndDown).toBeTruthy()
     expect(wrapper.find('.col').classes()).toContain('mapHeight_small')
 
