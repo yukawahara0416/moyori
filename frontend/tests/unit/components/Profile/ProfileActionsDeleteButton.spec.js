@@ -91,6 +91,21 @@ describe('emit', () => {
 })
 
 describe('template', () => {
+  it('v-btn hasClass small', () => {
+    Object.assign(window, { innerWidth: 959 })
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      vuetify,
+      stubs: ['profile-actions-delete-dialog']
+    })
+
+    expect(wrapper.find('.v-btn').classes()).toContain('v-size--small')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('v-btn click disabled', async () => {
     await wrapper.setProps({ id: 1 })
     expect(wrapper.find('v-btn-stub').attributes().disabled).toBeTruthy()
