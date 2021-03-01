@@ -34,6 +34,7 @@ let tab
 let dialog
 let snackbar
 
+let vuetify
 let $route
 
 const beforePost = {
@@ -157,6 +158,8 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
   $route = {
     name: null,
     params: null
@@ -166,6 +169,7 @@ beforeEach(() => {
     localVue,
     propsData,
     store,
+    vuetify,
     mocks: {
       $route
     }
@@ -930,6 +934,21 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-btn hasClass small', () => {
+    Object.assign(window, { innerWidth: 959 })
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      vuetify,
+      stubs: []
+    })
+
+    expect(wrapper.find('.v-btn').classes()).toContain('v-size--small')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
