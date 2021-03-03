@@ -98,7 +98,8 @@ beforeEach(() => {
 
   snackbar = {
     actions: {
-      pushSnackbarSuccess: jest.fn()
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
@@ -170,7 +171,42 @@ describe('computed', () => {
 })
 
 describe('methods', () => {
-  it('updateSpotHandler', () => {})
+  it('updateSpotHandler', () => {
+    const updated = {
+      data: { id: 1, name: 'update' }
+    }
+    const updateSpot = jest.fn().mockReturnValue(updated)
+    const stateMutation = jest.fn()
+    const closeDialog = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        updateSpot,
+        stateMutation,
+        closeDialog
+      }
+    })
+
+    const spot = wrapper.vm.$props.spot
+    const formData = wrapper.vm.formData
+    const headers = auth.getters.headers()
+
+    return wrapper.vm.updateSpotHandler().then(() => {
+      expect(updateSpot).toHaveBeenCalledWith(spot.data.id, formData, headers)
+      expect(stateMutation).toHaveBeenCalledWith(updated)
+      expect(closeDialog).toHaveBeenCalled()
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'スポットの情報を更新しました'
+        }
+      )
+      expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+    })
+  })
 
   it('updateSpot', () => {
     const spot_id = wrapper.vm.$props.spot.data.id
