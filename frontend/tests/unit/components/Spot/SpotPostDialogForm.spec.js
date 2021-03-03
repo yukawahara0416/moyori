@@ -147,8 +147,10 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
+  //
   it('postSpotHandler', () => {})
 
+  //
   it('voteHandler', () => {})
 
   it('cancelPostSpot', () => {
@@ -224,6 +226,25 @@ describe('template', () => {
     expect(target.at(1).classes()).toContain('col-6')
     expect(target.at(2).classes()).toContain('col-6')
   })
+
+  it('v-btn has small', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
+    const target = wrapper.findAll('.v-btn')
+    expect(target.at(0).classes()).toContain('v-size--small')
+    expect(target.at(1).classes()).toContain('v-size--small')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('v-btn not has small', () => {})
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
