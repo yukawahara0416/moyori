@@ -1,5 +1,6 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
 import { axiosBase } from '@/plugins/axios.js'
 import MockAdapter from 'axios-mock-adapter'
@@ -30,6 +31,7 @@ let tab
 let dialog
 let snackbar
 
+let vuetify
 let $route
 
 beforeEach(() => {
@@ -112,6 +114,8 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
   $route = {
     name: null,
     params: {
@@ -123,6 +127,7 @@ beforeEach(() => {
     localVue,
     propsData,
     store,
+    vuetify,
     mocks: {
       $route
     }
@@ -285,6 +290,24 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-btn has small', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      vuetify
+    })
+
+    const target = wrapper.findAll('.v-btn')
+    expect(target.at(0).classes()).toContain('v-size--small')
+    expect(target.at(1).classes()).toContain('v-size--small')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
