@@ -91,7 +91,18 @@ describe('getters', () => {
 
 describe('computed', () => {
   it('cols return 12', () => {
+    const xsOnly = wrapper.vm.$vuetify.breakpoint.thresholds.xs - 1
+    Object.assign(window, { innerWidth: xsOnly })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
     expect(wrapper.vm.cols).toEqual(12)
+
+    Object.assign(window, { innerWidth: 1024 })
   })
 
   it('cols return 6', () => {
