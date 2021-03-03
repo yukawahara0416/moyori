@@ -308,6 +308,24 @@ describe('template', () => {
     Object.assign(window, { innerWidth: 1024 })
   })
 
+  it('v-btn not has small', () => {
+    const mdAndUp = wrapper.vm.$vuetify.breakpoint.thresholds.md + 1
+    Object.assign(window, { innerWidth: mdAndUp })
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      vuetify
+    })
+
+    const target = wrapper.findAll('.v-btn')
+    expect(target.at(0).classes()).toContain('v-size--default')
+    expect(target.at(1).classes()).toContain('v-size--default')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
