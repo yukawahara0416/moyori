@@ -13,8 +13,11 @@ localVue.component('ValidationProvider', ValidationProvider)
 
 const axiosMock = new MockAdapter(axiosBase)
 
-const { required } = require('vee-validate/dist/rules.umd')
+const { required, max } = require('vee-validate/dist/rules.umd')
+import { url, phone } from '@/plugins/vee-validate.js' // eslint-disable-line
+
 extend('required', required)
+extend('max', max)
 
 let wrapper
 let propsData
