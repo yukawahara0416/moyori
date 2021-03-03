@@ -90,6 +90,10 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
+  it('cols return 12', () => {
+    expect(wrapper.vm.cols).toEqual(12)
+  })
+
   it('cols return 6', () => {
     expect(wrapper.vm.cols).toEqual(6)
   })
