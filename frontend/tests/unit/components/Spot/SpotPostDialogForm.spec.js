@@ -2,6 +2,7 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
+import { postSpot } from '@/plugins/maps.js'
 import Component from '@/components/Spot/SpotPostDialogForm.vue'
 
 const localVue = createLocalVue()
@@ -12,10 +13,18 @@ localVue.component('ValidationProvider', ValidationProvider)
 const { required } = require('vee-validate/dist/rules.umd')
 extend('required', required)
 
+jest.mock('@/plugins/maps.js', () => ({
+  ...jest.requireActual('@/plugins/maps.js'),
+  postSpot: jest
+    .fn()
+    .mockResolvedValue({ data: { id: 1, place_id: 'aaaaaaaaaa' } })
+}))
+
 let wrapper
 let store
 let auth
 let form
+let spot
 let dialog
 let snackbar
 let vuetify
@@ -45,6 +54,16 @@ beforeEach(() => {
     }
   }
 
+  spot = {
+    namespaced: true,
+    mutations: {
+      addSpot: jest.fn()
+    },
+    actions: {
+      spotlight: jest.fn()
+    }
+  }
+
   dialog = {
     actions: {
       dialogOff: jest.fn()
@@ -53,7 +72,8 @@ beforeEach(() => {
 
   snackbar = {
     actions: {
-      pushSnackbarSuccess: jest.fn()
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
@@ -61,6 +81,7 @@ beforeEach(() => {
     modules: {
       auth,
       form,
+      spot,
       dialog,
       snackbar
     }
@@ -147,8 +168,44 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  //
-  it('postSpotHandler', () => {})
+  it('postSpotHandler', () => {
+    const params = wrapper.vm.formData
+    const headers = auth.getters.headers()
+    const spot_data = { data: { id: 1, place_id: 'aaaaaaaaaa' } }
+
+    const closeDialog = jest.fn()
+    const voteHandler = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      methods: {
+        closeDialog,
+        voteHandler
+      }
+    })
+
+    return wrapper.vm.postSpotHandler().then(() => {
+      expect(postSpot).toHaveBeenCalledWith(params, headers)
+      expect(spot.mutations.addSpot).toHaveBeenCalledWith(
+        expect.any(Object),
+        spot_data
+      )
+      expect(voteHandler).toHaveBeenCalledWith(spot_data)
+      expect(spot.actions.spotlight).toHaveBeenCalledWith(
+        expect.any(Object),
+        spot_data.data.place_id
+      )
+      expect(closeDialog).toHaveBeenCalled()
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'スポットを登録しました'
+        }
+      )
+      expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+    })
+  })
 
   //
   it('voteHandler', () => {})
@@ -244,7 +301,22 @@ describe('template', () => {
     Object.assign(window, { innerWidth: 1024 })
   })
 
-  it('v-btn not has small', () => {})
+  it('v-btn not has small', () => {
+    const mdAndUp = wrapper.vm.$vuetify.breakpoint.thresholds.md + 1
+    Object.assign(window, { innerWidth: mdAndUp })
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
+    const target = wrapper.findAll('.v-btn')
+    expect(target.at(0).classes()).toContain('v-size--default')
+    expect(target.at(1).classes()).toContain('v-size--default')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
 
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
