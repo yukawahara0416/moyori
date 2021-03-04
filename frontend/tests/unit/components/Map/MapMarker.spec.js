@@ -16,6 +16,7 @@ beforeEach(() => {
       {
         data: {
           id: 1,
+          place_id: 'place_id_1',
           name: 'test1',
           position: { lat: 36.204824, lng: 138.252923 },
           on: true,
@@ -25,6 +26,7 @@ beforeEach(() => {
       {
         data: {
           id: 2,
+          place_id: 'place_id_2',
           name: 'test2',
           position: { lat: 37.204824, lng: 139.252923 },
           on: false,
@@ -34,6 +36,7 @@ beforeEach(() => {
       {
         data: {
           id: 3,
+          place_id: 'place_id_3',
           name: 'testスターバックスtest',
           position: { lat: 37.204824, lng: 139.252923 },
           on: false,
@@ -90,6 +93,40 @@ describe('computed', () => {
     expect(wrapper.vm.iconFileName(wrapper.vm.$props.spots[2])).toEqual(
       'starbucks'
     )
+  })
+})
+
+describe('v-on', () => {
+  it('spotlight/panTo/scroll', async () => {
+    const spotlight = jest.fn()
+    const panTo = jest.fn()
+    const scroll = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      computed: {
+        icon: () => jest.fn()
+      },
+      store,
+      stubs: ['gmap-marker'],
+      methods: {
+        spotlight,
+        panTo,
+        scroll
+      }
+    })
+
+    wrapper.find('gmap-marker-stub').vm.$emit('click')
+    expect(spotlight).toHaveBeenNthCalledWith(
+      1,
+      wrapper.vm.$props.spots[0].data.place_id
+    )
+    expect(panTo).toHaveBeenNthCalledWith(
+      1,
+      wrapper.vm.$props.spots[0].data.position
+    )
+    expect(scroll).toHaveBeenCalledWith(0)
   })
 })
 
