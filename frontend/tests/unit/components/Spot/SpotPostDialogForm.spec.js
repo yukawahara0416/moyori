@@ -267,6 +267,22 @@ describe('methods', () => {
       })
     })
 
+    it('radio is not checked', async () => {
+      const params = new FormData()
+      const headers = auth.getters.headers()
+      const spot_data = { data: { id: 1 } }
+
+      await wrapper.setData({
+        wifi_radio: 'unknown',
+        power_radio: 'unknown'
+      })
+
+      expect.assertions(1)
+
+      return wrapper.vm.voteHandler(spot_data).then(() => {
+        expect(vote.actions.vote).not.toHaveBeenCalled()
+      })
+    })
   })
 
   it('cancelPostSpot', () => {

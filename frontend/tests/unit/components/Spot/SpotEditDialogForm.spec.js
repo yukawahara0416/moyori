@@ -194,6 +194,8 @@ describe('methods', () => {
     const formData = wrapper.vm.formData
     const headers = auth.getters.headers()
 
+    expect.assertions(5)
+
     return wrapper.vm.updateSpotHandler().then(() => {
       expect(updateSpot).toHaveBeenCalledWith(spot.data.id, formData, headers)
       expect(stateMutation).toHaveBeenCalledWith(updated)
