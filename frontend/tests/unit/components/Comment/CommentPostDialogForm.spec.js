@@ -300,6 +300,28 @@ describe('computed', () => {
   })
 })
 
+describe('v-on', () => {
+  it('click commentHandler', () => {
+    const commentHandler = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      vuetify,
+      mocks: {
+        $route
+      },
+      methods: {
+        commentHandler
+      }
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(commentHandler).toHaveBeenCalledWith(wrapper.vm.$props.spot)
+  })
+})
+
 describe('methods', () => {
   describe('commentHandler', () => {
     // ログインしていない場合は「いいね」せず、ログインを促す
