@@ -256,6 +256,25 @@ describe('computed', () => {
   })
 })
 
+describe('v-on', () => {
+  it('openDialogPostSpot', () => {
+    const openDialogPostSpot = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      vuetify,
+      stubs: ['gmap-map', 'map-circle', 'map-marker'],
+      methods: {
+        openDialogPostSpot
+      }
+    })
+
+    wrapper.find('gmap-map-stub').vm.$emit('click')
+    expect(openDialogPostSpot).toHaveBeenCalled()
+  })
+})
+
 describe('methods', () => {
   it('beforeSearch', () => {
     wrapper.vm.beforeSearch()
