@@ -1,7 +1,10 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import { Spot } from '@/class/Spot.js'
+import Component from '@/components/Spot/SpotDeleteButton.vue'
 
-beforeEach(() => {})
+const localVue = createLocalVue()
+
+let wrapper
 
 describe('props', () => {
   it('spot', () => {})
