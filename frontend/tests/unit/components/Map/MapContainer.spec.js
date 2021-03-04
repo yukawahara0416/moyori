@@ -1,7 +1,13 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
-import { geolocate, geocodeGenerate, placeIdGenerate } from '@/plugins/maps.js'
+import { initialize } from '@googlemaps/jest-mocks'
+import {
+  nearbySearch,
+  geolocate,
+  geocodeGenerate,
+  placeIdGenerate
+} from '@/plugins/maps.js'
 import Component from '@/components/Map/MapContainer.vue'
 
 const localVue = createLocalVue()
@@ -10,6 +16,9 @@ localVue.use(Vuetify)
 
 jest.mock('@/plugins/maps.js', () => ({
   ...jest.requireActual('@/plugins/maps.js'),
+  nearbySearch: jest
+    .fn()
+    .mockResolvedValue([{ data: { id: 1 } }, { data: { id: 2 } }]),
   geolocate: jest.fn().mockResolvedValue({ lat: 123, lng: 456 }),
   geocodeGenerate: jest
     .fn()
@@ -30,6 +39,8 @@ let loading
 let vuetify
 
 beforeEach(() => {
+  initialize()
+
   spot = {
     namespaced: true,
     getters: {
@@ -43,7 +54,7 @@ beforeEach(() => {
       filteredSpots: () => [{ data: { id: 2 } }]
     },
     mutations: {
-      setSpot: jest.fn(),
+      setSpots: jest.fn(),
       clearSpots: jest.fn()
     }
   }
@@ -292,6 +303,31 @@ describe('methods', () => {
     )
     expect(loading.mutations.loadingOn).toHaveBeenCalled()
     expect(spot.mutations.clearSpots).toHaveBeenCalled()
+  })
+
+  it('nearbySearch', () => {
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      vuetify,
+      stubs: ['gmap-map', 'map-circle', 'map-marker']
+    })
+
+    return wrapper.vm.nearbySearch().then(() => {
+      expect(nearbySearch).toHaveBeenCalled()
+      expect(spot.mutations.setSpots).toHaveBeenCalledWith(expect.any(Object), [
+        { data: { id: 1 } },
+        { data: { id: 2 } }
+      ])
+      expect(loading.mutations.loadingOff).toHaveBeenCalled()
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: `2 件ヒットしました`
+        }
+      )
+      expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+    })
   })
 
   it('panToLocation', () => {
