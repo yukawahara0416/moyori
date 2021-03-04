@@ -123,6 +123,23 @@ describe('template', () => {
 
     Object.assign(window, { innerWidth: 1024 })
   })
+
+  it('v-if is false', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeTruthy()
+    expect(wrapper.find('v-img-stub').exists()).toBeFalsy()
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
