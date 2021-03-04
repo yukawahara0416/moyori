@@ -195,7 +195,7 @@ export default {
     setLocationMarker(pos) {
       new google.maps.Marker({
         position: pos,
-        map: this.map,
+        map: this.$refs.map.$mapObject,
         clickable: false,
         icon: {
           url: require('@/assets/you-are-here.png'),
