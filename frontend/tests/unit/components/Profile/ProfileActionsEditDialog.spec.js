@@ -93,7 +93,16 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('formData', () => {})
+  it('formData', async () => {
+    await wrapper.setData({ image: 'image' })
+
+    const formData = new FormData()
+    formData.append('[name]', wrapper.vm.name)
+    formData.append('[email]', wrapper.vm.email)
+    formData.append('[avatar]', wrapper.vm.image)
+
+    expect(wrapper.vm.formData).toEqual(formData)
+  })
 })
 
 describe('methods', () => {
