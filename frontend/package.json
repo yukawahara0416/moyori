@@ -15,6 +15,7 @@
   },
   "main": "index.js",
   "dependencies": {
+    "@googlemaps/jest-mocks": "^0.1.0",
     "@vue/cli": "^4.3.1",
     "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.7.0",
