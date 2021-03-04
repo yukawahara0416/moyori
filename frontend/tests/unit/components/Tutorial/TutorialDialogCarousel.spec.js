@@ -108,6 +108,21 @@ describe('template', () => {
     }
   })
 
+  it('v-if is true', () => {
+    const mdAndUp = wrapper.vm.$vuetify.breakpoint.thresholds.md + 1
+    Object.assign(window, { innerWidth: mdAndUp })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndUp).toBeTruthy()
+    expect(wrapper.find('v-img-stub').exists()).toBeTruthy()
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })
