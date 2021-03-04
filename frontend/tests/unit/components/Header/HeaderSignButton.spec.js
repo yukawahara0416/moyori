@@ -134,6 +134,66 @@ describe('template', () => {
     )
   })
 
+  it('v-btn has small', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify,
+      stubs: ['sign-container', 'v-dialog']
+    })
+
+    expect(
+      wrapper
+        .findAll('.v-btn')
+        .at(0)
+        .classes()
+    ).toContain('v-size--small')
+
+    expect(
+      wrapper
+        .findAll('.v-btn')
+        .at(1)
+        .classes()
+    ).toContain('v-size--small')
+
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeTruthy()
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('v-btn not has small', () => {
+    const md = wrapper.vm.$vuetify.breakpoint.thresholds.md
+    Object.assign(window, { innerWidth: md })
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify,
+      stubs: ['sign-container', 'v-dialog']
+    })
+
+    expect(
+      wrapper
+        .findAll('.v-btn')
+        .at(0)
+        .classes()
+    ).toContain('v-size--default')
+
+    expect(
+      wrapper
+        .findAll('.v-btn')
+        .at(1)
+        .classes()
+    ).toContain('v-size--default')
+
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeFalsy()
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })

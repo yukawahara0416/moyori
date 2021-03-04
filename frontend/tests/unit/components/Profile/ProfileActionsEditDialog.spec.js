@@ -93,11 +93,54 @@ describe('getters', () => {
 })
 
 describe('computed', () => {
-  it('formData', () => {})
+  it('formData', async () => {
+    await wrapper.setData({ image: 'image' })
+
+    const formData = new FormData()
+    formData.append('[name]', wrapper.vm.name)
+    formData.append('[email]', wrapper.vm.email)
+    formData.append('[avatar]', wrapper.vm.image)
+
+    expect(wrapper.vm.formData).toEqual(formData)
+  })
 })
 
 describe('methods', () => {
-  it('updateAccountHandler', () => {})
+  it('updateAccountHandler', () => {
+    const updated = {
+      data: { id: 1, name: 'update' }
+    }
+    const updateAccount = jest.fn().mockReturnValue(updated)
+    const storeMutation = jest.fn()
+    const closeDialog = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        updateAccount,
+        storeMutation,
+        closeDialog
+      }
+    })
+
+    expect.assertions(5)
+
+    return wrapper.vm.updateAccountHandler().then(() => {
+      // with
+      expect(updateAccount).toHaveBeenCalledWith(wrapper.vm.formData)
+      expect(storeMutation).toHaveBeenCalledWith(updated)
+      expect(closeDialog).toHaveBeenCalled()
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'アカウントを編集しました'
+        }
+      )
+      expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+    })
+  })
 
   it('updateAccount 200', () => {
     const response = { data: { id: 1 } }

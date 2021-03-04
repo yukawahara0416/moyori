@@ -60,6 +60,40 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-container class indexHeight_big', () => {
+    const mdAndUp = wrapper.vm.$vuetify.breakpoint.thresholds.md + 1
+    Object.assign(window, { innerWidth: mdAndUp })
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify,
+      stubs: ['card-container']
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndUp).toBeTruthy()
+    expect(wrapper.find('.container').classes()).toContain('indexHeight_big')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('v-container class indexHeight_small', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify,
+      stubs: ['card-container']
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndDown).toBeTruthy()
+    expect(wrapper.find('.container').classes()).toContain('indexHeight_small')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('v-container has :style', async () => {
     wrapper = mount(Component, {
       localVue,

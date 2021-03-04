@@ -1,5 +1,6 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
 import { axiosBase } from '@/plugins/axios.js'
 import MockAdapter from 'axios-mock-adapter'
@@ -13,8 +14,11 @@ localVue.component('ValidationProvider', ValidationProvider)
 
 const axiosMock = new MockAdapter(axiosBase)
 
-const { required } = require('vee-validate/dist/rules.umd')
+const { required, max } = require('vee-validate/dist/rules.umd')
+import { url, phone } from '@/plugins/vee-validate.js' // eslint-disable-line
+
 extend('required', required)
+extend('max', max)
 
 let wrapper
 let propsData
@@ -27,6 +31,7 @@ let tab
 let dialog
 let snackbar
 
+let vuetify
 let $route
 
 beforeEach(() => {
@@ -93,7 +98,8 @@ beforeEach(() => {
 
   snackbar = {
     actions: {
-      pushSnackbarSuccess: jest.fn()
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
     }
   }
 
@@ -109,6 +115,8 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
   $route = {
     name: null,
     params: {
@@ -120,6 +128,7 @@ beforeEach(() => {
     localVue,
     propsData,
     store,
+    vuetify,
     mocks: {
       $route
     }
@@ -162,7 +171,44 @@ describe('computed', () => {
 })
 
 describe('methods', () => {
-  it('updateSpotHandler', () => {})
+  it('updateSpotHandler', () => {
+    const updated = {
+      data: { id: 1, name: 'update' }
+    }
+    const updateSpot = jest.fn().mockReturnValue(updated)
+    const stateMutation = jest.fn()
+    const closeDialog = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        updateSpot,
+        stateMutation,
+        closeDialog
+      }
+    })
+
+    const spot = wrapper.vm.$props.spot
+    const formData = wrapper.vm.formData
+    const headers = auth.getters.headers()
+
+    expect.assertions(5)
+
+    return wrapper.vm.updateSpotHandler().then(() => {
+      expect(updateSpot).toHaveBeenCalledWith(spot.data.id, formData, headers)
+      expect(stateMutation).toHaveBeenCalledWith(updated)
+      expect(closeDialog).toHaveBeenCalled()
+      expect(snackbar.actions.pushSnackbarSuccess).toHaveBeenCalledWith(
+        expect.any(Object),
+        {
+          message: 'スポットの情報を更新しました'
+        }
+      )
+      expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+    })
+  })
 
   it('updateSpot', () => {
     const spot_id = wrapper.vm.$props.spot.data.id
@@ -282,6 +328,42 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-btn has small', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      vuetify
+    })
+
+    const target = wrapper.findAll('.v-btn')
+    expect(target.at(0).classes()).toContain('v-size--small')
+    expect(target.at(1).classes()).toContain('v-size--small')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('v-btn not has small', () => {
+    const mdAndUp = wrapper.vm.$vuetify.breakpoint.thresholds.md + 1
+    Object.assign(window, { innerWidth: mdAndUp })
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      vuetify
+    })
+
+    const target = wrapper.findAll('.v-btn')
+    expect(target.at(0).classes()).toContain('v-size--default')
+    expect(target.at(1).classes()).toContain('v-size--default')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })

@@ -96,6 +96,37 @@ describe('methods', () => {
 })
 
 describe('template', () => {
+  it('v-btn has small', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
+    expect(wrapper.find('.v-btn').classes()).toContain('v-size--small')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('v-btn not has small', () => {
+    const md = wrapper.vm.$vuetify.breakpoint.thresholds.md
+    Object.assign(window, { innerWidth: md })
+
+    wrapper = mount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeFalsy()
+    expect(wrapper.find('.v-btn').classes()).toContain('v-size--default')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
   it('snapshot', () => {
     expect(wrapper.vm.$el).toMatchSnapshot()
   })

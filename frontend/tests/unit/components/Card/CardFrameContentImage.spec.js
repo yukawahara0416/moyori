@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Card/CardFrameContentImage.vue'
@@ -139,6 +139,37 @@ describe('template', () => {
     expect(wrapper.find(CommentButton).props().spot).toMatchObject(
       wrapper.vm.$props.spot
     )
+  })
+
+  it('v-img has imgHeight_big', () => {
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      vuetify,
+      stubs: ['like-button', 'comment-button']
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndUp).toBeTruthy()
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeFalsy()
+    expect(wrapper.find('.v-image').classes()).toContain('imgHeight_big')
+  })
+
+  it('v-img has imgHeight_small', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      vuetify,
+      stubs: ['like-button', 'comment-button']
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndUp).toBeFalsy()
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeTruthy()
+    expect(wrapper.find('.v-image').classes()).toContain('imgHeight_small')
+
+    Object.assign(window, { innerWidth: 1024 })
   })
 
   it('snapshot', () => {

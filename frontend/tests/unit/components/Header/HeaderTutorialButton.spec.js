@@ -43,3 +43,39 @@ describe('v-on', () => {
     )
   })
 })
+
+describe('template', () => {
+  it('v-btn has small', () => {
+    const xsAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.xs - 1
+    Object.assign(window, { innerWidth: xsAndDown })
+
+    wrapper = mount(Component, {
+      localVue,
+      vuetify
+    })
+
+    expect(wrapper.find('.v-btn').classes()).toContain('v-size--small')
+    expect(wrapper.html()).not.toContain('使い方')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('v-btn not has small', () => {
+    const smAndUp = wrapper.vm.$vuetify.breakpoint.thresholds.sm + 1
+    Object.assign(window, { innerWidth: smAndUp })
+
+    wrapper = mount(Component, {
+      localVue,
+      vuetify
+    })
+
+    expect(wrapper.find('.v-btn').classes()).toContain('v-size--default')
+    expect(wrapper.html()).toContain('使い方')
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
+})

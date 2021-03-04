@@ -51,7 +51,67 @@ describe('getters', () => {
 })
 
 describe('template', () => {
+  it('md_and_up', () => {
+    const mdAndUp = wrapper.vm.$vuetify.breakpoint.thresholds.md + 1
+    Object.assign(window, { innerWidth: mdAndUp })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.mdAndUp).toBeTruthy()
+    expect(wrapper.find('.filter-container').classes()).toContain('md_and_up')
+  })
+
+  it('sm_and_down', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      store,
+      vuetify
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeTruthy()
+    expect(wrapper.find('.filter-container').classes()).toContain('sm_and_down')
+  })
+
   describe('SearchFilterResult', () => {
+    it('v-if true', () => {
+      const smAndUp = wrapper.vm.$vuetify.breakpoint.thresholds.sm + 1
+      Object.assign(window, { innerWidth: smAndUp })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        store,
+        vuetify
+      })
+
+      expect(wrapper.vm.$vuetify.breakpoint.smAndUp).toBeTruthy()
+      expect(wrapper.find(SearchFilterResult).exists()).toBeTruthy()
+
+      Object.assign(window, { innerWidth: 1024 })
+    })
+
+    it('v-if false', () => {
+      const xsAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.xs - 1
+      Object.assign(window, { innerWidth: xsAndDown })
+
+      wrapper = shallowMount(Component, {
+        localVue,
+        store,
+        vuetify
+      })
+
+      expect(wrapper.vm.$vuetify.breakpoint.smAndUp).toBeFalsy()
+      expect(wrapper.find(SearchFilterResult).exists()).toBeFalsy()
+
+      Object.assign(window, { innerWidth: 1024 })
+    })
+
     it('has :spots', () => {
       expect(wrapper.find(SearchFilterResult).props().spots).toMatchObject(
         wrapper.vm.spots

@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuetify from 'vuetify'
 import { Spot } from '@/class/Spot.js'
 import Component from '@/components/Card/CardFrameContent.vue'
@@ -52,6 +52,56 @@ describe('template', () => {
     expect(wrapper.find(CardFrameContentAction).props().spot).toMatchObject(
       wrapper.vm.$props.spot
     )
+  })
+
+  it('v-col has :class', () => {
+    const smAndDown = wrapper.vm.$vuetify.breakpoint.thresholds.sm - 1
+    Object.assign(window, { innerWidth: smAndDown })
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      vuetify,
+      stubs: [
+        'card-frame-content-image',
+        'card-frame-content-title',
+        'card-frame-content-action'
+      ]
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeTruthy()
+    expect(wrapper.find('.col-5').classes()).toContain('cardImgPadding_small')
+    expect(wrapper.find('.col-7').classes()).toContain(
+      'cardContentPadding_small'
+    )
+
+    Object.assign(window, { innerWidth: 1024 })
+  })
+
+  it('v-col not has :class', () => {
+    const md = wrapper.vm.$vuetify.breakpoint.thresholds.md
+    Object.assign(window, { innerWidth: md })
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      vuetify,
+      stubs: [
+        'card-frame-content-image',
+        'card-frame-content-title',
+        'card-frame-content-action'
+      ]
+    })
+
+    expect(wrapper.vm.$vuetify.breakpoint.smAndDown).toBeFalsy()
+    expect(wrapper.find('.col-5').classes()).not.toContain(
+      'cardImgPadding_small'
+    )
+    expect(wrapper.find('.col-7').classes()).not.toContain(
+      'cardContentPadding_small'
+    )
+
+    Object.assign(window, { innerWidth: 1024 })
   })
 
   it('snapshot', () => {
