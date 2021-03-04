@@ -25,9 +25,12 @@ let store
 let auth
 let form
 let spot
+let vote
 let dialog
 let snackbar
 let vuetify
+
+let $route
 
 beforeEach(() => {
   auth = {
@@ -64,6 +67,12 @@ beforeEach(() => {
     }
   }
 
+  vote = {
+    actions: {
+      vote: jest.fn()
+    }
+  }
+
   dialog = {
     actions: {
       dialogOff: jest.fn()
@@ -82,6 +91,7 @@ beforeEach(() => {
       auth,
       form,
       spot,
+      vote,
       dialog,
       snackbar
     }
@@ -89,10 +99,17 @@ beforeEach(() => {
 
   vuetify = new Vuetify()
 
+  $route = {
+    name: 'search'
+  }
+
   wrapper = shallowMount(Component, {
     localVue,
     store,
-    vuetify
+    vuetify,
+    mocks: {
+      $route
+    }
   })
 })
 
@@ -207,8 +224,50 @@ describe('methods', () => {
     })
   })
 
-  //
-  it('voteHandler', () => {})
+  describe('voteHandler', () => {
+    it('radio is checked', async () => {
+      const params = new FormData()
+      const headers = auth.getters.headers()
+      const spot_data = { data: { id: 1 } }
+
+      await wrapper.setData({
+        wifi_radio: 'wifi_with',
+        power_radio: 'power_with'
+      })
+
+      params.append(`${wrapper.vm.wifi_radio}[spot_id]`, spot_data.data.id)
+      params.append(`${wrapper.vm.power_radio}[spot_id]`, spot_data.data.id)
+
+      expect.assertions(2)
+
+      return wrapper.vm.voteHandler(spot_data).then(() => {
+        expect(vote.actions.vote).toHaveBeenNthCalledWith(
+          1,
+          expect.any(Object),
+          {
+            prop: `${wrapper.vm.wifi_radio}s`,
+            spot: spot_data,
+            params,
+            headers,
+            route: wrapper.vm.$route.name
+          }
+        )
+
+        expect(vote.actions.vote).toHaveBeenNthCalledWith(
+          2,
+          expect.any(Object),
+          {
+            prop: `${wrapper.vm.power_radio}s`,
+            spot: spot_data,
+            params,
+            headers,
+            route: wrapper.vm.$route.name
+          }
+        )
+      })
+    })
+
+  })
 
   it('cancelPostSpot', () => {
     const closeDialog = jest.fn()
