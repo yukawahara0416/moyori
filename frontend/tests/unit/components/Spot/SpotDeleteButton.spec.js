@@ -28,7 +28,21 @@ describe('props', () => {
 })
 
 describe('v-on', () => {
-  it('click openDialog', () => {})
+  it('click openDialog', () => {
+    const openDialog = jest.fn()
+
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      methods: {
+        openDialog
+      },
+      stubs: ['spot-delete-button-dialog']
+    })
+
+    wrapper.find('.v-btn').trigger('click')
+    expect(openDialog).toHaveBeenCalled()
+  })
 })
 
 describe('methods', () => {
