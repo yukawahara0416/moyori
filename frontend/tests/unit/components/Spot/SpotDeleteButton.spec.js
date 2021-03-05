@@ -75,4 +75,8 @@ describe('emit', () => {
 
 describe('template', () => {
   it('SpotDeleteButtonDialog has :spot', () => {})
+
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })

@@ -15,6 +15,7 @@ let store
 let spot
 let auth
 let user
+let snackbar
 let $route
 
 beforeEach(() => {
@@ -48,11 +49,19 @@ beforeEach(() => {
     }
   }
 
+  snackbar = {
+    actions: {
+      pushSnackbarSuccess: jest.fn(),
+      pushSnackbarError: jest.fn()
+    }
+  }
+
   store = new Vuex.Store({
     modules: {
       spot,
       auth,
-      user
+      user,
+      snackbar
     }
   })
 
@@ -110,7 +119,43 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  it('deleteHandler', () => {})
+  it('deleteHandler', () => {
+    const spot_id = 1
+    const deleteSpot = jest.fn().mockReturnValue(spot_id)
+    const closeDeleteDialog = jest.fn()
+    const closeDetailDialog = jest.fn()
+    const storeMutation = jest.fn()
+
+    wrapper = shallowMount(Component, {
+      localVue,
+      propsData,
+      store,
+      methods: {
+        deleteSpot,
+        closeDeleteDialog,
+        closeDetailDialog,
+        storeMutation
+      }
+    })
+
+    expect.assertions(6)
+
+    return wrapper.vm.deleteHandler().then(() => {
+      expect(deleteSpot).toHaveBeenCalledWith(
+        wrapper.vm.$props.spot.data.id,
+        auth.getters.headers()
+      )
+      expect(closeDeleteDialog).toHaveBeenCalled()
+      expect(closeDetailDialog).toHaveBeenCalled()
+      expect(storeMutation).toHaveBeenCalledWith(spot_id)
+      expect(
+        snackbar.actions.pushSnackbarSuccess
+      ).toHaveBeenCalledWith(expect.any(Object), {
+        message: 'スポットを削除しました'
+      })
+      expect(snackbar.actions.pushSnackbarError).not.toHaveBeenCalled()
+    })
+  })
 
   describe('deleteSpot', () => {
     it('200', () => {
