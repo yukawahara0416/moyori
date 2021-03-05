@@ -1,14 +1,20 @@
 import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
+import Vuex from 'vuex'
 import { Spot } from '@/class/Spot.js'
 import { axiosBase } from '@/plugins/axios.js'
 import MockAdapter from 'axios-mock-adapter'
 import Component from '@/components/Spot/SpotDeleteButtonDialog.vue'
 
 const localVue = createLocalVue()
+localVue.use(Vuex)
 const axiosMock = new MockAdapter(axiosBase)
 
 let wrapper
 let propsData
+let store
+let spot
+let user
+let $route
 
 beforeEach(() => {
   propsData = {
@@ -17,9 +23,41 @@ beforeEach(() => {
     })
   }
 
+  spot = {
+    namespaced: true,
+    mutations: {
+      deleteSpot: jest.fn()
+    }
+  }
+
+  user = {
+    namespaced: true,
+    actions: {
+      deleteSpot: jest.fn()
+    }
+  }
+
+  store = new Vuex.Store({
+    modules: {
+      spot,
+      user
+    }
+  })
+
+  $route = {
+    name: null,
+    params: {
+      id: null
+    }
+  }
+
   wrapper = shallowMount(Component, {
     localVue,
-    propsData
+    propsData,
+    store,
+    mocks: {
+      $route
+    }
   })
 })
 
@@ -61,8 +99,26 @@ describe('v-on', () => {
 
 describe('methods', () => {
   it('deleteHandler', () => {})
+
   it('deleteSpot', () => {})
-  it('storeMutation', () => {})
+
+  describe('storeMutation', () => {
+    it('route is profile', () => {
+      wrapper.vm.$route.name = 'profile'
+      const spot_id = 1
+
+      wrapper.vm.storeMutation(spot_id)
+
+      expect(user.actions.deleteSpot).toHaveBeenCalledWith(expect.any(Object), {
+        spot_id
+      })
+      expect(spot.mutations.deleteSpot).not.toHaveBeenCalledWith(
+        expect.any(Object),
+        spot_id
+      )
+    })
+
+  })
 })
 
 describe('emit', () => {
