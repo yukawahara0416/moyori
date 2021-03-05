@@ -170,6 +170,45 @@ describe('computed', () => {
   })
 })
 
+describe('v-on', () => {
+  const cancelUpdateSpot = jest.fn()
+  const updateSpotHandler = jest.fn()
+
+  beforeEach(() => {
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      vuetify,
+      mocks: {
+        $route
+      },
+      methods: {
+        cancelUpdateSpot,
+        updateSpotHandler
+      }
+    })
+  })
+
+  it('click cancelUpdateSpot', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+
+    expect(cancelUpdateSpot).toHaveBeenCalled()
+  })
+
+  it('click updateSpotHandler', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+
+    expect(updateSpotHandler).toHaveBeenCalled()
+  })
+})
+
 describe('methods', () => {
   it('updateSpotHandler', () => {
     const updated = {
