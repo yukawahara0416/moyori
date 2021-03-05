@@ -29,17 +29,17 @@ describe('props', () => {
 
 describe('v-on', () => {
   it('click openDialog', () => {})
-  it('click closeDeleteDialog', () => {})
-  it('click closeDetailDialog', () => {})
 })
 
 describe('methods', () => {
   it('openDialog', () => {})
-  it('closeDeleteDialog', () => {})
 })
 
 describe('emit', () => {
-  it('closeDetailDialog', () => {})
+  it('closeDeleteDialog', () => {
+    wrapper.vm.$emit('closeDeleteDialog')
+    expect(wrapper.emitted().closeDeleteDialog).toBeTruthy()
+  })
 })
 
 describe('template', () => {
