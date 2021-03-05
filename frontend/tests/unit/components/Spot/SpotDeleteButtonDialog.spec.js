@@ -125,6 +125,16 @@ describe('methods', () => {
       })
     })
 
+    it('404', () => {
+      const id = 1
+      const headers = auth.getters.headers()
+      const response = { id: 1 }
+
+      axiosMock.onDelete(`/api/v1/spots/${id}`).reply(404)
+
+      return wrapper.vm.deleteSpot(id, headers).catch(err => {
+        expect(err).toStrictEqual(new Error('スポットの削除に失敗しました'))
+      })
     })
   })
 
