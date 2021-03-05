@@ -40,6 +40,11 @@ describe('emit', () => {
     wrapper.vm.$emit('closeDeleteDialog')
     expect(wrapper.emitted().closeDeleteDialog).toBeTruthy()
   })
+
+  it('closeDetailDialog', () => {
+    wrapper.vm.$emit('closeDetailDialog')
+    expect(wrapper.emitted().closeDetailDialog).toBeTruthy()
+  })
 })
 
 describe('template', () => {
