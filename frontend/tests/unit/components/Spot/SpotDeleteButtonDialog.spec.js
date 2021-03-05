@@ -32,9 +32,31 @@ describe('props', () => {
 })
 
 describe('v-on', () => {
-  it('click closeDeleteDialog', () => {})
+  it('click closeDeleteDialog/deleteHandler', () => {
+    const closeDeleteDialog = jest.fn()
+    const deleteHandler = jest.fn()
 
-  it('click deleteHandler', () => {})
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      methods: {
+        closeDeleteDialog,
+        deleteHandler
+      }
+    })
+
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+    expect(closeDeleteDialog).toHaveBeenCalled()
+
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+    expect(deleteHandler).toHaveBeenCalled()
+  })
 })
 
 describe('methods', () => {
