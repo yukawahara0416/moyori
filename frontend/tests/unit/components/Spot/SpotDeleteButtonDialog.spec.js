@@ -13,6 +13,7 @@ let wrapper
 let propsData
 let store
 let spot
+let auth
 let user
 let $route
 
@@ -21,6 +22,16 @@ beforeEach(() => {
     spot: new Spot({
       data: { id: 1 }
     })
+  }
+
+  auth = {
+    getters: {
+      headers: () => {
+        return {
+          data: { id: 1 }
+        }
+      }
+    }
   }
 
   spot = {
@@ -40,6 +51,7 @@ beforeEach(() => {
   store = new Vuex.Store({
     modules: {
       spot,
+      auth,
       user
     }
   })
@@ -100,7 +112,17 @@ describe('v-on', () => {
 describe('methods', () => {
   it('deleteHandler', () => {})
 
-  it('deleteSpot', () => {})
+  it('deleteSpot', () => {
+    const id = 1
+    const headers = auth.getters.headers()
+    const response = { id: 1 }
+
+    axiosMock.onDelete(`/api/v1/spots/${id}`).reply(200, response)
+
+    return wrapper.vm.deleteSpot(id, headers).then(res => {
+      expect(res).toMatchObject(response.id)
+    })
+  })
 
   describe('storeMutation', () => {
     it('route is profile', () => {
