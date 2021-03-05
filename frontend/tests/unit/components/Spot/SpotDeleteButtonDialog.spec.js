@@ -8,9 +8,27 @@ const localVue = createLocalVue()
 const axiosMock = new MockAdapter(axiosBase)
 
 let wrapper
+let propsData
+
+beforeEach(() => {
+  propsData = {
+    spot: new Spot({
+      data: { id: 1 }
+    })
+  }
+
+  wrapper = shallowMount(Component, {
+    localVue,
+    propsData
+  })
+})
 
 describe('props', () => {
-  it('spot', () => {})
+  it('spot', () => {
+    expect(wrapper.vm.$props.spot).toStrictEqual(propsData.spot)
+    expect(wrapper.vm.$props.spot instanceof Spot).toBeTruthy()
+    expect(wrapper.vm.$options.props.spot.required).toBeTruthy()
+  })
 })
 
 describe('v-on', () => {
