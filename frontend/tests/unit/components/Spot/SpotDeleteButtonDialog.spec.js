@@ -118,6 +118,21 @@ describe('methods', () => {
       )
     })
 
+    it('route is other', () => {
+      wrapper.vm.$route.name = 'search'
+      const spot_id = 1
+
+      wrapper.vm.storeMutation(spot_id)
+
+      expect(spot.mutations.deleteSpot).toHaveBeenCalledWith(
+        expect.any(Object),
+        spot_id
+      )
+      expect(user.actions.deleteSpot).not.toHaveBeenCalledWith(
+        expect.any(Object),
+        { spot_id }
+      )
+    })
   })
 })
 
