@@ -46,7 +46,14 @@ describe('v-on', () => {
 })
 
 describe('methods', () => {
-  it('openDialog', () => {})
+  it('openDialog', async () => {
+    await wrapper.setData({ dialog: false })
+
+    wrapper.vm.openDialog()
+    expect(wrapper.vm.dialog).toBeTruthy()
+  })
+
+  it('closeDeleteDialog', () => {})
 })
 
 describe('emit', () => {
