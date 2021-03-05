@@ -62,7 +62,23 @@ describe('v-on', () => {
 describe('methods', () => {
   it('deleteHandler', () => {})
   it('deleteSpot', () => {})
-  it('closeDeleteDialog', () => {})
-  it('closeDetailDialog', () => {})
   it('storeMutation', () => {})
+})
+
+describe('emit', () => {
+  it('closeDeleteDialog', () => {
+    wrapper.vm.$emit('closeDeleteDialog')
+    expect(wrapper.emitted().closeDeleteDialog).toBeTruthy()
+  })
+
+  it('closeDetailDialog', () => {
+    wrapper.vm.$emit('closeDetailDialog')
+    expect(wrapper.emitted().closeDetailDialog).toBeTruthy()
+  })
+})
+
+describe('template', () => {
+  it('snapshot', () => {
+    expect(wrapper.vm.$el).toMatchSnapshot()
+  })
 })
