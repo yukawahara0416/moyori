@@ -112,15 +112,19 @@ describe('v-on', () => {
 describe('methods', () => {
   it('deleteHandler', () => {})
 
-  it('deleteSpot', () => {
-    const id = 1
-    const headers = auth.getters.headers()
-    const response = { id: 1 }
+  describe('deleteSpot', () => {
+    it('200', () => {
+      const id = 1
+      const headers = auth.getters.headers()
+      const response = { id: 1 }
 
-    axiosMock.onDelete(`/api/v1/spots/${id}`).reply(200, response)
+      axiosMock.onDelete(`/api/v1/spots/${id}`).reply(200, response)
 
-    return wrapper.vm.deleteSpot(id, headers).then(res => {
-      expect(res).toMatchObject(response.id)
+      return wrapper.vm.deleteSpot(id, headers).then(res => {
+        expect(res).toEqual(response.id)
+      })
+    })
+
     })
   })
 
