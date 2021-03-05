@@ -53,7 +53,12 @@ describe('methods', () => {
     expect(wrapper.vm.dialog).toBeTruthy()
   })
 
-  it('closeDeleteDialog', () => {})
+  it('closeDeleteDialog', async () => {
+    await wrapper.setData({ dialog: true })
+
+    wrapper.vm.closeDeleteDialog()
+    expect(wrapper.vm.dialog).toBeFalsy()
+  })
 })
 
 describe('emit', () => {
