@@ -1,5 +1,6 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 import { axiosBase } from '@/plugins/axios.js'
 import MockAdapter from 'axios-mock-adapter'
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
@@ -10,8 +11,9 @@ localVue.use(Vuex)
 localVue.component('ValidationObserver', ValidationObserver)
 localVue.component('ValidationProvider', ValidationProvider)
 
-const { required } = require('vee-validate/dist/rules.umd')
+const { required, email } = require('vee-validate/dist/rules.umd')
 extend('required', required)
+extend('email', email)
 
 const axiosMock = new MockAdapter(axiosBase)
 
@@ -21,6 +23,7 @@ let store
 let auth
 let user
 let snackbar
+let vuetify
 
 beforeEach(() => {
   propsData = {
@@ -71,10 +74,13 @@ beforeEach(() => {
     }
   })
 
+  vuetify = new Vuetify()
+
   wrapper = shallowMount(Component, {
     localVue,
     propsData,
-    store
+    store,
+    vuetify
   })
 })
 
@@ -102,6 +108,42 @@ describe('computed', () => {
     formData.append('[avatar]', wrapper.vm.image)
 
     expect(wrapper.vm.formData).toEqual(formData)
+  })
+})
+
+describe('v-on', () => {
+  const cancelUpdateAccount = jest.fn()
+  const updateAccountHandler = jest.fn()
+
+  beforeEach(() => {
+    wrapper = mount(Component, {
+      localVue,
+      propsData,
+      store,
+      vuetify,
+      methods: {
+        cancelUpdateAccount,
+        updateAccountHandler
+      }
+    })
+  })
+
+  it('click cancelUpdateAccount', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(0)
+      .trigger('click')
+
+    expect(cancelUpdateAccount).toHaveBeenCalled()
+  })
+
+  it('click updateAccountHandler', () => {
+    wrapper
+      .findAll('.v-btn')
+      .at(1)
+      .trigger('click')
+
+    expect(updateAccountHandler).toHaveBeenCalled()
   })
 })
 

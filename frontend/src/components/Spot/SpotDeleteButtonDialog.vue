@@ -20,12 +20,19 @@
 </template>
 
 <script>
+import { Spot } from '@/class/Spot.js'
 import { axiosBase } from '@/plugins/axios.js'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   props: {
-    spot: Object
+    spot: {
+      type: Object,
+      default: () => {
+        return new Spot()
+      },
+      required: true
+    }
   },
 
   computed: {
